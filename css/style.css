@@ -271,6 +271,12 @@ aside { float: left; width: 49%; min-width: 280px;  padding-bottom:  10px;  }
 #selectedNeighborhood { margin: 10px 0 2px; font-size: 24px; text-align: center; }
 
 
+/* PDF Report Form */
+#report-dialog label { margin-left: 8px; }
+#report-dialog h4 { margin: 0; }
+#report-dialog p { margin: 5px 0 10px; }
+
+
 /* jquery ui tweaks */
 .ui-autocomplete-loading { background: transparent url('../img/ui-anim_basic_16x16.gif') right no-repeat !important }
 .ui-autocomplete .ui-menu-item { padding-left: 10px }

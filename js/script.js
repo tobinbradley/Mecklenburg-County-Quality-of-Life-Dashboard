@@ -1,19 +1,51 @@
 /* Author: Tobin Bradley
 
 */
+var FTmeta;  // Metrics JSON
+var map, marker, layer, geocoder; // Variables to support the map
+var activeRecord = {}; // Holder for data in selected record
+var countyAverage = {}; // Holder for county averages
+var tableID = 1844838;  // ID of the fusion table layer
+var wsbase = "http://maps.co.mecklenburg.nc.us/rest/";   // Base URL for REST web services
+
+/**
+ * Map Configuration Elements
+ */
+var mapCenterZoom = { lat: 35.260, lng: -80.817, zoom: 10 };
+
 
 $(document).ready(function() {
-	
+
+    // Load JSON metric configuration
+    $.ajax({
+        url: "js/metrics.json",
+        dataType: "json",
+        async: false,
+        success: function(data){
+            FTmeta = data;
+        }
+    });
+    
+    
 	// Dialogs
-	$("#report-dialog").dialog({ width: 360, autoOpen: false, show: 'fade', hide: 'fade', modal: true });
+	$("#report-dialog").dialog({ width: 360, maxHeight: 550, autoOpen: false, show: 'fade', hide: 'fade', modal: true });
 	$("#tutorial-dialog").dialog({ width: 510, autoOpen: false, show: 'fade', hide: 'fade', modal: true	});
 	
 	// Click events
 	$("#report").click(function(){ $('#report-dialog').dialog('open') });
 	$("#translate").click(function(){ $('#google_translate_element').toggle() });
-	$(".submit").click(function(){ $('#submit-dialog').dialog('open') });
+	//$(".submit").click(function(){ $('#submit-dialog').dialog('open') });
 	$("#tutorial").click(function(){ $('#tutorial-dialog').dialog('open') });
 	$("#searchbox").click(function() { $(this).select(); });
+    
+    // Set hidden value in PDF report form    
+    $("#report-dialog").delegate("input[type=checkbox]", "change", function(){
+        reportCheckboxBuffer = [];
+        $("#report-dialog input[type=checkbox]").each(function() {
+            if ($(this).is(":checked")) reportCheckboxBuffer.push( $(this).attr("id") );
+        });
+        $("#report_measures").val(reportCheckboxBuffer.join());
+    });
 	
 	// Add elements to mapIndicie
     writebuffer = "";    
@@ -128,6 +160,28 @@ $(document).ready(function() {
 $(window).load(function(){
 	// load map
 	mapInit();
+    
+    // Load neighborhood ID's into report select
+    url = "https://www.google.com/fusiontables/api/query/?sql=SELECT ID FROM 1844838 ORDER BY ID&jsonCallback=?";
+	$.getJSON(url, function(data) {					  						 
+		if (data.table.rows.length > 0) {
+            buffer = "";			
+            $.each(data.table.rows, function(i, item){
+                buffer += '<option>' + 	item[0] + '</option>';			
+			});
+            $("#report_neighborhood").html(buffer);
+		}
+		else {
+			console.log("Unable to get county averages from Fusion Tables.");
+		}
+	});
+    
+    // Load measures into report list
+    measurebuffer = "";    
+    $.each(FTmeta, function(index) {
+        measurebuffer += '<input type="checkbox" id="' + this.field + '" /><label for="' + this.field + '">' + capitaliseFirstLetter(this.category) + ': ' + this.title + '</label><br />';
+    });
+    $("#report-metrics").append(measurebuffer);
 
 	// Detect arguments
 	if (getUrlVars()["n"]) {		
@@ -144,11 +198,16 @@ $(window).load(function(){
  * Assign data to active record
  */
 function assignData(data) {
-	//myjson[feature.attributes.precno] = feature.attributes.cc;
 	$.each(data.cols, function(i, item){
 		activeRecord[item] = data.rows[0][i];
 	});
-	
+
+    // Select neighborhood in report
+    $("#report_neighborhood option[selected]").removeAttr("selected");
+    $("#report_neighborhood option").each(function() {
+        if ($(this).text() == activeRecord["ID"]) $(this).attr('selected', 'selected');
+    });
+    
 }
 
 
