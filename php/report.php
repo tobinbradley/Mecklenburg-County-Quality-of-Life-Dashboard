@@ -3,7 +3,7 @@
 /**
  * Set content header
  */
-//header('Content-type: application/pdf');
+header('Content-type: application/pdf');
 error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 
 /**
@@ -107,6 +107,24 @@ $pdf->MultiCell(5.8, 0.2, $text);
 
 
 /************************************************************/
+/*                 Create Map Page                          */
+/************************************************************/
+$pdf->AddPage();
+
+// Get map extent
+$extent = file_get_contents('http://maps.co.mecklenburg.nc.us/rest/v1/ws_geo_getextent.php?srid=2264&geotable=neighborhoods&format=json&parameters=id=' . $neighborhood);
+$extentJSON = json_decode($extent, true);
+$ditch = array("BOX(",")", " ");
+$replace = array("","", ",");
+$final_extent =  str_replace($ditch, $replace,$extentJSON[rows][0][row][extent]);
+
+// Put map image (WMS) on page
+$mapURL = "http://maps.co.mecklenburg.nc.us/geoserver/wms/reflect?layers=meckbase,neighborhoods&width=800&bbox=" . $final_extent . "&srs=EPSG:2264&CQL_FILTER=include;id=" . $neighborhood;
+ $pdf->Image($mapURL,0.3,0.3,7.9, 0, "PNG");
+
+
+
+/************************************************************/
 /*                 Create Measure Function                           */
 /************************************************************/
 function createMeasure($x, $y, $themeasure) {
@@ -118,10 +136,9 @@ function createMeasure($x, $y, $themeasure) {
     $pdf->SetX($x);
     $pdf->SetFont('Arial','B',14);    
     $pdf->Write(0, $json[$themeasure][title]);
-    $pdf->Ln(0.3);
+    $pdf->Ln(0.2);
     $pdf->SetX($x);
-    $pdf->SetFont('Arial','',10);
-    $pdf->MultiCell(3.5, 0.15, $gft_neighborhood[0][$json[$themeasure]["field"]] . " / " . round($gft_average[0][$json[$themeasure]["field"]]), 0, "L");
+    $pdf->Image( "http://chart.apis.google.com/chart?chxr=0,0,100&chxl=1:|2010&chxt=x,y&chbh=a,4,9&chs=250x75&cht=bhg&chco=4D89F9,C6D9FD&chds=0,100,0,100&chd=t:" . $gft_neighborhood[0][$json[$themeasure]["field"]] . "|" . round($gft_average[0][$json[$themeasure]["field"]]) . "&chdl=Neightborhood|County+Average&chdlp=t&chg=-1,0", null , null, 0, 0, "PNG");
     $pdf->Ln(0.2);
     $pdf->SetX($x);
     $pdf->SetFont('Arial','B',10);
@@ -160,10 +177,15 @@ function createMeasure($x, $y, $themeasure) {
     $pdf->Write(0, "Additional Resources");
     $pdf->Ln(0.1);
     $pdf->SetX($x);
-    $pdf->SetFont('Arial','',10);
+    $pdf->SetFont('Arial','',9);
     $pdf->SetTextColor(0,0,255);
     $pdf->SetFont('','U');
-    $pdf->Write(0.2, 'www.fpdf.org','http://www.fpdf.org');
+    $count = count($json[$themeasure][links][text]);
+    for ($i = 0; $i < $count; $i++) {
+        $pdf->Write(0.2, $json[$themeasure][links][text][$i],$json[$themeasure][links][links][$i]);
+        $pdf->Ln(0.15);
+        $pdf->SetX($x);
+    }
     
 }
 

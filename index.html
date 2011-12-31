@@ -58,12 +58,12 @@
 		<div id="main" role="main" class="clearfix">
 			<div id="google_translate_element" class="hidden"></div>
 			<div id="search">
-				<input id="searchbox" type="textbox" placeholder="Enter Address" />
+				<input id="searchbox" class="transition" type="textbox" placeholder="Enter Address" />
                 
 			</div>
 			
             <div id="map">
-                <select id="mapIndicie"></select>
+                <select id="mapIndicie" class="transition"></select>
 				<div id="map-canvas"></div>
 			</div>
             
@@ -82,10 +82,10 @@
 					</p>
 				</div>
 				<div id="selected-summary" class="hidden">
-					<h2 id="selectedNeighborhood">Neighborhood</h2>
                     <div class="measureDetails">
-						<h3>Metric 1</h3>
-						<div id='details_chart' class="chart"></div>
+						<h3>Metric 1 <a href="#" class="transition">Blue</a></h3>
+                        <h4 id="selectedNeighborhood">Neighborhood</h4>
+						<div id='details_chart' class="chart"><img src="http://chart.apis.google.com/chart?chf=bg,s,00000000&chxr=0,0,100&chxl=1:|2010&chxt=x&chbh=a,4,9&chs=350x75&cht=bhg&chco=4D89F9,C6D9FD&chds=0,100,0,100&chd=t:81|49&chdl=Neightborhood|County+Average&chdlp=t&chg=-1,0" /></div>
 						<h4>What is this Indicator?</h4>
 						<div id="indicator_description">
 							In vel auctor ante. Suspendisse rhoncus commodo ipsum, eget consectetur urna aliquet ac. Donec a hendrerit magna. Aliquam erat volutpat. Integer lacinia justo et quam adipiscing pharetra.
@@ -114,11 +114,7 @@
 				</div>
 			</aside>
 			
-			
-            
 		</div>
-			
-		
 
 		<footer>
 			<p id="social_media" class="screen-only">
@@ -145,8 +141,9 @@
 	<div id="report-dialog" title="Create PDF Report" class="hidden">		
         <form action="php/report.php" method="get" target="_blank">
             <input type="hidden" name="m" id="report_measures" value="">
+            <h4>Neighborhood</h4>            
             <p>
-                <label for="report_neighborhood">Neighborhood: </label><select id="report_neighborhood" name="n"></select>
+                <select id="report_neighborhood" name="n"></select>
             </p>
             <h4>Metrics</h4>
             <p id="report-metrics"></p>
@@ -163,10 +160,6 @@
 
 	<!-- JavaScript at the bottom for fast page loading -->
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
-	<script src="https://www.google.com/jsapi?key=ABQIAAAAm9Ct4PrMS0FyB27XUOQdYxQDpyRrWM6RoTuqCrFMtXdZ7RhO0xRSGo6XflSTl5uke-kxmtHnLXgNJQ"></script>
-	<script type='text/javascript'>
-		google.load('visualization', '1', {packages:['corechart']});
-	</script>
    
 	<!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>

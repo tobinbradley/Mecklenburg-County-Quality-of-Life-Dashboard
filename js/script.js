@@ -34,7 +34,6 @@ $(document).ready(function() {
 	// Click events
 	$("#report").click(function(){ $('#report-dialog').dialog('open') });
 	$("#translate").click(function(){ $('#google_translate_element').toggle() });
-	//$(".submit").click(function(){ $('#submit-dialog').dialog('open') });
 	$("#tutorial").click(function(){ $('#tutorial-dialog').dialog('open') });
 	$("#searchbox").click(function() { $(this).select(); });
     
@@ -59,8 +58,7 @@ $(document).ready(function() {
 	
 	// return to initial layout
 	$("#selectNone").click(function(){
-        $("#selected-summary").hide();          
-        $("#welcome").show();
+        $("#selected-summary").hide("fade", {}, 400, function() {  $("#welcome").show("fade", {}, 400);  });
 	});
 	
 	
@@ -219,61 +217,28 @@ function updateData(measure) {
 	$("#selectedNeighborhood").html("Neighborhood " + activeRecord.ID);	
     
     // set details info
-	$(".measureDetails h3").html(capitaliseFirstLetter(measure.category) + ': ' + measure.title);
+	$(".measureDetails h3").html(measure.title + '<a href="javascript:void(0)" class="transition">' + capitaliseFirstLetter(measure.category) + '</a>' );
     $("#indicator_description").html(measure.description);
     $("#indicator_why").html(measure.importance);
     $("#indicator_technical").html(measure.tech_notes);
     $("#indicator_source").html(measure.source);
-    $("#indicator_resources").html(measure.links);
+    //$("#indicator_resources").html(measure.links);
+    $("#indicator_resources").empty();
+    $.each(measure.links.text, function(index, value) { 
+        $("#indicator_resources").append('<a href="' + measure.links.links[index] + '">' + measure.links.text[index] + '</a><br />');
+    });
     
     // create permalink
 	permalink();
+
+    // update chart
+	$("#details_chart img").attr("src", "http://chart.apis.google.com/chart?chf=bg,s,00000000&chxr=0,0,100&chxl=1:|2010&chxt=x,y&chbh=a,4,9&chs=350x75&cht=bhg&chco=4D89F9,C6D9FD&chds=0,100,0,100&chd=t:" + activeRecord[measure.field] + "|" + countyAverage["AVERAGE(" + measure.field + ")"] + "&chdl=Neightborhood|County+Average&chdlp=t&chg=-1,0");
     
     // Show
-    $("#welcome").hide();
-    $("#selected-summary").show('slow');    
+    $("#welcome").hide("fade", {}, 400, function() {  $("#selected-summary").show("fade", {}, 400);  });
+        
     
-	// update chart
-    // summary needs to be visible before this runs or it causes rendering bugs on IE and Firefox
-	drawVisualization([["Neighborhood", activeRecord[measure.field]], ["County Average", countyAverage["AVERAGE(" + measure.field + ")"]]], [2012], "details_chart");
 	
-}
-
-
-/**
- * Draw detail charts
- */
-function drawVisualization(raw_data, years, element) {
-	// Create and populate the data table.
-	var data = new google.visualization.DataTable();
-		 
-	data.addColumn('string', 'Year');
-	for (var i = 0; i  < raw_data.length; ++i) {
-	  data.addColumn('number', raw_data[i][0]);    
-	}
-	
-	data.addRows(years.length);
-   
-	for (var j = 0; j < years.length; ++j) {    
-	  data.setValue(j, 0, years[j].toString());    
-	}
-	for (var i = 0; i  < raw_data.length; ++i) {
-	  for (var j = 1; j  < raw_data[i].length; ++j) {
-	    data.setValue(j-1, i+1, raw_data[i][j]);    
-	  }
-	}
-	
-	 // Create and draw the visualization.
-	new google.visualization.BarChart(document.getElementById(element)).
-	    draw(data,
-		    {
-			width: $("aside").width() - 10, height:100,
-			backgroundColor: "#fff",
-			colors:['red','#004411'],
-			legend: "top",
-			 hAxis: {maxValue: 100, minValue: 0}
-		    }
-	    );
 }
 
 
