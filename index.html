@@ -6,33 +6,36 @@
 <!-- Consider adding an manifest.appcache: h5bp.com/d/Offline -->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
-  <meta charset="utf-8">
-
-  <!-- Use the .htaccess and remove these lines to avoid edge case issues.
-       More info: h5bp.com/b/378 -->
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
-  <title>Quality of Life Dashboard</title>
-  <meta name="description" content="Quality of Life Dashboard">
-  <meta name="author" content="Tobin Bradley">
-
-  <!-- Mobile viewport optimized: j.mp/bplateviewport -->
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="utf-8">
   
-  <!-- jQuery UI CSS -->
-  <link type="text/css" media="all" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/black-tie/jquery-ui.css" rel="stylesheet" />
-
-  <!-- CSS: implied media=all -->
-  <link href='http://fonts.googleapis.com/css?family=Corben:700' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="css/style.css">
-  <!-- end CSS-->
-
-  <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
-
-  <!-- All JavaScript at the bottom, except for Modernizr / Respond.
-       Modernizr enables HTML5 elements & feature detects; Respond is a polyfill for min/max-width CSS3 Media Queries
-       For optimal performance, use a custom Modernizr build: www.modernizr.com/download/ -->
-  <script src="js/libs/modernizr-2.0.6.min.js"></script>
+    <!-- Use the .htaccess and remove these lines to avoid edge case issues.
+         More info: h5bp.com/b/378 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <title>Quality of Life Dashboard</title>
+    <meta name="description" content="Quality of Life Dashboard">
+    <meta name="author" content="Tobin Bradley">
+  
+    <!-- Mobile viewport optimized: j.mp/bplateviewport -->
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    
+    <!-- jQuery UI CSS -->
+    <link type="text/css" media="all" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/south-street/jquery-ui.css" rel="stylesheet" />
+  
+    <!-- CSS: implied media=all -->
+    <link href='http://fonts.googleapis.com/css?family=Corben:700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- end CSS-->
+  
+    <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
+  
+    <!-- All JavaScript at the bottom, except for Modernizr / Respond.
+         Modernizr enables HTML5 elements & feature detects; Respond is a polyfill for min/max-width CSS3 Media Queries
+         For optimal performance, use a custom Modernizr build: www.modernizr.com/download/ -->
+    <script src="js/libs/modernizr-2.0.6.min.js"></script>
 </head>
 
 <body>
@@ -49,6 +52,7 @@
                     <li><a href="http://www.google.com/fusiontables/DataSource?snapid=S289817c03d" target="_blank">Access Data</a></li>
                     <li><a href="javascript:void(0)" id="translate">Translate</a></li>
                     <li><a href="javascript:void(0)" id="tutorial">Video Tutorial</a></li>
+                    <li><a href="https://github.com/tobinbradley/Mecklenburg-County-Quality-of-Life-Dashboard" title="github">Source Code</a></li>
                 </ul>
             </nav>
 		</div>
@@ -58,12 +62,12 @@
 		<div id="main" role="main" class="clearfix">
 			<div id="google_translate_element" class="hidden"></div>
 			<div id="search">
-				<input id="searchbox" class="transition" type="textbox" placeholder="Enter Address" />
-                
+				<input id="searchbox" class="inset" type="textbox" placeholder="Start here!" x-webkit-speech speech />
+                <p><a href="javascript:void(0)">Help</a></p>
 			</div>
 			
             <div id="map">
-                <select id="mapIndicie" class="transition"></select>
+                <select id="mapIndicie"></select>
 				<div id="map-canvas"></div>
 			</div>
             
@@ -118,9 +122,9 @@
 
 		<footer>
 			<p id="social_media" class="screen-only">
-				<a target="_blank" href="http://www.facebook.com/share.php?u=http%3A%2F%2Fmaps.co.mecklenburg.ns.us%2Fqoldashboard%2F"><img src="img/social/facebook.png" height="32" width="32" title="Share on Facebook" /></a>
-				<a target="_blank" href="http://twitter.com/home?status=http%3A%2F%2Fmaps.co.mecklenburg.ns.us%2Fqoldashboard%2F"><img src="img/social/twitter.png" height="32" width="32" title="Share on Twitter" /></a>
-				<a target="_blank" href="https://m.google.com/app/plus/x/?v=compose&content=http%3A%2F%2Fmaps.co.mecklenburg.ns.us%2Fqoldashboard%2F"><img src="img/social/googleplus.png" height="32" width="32" title="Share on Google+" /></a>
+				<a target="_blank" href="http://www.facebook.com/share.php?u=http%3A%2F%2Fmaps.co.mecklenburg.ns.us%2Fqoldashboard%2F"><img src="img/social/facebook.png" height="32" width="32" alt="Share on Facebook" title="Share on Facebook" /></a>
+				<a target="_blank" href="http://twitter.com/home?status=http%3A%2F%2Fmaps.co.mecklenburg.ns.us%2Fqoldashboard%2F"><img src="img/social/twitter.png" height="32" width="32" alt="Share on Twitter" title="Share on Twitter" /></a>
+				<a target="_blank" href="https://m.google.com/app/plus/x/?v=compose&content=http%3A%2F%2Fmaps.co.mecklenburg.ns.us%2Fqoldashboard%2F"><img src="img/social/googleplus.png" height="32" width="32" alt="Share on Google+" title="Share on Google+" /></a>
 			</p>
 			<p>
 				<a href="http://charmeck.org/city/charlotte/Pages/default.aspx">City of Charlotte</a>
@@ -128,6 +132,8 @@
 				<a href="http://charmeck.org/mecklenburg/county/Pages/Default.aspx">Mecklenburg County</a>
 				&#183
 				<a href="http://www.uncc.edu/">UNC Charlotte</a>
+                &#183
+				<a href="http://www.uncc.edu/">Feedback</a>
 			</p>
 		</footer>
 		
@@ -155,6 +161,19 @@
 	<!-- Tutorial dialog -->
 	<div id="tutorial-dialog" title="Tutorial Video" class="hidden">
 		<iframe width="480" height="360" src="http://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
+	</div>
+    
+    <!-- Search help - jQuery UI Dialog -->
+	<div id="search-dialog" title="Search Help" class="hidden">
+		<p>
+		The secrect to successful searches is to <em>let the search box do the work for you</em>. 
+		Select a match using either the mouse or the up/down arrow keys and Enter.
+		</p>
+		<p><span class="ui-icon ui-icon-circle-check alignleft"></span><strong>Address</strong>: Enter the first part of the address. Ex: for 700 North Tryon Street, try <em>700 n</em></p>
+		<p><span class="ui-icon ui-icon-circle-check alignleft"></span><strong>Place</strong>: Enter any part of a place name. Ex: type <em>carolina</em></p>
+		<p><span class="ui-icon ui-icon-circle-check alignleft"></span><strong>Street</strong>: Enter the name of the street. Ex: type <em>ruth</em></p>
+		<p><span class="ui-icon ui-icon-circle-check alignleft"></span><strong>Intersection</strong>: Enter a street name, followed by an &amp;. Ex: type <em>ruth &amp;</em></p>
+		<p><span class="ui-icon ui-icon-circle-check alignleft"></span><strong>Parcel ID</strong>: Enter an 8-digit Parcel ID. Ex: type <em>11111111</em></p>
 	</div>
 	
 

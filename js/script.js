@@ -30,11 +30,13 @@ $(document).ready(function() {
 	// Dialogs
 	$("#report-dialog").dialog({ width: 360, maxHeight: 550, autoOpen: false, show: 'fade', hide: 'fade', modal: true });
 	$("#tutorial-dialog").dialog({ width: 510, autoOpen: false, show: 'fade', hide: 'fade', modal: true	});
+    $("#search-dialog").dialog({ width: 320, autoOpen: false, show: 'fade', hide: 'fade', modal: true });
 	
 	// Click events
 	$("#report").click(function(){ $('#report-dialog').dialog('open') });
 	$("#translate").click(function(){ $('#google_translate_element').toggle() });
 	$("#tutorial").click(function(){ $('#tutorial-dialog').dialog('open') });
+    $("#search p a").click(function(){ $('#search-dialog').dialog('open') });
 	$("#searchbox").click(function() { $(this).select(); });
     
     // Set hidden value in PDF report form    
@@ -137,7 +139,7 @@ $(document).ready(function() {
 	};
     
     // get county averages
-	url = "https://www.google.com/fusiontables/api/query/?sql=SELECT AVERAGE(character_1), AVERAGE(character_2), AVERAGE(character_3), AVERAGE(engagement_1), AVERAGE(engagement_2), AVERAGE(engagement_3), AVERAGE(green_1), AVERAGE(green_2), AVERAGE(green_3), AVERAGE(health_1), AVERAGE(health_2), AVERAGE(health_3), AVERAGE(education_1), AVERAGE(education_2), AVERAGE(education_3), AVERAGE(safety_1), AVERAGE(safety_2), AVERAGE(safety_3), AVERAGE(housing_1), AVERAGE(housing_2), AVERAGE(housing_3), AVERAGE(economics_1), AVERAGE(economics_2), AVERAGE(economics_3) FROM 1844838&jsonCallback=?";
+	url = "https://www.google.com/fusiontables/api/query/?sql=SELECT " + getFieldsAverageArray(FTmeta).join() + " FROM " + tableID + "&jsonCallback=?";
 	$.getJSON(url, function(data) {					  						 
 		if (data.table.rows.length > 0) {
 			$.each(data.table.cols, function(i, item){
@@ -236,9 +238,7 @@ function updateData(measure) {
     
     // Show
     $("#welcome").hide("fade", {}, 400, function() {  $("#selected-summary").show("fade", {}, 400);  });
-        
-    
-	
+
 }
 
 

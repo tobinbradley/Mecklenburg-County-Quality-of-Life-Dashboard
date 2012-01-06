@@ -89,7 +89,7 @@ function addMarker(lon, lat, featuretype, label) {
  */
 function performIntersection(lat, lon) {
 	// Perform intersect
-	url = "https://www.google.com/fusiontables/api/query/?sql=SELECT * FROM 1844838 WHERE ST_INTERSECTS(geometry, CIRCLE(LATLNG(" + lat + "," + lon + "),1))&jsonCallback=?";
+	url = "https://www.google.com/fusiontables/api/query/?sql=SELECT ID," + getFieldsArray(FTmeta).join() + " FROM " + tableID + " WHERE ST_INTERSECTS(geometry, CIRCLE(LATLNG(" + lat + "," + lon + "),1))&jsonCallback=?";
 	$.getJSON(url, function(data) {					  						 
 		if (data.table.rows.length > 0) {
 			assignData(data.table);
@@ -107,7 +107,7 @@ function performIntersection(lat, lon) {
  * Retrieve Data via id
  */
 function selectNeighborhoodByID(idvalue) {
-	url = "https://www.google.com/fusiontables/api/query/?sql=SELECT * FROM 1844838 WHERE ID = " + idvalue + "&jsonCallback=?";
+	url = "https://www.google.com/fusiontables/api/query/?sql=SELECT ID," + getFieldsArray(FTmeta).join() + " FROM " + tableID + " WHERE ID = " + idvalue + "&jsonCallback=?";
 	$.getJSON(url, function(data) {					  						 
 		if (data.table.rows.length > 0) {
 			assignData(data.table);
@@ -229,6 +229,7 @@ function legendContent(controlText, type) {
     textBlock.style.cssFloat = 'left';
     textBlock.style.styleFloat = 'left';
     textBlock.style.display = 'inline';
+    textBlock.style.width = '55px';
     var lower = step * j;
     var upper = step * (j + 1);
     if (j == colors.length - 1) {

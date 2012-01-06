@@ -54,9 +54,34 @@ function getUrlVars() {
 /**
  * Capitalize first letter of word
  */
-function capitaliseFirstLetter(string)
-{
+function capitaliseFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+/**
+ * Get array of fields from metrics.json
+ */
+function getFieldsArray(data) {
+    theFields = new Array();
+    i = 0;
+    $.each(data, function(key, value) {
+        theFields[i] = value.field;
+        i++;
+    });
+    return theFields;
+}
+
+/**
+ * Get array of fields from metrics.json with average
+ */
+function getFieldsAverageArray(data) {
+    theFields = new Array();
+    i = 0;
+    $.each(data, function(key, value) {
+        theFields[i] = "AVERAGE(" + value.field  + ")";
+        i++;
+    });
+    return theFields;
 }
 
 

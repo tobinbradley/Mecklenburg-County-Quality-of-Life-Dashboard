@@ -217,7 +217,7 @@ td { vertical-align: top; }
 .alignright { float: right }
 .print-only { display: none }
 .transition { -webkit-transition: all 250ms ease-in-out; -moz-transition: all 250ms ease-in-out; -o-transition: all 250ms ease-in-out; transition: all 250ms ease-in-out; }
-
+.inset { -moz-box-shadow: inset 0 3px 8px rgba(0,0,0,.4); -webkit-box-shadow: inset 0 3px 8px rgba(0,0,0,.4); box-shadow: inset 0 3px 8px rgba(0,0,0,.24); }
 
 /* main page elements */
 #container { border: 1px solid #ccc; max-width: 960px; margin: 0 auto 15px auto; background: #fff; box-shadow: 0 0 15px #4d4d4d; border-radius: 0 0 10px 10px; padding-top: 15px;}
@@ -241,7 +241,7 @@ footer a:hover { text-decoration: underline; }
 header nav { text-align: left; padding: 5px 0 0 10px; background: rgb(45,45,45); max-width: 960px; margin: 0 auto; }
 header nav ul { list-style: none; padding: 5px 0 8px 0; margin: 0; }
 header nav ul li { display: inline;  }
-nav ul li a, nav ul li a:visited { color: #ccc;  padding-left: 15px; text-decoration: none; }
+nav ul li a, nav ul li a:visited { color: #ccc;  padding-left: 10px; text-decoration: none; }
 nav ul li a:hover { text-decoration: underline; color: #ccc; }
 #title { max-width: 960px; margin: 0 auto; height: 130px; background: url("../img/site-logo.png") left top no-repeat; }
 #title h3 { font-family: 'Corben', sans-serif; font-size: 32px; color: #222; letter-spacing: 8px; padding: 0; margin: 0 0 8px; text-shadow: 0px 2px 3px #666; font-weight: 700; }
@@ -249,24 +249,28 @@ nav ul li a:hover { text-decoration: underline; color: #ccc; }
 #google_translate_element { text-align: center; position: relative; top: -10px; }
 
 /* search area */
-#search { margin-bottom: 25px; text-align: center; }
-#searchbox, #mapIndicie { padding: 6px 4px;  border:2px solid #dadada; border-radius:7px; color: #7C7C7C; }
-#searchbox:focus, #searchbox:hover, #mapIndicie:focus, #mapIndicie:hover { outline:none; border-color: #9ecaed; box-shadow:0 0 10px #9ecaed; }
-#searchbox { font-size: 24px; width: 70%; padding-left: 28px; background: url(../img/search.png) no-repeat 5px center;  }
-#mapIndicie {  font-size: 18px; width: 100%; background: #fff; padding: 4px; margin-bottom: 4px;  }
+#search { margin: 10px 0 20px; text-align: center; }
+#searchbox, #mapIndicie { padding: 3px;  border:1px solid #b2b2b2; border-radius: 5px; color: #7C7C7C; font-weight: bold; }
+#searchbox:focus, #mapIndicie:focus { outline:none; }
+#searchbox { font-size: 1.2em; padding: 8px 5px; width: 60%; }
+#search p { width: 60%; text-align: right; margin: 0 auto; font-size: 10px; }
+#search p a { text-decoration: none; color: #2684ce; }
+#search p a:hover { text-decoration: underline; }
+#mapIndicie {  font-size: 1.1em; max-width: 100%; background: #fff; margin: 0 2px 4px 0;  }
 input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { color: #7C7C7C; }
 input::-moz-placeholder, textarea::-moz-placeholder { color: #7C7C7C; }
+
 
 /* main map area */
 aside { float: left; width: 49%; min-width: 280px;  padding-bottom:  10px;  }
 #map { width: 50%; min-width: 280px; float: right; text-align: right; padding-bottom:  10px;  }
-#map-canvas { width: 99%; height: 475px; border: 2px solid #dadada; border-radius: 7px; text-align: left; }
+#map-canvas { width: 99%; height: 475px; border: 1px solid #b2b2b2; border-radius: 5px; text-align: left; }
 .googft-info-window { text-align: left; }
 .googft-info-window h3 { margin-bottom: 5px;  }
 
 
 /* data area */
-.measureDetails { background: #eee; padding-bottom: 10px; border-bottom: 1px solid #CFCFCF; border-radius: 7px; min-height: 508px; }
+.measureDetails { background: #eee; padding-bottom: 10px; border-bottom: 1px solid #CFCFCF; border-radius: 7px; min-height: 496px; }
 .measureDetails h3, .measureDetails h4, .measureDetails div { padding-left: 10px; padding-right: 10px; }
 .measureDetails h3 { margin-top: 0; text-align: left; background: #ccc; padding: 0 0 0 10px; font-size: 16px; line-height: 2; border-radius: 7px 7px 0 0; }
 .measureDetails h4 { margin: 12px 0 0; }
@@ -300,6 +304,7 @@ aside { float: left; width: 49%; min-width: 280px;  padding-bottom:  10px;  }
         border-right: 6px solid #a2d6eb;
         margin-top: -6px;
 }
+.ie7 .measureDetails h3 a { display: none; } /* hide the busted spiffy thing from IE7 */
 #selectedNeighborhood { text-align: center; }
 #details_chart { text-align: center; padding-top: 10px; }
 #details_chart img { max-width: 90%; }
@@ -368,7 +373,7 @@ aside { float: left; width: 49%; min-width: 280px;  padding-bottom:  10px;  }
 
 @media screen and (max-width: 800px) {
     #map { clear: both; float: left; }
-    #searchbox { width: 98%; background-image: none; padding-left: 4px; }
+    #searchbox, #search p { width: 98%; background-image: none; padding-left: 4px; }
     #map, aside { width: 100%; }
     #search { width: 100%; margin-bottom: 5px; text-align: left;  }
 }
@@ -382,7 +387,6 @@ aside { float: left; width: 49%; min-width: 280px;  padding-bottom:  10px;  }
 }
 
 @media screen and (max-width: 400px) {
-    #searchbox { width: 98%; }
     header { box-shadow: none; }
      #title h1 {font-size: 22px; }
     #title h3 {font-size: 20px; letter-spacing: 2px; }

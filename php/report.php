@@ -4,7 +4,7 @@
  * Set content header
  */
 header('Content-type: application/pdf');
-error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
+//error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 
 /**
  * Load Dependecies
@@ -12,14 +12,14 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 require('fpdf17/fpdf.php');
 require('gft.php');
 
+// GFT table ID
+$tableID = 1844838;  
 
 /**
  * Get form variables
  */
 $neighborhood = $_REQUEST['n'];
 $measures = explode(",", urldecode($_REQUEST['m']));
-
-//echo($measures[0]);
 
 
 /**
@@ -35,14 +35,13 @@ $json = json_decode($string, true);
 if (strlen(urldecode($_REQUEST['m'])) > 0) {
     // neighborhood    
     $ft = new googleFusion();
-    $gft_neighborhood = $ft->query("select " . $_REQUEST['m'] . " FROM 1844838 WHERE ID = " . $neighborhood);
+    $gft_neighborhood = $ft->query("select " . $_REQUEST['m'] . " FROM " . $tableID . " WHERE ID = " . $neighborhood);
     
     // county average
     for ($i = 0; $i < count($measures); ++$i) {
         $avg[$i] = "average(" .  $measures[$i] . ") as " . $measures[$i];
     }
-    $gft_average = $ft->query("select " . implode(",", $avg) . " FROM 1844838");
-    //print_r($gft_average);
+    $gft_average = $ft->query("select " . implode(",", $avg) . " FROM " . $tableID);
 }
 
 
@@ -120,7 +119,7 @@ $final_extent =  str_replace($ditch, $replace,$extentJSON[rows][0][row][extent])
 
 // Put map image (WMS) on page
 $mapURL = "http://maps.co.mecklenburg.nc.us/geoserver/wms/reflect?layers=meckbase,neighborhoods&width=800&bbox=" . $final_extent . "&srs=EPSG:2264&CQL_FILTER=include;id=" . $neighborhood;
- $pdf->Image($mapURL,0.3,0.3,7.9, 0, "PNG");
+ $pdf->Image($mapURL,0.3,0.3,7.9, 10, "PNG");
 
 
 
@@ -134,8 +133,8 @@ function createMeasure($x, $y, $themeasure) {
     $pdf->SetTextColor(0,0,0);    
     $pdf->SetY($y);
     $pdf->SetX($x);
-    $pdf->SetFont('Arial','B',14);    
-    $pdf->Write(0, $json[$themeasure][title]);
+    $pdf->SetFont('Arial','B',12);    
+    $pdf->Write(0, ucwords($json[$themeasure][category]) . ": " . $json[$themeasure][title]);
     $pdf->Ln(0.2);
     $pdf->SetX($x);
     $pdf->Image( "http://chart.apis.google.com/chart?chxr=0,0,100&chxl=1:|2010&chxt=x,y&chbh=a,4,9&chs=250x75&cht=bhg&chco=4D89F9,C6D9FD&chds=0,100,0,100&chd=t:" . $gft_neighborhood[0][$json[$themeasure]["field"]] . "|" . round($gft_average[0][$json[$themeasure]["field"]]) . "&chdl=Neightborhood|County+Average&chdlp=t&chg=-1,0", null , null, 0, 0, "PNG");
