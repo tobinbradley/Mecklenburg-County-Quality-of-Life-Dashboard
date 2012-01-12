@@ -3,12 +3,12 @@
 		"field": "character_1",
 		"category": "character",
 		"title": "Metric 1",
-		"description": "Big long description here.",
+		"description": "Big long description here. <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"character_2\")'>QuickLink</a>",
 		"importance": "Notes on importance.",
 		"tech_notes": "Technical notes for the geeks.",
 		"source": "Information on the data source.",
 		"links": {"text": [ "Link 1", "Link Test" ], "links": [ "http://www.charmeck.org", "http://www.charmeck.org" ]},
-		"style": { "min": 0, "max": 100, "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
+		"style": { "type": "range", "breaks": ["0", "25", "50", "75"] , "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
 	},
 	"character_2" : {
 		"field": "character_2",
@@ -19,18 +19,7 @@
 		"tech_notes": "Technical notes for the geeks.",
 		"source": "Information on the data source.",
 		"links": {"text": [ "Link 1", "Link 2" ], "links": [ "http://www.charmeck.org", "http://www.charmeck.org" ]},
-		"style": { "min": 0, "max": 50, "colors": [ "#e0ffd4", "#a5ef63", "#1f5b10" ] }
-	},
-    "character_3" : {
-		"field": "character_3",
-		"category": "character",
-		"title": "Metric 3",
-		"description": "Big long description here.",
-		"importance": "Notes on importance.",
-		"tech_notes": "Technical notes for the geeks.",
-		"source": "Information on the data source.",
-		"links": {"text": [ "Link 1", "Link 2" ], "links": [ "http://www.charmeck.org", "http://www.charmeck.org" ]},
-		"style": { "min": 0, "max": 50, "colors": [ "#e0ffd4", "#a5ef63", "#1f5b10" ] }
+		"style": { "type": "range", "breaks": ["0", "25", "50", "75"] , "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
 	},
     "engagement_1" : {
 		"field": "engagement_1",
@@ -41,62 +30,162 @@
 		"tech_notes": "Technical notes for the geeks.",
 		"source": "Information on the data source.",
 		"links": {"text": [ "Link 1", "Link 2" ], "links": [ "http://www.charmeck.org", "http://www.charmeck.org" ]},
-		"style": { "min": 0, "max": 100, "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
+		"style": { "type": "range", "breaks": ["0", "25", "50", "75"] , "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
 	},
-    "engagement_2" : {
-		"field": "engagement_2",
-		"category": "engagement",
-		"title": "Metric 2",
-		"description": "Big long description here.",
-		"importance": "Notes on importance.",
-		"tech_notes": "Technical notes for the geeks.",
-		"source": "Information on the data source.",
-		"links": {"text": [ "Link 1", "Link 2" ], "links": [ "http://www.charmeck.org", "http://www.charmeck.org" ]},
-		"style": { "min": 0, "max": 100, "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
-	},
-    "engagement_3" : {
-		"field": "engagement_3",
-		"category": "engagement",
-		"title": "Metric 3",
-		"description": "Big long description here.",
-		"importance": "Notes on importance.",
-		"tech_notes": "Technical notes for the geeks.",
-		"source": "Information on the data source.",
-		"links": {"text": [ "Link 1", "Link 2" ], "links": [ "http://www.charmeck.org", "http://www.charmeck.org" ]},
-		"style": { "min": 0, "max": 100, "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
-	},
-    "green_1" : {
-		"field": "green_1",
+    "total_commuters" : {
+		"field": "total_commuters",
 		"category": "green",
-		"title": "Metric 1",
-		"description": "Big long description here.",
-		"importance": "Notes on importance.",
-		"tech_notes": "Technical notes for the geeks.",
-		"source": "Information on the data source.",
-		"links": {"text": [ "Link 1", "Link 2" ], "links": [ "http://www.charmeck.org", "http://www.charmeck.org" ]},
-		"style": { "min": 0, "max": 100, "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
+		"title": "Commuters",
+        "auxchart" : {"type": "pie", "measures": ["commute_drive_alone", "commute_bus", "commute_carpool", "commute_subway", "commute_streetcar", "commute_ferry", "commute_railroad", "commute_motorcycle", "commute_taxi", "commute_bicycle", "commute_walk", "commute_other", "work_at_home"] },
+		"description": "The principal mode of travel from home to work for participants 16 years of age or older reported as one of the following - <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_drive_alone\")'>Drove Alone</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_carpool\")'>Carpooled</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_bus\")'>Bus</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_streetcar\")'>Streetcar</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_subway\")'>Subway</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_railroad\")'>Railroad</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_ferry\")'>Ferryboat</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_taxi\")'>Taxicab</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_motorcycle\")'>Motorcycle</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_bicycle\")'>Bicycle</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_walk\")'>Walked</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"work_at_home\")'>Worked at Home</a> or <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_other\")'>Other</a>.",
+		"importance": "Transportation alternatives offer mobility options for residents of all ages and income levels and can help bridge the spatial divide between people and jobs, services, and training opportunities.",
+		"tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
+		"source": "U.S. Census American Community Survey",
+		"links": {"text": [ "CATS Carpooling", "Guide for Bicyclists and Pedstrians" ], "links": [ "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx", "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx" ]},
+		"style": { "type": "range", "breaks": ["0", "1000", "3000", "7000"] , "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
 	},
-    "green_2" : {
-		"field": "green_2",
+    "commute_drive_alone" : {
+		"field": "commute_drive_alone",
 		"category": "green",
-		"title": "Metric 2",
-		"description": "Big long description here.",
-		"importance": "Notes on importance.",
-		"tech_notes": "Technical notes for the geeks.",
-		"source": "Information on the data source.",
-		"links": {"text": [ "Link 1", "Link 2" ], "links": [ "http://www.charmeck.org", "http://www.charmeck.org" ]},
-		"style": { "min": 0, "max": 100, "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
+		"title": "Commute Driving Alone",
+		"description": "The principal mode of travel from home to work for participants 16 years of age or older reported as one of the following - <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_drive_alone\")'>Drove Alone</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_carpool\")'>Carpooled</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_bus\")'>Bus</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_streetcar\")'>Streetcar</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_subway\")'>Subway</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_railroad\")'>Railroad</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_ferry\")'>Ferryboat</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_taxi\")'>Taxicab</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_motorcycle\")'>Motorcycle</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_bicycle\")'>Bicycle</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_walk\")'>Walked</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"work_at_home\")'>Worked at Home</a> or <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_other\")'>Other</a>.",
+		"importance": "Transportation alternatives offer mobility options for residents of all ages and income levels and can help bridge the spatial divide between people and jobs, services, and training opportunities.",
+		"tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
+		"source": "U.S. Census American Community Survey",
+		"links": {"text": [ "CATS Carpooling", "Guide for Bicyclists and Pedstrians" ], "links": [ "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx", "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx" ]},
+		"style": { "type": "range", "breaks": ["0", "25", "50", "75"] , "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
 	},
-    "green_3" : {
-		"field": "green_3",
+    "commute_bus" : {
+		"field": "commute_bus",
 		"category": "green",
-		"title": "Metric 3",
-		"description": "Big long description here.",
-		"importance": "Notes on importance.",
-		"tech_notes": "Technical notes for the geeks.",
-		"source": "Information on the data source.",
-		"links": {"text": [ "Link 1", "Link 2" ], "links": [ "http://www.charmeck.org", "http://www.charmeck.org" ]},
-		"style": { "min": 0, "max": 100, "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
+		"title": "Commute by Bus",
+		"description": "The principal mode of travel from home to work for participants 16 years of age or older reported as one of the following - <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_drive_alone\")'>Drove Alone</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_carpool\")'>Carpooled</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_bus\")'>Bus</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_streetcar\")'>Streetcar</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_subway\")'>Subway</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_railroad\")'>Railroad</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_ferry\")'>Ferryboat</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_taxi\")'>Taxicab</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_motorcycle\")'>Motorcycle</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_bicycle\")'>Bicycle</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_walk\")'>Walked</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"work_at_home\")'>Worked at Home</a> or <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_other\")'>Other</a>.",
+		"importance": "Transportation alternatives offer mobility options for residents of all ages and income levels and can help bridge the spatial divide between people and jobs, services, and training opportunities.",
+		"tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
+		"source": "U.S. Census American Community Survey",
+		"links": {"text": [ "CATS Carpooling", "Guide for Bicyclists and Pedstrians" ], "links": [ "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx", "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx" ]},
+		"style": { "type": "range", "breaks": ["0", "25", "50", "75"] , "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
+	},
+    "commute_carpool" : {
+		"field": "commute_carpool",
+		"category": "green",
+		"title": "Commute by Carpool",
+		"description": "The principal mode of travel from home to work for participants 16 years of age or older reported as one of the following - <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_drive_alone\")'>Drove Alone</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_carpool\")'>Carpooled</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_bus\")'>Bus</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_streetcar\")'>Streetcar</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_subway\")'>Subway</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_railroad\")'>Railroad</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_ferry\")'>Ferryboat</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_taxi\")'>Taxicab</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_motorcycle\")'>Motorcycle</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_bicycle\")'>Bicycle</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_walk\")'>Walked</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"work_at_home\")'>Worked at Home</a> or <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_other\")'>Other</a>.",
+		"importance": "Transportation alternatives offer mobility options for residents of all ages and income levels and can help bridge the spatial divide between people and jobs, services, and training opportunities.",
+		"tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
+		"source": "U.S. Census American Community Survey",
+		"links": {"text": [ "CATS Carpooling", "Guide for Bicyclists and Pedstrians" ], "links": [ "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx", "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx" ]},
+		"style": { "type": "range", "breaks": ["0", "25", "50", "75"] , "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
+	},
+    "commute_subway" : {
+		"field": "commute_subway",
+		"category": "green",
+		"title": "Commute by Subway",
+		"description": "The principal mode of travel from home to work for participants 16 years of age or older reported as one of the following - <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_drive_alone\")'>Drove Alone</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_carpool\")'>Carpooled</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_bus\")'>Bus</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_streetcar\")'>Streetcar</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_subway\")'>Subway</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_railroad\")'>Railroad</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_ferry\")'>Ferryboat</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_taxi\")'>Taxicab</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_motorcycle\")'>Motorcycle</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_bicycle\")'>Bicycle</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_walk\")'>Walked</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"work_at_home\")'>Worked at Home</a> or <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_other\")'>Other</a>.",
+		"importance": "Transportation alternatives offer mobility options for residents of all ages and income levels and can help bridge the spatial divide between people and jobs, services, and training opportunities.",
+		"tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
+		"source": "U.S. Census American Community Survey",
+		"links": {"text": [ "CATS Carpooling", "Guide for Bicyclists and Pedstrians" ], "links": [ "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx", "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx" ]},
+		"style": { "type": "range", "breaks": ["0", "25", "50", "75"] , "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
+	},
+    "commute_streetcar" : {
+		"field": "commute_streetcar",
+		"category": "green",
+		"title": "Commute by Streetcar",
+		"description": "The principal mode of travel from home to work for participants 16 years of age or older reported as one of the following - <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_drive_alone\")'>Drove Alone</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_carpool\")'>Carpooled</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_bus\")'>Bus</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_streetcar\")'>Streetcar</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_subway\")'>Subway</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_railroad\")'>Railroad</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_ferry\")'>Ferryboat</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_taxi\")'>Taxicab</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_motorcycle\")'>Motorcycle</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_bicycle\")'>Bicycle</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_walk\")'>Walked</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"work_at_home\")'>Worked at Home</a> or <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_other\")'>Other</a>.",
+		"importance": "Transportation alternatives offer mobility options for residents of all ages and income levels and can help bridge the spatial divide between people and jobs, services, and training opportunities.",
+		"tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
+		"source": "U.S. Census American Community Survey",
+		"links": {"text": [ "CATS Carpooling", "Guide for Bicyclists and Pedstrians" ], "links": [ "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx", "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx" ]},
+		"style": { "type": "range", "breaks": ["0", "25", "50", "75"] , "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
+	},
+    "commute_ferry" : {
+		"field": "commute_ferry",
+		"category": "green",
+		"title": "Commute by Ferry",
+		"description": "The principal mode of travel from home to work for participants 16 years of age or older reported as one of the following - <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_drive_alone\")'>Drove Alone</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_carpool\")'>Carpooled</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_bus\")'>Bus</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_streetcar\")'>Streetcar</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_subway\")'>Subway</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_railroad\")'>Railroad</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_ferry\")'>Ferryboat</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_taxi\")'>Taxicab</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_motorcycle\")'>Motorcycle</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_bicycle\")'>Bicycle</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_walk\")'>Walked</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"work_at_home\")'>Worked at Home</a> or <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_other\")'>Other</a>.",
+		"importance": "Transportation alternatives offer mobility options for residents of all ages and income levels and can help bridge the spatial divide between people and jobs, services, and training opportunities.",
+		"tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
+		"source": "U.S. Census American Community Survey",
+		"links": {"text": [ "CATS Carpooling", "Guide for Bicyclists and Pedstrians" ], "links": [ "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx", "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx" ]},
+		"style": { "type": "range", "breaks": ["0", "25", "50", "75"] , "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
+	},
+    "commute_railroad" : {
+		"field": "commute_railroad",
+		"category": "green",
+		"title": "Commute by Railroad",
+		"description": "The principal mode of travel from home to work for participants 16 years of age or older reported as one of the following - <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_drive_alone\")'>Drove Alone</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_carpool\")'>Carpooled</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_bus\")'>Bus</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_streetcar\")'>Streetcar</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_subway\")'>Subway</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_railroad\")'>Railroad</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_ferry\")'>Ferryboat</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_taxi\")'>Taxicab</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_motorcycle\")'>Motorcycle</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_bicycle\")'>Bicycle</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_walk\")'>Walked</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"work_at_home\")'>Worked at Home</a> or <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_other\")'>Other</a>.",
+		"importance": "Transportation alternatives offer mobility options for residents of all ages and income levels and can help bridge the spatial divide between people and jobs, services, and training opportunities.",
+		"tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
+		"source": "U.S. Census American Community Survey",
+		"links": {"text": [ "CATS Carpooling", "Guide for Bicyclists and Pedstrians" ], "links": [ "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx", "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx" ]},
+		"style": { "type": "range", "breaks": ["0", "25", "50", "75"] , "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
+	},
+    "commute_motorcycle" : {
+		"field": "commute_motorcycle",
+		"category": "green",
+		"title": "Commute by Motorcycle",
+		"description": "The principal mode of travel from home to work for participants 16 years of age or older reported as one of the following - <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_drive_alone\")'>Drove Alone</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_carpool\")'>Carpooled</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_bus\")'>Bus</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_streetcar\")'>Streetcar</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_subway\")'>Subway</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_railroad\")'>Railroad</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_ferry\")'>Ferryboat</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_taxi\")'>Taxicab</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_motorcycle\")'>Motorcycle</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_bicycle\")'>Bicycle</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_walk\")'>Walked</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"work_at_home\")'>Worked at Home</a> or <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_other\")'>Other</a>.",
+		"importance": "Transportation alternatives offer mobility options for residents of all ages and income levels and can help bridge the spatial divide between people and jobs, services, and training opportunities.",
+		"tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
+		"source": "U.S. Census American Community Survey",
+		"links": {"text": [ "CATS Carpooling", "Guide for Bicyclists and Pedstrians" ], "links": [ "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx", "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx" ]},
+		"style": { "type": "range", "breaks": ["0", "25", "50", "75"] , "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
+	},
+    "commute_taxi" : {
+		"field": "commute_taxi",
+		"category": "green",
+		"title": "Commute by Taxi",
+		"description": "The principal mode of travel from home to work for participants 16 years of age or older reported as one of the following - <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_drive_alone\")'>Drove Alone</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_carpool\")'>Carpooled</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_bus\")'>Bus</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_streetcar\")'>Streetcar</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_subway\")'>Subway</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_railroad\")'>Railroad</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_ferry\")'>Ferryboat</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_taxi\")'>Taxicab</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_motorcycle\")'>Motorcycle</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_bicycle\")'>Bicycle</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_walk\")'>Walked</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"work_at_home\")'>Worked at Home</a> or <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_other\")'>Other</a>.",
+		"importance": "Transportation alternatives offer mobility options for residents of all ages and income levels and can help bridge the spatial divide between people and jobs, services, and training opportunities.",
+		"tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
+		"source": "U.S. Census American Community Survey",
+		"links": {"text": [ "CATS Carpooling", "Guide for Bicyclists and Pedstrians" ], "links": [ "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx", "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx" ]},
+		"style": { "type": "range", "breaks": ["0", "25", "50", "75"] , "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
+	},
+    "commute_bicycle" : {
+		"field": "commute_bicycle",
+		"category": "green",
+		"title": "Commute by Bicycle",
+		"description": "The principal mode of travel from home to work for participants 16 years of age or older reported as one of the following - <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_drive_alone\")'>Drove Alone</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_carpool\")'>Carpooled</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_bus\")'>Bus</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_streetcar\")'>Streetcar</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_subway\")'>Subway</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_railroad\")'>Railroad</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_ferry\")'>Ferryboat</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_taxi\")'>Taxicab</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_motorcycle\")'>Motorcycle</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_bicycle\")'>Bicycle</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_walk\")'>Walked</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"work_at_home\")'>Worked at Home</a> or <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_other\")'>Other</a>.",
+		"importance": "Transportation alternatives offer mobility options for residents of all ages and income levels and can help bridge the spatial divide between people and jobs, services, and training opportunities.",
+		"tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
+		"source": "U.S. Census American Community Survey",
+		"links": {"text": [ "CATS Carpooling", "Guide for Bicyclists and Pedstrians" ], "links": [ "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx", "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx" ]},
+		"style": { "type": "range", "breaks": ["0", "25", "50", "75"] , "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
+	},
+    "commute_walk" : {
+		"field": "commute_walk",
+		"category": "green",
+		"title": "Commute by Walking",
+		"description": "The principal mode of travel from home to work for participants 16 years of age or older reported as one of the following - <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_drive_alone\")'>Drove Alone</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_carpool\")'>Carpooled</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_bus\")'>Bus</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_streetcar\")'>Streetcar</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_subway\")'>Subway</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_railroad\")'>Railroad</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_ferry\")'>Ferryboat</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_taxi\")'>Taxicab</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_motorcycle\")'>Motorcycle</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_bicycle\")'>Bicycle</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_walk\")'>Walked</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"work_at_home\")'>Worked at Home</a> or <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_other\")'>Other</a>.",
+		"importance": "Transportation alternatives offer mobility options for residents of all ages and income levels and can help bridge the spatial divide between people and jobs, services, and training opportunities.",
+		"tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
+		"source": "U.S. Census American Community Survey",
+		"links": {"text": [ "CATS Carpooling", "Guide for Bicyclists and Pedstrians" ], "links": [ "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx", "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx" ]},
+		"style": { "type": "range", "breaks": ["0", "25", "50", "75"] , "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
+	},
+    "commute_other" : {
+		"field": "commute_other",
+		"category": "green",
+		"title": "Commute by Other",
+		"description": "The principal mode of travel from home to work for participants 16 years of age or older reported as one of the following - <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_drive_alone\")'>Drove Alone</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_carpool\")'>Carpooled</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_bus\")'>Bus</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_streetcar\")'>Streetcar</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_subway\")'>Subway</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_railroad\")'>Railroad</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_ferry\")'>Ferryboat</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_taxi\")'>Taxicab</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_motorcycle\")'>Motorcycle</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_bicycle\")'>Bicycle</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_walk\")'>Walked</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"work_at_home\")'>Worked at Home</a> or <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_other\")'>Other</a>.",
+		"importance": "Transportation alternatives offer mobility options for residents of all ages and income levels and can help bridge the spatial divide between people and jobs, services, and training opportunities.",
+		"tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
+		"source": "U.S. Census American Community Survey",
+		"links": {"text": [ "CATS Carpooling", "Guide for Bicyclists and Pedstrians" ], "links": [ "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx", "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx" ]},
+		"style": { "type": "range", "breaks": ["0", "25", "50", "75"] , "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
+	},
+    "work_at_home" : {
+		"field": "work_at_home",
+		"category": "green",
+		"title": "Work at Home",
+		"description": "The principal mode of travel from home to work for participants 16 years of age or older reported as one of the following - <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_drive_alone\")'>Drove Alone</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_carpool\")'>Carpooled</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_bus\")'>Bus</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_streetcar\")'>Streetcar</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_subway\")'>Subway</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_railroad\")'>Railroad</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_ferry\")'>Ferryboat</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_taxi\")'>Taxicab</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_motorcycle\")'>Motorcycle</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_bicycle\")'>Bicycle</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_walk\")'>Walked</a>, <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"work_at_home\")'>Worked at Home</a> or <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"commute_other\")'>Other</a>.",
+		"importance": "Transportation alternatives offer mobility options for residents of all ages and income levels and can help bridge the spatial divide between people and jobs, services, and training opportunities.",
+		"tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
+		"source": "U.S. Census American Community Survey",
+		"links": {"text": [ "CATS Carpooling", "Guide for Bicyclists and Pedstrians" ], "links": [ "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx", "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx" ]},
+		"style": { "type": "range", "breaks": ["0", "25", "50", "75"] , "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
 	},
     "health_1" : {
 		"field": "health_1",
@@ -107,29 +196,7 @@
 		"tech_notes": "Technical notes for the geeks.",
 		"source": "Information on the data source.",
 		"links": {"text": [ "Link 1", "Link 2" ], "links": [ "http://www.charmeck.org", "http://www.charmeck.org" ]},
-		"style": { "min": 0, "max": 100, "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
-	},
-    "health_2" : {
-		"field": "health_2",
-		"category": "health",
-		"title": "Metric 2",
-		"description": "Big long description here.",
-		"importance": "Notes on importance.",
-		"tech_notes": "Technical notes for the geeks.",
-		"source": "Information on the data source.",
-		"links": {"text": [ "Link 1", "Link 2" ], "links": [ "http://www.charmeck.org", "http://www.charmeck.org" ]},
-		"style": { "min": 0, "max": 100, "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
-	},
-    "health_3" : {
-		"field": "health_3",
-		"category": "health",
-		"title": "Metric 3",
-		"description": "Big long description here.",
-		"importance": "Notes on importance.",
-		"tech_notes": "Technical notes for the geeks.",
-		"source": "Information on the data source.",
-		"links": {"text": [ "Link 1", "Link 2" ], "links": [ "http://www.charmeck.org", "http://www.charmeck.org" ]},
-		"style": { "min": 0, "max": 100, "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
+		"style": { "type": "range", "breaks": ["0", "25", "50", "75"] , "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
 	},
     "education_1" : {
 		"field": "education_1",
@@ -140,29 +207,7 @@
 		"tech_notes": "Technical notes for the geeks.",
 		"source": "Information on the data source.",
 		"links": {"text": [ "Link 1", "Link 2" ], "links": [ "http://www.charmeck.org", "http://www.charmeck.org" ]},
-		"style": { "min": 0, "max": 100, "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
-	},
-    "education_2" : {
-		"field": "education_2",
-		"category": "education",
-		"title": "Metric 2",
-		"description": "Big long description here.",
-		"importance": "Notes on importance.",
-		"tech_notes": "Technical notes for the geeks.",
-		"source": "Information on the data source.",
-		"links": {"text": [ "Link 1", "Link 2" ], "links": [ "http://www.charmeck.org", "http://www.charmeck.org" ]},
-		"style": { "min": 0, "max": 100, "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
-	},
-    "education_3" : {
-		"field": "education_3",
-		"category": "education",
-		"title": "Metric 3",
-		"description": "Big long description here.",
-		"importance": "Notes on importance.",
-		"tech_notes": "Technical notes for the geeks.",
-		"source": "Information on the data source.",
-		"links": {"text": [ "Link 1", "Link 2" ], "links": [ "http://www.charmeck.org", "http://www.charmeck.org" ]},
-		"style": { "min": 0, "max": 100, "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
+		"style": { "type": "range", "breaks": ["0", "25", "50", "75"] , "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
 	},
     "safety_1" : {
 		"field": "safety_1",
@@ -173,29 +218,7 @@
 		"tech_notes": "Technical notes for the geeks.",
 		"source": "Information on the data source.",
 		"links": {"text": [ "Link 1", "Link 2" ], "links": [ "http://www.charmeck.org", "http://www.charmeck.org" ]},
-		"style": { "min": 0, "max": 100, "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
-	},
-    "safety_2" : {
-		"field": "safety_2",
-		"category": "safety",
-		"title": "Metric 2",
-		"description": "Big long description here.",
-		"importance": "Notes on importance.",
-		"tech_notes": "Technical notes for the geeks.",
-		"source": "Information on the data source.",
-		"links": {"text": [ "Link 1", "Link 2" ], "links": [ "http://www.charmeck.org", "http://www.charmeck.org" ]},
-		"style": { "min": 0, "max": 100, "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
-	},
-    "safety_3" : {
-		"field": "safety_3",
-		"category": "safety",
-		"title": "Metric 3",
-		"description": "Big long description here.",
-		"importance": "Notes on importance.",
-		"tech_notes": "Technical notes for the geeks.",
-		"source": "Information on the data source.",
-		"links": {"text": [ "Link 1", "Link 2" ], "links": [ "http://www.charmeck.org", "http://www.charmeck.org" ]},
-		"style": { "min": 0, "max": 100, "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
+		"style": { "type": "range", "breaks": ["0", "25", "50", "75"] , "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
 	},
     "housing_1" : {
 		"field": "housing_1",
@@ -206,29 +229,7 @@
 		"tech_notes": "Technical notes for the geeks.",
 		"source": "Information on the data source.",
 		"links": {"text": [ "Link 1", "Link 2" ], "links": [ "http://www.charmeck.org", "http://www.charmeck.org" ]},
-		"style": { "min": 0, "max": 100, "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
-	},
-    "housing_2" : {
-		"field": "housing_2",
-		"category": "housing",
-		"title": "Metric 2",
-		"description": "Big long description here.",
-		"importance": "Notes on importance.",
-		"tech_notes": "Technical notes for the geeks.",
-		"source": "Information on the data source.",
-		"links": {"text": [ "Link 1", "Link 2" ], "links": [ "http://www.charmeck.org", "http://www.charmeck.org" ]},
-		"style": { "min": 0, "max": 100, "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
-	},
-    "housing_3" : {
-		"field": "housing_3",
-		"category": "housing",
-		"title": "Metric 3",
-		"description": "Big long description here.",
-		"importance": "Notes on importance.",
-		"tech_notes": "Technical notes for the geeks.",
-		"source": "Information on the data source.",
-		"links": {"text": [ "Link 1", "Link 2" ], "links": [ "http://www.charmeck.org", "http://www.charmeck.org" ]},
-		"style": { "min": 0, "max": 100, "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
+		"style": { "type": "range", "breaks": ["0", "25", "50", "75"] , "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
 	},
     "economics_1" : {
 		"field": "economics_1",
@@ -239,28 +240,6 @@
 		"tech_notes": "Technical notes for the geeks.",
 		"source": "Information on the data source.",
 		"links": {"text": [ "Link 1", "Link 2" ], "links": [ "http://www.charmeck.org", "http://www.charmeck.org" ]},
-		"style": { "min": 0, "max": 100, "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
-	},
-    "economics_2" : {
-		"field": "economics_2",
-		"category": "economics",
-		"title": "Metric 2",
-		"description": "Big long description here.",
-		"importance": "Notes on importance.",
-		"tech_notes": "Technical notes for the geeks.",
-		"source": "Information on the data source.",
-		"links": {"text": [ "Link 1", "Link 2" ], "links": [ "http://www.charmeck.org", "http://www.charmeck.org" ]},
-		"style": { "min": 0, "max": 100, "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
-	},
-    "economics_3" : {
-		"field": "economics_3",
-		"category": "economics",
-		"title": "Metric 3",
-		"description": "Big long description here.",
-		"importance": "Notes on importance.",
-		"tech_notes": "Technical notes for the geeks.",
-		"source": "Information on the data source.",
-		"links": {"text": [ "Link 1", "Link 2" ], "links": [ "http://www.charmeck.org", "http://www.charmeck.org" ]},
-		"style": { "min": 0, "max": 100, "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
+		"style": { "type": "range", "breaks": ["0", "25", "50", "75"] , "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
 	}
 }

@@ -14,11 +14,13 @@ function mapInit() {
 	};
 	
 	map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
+    
+    // add legend div
+    var legendDiv = document.getElementById('legend');
+    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(legendDiv);
 	
 	// style the base map
 	styleMap();
-	
-	
   
 	// Add layer
 	layer = new google.maps.FusionTablesLayer({ query: { select: 'geometry', from: tableID }, map: map });
@@ -41,7 +43,7 @@ function mapInit() {
 		$("img[src*='mapslt']").each(function(){ 
 			$(this).attr("src",$(this).attr("src")+"&"+(new Date()).getTime());
 		}); 
-	},2000);
+	}, 2000);
 
 }
 
@@ -74,9 +76,9 @@ function addMarker(lon, lat, featuretype, label) {
           infowindow.open(map,marker);
      });
      
-     // zoom to marker
-	map.setCenter(new google.maps.LatLng(lat, lon));
-	map.setZoom(14);
+    // zoom to marker
+	//map.setCenter(new google.maps.LatLng(lat, lon));
+	//map.setZoom(14);
 	
 	// Intersection
 	performIntersection(lat, lon);
@@ -125,46 +127,37 @@ function selectNeighborhoodByID(idvalue) {
 /**
  * Fusion tables layer styling
  */
-function styleFusionTable(measure) {
-
-    theField = measure;    
+function styleFusionTable(measure) {    
     
     // highlight neighborhood if selected    
     neighborhood = (activeRecord.ID) ? activeRecord.ID : 0;
-
-    var defined_styles = measure.style;
-    var colors = defined_styles.colors;
-    var min_num = defined_styles.min;
-    var max_num = defined_styles.max;
-    var step = (max_num - min_num) * 1.0 / colors.length;
-    var mapStyleJSON =  []; 
-    for (var j = 0; j < colors.length; j++) {
-
-      var lower = step * j;
-      var upper = step * (j + 1);
-      if (j == colors.length - 1) {
-        //textBlock.innerHTML = Math.round(lower) + '+';
-        mapStyleJSON.push( { where: measure.field + " > " + lower, polygonOptions: { fillColor: colors[j], fillOpacity: 0.5 } });
-      } else {
-        //textBlock.innerHTML = Math.round(lower) + ' - ' + Math.round(upper);
-        mapStyleJSON.push({ where: measure.field + " > " + lower + " and " + measure.field + " < " + upper, polygonOptions: { fillColor: colors[j], fillOpacity: 0.5 } });
-      }
-
+    var mapStyleJSON =  [];
+    
+    if (measure.style.type == "range") {
+        $.each(measure.style.breaks, function(index, value) {            
+            if (index == measure.style.breaks.length - 1) {              
+                mapStyleJSON.push( { where: measure.field + " > " + value, polygonOptions: { fillColor: measure.style.colors[index], fillOpacity: 0.5 } });
+            }
+            else if (index == 0) {
+                mapStyleJSON.push( { where: measure.field + " < " + measure.style.breaks[index + 1], polygonOptions: { fillColor: measure.style.colors[index], fillOpacity: 0.5 } });
+            }
+            else {
+                mapStyleJSON.push({ where: measure.field + " > " + value + " and " + measure.field + " <= " + measure.style.breaks[index + 1], polygonOptions: { fillColor: measure.style.colors[index], fillOpacity: 0.5 } });
+            }
+        });
+        
+    }
+    else if (measure.style.type == "value") {
+        
     }
     
     mapStyleJSON.push( { where: "ID = " + neighborhood, polygonOptions: { strokeColor: "#rrggbb", strokeWeight: 6 }});
     
     layer.setOptions({ styles: mapStyleJSON });
-	
-	// Hack for fusion tables tiles not loading
-	/*setTimeout(function(){ 
-		$("img[src*='mapslt']").each(function(){ 
-			$(this).attr("src",$(this).attr("src")+"&"+(new Date()).getTime());
-		}); 
-	},2000);*/
     
     // Legend
 	createLegend(measure);
+    
 }
 
 
@@ -172,87 +165,26 @@ function styleFusionTable(measure) {
  * Functions to create legend
  */
 // Legend
-function createLegend(type) {
-  var legendDiv = document.createElement('div');
-  var legend = new Legend(legendDiv, type);
-  legendDiv.index = 1;
-  map.controls[google.maps.ControlPosition.TOP_RIGHT].pop();
-  map.controls[google.maps.ControlPosition.TOP_RIGHT].push(legendDiv);
-}
-
-// Generate the content for the legend
-function Legend(controlDiv, type) {
-  controlDiv.style.padding = '10px';
-  var controlUI = document.createElement('div');
-  controlUI.style.backgroundColor = 'white';
-  controlUI.style.borderStyle = 'solid';
-  controlUI.style.borderWidth = '1px';
-  controlUI.style.padding = '5px';
-  controlUI.style.width = '80px';
-  controlUI.style.height = '80px';
-  controlUI.title = 'Legend';
-  controlDiv.appendChild(controlUI);
-  var controlText = document.createElement('div');
-  legendContent(controlText, type);
-  controlUI.appendChild(controlText);
-}
-
-function legendContent(controlText, type) {
-  controlText.style.fontFamily = 'Arial,sans-serif';
-  controlText.style.fontSize = '14px';
-  controlText.style.padding = '4px';
-
-  var header = document.createElement('p');
-  header.style.margin = '0px 0px 5px 0px';
-  header.style.fontWeight = 'bold';
-  header.innerHTML = 'Legend';
-  //controlText.appendChild(header);
-
-  var defined_styles = type.style;
-  var colors = defined_styles.colors;
-  var min_num = defined_styles.min;
-  var max_num = defined_styles.max;
-  var step = (max_num - min_num) * 1.0 / colors.length;
-  for (var j = 0; j < colors.length; j++) {
-    var colorBlock = document.createElement('div');
-    colorBlock.style.height = '15px';
-    colorBlock.style.width = '10px';
-    colorBlock.style.margin = '0px 3px 0px 0px';
-    colorBlock.style.cssFloat = 'left';
-    colorBlock.style.styleFloat = 'left';
-    colorBlock.style.clear = 'both';
-    colorBlock.style.background = colors[j];
-    controlText.appendChild(colorBlock);
-
-    var textBlock = document.createElement('p');
-    textBlock.style.margin = '0px';
-    textBlock.style.cssFloat = 'left';
-    textBlock.style.styleFloat = 'left';
-    textBlock.style.display = 'inline';
-    textBlock.style.width = '55px';
-    var lower = step * j;
-    var upper = step * (j + 1);
-    if (j == colors.length - 1) {
-      textBlock.innerHTML = Math.round(lower) + '+';
-    } else {
-      textBlock.innerHTML = Math.round(lower) + ' - ' + Math.round(upper);
+function createLegend(measure) {
+    
+    // empty div  
+    $("#legend").empty();
+    $("#legend").show();
+    
+    if (measure.style.type == "range") {
+        $.each(measure.style.breaks, function(index, value) {
+            if (index == measure.style.breaks.length - 1) {              
+                $("#legend").append('<div><span style="background-color: ' + measure.style.colors[index] + '"></span>> ' + value + '</div>');
+            }
+            else {
+                $("#legend").append('<div><span style="background-color: ' + measure.style.colors[index] + '"></span>' + value + ' - ' + measure.style.breaks[index + 1] + '</div>');
+            }
+        });
     }
-    controlText.appendChild(textBlock);
-  }
-}
-
-
-var layer_styles = {
-  'Base 100': {
-    'min': 0,
-    'max': 100,
-    'colors': [
-      '#e0ffd4',
-      '#a5ef63',
-      '#50aa00',
-      '#1f5b10'
-    ]
-  }
+    else if (measure.style.type == "value") {
+        
+    }
+  
 }
 
 

@@ -7,6 +7,7 @@ var activeRecord = {}; // Holder for data in selected record
 var countyAverage = {}; // Holder for county averages
 var tableID = 1844838;  // ID of the fusion table layer
 var wsbase = "http://maps.co.mecklenburg.nc.us/rest/";   // Base URL for REST web services
+var chartColors = new Array("63719B", "B9C5D5", "39457E", "4E68AB", "8E1146", "C13559", "5A6B78");
 
 /**
  * Map Configuration Elements
@@ -124,10 +125,19 @@ $(document).ready(function() {
 			  if (ui.item.responsetype) {
 				   locationFinder(ui.item.responsetype, ui.item.responsetable, ui.item.getfield, ui.item.getid, ui.item.label, ui.item.value);
 			  }
-		 }
-	}).keypress(function(e) {
-          if (e.keyCode === 13) $(this).autocomplete( "search");
-     }).data("autocomplete")._renderMenu = function (ul, items) {
+		 },
+         open: function(event, ui) {
+            $(this).keypress(function(e){
+                /* horizontal keys */
+                if (e.keyCode == 13 || e.keyCode == 39) {
+                   $($(this).data('autocomplete').menu.active).find('a').trigger('click');
+                }
+            });
+            if ($("ul.ui-autocomplete li.ui-menu-item").length == 1) {
+                //$($(this).data('autocomplete').menu.active).find('a').trigger('click');
+            }
+         }
+	}).data("autocomplete")._renderMenu = function (ul, items) {
 		 var self = this, currentCategory = "";
 		 $.each( items, function( index, item ) {
 			  if ( item.responsetype != currentCategory && item.responsetype != undefined) {
@@ -187,11 +197,18 @@ $(window).load(function(){
 	if (getUrlVars()["n"]) {		
 		selectNeighborhoodByID(getUrlVars()["n"]);
 	}
-	if (getUrlVars()["m"]) {		
-        $("#mapIndicie").val(getUrlVars()["m"]).attr('selected', 'selected');
-        styleFusionTable(FTmeta[getUrlVars()["m"]]);
-	}
+	if (getUrlVars()["m"]) quickLink(getUrlVars()["m"]);
 });
+
+/**
+ * Quick internal links
+ */
+function quickLink(theMeasure) {
+    $("#mapIndicie").val(theMeasure).attr('selected', 'selected');
+    styleFusionTable(FTmeta[theMeasure]);
+    $("#mapIndicie").trigger("change");
+}
+
 
 
 /**
@@ -234,7 +251,13 @@ function updateData(measure) {
 	permalink();
 
     // update chart
-	$("#details_chart img").attr("src", "http://chart.apis.google.com/chart?chf=bg,s,00000000&chxr=0,0,100&chxl=1:|2010&chxt=x,y&chbh=a,4,9&chs=350x75&cht=bhg&chco=4D89F9,C6D9FD&chds=0,100,0,100&chd=t:" + activeRecord[measure.field] + "|" + countyAverage["AVERAGE(" + measure.field + ")"] + "&chdl=Neightborhood|County+Average&chdlp=t&chg=-1,0");
+    activeRecord[measure.field] >  countyAverage["AVERAGE(" + measure.field + ")"] ? chartmax = activeRecord[measure.field] : chartmax = countyAverage["AVERAGE(" + measure.field + ")"];
+    chartmax <= 100 ? chartmax = 100 : chartmax = chartmax + 100; 
+    $("#details_chart img").attr("src", "http://chart.apis.google.com/chart?chf=bg,s,00000000&chxr=0,0," + chartmax + "&chxl=1:|2010&chxt=x,y&chbh=a,4,9&chs=350x75&cht=bhg&chco=4D89F9,C6D9FD&chds=0," + chartmax + ",0," + chartmax + "&chd=t:" + activeRecord[measure.field] + "|" + countyAverage["AVERAGE(" + measure.field + ")"] + "&chdl=Neightborhood|County+Average&chdlp=t&chg=-1,0");
+    
+    // populate aux chart
+    if (measure.auxchart) { auxChart(measure); }
+    else { $("#indicator_auxchart").empty(); }
     
     // Show
     $("#welcome").hide("fade", {}, 400, function() {  $("#selected-summary").show("fade", {}, 400);  });
@@ -252,6 +275,36 @@ function permalink() {
 	$("#permalink a").html("http://maps.co.mecklenburg.nc.us/qoldashboard/?n=" + activeRecord.ID + "&m=" + val);
 	$("#permalink a").attr("href", "./?n=" + activeRecord.ID + "&m=" + val);
 }
+
+
+/**
+ * Extra chart
+ */
+function auxChart(measure) {
+    measureTitles = new Array();
+    measureValues = new Array();
+    measureColors = new Array();
+    auxContent = "http://chart.apis.google.com/chart?chs=300x225&cht=p&chp=0.1";    
+    
+    i = 0;
+    $.each(measure.auxchart.measures, function(index, value) {
+        if (activeRecord[value] > 0) {        
+            measureTitles[i] = FTmeta[value].title;
+            measureValues[i] = activeRecord[value];
+            measureColors[i] = randomHexColor();
+            i++;
+        }
+    });    
+    auxContent = "http://chart.apis.google.com/chart?chf=bg,s,00000000&chs=300x165&cht=p&chp=0.1";
+    
+    if (measure.auxchart.type == "pie") {
+        auxContent += "&chd=t:" + measureValues.join() + "&chdl=" + measureTitles.join("|") + "&chco=" + chartColors.join();
+        
+    }
+    
+    $("#indicator_auxchart").html('<img src="' + auxContent + '" />');
+}
+
 
 
 /**

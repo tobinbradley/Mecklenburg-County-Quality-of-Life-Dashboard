@@ -84,4 +84,9 @@ function getFieldsAverageArray(data) {
     return theFields;
 }
 
-
+/**
+ * Random color generator for charts
+ */
+function randomHexColor() {
+    return Math.floor(Math.random()*16777215).toString(16);
+}
