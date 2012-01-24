@@ -13,7 +13,10 @@ require('fpdf17/fpdf.php');
 require('gft.php');
 
 // GFT table ID
-$tableID = 1844838;  
+$tableID = 1844838;
+
+// Colors for the aux chart
+$chartColors = array("63719B", "B9C5D5", "39457E", "4E68AB", "8E1146", "C13559", "5A6B78");
 
 /**
  * Get form variables
@@ -28,6 +31,20 @@ $measures = explode(",", urldecode($_REQUEST['m']));
 $string = file_get_contents("../js/metrics.json");
 $json = json_decode($string, true);
 
+
+/**
+ * Get array of fields from metrics.json
+ */
+function getFieldsArray($data) {
+    $fieldList = array();
+    foreach ($data as $value) {
+        array_push($fieldList, $value["field"]);
+    }
+    return $fieldList; 
+}
+
+
+
  
 /**
  * Load neighborhood information from Google Fusion Tables
@@ -35,7 +52,8 @@ $json = json_decode($string, true);
 if (strlen(urldecode($_REQUEST['m'])) > 0) {
     // neighborhood    
     $ft = new googleFusion();
-    $gft_neighborhood = $ft->query("select " . $_REQUEST['m'] . " FROM " . $tableID . " WHERE ID = " . $neighborhood);
+    $gft_neighborhood = $ft->query("select " .  implode(",", $measures) . " FROM " . $tableID . " WHERE ID = " . $neighborhood);
+    //$gft_neighborhood = $ft->query("select " .  implode(", ", getFieldsArray($json)) . " FROM " . $tableID . " WHERE ID = " . $neighborhood);
     
     // county average
     for ($i = 0; $i < count($measures); ++$i) {
@@ -43,6 +61,7 @@ if (strlen(urldecode($_REQUEST['m'])) > 0) {
     }
     $gft_average = $ft->query("select " . implode(",", $avg) . " FROM " . $tableID);
 }
+
 
 
 /**
@@ -115,11 +134,15 @@ $extent = file_get_contents('http://maps.co.mecklenburg.nc.us/rest/v1/ws_geo_get
 $extentJSON = json_decode($extent, true);
 $ditch = array("BOX(",")", " ");
 $replace = array("","", ",");
-$final_extent =  str_replace($ditch, $replace,$extentJSON[rows][0][row][extent]);
+$final_extent =  explode(",", str_replace($ditch, $replace,$extentJSON[rows][0][row][extent]));
+$final_extent[0] = $final_extent[0] - 250;
+$final_extent[1] = $final_extent[1] - 250;
+$final_extent[2] = $final_extent[2] + 250;
+$final_extent[3] = $final_extent[3] + 250;
 
 // Put map image (WMS) on page
-$mapURL = "http://maps.co.mecklenburg.nc.us/geoserver/wms/reflect?layers=meckbase,neighborhoods&width=800&bbox=" . $final_extent . "&srs=EPSG:2264&CQL_FILTER=include;id=" . $neighborhood;
- $pdf->Image($mapURL,0.3,0.3,7.9, 10, "PNG");
+$mapURL = "http://maps.co.mecklenburg.nc.us/geoserver/wms/reflect?layers=meckbase,neighborhoods&width=800&bbox=" . implode(",", $final_extent) . "&srs=EPSG:2264&CQL_FILTER=include;id=" . $neighborhood;
+$pdf->Image($mapURL,0.3,0.3,7.9, 10, "PNG");
 
 
 
@@ -128,16 +151,18 @@ $mapURL = "http://maps.co.mecklenburg.nc.us/geoserver/wms/reflect?layers=meckbas
 /************************************************************/
 function createMeasure($x, $y, $themeasure) {
 
-    global $pdf, $json, $gft_neighborhood, $gft_average;
+    global $pdf, $json, $gft_neighborhood, $gft_average, $chartColors;
     
     $pdf->SetTextColor(0,0,0);    
     $pdf->SetY($y);
     $pdf->SetX($x);
     $pdf->SetFont('Arial','B',12);    
-    $pdf->Write(0, ucwords($json[$themeasure][category]) . ": " . $json[$themeasure][title]);
+    $pdf->Write(0, $json[$themeasure][title] . ": " . $gft_neighborhood[0][$json[$themeasure]["field"]] . $json[$themeasure]["style"]["units"]);
     $pdf->Ln(0.2);
     $pdf->SetX($x);
-    $pdf->Image( "http://chart.apis.google.com/chart?chxr=0,0,100&chxl=1:|2010&chxt=x,y&chbh=a,4,9&chs=250x75&cht=bhg&chco=4D89F9,C6D9FD&chds=0,100,0,100&chd=t:" . $gft_neighborhood[0][$json[$themeasure]["field"]] . "|" . round($gft_average[0][$json[$themeasure]["field"]]) . "&chdl=Neightborhood|County+Average&chdlp=t&chg=-1,0", null , null, 0, 0, "PNG");
+    $chartMax = ($gft_neighborhood[0][$json[$themeasure]["field"]] >= round($gft_average[0][$json[$themeasure]["field"]]) ? $gft_neighborhood[0][$json[$themeasure]["field"]] : round($gft_average[0][$json[$themeasure]["field"]]));
+    $chartMax = ($chartMax > 100 ? $chartMax + 100 : 100 );    
+    $pdf->Image( "http://chart.apis.google.com/chart?chxr=0,0," . $chartMax . "&chxl=1:|2010&chxt=x,y&chbh=a,4,9&chs=250x75&cht=bhg&chco=4D89F9,C6D9FD&chds=0," . $chartMax . ",0," . $chartMax . "&chd=t:" . $gft_neighborhood[0][$json[$themeasure]["field"]] . "|" . round($gft_average[0][$json[$themeasure]["field"]]) . "&chdl=Neightborhood|County+Average&chdlp=t&chg=-1,0", null , null, 0, 0, "PNG");
     $pdf->Ln(0.2);
     $pdf->SetX($x);
     $pdf->SetFont('Arial','B',10);
@@ -146,6 +171,26 @@ function createMeasure($x, $y, $themeasure) {
     $pdf->SetX($x);
     $pdf->SetFont('Arial','',10);
     $pdf->MultiCell(3.5, 0.15, $json[$themeasure][description], 0, "L");
+    /*if ($json[$themeasure][auxchart]) {
+        $pdf->Ln(0.2);
+        $pdf->SetX($x);
+        $measureTitles = array();
+        $measureValues = array();
+        $i = 0; 
+        foreach ($json[$themeasure]["auxchart"]["measures"] as $value) {
+            if ($gft_neighborhood[0][$value] > 0) {
+                $measureTitles[$i] = $json[$value]["title"];
+                $measureValues[$i] = $gft_neighborhood[0][$value]; 
+                $i++;
+            }
+            
+        }
+        $comma_separated = implode(",", $json[$themeasure]["auxchart"]["measures"]);
+        $auxContent = "http://chart.apis.google.com/chart?chf=bg,s,00000000&chs=300x165&cht=p&chp=0.1";
+        $auxContent .= "&chd=t:" . implode(",", $measureValues) . "&chdl=" . str_replace(" ", "+", implode("|", $measureTitles)) . "&chco=" . implode(",", $chartColors);
+        $pdf->MultiCell(3.5, 0.15, implode(", ", getFieldsArray($json)), 0, "L");
+        $pdf->Image( $auxContent, null , null, 0, 0, "PNG");
+    }*/
     $pdf->Ln(0.2);
     $pdf->SetX($x);
     $pdf->SetFont('Arial','B',10);
@@ -196,16 +241,14 @@ function createMeasure($x, $y, $themeasure) {
 // loop for each page - 4 measures per page
 if (strlen($measures[0]) > 0) {
     $measureCount = 0;
-    for ($i=0; $i < ceil(count($measures) / 4); $i++) {
+    for ($i=0; $i < ceil(count($measures) / 2); $i++) {
         // add page    
         $pdf->AddPage();
         
         if ($measures[ $measureCount]) createMeasure(0.5, 0.5, $measures[$measureCount]);
         if ($measures[$measureCount + 1]) createMeasure(4.3, 0.5, $measures[$measureCount + 1]);
-        if ($measures[$measureCount + 2]) createMeasure(0.5, 5.8, $measures[$measureCount + 2]);
-        if ($measures[$measureCount + 3]) createMeasure(4.3, 5.8, $measures[$measureCount + 3]);
         
-        $measureCount = $measureCount + 4;
+        $measureCount = $measureCount + 2;
     }
 }
 

@@ -174,10 +174,10 @@ function createLegend(measure) {
     if (measure.style.type == "range") {
         $.each(measure.style.breaks, function(index, value) {
             if (index == measure.style.breaks.length - 1) {              
-                $("#legend").append('<div><span style="background-color: ' + measure.style.colors[index] + '"></span>> ' + value + '</div>');
+                $("#legend").append('<div><span style="background-color: ' + measure.style.colors[index] + '"></span>> ' + value + measure.style.units + '</div>');
             }
             else {
-                $("#legend").append('<div><span style="background-color: ' + measure.style.colors[index] + '"></span>' + value + ' - ' + measure.style.breaks[index + 1] + '</div>');
+                $("#legend").append('<div><span style="background-color: ' + measure.style.colors[index] + '"></span>' + value + ' - ' + measure.style.breaks[index + 1] + measure.style.units + '</div>');
             }
         });
     }

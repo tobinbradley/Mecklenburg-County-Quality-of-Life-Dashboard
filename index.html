@@ -26,7 +26,7 @@
     <link type="text/css" media="all" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/south-street/jquery-ui.css" rel="stylesheet" />
   
     <!-- CSS: implied media=all -->
-    <link href='http://fonts.googleapis.com/css?family=Corben:700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Arvo' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/style.css">
     <!-- end CSS-->
   
@@ -39,28 +39,35 @@
 </head>
 
 <body>
-	<header>
-		<div id="title">
-			<h3>Quality of Life</h3>
-			<h1>Dashboard</h1>
-		</div>
-		<div style="background: rgb(45,45,45);" >
-            <nav>
-                <ul>
-                    <li><a href="javascript:void(0)" id="selectNone">Welcome</a></li>
-                    <li><a href="javascript:void(0)" id="report">Print Report</a></li>
-                    <li><a href="http://www.google.com/fusiontables/DataSource?snapid=S289817c03d" target="_blank">Access Data</a></li>
-                    <li><a href="javascript:void(0)" id="translate">Translate</a></li>
-                    <li><a href="javascript:void(0)" id="tutorial">Video Tutorial</a></li>
-                    <li><a href="https://github.com/tobinbradley/Mecklenburg-County-Quality-of-Life-Dashboard" title="github">Source Code</a></li>
-                </ul>
-            </nav>
-		</div>
-	</header>
 	
 	<div id="container">
+        <header>
+            <div class="clearfix">            
+            <div id="google_translate_element"></div>
+            <nav id="header_top_nav">
+                <a href="http://www.charmeck.org/">CharMeck.org</a> |
+                <a href="http://www.charmeck.org/city/charlotte/">City of Charlotte</a> |
+                <a href="http://www.charmeck.org/mecklenburg/county/">Mecklenburg County</a> |
+                <a href="http://www.uncc.edu/">UNC Charlotte</a>
+            </nav>
+            </div>
+            <div id="title">
+                <h1>Quality of Life Dashboard</h1>
+            </div>
+                <nav id="header_bottom_nav">
+                    <ul>
+                        <li><a href="javascript:void(0)" id="selectNone">Welcome</a></li>
+                        <li><a href="javascript:void(0)" id="showMetricslist">Metrics</a></li>
+                        <li><a href="javascript:void(0)" id="report">Print Report</a></li>
+                        <li><a href="http://www.google.com/fusiontables/DataSource?snapid=S289817c03d" target="_blank">Access Data</a></li>
+                        <li><a href="javascript:void(0)" id="tutorial">Video Tutorial</a></li>
+                        <li><a href="https://github.com/tobinbradley/Mecklenburg-County-Quality-of-Life-Dashboard" title="github">Source Code</a></li>
+                    </ul>
+                </nav>
+        </header>
+        
 		<div id="main" role="main" class="clearfix">
-			<div id="google_translate_element" class="hidden"></div>
+			
 			<div id="search">
 				<input id="searchbox" class="inset" type="textbox" placeholder="Start here!" x-webkit-speech speech />
                 <p><a href="javascript:void(0)">Help</a></p>
@@ -76,7 +83,8 @@
                 <div id="welcome">
 					<h3 style="color: red; margin-top: 0; ">Warning! This system is alpha quality and is under development. Don't believe anything you see here.</h3>
 					<h3>Welcome the the Quality of Life Dashboard</h3>
-					<p>
+                    <div id="welcomeCharts"></div>					
+                    <p>
 						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a lorem id ipsum sagittis faucibus sit amet vel nisl. Cras vel eros felis, a volutpat lacus. Suspendisse potenti. Praesent a sem felis, et luctus justo. Nulla quis felis eu nisi vestibulum rhoncus at at orci. Mauris tempus, lorem et faucibus tincidunt, arcu nisl adipiscing velit, non placerat nulla nibh vitae neque. Pellentesque facilisis, enim nec pharetra eleifend, tortor arcu molestie diam, eu viverra ligula est eget magna. Curabitur id imperdiet metus. Sed nec ipsum adipiscing purus lobortis rutrum. Etiam luctus euismod nunc vitae molestie. Morbi vel diam erat. 
 					</p>
 					<p>
@@ -94,6 +102,7 @@
 						<h4>What is this Indicator?</h4>
 						<div id="indicator_description"></div>
                         <div id="indicator_auxchart"></div>
+                        <div id="indicator_quicklinks"></div>
 						<h4>Why is this Important?</h4>
 						<div id="indicator_why"></div>
 						<h4>Technical Notes</h4>
@@ -108,17 +117,23 @@
                         </div>
 					</div>
 				</div>
+                <div id="metricslist" class="hidden"></div>
 			</aside>
-			
-		</div>
-
-		<footer>
-			<p id="social_media" class="screen-only">
+            
+            <p id="social_media" class="screen-only">
 				<a target="_blank" href="http://www.facebook.com/share.php?u=http%3A%2F%2Fmaps.co.mecklenburg.ns.us%2Fqoldashboard%2F"><img src="img/social/facebook.png" height="32" width="32" alt="Share on Facebook" title="Share on Facebook" /></a>
 				<a target="_blank" href="http://twitter.com/home?status=http%3A%2F%2Fmaps.co.mecklenburg.ns.us%2Fqoldashboard%2F"><img src="img/social/twitter.png" height="32" width="32" alt="Share on Twitter" title="Share on Twitter" /></a>
 				<a target="_blank" href="https://m.google.com/app/plus/x/?v=compose&content=http%3A%2F%2Fmaps.co.mecklenburg.ns.us%2Fqoldashboard%2F"><img src="img/social/googleplus.png" height="32" width="32" alt="Share on Google+" title="Share on Google+" /></a>
 			</p>
-			<p>
+			
+		</div>
+
+		<footer>
+			
+            <p>
+                <img src="img/seals.png" height="36" />
+            </p>
+            <p>
 				<a href="http://charmeck.org/city/charlotte/Pages/default.aspx">City of Charlotte</a>
 				&#183
 				<a href="http://charmeck.org/mecklenburg/county/Pages/Default.aspx">Mecklenburg County</a>
@@ -129,9 +144,8 @@
 			</p>
 		</footer>
 		
-	</div> <!--! end of #container -->
-	
-	<div>&nbsp;</div> <!-- TODO: figure out why I can't get some bottom margin without something here. -->
+	</div> <!-- end of container -->
+    <div>&nbsp;</div>
 	
 	<!-- jQuery UI Dialogs - Not visible at runtime -->
 	
@@ -143,7 +157,6 @@
             <p>
                 <select id="report_neighborhood" name="n"></select>
             </p>
-            <h4>Metrics</h4>
             <p id="report-metrics"></p>
             <input type="submit" id="submitPDFReport" name="mysubmit" value="Go!" />
             <a href="php/report.php" target="_blank" class="hidden">Try Work in Progress</a>
@@ -187,7 +200,7 @@
 		function googleTranslateElementInit() {
 		  new google.translate.TranslateElement({
 		    pageLanguage: 'en',
-		    layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL
+		    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
 		  }, 'google_translate_element');
 		}
 	</script>

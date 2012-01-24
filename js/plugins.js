@@ -78,11 +78,18 @@ function getFieldsAverageArray(data) {
     theFields = new Array();
     i = 0;
     $.each(data, function(key, value) {
-        theFields[i] = "AVERAGE(" + value.field  + ")";
+        theFields[i] = "AVERAGE(" + value.field  + ") as " + value.field;
         i++;
     });
     return theFields;
 }
+
+/**
+ * Sort option list
+ */
+function sortAlpha(a, b) {          
+    return a.innerHTML.toLowerCase() > b.innerHTML.toLowerCase() ? 1 : -1;
+};
 
 /**
  * Random color generator for charts

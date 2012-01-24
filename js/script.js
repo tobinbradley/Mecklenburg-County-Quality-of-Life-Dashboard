@@ -35,7 +35,6 @@ $(document).ready(function() {
 	
 	// Click events
 	$("#report").click(function(){ $('#report-dialog').dialog('open') });
-	$("#translate").click(function(){ $('#google_translate_element').toggle() });
 	$("#tutorial").click(function(){ $('#tutorial-dialog').dialog('open') });
     $("#search p a").click(function(){ $('#search-dialog').dialog('open') });
 	$("#searchbox").click(function() { $(this).select(); });
@@ -52,16 +51,22 @@ $(document).ready(function() {
 	// Add elements to mapIndicie
     writebuffer = "";    
     $.each(FTmeta, function(index) {
-       writebuffer += '<option value="' + this.field + '">' + capitaliseFirstLetter(this.category) + ': ' + this.title + '</option>';
+       writebuffer += '<option value="' + this.field + '">' + this.title + '</option>';
     });
     $("#mapIndicie").append(writebuffer);
+    $("#mapIndicie option").sort(sortAlpha).appendTo("#mapIndicie");
     
     // Select first element of mapIndicie
     $("#mapIndicie option").first().attr('selected', 'selected');
 	
 	// return to initial layout
 	$("#selectNone").click(function(){
-        $("#selected-summary").hide("fade", {}, 400, function() {  $("#welcome").show("fade", {}, 400);  });
+        $("#selected-summary, #metricslist").hide();
+        $("#welcome").show("fade", {}, 1000);  
+	});
+    $("#showMetricslist").click(function(){
+        $("#selected-summary, #welcome").hide();
+        $("#metricslist").show("fade", {}, 1000); 
 	});
 	
 	
@@ -71,7 +76,7 @@ $(document).ready(function() {
 		// Change map style
 		styleFusionTable(measure);
 		// update data
-		if (!$("#selected-summary").is(':hidden'))  updateData(measure);
+		if (jQuery.isEmptyObject(activeRecord) == false)  updateData(measure);
 	});
 	
 	// Autocomplete
@@ -154,7 +159,30 @@ $(document).ready(function() {
 		if (data.table.rows.length > 0) {
 			$.each(data.table.cols, function(i, item){
 				countyAverage[item] = Math.round(data.table.rows[0][i]);
-			});			
+			});
+            // populate 3 random percentage charts on the front page
+            var measureTitle = new Array();
+            var measureValue = new Array();
+            var measureKey = new Array();
+            // populate arrays from % measures
+            $.each(countyAverage, function(key, value) {
+                if (FTmeta[key].style.units == "%") {
+                    measureTitle.push(FTmeta[key].title);
+                    measureKey.push(key);
+                    measureValue.push(value);
+                }
+            });
+            // push 3 random charts to front page
+            for (i=0;i<3;i++) {
+                index = Math.floor(Math.random() * measureTitle.length);
+                chartURL = "http://chart.apis.google.com/chart?chxt=y&chco=FF9900,7777CC|008000&chxl=0:|0|100%&chxp=0,0,100&chs=150x100&cht=gm&chts=676767,10&chd=t:" + measureValue[index] + "&chtt=" + measureTitle[index];
+                $("#welcomeCharts").append('<a href="javascript:void(0)" onclick="quickLink(\'' + measureKey[index] + '\')"><img src="' + chartURL + '" width="150" /></a>');
+                // remove used items from arrays
+                measureTitle.splice(index, 1);
+                measureKey.splice(index, 1);
+                measureValue.splice(index, 1);
+            }
+            
 		}
 		else {
 			console.log("Unable to get county averages from Fusion Tables.");
@@ -186,12 +214,22 @@ $(window).load(function(){
 		}
 	});
     
-    // Load measures into report list
-    measurebuffer = "";    
+    // Load measures into report and metrics list
+    measurebuffer = "<h4>Character</h4>";
+    measurebuffer2 = measurebuffer;
+    measureCategory = "character";
     $.each(FTmeta, function(index) {
-        measurebuffer += '<input type="checkbox" id="' + this.field + '" /><label for="' + this.field + '">' + capitaliseFirstLetter(this.category) + ': ' + this.title + '</label><br />';
+        if (this.category != measureCategory) {
+            measurebuffer += "<h4>" + capitaliseFirstLetter(this.category) + "</h4>";
+            measurebuffer2 += "<h4>" + capitaliseFirstLetter(this.category) + "</h4>";
+            measureCategory = this.category; 
+        }
+        measurebuffer += '<input type="checkbox" id="' + this.field + '" /><label for="' + this.field + '">' + this.title + '</label><br />';
+        measurebuffer2 += '<a href="javascript:void(0)" onclick="quickLink(\'' + this.field + '\')" class="quickLink">' + this.title + '</a><br />';
     });
     $("#report-metrics").append(measurebuffer);
+    $("#metricslist").append(measurebuffer2);
+    
 
 	// Detect arguments
 	if (getUrlVars()["n"]) {		
@@ -207,6 +245,10 @@ function quickLink(theMeasure) {
     $("#mapIndicie").val(theMeasure).attr('selected', 'selected');
     styleFusionTable(FTmeta[theMeasure]);
     $("#mapIndicie").trigger("change");
+    if (jQuery.isEmptyObject(activeRecord) == false) {    
+        $("#welcome, #metricslist").hide();
+        $("#selected-summary").show("fade", {}, 400);
+    }
 }
 
 
@@ -233,7 +275,7 @@ function assignData(data) {
  */
 function updateData(measure) {
     // set neighborhood overview
-	$("#selectedNeighborhood").html("Neighborhood " + activeRecord.ID);	
+	$("#selectedNeighborhood").html("Neighborhood " + activeRecord.ID + "<br />" + activeRecord[measure.field] + measure.style.units);	
     
     // set details info
 	$(".measureDetails h3").html(measure.title + '<a href="javascript:void(0)" class="transition">' + capitaliseFirstLetter(measure.category) + '</a>' );
@@ -241,26 +283,36 @@ function updateData(measure) {
     $("#indicator_why").html(measure.importance);
     $("#indicator_technical").html(measure.tech_notes);
     $("#indicator_source").html(measure.source);
-    //$("#indicator_resources").html(measure.links);
     $("#indicator_resources").empty();
     $.each(measure.links.text, function(index, value) { 
         $("#indicator_resources").append('<a href="' + measure.links.links[index] + '">' + measure.links.text[index] + '</a><br />');
     });
     
+    // Quick links
+    if (measure.quicklinks) {
+        quicklinks = new Array();        
+        $.each(measure.quicklinks, function(index, value) { 
+            quicklinks[index] = '<a href="javascript:void(0)" class="quickLink" onclick="quickLink(\'' + value + '\')">' + FTmeta[value].title + '</a>';            
+        });
+        $("#indicator_quicklinks").html('<h4>Related Metrics</h4>' + quicklinks.join(", "));
+    }
+    else $("#indicator_quicklinks").empty();
+    
     // create permalink
 	permalink();
 
     // update chart
-    activeRecord[measure.field] >  countyAverage["AVERAGE(" + measure.field + ")"] ? chartmax = activeRecord[measure.field] : chartmax = countyAverage["AVERAGE(" + measure.field + ")"];
+    activeRecord[measure.field] >  countyAverage[measure.field] ? chartmax = activeRecord[measure.field] : chartmax = countyAverage[measure.field];
     chartmax <= 100 ? chartmax = 100 : chartmax = chartmax + 100; 
-    $("#details_chart img").attr("src", "http://chart.apis.google.com/chart?chf=bg,s,00000000&chxr=0,0," + chartmax + "&chxl=1:|2010&chxt=x,y&chbh=a,4,9&chs=350x75&cht=bhg&chco=4D89F9,C6D9FD&chds=0," + chartmax + ",0," + chartmax + "&chd=t:" + activeRecord[measure.field] + "|" + countyAverage["AVERAGE(" + measure.field + ")"] + "&chdl=Neightborhood|County+Average&chdlp=t&chg=-1,0");
+    $("#details_chart img").attr("src", "http://chart.apis.google.com/chart?chf=bg,s,00000000&chxr=0,0," + chartmax + "&chxl=1:|2010&chxt=x,y&chbh=a,4,9&chs=350x75&cht=bhg&chco=4D89F9,C6D9FD&chds=0," + chartmax + ",0," + chartmax + "&chd=t:" + activeRecord[measure.field] + "|" + countyAverage[measure.field] + "&chdl=Neightborhood|County+Average&chdlp=t&chg=-1,0");
     
-    // populate aux chart
+    // aux chart
     if (measure.auxchart) { auxChart(measure); }
     else { $("#indicator_auxchart").empty(); }
     
     // Show
-    $("#welcome").hide("fade", {}, 400, function() {  $("#selected-summary").show("fade", {}, 400);  });
+    $("#welcome, #metricslist").hide();
+    $("#selected-summary").show("fade", {}, 400); 
 
 }
 
@@ -283,7 +335,6 @@ function permalink() {
 function auxChart(measure) {
     measureTitles = new Array();
     measureValues = new Array();
-    measureColors = new Array();
     auxContent = "http://chart.apis.google.com/chart?chs=300x225&cht=p&chp=0.1";    
     
     i = 0;
@@ -291,7 +342,6 @@ function auxChart(measure) {
         if (activeRecord[value] > 0) {        
             measureTitles[i] = FTmeta[value].title;
             measureValues[i] = activeRecord[value];
-            measureColors[i] = randomHexColor();
             i++;
         }
     });    
@@ -299,7 +349,6 @@ function auxChart(measure) {
     
     if (measure.auxchart.type == "pie") {
         auxContent += "&chd=t:" + measureValues.join() + "&chdl=" + measureTitles.join("|") + "&chco=" + chartColors.join();
-        
     }
     
     $("#indicator_auxchart").html('<img src="' + auxContent + '" />');
