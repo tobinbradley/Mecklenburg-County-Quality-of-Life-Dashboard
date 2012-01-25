@@ -237,6 +237,9 @@ footer { text-align: center; padding: 5px 0; color: #ccc; font-size: 10px;  }
 footer a, footer a:visited { color: #666; text-decoration: none; }
 footer a:hover { text-decoration: underline; }
 
+/* beta testing label */
+#main { background: url(../img/beta_testing.jpg) top left no-repeat; }
+
 
 /* header */
 #header_bottom_nav { text-align: left; background: rgb(45,45,45); max-width: 960px; margin: 0 auto; }
@@ -248,7 +251,7 @@ header nav ul li { display: inline; }
 header a:hover { text-decoration: underline !important; }
 
 #title { max-width: 960px; margin: 0 auto; background: url("../img/site-logo.png") top left no-repeat;  }
-#title h1 { font-family: 'Arvo', Georgia, Times, serif; text-shadow: 0px 0px 6px #222; font-size: 39px; color: #222; margin: 0; padding: 5px 0 8px 65px; }
+#title h1 { font-family: 'Arvo', Georgia, Times, serif; text-shadow: 1px 1px 3px #222; font-size: 39px; color: #222; margin: 0; padding: 5px 0 8px 65px; }
 
 
 /* google translate */
@@ -324,12 +327,12 @@ aside { float: left; width: 49%; min-width: 280px;  padding-bottom:  10px;  }
 #indicator_auxchart { margin-top: 15px; text-align: center; }
 #indicator_quicklinks h4 { padding-left: 0; }
 #social_media { text-align: center; }
-#welcomeCharts { height: 100px; text-align: center;  }
-
+#welcomeCharts { min-height: 100px; text-align: center;  }
+#welcome h3 { text-align: center; }
 
 
 /* Metrics list */
-#metricslist h4 { margin: 5px 0; padding: 4px; color: white; background: #88804B;  }
+#metricslist h4 { margin: 5px 0; padding: 2px 4px; font-size: 1.1em; background: #ccc; text-shadow: 1px 1px 3px white;  }
 #metricslist a { padding-left: 3px; text-decoration: none; }
 #metricslist a:hover { text-decoration: underline; }
 
@@ -401,17 +404,17 @@ aside { float: left; width: 49%; min-width: 280px;  padding-bottom:  10px;  }
 }
 
 @media screen and (max-width: 620px) {
-    #title { background-image: none; height: 80px; }
-    #title h1 {font-size: 26px; }
-    #title h3 {font-size: 24px; letter-spacing: 4px; }
+    #title { background-image: none;  }
+    #title h1 {font-size: 26px; padding: 5px 0 8px 5px; }
     #main { padding: 0 4px;  }
     #container { border: none; max-width: 960px; margin: 0; box-shadow: none; }
+    #welcomeCharts { display: none; }
+    #header_top_nav { display: none; }
 }
 
 @media screen and (max-width: 400px) {
     header { box-shadow: none; }
      #title h1 {font-size: 22px; }
-    #title h3 {font-size: 20px; letter-spacing: 2px; }
     #map-canvas {  height: 300px; }
     #map, #search { width: 95%; }
 }
