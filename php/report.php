@@ -69,7 +69,6 @@ if (strlen(urldecode($_REQUEST['m'])) > 0) {
  */
 class PDF extends FPDF
 {
-
     // Page footer
     function Footer()
     {

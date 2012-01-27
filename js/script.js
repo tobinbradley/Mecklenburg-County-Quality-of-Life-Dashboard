@@ -9,6 +9,15 @@ var tableID = 1844838;  // ID of the fusion table layer
 var wsbase = "http://maps.co.mecklenburg.nc.us/rest/";   // Base URL for REST web services
 var chartColors = new Array("63719B", "B9C5D5", "39457E", "4E68AB", "8E1146", "C13559", "5A6B78");
 
+/* Some color palletes for the metrics.json styling
+Reds
+["#f4cccc", "#ea9999", "#e06666", "#cc0000", "#990000"]
+Greens
+ ["#d0e0e3","#a2c4c9","#76a5af","#45818e","#134f5c"]
+Purples
+ ["#d9d2e9", "#b4a7d6", "#8e7cc3", "#674ea7", "#351c75"]
+*/ 
+
 /**
  * Map Configuration Elements
  */
@@ -32,6 +41,7 @@ $(document).ready(function() {
 	$("#report-dialog").dialog({ width: 360, maxHeight: 550, autoOpen: false, show: 'fade', hide: 'fade', modal: true });
 	$("#tutorial-dialog").dialog({ width: 510, autoOpen: false, show: 'fade', hide: 'fade', modal: true	});
     $("#search-dialog").dialog({ width: 320, autoOpen: false, show: 'fade', hide: 'fade', modal: true });
+    $("#disclaimer-dialog").dialog({ width: 550, autoOpen: false, show: 'fade', hide: 'fade', modal: true });
 	
 	// Click events
 	$("#report").click(function(){ $('#report-dialog').dialog('open') });

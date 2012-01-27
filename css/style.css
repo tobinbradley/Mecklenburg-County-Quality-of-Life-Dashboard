@@ -332,7 +332,7 @@ aside { float: left; width: 49%; min-width: 280px;  padding-bottom:  10px;  }
 
 
 /* Metrics list */
-#metricslist h4 { margin: 5px 0; padding: 2px 4px; font-size: 1.1em; background: #ccc; text-shadow: 1px 1px 3px white;  }
+#metricslist h4 { margin: 5px 0; padding: 2px 4px; font-size: 1.1em; background: #F0EDE5; text-shadow: 1px 1px 3px white;  }
 #metricslist a { padding-left: 3px; text-decoration: none; }
 #metricslist a:hover { text-decoration: underline; }
 

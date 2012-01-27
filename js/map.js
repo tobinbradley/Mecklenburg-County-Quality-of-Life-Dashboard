@@ -136,13 +136,13 @@ function styleFusionTable(measure) {
     if (measure.style.type == "range") {
         $.each(measure.style.breaks, function(index, value) {            
             if (index == measure.style.breaks.length - 1) {              
-                mapStyleJSON.push( { where: measure.field + " > " + value, polygonOptions: { fillColor: measure.style.colors[index], fillOpacity: 0.5 } });
+                mapStyleJSON.push( { where: measure.field + " > " + value, polygonOptions: { fillColor: measure.style.colors[index], fillOpacity: 1 } });
             }
             else if (index == 0) {
-                mapStyleJSON.push( { where: measure.field + " < " + measure.style.breaks[index + 1], polygonOptions: { fillColor: measure.style.colors[index], fillOpacity: 0.5 } });
+                mapStyleJSON.push( { where: measure.field + " <= " + measure.style.breaks[index + 1], polygonOptions: { fillColor: measure.style.colors[index], fillOpacity: 1 } });
             }
             else {
-                mapStyleJSON.push({ where: measure.field + " > " + value + " and " + measure.field + " <= " + measure.style.breaks[index + 1], polygonOptions: { fillColor: measure.style.colors[index], fillOpacity: 0.5 } });
+                mapStyleJSON.push({ where: measure.field + " > " + value + " and " + measure.field + " <= " + measure.style.breaks[index + 1], polygonOptions: { fillColor: measure.style.colors[index], fillOpacity: 1 } });
             }
         });
         
@@ -193,76 +193,63 @@ function createLegend(measure) {
  */
 // Styled Map
 function styleMap() {
-  var style = [
-  {
-    featureType: "road",
-    elementType: "labels",
-    stylers: [
-      { visibility: "off" }
-    ]
-  },{
-    featureType: "road.highway",
-    elementType: "geometry",
-    stylers: [
-      { saturation: -100 },
-      { lightness: 40 },
-      { visibility: "simplified" }
-    ]
-  },{
-    featureType: "road.arterial",
-    elementType: "geometry",
-    stylers: [
-      { saturation: -100 },
-      { lightness: 70 },
-      { gamma: 0.4 },
-      { visibility: "simplified" }
-    ]
-  },{
-    featureType: "road.local",
-    elementType: "geometry",
-    stylers: [
-      { saturation: -100 },
-      { lightness: 20 },
-      { gamma: 0.8 },
-      { visibility: "simplified" }
-    ]
-  },{
-    featureType: "administrative",
-    elementType: "labels",
-    stylers: [
-      { lightness: -2 }
-    ]
-  },{
-    featureType: "landscape",
-    elementType: "labels",
-    stylers: [
-      { lightness: -2 }
-    ]
-  },{
-    featureType: "poi",
-    elementType: "all",
-    stylers: [
-      { lightness: -2 }
-    ]
-  },{
-    featureType: "water",
-    elementType: "labels",
-    stylers: [
-      { lightness: -2 }
-    ]
-  },{
-    featureType: "transit",
-    elementType: "all",
-    stylers: [
-      { visibility: "off" }
-    ]
-  }
-];
+   
+    var style = [
+        {
+          featureType: "administrative.locality",
+          elementType: "labels",
+          stylers: [
+            { visibility: "off" }
+          ]
+        },{
+          featureType: "administrative.neighborhood",
+          elementType: "labels",
+          stylers: [
+            { visibility: "off" }
+          ]
+        },{
+          featureType: "administrative.land_parcel",
+          elementType: "labels",
+          stylers: [
+            { visibility: "off" }
+          ]
+        },{
+          featureType: "landscape",
+          elementType: "labels",
+          stylers: [
+            { visibility: "off" }
+          ]
+        },{
+          featureType: "poi",
+          elementType: "labels",
+          stylers: [
+            { visibility: "off" }
+          ]
+        },{
+          featureType: "road",
+          elementType: "all",
+          stylers: [
+            { visibility: "off" }
+          ]
+        },{
+          featureType: "transit",
+          elementType: "all",
+          stylers: [
+            { visibility: "off" }
+          ]
+        },{
+          featureType: "water",
+          elementType: "labels",
+          stylers: [
+            { visibility: "off" }
+          ]
+        }
+    ];
 
-  var styledMapType = new google.maps.StyledMapType(style, {
-    map: map,
-    name: 'Styled Map'
-  });
-  map.mapTypes.set('map-style', styledMapType);
-  map.setMapTypeId('map-style');
+    var styledMapType = new google.maps.StyledMapType(style, {
+      map: map,
+      name: 'Styled Map'
+    });
+    map.mapTypes.set('map-style', styledMapType);
+    map.setMapTypeId('map-style');
 }

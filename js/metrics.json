@@ -2,18 +2,18 @@
 	"character_1" : {
 		"field": "character_1",
 		"category": "character",
-		"title": "Character Metric",
+		"title": "Fake Character Metric",
 		"description": "Big long description here. <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"character_2\")'>QuickLink</a>",
 		"importance": "Notes on importance.",
 		"tech_notes": "Technical notes for the geeks.",
 		"source": "Information on the data source.",
 		"links": {"text": [ "Link 1", "Link Test" ], "links": [ "http://www.charmeck.org", "http://www.charmeck.org" ]},
-		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
+		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": ["#d0e0e3","#a2c4c9","#76a5af","#45818e","#134f5c"] }
 	},
     "total_commuters" : {
 		"field": "total_commuters",
 		"category": "green",
-		"title": "Commuters",
+		"title": "Total Commuters",
         "auxchart" : {"type": "pie", "measures": ["commute_drive_alone", "commute_bus", "commute_carpool", "commute_subway", "commute_streetcar", "commute_ferry", "commute_railroad", "commute_motorcycle", "commute_taxi", "commute_bicycle", "commute_walk", "commute_other", "work_at_home"] },
 		"description": "The principal mode of travel from home to work for participants 16 years of age or older reported as one of the following - Drove Alone, Carpooled, Bus, Streetcar, Subway, Railroad, Ferryboat, Taxicab, Motorcycle, Bicycle, Walked, Worked at Home or Other.",
         "quicklinks": ["total_commuters","commute_drive_alone","commute_bus","commute_carpool","commute_subway","commute_streetcar","commute_ferry","commute_railroad","commute_motorcycle","commute_taxi","commute_bicycle","commute_walk","commute_other","work_at_home"],		
@@ -21,7 +21,7 @@
 		"tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
 		"source": "U.S. Census American Community Survey",
 		"links": {"text": [ "CATS Carpooling", "Guide for Bicyclists and Pedstrians" ], "links": [ "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx", "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx" ]},
-		"style": { "type": "range", "units": "", "breaks": ["0", "1000", "3000", "7000"] , "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
+		"style": { "type": "range", "units": "", "breaks": ["0", "1000", "2000", "3000"] , "colors": ["#d9d2e9", "#b4a7d6", "#8e7cc3", "#674ea7", "#351c75"] }
 	},
     "commute_drive_alone" : {
 		"field": "commute_drive_alone",
@@ -33,7 +33,7 @@
 		"tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
 		"source": "U.S. Census American Community Survey",
 		"links": {"text": [ "CATS Carpooling", "Guide for Bicyclists and Pedstrians" ], "links": [ "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx", "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx" ]},
-		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
+		"style": { "type": "range", "units": "%", "breaks": ["0", "40", "60", "75", "85"] , "colors": ["#d9d2e9", "#b4a7d6", "#8e7cc3", "#674ea7", "#351c75"] }
 	},
     "commute_bus" : {
 		"field": "commute_bus",
@@ -45,7 +45,7 @@
 		"tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
 		"source": "U.S. Census American Community Survey",
 		"links": {"text": [ "CATS Carpooling", "Guide for Bicyclists and Pedstrians" ], "links": [ "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx", "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx" ]},
-		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
+		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": ["#d9d2e9", "#b4a7d6", "#8e7cc3", "#674ea7", "#351c75"] }
 	},
     "commute_carpool" : {
 		"field": "commute_carpool",
@@ -57,7 +57,7 @@
 		"tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
 		"source": "U.S. Census American Community Survey",
 		"links": {"text": [ "CATS Carpooling", "Guide for Bicyclists and Pedstrians" ], "links": [ "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx", "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx" ]},
-		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
+		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": ["#d9d2e9", "#b4a7d6", "#8e7cc3", "#674ea7", "#351c75"] }
 	},
     "commute_subway" : {
 		"field": "commute_subway",
@@ -69,7 +69,7 @@
 		"tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
 		"source": "U.S. Census American Community Survey",
 		"links": {"text": [ "CATS Carpooling", "Guide for Bicyclists and Pedstrians" ], "links": [ "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx", "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx" ]},
-		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
+		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": ["#d9d2e9", "#b4a7d6", "#8e7cc3", "#674ea7", "#351c75"] }
 	},
     "commute_streetcar" : {
 		"field": "commute_streetcar",
@@ -81,7 +81,7 @@
 		"tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
 		"source": "U.S. Census American Community Survey",
 		"links": {"text": [ "CATS Carpooling", "Guide for Bicyclists and Pedstrians" ], "links": [ "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx", "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx" ]},
-		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
+		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": ["#d9d2e9", "#b4a7d6", "#8e7cc3", "#674ea7", "#351c75"] }
 	},
     "commute_ferry" : {
 		"field": "commute_ferry",
@@ -93,7 +93,7 @@
 		"tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
 		"source": "U.S. Census American Community Survey",
 		"links": {"text": [ "CATS Carpooling", "Guide for Bicyclists and Pedstrians" ], "links": [ "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx", "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx" ]},
-		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
+		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": ["#d9d2e9", "#b4a7d6", "#8e7cc3", "#674ea7", "#351c75"] }
 	},
     "commute_railroad" : {
 		"field": "commute_railroad",
@@ -105,7 +105,7 @@
 		"tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
 		"source": "U.S. Census American Community Survey",
 		"links": {"text": [ "CATS Carpooling", "Guide for Bicyclists and Pedstrians" ], "links": [ "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx", "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx" ]},
-		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
+		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": ["#d9d2e9", "#b4a7d6", "#8e7cc3", "#674ea7", "#351c75"] }
 	},
     "commute_motorcycle" : {
 		"field": "commute_motorcycle",
@@ -117,7 +117,7 @@
 		"tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
 		"source": "U.S. Census American Community Survey",
 		"links": {"text": [ "CATS Carpooling", "Guide for Bicyclists and Pedstrians" ], "links": [ "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx", "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx" ]},
-		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
+		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": ["#d9d2e9", "#b4a7d6", "#8e7cc3", "#674ea7", "#351c75"] }
 	},
     "commute_taxi" : {
 		"field": "commute_taxi",
@@ -129,7 +129,7 @@
 		"tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
 		"source": "U.S. Census American Community Survey",
 		"links": {"text": [ "CATS Carpooling", "Guide for Bicyclists and Pedstrians" ], "links": [ "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx", "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx" ]},
-		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
+		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": ["#d9d2e9", "#b4a7d6", "#8e7cc3", "#674ea7", "#351c75"] }
 	},
     "commute_bicycle" : {
 		"field": "commute_bicycle",
@@ -141,7 +141,7 @@
 		"tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
 		"source": "U.S. Census American Community Survey",
 		"links": {"text": [ "CATS Carpooling", "Guide for Bicyclists and Pedstrians" ], "links": [ "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx", "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx" ]},
-		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
+		"style": { "type": "range", "units": "%", "breaks": ["0", "1", "3", "5", "7"] , "colors": ["#d9d2e9", "#b4a7d6", "#8e7cc3", "#674ea7", "#351c75"] }
 	},
     "commute_walk" : {
 		"field": "commute_walk",
@@ -153,7 +153,7 @@
 		"tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
 		"source": "U.S. Census American Community Survey",
 		"links": {"text": [ "CATS Carpooling", "Guide for Bicyclists and Pedstrians" ], "links": [ "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx", "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx" ]},
-		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
+		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": ["#d9d2e9", "#b4a7d6", "#8e7cc3", "#674ea7", "#351c75"] }
 	},
     "commute_other" : {
 		"field": "commute_other",
@@ -165,7 +165,7 @@
 		"tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
 		"source": "U.S. Census American Community Survey",
 		"links": {"text": [ "CATS Carpooling", "Guide for Bicyclists and Pedstrians" ], "links": [ "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx", "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx" ]},
-		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
+		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": ["#d9d2e9", "#b4a7d6", "#8e7cc3", "#674ea7", "#351c75"] }
 	},
     "work_at_home" : {
 		"field": "work_at_home",
@@ -177,61 +177,61 @@
 		"tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
 		"source": "U.S. Census American Community Survey",
 		"links": {"text": [ "CATS Carpooling", "Guide for Bicyclists and Pedstrians" ], "links": [ "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx", "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx" ]},
-		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
+		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": ["#d9d2e9", "#b4a7d6", "#8e7cc3", "#674ea7", "#351c75"] }
 	},
     "health_1" : {
 		"field": "health_1",
 		"category": "health",
-		"title": "Health Metric",
+		"title": "Fake Health Metric",
 		"description": "Big long description here.",
 		"importance": "Notes on importance.",
 		"tech_notes": "Technical notes for the geeks.",
 		"source": "Information on the data source.",
 		"links": {"text": [ "Link 1", "Link 2" ], "links": [ "http://www.charmeck.org", "http://www.charmeck.org" ]},
-		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
+		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": ["#f4cccc", "#ea9999", "#e06666", "#cc0000", "#990000"] }
 	},
     "education_1" : {
 		"field": "education_1",
 		"category": "education",
-		"title": "Education Metric",
+		"title": "Fake Education Metric",
 		"description": "Big long description here.",
 		"importance": "Notes on importance.",
 		"tech_notes": "Technical notes for the geeks.",
 		"source": "Information on the data source.",
 		"links": {"text": [ "Link 1", "Link 2" ], "links": [ "http://www.charmeck.org", "http://www.charmeck.org" ]},
-		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
+		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": ["#f4cccc", "#ea9999", "#e06666", "#cc0000", "#990000"] }
 	},
     "safety_1" : {
 		"field": "safety_1",
 		"category": "safety",
-		"title": "Safety Metric",
+		"title": "Fake Safety Metric",
 		"description": "Big long description here.",
 		"importance": "Notes on importance.",
 		"tech_notes": "Technical notes for the geeks.",
 		"source": "Information on the data source.",
 		"links": {"text": [ "Link 1", "Link 2" ], "links": [ "http://www.charmeck.org", "http://www.charmeck.org" ]},
-		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
+		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": ["#f4cccc", "#ea9999", "#e06666", "#cc0000", "#990000"] }
 	},
     "housing_1" : {
 		"field": "housing_1",
 		"category": "housing",
-		"title": "Housing Metric",
+		"title": "Fake Housing Metric",
 		"description": "Big long description here.",
 		"importance": "Notes on importance.",
 		"tech_notes": "Technical notes for the geeks.",
 		"source": "Information on the data source.",
 		"links": {"text": [ "Link 1", "Link 2" ], "links": [ "http://www.charmeck.org", "http://www.charmeck.org" ]},
-		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
+		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": ["#f4cccc", "#ea9999", "#e06666", "#cc0000", "#990000"] }
 	},
     "economics_1" : {
 		"field": "economics_1",
 		"category": "economics",
-		"title": "Economics Metric",
+		"title": "Fake Economics Metric",
 		"description": "Big long description here.",
 		"importance": "Notes on importance.",
 		"tech_notes": "Technical notes for the geeks.",
 		"source": "Information on the data source.",
 		"links": {"text": [ "Link 1", "Link 2" ], "links": [ "http://www.charmeck.org", "http://www.charmeck.org" ]},
-		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": [ "#e0ffd4", "#a5ef63", "#50aa00",  "#1f5b10" ] }
+		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": ["#f4cccc", "#ea9999", "#e06666", "#cc0000", "#990000"] }
 	}
 }
