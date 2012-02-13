@@ -1,12 +1,12 @@
-/* 
- * HTML5 ✰ Boilerplate
+/*
+ * HTML5 Boilerplate
  *
- * What follows is the result of much research on cross-browser styling. 
+ * What follows is the result of much research on cross-browser styling.
  * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
  * Kroc Camen, and the H5BP dev community and team.
  *
  * Detailed information about this CSS: h5bp.com/css
- * 
+ *
  * ==|== normalize ==========================================================
  */
 
@@ -20,23 +20,23 @@ audio, canvas, video { display: inline-block; *display: inline; *zoom: 1; }
 audio:not([controls]) { display: none; }
 [hidden] { display: none; }
 
+
 /* =============================================================================
    Base
    ========================================================================== */
 
 /*
  * 1. Correct text resizing oddly in IE6/7 when body font-size is set using em units
- * 2. Force vertical scrollbar in non-IE
- * 3. Prevent iOS text size adjust on device orientation change, without disabling user zoom: h5bp.com/g
+ * 2. Prevent iOS text size adjust on device orientation change, without disabling user zoom: h5bp.com/g
  */
 
-html { font-size: 100%; overflow-y: scroll; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+html { font-size: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
 
-body { margin: 0; font-size: 13px; line-height: 1.231; }
+html, button, input, select, textarea { font-family: sans-serif; color: #222; }
 
-body, button, input, select, textarea { font-family: sans-serif; color: #222; }
+body { margin: 0; font-size: 1em; line-height: 1.4; }
 
-/* 
+/*
  * Remove text-shadow in selection highlight: h5bp.com/i
  * These selection declarations have to be separate
  * Also: hot pink! (or customize the background color to match your design)
@@ -78,7 +78,7 @@ ins { background: #ff9; color: #000; text-decoration: none; }
 mark { background: #ff0; color: #000; font-style: italic; font-weight: bold; }
 
 /* Redeclare monospace font family: h5bp.com/j */
-pre, code, kbd, samp { font-family: monospace, monospace; _font-family: 'courier new', monospace; font-size: 1em; }
+pre, code, kbd, samp { font-family: monospace, serif; _font-family: 'courier new', monospace; font-size: 1em; }
 
 /* Improve readability of pre-formatted text in all browsers */
 pre { white-space: pre; white-space: pre-wrap; word-wrap: break-word; }
@@ -109,13 +109,13 @@ nav ul, nav ol { list-style: none; list-style-image: none; margin: 0; padding: 0
 
 /*
  * 1. Improve image quality when scaled in IE7: h5bp.com/d
- * 2. Remove the gap between images and borders on image containers: h5bp.com/e 
+ * 2. Remove the gap between images and borders on image containers: h5bp.com/i/440
  */
 
 img { border: 0; -ms-interpolation-mode: bicubic; vertical-align: middle; }
 
 /*
- * Correct overflow not hidden in IE9 
+ * Correct overflow not hidden in IE9
  */
 
 svg:not(:root) { overflow: hidden; }
@@ -138,12 +138,12 @@ fieldset { border: 0; margin: 0; padding: 0; }
 /* Indicate that 'label' will shift focus to the associated form element */
 label { cursor: pointer; }
 
-/* 
- * 1. Correct color not inheriting in IE6/7/8/9 
- * 2. Correct alignment displayed oddly in IE6/7 
+/*
+ * 1. Correct color not inheriting in IE6/7/8/9
+ * 2. Correct alignment displayed oddly in IE6/7
  */
 
-legend { border: 0; *margin-left: -7px; padding: 0; }
+legend { border: 0; *margin-left: -7px; padding: 0; white-space: normal; }
 
 /*
  * 1. Correct font-size not inheriting in all browsers
@@ -155,40 +155,40 @@ button, input, select, textarea { font-size: 100%; margin: 0; vertical-align: ba
 
 /*
  * 1. Define line-height as normal to match FF3/4 (set using !important in the UA stylesheet)
- * 2. Correct inner spacing displayed oddly in IE6/7
  */
 
-button, input { line-height: normal; *overflow: visible; }
-
-/*
- * Reintroduce inner spacing in 'table' to avoid overlap and whitespace issues in IE6/7
- */
-
-table button, table input { *overflow: auto; }
+button, input { line-height: normal; }
 
 /*
  * 1. Display hand cursor for clickable form elements
  * 2. Allow styling of clickable form elements in iOS
+ * 3. Correct inner spacing displayed oddly in IE7 (doesn't effect IE6)
  */
 
-button, input[type="button"], input[type="reset"], input[type="submit"] { cursor: pointer; -webkit-appearance: button; }
+button, input[type="button"], input[type="reset"], input[type="submit"] { cursor: pointer; -webkit-appearance: button; *overflow: visible; }
+
+/*
+ * Re-set default cursor for disabled elements
+ */
+
+button[disabled], input[disabled] { cursor: default; }
 
 /*
  * Consistent box sizing and appearance
  */
 
-input[type="checkbox"], input[type="radio"] { box-sizing: border-box; }
+input[type="checkbox"], input[type="radio"] { box-sizing: border-box; padding: 0; *width: 13px; *height: 13px; }
 input[type="search"] { -webkit-appearance: textfield; -moz-box-sizing: content-box; -webkit-box-sizing: content-box; box-sizing: content-box; }
-input[type="search"]::-webkit-search-decoration { -webkit-appearance: none; }
+input[type="search"]::-webkit-search-decoration, input[type="search"]::-webkit-search-cancel-button { -webkit-appearance: none; }
 
-/* 
- * Remove inner padding and border in FF3/4: h5bp.com/l 
+/*
+ * Remove inner padding and border in FF3/4: h5bp.com/l
  */
 
 button::-moz-focus-inner, input::-moz-focus-inner { border: 0; padding: 0; }
 
-/* 
- * 1. Remove default vertical scrollbar in IE6/7/8/9 
+/*
+ * 1. Remove default vertical scrollbar in IE6/7/8/9
  * 2. Allow only vertical resizing
  */
 
@@ -207,6 +207,13 @@ table { border-collapse: collapse; border-spacing: 0; }
 td { vertical-align: top; }
 
 
+/* =============================================================================
+   Chrome Frame Prompt
+   ========================================================================== */
+
+.chromeframe { margin: 0.2em 0; background: #ccc; color: black; padding: 0.2em 0; }
+
+
 /* ==|== primary styles =====================================================
    Author: Tobin Bradley
    ========================================================================== */
@@ -221,6 +228,8 @@ td { vertical-align: top; }
 
 /* main page elements */
 body { background: #E1E5E8; }
+html, button, input, select, textarea { font-family: myriad-pro-1, myriad-pro-2, 'Lucida Grande',"Lucida Sans Unicode", sans-serif; }
+body { font-size: 14px; line-height: 1.3; }
 
 #container { max-width: 960px; margin: 0 auto 10px auto; background: #fff; box-shadow: 0 0 15px #4d4d4d; border-radius: 0 0 10px 10px; }
 header { box-shadow: 0 5px 15px -3px #666; margin-bottom: 15px; border-top: 5px solid rgb(45,45,45); 
@@ -242,33 +251,33 @@ footer a:hover { text-decoration: underline; }
 
 
 /* header */
-#header_bottom_nav { text-align: left; background: rgb(45,45,45); max-width: 960px; margin: 0 auto; }
-#header_top_nav { text-align: right; max-width: 350px; float: right; padding: 5px 5px 0 0; }
+#header_bottom_nav { text-align: left; background: rgb(45,45,45); max-width: 960px; margin: 0 auto;  }
+#header_top_nav_right { text-align: right; max-width: 350px; float: right; padding: 4px 5px 0 0; min-height: 16px;}
 header nav ul { list-style: none; padding: 3px 0 5px 0; margin: 0; }
 header nav ul li { display: inline; }
-#header_top_nav, #header_top_nav a, #header_top_nav a:visited { color: #666; text-decoration: none; font-size: 9px; }
+.header_top_nav, .header_top_nav a, .header_top_nav a:visited { color: #666; text-decoration: none; font-size: 9px; }
 #header_bottom_nav ul li a, #header_bottom_nav ul li a:visited { color: #ccc; padding-left: 10px; text-decoration: none; font-size: 11px; }
 header a:hover { text-decoration: underline !important; }
+#event_calendar { max-width: 100px; float: left; font-size: 9px; padding: 4px 0 0 5px;} 
 
 #title { max-width: 960px; margin: 0 auto; background: url("../img/site-logo.png") top left no-repeat;  }
 #title h1 { font-family: 'Arvo', Georgia, Times, serif; text-shadow: 1px 1px 3px #222; font-size: 39px; color: #222; margin: 0; padding: 5px 0 8px 65px; }
 
 
 /* google translate */
-#google_translate_element { text-align: left; min-height: 18px; padding: 2px; width: 100px; float: left; }
-.goog-te-gadget-simple { font-size: 9px !important; color: white !important; background: transparent !important; border: none !important; color: white !important; }
+#google_translate_element { text-align: left; width: 100px; float: left; padding-top: 2px; }
+.goog-te-gadget-simple { font-family: Arial, sans-serif !important; font-size: 9px !important; background: transparent !important; border: none !important; color: white !important; }
 .goog-te-gadget-simple .goog-te-menu-value { color: #666 !important; }
 .goog-te-gadget-icon { display: none !important; }
 
 /* search area */
 #search { margin: 10px 0 20px; text-align: center; }
-#searchbox, #mapIndicie { padding: 3px;  border:1px solid #b2b2b2; border-radius: 5px; color: #7C7C7C; font-weight: bold; }
-#searchbox:focus, #mapIndicie:focus { outline:none; }
+#searchbox { padding: 3px;  border:1px solid #b2b2b2; border-radius: 5px; color: #7C7C7C; font-weight: bold; }
+#searchbox:focus { outline:none; }
 #searchbox { font-size: 1.2em; padding: 8px 5px; width: 60%; }
 #search p { width: 60%; text-align: right; margin: 0 auto; font-size: 10px; }
 #search p a { text-decoration: none; color: #2684ce; }
 #search p a:hover { text-decoration: underline; }
-#mapIndicie {  font-size: 1.1em; max-width: 100%; background: #fff; margin: 0 2px 4px 0;  }
 input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { color: #7C7C7C; }
 input::-moz-placeholder, textarea::-moz-placeholder { color: #7C7C7C; }
 
@@ -276,53 +285,23 @@ input::-moz-placeholder, textarea::-moz-placeholder { color: #7C7C7C; }
 /* main map area */
 aside { float: left; width: 49%; min-width: 280px;  padding-bottom:  10px;  }
 #map { width: 50%; min-width: 280px; float: right; text-align: right; padding-bottom:  10px;  }
-#map-canvas { position: relative; width: 99%; height: 475px; border: 1px solid #b2b2b2; border-radius: 5px; text-align: left; }
+#map-canvas { margin-top: 5px; position: relative; width: 99%; height: 475px; border: 1px solid #b2b2b2; border-radius: 5px; text-align: left; }
 .googft-info-window { text-align: left; }
 .googft-info-window h3 { margin-bottom: 5px;  }
 #legend { position: absolute; top: 10; right: 10; z-index: -1; margin: 5px 5px 0 0; padding: 5px; background: #fff; border: 1px solid black; box-shadow: 3px 3px 7px #ccc; min-width: 80px; min-height: 50px; }
 #legend span { width: 15px; height: 15px; display: block; float: left; margin-right: 3px; }
-
+#mapIndicie {  min-width: 240px;  }
 
 /* data area */
-.measureDetails { background: #eee; padding-bottom: 10px; border-bottom: 1px solid #CFCFCF; border-radius: 7px; min-height: 496px; }
+.measureDetails { padding-bottom: 10px; border: 1px solid #CFCFCF; border-radius: 7px; min-height: 496px; }
 .measureDetails h3, .measureDetails h4, .measureDetails div { padding-left: 10px; padding-right: 10px; }
 .measureDetails h3 { margin-top: 0; text-align: left; background: #ccc; padding: 0 0 0 10px; font-size: 16px; line-height: 2; border-radius: 7px 7px 0 0; }
 .measureDetails h4 { margin: 12px 0 0; }
 .measureDetails h3, .measureDetails h4 { font-size: 16px; }
-.measureDetails h3 a { float: right; position: relative; text-decoration: none; color: #333; padding: 0 10px; border-left: 5px solid white; background: #a2d6eb; border-radius: 0 7px 0 0; }
-/* .measureDetails h3 a:hover { padding: 0 15px; } */
-.measureDetails h3 a:before,
-.measureDetails h3 a:after {
-        content: "";
-        position: absolute;
-        /* Pushed down half way, will get pulled back up half height of triangle
-           ensures centering if font-size or line-height changes */
-        top: 50%;
-        width: 0;
-        height: 0;
-}
-.measureDetails h3 a:before {
-        left: -12px;
-        /* Triangle */
-        border-top: 8px solid transparent;
-        border-bottom: 8px solid transparent;
-        border-right: 8px solid white;
-        /* Pull-up */
-        margin-top: -8px;
-}
-.measureDetails h3 a:after {
-        /* Smaller and different position triangle */
-        left: -5px;
-        border-top: 6px solid transparent;
-        border-bottom: 6px solid transparent;
-        border-right: 6px solid #a2d6eb;
-        margin-top: -6px;
-}
 .quickLink { background: url("../img/quicklink.png") center right no-repeat; padding: 0 13px 0 0; }
-.ie7 .measureDetails h3 a { display: none; } /* hide the busted spiffy thing from IE7 */
 #selectedNeighborhood { text-align: center; }
 #details_chart { text-align: center; padding-top: 10px; }
-.measuredetails div img { max-width: 90%; }
+.measureDetails div img { max-width: 90%; }
 #permalink a { font-size: 10px; }
 #indicator_auxchart { margin-top: 15px; text-align: center; }
 #indicator_quicklinks h4 { padding-left: 0; }
@@ -332,7 +311,9 @@ aside { float: left; width: 49%; min-width: 280px;  padding-bottom:  10px;  }
 
 
 /* Metrics list */
-#metricslist h4 { margin: 5px 0; padding: 2px 4px; font-size: 1.1em; background: #F0EDE5; text-shadow: 1px 1px 3px white;  }
+#metricslist { border: 1px solid #ccc; }
+#metricslist h4 { margin: 5px 0; padding: 2px 4px; font-size: 1.1em; background: #ccc; text-shadow: 1px 1px 3px white;  }
+#metricslist :first-child { margin-top: 0 !important; }
 #metricslist a { padding-left: 3px; text-decoration: none; }
 #metricslist a:hover { text-decoration: underline; }
 
@@ -345,22 +326,35 @@ aside { float: left; width: 49%; min-width: 280px;  padding-bottom:  10px;  }
 /* jquery ui tweaks */
 .ui-autocomplete-loading { background: transparent url('../img/ui-anim_basic_16x16.gif') right no-repeat !important }
 .ui-autocomplete .ui-menu-item { padding-left: 10px }
-.ui-autocomplete { 
-     overflow: auto;
-     overflow-y: auto;
-     overflow-x: hidden;
-     font-size: 0.9em;
-     font-weight: normal;
-     max-height: 400px;
-	box-shadow: 2px 2px 4px #666;
-}
-.ui-autocomplete-category {
-     font-weight: bold;
-     padding: 0 4px;
-     line-height: 1.5;
-     font-variant: small-caps;
-     font-size: 14px;
-}
+.ui-autocomplete { overflow: auto; overflow-y: auto; overflow-x: hidden; font-size: 0.9em; font-weight: normal; max-height: 400px; box-shadow: 2px 2px 4px #666; }
+.ui-autocomplete-category { font-weight: bold; padding: 0 4px; line-height: 1.5; font-variant: small-caps; font-size: 14px; }
+
+/* jquery ui multiselect */
+.ui-multiselect { padding:2px 0 2px 4px; text-align:left }
+.ui-multiselect span.ui-icon { float:right }
+.ui-multiselect-single .ui-multiselect-checkboxes input { position:absolute !important; top: auto !important; left:-9999px; }
+.ui-multiselect-single .ui-multiselect-checkboxes label { padding:5px !important }
+
+.ui-multiselect-header { margin-bottom:3px; padding:3px 0 3px 4px }
+.ui-multiselect-header ul { font-size:0.9em }
+.ui-multiselect-header ul li { float:left; padding:0 10px 0 0 }
+.ui-multiselect-header a { text-decoration:none }
+.ui-multiselect-header a:hover { text-decoration:underline }
+.ui-multiselect-header span.ui-icon { float:left }
+.ui-multiselect-header li.ui-multiselect-close { float:right; text-align:right; padding-right:0 }
+
+.ui-multiselect-menu { display:none; padding:3px; position:absolute; z-index:10000; text-align: left }
+.ui-multiselect-checkboxes { position:relative /* fixes bug in IE6/7 */; overflow-y:scroll }
+.ui-multiselect-checkboxes label { cursor:default; display:block; border:1px solid transparent; padding:3px 1px }
+.ui-multiselect-checkboxes label input { position:relative; top:1px }
+.ui-multiselect-checkboxes li { clear:both; font-size:0.9em; padding-right:3px }
+.ui-multiselect-checkboxes li.ui-multiselect-optgroup-label { text-align:center; font-weight:bold; border-bottom:1px solid }
+.ui-multiselect-checkboxes li.ui-multiselect-optgroup-label a { display:block; padding:3px; margin:1px 0; text-decoration:none }
+
+.ui-multiselect-hasfilter ul { position:relative; top:2px }
+.ui-multiselect-filter { float:left; margin-right:10px; font-size:11px }
+.ui-multiselect-filter input { width:100px; font-size:10px; margin-left:5px; height:15px; padding:2px; border:1px solid #292929; -webkit-appearance:textfield; -webkit-box-sizing:content-box; }
+
 
 
 /* ==|== non-semantic helper classes ========================================
@@ -442,12 +436,8 @@ aside { float: left; width: 49%; min-width: 280px;  padding-bottom:  10px;  }
   #container { box-shadow: none; padding-top: 30px; border: none; }
   header { border-bottom: 2px solid black; }
   header nav ul { display: none; }
-  #title { height: 115px; }
+  #title { height: 65px; }
   #search { display: none; }
-  #maptools { display: none; }
-  #tabs .ui-tabs-nav li { display: none; }
-  #tabs .ui-tabs-nav li.ui-state-active { display: inherit; border:none; font-weight: bold; font-size: 18px; }
-  #tabs .ui-widget-header, #tabs.ui-widget-content  { border: none; }
   .measureDetails { box-shadow: none; }
 
 }

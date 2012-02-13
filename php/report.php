@@ -22,8 +22,7 @@ $chartColors = array("63719B", "B9C5D5", "39457E", "4E68AB", "8E1146", "C13559",
  * Get form variables
  */
 $neighborhood = $_REQUEST['n'];
-$measures = explode(",", urldecode($_REQUEST['m']));
-
+$measures = $_REQUEST['m'];
 
 /**
  * Load data JSON
@@ -49,7 +48,7 @@ function getFieldsArray($data) {
 /**
  * Load neighborhood information from Google Fusion Tables
  */
-if (strlen(urldecode($_REQUEST['m'])) > 0) {
+if (count($measures) > 0) {
     // neighborhood    
     $ft = new googleFusion();
     $gft_neighborhood = $ft->query("select " .  implode(",", $measures) . " FROM " . $tableID . " WHERE ID = " . $neighborhood);

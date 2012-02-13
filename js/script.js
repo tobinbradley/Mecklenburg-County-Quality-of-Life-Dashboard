@@ -19,13 +19,16 @@ Purples
 */ 
 
 /**
- * Map Configuration Elements
+ * Map Configuration Elements - customize for your location
  */
 var mapCenterZoom = { lat: 35.260, lng: -80.817, zoom: 10 };
 
 
 $(document).ready(function() {
-
+    
+    // Ugly hack to fix vertical spacing problem on google translate gadget
+    if ($.browser.webkit) $("#google_translate_element").css("padding-top", "0");    
+    
     // Load JSON metric configuration
     $.ajax({
         url: "js/metrics.json",
@@ -40,7 +43,7 @@ $(document).ready(function() {
 	// Dialogs
 	$("#report-dialog").dialog({ width: 360, maxHeight: 550, autoOpen: false, show: 'fade', hide: 'fade', modal: true });
 	$("#tutorial-dialog").dialog({ width: 510, autoOpen: false, show: 'fade', hide: 'fade', modal: true	});
-    $("#search-dialog").dialog({ width: 320, autoOpen: false, show: 'fade', hide: 'fade', modal: true });
+    $("#search-dialog").dialog({ width: 320, autoOpen: false, show: 'fade', hide: 'fade', modal: false });
     $("#disclaimer-dialog").dialog({ width: 550, autoOpen: false, show: 'fade', hide: 'fade', modal: true });
 	
 	// Click events
@@ -48,36 +51,40 @@ $(document).ready(function() {
 	$("#tutorial").click(function(){ $('#tutorial-dialog').dialog('open') });
     $("#search p a").click(function(){ $('#search-dialog').dialog('open') });
 	$("#searchbox").click(function() { $(this).select(); });
-    
-    // Set hidden value in PDF report form    
-    $("#report-dialog").delegate("input[type=checkbox]", "change", function(){
-        reportCheckboxBuffer = [];
-        $("#report-dialog input[type=checkbox]").each(function() {
-            if ($(this).is(":checked")) reportCheckboxBuffer.push( $(this).attr("id") );
-        });
-        $("#report_measures").val(reportCheckboxBuffer.join());
-    });
-	
-	// Add elements to mapIndicie
-    writebuffer = "";    
-    $.each(FTmeta, function(index) {
-       writebuffer += '<option value="' + this.field + '">' + this.title + '</option>';
-    });
-    $("#mapIndicie").append(writebuffer);
-    $("#mapIndicie option").sort(sortAlpha).appendTo("#mapIndicie");
-    
-    // Select first element of mapIndicie
-    $("#mapIndicie option").first().attr('selected', 'selected');
-	
-	// return to initial layout
 	$("#selectNone").click(function(){
         $("#selected-summary, #metricslist").hide();
-        $("#welcome").show("fade", {}, 1000);  
+        $("#welcome").show("fade", {}, 1500);  
 	});
     $("#showMetricslist").click(function(){
         $("#selected-summary, #welcome").hide();
-        $("#metricslist").show("fade", {}, 1000); 
-	});
+        $("#metricslist").show("fade", {}, 1500); 
+	});    
+      
+    
+	// MapIndicie, report, metrics list data
+    writebuffer = "";
+    writebuffer2 = "";
+    category = "";
+    $.each(FTmeta, function(index) {             
+        if (index == 0 || this.category != category) {
+            if (index != 0) writebuffer += '</optgroup>';            
+            writebuffer += '<optgroup label="' + capitaliseFirstLetter(this.category) + '">';
+            writebuffer2 += "<h4>" + capitaliseFirstLetter(this.category) + "</h4>";            
+            category = this.category;
+        }
+        writebuffer += '<option value="' + this.field + '">' + this.title + '</option>';
+        writebuffer2 += '<a href="javascript:void(0)" onclick="quickLink(\'' + this.field + '\')" class="quickLink">' + this.title + '</a><br />';
+    });
+    writebuffer += '</optgroup>';
+    $("#mapIndicie, #report_metrics").html(writebuffer);
+    $("#metricslist").html(writebuffer2);
+    $("#mapIndicie option").sort(sortAlpha).appendTo("#mapIndicie");
+    //$("#report_metrics optgroup option").sort(sortAlpha).appendTo("#report_metrics");
+    var options = $("#mapIndicie > option");
+    var random = Math.floor(options.length * (Math.random() % 1));
+    options.eq(random).attr('selected',true);
+    $("#map select").multiselect({ multiple: false,  selectedList: 1}).multiselectfilter();
+    $("#report_measures select").multiselect().multiselectfilter(); 
 	
 	
 	// Map measure drop down list
@@ -88,6 +95,7 @@ $(document).ready(function() {
 		// update data
 		if (jQuery.isEmptyObject(activeRecord) == false)  updateData(measure);
 	});
+    
 	
 	// Autocomplete
 	$("#searchbox").autocomplete({
@@ -224,24 +232,8 @@ $(window).load(function(){
 		}
 	});
     
-    // Load measures into report and metrics list
-    measurebuffer = "<h4>Character</h4>";
-    measurebuffer2 = measurebuffer;
-    measureCategory = "character";
-    $.each(FTmeta, function(index) {
-        if (this.category != measureCategory) {
-            measurebuffer += "<h4>" + capitaliseFirstLetter(this.category) + "</h4>";
-            measurebuffer2 += "<h4>" + capitaliseFirstLetter(this.category) + "</h4>";
-            measureCategory = this.category; 
-        }
-        measurebuffer += '<input type="checkbox" id="' + this.field + '" /><label for="' + this.field + '">' + this.title + '</label><br />';
-        measurebuffer2 += '<a href="javascript:void(0)" onclick="quickLink(\'' + this.field + '\')" class="quickLink">' + this.title + '</a><br />';
-    });
-    $("#report-metrics").append(measurebuffer);
-    $("#metricslist").append(measurebuffer2);
     
-
-	// Detect arguments
+    // Detect arguments
 	if (getUrlVars()["n"]) {		
 		selectNeighborhoodByID(getUrlVars()["n"]);
 	}
@@ -253,6 +245,7 @@ $(window).load(function(){
  */
 function quickLink(theMeasure) {
     $("#mapIndicie").val(theMeasure).attr('selected', 'selected');
+    $("#map select").multiselect('refresh');
     styleFusionTable(FTmeta[theMeasure]);
     $("#mapIndicie").trigger("change");
     if (jQuery.isEmptyObject(activeRecord) == false) {    
@@ -288,7 +281,7 @@ function updateData(measure) {
 	$("#selectedNeighborhood").html("Neighborhood " + activeRecord.ID + "<br />" + activeRecord[measure.field] + measure.style.units);	
     
     // set details info
-	$(".measureDetails h3").html(measure.title + '<a href="javascript:void(0)" class="transition">' + capitaliseFirstLetter(measure.category) + '</a>' );
+	$(".measureDetails h3").html(measure.title );
     $("#indicator_description").html(measure.description);
     $("#indicator_why").html(measure.importance);
     $("#indicator_technical").html(measure.tech_notes);
@@ -322,7 +315,7 @@ function updateData(measure) {
     
     // Show
     $("#welcome, #metricslist").hide();
-    $("#selected-summary").show("fade", {}, 400); 
+    $("#selected-summary").show("fade", {}, 1500); 
 
 }
 

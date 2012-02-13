@@ -28,10 +28,12 @@ function mapInit() {
 	//add a click listener to the layer
 	google.maps.event.addListener(layer, 'click', function(e) {
 		//update the content of the InfoWindow
-		e.infoWindowHtml = '<div class="googft-info-window"><h3>Neighborhood ' + e.row['ID'].value + "</h3>";
-		e.infoWindowHtml += 'Score: ' + e.row[$("#mapIndicie option:selected").val()].value + '<br />';
+		e.infoWindowHtml = '<div class="googft-info-window">';
+        e.infoWindowHtml += '<h3>Neighborhood ' + e.row['ID'].value + "</h3>";
+        e.infoWindowHtml += '<strong>' + $("#mapIndicie option:selected").html() + '</strong><br />';
 		theID = $("#mapIndicie option:selected").val();
-		e.infoWindowHtml += 'County Average: ' + countyAverage["AVERAGE(" + theID + ")"] + '<br />';
+        e.infoWindowHtml += 'Score: ' + e.row[$("#mapIndicie option:selected").val()].value + FTmeta[theID].style.units + '<br />';
+		e.infoWindowHtml += 'County Average: ' + countyAverage[theID] + FTmeta[theID].style.units + '<br />';
 		e.infoWindowHtml += '<p><a href="javascript:void(0)" onclick="selectNeighborhoodByID(' + e.row['ID'].value + ')">Select Neighborhood</a></p>';
 		e.infoWindowHtml += "</div>";
 	});
@@ -195,6 +197,22 @@ function createLegend(measure) {
 function styleMap() {
    
     var style = [
+        {
+          featureType: 'all',
+          stylers: [{
+            saturation: -99
+          }]
+        }, {
+          featureType: 'poi',
+          stylers: [{
+            visibility: 'off'
+          }]
+        }, {
+          featureType: 'road',
+          stylers: [{
+            visibility: 'off'
+          }]
+        },        
         {
           featureType: "administrative.locality",
           elementType: "labels",
