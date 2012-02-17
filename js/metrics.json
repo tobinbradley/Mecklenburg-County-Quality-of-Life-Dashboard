@@ -3,7 +3,7 @@
 		"field": "character_1",
 		"category": "character",
 		"title": "Fake Character Metric",
-		"description": "Big long description here. <a href='javascript:void(0)' class='quickLink' onclick='quickLink(\"character_2\")'>QuickLink</a>",
+		"description": "Big long description here.",
 		"importance": "Notes on importance.",
 		"tech_notes": "Technical notes for the geeks.",
 		"source": "Information on the data source.",
@@ -33,7 +33,7 @@
 		"tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
 		"source": "U.S. Census American Community Survey",
 		"links": {"text": [ "CATS Carpooling", "Guide for Bicyclists and Pedstrians" ], "links": [ "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx", "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx" ]},
-		"style": { "type": "range", "units": "%", "breaks": ["0", "40", "60", "75", "85"] , "colors": ["#d9d2e9", "#b4a7d6", "#8e7cc3", "#674ea7", "#351c75"] }
+		"style": { "type": "range", "units": "%", "breaks": ["0", "60", "75", "85"] , "colors": ["#d9d2e9", "#b4a7d6", "#8e7cc3", "#674ea7", "#351c75"] }
 	},
     "commute_bus" : {
 		"field": "commute_bus",
@@ -210,7 +210,7 @@
 		"tech_notes": "Technical notes for the geeks.",
 		"source": "Information on the data source.",
 		"links": {"text": [ "Link 1", "Link 2" ], "links": [ "http://www.charmeck.org", "http://www.charmeck.org" ]},
-		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": ["#f4cccc", "#ea9999", "#e06666", "#cc0000", "#990000"] }
+		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": ["#d0e0e3","#a2c4c9","#76a5af","#45818e","#134f5c"] }
 	},
     "housing_1" : {
 		"field": "housing_1",
@@ -221,7 +221,7 @@
 		"tech_notes": "Technical notes for the geeks.",
 		"source": "Information on the data source.",
 		"links": {"text": [ "Link 1", "Link 2" ], "links": [ "http://www.charmeck.org", "http://www.charmeck.org" ]},
-		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": ["#f4cccc", "#ea9999", "#e06666", "#cc0000", "#990000"] }
+		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": ["#d0e0e3","#a2c4c9","#76a5af","#45818e","#134f5c"] }
 	},
     "economics_1" : {
 		"field": "economics_1",

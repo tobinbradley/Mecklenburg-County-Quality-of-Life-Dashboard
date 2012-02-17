@@ -52,7 +52,6 @@ if (count($measures) > 0) {
     // neighborhood    
     $ft = new googleFusion();
     $gft_neighborhood = $ft->query("select " .  implode(",", $measures) . " FROM " . $tableID . " WHERE ID = " . $neighborhood);
-    //$gft_neighborhood = $ft->query("select " .  implode(", ", getFieldsArray($json)) . " FROM " . $tableID . " WHERE ID = " . $neighborhood);
     
     // county average
     for ($i = 0; $i < count($measures); ++$i) {
@@ -101,10 +100,10 @@ $pdf->Image('report_cover_page.png',0,0,8.5);
 $pdf->SetTextColor(255,255,255);
 
 // Title page header
-$pdf->SetFont('Arial','B',64);
+$pdf->SetFont('Arial','B',40);
 $pdf->Ln(0.8);
 $pdf->Cell(0.3);
-$pdf->Cell(0,0, "Neighborhood");
+$pdf->Cell(0,0, "Neighborhood Profile Area");
 
 // Title page neighborhood
 $pdf->SetFont('Arial','B',180);

@@ -23,7 +23,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     
     <!-- jQuery UI CSS -->
-    <link type="text/css" media="all" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/smoothness/jquery-ui.css" rel="stylesheet" />
+    <link type="text/css" media="all" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/flick/jquery-ui.css" rel="stylesheet" />
   
     <!-- CSS: implied media=all -->
     <link href='http://fonts.googleapis.com/css?family=Arvo' rel='stylesheet' type='text/css'>
@@ -35,7 +35,7 @@
     <!-- All JavaScript at the bottom, except for Modernizr / Respond.
          Modernizr enables HTML5 elements & feature detects; Respond is a polyfill for min/max-width CSS3 Media Queries
          For optimal performance, use a custom Modernizr build: www.modernizr.com/download/ -->
-    <script src="js/libs/modernizr-2.0.6.min.js"></script>
+    <script src="js/libs/modernizr.min.js"></script>
 </head>
 
 <body>
@@ -62,18 +62,17 @@
                         <li><a href="javascript:void(0)" id="report">Report</a></li>
                         <li><a href="http://www.google.com/fusiontables/DataSource?snapid=S289817c03d" target="_blank">Access Data</a></li>
                         <li><a href="javascript:void(0)" id="tutorial">Video Tutorial</a></li>
+                        <li><a href="https://github.com/tobinbradley/Mecklenburg-County-Quality-of-Life-Dashboard/wiki/API" target="_blank">API</a></li>
                         <li><a href="https://github.com/tobinbradley/Mecklenburg-County-Quality-of-Life-Dashboard" title="github">Source Code</a></li>
                     </ul>
                 </nav>
         </header>
         
 		<div id="main" role="main" class="clearfix">			
-            <!-- site in development warning -->
             
-            
-			<div id="search">
+			<div id="search">               
                 <input id="searchbox" class="inset" type="textbox" placeholder="Start here!" x-webkit-speech speech />
-                <p><a href="javascript:void(0)">Help</a></p>
+                <p><span id="gpsarea" class="hidden"><a href="javascript:void(0)" id="gps">Find My Location</a> &bull; </span><a href="javascript:void(0)" id="searchhelp">Help</a></p>
 			</div>
 			
             <div id="map">               
@@ -87,10 +86,12 @@
 					<h3>Welcome to the Quality of Life Dashboard</h3>
                     <div id="welcomeCharts"></div>					
                     <p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a lorem id ipsum sagittis faucibus sit amet vel nisl. Cras vel eros felis, a volutpat lacus. Suspendisse potenti. Praesent a sem felis, et luctus justo. Nulla quis felis eu nisi vestibulum rhoncus at at orci. Mauris tempus, lorem et faucibus tincidunt, arcu nisl adipiscing velit, non placerat nulla nibh vitae neque. Pellentesque facilisis, enim nec pharetra eleifend, tortor arcu molestie diam, eu viverra ligula est eget magna. Curabitur id imperdiet metus. Sed nec ipsum adipiscing purus lobortis rutrum. Etiam luctus euismod nunc vitae molestie. Morbi vel diam erat. 
-					</p>
-					<p>
-						In vel auctor ante. Suspendisse rhoncus commodo ipsum, eget consectetur urna aliquet ac. Donec a hendrerit magna. Aliquam erat volutpat. Integer lacinia justo et quam adipiscing pharetra.
+						This is the introduction paragraph. Or at least it will be eventually. One day it will be epic prose that will make
+                        even a Shakespearean scholar weap with inadequacy. Right now it is just filler, a meaningless interlude on an otherwise
+                        eventful and enlightening web page. I should probably stop there, but I can't. I need more filler so I can properly
+                        scale the page around this paragraph. Are you still reading this? I bet you regret that right about now. You probably
+                        finish every book you start just so nobody can call you a quitter. When the DSM-5 comes out that
+                        will be classified as a mental disorder.
 					</p>
                     <p>By using this web site, you agree to abide by our <a href="javascript:void(0)" onclick="$('#disclaimer-dialog').dialog('open'); return false;">disclaimer</a>.</p>
 				</div>
@@ -111,10 +112,6 @@
 						<div id="indicator_source"></div>
 						<h4>Additional Resources</h4>
 						<div id="indicator_resources"></div>
-                        <h4>Permalink</h4>
-                        <div>
-                            <span id="permalink"><a href=""></a></span>
-                        </div>
 					</div>
 				</div>
                 <div id="metricslist" class="hidden"></div>
@@ -181,6 +178,7 @@
 		<p><span class="ui-icon ui-icon-circle-check alignleft"></span><strong>Street</strong>: Enter the name of the street. Ex: type <em>ruth</em></p>
 		<p><span class="ui-icon ui-icon-circle-check alignleft"></span><strong>Intersection</strong>: Enter a street name, followed by an &amp;. Ex: type <em>ruth &amp;</em></p>
 		<p><span class="ui-icon ui-icon-circle-check alignleft"></span><strong>Parcel ID</strong>: Enter an 8-digit Parcel ID. Ex: type <em>11111111</em></p>
+        <p><span class="ui-icon ui-icon-circle-check alignleft"></span><strong>Your Current Location</strong>: If your web browser supports geolocation, you will be prompted to allow its use and you will see <em>Find My Location</em> under the search bar.</p>
 	</div>
     
     <!-- Disclaimer Dialog -->

@@ -10,12 +10,9 @@ var wsbase = "http://maps.co.mecklenburg.nc.us/rest/";   // Base URL for REST we
 var chartColors = new Array("63719B", "B9C5D5", "39457E", "4E68AB", "8E1146", "C13559", "5A6B78");
 
 /* Some color palletes for the metrics.json styling
-Reds
-["#f4cccc", "#ea9999", "#e06666", "#cc0000", "#990000"]
-Greens
- ["#d0e0e3","#a2c4c9","#76a5af","#45818e","#134f5c"]
-Purples
- ["#d9d2e9", "#b4a7d6", "#8e7cc3", "#674ea7", "#351c75"]
+Reds ["#f4cccc", "#ea9999", "#e06666", "#cc0000", "#990000"]
+Greens ["#d0e0e3","#a2c4c9","#76a5af","#45818e","#134f5c"]
+Purples ["#d9d2e9", "#b4a7d6", "#8e7cc3", "#674ea7", "#351c75"]
 */ 
 
 /**
@@ -27,7 +24,7 @@ var mapCenterZoom = { lat: 35.260, lng: -80.817, zoom: 10 };
 $(document).ready(function() {
     
     // Ugly hack to fix vertical spacing problem on google translate gadget
-    if ($.browser.webkit) $("#google_translate_element").css("padding-top", "0");    
+    if ($.browser.webkit) $("#google_translate_element").css("padding-top", "1px");    
     
     // Load JSON metric configuration
     $.ajax({
@@ -41,15 +38,20 @@ $(document).ready(function() {
     
     
 	// Dialogs
-	$("#report-dialog").dialog({ width: 360, maxHeight: 550, autoOpen: false, show: 'fade', hide: 'fade', modal: true });
+	$("#report-dialog").dialog({ width: 400, height: 250, autoOpen: false, show: 'fade', hide: 'fade', modal: true });
 	$("#tutorial-dialog").dialog({ width: 510, autoOpen: false, show: 'fade', hide: 'fade', modal: true	});
-    $("#search-dialog").dialog({ width: 320, autoOpen: false, show: 'fade', hide: 'fade', modal: false });
+    $("#search-dialog").dialog({ width: 320, autoOpen: false, show: 'fade', hide: 'fade', modal: true });
     $("#disclaimer-dialog").dialog({ width: 550, autoOpen: false, show: 'fade', hide: 'fade', modal: true });
 	
+    // Show GPS link if browser support
+    if (Modernizr.geolocation) $("#gpsarea").show();
+    
 	// Click events
 	$("#report").click(function(){ $('#report-dialog').dialog('open') });
 	$("#tutorial").click(function(){ $('#tutorial-dialog').dialog('open') });
-    $("#search p a").click(function(){ $('#search-dialog').dialog('open') });
+    $("#searchhelp").click(function(){ $('#search-dialog').dialog('open') });
+    $("#gps").click(function() { tryGPS() });
+    $( "input:submit" ).button();
 	$("#searchbox").click(function() { $(this).select(); });
 	$("#selectNone").click(function(){
         $("#selected-summary, #metricslist").hide();
@@ -59,9 +61,41 @@ $(document).ready(function() {
         $("#selected-summary, #welcome").hide();
         $("#metricslist").show("fade", {}, 1500); 
 	});    
-      
     
-	// MapIndicie, report, metrics list data
+    // URL Hash Change Handler
+    // This bit powers a lot of stuff
+    $(window).hashchange( function(){
+        if (window.location.hash.length > 0) {
+            // read the hash            
+            theHash = window.location.hash.replace("#","").split("/");
+            
+            // Process the neighborhood           
+            if (theHash[1] && theHash[1].length > 0 && theHash[1] != activeRecord.ID) {
+                if (theHash[1].indexOf(",") == -1) {               
+                    selectNeighborhoodByID(theHash[1]);                
+                }
+                else {
+                    coords = theHash[1].split(",");
+                    performIntersection(coords[0], coords[1]);
+                }
+            }                
+           
+            // Process the selected
+            if (theHash[0].length > 0 && $('#mapIndicie option[value=' + theHash[0] + ']').length > 0 ) {                
+                $("#mapIndicie").val(theHash[0]).attr('selected', 'selected');
+                $("#map select").multiselect('refresh');
+                styleFusionTable(FTmeta[theHash[0]]);
+                if (jQuery.isEmptyObject(activeRecord) == false) {
+                    updateData(FTmeta[theHash[0]]);
+                    $("#welcome, #metricslist").hide();
+                    $("#selected-summary").show("fade", {}, 400);
+                }   
+            }
+        }
+    });
+    
+    
+	// Fill out Map select, report select, metrics list from metrics.json
     writebuffer = "";
     writebuffer2 = "";
     category = "";
@@ -73,7 +107,7 @@ $(document).ready(function() {
             category = this.category;
         }
         writebuffer += '<option value="' + this.field + '">' + this.title + '</option>';
-        writebuffer2 += '<a href="javascript:void(0)" onclick="quickLink(\'' + this.field + '\')" class="quickLink">' + this.title + '</a><br />';
+        writebuffer2 += '<a href="javascript:void(0)" onclick="changeMeasure(\'' + this.field + '\')" class="quickLink">' + this.title + '</a><br />';
     });
     writebuffer += '</optgroup>';
     $("#mapIndicie, #report_metrics").html(writebuffer);
@@ -83,18 +117,12 @@ $(document).ready(function() {
     var options = $("#mapIndicie > option");
     var random = Math.floor(options.length * (Math.random() % 1));
     options.eq(random).attr('selected',true);
-    $("#map select").multiselect({ multiple: false,  selectedList: 1}).multiselectfilter();
-    $("#report_measures select").multiselect().multiselectfilter(); 
+    $("#map select").multiselect({ minWidth: 300, height: 250, multiple: false,  selectedList: 1}).multiselectfilter();
+    $("#report_measures select").multiselect({ minWidth: 375, height: 250 }).multiselectfilter(); 
 	
 	
-	// Map measure drop down list
-	$("#mapIndicie").change(function(){
-        measure = FTmeta[$("#mapIndicie option:selected").val()];
-		// Change map style
-		styleFusionTable(measure);
-		// update data
-		if (jQuery.isEmptyObject(activeRecord) == false)  updateData(measure);
-	});
+	// Map measure drop down list change
+	$("#mapIndicie").change(function(){ window.location.hash = $(this).val() + ((activeRecord.ID) ? "/" + activeRecord.ID : "/") });
     
 	
 	// Autocomplete
@@ -194,7 +222,7 @@ $(document).ready(function() {
             for (i=0;i<3;i++) {
                 index = Math.floor(Math.random() * measureTitle.length);
                 chartURL = "http://chart.apis.google.com/chart?chxt=y&chco=FF9900,7777CC|008000&chxl=0:|0|100%&chxp=0,0,100&chs=150x100&cht=gm&chts=676767,10&chd=t:" + measureValue[index] + "&chtt=" + measureTitle[index];
-                $("#welcomeCharts").append('<a href="javascript:void(0)" onclick="quickLink(\'' + measureKey[index] + '\')"><img src="' + chartURL + '" width="150" /></a>');
+                $("#welcomeCharts").append('<a href="javascript:void(0)" onclick="changeMeasure(\'' + measureKey[index] + '\')"><img src="' + chartURL + '" width="150" /></a>');
                 // remove used items from arrays
                 measureTitle.splice(index, 1);
                 measureKey.splice(index, 1);
@@ -233,27 +261,40 @@ $(window).load(function(){
 	});
     
     
-    // Detect arguments
-	if (getUrlVars()["n"]) {		
-		selectNeighborhoodByID(getUrlVars()["n"]);
-	}
-	if (getUrlVars()["m"]) quickLink(getUrlVars()["m"]);
+    // Detect arguments or GPS
+    if (window.location.hash.length > 0) {
+        $(window).trigger( 'hashchange' );
+    }
+    else if (Modernizr.geolocation) {
+        //tryGPS();
+	} 
+    
 });
 
+
+
 /**
- * Quick internal links
+ * Change the active measure
  */
-function quickLink(theMeasure) {
-    $("#mapIndicie").val(theMeasure).attr('selected', 'selected');
-    $("#map select").multiselect('refresh');
-    styleFusionTable(FTmeta[theMeasure]);
-    $("#mapIndicie").trigger("change");
-    if (jQuery.isEmptyObject(activeRecord) == false) {    
-        $("#welcome, #metricslist").hide();
-        $("#selected-summary").show("fade", {}, 400);
-    }
+function changeMeasure(theMeasure) {
+    window.location.hash = theMeasure + ((activeRecord.ID) ? "/" + activeRecord.ID : "/");
 }
 
+
+/**
+ * Try GPS
+ */
+function tryGPS() {
+    if (Modernizr.geolocation) {      
+        navigator.geolocation.getCurrentPosition(
+            function(position) {             
+                window.location.hash = window.location.hash.replace("#","").split("/")[0] + "/" + position.coords.latitude + "," + position.coords.longitude;
+            },
+            function() { console.log("Problem with the Geolocation."); },
+            {enableHighAccuracy:true, maximumAge:30000, timeout:10000}
+        );
+	}
+}
 
 
 /**
@@ -278,7 +319,7 @@ function assignData(data) {
  */
 function updateData(measure) {
     // set neighborhood overview
-	$("#selectedNeighborhood").html("Neighborhood " + activeRecord.ID + "<br />" + activeRecord[measure.field] + measure.style.units);	
+	$("#selectedNeighborhood").html("Neighborhood Profile Area " + activeRecord.ID + "<br />" + activeRecord[measure.field] + measure.style.units);	
     
     // set details info
 	$(".measureDetails h3").html(measure.title );
@@ -295,15 +336,12 @@ function updateData(measure) {
     if (measure.quicklinks) {
         quicklinks = new Array();        
         $.each(measure.quicklinks, function(index, value) { 
-            quicklinks[index] = '<a href="javascript:void(0)" class="quickLink" onclick="quickLink(\'' + value + '\')">' + FTmeta[value].title + '</a>';            
+            quicklinks[index] = '<a href="javascript:void(0)" class="quickLink" onclick="changeMeasure(\'' + value + '\')">' + FTmeta[value].title + '</a>';            
         });
         $("#indicator_quicklinks").html('<h4>Related Metrics</h4>' + quicklinks.join(", "));
     }
     else $("#indicator_quicklinks").empty();
     
-    // create permalink
-	permalink();
-
     // update chart
     activeRecord[measure.field] >  countyAverage[measure.field] ? chartmax = activeRecord[measure.field] : chartmax = countyAverage[measure.field];
     chartmax <= 100 ? chartmax = 100 : chartmax = chartmax + 100; 
@@ -317,18 +355,6 @@ function updateData(measure) {
     $("#welcome, #metricslist").hide();
     $("#selected-summary").show("fade", {}, 1500); 
 
-}
-
-
-/**
- * Create permalink
- */
-function permalink() {
-	// get measure
-	val = $("#mapIndicie option:selected").val();
-	
-	$("#permalink a").html("http://maps.co.mecklenburg.nc.us/qoldashboard/?n=" + activeRecord.ID + "&m=" + val);
-	$("#permalink a").attr("href", "./?n=" + activeRecord.ID + "&m=" + val);
 }
 
 
@@ -373,7 +399,7 @@ function locationFinder(findType, findTable, findField, findID, findLabel, findV
 			$.getJSON(url, function(data) {					  
 				if (data.total_rows > 0) {
 					$.each(data.rows, function(i, item){
-						addMarker(item.row.longitude, item.row.latitude, 0, "<h3>Selected Property</h3><p>" + item.row.address + "</p>");
+						performIntersection(item.row.longitude, item.row.latitude);
 					});
 				}
 			});
@@ -391,7 +417,7 @@ function locationFinder(findType, findTable, findField, findID, findLabel, findV
 			url = wsbase + "v1/ws_geo_attributequery.php?format=json&geotable=" + findTable + "&parameters=" + urlencode(findField + " = " + findID) + "&fields=" + urlencode(poiFields[findTable]) + '&callback=?';
 			$.getJSON(url, function(data) {					  
 				$.each(data.rows, function(i, item){
-					addMarker(item.row.lon, item.row.lat, 1, item.row.label);
+                    performIntersection(item.row.lon, item.row.lat);
 				});
 			});
 			break;
@@ -399,7 +425,7 @@ function locationFinder(findType, findTable, findField, findID, findLabel, findV
 			url = wsbase + "v1/ws_geo_getcentroid.php?format=json&geotable=" + findTable + "&parameters=streetname='" + findValue + "' order by ll_add limit 1&forceonsurface=true&srid=4326&callback=?";
 			$.getJSON(url, function(data) {					  
 				$.each(data.rows, function(i, item){
-					addMarker(item.row.x, item.row.y, 1, "<h3>Road</h3><p>" + findValue + "</p>");
+                    performIntersection(item.row.x, item.row.y);
 				});
 			});
 			
@@ -411,7 +437,7 @@ function locationFinder(findType, findTable, findField, findID, findLabel, findV
 			$.getJSON(url + args, function(data) {
 				if (data.total_rows > 0 ) {						  
 					$.each(data.rows, function(i, item){
-						addMarker(item.row.xcoord, item.row.ycoord, 1, "<h3>Intersection</h3><p>" + findID + "</p>");
+                        performIntersection(item.row.xcoord, item.row.ycoord);
 					});
 				}
 			});

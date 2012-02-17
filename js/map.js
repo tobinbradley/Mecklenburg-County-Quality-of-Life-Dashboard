@@ -24,6 +24,8 @@ function mapInit() {
   
 	// Add layer
 	layer = new google.maps.FusionTablesLayer({ query: { select: 'geometry', from: tableID }, map: map });
+    
+    
 	
 	//add a click listener to the layer
 	google.maps.event.addListener(layer, 'click', function(e) {
@@ -69,6 +71,7 @@ function addMarker(lon, lat, featuretype, label) {
           //title:"Hello World!",
           animation: google.maps.Animation.DROP,
           flat: false
+          //icon: "img/sozialeeinrichtung.png"
      });
      
      // Create info window
@@ -79,11 +82,8 @@ function addMarker(lon, lat, featuretype, label) {
      });
      
     // zoom to marker
-	//map.setCenter(new google.maps.LatLng(lat, lon));
-	//map.setZoom(14);
-	
-	// Intersection
-	performIntersection(lat, lon);
+	map.setCenter(new google.maps.LatLng(lat, lon));
+	map.setZoom(12);
 	
 }
 
@@ -99,9 +99,10 @@ function performIntersection(lat, lon) {
 			assignData(data.table);
 			updateData(FTmeta[$("#mapIndicie option:selected").val()]);
 			styleFusionTable(FTmeta[$("#mapIndicie option:selected").val()]);
+            addMarker(lon, lat, 0, "<h3>Neighborhood " + activeRecord.ID + "</h3>");
 		}
 		else {
-			console.log("Unable to communicate with Fusion Tables.");
+			//console.log("Unable to communicate with Fusion Tables.");
 		}
 	});	
 }
@@ -111,17 +112,32 @@ function performIntersection(lat, lon) {
  * Retrieve Data via id
  */
 function selectNeighborhoodByID(idvalue) {
-	url = "https://www.google.com/fusiontables/api/query/?sql=SELECT ID," + getFieldsArray(FTmeta).join() + " FROM " + tableID + " WHERE ID = " + idvalue + "&jsonCallback=?";
-	$.getJSON(url, function(data) {					  						 
-		if (data.table.rows.length > 0) {
-			assignData(data.table);
-			updateData(FTmeta[$("#mapIndicie option:selected").val()]);
-			styleFusionTable(FTmeta[$("#mapIndicie option:selected").val()]);
-		}
-		else {
-			console.log("Unable to communicate with Fusion Tables.");
-		}
-	});	
+    // Get neighborhood data    
+    url = "https://www.google.com/fusiontables/api/query/?sql=SELECT ID," + getFieldsArray(FTmeta).join() + " FROM " + tableID + " WHERE ID = " + idvalue + "&jsonCallback=?";
+    $.getJSON(url, function(data) {					  						 
+        if (data.table.rows.length > 0) {
+            assignData(data.table);
+            window.location.hash = $("#mapIndicie").val() + "/" + idvalue;
+            updateData(FTmeta[$("#mapIndicie option:selected").val()]);
+            styleFusionTable(FTmeta[$("#mapIndicie option:selected").val()]);
+        }
+        else {
+            //console.log("Unable to communicate with Fusion Tables.");
+        }
+    });
+    
+    // add marker to the neighborhood
+    // bit of cheating here - using local service for polygon centroid
+    url = wsbase + 'v1/ws_geo_getcentroid.php?geotable=neighborhoods&callback=?&format=json&srid=4326&forceonsurface=true&parameters=id=' + idvalue;
+    $.getJSON(url, function(data) {					  
+        if (data.total_rows > 0) {
+            $.each(data.rows, function(i, item){
+                addMarker(item.row.x, item.row.y, 0, "<h3>Neighborhood " + idvalue + "</h3>");
+            });
+        }
+    });	
+    
+    
 }
 
 
@@ -131,8 +147,6 @@ function selectNeighborhoodByID(idvalue) {
  */
 function styleFusionTable(measure) {    
     
-    // highlight neighborhood if selected    
-    neighborhood = (activeRecord.ID) ? activeRecord.ID : 0;
     var mapStyleJSON =  [];
     
     if (measure.style.type == "range") {
@@ -146,15 +160,9 @@ function styleFusionTable(measure) {
             else {
                 mapStyleJSON.push({ where: measure.field + " > " + value + " and " + measure.field + " <= " + measure.style.breaks[index + 1], polygonOptions: { fillColor: measure.style.colors[index], fillOpacity: 1 } });
             }
-        });
-        
+        });        
     }
-    else if (measure.style.type == "value") {
-        
-    }
-    
-    mapStyleJSON.push( { where: "ID = " + neighborhood, polygonOptions: { strokeColor: "#rrggbb", strokeWeight: 6 }});
-    
+ 
     layer.setOptions({ styles: mapStyleJSON });
     
     // Legend
