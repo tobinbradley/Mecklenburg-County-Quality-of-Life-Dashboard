@@ -146,19 +146,21 @@ function selectNeighborhoodByID(idvalue) {
  * Fusion tables layer styling
  */
 function styleFusionTable(measure) {    
-    
+
+    theOpacity = $("#opacity_slider").slider("value") / 100;    
     var mapStyleJSON =  [];
+    
     
     if (measure.style.type == "range") {
         $.each(measure.style.breaks, function(index, value) {            
             if (index == measure.style.breaks.length - 1) {              
-                mapStyleJSON.push( { where: measure.field + " > " + value, polygonOptions: { fillColor: measure.style.colors[index], fillOpacity: 1 } });
+                mapStyleJSON.push( { where: measure.field + " > " + value, polygonOptions: { fillColor: measure.style.colors[index], fillOpacity: theOpacity } });
             }
             else if (index == 0) {
-                mapStyleJSON.push( { where: measure.field + " <= " + measure.style.breaks[index + 1], polygonOptions: { fillColor: measure.style.colors[index], fillOpacity: 1 } });
+                mapStyleJSON.push( { where: measure.field + " <= " + measure.style.breaks[index + 1], polygonOptions: { fillColor: measure.style.colors[index], fillOpacity: theOpacity } });
             }
             else {
-                mapStyleJSON.push({ where: measure.field + " > " + value + " and " + measure.field + " <= " + measure.style.breaks[index + 1], polygonOptions: { fillColor: measure.style.colors[index], fillOpacity: 1 } });
+                mapStyleJSON.push({ where: measure.field + " > " + value + " and " + measure.field + " <= " + measure.style.breaks[index + 1], polygonOptions: { fillColor: measure.style.colors[index], fillOpacity: theOpacity } });
             }
         });        
     }
@@ -206,35 +208,38 @@ function styleMap() {
    
     var style = [
         {
-          featureType: 'all',
-          stylers: [{
-            saturation: -99
-          }]
-        }, {
-          featureType: 'poi',
-          stylers: [{
-            visibility: 'off'
-          }]
-        }, {
-          featureType: 'road',
-          stylers: [{
-            visibility: 'off'
-          }]
-        },        
-        {
-          featureType: "administrative.locality",
+          featureType: "road",
           elementType: "labels",
           stylers: [
             { visibility: "off" }
           ]
         },{
-          featureType: "administrative.neighborhood",
-          elementType: "labels",
+          featureType: "road.highway",
+          elementType: "geometry",
           stylers: [
-            { visibility: "off" }
+            { saturation: -100 },
+            { lightness: 40 }
           ]
         },{
-          featureType: "administrative.land_parcel",
+          featureType: "road.arterial",
+          elementType: "geometry",
+          stylers: [
+            { saturation: -100 },
+            { lightness: 70 },
+            { gamma: 0.4 },
+            { visibility: "simplified" }
+          ]
+        },{
+          featureType: "road.local",
+          elementType: "geometry",
+          stylers: [
+            { saturation: -100 },
+            { lightness: 20 },
+            { gamma: 0.8 },
+            { visibility: "simplified" }
+          ]
+        },{
+          featureType: "administrative",
           elementType: "labels",
           stylers: [
             { visibility: "off" }
@@ -243,19 +248,19 @@ function styleMap() {
           featureType: "landscape",
           elementType: "labels",
           stylers: [
-            { visibility: "off" }
+            { lightness: -2 }
           ]
         },{
           featureType: "poi",
-          elementType: "labels",
-          stylers: [
-            { visibility: "off" }
-          ]
-        },{
-          featureType: "road",
           elementType: "all",
           stylers: [
-            { visibility: "off" }
+            { lightness: -2 }
+          ]
+        },{
+          featureType: "water",
+          elementType: "labels",
+          stylers: [
+            { lightness: -2 }
           ]
         },{
           featureType: "transit",
@@ -263,18 +268,12 @@ function styleMap() {
           stylers: [
             { visibility: "off" }
           ]
-        },{
-          featureType: "water",
-          elementType: "labels",
-          stylers: [
-            { visibility: "off" }
-          ]
         }
     ];
 
     var styledMapType = new google.maps.StyledMapType(style, {
-      map: map,
-      name: 'Styled Map'
+        map: map,
+        name: 'Styled Map'
     });
     map.mapTypes.set('map-style', styledMapType);
     map.setMapTypeId('map-style');

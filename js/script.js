@@ -36,6 +36,19 @@ $(document).ready(function() {
         }
     });
     
+    // Opacity slider
+    $( "#opacity_slider" ).slider({
+			range: "min",
+			value: 75,
+			min: 25,
+			max: 100,
+			slide: function( event, ui ) {
+				$("#opacity").text(ui.value);
+			},
+            stop: function (event, ui) {
+                styleFusionTable(FTmeta[$("#mapIndicie").val()]);
+            }
+		});
     
 	// Dialogs
 	$("#report-dialog").dialog({ width: 400, height: 250, autoOpen: false, show: 'fade', hide: 'fade', modal: true });
