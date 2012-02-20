@@ -412,7 +412,8 @@ function locationFinder(findType, findTable, findField, findID, findLabel, findV
 			$.getJSON(url, function(data) {					  
 				if (data.total_rows > 0) {
 					$.each(data.rows, function(i, item){
-						performIntersection(item.row.longitude, item.row.latitude);
+                        theHash = window.location.hash.replace("#","").split("/");
+                        window.location.hash = theHash[0] + "/" + item.row.latitude + "," + item.row.longitude;
 					});
 				}
 			});
@@ -430,7 +431,8 @@ function locationFinder(findType, findTable, findField, findID, findLabel, findV
 			url = wsbase + "v1/ws_geo_attributequery.php?format=json&geotable=" + findTable + "&parameters=" + urlencode(findField + " = " + findID) + "&fields=" + urlencode(poiFields[findTable]) + '&callback=?';
 			$.getJSON(url, function(data) {					  
 				$.each(data.rows, function(i, item){
-                    performIntersection(item.row.lon, item.row.lat);
+                    theHash = window.location.hash.replace("#","").split("/");
+                    window.location.hash = theHash[0] + "/" + item.row.lat + "," + item.row.lon;
 				});
 			});
 			break;
@@ -438,7 +440,8 @@ function locationFinder(findType, findTable, findField, findID, findLabel, findV
 			url = wsbase + "v1/ws_geo_getcentroid.php?format=json&geotable=" + findTable + "&parameters=streetname='" + findValue + "' order by ll_add limit 1&forceonsurface=true&srid=4326&callback=?";
 			$.getJSON(url, function(data) {					  
 				$.each(data.rows, function(i, item){
-                    performIntersection(item.row.x, item.row.y);
+                    theHash = window.location.hash.replace("#","").split("/");
+                    window.location.hash = theHash[0] + "/" + item.row.y + "," + item.row.x;
 				});
 			});
 			
@@ -450,7 +453,8 @@ function locationFinder(findType, findTable, findField, findID, findLabel, findV
 			$.getJSON(url + args, function(data) {
 				if (data.total_rows > 0 ) {						  
 					$.each(data.rows, function(i, item){
-                        performIntersection(item.row.xcoord, item.row.ycoord);
+                        theHash = window.location.hash.replace("#","").split("/");
+                        window.location.hash = theHash[0] + "/" + item.row.ycoord + "," + item.row.xcoord;
 					});
 				}
 			});
