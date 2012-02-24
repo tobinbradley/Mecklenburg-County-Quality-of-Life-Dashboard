@@ -8,12 +8,12 @@
 		"tech_notes": "Technical notes for the geeks.",
 		"source": "Information on the data source.",
 		"links": {"text": [ "Link 1", "Link Test" ], "links": [ "http://www.charmeck.org", "http://www.charmeck.org" ]},
-		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": ["#d0e0e3","#a2c4c9","#76a5af","#45818e","#134f5c"] }
+		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": ["#d9d2e9", "#b4a7d6", "#8e7cc3", "#674ea7", "#351c75"] }
 	},
     "total_commuters" : {
 		"field": "total_commuters",
 		"category": "green",
-		"title": "Total Commuters",
+		"title": "Commuter Transportation Mode",
         "auxchart" : {"type": "pie", "measures": ["commute_drive_alone", "commute_bus", "commute_carpool", "commute_subway", "commute_streetcar", "commute_ferry", "commute_railroad", "commute_motorcycle", "commute_taxi", "commute_bicycle", "commute_walk", "commute_other", "work_at_home"] },
 		"description": "The principal mode of travel from home to work for participants 16 years of age or older reported as one of the following - Drove Alone, Carpooled, Bus, Streetcar, Subway, Railroad, Ferryboat, Taxicab, Motorcycle, Bicycle, Walked, Worked at Home or Other.",
         "quicklinks": ["total_commuters","commute_drive_alone","commute_bus","commute_carpool","commute_subway","commute_streetcar","commute_ferry","commute_railroad","commute_motorcycle","commute_taxi","commute_bicycle","commute_walk","commute_other","work_at_home"],		
@@ -21,7 +21,7 @@
 		"tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
 		"source": "U.S. Census American Community Survey",
 		"links": {"text": [ "CATS Carpooling", "Guide for Bicyclists and Pedstrians" ], "links": [ "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx", "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx" ]},
-		"style": { "type": "range", "units": "", "breaks": ["0", "1000", "2000", "3000"] , "colors": ["#d9d2e9", "#b4a7d6", "#8e7cc3", "#674ea7", "#351c75"] }
+		"style": { "type": "range", "units": " Commuters", "breaks": ["0", "1000", "2000", "3000"] , "colors": ["#d9d2e9", "#b4a7d6", "#8e7cc3", "#674ea7", "#351c75"] }
 	},
     "commute_drive_alone" : {
 		"field": "commute_drive_alone",
@@ -188,7 +188,7 @@
 		"tech_notes": "Technical notes for the geeks.",
 		"source": "Information on the data source.",
 		"links": {"text": [ "Link 1", "Link 2" ], "links": [ "http://www.charmeck.org", "http://www.charmeck.org" ]},
-		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": ["#f4cccc", "#ea9999", "#e06666", "#cc0000", "#990000"] }
+		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": ["#d9d2e9", "#b4a7d6", "#8e7cc3", "#674ea7", "#351c75"] }
 	},
     "education_1" : {
 		"field": "education_1",
@@ -199,7 +199,7 @@
 		"tech_notes": "Technical notes for the geeks.",
 		"source": "Information on the data source.",
 		"links": {"text": [ "Link 1", "Link 2" ], "links": [ "http://www.charmeck.org", "http://www.charmeck.org" ]},
-		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": ["#f4cccc", "#ea9999", "#e06666", "#cc0000", "#990000"] }
+		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": ["#d9d2e9", "#b4a7d6", "#8e7cc3", "#674ea7", "#351c75"] }
 	},
     "safety_1" : {
 		"field": "safety_1",
@@ -210,7 +210,7 @@
 		"tech_notes": "Technical notes for the geeks.",
 		"source": "Information on the data source.",
 		"links": {"text": [ "Link 1", "Link 2" ], "links": [ "http://www.charmeck.org", "http://www.charmeck.org" ]},
-		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": ["#d0e0e3","#a2c4c9","#76a5af","#45818e","#134f5c"] }
+		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": ["#d9d2e9", "#b4a7d6", "#8e7cc3", "#674ea7", "#351c75"] }
 	},
     "housing_1" : {
 		"field": "housing_1",
@@ -221,7 +221,7 @@
 		"tech_notes": "Technical notes for the geeks.",
 		"source": "Information on the data source.",
 		"links": {"text": [ "Link 1", "Link 2" ], "links": [ "http://www.charmeck.org", "http://www.charmeck.org" ]},
-		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": ["#d0e0e3","#a2c4c9","#76a5af","#45818e","#134f5c"] }
+		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": ["#d9d2e9", "#b4a7d6", "#8e7cc3", "#674ea7", "#351c75"] }
 	},
     "economics_1" : {
 		"field": "economics_1",
@@ -232,6 +232,6 @@
 		"tech_notes": "Technical notes for the geeks.",
 		"source": "Information on the data source.",
 		"links": {"text": [ "Link 1", "Link 2" ], "links": [ "http://www.charmeck.org", "http://www.charmeck.org" ]},
-		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": ["#f4cccc", "#ea9999", "#e06666", "#cc0000", "#990000"] }
+		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"] , "colors": ["#d9d2e9", "#b4a7d6", "#8e7cc3", "#674ea7", "#351c75"] }
 	}
 }

@@ -7,7 +7,8 @@ var activeRecord = {}; // Holder for data in selected record
 var countyAverage = {}; // Holder for county averages
 var tableID = 1844838;  // ID of the fusion table layer
 var wsbase = "http://maps.co.mecklenburg.nc.us/rest/";   // Base URL for REST web services
-var chartColors = new Array("63719B", "B9C5D5", "39457E", "4E68AB", "8E1146", "C13559", "5A6B78");
+var colorTheme = new Array("#d9d2e9", "#b4a7d6", "#8e7cc3", "#674ea7", "#351c75");
+var chartColors = new Array("FEDFAC", "D2E6A0", "F8A6CB", "6BA5BF", "FDEC6C");
 
 /* Some color palletes for the metrics.json styling
 Reds ["#f4cccc", "#ea9999", "#e06666", "#cc0000", "#990000"]
@@ -24,7 +25,10 @@ var mapCenterZoom = { lat: 35.260, lng: -80.817, zoom: 10 };
 $(document).ready(function() {
     
     // Ugly hack to fix vertical spacing problem on google translate gadget
-    if ($.browser.webkit) $("#google_translate_element").css("padding-top", "1px");    
+    if ($.browser.webkit) $("#google_translate_element").css("padding-top", "0");    
+
+    // Image slideshow    
+    //$('.slideshow').cycle({ fx: 'fade'});
     
     // Load JSON metric configuration
     $.ajax({
@@ -36,10 +40,15 @@ $(document).ready(function() {
         }
     });
     
+    // Set the map colors
+    $.each(FTmeta, function(index) {
+        this.style.colors = colorTheme;     
+    });
+    
     // Opacity slider
     $( "#opacity_slider" ).slider({
 			range: "min",
-			value: 75,
+			value: 65,
 			min: 25,
 			max: 100,
 			slide: function( event, ui ) {
@@ -66,23 +75,24 @@ $(document).ready(function() {
     $("#gps").click(function() { tryGPS() });
     $( "input:submit" ).button();
 	$("#searchbox").click(function() { $(this).select(); });
-	$("#selectNone").click(function(){
+    $("#showWelcome").click(function() {
+        window.location.hash = "";
         $("#selected-summary, #metricslist").hide();
-        $("#welcome").show("fade", {}, 1500);  
-	});
+        $("#welcome").show("fade", {}, 1500);
+    });    
     $("#showMetricslist").click(function(){
         $("#selected-summary, #welcome").hide();
         $("#metricslist").show("fade", {}, 1500); 
-	});    
+	});
+    
     
     // URL Hash Change Handler
-    // This bit powers a lot of stuff
     $(window).hashchange( function(){
         if (window.location.hash.length > 0) {
             // read the hash            
             theHash = window.location.hash.replace("#","").split("/");
             
-            // Process the neighborhood           
+            // Process the lat,lon or neighborhood number         
             if (theHash[1] && theHash[1].length > 0 && theHash[1] != activeRecord.ID) {
                 if (theHash[1].indexOf(",") == -1) {               
                     selectNeighborhoodByID(theHash[1]);                
@@ -93,7 +103,7 @@ $(document).ready(function() {
                 }
             }                
            
-            // Process the selected
+            // Process the metric
             if (theHash[0].length > 0 && $('#mapIndicie option[value=' + theHash[0] + ']').length > 0 ) {                
                 $("#mapIndicie").val(theHash[0]).attr('selected', 'selected');
                 $("#map select").multiselect('refresh');
@@ -219,6 +229,7 @@ $(document).ready(function() {
 			$.each(data.table.cols, function(i, item){
 				countyAverage[item] = Math.round(data.table.rows[0][i]);
 			});
+            
             // populate 3 random percentage charts on the front page
             var measureTitle = new Array();
             var measureValue = new Array();
@@ -234,14 +245,16 @@ $(document).ready(function() {
             // push 3 random charts to front page
             for (i=0;i<3;i++) {
                 index = Math.floor(Math.random() * measureTitle.length);
-                chartURL = "http://chart.apis.google.com/chart?chxt=y&chco=FF9900,7777CC|008000&chxl=0:|0|100%&chxp=0,0,100&chs=150x100&cht=gm&chts=676767,10&chd=t:" + measureValue[index] + "&chtt=" + measureTitle[index];
-                $("#welcomeCharts").append('<a href="javascript:void(0)" onclick="changeMeasure(\'' + measureKey[index] + '\')"><img src="' + chartURL + '" width="150" /></a>');
+                chartURL = "http://chart.apis.google.com/chart?chxt=x,y&chco=FF9900,7777CC|008000&chxl=0:|" + measureValue[index] + "%|1:|0|100%&chxp=0,0,100&chs=300x200&cht=gm&chts=676767,12&chd=t:" + measureValue[index] + "&chtt=County Average - " + measureTitle[index];
+                //$(".slideshow").append('<a href="javascript:void(0)" onclick="changeMeasure(\'' + measureKey[index] + '\')"><img src="' + chartURL + '" width="150" /></a>');
+                $(".slideshow").append('<img src="' + chartURL + '" width="300" height="200" onclick="changeMeasure(\'' + measureKey[index] + '\')" />');
                 // remove used items from arrays
                 measureTitle.splice(index, 1);
                 measureKey.splice(index, 1);
                 measureValue.splice(index, 1);
             }
-            
+            $('.slideshow img').shuffle();
+            $('.slideshow').cycle({ fx: 'fade', "width": 332 });
 		}
 		else {
 			console.log("Unable to get county averages from Fusion Tables.");
@@ -358,7 +371,7 @@ function updateData(measure) {
     // update chart
     activeRecord[measure.field] >  countyAverage[measure.field] ? chartmax = activeRecord[measure.field] : chartmax = countyAverage[measure.field];
     chartmax <= 100 ? chartmax = 100 : chartmax = chartmax + 100; 
-    $("#details_chart img").attr("src", "http://chart.apis.google.com/chart?chf=bg,s,00000000&chxr=0,0," + chartmax + "&chxl=1:|2010&chxt=x,y&chbh=a,4,9&chs=350x75&cht=bhg&chco=4D89F9,C6D9FD&chds=0," + chartmax + ",0," + chartmax + "&chd=t:" + activeRecord[measure.field] + "|" + countyAverage[measure.field] + "&chdl=Neightborhood|County+Average&chdlp=t&chg=-1,0");
+    $("#details_chart img").attr("src", "http://chart.apis.google.com/chart?chf=bg,s,00000000&chxr=0,0," + chartmax + "&chxl=1:|2010&chxt=x,y&chbh=a,4,9&chs=350x75&cht=bhg&chco=FF9900,FFCA7A&chds=0," + chartmax + ",0," + chartmax + "&chd=t:" + activeRecord[measure.field] + "|" + countyAverage[measure.field] + "&chdl=Neightborhood|County+Average&chdlp=t&chg=-1,0");
     
     // aux chart
     if (measure.auxchart) { auxChart(measure); }
@@ -382,15 +395,17 @@ function auxChart(measure) {
     i = 0;
     $.each(measure.auxchart.measures, function(index, value) {
         if (activeRecord[value] > 0) {        
-            measureTitles[i] = FTmeta[value].title;
+            measureTitles[i] = activeRecord[FTmeta[value].field] + FTmeta[value].style.units + " " + FTmeta[value].title;
             measureValues[i] = activeRecord[value];
             i++;
         }
     });    
-    auxContent = "http://chart.apis.google.com/chart?chf=bg,s,00000000&chs=300x165&cht=p&chp=0.1";
+    auxContent = "http://chart.apis.google.com/chart?chs=350x165&cht=p3";
     
     if (measure.auxchart.type == "pie") {
-        auxContent += "&chd=t:" + measureValues.join() + "&chdl=" + measureTitles.join("|") + "&chco=" + chartColors.join();
+        //auxContent += "&chd=t:" + measureValues.join() + "&chdl=" + measureTitles.join("|") + "&chco=" + chartColors.join("|").replace(/#/g,"");
+        auxContent += "&chd=t:" + measureValues.join() + "&chdl=" + measureTitles.join("|") + "&chco=";
+        console.log(colorTheme.join().replace("#",""));
     }
     
     $("#indicator_auxchart").html('<img src="' + auxContent + '" />');
@@ -406,13 +421,15 @@ function auxChart(measure) {
  * @param {string} findID  The value to search for
  */
 function locationFinder(findType, findTable, findField, findID, findLabel, findValue) {
-	switch (findType) {
+    // grab the hash to rebuild it with the coordinates    
+    theHash = window.location.hash.replace("#","").split("/");
+    
+    switch (findType) {
 		case "Address": case "PID": case "API":
 			url = wsbase + 'v1/ws_mat_addressnum.php?format=json&callback=?&jsonp=?&addressnum=' + findID;
 			$.getJSON(url, function(data) {					  
 				if (data.total_rows > 0) {
 					$.each(data.rows, function(i, item){
-                        theHash = window.location.hash.replace("#","").split("/");
                         window.location.hash = theHash[0] + "/" + item.row.latitude + "," + item.row.longitude;
 					});
 				}
@@ -431,7 +448,6 @@ function locationFinder(findType, findTable, findField, findID, findLabel, findV
 			url = wsbase + "v1/ws_geo_attributequery.php?format=json&geotable=" + findTable + "&parameters=" + urlencode(findField + " = " + findID) + "&fields=" + urlencode(poiFields[findTable]) + '&callback=?';
 			$.getJSON(url, function(data) {					  
 				$.each(data.rows, function(i, item){
-                    theHash = window.location.hash.replace("#","").split("/");
                     window.location.hash = theHash[0] + "/" + item.row.lat + "," + item.row.lon;
 				});
 			});
@@ -440,7 +456,6 @@ function locationFinder(findType, findTable, findField, findID, findLabel, findV
 			url = wsbase + "v1/ws_geo_getcentroid.php?format=json&geotable=" + findTable + "&parameters=streetname='" + findValue + "' order by ll_add limit 1&forceonsurface=true&srid=4326&callback=?";
 			$.getJSON(url, function(data) {					  
 				$.each(data.rows, function(i, item){
-                    theHash = window.location.hash.replace("#","").split("/");
                     window.location.hash = theHash[0] + "/" + item.row.y + "," + item.row.x;
 				});
 			});
@@ -453,7 +468,6 @@ function locationFinder(findType, findTable, findField, findID, findLabel, findV
 			$.getJSON(url + args, function(data) {
 				if (data.total_rows > 0 ) {						  
 					$.each(data.rows, function(i, item){
-                        theHash = window.location.hash.replace("#","").split("/");
                         window.location.hash = theHash[0] + "/" + item.row.ycoord + "," + item.row.xcoord;
 					});
 				}

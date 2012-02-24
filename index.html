@@ -27,6 +27,7 @@
   
     <!-- CSS: implied media=all -->
     <link href='http://fonts.googleapis.com/css?family=Arvo' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/style.css">
     <!-- end CSS-->
   
@@ -57,7 +58,7 @@
             </div>
                 <nav id="header_bottom_nav">
                     <ul>
-                        <li><a href="javascript:void(0)" id="selectNone">Welcome</a></li>
+                        <li><a href="javascript:void(0)" id="showWelcome">Home</a></li>
                         <li><a href="javascript:void(0)" id="showMetricslist">Metrics</a></li>
                         <li><a href="javascript:void(0)" id="report">Report</a></li>
                         <li><a href="http://www.google.com/fusiontables/DataSource?snapid=S289817c03d" target="_blank">Access Data</a></li>
@@ -80,24 +81,37 @@
 				<div id="map-canvas"></div>
                 <div id="opacity_slider"></div>
                 <p>
-                    <strong>Opacity:</strong> <span id="opacity">75</span>%
+                    <strong>Opacity:</strong> <span id="opacity">65</span>%
                 </p>
                 <div id="legend" class="hidden"></div>
 			</div>
             
 			<aside>				
                 <div id="welcome">					
-					<h3>Welcome to the Quality of Life Dashboard</h3>
-                    <div id="welcomeCharts"></div>					
+                    <h3>Welcome to the Quality of Life Dashboard</h3>
+                    <div class="slideshow">
+                        <img src="img/pic1.jpg" width="300" height="200" />
+                        <img src="img/pic2.jpg" width="300" height="200" />
+                        <img src="img/pic3.jpg" width="300" height="200" />
+                        <img src="img/pic4.jpg" width="300" height="200" />
+                    </div>
                     <p>
-						This is the introduction paragraph. Or at least it will be eventually. One day it will be epic prose that will make
-                        even a Shakespearean scholar weap with inadequacy. Right now it is just filler, a meaningless interlude on an otherwise
-                        eventful and enlightening web page. I should probably stop there, but I can't. I need more filler so I can properly
-                        scale the page around this paragraph. Are you still reading this? I bet you regret that right about now. You probably
-                        finish every book you start just so nobody can call you a quitter. When the DSM-5 comes out that
-                        will be classified as a mental disorder.
+						The 2012 Neighborhood Quality of Life Study helps officials and residents
+                        measure the health of Charlotte and Mecklenburg County neighborhoods. The study
+                        divides the County into 464 Neighborhood Profile Areas (NPA) to examine quality
+                        of life variables. Features of the 2012 study include:
+                        <ul>
+                            <li>Inclusion of towns within Mecklenburg County</li>
+                            <li>Collaboration with Mecklenburg County GIS</li>
+                            <li>Expansion of data variables from 20 to 80</li>
+                            <li>New metric categories - Character, Engagement, Economics, Health, Safety,
+                            Education, Environment and Housing</li>
+                            <li>Stable, Transitioning and Challenged labels are no longer used</li>
+                            <li>This web portal has been created to allow easy access to the data</li>
+                        </ul>
 					</p>
                     <p>By using this web site, you agree to abide by our <a href="javascript:void(0)" onclick="$('#disclaimer-dialog').dialog('open'); return false;">disclaimer</a>.</p>
+                    
 				</div>
 				<div id="selected-summary" class="hidden">
                     <div class="measureDetails">

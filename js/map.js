@@ -15,7 +15,7 @@ function mapInit() {
 	
 	map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
     
-    // add legend div
+    // legend
     var legendDiv = document.getElementById('legend');
     map.controls[google.maps.ControlPosition.TOP_RIGHT].push(legendDiv);
 	
@@ -24,7 +24,6 @@ function mapInit() {
   
 	// Add layer
 	layer = new google.maps.FusionTablesLayer({ query: { select: 'geometry', from: tableID }, map: map });
-    
     
 	
 	//add a click listener to the layer
@@ -48,7 +47,11 @@ function mapInit() {
 			$(this).attr("src",$(this).attr("src")+"&"+(new Date()).getTime());
 		}); 
 	}, 2000);
-
+    
+    // do something only the first time the map is loaded, in this case legend    
+    google.maps.event.addListenerOnce(map, 'idle', function(){
+        $("#legend").css("z-index", "100");
+    });
 }
 
 
@@ -179,6 +182,8 @@ function styleFusionTable(measure) {
 // Legend
 function createLegend(measure) {
     
+    theOpacity = $("#opacity_slider").slider("value") / 100;
+    
     // empty div  
     $("#legend").empty();
     $("#legend").show();
@@ -186,17 +191,17 @@ function createLegend(measure) {
     if (measure.style.type == "range") {
         $.each(measure.style.breaks, function(index, value) {
             if (index == measure.style.breaks.length - 1) {              
-                $("#legend").append('<div><span style="background-color: ' + measure.style.colors[index] + '"></span>> ' + value + measure.style.units + '</div>');
+                $("#legend").append('<div><span style="background-color: ' + measure.style.colors[index] + '; opacity: ' + theOpacity + '"></span>> ' + value + measure.style.units + '</div>');
             }
             else {
-                $("#legend").append('<div><span style="background-color: ' + measure.style.colors[index] + '"></span>' + value + ' - ' + measure.style.breaks[index + 1] + measure.style.units + '</div>');
+                $("#legend").append('<div><span style="background-color: ' + measure.style.colors[index] + '; opacity: ' + theOpacity + '"></span>' + value + ' - ' + measure.style.breaks[index + 1] + measure.style.units + '</div>');
             }
         });
     }
     else if (measure.style.type == "value") {
         
     }
-  
+    
 }
 
 
@@ -211,7 +216,9 @@ function styleMap() {
           featureType: "road",
           elementType: "labels",
           stylers: [
-            { visibility: "off" }
+            { saturation: -100 },
+            { lightness: 70 },
+            { gamma: 0.4 }
           ]
         },{
           featureType: "road.highway",
