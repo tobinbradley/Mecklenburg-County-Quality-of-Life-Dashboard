@@ -143,6 +143,20 @@ $extentJSON = json_decode($extent, true);
 $ditch = array("BOX(",")", " ");
 $replace = array("","", ",");
 $final_extent =  explode(",", str_replace($ditch, $replace,$extentJSON[rows][0][row][extent]));
+
+$dx = $final_extent[2] - $final_extent[0];
+$dy = $final_extent[3] - $final_extent[1];
+if ($dx >= $dy) {
+    $delta = (($dx - $dy) / 2) * 1.12; 
+    $final_extent[1] = $final_extent[1] - $delta; 
+    $final_extent[3] = $final_extent[3] + $delta; 
+}
+else {
+    $delta = (($dy - $dx) / 2) * 0.77; 
+    $final_extent[0] = $final_extent[0] - $delta; 
+    $final_extent[2] = $final_extent[2] + $delta;
+}
+
 $final_extent[0] = $final_extent[0] - 250;
 $final_extent[1] = $final_extent[1] - 250;
 $final_extent[2] = $final_extent[2] + 250;
@@ -152,7 +166,8 @@ $final_extent[3] = $final_extent[3] + 250;
 $mapURL = "http://maps.co.mecklenburg.nc.us/geoserver/wms/reflect?layers=meckbase,neighborhoods&width=800&bbox=" . implode(",", $final_extent) . "&srs=EPSG:2264&CQL_FILTER=include;id=" . $neighborhood;
 $pdf->Image($mapURL,0.3,0.3,7.9, 10, "PNG");
 
-
+$pdf->SetLineWidth(0.05);
+$pdf->rect(0.3,0.3,7.9, 10);
 
 /************************************************************/
 /*                 Create Measure Function                           */

@@ -23,10 +23,11 @@
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     
     <!-- jQuery UI CSS -->
-    <link type="text/css" media="all" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/flick/jquery-ui.css" rel="stylesheet" />
+    <link type="text/css" media="all" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.19/themes/flick/jquery-ui.css" rel="stylesheet" />
+
+    <!-- Fonts -->
   
     <!-- CSS: implied media=all -->
-    <link href='http://fonts.googleapis.com/css?family=Arvo' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/style.css">
     <!-- end CSS-->
   
@@ -41,140 +42,109 @@
 <body>
 	
 	<div id="container">
-        <header>
-            <div class="clearfix">            
-                <div id="event_calendar" class="header_top_nav screen-only"><a href="http://charmeck.org/eventcalendar/Pages/Default.aspx">Event Calendar</a> | </div>
-                <div id="google_translate_element" class="screen-only"></div>
-                <nav id="header_top_nav_right" class="header_top_nav screen-only">
-                    <a href="http://www.charmeck.org/">CharMeck.org</a> |
-                    <a href="http://www.charmeck.org/city/charlotte/">City of Charlotte</a> |
-                    <a href="http://www.charmeck.org/mecklenburg/county/">Mecklenburg County</a> |
-                    <a href="http://www.uncc.edu/">UNC Charlotte</a>
-                </nav>
-            </div>
+        <header> 
             <div id="title">
-                <h1>Quality of Life Dashboard</h1>
+                <a href="javascript:void(0)" class="showWelcome">Quality of Life Dashboard (beta)</a>
             </div>
-                <nav id="header_bottom_nav">
-                    <ul>
-                        <li><a href="javascript:void(0)" id="showWelcome">Home</a></li>
-                        <li><a href="javascript:void(0)" id="showMetricslist">Metrics</a></li>
-                        <li><a href="javascript:void(0)" id="report">Report</a></li>
-                        <li><a href="http://www.google.com/fusiontables/DataSource?snapid=S289817c03d" target="_blank">Access Data</a></li>
-                        <li><a href="javascript:void(0)" id="tutorial">Video Tutorial</a></li>
-                        <li><a href="https://github.com/tobinbradley/Mecklenburg-County-Quality-of-Life-Dashboard/wiki/API" target="_blank">API</a></li>
-                        <li><a href="https://github.com/tobinbradley/Mecklenburg-County-Quality-of-Life-Dashboard" title="github">Source Code</a></li>
-                    </ul>
-                </nav>
+            <div id="top-links" class="screen-only mute">
+                <a href="javascript:void(0)" id="report">Print</a>
+            </div>
+            <div style="clear:both"></div>
+            <hr />
         </header>
         
-		<div id="main" role="main" class="clearfix">			
-            
-			<div id="search">               
-                <input id="searchbox" class="inset" type="textbox" placeholder="Start here!" x-webkit-speech speech />
-                <p><span id="gpsarea" class="hidden"><a href="javascript:void(0)" id="gps">Find My Location</a> &bull; </span><a href="javascript:void(0)" id="searchhelp">Help</a></p>
-			</div>
 			
-            <div id="map">               
-                <select id="mapIndicie" class=""></select>
-				<div id="map-canvas"></div>
-                <div id="opacity_slider"></div>
-                <p>
-                    <strong>Opacity:</strong> <span id="opacity">65</span>%
-                </p>
-                <div id="legend" class="hidden"></div>
-			</div>
-            
-			<aside>				
-                <div id="welcome">					
-                    <h3>Welcome to the Quality of Life Dashboard</h3>
-                    <div class="slideshow">
-                        <img src="img/pic1.jpg" width="300" height="200" />
-                        <img src="img/pic2.jpg" width="300" height="200" />
-                        <img src="img/pic3.jpg" width="300" height="200" />
-                        <img src="img/pic4.jpg" width="300" height="200" />
-                    </div>
-                    <p>
-						The 2012 Neighborhood Quality of Life Study helps officials and residents
-                        measure the health of Charlotte and Mecklenburg County neighborhoods. The study
-                        divides the County into 464 Neighborhood Profile Areas (NPA) to examine quality
-                        of life variables. Features of the 2012 study include:
-                        <ul>
-                            <li>Inclusion of towns within Mecklenburg County</li>
-                            <li>Collaboration with Mecklenburg County GIS</li>
-                            <li>Expansion of data variables from 20 to 80</li>
-                            <li>New metric categories - Character, Engagement, Economics, Health, Safety,
-                            Education, Environment and Housing</li>
-                            <li>Stable, Transitioning and Challenged labels are no longer used</li>
-                            <li>This web portal has been created to allow easy access to the data</li>
-                        </ul>
-					</p>
-                    <p>By using this web site, you agree to abide by our <a href="javascript:void(0)" onclick="$('#disclaimer-dialog').dialog('open'); return false;">disclaimer</a>.</p>
-                    
-				</div>
-				<div id="selected-summary" class="hidden">
-                    <div class="measureDetails">
-						<h3>Metric 1 <a href="#" class="transition">Blue</a></h3>
-                        <h4 id="selectedNeighborhood">Neighborhood</h4>
-						<div id='details_chart' class="chart"><img src="http://chart.apis.google.com/chart?chf=bg,s,00000000&chxr=0,0,100&chxl=1:|2010&chxt=x&chbh=a,4,9&chs=350x75&cht=bhg&chco=4D89F9,C6D9FD&chds=0,100,0,100&chd=t:81|49&chdl=Neightborhood|County+Average&chdlp=t&chg=-1,0" /></div>
-						<h4>What is this Indicator?</h4>
-						<div id="indicator_description"></div>
-                        <div id="indicator_auxchart"></div>
-                        <div id="indicator_quicklinks"></div>
-						<h4>Why is this Important?</h4>
-						<div id="indicator_why"></div>
-						<h4>Technical Notes</h4>
-						<div id="indicator_technical"></div>
-						<h4>Data Source</h4>
-						<div id="indicator_source"></div>
-						<h4>Additional Resources</h4>
-						<div id="indicator_resources"></div>
-					</div>
-				</div>
-                <div id="metricslist" class="hidden"></div>
-			</aside>
-            
-            <p id="social_media" class="screen-only">
-				<a target="_blank" href="http://www.facebook.com/share.php?u=http%3A%2F%2Fmaps.co.mecklenburg.ns.us%2Fqoldashboard%2F"><img src="img/social/facebook.png" height="32" width="32" alt="Share on Facebook" title="Share on Facebook" /></a>
-				<a target="_blank" href="http://twitter.com/home?status=http%3A%2F%2Fmaps.co.mecklenburg.ns.us%2Fqoldashboard%2F"><img src="img/social/twitter.png" height="32" width="32" alt="Share on Twitter" title="Share on Twitter" /></a>
-				<a target="_blank" href="https://m.google.com/app/plus/x/?v=compose&content=http%3A%2F%2Fmaps.co.mecklenburg.ns.us%2Fqoldashboard%2F"><img src="img/social/googleplus.png" height="32" width="32" alt="Share on Google+" title="Share on Google+" /></a>
-			</p>
-			
+        <div id="map">               
+            <div id="maptools-top" class="screen-only">
+                <span id="currentlyShowing"><strong>Currently Showing: </strong></span> <select id="mapIndicie" class=""></select>
+                
+            </div>
+			<div id="map-canvas"></div>
+            <div id="maptools-bottom" class="screen-only">
+                <div id="opacity_slider"></div>                
+            </div>
+            <div id="legend" class="hidden"></div>
 		</div>
+            
+		<aside>
+            <div id="welcome">
+                <p>
+                    The <strong>Quality of Life Dashboard</strong> is your gateway to the 2012 Neighborhood Quality of Life Study. 
+                    It is designed to help officials and residents assess the health of Charlotte and Mecklenburg County neighborhoods. 
+                </p>
+                <p>
+                    You can <strong>begin by searching for an address below</strong> (<a href="javascript:void(0)" class="searchhelp">help</a>), such as <em>700 N Tryon</em>, or by interacting with the map.
+                    A complete <strong>list of variables</strong> collected in this study is available <a href="javascript:void(0)" class="showMetricslist">here</a>.
+                </p>
+            </div>
+            <div id="search" class="screen-only">               
+                <input id="searchbox" class="inset" type="textbox" placeholder='Start here! Try "700 N Tryon"' x-webkit-speech speech />
+                <p class="mute"><span id="gpsarea" class="hidden">
+                    <a href="javascript:void(0)" id="gps">Find My Location</a> &bull; </span>
+                    <a href="javascript:void(0)" class="showMetricslist">Show All Variables</a> &bull; 
+                    <a href="javascript:void(0)" class="searchhelp">Help</a>
 
-		<footer>
-			
-            <p>
+                </p>
+            </div>
+            			                
+			<div id="selected-summary" class="hidden">  
+                <div class="measureDetails">
+					<h3>Metric 1 <a href="#" class="transition">Blue</a></h3>
+                    <h4 id="selectedNeighborhood">Neighborhood</h4>
+					<div id='details_chart' class="chart"></div>
+					<h4>What is this Indicator?</h4>
+					<div id="indicator_description"></div>
+                    <div id="indicator_auxchart"></div>                        
+					<h4>Why is this Important?</h4>
+					<div id="indicator_why"></div>
+                    <div id="indicator_quicklinks"></div>
+					<h4>Technical Notes</h4>
+					<div id="indicator_technical"></div>
+					<h4>Data Source</h4>
+					<div id="indicator_source"></div>
+					<h4>Additional Resources</h4>
+					<div id="indicator_resources"></div>
+				</div>
+			</div>
+            <div id="metricslist" class="hidden"></div>
+
+            <hr />
+            <p class="mute screen-only">
+                View the raw data in Fusion Tables <a href="http://www.google.com/fusiontables/DataSource?snapid=S289817c03d" target="_blank">here</a>. <br />
+                Download the source code and view the API <a href="https://github.com/tobinbradley/Mecklenburg-County-Quality-of-Life-Dashboard" target="_blank">here</a>.<br />
+                
+                By using this web site, you agree to abide by our <a href="javascript:void(0)" onclick="$('#disclaimer-dialog').dialog('open'); return false;">disclaimer</a>.
+                <br /><br />
+                Created by the <a href="http://charmeck.org/city/charlotte/Pages/default.aspx">City of Charlotte</a>, 
+                <a href="http://charmeck.org/mecklenburg/county/Pages/Default.aspx">Mecklenburg County</a>, and <a href="http://www.uncc.edu/">UNCC</a>.
+
+            </p>
+            <p class="text-center mute">
                 <img src="img/seals.png" height="36" />
             </p>
-            <p>
-				<a href="http://charmeck.org/city/charlotte/Pages/default.aspx">City of Charlotte</a>
-				&#183
-				<a href="http://charmeck.org/mecklenburg/county/Pages/Default.aspx">Mecklenburg County</a>
-				&#183
-				<a href="http://www.uncc.edu/">UNC Charlotte</a>
-                &#183
-				<a href="http://www.uncc.edu/">Feedback</a>
-			</p>
-		</footer>
+		</aside>
 		
 	</div> <!-- end of container -->
-    <div>&nbsp;</div>
+    
 	
 	<!-- jQuery UI Dialogs - Not visible at runtime -->
 	
 	<!-- Create report dialog -->
-	<div id="report-dialog" title="Create PDF Report" class="hidden">		
+	<div id="report-dialog" title="Print" class="hidden screen-only">		
         <form action="php/report.php" method="get" target="_blank">
-            <h4>Neighborhood</h4>            
+            <p>
+                You can print a formatted version of your current browser by using your browser's print command.
+                You can also print out a PDF report by selecting a neighborhood and metrics below.
+            </p>
+            <h4>Select Neighborhood</h4>            
             <p>
                 <select id="report_neighborhood" name="n"></select>
             </p>
-            <h4>Metrics</h4>            
+            <h4>Select Variables</h4>            
             <p id="report_measures">
                 <select id="report_metrics" multiple="multiple" name="m[]"></select>  
             </p>
-            <input type="submit" id="submitPDFReport" name="mysubmit" value="Go!" />
+            <input type="submit" id="submitPDFReport" name="mysubmit" value="Create PDF Report" />
             <a href="php/report.php" target="_blank" class="hidden">Try Work in Progress</a>
         </form>
 	</div>
@@ -187,7 +157,7 @@
     <!-- Search help - jQuery UI Dialog -->
 	<div id="search-dialog" title="Search Help" class="hidden">
 		<p>
-		The secrect to successful searches is to <em>let the search box do the work for you</em>. 
+		Type in the first few characters of what you are looking for and let the search box do the work for you. 
 		Select a match using either the mouse or the up/down arrow keys and Enter.
 		</p>
 		<p><span class="ui-icon ui-icon-circle-check alignleft"></span><strong>Address</strong>: Enter the first part of the address. Ex: for 700 North Tryon Street, try <em>700 n</em></p>
@@ -210,10 +180,14 @@
 
 	<!-- JavaScript at the bottom for fast page loading -->
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script>
+      google.load("visualization", "1", {packages:["corechart"]});
+    </script>
    
 	<!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/jquery-ui.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.19/jquery-ui.min.js"></script>
    
 	<!-- scripts concatenated and minified via ant build script-->
 	<script src="js/plugins.js"></script>
@@ -223,14 +197,13 @@
   
 	<!-- Google Translate -->
 	<script>
-		function googleTranslateElementInit() {
-		  new google.translate.TranslateElement({
-		    pageLanguage: 'en',
-		    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-		  }, 'google_translate_element');
-		}
-	</script>
-	<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'en'
+      });
+    }
+    </script>
+    <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
     <!-- Asynchronous Google Analytics snippet. Change UA-XXXXX-X to be your site's ID. -->
     <script type="text/javascript">

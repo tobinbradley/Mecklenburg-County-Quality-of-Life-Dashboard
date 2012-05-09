@@ -86,7 +86,7 @@ function addMarker(lon, lat, featuretype, label) {
      
     // zoom to marker
 	map.setCenter(new google.maps.LatLng(lat, lon));
-	map.setZoom(12);
+	map.setZoom(13);
 	
 }
 
@@ -183,6 +183,7 @@ function styleFusionTable(measure) {
 function createLegend(measure) {
     
     theOpacity = $("#opacity_slider").slider("value") / 100;
+    theOpacity = theOpacity + 0.2; // make up for white legend background
     
     // empty div  
     $("#legend").empty();
@@ -261,7 +262,7 @@ function styleMap() {
           featureType: "poi",
           elementType: "all",
           stylers: [
-            { lightness: -2 }
+            { saturation: -75 }
           ]
         },{
           featureType: "water",
@@ -270,6 +271,12 @@ function styleMap() {
             { lightness: -2 }
           ]
         },{
+    featureType: "water",
+    elementType: "all",
+    stylers: [
+      { saturation: -100 }
+    ]
+  },{
           featureType: "transit",
           elementType: "all",
           stylers: [

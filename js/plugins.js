@@ -131,6 +131,23 @@ if (!$.support.placeholder) {
 })(jQuery);
 
 
+/**
+* Add left and right labels to a jQuery UI Slider
+*/
+$.fn.extend({
+    sliderLabels: function(left,right) {
+        var $this = $(this); 
+        var $sliderdiv= $this;
+        $sliderdiv
+        .css({'font-weight': 'normal'}); 
+        $sliderdiv
+        .prepend('<span class="ui-slider-inner-label"  style="position: absolute; left:0px; top:15px; font-size: 12px; ">'+left+ '</span>')
+        .append('<span class="ui-slider-inner-label" style="position: absolute; right:0px; top:15px; font-size: 12px;">'+right+ '</span>');         
+    }
+});
+
+
+
 /*
  * jQuery hashchange event - v1.3 - 7/21/2010
  * http://benalman.com/projects/jquery-hashchange-plugin/
