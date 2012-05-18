@@ -225,11 +225,11 @@ td { vertical-align: top; }
 .text-center { text-align: center; }
 .print-only { display: none }
 input { background: white; }
-hr { background: #ddd; border: 0; clear: both; height: 5px; margin: .75em 0; }
+hr { background: #cbcfe7; border: 0; clear: both; height: 5px; margin: .75em 0; }
 a, a:visited { color: #366CB3; text-decoration: none; }
 a:hover { text-decoration: underline; }
 .mute { color: #77787B; font-size: 12px; }
-strong { color: #4B58A6; }
+strong, h4, h5 { color: #4B58A6; }
 ::-webkit-scrollbar { width: 12px; }
 ::-webkit-scrollbar-track { box-shadow: inset 0 0 6px rgba(0,0,0,0.2); border-radius: 10px; }
 ::-webkit-scrollbar-thumb { border-radius: 10px; box-shadow: inset 0 0 6px rgba(0,0,0,0.3); }
@@ -257,6 +257,9 @@ footer { position: absolute; bottom: 0; left: 20px; right: 20px; height: 10px; o
 #title a {  font-size: 26px; color: #4B58A6; margin: 0; font-weight: normal; }
 #title a:hover { text-decoration: none; }
 .ie7 header hr { position: relative; top: -7px; }
+header .ui-icon { 
+  background-image: url("https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.19/themes/flick/images/ui-icons_0073ea_256x240.png");
+}
 
 
 /* search area */
@@ -278,13 +281,14 @@ input::-moz-placeholder, textarea::-moz-placeholder { color: #7C7C7C; }
 #maptools-bottom { position: absolute; bottom: 0; left: 0; right: 0; text-align: center;  }
 #opacity_slider { width: 250px; margin: 0 auto;    }
 #map p { text-align: center; margin: 5px 0; }
+#mapIndicie { min-width: 300px; }
 
 
 /* data area */
 #welcome p:nth-child(1) { padding-top: 0; margin-top: 0;  }
 .measureDetails { padding-bottom: 10px;  min-height: 496px; }
-.measureDetails h3 { margin: 0; text-align: center; font-size: 1.4em; line-height: 1; }
 .measureDetails h4 { margin: 12px 0 0; font-size: 16px; }
+.measureDetails h5 { margin: 12px 0 0; font-size: 15px; }
 .quickLink { background: url("../img/quicklink.png") center right no-repeat; padding: 0 13px 0 0; }
 #selectedNeighborhood { text-align: center; margin: 5px 0;}
 #details_chart { text-align: center; }

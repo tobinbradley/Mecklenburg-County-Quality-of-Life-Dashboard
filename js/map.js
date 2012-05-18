@@ -1,26 +1,39 @@
 /**
  * Map initialization
- */ 
+ */
 function mapInit() {
 	
+  
+
+  // Map Options
 	var myOptions = {
 		zoom: mapCenterZoom.zoom,
 		center: new google.maps.LatLng(mapCenterZoom.lat, mapCenterZoom.lng),
-		mapTypeId: google.maps.MapTypeId.ROADMAP,
-		mapTypeControl: false,
+		mapTypeControl: true,
+    mapTypeControlOptions: {
+      style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+      mapTypeIds: [
+                   "Map",
+                    google.maps.MapTypeId.SATELLITE,
+                    google.maps.MapTypeId.HYBRID
+                    ],
+      position: google.maps.ControlPosition.RIGHT_TOP
+    },
 		streetViewControl: false,
 		maxZoom: 17,
 		minZoom: 9
 	};
 	
 	map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
+  
+  // style the base map
+  styleMap();
     
     // legend
     var legendDiv = document.getElementById('legend');
     map.controls[google.maps.ControlPosition.TOP_RIGHT].push(legendDiv);
 	
-	// style the base map
-	styleMap();
+	
   
 	// Add layer
 	layer = new google.maps.FusionTablesLayer({ query: { select: 'geometry', from: tableID }, map: map });
@@ -42,13 +55,13 @@ function mapInit() {
 	styleFusionTable(FTmeta[$("#mapIndicie option:selected").val()]);
     
     // Hack for fusion tables tiles not loading
-	setTimeout(function(){ 
-		$("img[src*='mapslt']").each(function(){ 
+	setTimeout(function(){
+		$("img[src*='mapslt']").each(function(){
 			$(this).attr("src",$(this).attr("src")+"&"+(new Date()).getTime());
-		}); 
+		});
 	}, 2000);
     
-    // do something only the first time the map is loaded, in this case legend    
+    // do something only the first time the map is loaded, in this case legend
     google.maps.event.addListenerOnce(map, 'idle', function(){
         $("#legend").css("z-index", "100");
     });
@@ -65,12 +78,12 @@ function mapInit() {
  */
 function addMarker(lon, lat, featuretype, label) {
 	// remove old marker
-     if (marker != null) marker.setMap(null);
+     if (marker !== null) marker.setMap(null);
 
      // add new marker
      marker = new google.maps.Marker({
-          position: new google.maps.LatLng(lat, lon), 
-          map: map, 
+          position: new google.maps.LatLng(lat, lon),
+          map: map,
           //title:"Hello World!",
           animation: google.maps.Animation.DROP,
           flat: false
@@ -78,7 +91,7 @@ function addMarker(lon, lat, featuretype, label) {
      });
      
      // Create info window
-     var mycontent = label; 
+     var mycontent = label;
      var infowindow = new google.maps.InfoWindow({ content: mycontent });
      google.maps.event.addListener(marker, 'click', function() {
           infowindow.open(map,marker);
@@ -97,7 +110,7 @@ function addMarker(lon, lat, featuretype, label) {
 function performIntersection(lat, lon) {
 	// Perform intersect
 	url = "https://www.google.com/fusiontables/api/query/?sql=SELECT ID," + getFieldsArray(FTmeta).join() + " FROM " + tableID + " WHERE ST_INTERSECTS(geometry, CIRCLE(LATLNG(" + lat + "," + lon + "),1))&jsonCallback=?";
-	$.getJSON(url, function(data) {					  						 
+	$.getJSON(url, function(data) {
 		if (data.table.rows.length > 0) {
 			assignData(data.table);
 			updateData(FTmeta[$("#mapIndicie option:selected").val()]);
@@ -107,7 +120,7 @@ function performIntersection(lat, lon) {
 		else {
 			//console.log("Unable to communicate with Fusion Tables.");
 		}
-	});	
+	});
 }
 
 
@@ -115,9 +128,9 @@ function performIntersection(lat, lon) {
  * Retrieve Data via id
  */
 function selectNeighborhoodByID(idvalue) {
-    // Get neighborhood data    
+    // Get neighborhood data
     url = "https://www.google.com/fusiontables/api/query/?sql=SELECT ID," + getFieldsArray(FTmeta).join() + " FROM " + tableID + " WHERE ID = " + idvalue + "&jsonCallback=?";
-    $.getJSON(url, function(data) {					  						 
+    $.getJSON(url, function(data) {
         if (data.table.rows.length > 0) {
             assignData(data.table);
             window.location.hash = $("#mapIndicie").val() + "/" + idvalue;
@@ -132,14 +145,19 @@ function selectNeighborhoodByID(idvalue) {
     // add marker to the neighborhood
     // bit of cheating here - using local service for polygon centroid
     url = wsbase + 'v1/ws_geo_getcentroid.php?geotable=neighborhoods&callback=?&format=json&srid=4326&forceonsurface=true&parameters=id=' + idvalue;
-    $.getJSON(url, function(data) {					  
+    $.getJSON(url, function(data) {
         if (data.total_rows > 0) {
-            $.each(data.rows, function(i, item){
-                addMarker(item.row.x, item.row.y, 0, "<h3>Neighborhood " + idvalue + "</h3>");
-            });
+            // if not adding marker
+            map.setCenter(new google.maps.LatLng(data.rows[0].row.y, data.rows[0].row.x));
+            map.setZoom(13);
+
+            //$.each(data.rows, function(i, item){
+                //addMarker(item.row.x, item.row.y, 0, "<h3>Neighborhood " + idvalue + "</h3>");
+            //});
         }
-    });	
-    
+    });
+
+
     
 }
 
@@ -148,30 +166,36 @@ function selectNeighborhoodByID(idvalue) {
 /**
  * Fusion tables layer styling
  */
-function styleFusionTable(measure) {    
+function styleFusionTable(measure) {
 
-    theOpacity = $("#opacity_slider").slider("value") / 100;    
+    theOpacity = $("#opacity_slider").slider("value") / 100;
     var mapStyleJSON =  [];
     
-    
+    // Highlight selected neighborhood
+    if ( !jQuery.isEmptyObject(activeRecord) ) {
+      mapStyleJSON.push({ where: " ID = " + activeRecord.ID , polygonOptions: { strokeColor: '#3366CC', strokeWeight: 8, zOrder : 2 } });
+    }
+
     if (measure.style.type == "range") {
-        $.each(measure.style.breaks, function(index, value) {            
-            if (index == measure.style.breaks.length - 1) {              
+        $.each(measure.style.breaks, function(index, value) {
+            if (index == measure.style.breaks.length - 1) {
                 mapStyleJSON.push( { where: measure.field + " > " + value, polygonOptions: { fillColor: measure.style.colors[index], fillOpacity: theOpacity } });
             }
-            else if (index == 0) {
+            else if (index === 0) {
                 mapStyleJSON.push( { where: measure.field + " <= " + measure.style.breaks[index + 1], polygonOptions: { fillColor: measure.style.colors[index], fillOpacity: theOpacity } });
             }
             else {
                 mapStyleJSON.push({ where: measure.field + " > " + value + " and " + measure.field + " <= " + measure.style.breaks[index + 1], polygonOptions: { fillColor: measure.style.colors[index], fillOpacity: theOpacity } });
             }
-        });        
+        });
     }
+
+   
  
     layer.setOptions({ styles: mapStyleJSON });
     
     // Legend
-	createLegend(measure);
+    createLegend(measure);
     
 }
 
@@ -185,13 +209,13 @@ function createLegend(measure) {
     theOpacity = $("#opacity_slider").slider("value") / 100;
     theOpacity = theOpacity + 0.2; // make up for white legend background
     
-    // empty div  
+    // empty div
     $("#legend").empty();
     $("#legend").show();
     
     if (measure.style.type == "range") {
         $.each(measure.style.breaks, function(index, value) {
-            if (index == measure.style.breaks.length - 1) {              
+            if (index == measure.style.breaks.length - 1) {
                 $("#legend").append('<div><span style="background-color: ' + measure.style.colors[index] + '; opacity: ' + theOpacity + '"></span>> ' + value + measure.style.units + '</div>');
             }
             else {
@@ -287,8 +311,8 @@ function styleMap() {
 
     var styledMapType = new google.maps.StyledMapType(style, {
         map: map,
-        name: 'Styled Map'
+        name: 'Map'
     });
-    map.mapTypes.set('map-style', styledMapType);
-    map.setMapTypeId('map-style');
+   map.mapTypes.set('Map', styledMapType);
+  map.setMapTypeId('Map');
 }
