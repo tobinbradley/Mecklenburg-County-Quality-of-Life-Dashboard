@@ -41,6 +41,8 @@
 
 <body>
 	
+    <div id="toplinks" style="position: absolute; top: 0; left: 0; right: 20px; margin: 0; text-align: right;  color: #366CB3; display: none; "> City of Charlotte &bull; Mecklenburg County &bull; UNCC &bull; Fusion Tables &bull; Get the Code</div>
+
 	<div id="container">
         <header> 
             <div id="title">
@@ -83,7 +85,6 @@
                     <a href="javascript:void(0)" id="gps">Find My Location</a> &bull; </span>
                     <a href="javascript:void(0)" class="showMetricslist">Show All Variables</a> &bull; 
                     <a href="javascript:void(0)" class="searchhelp">Help</a>
-
                 </p>
             </div>
             			                
@@ -107,20 +108,23 @@
 			</div>
             <div id="metricslist" class="hidden"></div>
 
-            <hr />
-            <p class="mute screen-only">
-                View the raw data in Fusion Tables <a href="http://www.google.com/fusiontables/DataSource?snapid=S289817c03d" target="_blank">here</a>. <br />
-                Download the source code and view the API <a href="https://github.com/tobinbradley/Mecklenburg-County-Quality-of-Life-Dashboard" target="_blank">here</a>.<br />
-                
-                By using this web site, you agree to abide by our <a href="javascript:void(0)" onclick="$('#disclaimer-dialog').dialog('open'); return false;">disclaimer</a>.
-                <br /><br />
-                Created by the <a href="http://charmeck.org/city/charlotte/Pages/default.aspx">City of Charlotte</a>, 
-                <a href="http://charmeck.org/mecklenburg/county/Pages/Default.aspx">Mecklenburg County</a>, and <a href="http://www.uncc.edu/">UNCC</a>.
+            
+            <div id="sidebar-footer">
+                <hr />
+                <p class="mute screen-only">
+                    View the raw data in Fusion Tables <a href="http://www.google.com/fusiontables/DataSource?snapid=S289817c03d" target="_blank">here</a>. <br />
+                    Download the source code and view the API <a href="https://github.com/tobinbradley/Mecklenburg-County-Quality-of-Life-Dashboard" target="_blank">here</a>.<br />
+                    
+                    By using this web site, you agree to abide by our <a href="javascript:void(0)" onclick="$('#disclaimer-dialog').dialog('open'); return false;">disclaimer</a>.
+                    <br /><br />
+                    Created by the <a href="http://charmeck.org/city/charlotte/Pages/default.aspx">City of Charlotte</a>, 
+                    <a href="http://charmeck.org/mecklenburg/county/Pages/Default.aspx">Mecklenburg County</a>, and <a href="http://www.uncc.edu/">UNCC</a>.
 
-            </p>
-            <p class="text-center mute">
-                <img src="img/seals.png" height="36" />
-            </p>
+                </p>
+                <p class="text-center mute">
+                    <img src="img/seals.png" height="36" />
+                </p>
+            </div>
 		</aside>
 		
 	</div> <!-- end of container -->
@@ -150,7 +154,6 @@
 	
 	<!-- Tutorial dialog -->
 	<div id="tutorial-dialog" title="Tutorial Video" class="hidden">
-		<iframe width="480" height="360" src="http://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
 	</div>
     
     <!-- Search help - jQuery UI Dialog -->

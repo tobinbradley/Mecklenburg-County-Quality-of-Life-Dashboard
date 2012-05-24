@@ -237,7 +237,7 @@ strong, h4, h5 { color: #4B58A6; }
 /* main page elements */
 body { background: #fff; }
 html, button, input, select, textarea { font-family: Helmet, Freesans, sans-serif; }
-body, button { font-size: 14px; line-height: 1.3; }
+body, button { font-size: 13px; line-height: 1.3; }
 
 /* Layout */
 header { height: 65px; position: absolute; top: 10px; left: 20px; right: 20px; }

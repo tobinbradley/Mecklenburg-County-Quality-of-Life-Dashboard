@@ -16,7 +16,7 @@ Greens ["#d0e0e3","#a2c4c9","#76a5af","#45818e","#134f5c"]
 Purples ["#f6e6f5", "#e8c1e7", "#d084ce", "#a03d9e"]
 Blues ["#f1f5fc", "#85a3e0", "#2952a3", "#142952"]
 Tan/brown ["#ffe2ab", "#feb324", "#bb7b01", "#563800"]
-Orange ["#fad8ae", "#f7c17d", "#f5ab4d", "#f08c0e"]
+Orange ["#ffceb7", "#ffab84", "#ff7d40", "#c84000"]
 */
 
 /**
@@ -347,7 +347,7 @@ function updateData(measure) {
         $.each(measure.quicklinks, function(index, value) {
             quicklinks[index] = '<a href="javascript:void(0)" class="quickLink" onclick="changeMeasure(\'' + value + '\')">' + FTmeta[value].title + '</a>';
         });
-        $("#indicator_quicklinks").html('<h4>Related Variables</h4>' + quicklinks.join(", "));
+        $("#indicator_quicklinks").html('<h5>Related Variables</h5>' + quicklinks.join(", "));
     }
     else $("#indicator_quicklinks").empty();
     
