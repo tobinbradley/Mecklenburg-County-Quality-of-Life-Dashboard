@@ -8,7 +8,7 @@ var countyAverage = {}; // Holder for county averages
 var tableID = 1844838;  // ID of the fusion table layer
 var wsbase = "http://maps.co.mecklenburg.nc.us/rest/";   // Base URL for REST web services
 //var wsbase = "http://localhost/code/rest/";   // Base URL for REST web services
-var colorTheme = new Array("#f4cccc", "#e78888", "#cc0000", "#8d0000");
+var colorTheme = new Array("#eafdf5","#71eeb8","#17c077","#0e7448");
 
 /* Some color palletes for the metrics.json styling
 Reds ["#f4cccc", "#e78888", "#cc0000", "#8d0000"]
@@ -53,6 +53,11 @@ $(document).ready(function() {
         }
     });
     $('#opacity_slider').sliderLabels('Map','Data');
+
+    // Accordion
+    $( "#selected-accordion" ).accordion({
+            autoHeight: false,
+            navigation: true});
     
     // Dialogs
     $("#report-dialog").dialog({ width: 400, autoOpen: false, show: 'fade', hide: 'fade', modal: false });
@@ -72,6 +77,14 @@ $(document).ready(function() {
     $("#searchbox").click(function() { $(this).select(); });
     $(".showWelcome").click(function() { window.location.hash = ""; $(window).trigger( 'hashchange' ); });
     $(".showMetricslist").click(function(){
+        rel = $(this).attr("rel");
+        $("#metricslist").empty();
+        $.each(FTmeta, function(index, item) {
+            if (rel == item.category) {
+                $("#metricslist").append('<a href="javascript:void(0)" onclick="changeMeasure(\'' + this.field + '\')" class="quickLink">' + this.title + '</a><br />');
+            }
+        });
+
         $("#selected-summary, #welcome").hide();
         $("#metricslist").show("fade", {}, 1500);
     });
@@ -118,23 +131,20 @@ $(document).ready(function() {
     
     // Fill out Map select, report select, metrics list from metrics.json
     writebuffer = "";
-    writebuffer2 = "";
     category = "";
     $.each(FTmeta, function(index) {
         if (index === 0 || this.category != category) {
             if (index !== 0) writebuffer += '</optgroup>';
             writebuffer += '<optgroup label="' + capitaliseFirstLetter(this.category) + '">';
-            writebuffer2 += "<h4>" + capitaliseFirstLetter(this.category) + "</h4>";
             category = this.category;
         }
         writebuffer += '<option value="' + this.field + '">' + this.title + '</option>';
-        writebuffer2 += '<a href="javascript:void(0)" onclick="changeMeasure(\'' + this.field + '\')" class="quickLink">' + this.title + '</a><br />';
+        //writebuffer2 += '<a href="javascript:void(0)" onclick="changeMeasure(\'' + this.field + '\')" class="quickLink">' + this.title + '</a><br />';
     });
     writebuffer += '</optgroup>';
     $("#mapIndicie, #report_metrics").html(writebuffer);
-    $("#metricslist").html(writebuffer2);
     //$("#mapIndicie option").sort(sortAlpha).appendTo("#mapIndicie");
-    $("#mapIndicie").val("total_commuters").attr('selected', 'selected');
+    $("#mapIndicie").val("population").attr('selected', 'selected');
     $("#map select").multiselect({ minWidth: 300, height: 300, multiple: false,  selectedList: 1,
         beforeoptgrouptoggle: function(event, ui) { return false; }
     }).multiselectfilter();
@@ -329,7 +339,7 @@ function assignData(data) {
  */
 function updateData(measure) {
     // set neighborhood overview
-    $("#selectedNeighborhood").html("NPA " + activeRecord.ID + " " + measure.title);
+    $("#selectedNeighborhood").html("Neighborhood Profile Area " + activeRecord.ID + "<br />" + measure.title);
     
     // set details info
     $("#indicator_description").html(measure.description);
@@ -337,9 +347,13 @@ function updateData(measure) {
     $("#indicator_technical").html(measure.tech_notes);
     $("#indicator_source").html(measure.source);
     $("#indicator_resources").empty();
-    $.each(measure.links.text, function(index, value) {
-        $("#indicator_resources").append('<a href="' + measure.links.links[index] + '">' + measure.links.text[index] + '</a><br />');
-    });
+
+    // Links
+    if (measure.links) {
+        $.each(measure.links.text, function(index, value) {
+            $("#indicator_resources").append('<a href="' + measure.links.links[index] + '">' + measure.links.text[index] + '</a><br />');
+        });
+    }
     
     // Quick links
     if (measure.quicklinks) {
@@ -347,7 +361,7 @@ function updateData(measure) {
         $.each(measure.quicklinks, function(index, value) {
             quicklinks[index] = '<a href="javascript:void(0)" class="quickLink" onclick="changeMeasure(\'' + value + '\')">' + FTmeta[value].title + '</a>';
         });
-        $("#indicator_quicklinks").html('<h5>Related Variables</h5>' + quicklinks.join(", "));
+        $("#indicator_quicklinks").html(quicklinks.join(", "));
     }
     else $("#indicator_quicklinks").empty();
     
@@ -357,6 +371,9 @@ function updateData(measure) {
     // aux chart
     if (measure.auxchart) { auxChart(measure); }
     else { $("#indicator_auxchart").empty(); }
+
+    // Set accordion to first value
+    $("#selected-accordion").accordion("activate", 0);
     
     // Show
     $("#welcome, #metricslist").hide();
@@ -399,7 +416,7 @@ function auxChart(measure) {
     i = 1;
     $.each(measure.auxchart.measures, function(index, value) {
         if (activeRecord[value] > 0) {
-            items[i] = [ FTmeta[value].title.replace("Commute by ","").replace("Commute ","") ,  activeRecord[FTmeta[value].field] ];
+            items[i] = [ FTmeta[value].title.replace("Commute by ","").replace("Commute ","") + " " + activeRecord[FTmeta[value].field] + "%",  activeRecord[FTmeta[value].field] ];
             i++;
         }
     });
@@ -411,7 +428,8 @@ function auxChart(measure) {
         legend: 'right',
         titlePosition: 'out',
         title: measure.auxchart.title,
-        titleTextStyle: { fontSize: 14 }
+        titleTextStyle: { fontSize: 14 },
+        pieSliceText: 'value'
     };
 
     var chart = new google.visualization.PieChart(document.getElementById('indicator_auxchart'));

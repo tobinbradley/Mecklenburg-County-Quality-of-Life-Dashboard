@@ -40,8 +40,6 @@
 </head>
 
 <body>
-	
-    <div id="toplinks" style="position: absolute; top: 0; left: 0; right: 20px; margin: 0; text-align: right;  color: #366CB3; display: none; "> City of Charlotte &bull; Mecklenburg County &bull; UNCC &bull; Fusion Tables &bull; Get the Code</div>
 
 	<div id="container">
         <header> 
@@ -49,7 +47,12 @@
                 <a href="javascript:void(0)" class="showWelcome">Quality of Life Dashboard (beta)</a>
             </div>
             <div id="top-links" class="screen-only mute">
-                <span class="ui-icon ui-icon-print alignleft" style="position: relative; top: -1px;"></span> <a href="javascript:void(0)" id="report">Print</a>
+                <div>
+                    <a href="javascript:void(0)" id="report"><span class="ui-icon ui-icon-print"></span> Print Report</a>
+                </div>
+                 <div>
+                    <a href="javascript:void(0)" id="download_data"><span class="ui-icon ui-icon-circle-arrow-s"></span> Download Data</a>
+                </div>
             </div>
             <div style="clear:both"></div>
             <hr />
@@ -59,11 +62,10 @@
         <div id="map">               
             <div id="maptools-top" class="screen-only">
                 <span id="currentlyShowing"><strong>Currently Showing: </strong></span> <select id="mapIndicie" class=""></select>
-                
             </div>
 			<div id="map-canvas"></div>
             <div id="maptools-bottom" class="screen-only">
-                <div id="opacity_slider"></div>                
+                <div id="opacity_slider"></div>            
             </div>
             <div id="legend" class="hidden"></div>
 		</div>
@@ -74,36 +76,51 @@
                     The <strong>Quality of Life Dashboard</strong> is your gateway to the 2012 Neighborhood Quality of Life Study. 
                     It is designed to help officials and residents assess the health of Charlotte and Mecklenburg County neighborhoods. 
                 </p>
-                <p>
+                
+                <p style="padding-bottom: 10px;">
                     You can <strong>begin by searching for an address below</strong> (<a href="javascript:void(0)" class="searchhelp">help</a>), such as <em>700 N Tryon</em>, or by interacting with the map.
-                    A complete <strong>list of variables</strong> collected in this study is available <a href="javascript:void(0)" class="showMetricslist">here</a>.
                 </p>
             </div>
             <div id="search" class="screen-only">               
+                <p style="padding-bottom: 10px;">
+                    <strong>View Variables</strong><br />
+                    <a href="javascript:void(0)" class="showMetricslist" rel="character">Character</a> &bull; 
+                    <a href="javascript:void(0)" class="showMetricslist" rel="green">Green</a> &bull; 
+                    <a href="javascript:void(0)" class="showMetricslist" rel="health">Health</a> &bull; 
+                    <a href="javascript:void(0)" class="showMetricslist" rel="education">Education</a> &bull; 
+                    <a href="javascript:void(0)" class="showMetricslist" rel="safety">Safety</a> &bull; 
+                    <a href="javascript:void(0)" class="showMetricslist" rel="housing">Housing</a> &bull; 
+                    <a href="javascript:void(0)" class="showMetricslist" rel="economics">Economics</a>
+                </p>
                 <input id="searchbox" class="inset" type="textbox" placeholder='Start here! Try "700 N Tryon"' x-webkit-speech speech />
                 <p class="mute"><span id="gpsarea" class="hidden">
                     <a href="javascript:void(0)" id="gps">Find My Location</a> &bull; </span>
-                    <a href="javascript:void(0)" class="showMetricslist">Show All Variables</a> &bull; 
                     <a href="javascript:void(0)" class="searchhelp">Help</a>
                 </p>
+                
             </div>
             			                
-			<div id="selected-summary" class="hidden">  
+			<div id="selected-summary" class="hidden">
+                <hr />  
                 <div class="measureDetails">
                     <h4 id="selectedNeighborhood">Neighborhood</h4>
 					<div id='details_chart' class="chart"></div>
                     <div id="indicator_auxchart"></div> 
-					<h5>What is this Indicator?</h5>
-					<div id="indicator_description"></div>                                           
-					<h5>Why is this Important?</h5>
-					<div id="indicator_why"></div>
-                    <div id="indicator_quicklinks"></div>
-					<h5>Technical Notes</h5>
-					<div id="indicator_technical"></div>
-					<h5>Data Source</h5>
-					<div id="indicator_source"></div>
-					<h5>Additional Resources</h5>
-					<div id="indicator_resources"></div>
+
+                    <div id="selected-accordion">
+                        <h3><a href="#">What is this Indicator?</a></h3>
+                        <div id="indicator_description"></div>
+                        <h3><a href="#">Why is this Important?</a></h3>
+                        <div id="indicator_why"></div>
+                        <h3><a href="#">Related Variables</a></h3>
+                        <div  id="indicator_quicklinks"></div>
+                        <h3><a href="#">Technical Notes</a></h3>
+                        <div id="indicator_technical"></div>
+                        <h3><a href="#">Data Source</a></h3>
+                        <div id="indicator_source"></div>
+                        <h3><a href="#">Additional Resources</a></h3>
+                        <div id="indicator_resources"></div>
+                    </div>
 				</div>
 			</div>
             <div id="metricslist" class="hidden"></div>
@@ -139,7 +156,7 @@
                 You can print a formatted version of your current browser by using your browser's print command.
                 You can also print out a PDF report by selecting a neighborhood and metrics below.
             </p>
-            <h4>Select Neighborhood</h4>            
+            <h4>Select Neighborhood Profile Area</h4>            
             <p>
                 <select id="report_neighborhood" name="n"></select>
             </p>

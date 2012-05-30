@@ -253,14 +253,17 @@ footer { position: absolute; bottom: 0; left: 20px; right: 20px; height: 10px; o
 
 /* header */
 #title { float: left; }
-#top-links { float: right; position: relative; top: 28px;}
+#top-links { float: right; position: relative; top: 27px; }
+#top-links div { display: inline-block; position: relative; }
+#top-links a { position: relative; }
 #title a {  font-size: 26px; color: #4B58A6; margin: 0; font-weight: normal; }
 #title a:hover { text-decoration: none; }
 .ie7 header hr { position: relative; top: -7px; }
 header .ui-icon { 
   background-image: url("https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.19/themes/flick/images/ui-icons_0073ea_256x240.png");
+  float: left;
+  margin: 0 2px;
 }
-
 
 /* search area */
 #search { margin: 0 0 15px 0; text-align: center; }
@@ -289,15 +292,15 @@ input::-moz-placeholder, textarea::-moz-placeholder { color: #7C7C7C; }
 .measureDetails { padding-bottom: 10px;  min-height: 496px; }
 .measureDetails h4 { margin: 12px 0 0; font-size: 16px; }
 .measureDetails h5 { margin: 12px 0 0; font-size: 15px; }
-.quickLink { background: url("../img/quicklink.png") center right no-repeat; padding: 0 13px 0 0; }
+/*.quickLink { background: url("../img/quicklink.png") center right no-repeat; padding: 0 13px 0 0; }*/
 #selectedNeighborhood { text-align: center; margin: 5px 0;}
 #details_chart { text-align: center; }
-.measureDetails div img { max-width: 90%; }
-#permalink a { font-size: 10px; }
 #indicator_auxchart { margin: 0; text-align: center; }
-#indicator_quicklinks h4 { padding-left: 0; }
 #social_media { text-align: center; }
-aside hr { margin-top: 40px;  }
+#sidebar-footer hr { margin-top: 40px;  }
+#selected-accordion { margin-top: 20px; }
+#selected-accordion div { padding-bottom: 15px; }
+#metricslist { padding-left: 10px;  }
 
 
 /* Metrics list */
@@ -314,6 +317,8 @@ aside hr { margin-top: 40px;  }
 
 /* jquery ui tweaks */
 .ui-widget { font-size: 1em !important; font-family: Helmet, Freesans, sans-serif !important;}
+.ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited { color: #4B58A6 !important; }
+.ui-accordion-content a, .ui-accordion-content a:link, .ui-accordion-content a:visited { color: #4B58A6 !important;  }
 .ui-autocomplete-loading { background: transparent url('../img/ui-anim_basic_16x16.gif') right no-repeat !important }
 .ui-autocomplete .ui-menu-item { padding-left: 10px }
 .ui-autocomplete { overflow: auto; overflow-y: auto; overflow-x: hidden; font-size: 0.9em; font-weight: normal; max-height: 400px; box-shadow: 2px 2px 4px #666;}

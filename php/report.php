@@ -197,7 +197,7 @@ function createMeasure($x, $y, $themeasure) {
     $pdf->Ln(0.1);
     $pdf->SetX($x);
     $pdf->SetFont('Arial','',10);
-    $pdf->MultiCell(3.5, 0.15, $json[$themeasure][description], 0, "L");
+    $pdf->MultiCell(3.5, 0.15, strip_tags($json[$themeasure][description]), 0, "L");
     if ($json[$themeasure][auxchart]) {
         $pdf->Ln(0.2);
         $pdf->SetX($x);
@@ -223,7 +223,7 @@ function createMeasure($x, $y, $themeasure) {
     $pdf->Ln(0.1);
     $pdf->SetX($x);
     $pdf->SetFont('Arial','',10);
-    $pdf->MultiCell(3.5, 0.15, $json[$themeasure][importance], 0, "L");
+    $pdf->MultiCell(3.5, 0.15, strip_tags($json[$themeasure][importance]), 0, "L");
     $pdf->Ln(0.2);
     $pdf->SetX($x);
     $pdf->SetFont('Arial','B',10);
@@ -231,7 +231,7 @@ function createMeasure($x, $y, $themeasure) {
     $pdf->Ln(0.1);
     $pdf->SetX($x);
     $pdf->SetFont('Arial','',10);
-    $pdf->MultiCell(3.5, 0.15, $json[$themeasure][tech_notes], 0, "L");
+    $pdf->MultiCell(3.5, 0.15, strip_tags($json[$themeasure][tech_notes]), 0, "L");
     $pdf->Ln(0.2);
     $pdf->SetX($x);
     $pdf->SetFont('Arial','B',10);
@@ -239,7 +239,7 @@ function createMeasure($x, $y, $themeasure) {
     $pdf->Ln(0.1);
     $pdf->SetX($x);
     $pdf->SetFont('Arial','',10);
-    $pdf->MultiCell(3.5, 0.15, $json[$themeasure][source], 0, "L");
+    $pdf->MultiCell(3.5, 0.15, strip_tags($json[$themeasure][source]), 0, "L");
     $pdf->Ln(0.2);
     $pdf->SetX($x);
     $pdf->SetFont('Arial','B',10);

@@ -78,7 +78,7 @@ function mapInit() {
  */
 function addMarker(lon, lat, featuretype, label) {
 	// remove old marker
-     if (marker !== null) marker.setMap(null);
+     if (marker != null) marker.setMap(null);
 
      // add new marker
      marker = new google.maps.Marker({
@@ -115,7 +115,7 @@ function performIntersection(lat, lon) {
 			assignData(data.table);
 			updateData(FTmeta[$("#mapIndicie option:selected").val()]);
 			styleFusionTable(FTmeta[$("#mapIndicie option:selected").val()]);
-            addMarker(lon, lat, 0, "<h3>Neighborhood " + activeRecord.ID + "</h3>");
+      addMarker(lon, lat, 0, "<h3>Neighborhood " + activeRecord.ID + "</h3>");
 		}
 		else {
 			//console.log("Unable to communicate with Fusion Tables.");
@@ -182,7 +182,7 @@ function styleFusionTable(measure) {
                 mapStyleJSON.push( { where: measure.field + " > " + value, polygonOptions: { fillColor: measure.style.colors[index], fillOpacity: theOpacity } });
             }
             else if (index === 0) {
-                mapStyleJSON.push( { where: measure.field + " <= " + measure.style.breaks[index + 1], polygonOptions: { fillColor: measure.style.colors[index], fillOpacity: theOpacity } });
+                mapStyleJSON.push( { where: measure.field + " >= 0 and " + measure.field + " <= " + measure.style.breaks[index + 1], polygonOptions: { fillColor: measure.style.colors[index], fillOpacity: theOpacity } });
             }
             else {
                 mapStyleJSON.push({ where: measure.field + " > " + value + " and " + measure.field + " <= " + measure.style.breaks[index + 1], polygonOptions: { fillColor: measure.style.colors[index], fillOpacity: theOpacity } });
