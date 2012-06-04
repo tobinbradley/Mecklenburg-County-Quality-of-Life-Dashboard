@@ -26,7 +26,7 @@ var mapCenterZoom = { lat: 35.260, lng: -80.817, zoom: 10 };
 
 
 $(document).ready(function() {
-    
+
     // Load JSON metric configuration
     $.ajax({
         url: "js/metrics.json",
@@ -36,12 +36,12 @@ $(document).ready(function() {
             FTmeta = data;
         }
     });
-    
+
     // Set the map colors
     $.each(FTmeta, function(index) {
         this.style.colors = colorTheme;
     });
-    
+
     // Opacity slider
     $( "#opacity_slider" ).slider({
         range: "min",
@@ -58,7 +58,7 @@ $(document).ready(function() {
     $( "#selected-accordion" ).accordion({
             autoHeight: false,
             navigation: true});
-    
+
     // Dialogs
     $("#report-dialog").dialog({ width: 400, autoOpen: false, show: 'fade', hide: 'fade', modal: false });
     $("#tutorial-dialog").dialog({ width: 510, autoOpen: false, show: 'fade', hide: 'fade', modal: true });
@@ -67,7 +67,7 @@ $(document).ready(function() {
 
     // Show GPS link if browser support
     if (Modernizr.geolocation) $("#gpsarea").show();
-    
+
     // Click events
     $("#report").click(function(){ $('#report-dialog').dialog('open'); });
     $("#tutorial").click(function(){ $('#tutorial-dialog').dialog('open'); });
@@ -89,13 +89,13 @@ $(document).ready(function() {
         $("#metricslist").show("fade", {}, 1500);
     });
     $("#translate").click( function() { console.log("test"); window.location.hash = "googtrans(en|sp)"; });
-    
+
     // URL Hash Change Handler
     $(window).hashchange( function(){
         if (window.location.hash.length > 1) {
             // read the hash
             theHash = window.location.hash.replace("#","").split("/");
-            
+
             // Process the lat,lon or neighborhood number
             if (theHash[1] && theHash[1].length > 0 && theHash[1] != activeRecord.ID) {
                 if (theHash[1].indexOf(",") == -1) {
@@ -106,7 +106,7 @@ $(document).ready(function() {
                     performIntersection(coords[0], coords[1]);
                 }
             }
-           
+
             // Process the metric
             if (theHash[0].length > 0 && $('#mapIndicie option[value=' + theHash[0] + ']').length > 0 ) {
                 $("#mapIndicie").val(theHash[0]).attr('selected', 'selected');
@@ -127,8 +127,8 @@ $(document).ready(function() {
             $("#welcome").show("fade", {}, 1500);
         }
     });
-    
-    
+
+
     // Fill out Map select, report select, metrics list from metrics.json
     writebuffer = "";
     category = "";
@@ -149,12 +149,12 @@ $(document).ready(function() {
         beforeoptgrouptoggle: function(event, ui) { return false; }
     }).multiselectfilter();
     $("#report_measures select").multiselect({ minWidth: 375, height: 250 }).multiselectfilter();
-    
-    
+
+
     // Map measure drop down list change
     $("#mapIndicie").change(function(){ window.location.hash = $(this).val() + ((activeRecord.ID) ? "/" + activeRecord.ID : "/"); });
-    
-    
+
+
     // Autocomplete
     $("#searchbox").autocomplete({
         minLength: 4,
@@ -180,9 +180,9 @@ $(document).ready(function() {
                             getid: item.row.getid
                         };
                     }));
-                            
+
                 }
-                else if  (data.total_rows === 0) {
+                else if  (data.total_rows == 0) {
                     response($.map([{}], function(item) {
                         return {
                             // Message indicating nothing is found
@@ -228,7 +228,7 @@ $(document).ready(function() {
               self._renderItem( ul, item );
          });
     };
-    
+
     // get county averages
     url = "https://www.google.com/fusiontables/api/query/?sql=SELECT " + getFieldsAverageArray(FTmeta).join() + " FROM " + tableID + "&jsonCallback=?";
     $.getJSON(url, function(data) {
@@ -236,7 +236,7 @@ $(document).ready(function() {
             $.each(data.table.cols, function(i, item){
                 countyAverage[item] = Math.round(data.table.rows[0][i]);
             });
-            
+
             // populate 3 random percentage charts on the front page
             var measureTitle = [];
             var measureValue = [];
@@ -254,7 +254,7 @@ $(document).ready(function() {
             console.log("Unable to get county averages from Fusion Tables.");
         }
     });
-  
+
 });
 
 
@@ -264,7 +264,7 @@ $(document).ready(function() {
 $(window).load(function(){
     // load map
     mapInit();
-    
+
     // Load neighborhood ID's into report select
     url = "https://www.google.com/fusiontables/api/query/?sql=SELECT ID FROM 1844838 ORDER BY ID&jsonCallback=?";
     $.getJSON(url, function(data) {
@@ -279,8 +279,8 @@ $(window).load(function(){
             console.log("Unable to get county averages from Fusion Tables.");
         }
     });
-    
-    
+
+
     // Detect arguments or GPS
     if (window.location.hash.length > 0) {
         $(window).trigger( 'hashchange' );
@@ -288,7 +288,7 @@ $(window).load(function(){
     else if (Modernizr.geolocation) {
         //tryGPS();
     }
-    
+
 });
 
 
@@ -330,7 +330,7 @@ function assignData(data) {
     $("#report_neighborhood option").each(function() {
         if ($(this).text() == activeRecord["ID"]) $(this).attr('selected', 'selected');
     });
-    
+
 }
 
 
@@ -340,7 +340,7 @@ function assignData(data) {
 function updateData(measure) {
     // set neighborhood overview
     $("#selectedNeighborhood").html("Neighborhood Profile Area " + activeRecord.ID + "<br />" + measure.title);
-    
+
     // set details info
     $("#indicator_description").html(measure.description);
     $("#indicator_why").html(measure.importance);
@@ -354,7 +354,7 @@ function updateData(measure) {
             $("#indicator_resources").append('<a href="' + measure.links.links[index] + '">' + measure.links.text[index] + '</a><br />');
         });
     }
-    
+
     // Quick links
     if (measure.quicklinks) {
         quicklinks = [];
@@ -364,7 +364,7 @@ function updateData(measure) {
         $("#indicator_quicklinks").html(quicklinks.join(", "));
     }
     else $("#indicator_quicklinks").empty();
-    
+
     // update chart
     barChart(measure);
 
@@ -374,7 +374,7 @@ function updateData(measure) {
 
     // Set accordion to first value
     $("#selected-accordion").accordion("activate", 0);
-    
+
     // Show
     $("#welcome, #metricslist").hide();
     $("#selected-summary").show("fade", {}, 1500);
@@ -409,7 +409,7 @@ function barChart(measure){
  * Extra chart
  */
 function auxChart(measure) {
-    
+
     // add each measure to array
     items = [];
     items[0] = ["test","test"];
@@ -425,11 +425,13 @@ function auxChart(measure) {
 
     var options = {
         width: 390,
+        height: 180,
         legend: 'right',
         titlePosition: 'out',
         title: measure.auxchart.title,
         titleTextStyle: { fontSize: 14 },
-        pieSliceText: 'value'
+        pieSliceText: 'value',
+        chartArea: {top: 35,  height: 135}
     };
 
     var chart = new google.visualization.PieChart(document.getElementById('indicator_auxchart'));
@@ -449,7 +451,7 @@ function auxChart(measure) {
 function locationFinder(findType, findTable, findField, findID, findLabel, findValue) {
     // grab the hash to rebuild it with the coordinates
     theHash = window.location.hash.replace("#","").split("/");
-    
+
     switch (findType) {
         case "Address": case "PID": case "API":
             url = wsbase + 'v1/ws_mat_addressnum.php?format=json&callback=?&jsonp=?&addressnum=' + findID;
@@ -486,7 +488,7 @@ function locationFinder(findType, findTable, findField, findID, findLabel, findV
                     window.location.hash = theHash[0] + "/" + item.row.y + "," + item.row.x;
                 });
             });
-            
+
             break;
         case "Intersection":
             url = wsbase + "v1/ws_geo_centerlineintersection.php?format=json&callback=?";

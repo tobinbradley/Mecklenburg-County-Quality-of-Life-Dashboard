@@ -7,32 +7,32 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
-  
+
     <!-- Use the .htaccess and remove these lines to avoid edge case issues.
          More info: h5bp.com/b/378 -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  
+
     <title>Quality of Life Dashboard</title>
     <meta name="description" content="Quality of Life Dashboard">
     <meta name="author" content="Tobin Bradley">
-  
+
     <!-- Mobile viewport optimized: j.mp/bplateviewport -->
     <meta name="viewport" content="width=device-width,initial-scale=1">
-      
+
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-    
+
     <!-- jQuery UI CSS -->
     <link type="text/css" media="all" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.19/themes/flick/jquery-ui.css" rel="stylesheet" />
 
     <!-- Fonts -->
-  
+
     <!-- CSS: implied media=all -->
     <link rel="stylesheet" href="css/style.css">
     <!-- end CSS-->
-  
+
     <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
-  
+
     <!-- All JavaScript at the bottom, except for Modernizr / Respond.
          Modernizr enables HTML5 elements & feature detects; Respond is a polyfill for min/max-width CSS3 Media Queries
          For optimal performance, use a custom Modernizr build: www.modernizr.com/download/ -->
@@ -40,9 +40,8 @@
 </head>
 
 <body>
-
 	<div id="container">
-        <header> 
+        <header>
             <div id="title">
                 <a href="javascript:void(0)" class="showWelcome">Quality of Life Dashboard (beta)</a>
             </div>
@@ -57,55 +56,56 @@
             <div style="clear:both"></div>
             <hr />
         </header>
-        
-			
-        <div id="map">               
+
+
+        <div id="map">
             <div id="maptools-top" class="screen-only">
                 <span id="currentlyShowing"><strong>Currently Showing: </strong></span> <select id="mapIndicie" class=""></select>
             </div>
 			<div id="map-canvas"></div>
             <div id="maptools-bottom" class="screen-only">
-                <div id="opacity_slider"></div>            
+                <div id="opacity_slider"></div>
             </div>
             <div id="legend" class="hidden"></div>
 		</div>
-            
+
 		<aside>
             <div id="welcome">
                 <p>
-                    The <strong>Quality of Life Dashboard</strong> is your gateway to the 2012 Neighborhood Quality of Life Study. 
-                    It is designed to help officials and residents assess the health of Charlotte and Mecklenburg County neighborhoods. 
+                    The <strong>Quality of Life Dashboard</strong> is your gateway to the 2012 Neighborhood Quality of Life Study.
+                    It is designed to help officials and residents assess the health of Charlotte and Mecklenburg County neighborhoods.
                 </p>
-                
+
                 <p style="padding-bottom: 10px;">
                     You can <strong>begin by searching for an address below</strong> (<a href="javascript:void(0)" class="searchhelp">help</a>), such as <em>700 N Tryon</em>, or by interacting with the map.
                 </p>
             </div>
-            <div id="search" class="screen-only">               
-                <p style="padding-bottom: 10px;">
-                    <strong>View Variables</strong><br />
-                    <a href="javascript:void(0)" class="showMetricslist" rel="character">Character</a> &bull; 
-                    <a href="javascript:void(0)" class="showMetricslist" rel="green">Green</a> &bull; 
-                    <a href="javascript:void(0)" class="showMetricslist" rel="health">Health</a> &bull; 
-                    <a href="javascript:void(0)" class="showMetricslist" rel="education">Education</a> &bull; 
-                    <a href="javascript:void(0)" class="showMetricslist" rel="safety">Safety</a> &bull; 
-                    <a href="javascript:void(0)" class="showMetricslist" rel="housing">Housing</a> &bull; 
-                    <a href="javascript:void(0)" class="showMetricslist" rel="economics">Economics</a>
-                </p>
+            <div id="search" class="screen-only">
+
                 <input id="searchbox" class="inset" type="textbox" placeholder='Start here! Try "700 N Tryon"' x-webkit-speech speech />
-                <p class="mute"><span id="gpsarea" class="hidden">
+                <p class="mute" style="margin-top: 0;"><span id="gpsarea" class="hidden">
                     <a href="javascript:void(0)" id="gps">Find My Location</a> &bull; </span>
                     <a href="javascript:void(0)" class="searchhelp">Help</a>
                 </p>
-                
+                <p>
+                    <strong style="font-size: 1.1em;">Varible Categories</strong><br />
+                    <a href="javascript:void(0)" class="showMetricslist" rel="character">Character</a> &bull;
+                    <a href="javascript:void(0)" class="showMetricslist" rel="green">Green</a> &bull;
+                    <a href="javascript:void(0)" class="showMetricslist" rel="health">Health</a> &bull;
+                    <a href="javascript:void(0)" class="showMetricslist" rel="education">Education</a> &bull;
+                    <a href="javascript:void(0)" class="showMetricslist" rel="safety">Safety</a> &bull;
+                    <a href="javascript:void(0)" class="showMetricslist" rel="housing">Housing</a> &bull;
+                    <a href="javascript:void(0)" class="showMetricslist" rel="economics">Economics</a>
+                </p>
+
             </div>
-            			                
+
 			<div id="selected-summary" class="hidden">
-                <hr />  
+                <hr />
                 <div class="measureDetails">
                     <h4 id="selectedNeighborhood">Neighborhood</h4>
 					<div id='details_chart' class="chart"></div>
-                    <div id="indicator_auxchart"></div> 
+                    <div id="indicator_auxchart"></div>
 
                     <div id="selected-accordion">
                         <h3><a href="#">What is this Indicator?</a></h3>
@@ -125,16 +125,16 @@
 			</div>
             <div id="metricslist" class="hidden"></div>
 
-            
+
             <div id="sidebar-footer">
                 <hr />
                 <p class="mute screen-only">
                     View the raw data in Fusion Tables <a href="http://www.google.com/fusiontables/DataSource?snapid=S289817c03d" target="_blank">here</a>. <br />
                     Download the source code and view the API <a href="https://github.com/tobinbradley/Mecklenburg-County-Quality-of-Life-Dashboard" target="_blank">here</a>.<br />
-                    
+
                     By using this web site, you agree to abide by our <a href="javascript:void(0)" onclick="$('#disclaimer-dialog').dialog('open'); return false;">disclaimer</a>.
                     <br /><br />
-                    Created by the <a href="http://charmeck.org/city/charlotte/Pages/default.aspx">City of Charlotte</a>, 
+                    Created by the <a href="http://charmeck.org/city/charlotte/Pages/default.aspx">City of Charlotte</a>,
                     <a href="http://charmeck.org/mecklenburg/county/Pages/Default.aspx">Mecklenburg County</a>, and <a href="http://www.uncc.edu/">UNCC</a>.
 
                 </p>
@@ -143,40 +143,40 @@
                 </p>
             </div>
 		</aside>
-		
+
 	</div> <!-- end of container -->
-    
-	
+
+
 	<!-- jQuery UI Dialogs - Not visible at runtime -->
-	
+
 	<!-- Create report dialog -->
-	<div id="report-dialog" title="Print" class="hidden screen-only">		
+	<div id="report-dialog" title="Print" class="hidden screen-only">
         <form action="php/report.php" method="get" target="_blank">
             <p>
                 You can print a formatted version of your current browser by using your browser's print command.
                 You can also print out a PDF report by selecting a neighborhood and metrics below.
             </p>
-            <h4>Select Neighborhood Profile Area</h4>            
+            <h4>Select Neighborhood Profile Area</h4>
             <p>
                 <select id="report_neighborhood" name="n"></select>
             </p>
-            <h4>Select Variables</h4>            
+            <h4>Select Variables</h4>
             <p id="report_measures">
-                <select id="report_metrics" multiple="multiple" name="m[]"></select>  
+                <select id="report_metrics" multiple="multiple" name="m[]"></select>
             </p>
             <input type="submit" id="submitPDFReport" name="mysubmit" value="Create PDF Report" />
             <a href="php/report.php" target="_blank" class="hidden">Try Work in Progress</a>
         </form>
 	</div>
-	
+
 	<!-- Tutorial dialog -->
 	<div id="tutorial-dialog" title="Tutorial Video" class="hidden">
 	</div>
-    
+
     <!-- Search help - jQuery UI Dialog -->
 	<div id="search-dialog" title="Search Help" class="hidden">
 		<p>
-		Type in the first few characters of what you are looking for and let the search box do the work for you. 
+		Type in the first few characters of what you are looking for and let the search box do the work for you.
 		Select a match using either the mouse or the up/down arrow keys and Enter.
 		</p>
 		<p><span class="ui-icon ui-icon-circle-check alignleft"></span><strong>Address</strong>: Enter the first part of the address. Ex: for 700 North Tryon Street, try <em>700 n</em></p>
@@ -186,16 +186,16 @@
 		<p><span class="ui-icon ui-icon-circle-check alignleft"></span><strong>Parcel ID</strong>: Enter an 8-digit Parcel ID. Ex: type <em>11111111</em></p>
         <p><span class="ui-icon ui-icon-circle-check alignleft"></span><strong>Your Current Location</strong>: If your web browser supports geolocation, you will be prompted to allow its use and you will see <em>Find My Location</em> under the search bar.</p>
 	</div>
-    
+
     <!-- Disclaimer Dialog -->
-    <div id="disclaimer-dialog" title="Disclaimer" class="hidden">		          
-		<p>This system is subject to current public information rules and regulations. Information presented on 
-		this web site is considered public information and may be distributed or copied. Mecklenburg County 
-		and its data providers give no warranty, expressed or implied, as to the accuracy, precision, timeliness, completeness, 
-		or any other aspect of the data presented. The publisher and data providers assume no liability for damage 
+    <div id="disclaimer-dialog" title="Disclaimer" class="hidden">
+		<p>This system is subject to current public information rules and regulations. Information presented on
+		this web site is considered public information and may be distributed or copied. Mecklenburg County
+		and its data providers give no warranty, expressed or implied, as to the accuracy, precision, timeliness, completeness,
+		or any other aspect of the data presented. The publisher and data providers assume no liability for damage
 		arrising from the use of this web site or the data provided herein.</p>
 	</div>
-	
+
 
 	<!-- JavaScript at the bottom for fast page loading -->
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
@@ -203,17 +203,17 @@
     <script>
       google.load("visualization", "1", {packages:["corechart"]});
     </script>
-   
+
 	<!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.19/jquery-ui.min.js"></script>
-   
+
 	<!-- scripts concatenated and minified via ant build script-->
 	<script src="js/plugins.js"></script>
 	<script src="js/map.js"></script>
 	<script src="js/script.js"></script>
 	<!-- end scripts-->
-  
+
 	<!-- Google Translate -->
 	<script>
     function googleTranslateElementInit() {
@@ -236,6 +236,6 @@
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
     </script>
-	  
+
 </body>
 </html>

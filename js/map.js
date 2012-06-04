@@ -43,7 +43,7 @@ function mapInit() {
 	google.maps.event.addListener(layer, 'click', function(e) {
 		//update the content of the InfoWindow
 		e.infoWindowHtml = '<div class="googft-info-window">';
-        e.infoWindowHtml += '<h3>Neighborhood ' + e.row['ID'].value + "</h3>";
+        e.infoWindowHtml += '<h3>Neighborhood ' + parseInt(e.row['ID'].value, 10) + "</h3>";
         e.infoWindowHtml += '<strong>' + $("#mapIndicie option:selected").html() + '</strong><br />';
 		theID = $("#mapIndicie option:selected").val();
         e.infoWindowHtml += 'Score: ' + e.row[$("#mapIndicie option:selected").val()].value + FTmeta[theID].style.units + '<br />';
