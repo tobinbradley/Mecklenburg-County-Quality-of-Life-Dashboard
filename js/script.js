@@ -5,14 +5,15 @@ var FTmeta;  // Metrics JSON
 var map, marker, layer, geocoder; // Variables to support the map
 var activeRecord = {}; // Holder for data in selected record
 var countyAverage = {}; // Holder for county averages
-var tableID = 1844838;  // ID of the fusion table layer
+var tableID = "1XgEWtjmUsb68BtKetDqwB-fNzYCa0-tfd_8Jp7U";  // ID of the fusion table layer
+var apiKey = "AIzaSyAC4FKv8kOmGT6P7MYe-zGIDT59LiJgqkQ";   // Google api key
 var wsbase = "http://maps.co.mecklenburg.nc.us/rest/";   // Base URL for REST web services
 //var wsbase = "http://localhost/code/rest/";   // Base URL for REST web services
 var colorTheme = new Array("#eafdf5","#71eeb8","#17c077","#0e7448");
 
 /* Some color palletes for the metrics.json styling
 Reds ["#f4cccc", "#e78888", "#cc0000", "#8d0000"]
-Greens ["#d0e0e3","#a2c4c9","#76a5af","#45818e","#134f5c"]
+Greens ["#eafdf5","#71eeb8","#17c077","#0e7448"]
 Purples ["#f6e6f5", "#e8c1e7", "#d084ce", "#a03d9e"]
 Blues ["#f1f5fc", "#85a3e0", "#2952a3", "#142952"]
 Tan/brown ["#ffe2ab", "#feb324", "#bb7b01", "#563800"]
@@ -45,7 +46,7 @@ $(document).ready(function() {
     // Opacity slider
     $( "#opacity_slider" ).slider({
         range: "min",
-        value: 75,
+        value: 80,
         min: 25,
         max: 100,
         stop: function (event, ui) {
@@ -214,8 +215,10 @@ $(document).ready(function() {
                    $($(this).data('autocomplete').menu.active).find('a').trigger('click');
                 }
             });
-            if ($("ul.ui-autocomplete li.ui-menu-item").length == 1) {
-                //$($(this).data('autocomplete').menu.active).find('a').trigger('click');
+            // Go if only 1 result
+            menuItems = $("ul.ui-autocomplete li.ui-menu-item");
+            if (menuItems.length == 1 && menuItems.text() != "More information needed for search." && menuItems.text() != "No records found.") {
+                $($(this).data('autocomplete').menu.active).find('a').trigger('click');
             }
          }
     }).data("autocomplete")._renderMenu = function (ul, items) {
@@ -230,24 +233,11 @@ $(document).ready(function() {
     };
 
     // get county averages
-    url = "https://www.google.com/fusiontables/api/query/?sql=SELECT " + getFieldsAverageArray(FTmeta).join() + " FROM " + tableID + "&jsonCallback=?";
+    url = "https://www.googleapis.com/fusiontables/v1/query?sql=SELECT " + getFieldsAverageArray(FTmeta).join() + " FROM " + tableID + "&key=" + apiKey + "&callback=?";
     $.getJSON(url, function(data) {
-        if (data.table.rows.length > 0) {
-            $.each(data.table.cols, function(i, item){
-                countyAverage[item] = Math.round(data.table.rows[0][i]);
-            });
-
-            // populate 3 random percentage charts on the front page
-            var measureTitle = [];
-            var measureValue = [];
-            var measureKey = [];
-            // populate arrays from % measures
-            $.each(countyAverage, function(key, value) {
-                if (FTmeta[key].style.units == "%") {
-                    measureTitle.push(FTmeta[key].title);
-                    measureKey.push(key);
-                    measureValue.push(value);
-                }
+        if (data.rows.length > 0) {
+            $.each(data.columns, function(i, item){
+                countyAverage[item] = Math.round(data.rows[0][i]);
             });
         }
         else {
@@ -266,11 +256,11 @@ $(window).load(function(){
     mapInit();
 
     // Load neighborhood ID's into report select
-    url = "https://www.google.com/fusiontables/api/query/?sql=SELECT ID FROM 1844838 ORDER BY ID&jsonCallback=?";
+    url = "https://www.googleapis.com/fusiontables/v1/query?sql=SELECT ID FROM " + tableID + " ORDER BY ID&key=" + apiKey + "&callback=?";
     $.getJSON(url, function(data) {
-        if (data.table.rows.length > 0) {
+        if (data.rows.length > 0) {
             buffer = "";
-            $.each(data.table.rows, function(i, item){
+            $.each(data.rows, function(i, item){
                 buffer += '<option>' +  item[0] + '</option>';
             });
             $("#report_neighborhood").html(buffer);
@@ -321,7 +311,7 @@ function tryGPS() {
  * Assign data to active record
  */
 function assignData(data) {
-    $.each(data.cols, function(i, item){
+    $.each(data.columns, function(i, item){
         activeRecord[item] = data.rows[0][i];
     });
 
@@ -386,15 +376,16 @@ function updateData(measure) {
  */
 function barChart(measure){
     var data = google.visualization.arrayToDataTable([
-          ['Year', 'Neighborhood', 'County Average'],
-          ['2010',  activeRecord[measure.field], countyAverage[measure.field]]
+          ['Year', 'Neighborhood', 'NPA Average'],
+          ['2010',  parseFloat(activeRecord[measure.field]), parseFloat(countyAverage[measure.field])]
         ]);
 
     var options = {
-      title:numberWithCommas(activeRecord[measure.field]) + measure.style.units,
+      title: numberWithCommas(activeRecord[measure.field]) + measure.style.units,
       titlePosition: 'out',
       titleTextStyle: { fontSize: 14 },
       vAxis: {title: 'Year',  titleTextStyle: {color: 'red'}},
+      hAxis: { minValue: 0 },
       width: 390,
       height: 150,
       legend: 'bottom'

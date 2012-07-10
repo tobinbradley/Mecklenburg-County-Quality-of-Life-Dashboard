@@ -15,7 +15,7 @@ require('gft.php');
 
 
 // GFT table ID
-$tableID = 1844838;
+$tableID = "1XgEWtjmUsb68BtKetDqwB-fNzYCa0-tfd_8Jp7U";
 
 // Colors for the aux chart
 $chartColors = array("FEDFAC", "D2E6A0", "F8A6CB", "6BA5BF", "FDEC6C");
@@ -49,21 +49,21 @@ function getFieldsArray($data) {
     foreach ($data as $value) {
         array_push($fieldList, $value["field"]);
     }
-    return $fieldList; 
+    return $fieldList;
 }
 
 
 
- 
+
 /**
  * Load neighborhood information from Google Fusion Tables
  */
 if (count($measures) > 0) {
-    // neighborhood    
-    
+    // neighborhood
+
     $ft = new googleFusion();
     $gft_neighborhood = $ft->query("select * FROM " . $tableID . " WHERE ID = " . $neighborhood);
-    
+
     // county average
     for ($i = 0; $i < count($measures); ++$i) {
         $avg[$i] = "average(" .  $measures[$i] . ") as " . $measures[$i];
@@ -85,7 +85,7 @@ class PDF extends FPDF
         $this->SetY(-0.4);
         // Arial italic 8
         $this->SetFont('Arial','I',8);
-        $this->SetTextColor(0,0,0); 
+        $this->SetTextColor(0,0,0);
         // Page number
         $this->Cell(0,0,'Quality of Life Dashboard - http://maps.co.mecklenburg.nc.us/qoldashboard/',0,0,'C');
     }
@@ -121,7 +121,7 @@ $pdf->SetFont('Arial','B',180);
 $pdf->Ln(1.8);
 $pdf->Cell(0.3);
 //$pdf->Cell(1.7);
-$pdf->Cell(0, 0, $neighborhood); 
+$pdf->Cell(0, 0, $neighborhood);
 
 // Title page main content
 $pdf->Ln(3.8);
@@ -147,13 +147,13 @@ $final_extent =  explode(",", str_replace($ditch, $replace,$extentJSON[rows][0][
 $dx = $final_extent[2] - $final_extent[0];
 $dy = $final_extent[3] - $final_extent[1];
 if ($dx >= $dy) {
-    $delta = (($dx - $dy) / 2) * 1.12; 
-    $final_extent[1] = $final_extent[1] - $delta; 
-    $final_extent[3] = $final_extent[3] + $delta; 
+    $delta = (($dx - $dy) / 2) * 1.12;
+    $final_extent[1] = $final_extent[1] - $delta;
+    $final_extent[3] = $final_extent[3] + $delta;
 }
 else {
-    $delta = (($dy - $dx) / 2) * 0.77; 
-    $final_extent[0] = $final_extent[0] - $delta; 
+    $delta = (($dy - $dx) / 2) * 0.77;
+    $final_extent[0] = $final_extent[0] - $delta;
     $final_extent[2] = $final_extent[2] + $delta;
 }
 
@@ -175,11 +175,11 @@ $pdf->rect(0.3,0.3,7.9, 10);
 function createMeasure($x, $y, $themeasure) {
 
     global $pdf, $json, $gft_neighborhood, $gft_average, $chartColors;
-    
-    $pdf->SetTextColor(0,0,0);    
+
+    $pdf->SetTextColor(0,0,0);
     $pdf->SetY($y);
     $pdf->SetX($x);
-    $pdf->SetFont('Arial','B',12);    
+    $pdf->SetFont('Arial','B',12);
     $pdf->Write(0, $json[$themeasure][title] );
     $pdf->Ln(0.2);
     $pdf->SetX($x);
@@ -188,8 +188,8 @@ function createMeasure($x, $y, $themeasure) {
     $pdf->Ln(0.2);
     $pdf->SetX($x);
     $chartMax = ($gft_neighborhood[0][$json[$themeasure]["field"]] >= round($gft_average[0][$json[$themeasure]["field"]]) ? $gft_neighborhood[0][$json[$themeasure]["field"]] : round($gft_average[0][$json[$themeasure]["field"]]));
-    $chartMax = ($chartMax > 100 ? $chartMax + 100 : 100 );    
-    $pdf->Image( "http://chart.apis.google.com/chart?chxr=0,0," . $chartMax . "&chxl=1:|2010&chxt=x,y&chbh=a,4,9&chs=250x75&cht=bhg&chco=FF9900,FFCA7A&chds=0," . $chartMax . ",0," . $chartMax . "&chd=t:" . $gft_neighborhood[0][$json[$themeasure]["field"]] . "|" . round($gft_average[0][$json[$themeasure]["field"]]) . "&chdl=Neightborhood|County+Average&chdlp=t&chg=-1,0", null , null, 0, 0, "PNG");
+    $chartMax = ($chartMax > 100 ? $chartMax + 100 : 100 );
+    $pdf->Image( "http://chart.apis.google.com/chart?chxr=0,0," . $chartMax . "&chxl=1:|2010&chxt=x,y&chbh=a,4,9&chs=250x75&cht=bhg&chco=FF9900,FFCA7A&chds=0," . $chartMax . ",0," . $chartMax . "&chd=t:" . $gft_neighborhood[0][$json[$themeasure]["field"]] . "|" . round($gft_average[0][$json[$themeasure]["field"]]) . "&chdl=Neightborhood|NPA+Average&chdlp=t&chg=-1,0", null , null, 0, 0, "PNG");
     $pdf->Ln(0.2);
     $pdf->SetX($x);
     $pdf->SetFont('Arial','B',10);
@@ -255,7 +255,7 @@ function createMeasure($x, $y, $themeasure) {
         $pdf->Ln(0.15);
         $pdf->SetX($x);
     }
-    
+
 }
 
 
@@ -267,12 +267,12 @@ function createMeasure($x, $y, $themeasure) {
 if (strlen($measures[0]) > 0) {
     $measureCount = 0;
     for ($i=0; $i < ceil(count($measures) / 2); $i++) {
-        // add page    
+        // add page
         $pdf->AddPage();
-        
+
         if ($measures[ $measureCount]) createMeasure(0.5, 0.5, $measures[$measureCount]);
         if ($measures[$measureCount + 1]) createMeasure(4.3, 0.5, $measures[$measureCount + 1]);
-        
+
         $measureCount = $measureCount + 2;
     }
 }

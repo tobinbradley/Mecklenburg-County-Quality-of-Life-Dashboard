@@ -269,9 +269,15 @@ header .ui-icon {
 
 /* search area */
 #search { margin: 0 0 15px 0; text-align: center; }
-#searchbox { padding: 3px;  border:1px solid #b2b2b2; color: #7C7C7C; }
-#searchbox:focus { outline:none; }
-#searchbox { font-size: 1.1em; padding: 4px 5px; width: 90%; }
+#searchbox {  border:1px solid #b2b2b2; color: #7C7C7C;
+  font-size: 1.1em; padding: 4px 5px; width: 90%;
+  transition: all 0.25s ease-in-out;
+  -webkit-transition: all 0.25s ease-in-out;
+  -moz-transition: all 0.25s ease-in-out;
+  -ms-transition: all 0.25s ease-in-out;
+  -o-transition: all 0.25s ease-in-out;
+}
+#searchbox:focus { outline:none; box-shadow: 0 0 8px #9ecaed; border-color: #9ecaed;}
 input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { color: #7C7C7C; }
 input::-moz-placeholder, textarea::-moz-placeholder { color: #7C7C7C; }
 

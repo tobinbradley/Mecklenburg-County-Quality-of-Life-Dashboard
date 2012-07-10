@@ -4,7 +4,7 @@
 <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
 <!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
 <!-- Consider adding an manifest.appcache: h5bp.com/d/Offline -->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" manifest="manifest.appcache"> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
 
@@ -20,10 +20,15 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <link rel="shortcut icon" type="image/png" href="favicon.png" />
+    <link rel="apple-touch-icon-precomposed" href="apple-touch-icon.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="apple-touch-icon-144x144.png" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
     <!-- jQuery UI CSS -->
-    <link type="text/css" media="all" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.19/themes/flick/jquery-ui.css" rel="stylesheet" />
+    <link type="text/css" media="all" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/flick/jquery-ui.css" rel="stylesheet" />
 
     <!-- Fonts -->
 
@@ -33,10 +38,8 @@
 
     <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
 
-    <!-- All JavaScript at the bottom, except for Modernizr / Respond.
-         Modernizr enables HTML5 elements & feature detects; Respond is a polyfill for min/max-width CSS3 Media Queries
-         For optimal performance, use a custom Modernizr build: www.modernizr.com/download/ -->
-    <script src="js/libs/modernizr.min.js"></script>
+    <!-- All JavaScript at the bottom, except for Modernizr  -->
+    <script src="js/libs/modernizr.custom.js"></script>
 </head>
 
 <body>
@@ -109,17 +112,29 @@
 
                     <div id="selected-accordion">
                         <h3><a href="#">What is this Indicator?</a></h3>
-                        <div id="indicator_description"></div>
+                        <div>
+                            <div id="indicator_description"></div>
+                        </div>
                         <h3><a href="#">Why is this Important?</a></h3>
-                        <div id="indicator_why"></div>
+                        <div>
+                            <div id="indicator_why"></div>
+                        </div>
                         <h3><a href="#">Related Variables</a></h3>
-                        <div  id="indicator_quicklinks"></div>
+                        <div>
+                            <div  id="indicator_quicklinks"></div>
+                        </div>
                         <h3><a href="#">Technical Notes</a></h3>
-                        <div id="indicator_technical"></div>
+                        <div>
+                            <div id="indicator_technical"></div>
+                        </div>
                         <h3><a href="#">Data Source</a></h3>
-                        <div id="indicator_source"></div>
+                        <div>
+                            <div id="indicator_source"></div>
+                        </div>
                         <h3><a href="#">Additional Resources</a></h3>
-                        <div id="indicator_resources"></div>
+                        <div>
+                            <div id="indicator_resources"></div>
+                        </div>
                     </div>
 				</div>
 			</div>
@@ -198,15 +213,15 @@
 
 
 	<!-- JavaScript at the bottom for fast page loading -->
-	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.9&sensor=false"></script>
+    <script src="https://www.google.com/jsapi"></script>
     <script>
       google.load("visualization", "1", {packages:["corechart"]});
     </script>
 
 	<!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.19/jquery-ui.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js"></script>
 
 	<!-- scripts concatenated and minified via ant build script-->
 	<script src="js/plugins.js"></script>

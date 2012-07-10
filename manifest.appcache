@@ -1,0 +1,35 @@
+CACHE MANIFEST
+# v18
+
+# Explicitly cached 'master entries'.
+CACHE:
+# styles
+css/style.css
+
+# images
+favicon.png
+apple-touch-icon.png
+apple-touch-icon-72x72.png
+apple-touch-icon-114x114.png
+apple-touch-icon-144x144.png
+img/marker.png
+img/marker-shadow.png
+img/ui-anim_basic_16x16.gif
+img/seals.png
+
+
+# scripts
+js/metrics.json
+js/plugins.js
+js/script.js
+js/map.js
+js/libs/modernizr.custom.js
+https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js
+https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js
+http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit
+
+
+# Everything else: go sponge somebody's wifi
+NETWORK:
+*
+
