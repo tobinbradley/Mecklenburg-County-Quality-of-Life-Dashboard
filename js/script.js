@@ -386,7 +386,7 @@ function barChart(measure){
       titleTextStyle: { fontSize: 14 },
       vAxis: {title: 'Year',  titleTextStyle: {color: 'red'}},
       hAxis: { minValue: 0 },
-      width: 390,
+      width: $("aside").width(),
       height: 150,
       legend: 'bottom'
     };
@@ -415,7 +415,7 @@ function auxChart(measure) {
     var data = google.visualization.arrayToDataTable(items);
 
     var options = {
-        width: 390,
+        width: $("aside").width(),
         height: 180,
         legend: 'right',
         titlePosition: 'out',

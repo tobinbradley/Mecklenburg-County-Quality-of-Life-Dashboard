@@ -242,8 +242,8 @@ body, button { font-size: 13px; line-height: 1.3; }
 
 /* Layout */
 header { height: 65px; position: absolute; top: 10px; left: 20px; right: 20px; }
-aside { position: absolute; top: 95px; bottom: 5px; left: 20px; width: 390px; min-width: 280px; overflow: auto; overflow-x: hidden; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 0 10px 0 0; }
-#map { position: absolute; top: 75px; bottom: 25px; left: 450px; right: 20px; text-align: right;   }
+aside { position: absolute; top: 75px; bottom: 5px; left: 20px; width: 350px; min-width: 280px; overflow: auto; overflow-x: hidden; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 0 10px 0 0; }
+#map { position: absolute; top: 75px; bottom: 25px; left: 390px; right: 20px; text-align: right; }
 footer { position: absolute; bottom: 0; left: 20px; right: 20px; height: 10px; overflow: hidden; text-align: right; padding: 5px 0; }
 
 
@@ -288,10 +288,11 @@ input::-moz-placeholder, textarea::-moz-placeholder { color: #7C7C7C; }
 .googft-info-window h3 { margin-bottom: 5px;  }
 #legend { position: absolute; z-index: -1; margin: 5px 5px 0 0; padding: 5px; background: #fff; border: 1px solid black; box-shadow:0 8px 10px -6px #333; min-width: 80px; min-height: 50px; }
 #legend span { width: 15px; height: 15px; display: block; float: left; margin-right: 3px; }
-#maptools-bottom { position: absolute; bottom: 0; left: 0; right: 0; text-align: center;  }
+#maptools-bottom { position: absolute; bottom: 0; left: 0; right: 0;  }
 #opacity_slider { width: 250px; margin: 0 auto;    }
 #map p { text-align: center; margin: 5px 0; }
 #mapIndicie { min-width: 300px; }
+#currentlyShowing { font-size: 1.1em; }
 
 
 /* data area */
@@ -398,12 +399,7 @@ input::-moz-placeholder, textarea::-moz-placeholder { color: #7C7C7C; }
     #currentlyShowing { display: none; }
 }
 
-@media screen and (max-width: 800px) {
-    aside { width: 300px; }
-    #map { left: 340px; }
-}
-
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 750px) {
   #title a { font-size: 20px;}
   #top-links { top: 20px;  }
 
@@ -413,13 +409,11 @@ input::-moz-placeholder, textarea::-moz-placeholder { color: #7C7C7C; }
   #map { top: 65px; left: 1px; right: 15px; bottom: auto; height: 350px; min-width:  290px;  }
 
   /* sidebar */
-  aside { top: 400px; left: 1px; right: 15px; bottom: inherit; height: auto; width: auto; overflow: auto; min-width: 290px;  box-shadow: none; }
+  aside { top: 460px; left: 1px; right: 15px; bottom: inherit; height: auto; width: auto; overflow: auto; min-width: 290px;  box-shadow: none; }
 }
 
-@media screen and (max-width: 500px) {
-
+@media screen and (max-width: 530px) {
   #top-links { display: none;  }
-  aside { padding-top: 20px; }
 }
 
 
@@ -455,6 +449,9 @@ input::-moz-placeholder, textarea::-moz-placeholder { color: #7C7C7C; }
 
   /* map */
   .gmnoprint {display: none; width: 0; height: 0; }
+
+  /* jquery ui tweaks */
+  .ui-accordion-content { display: block !important; }
 
 }
 

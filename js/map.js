@@ -234,7 +234,8 @@ function createLegend(measure) {
     theOpacity = theOpacity + 0.2; // make up for white legend background
     // empty div
     $("#legend").empty();
-    $("#legend").show();
+    $("#legend").append("<strong>" + $("#mapIndicie option:selected").text() + "</strong>");
+
 
     if (measure.style.type == "range") {
         $.each(measure.style.breaks, function(index, value) {
@@ -248,6 +249,7 @@ function createLegend(measure) {
 
     }
 
+    $("#legend").show();
 }
 
 
@@ -255,84 +257,98 @@ function createLegend(measure) {
 function styleMap() {
 
     var style = [{
-        featureType: "road",
-        elementType: "labels",
-        stylers: [{
-            saturation: -100
+            featureType: "road",
+            elementType: "labels",
+            stylers: [{
+                saturation: -100
+            }, {
+                lightness: 70
+            }, {
+                gamma: 0.4
+            }]
         }, {
-            lightness: 70
+            featureType: "road.highway",
+            elementType: "geometry.stroke",
+            stylers: [{
+                saturation: -100
+            }, {
+                lightness: 40
+            }]
         }, {
-            gamma: 0.4
-        }]
-    }, {
-        featureType: "road.highway",
-        elementType: "geometry",
-        stylers: [{
-            saturation: -100
+            featureType: "road.arterial",
+            elementType: "geometry",
+            stylers: [{
+                saturation: -100
+            }, {
+                lightness: 85
+            }, {
+                gamma: 0.4
+            }, {
+                visibility: "simplified"
+            }]
         }, {
-            lightness: 40
-        }]
-    }, {
-        featureType: "road.arterial",
-        elementType: "geometry",
-        stylers: [{
-            saturation: -100
+            featureType: "road.local",
+            elementType: "geometry",
+            stylers: [{
+                saturation: -100
+            }, {
+                lightness: 20
+            }, {
+                gamma: 0.8
+            }, {
+                visibility: "simplified"
+            }]
         }, {
-            lightness: 70
+            featureType: "administrative",
+            elementType: "labels",
+            stylers: [{
+                visibility: "off"
+            }]
         }, {
-            gamma: 0.4
+            featureType: "landscape",
+            elementType: "labels",
+            stylers: [{
+                lightness: -2
+            }]
         }, {
-            visibility: "simplified"
-        }]
-    }, {
-        featureType: "road.local",
-        elementType: "geometry",
-        stylers: [{
-            saturation: -100
+            featureType: "poi",
+            elementType: "all",
+            stylers: [{
+                saturation: -50
+            }]
         }, {
-            lightness: 20
+            featureType: "water",
+            elementType: "labels",
+            stylers: [{
+                lightness: -2
+            }]
         }, {
-            gamma: 0.8
+            featureType: "water",
+            elementType: "all",
+            stylers: [{
+                saturation: -30
+            }]
         }, {
-            visibility: "simplified"
-        }]
-    }, {
-        featureType: "administrative",
-        elementType: "labels",
-        stylers: [{
-            visibility: "off"
-        }]
-    }, {
-        featureType: "landscape",
-        elementType: "labels",
-        stylers: [{
-            lightness: -2
-        }]
-    }, {
-        featureType: "poi",
-        elementType: "all",
-        stylers: [{
-            saturation: -75
-        }]
-    }, {
-        featureType: "water",
-        elementType: "labels",
-        stylers: [{
-            lightness: -2
-        }]
-    }, {
-        featureType: "water",
-        elementType: "all",
-        stylers: [{
-            saturation: -100
-        }]
-    }, {
-        featureType: "transit",
-        elementType: "all",
-        stylers: [{
-            visibility: "off"
-        }]
-    }];
+            featureType: "transit",
+            elementType: "all",
+            stylers: [{
+                visibility: "off"
+            }]
+        },{
+            featureType: "road.highway",
+            elementType: "geometry.fill",
+            stylers: [
+                { color: "#edc7d7" },
+                { weight: 3 }
+            ]
+        },{
+            featureType: "landscape",
+            elementType: "geometry.fill",
+            stylers: [
+                { color: "#f9f9f9" }
+            ]
+        }
+    ];
 
     var styledMapType = new google.maps.StyledMapType(style, {
         map: map,
