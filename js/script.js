@@ -62,8 +62,14 @@ $(document).ready(function() {
 
     // Dialogs
     $("#report-dialog").dialog({ width: 400, autoOpen: false, show: 'fade', hide: 'fade', modal: false });
-    $("#tutorial-dialog").dialog({ width: 510, autoOpen: false, show: 'fade', hide: 'fade', modal: true });
-    $("#search-dialog").dialog({ width: 380, autoOpen: false, show: 'fade', hide: 'fade', modal: false });
+    $("#search-dialog").dialog({
+        width: 400,
+        autoOpen: false,
+        show: 'fade',
+        hide: 'fade',
+        open: function(event, ui) { $("#search-dialog-video").html('<iframe width="350" height="262" src="http://www.youtube-nocookie.com/embed/aGlmVQXRRj4?rel=0" frameborder="0" allowfullscreen></iframe>'); },
+        close: function(event, ui) { $("#search-dialog-video").empty(); }
+    });
     $("#disclaimer-dialog").dialog({ width: 550, autoOpen: false, show: 'fade', hide: 'fade', modal: true });
 
     // Show GPS link if browser support
@@ -355,12 +361,11 @@ function updateData(measure) {
     }
     else $("#indicator_quicklinks").empty();
 
-    // update chart
+    // charts
     barChart(measure);
-
-    // aux chart
     if (measure.auxchart) { auxChart(measure); }
     else { $("#indicator_auxchart").empty(); }
+
 
     // Set accordion to first value
     $("#selected-accordion").accordion("activate", 0);

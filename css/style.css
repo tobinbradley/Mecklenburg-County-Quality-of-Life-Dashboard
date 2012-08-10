@@ -269,17 +269,8 @@ header .ui-icon {
 
 /* search area */
 #search { margin: 0 0 15px 0; text-align: center; }
-#searchbox {  border:1px solid #b2b2b2; color: #7C7C7C;
-  font-size: 1.1em; padding: 4px 5px; width: 90%;
-  transition: all 0.25s ease-in-out;
-  -webkit-transition: all 0.25s ease-in-out;
-  -moz-transition: all 0.25s ease-in-out;
-  -ms-transition: all 0.25s ease-in-out;
-  -o-transition: all 0.25s ease-in-out;
-}
-#searchbox:focus { outline:none; box-shadow: 0 0 8px #9ecaed; border-color: #9ecaed;}
-input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { color: #7C7C7C; }
-input::-moz-placeholder, textarea::-moz-placeholder { color: #7C7C7C; }
+#searchbox { border:2px solid #cbcfe7; color: #4B58A6; font-size: 1.1em; padding: 4px 5px 3px; width: 90%; }
+
 
 
 /* map */
@@ -317,6 +308,8 @@ input::-moz-placeholder, textarea::-moz-placeholder { color: #7C7C7C; }
 #metricslist a { padding-left: 3px; text-decoration: none; }
 #metricslist a:hover { text-decoration: underline; }
 
+/* Dialogs */
+#search-dialog-video { width: 350px; height: 252px; margin: 0 auto 30px auto; }
 
 /* PDF Report Form */
 #report-dialog h4 { margin: 15px 0 5px 0; }
@@ -400,16 +393,17 @@ input::-moz-placeholder, textarea::-moz-placeholder { color: #7C7C7C; }
 }
 
 @media screen and (max-width: 750px) {
+  #title { text-align: center; }
   #title a { font-size: 20px;}
-  #top-links { top: 20px;  }
+  #top-links { top: 20px; }
 
   header { left: 1px; }
 
   /* map area */
-  #map { top: 65px; left: 1px; right: 15px; bottom: auto; height: 350px; min-width:  290px;  }
+  #map { top: 65px; left: 1px; right: 15px; bottom: auto; height: 500px; min-width:  290px;  }
 
   /* sidebar */
-  aside { top: 460px; left: 1px; right: 15px; bottom: inherit; height: auto; width: auto; overflow: auto; min-width: 290px;  box-shadow: none; }
+  aside { top: 590px; left: 1px; right: 15px; bottom: inherit; height: auto; width: auto; overflow: auto; min-width: 290px;  box-shadow: none; }
 }
 
 @media screen and (max-width: 530px) {
