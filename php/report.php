@@ -3,19 +3,19 @@
 /**
  * Set content header
  */
-header('Content-type: application/pdf');
-//error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
+//header('Content-type: application/pdf');
+error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 
 /**
  * Load Dependecies
  */
 require('fpdf17/fpdf.php');
-require('gft.php');
+// require('gft.php');
 
 
 
 // GFT table ID
-$tableID = "1XgEWtjmUsb68BtKetDqwB-fNzYCa0-tfd_8Jp7U";
+// $tableID = "1XgEWtjmUsb68BtKetDqwB-fNzYCa0-tfd_8Jp7U";
 
 // Colors for the aux chart
 $chartColors = array("FEDFAC", "D2E6A0", "F8A6CB", "6BA5BF", "FDEC6C");
@@ -40,38 +40,15 @@ foreach ($json as $value) {
     array_push($metrics, $value[field]);
 }
 
-
-/**
- * Get array of fields from metrics.json
- */
-function getFieldsArray($data) {
-    $fieldList = array();
-    foreach ($data as $value) {
-        array_push($fieldList, $value["field"]);
-    }
-    return $fieldList;
-}
-
-
-
-
 /**
  * Load neighborhood information from Google Fusion Tables
  */
 if (count($measures) > 0) {
     // neighborhood
-
-    $ft = new googleFusion();
-    $gft_neighborhood = $ft->query("select * FROM " . $tableID . " WHERE ID = " . $neighborhood);
-
-    // county average
-    for ($i = 0; $i < count($measures); ++$i) {
-        $avg[$i] = "average(" .  $measures[$i] . ") as " . $measures[$i];
-    }
-    $gft_average = $ft->query("select " . implode(",", $avg) . " FROM " . $tableID);
+    $conn = new PDO ("pgsql:host=meckgisdbopen;dbname=GISData","postgrereader","postgrereader", array(PDO::ATTR_PERSISTENT => true));
+    $data = $conn->query('SELECT * from view_neighborhoods where id = ' . $neighborhood );
+    $npadata = $data->fetchAll(PDO::FETCH_ASSOC);
 }
-
-
 
 /**
  * Extend FPDF for header/footer/etc.
@@ -174,7 +151,7 @@ $pdf->rect(0.3,0.3,7.9, 10);
 /************************************************************/
 function createMeasure($x, $y, $themeasure) {
 
-    global $pdf, $json, $gft_neighborhood, $gft_average, $chartColors;
+    global $pdf, $json, $npadata, $chartColors;
 
     $pdf->SetTextColor(0,0,0);
     $pdf->SetY($y);
@@ -183,13 +160,12 @@ function createMeasure($x, $y, $themeasure) {
     $pdf->Write(0, $json[$themeasure][title] );
     $pdf->Ln(0.2);
     $pdf->SetX($x);
-    $pdf->Write(0, $gft_neighborhood[0][$json[$themeasure]["field"]] . $json[$themeasure]["style"]["units"]);
-    //$pdf->Cell(0, 0, $gft_neighborhood[0][$json[$themeasure]["field"]] . $json[$themeasure]["style"]["units"], 0, 0, 'C');
+    $pdf->Write(0, $npadata[0][$json[$themeasure]["field"]] . $json[$themeasure]["style"]["units"]);
     $pdf->Ln(0.2);
     $pdf->SetX($x);
-    $chartMax = ($gft_neighborhood[0][$json[$themeasure]["field"]] >= round($gft_average[0][$json[$themeasure]["field"]]) ? $gft_neighborhood[0][$json[$themeasure]["field"]] : round($gft_average[0][$json[$themeasure]["field"]]));
+    $chartMax = ($npadata[0][$json[$themeasure]["field"]] >= round($json[$themeasure]["style"]["avg"]) ? $npadata[0][$json[$themeasure]["field"]] : round($json[$themeasure]["style"]["avg"]));
     $chartMax = ($chartMax > 100 ? $chartMax + 100 : 100 );
-    $pdf->Image( "http://chart.apis.google.com/chart?chxr=0,0," . $chartMax . "&chxl=1:|2010&chxt=x,y&chbh=a,4,9&chs=250x75&cht=bhg&chco=FF9900,FFCA7A&chds=0," . $chartMax . ",0," . $chartMax . "&chd=t:" . $gft_neighborhood[0][$json[$themeasure]["field"]] . "|" . round($gft_average[0][$json[$themeasure]["field"]]) . "&chdl=Neightborhood|NPA+Average&chdlp=t&chg=-1,0", null , null, 0, 0, "PNG");
+    $pdf->Image( "http://chart.apis.google.com/chart?chxr=0,0," . $chartMax . "&chxl=1:|2010&chxt=x,y&chbh=a,4,9&chs=250x75&cht=bhg&chco=FF9900,FFCA7A&chds=0," . $chartMax . ",0," . $chartMax . "&chd=t:" . $npadata[0][$json[$themeasure]["field"]] . "|" . round($json[$themeasure]["style"]["avg"]) . "&chdl=Neightborhood|NPA+Average&chdlp=t&chg=-1,0", null , null, 0, 0, "PNG");
     $pdf->Ln(0.2);
     $pdf->SetX($x);
     $pdf->SetFont('Arial','B',10);
@@ -204,15 +180,13 @@ function createMeasure($x, $y, $themeasure) {
         $measureTitles = array();
         $measureValues = array();
         foreach ($json[$themeasure]["auxchart"]["measures"] as $value) {
-            if ($gft_neighborhood[0][$value] > 0) {
-                array_push($measureTitles,  $gft_neighborhood[0][$value] . $json[$value][style][units]. " " . $json[$value][title]);
-                //array_push($measureTitles,  $json[$value][title]);
-                array_push($measureValues, $gft_neighborhood[0][$value]);
+            if ($npadata[0][$value] > 0) {
+                array_push($measureTitles,  $npadata[0][$value] . $json[$value][style][units]. " " . $json[$value][title]);
+                array_push($measureValues, $npadata[0][$value]);
             }
         }
         $comma_separated = implode(",", $json[$themeasure]["auxchart"]["measures"]);
         $auxContent = "http://chart.apis.google.com/chart?chf=bg,s,00000000&chs=320x165&cht=p&chp=0.1";
-        //$auxContent .= "&chd=t:" . implode(",", $measureValues) . "&chdl=" . str_replace(" ", "+", implode("|", $measureTitles)) . "&chco=" . implode(",", $chartColors);
         $auxContent .= "&chd=t:" . implode(",", $measureValues) . "&chdl=" . str_replace(" ", "+", implode("|", $measureTitles)) . "&chco=";
         $pdf->Image( $auxContent, null , null, 0, 0, "PNG");
     }

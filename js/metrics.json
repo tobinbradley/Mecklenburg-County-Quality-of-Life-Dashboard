@@ -1,236 +1,755 @@
 {
-	"population" : {
-		"field": "population",
-		"category": "character",
-		"title": "Total Population",
-		"description": "Total population of residents in a NPA.",
-		"importance": "Analyzing the population of a NPA by race/ethnicity provides an overview of its diversity and unique resources that may exist in the community.",
-		"tech_notes": "",
-		"source": "Mecklenburg County Tax Parcels, 2006-2010 American Community Survey",
-		"style": { "type": "range", "units": "", "breaks": ["0", "1500", "2500"]  }
-	},
-    "total_commuters" : {
-		"field": "total_commuters",
-		"category": "green",
-		"title": "Commuter Transportation Mode",
-        "auxchart" : {"type": "pie", "title": "Transportation Modes" , "measures": ["commute_drive_alone", "commute_bus", "commute_carpool", "commute_subway", "commute_streetcar", "commute_ferry", "commute_railroad", "commute_motorcycle", "commute_taxi", "commute_bicycle", "commute_walk", "commute_other", "work_at_home"] },
-		"description": "The principal mode of travel from home to work for participants 16 years of age or older reported as one of the following - Drove Alone, Carpooled, Bus, Streetcar, Subway, Railroad, Ferryboat, Taxicab, Motorcycle, Bicycle, Walked, Worked at Home or Other.",
-        "quicklinks": ["total_commuters","commute_drive_alone","commute_bus","commute_carpool","commute_subway","commute_streetcar","commute_ferry","commute_railroad","commute_motorcycle","commute_taxi","commute_bicycle","commute_walk","commute_other","work_at_home"],		
+    "population": {
+        "field": "population",
+        "category": "character",
+        "title": "Total Population",
+        "description": "Total population of residents in a NPA.",
+        "importance": "Analyzing the population of a NPA by race/ethnicity provides an overview of its diversity and unique resources that may exist in the community.",
+        "tech_notes": "",
+        "source": "Mecklenburg County Tax Parcels, 2006-2010 American Community Survey",
+        "style": {
+            "type": "range",
+            "units": "",
+            "min": 1,
+            "max": 11123,
+            "avg": 1986.2
+        }
+    },
+    "commuters": {
+        "field": "commuters",
+        "category": "green",
+        "title": "Commuters",
+        "auxchart": {
+            "type": "pie",
+            "title": "Transportation Modes",
+            "measures": [
+                "drive_alone",
+                "bus",
+                "carpool",
+                "subway",
+                "streetcar",
+                "ferry",
+                "railroad",
+                "motorcycle",
+                "taxi",
+                "bicycle",
+                "walk",
+                "commute_other",
+                "work_at_home"
+            ]
+        },
+        "description": "The principal mode of travel from home to work for participants 16 years of age or older reported as one of the following - Drove Alone, Carpooled, Bus, Streetcar, Subway, Railroad, Ferryboat, Taxicab, Motorcycle, Bicycle, Walked, Worked at Home or Other.",
+        "quicklinks": [
+            "commuters",
+            "drive_alone",
+            "bus",
+            "carpool",
+            "subway",
+            "streetcar",
+            "ferry",
+            "railroad",
+            "motorcycle",
+            "taxi",
+            "bicycle",
+            "walk",
+            "commute_other",
+            "work_at_home"
+        ],
         "importance": "Transportation alternatives offer mobility options for residents of all ages and income levels and can help bridge the spatial divide between people and jobs, services, and training opportunities.",
-		"tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
-		"source": "U.S. Census American Community Survey",
-		"links": {"text": [ "CATS Carpooling", "Guide for Bicyclists and Pedestrians" ], "links": [ "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx", "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx" ]},
-		"style": { "type": "range", "units": " Commuters", "breaks": ["0", "500", "1500", "3000"]  }
-	},
-    "commute_drive_alone" : {
-		"field": "commute_drive_alone",
-		"category": "green",
-		"title": "Commute Driving Alone",
-		"description": "The principal mode of travel from home to work for participants 16 years of age or older reported as one of the following - Drove Alone, Carpooled, Bus, Streetcar, Subway, Railroad, Ferryboat, Taxicab, Motorcycle, Bicycle, Walked, Worked at Home or Other.",
-        "quicklinks": ["total_commuters","commute_drive_alone","commute_bus","commute_carpool","commute_subway","commute_streetcar","commute_ferry","commute_railroad","commute_motorcycle","commute_taxi","commute_bicycle","commute_walk","commute_other","work_at_home"],		
-		"importance": "Transportation alternatives offer mobility options for residents of all ages and income levels and can help bridge the spatial divide between people and jobs, services, and training opportunities.",
-		"tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
-		"source": "U.S. Census American Community Survey",
-		"links": {"text": [ "CATS Carpooling", "Guide for Bicyclists and Pedestrians" ], "links": [ "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx", "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx" ]},
-		"style": { "type": "range", "units": "%", "breaks": ["0", "60", "75", "85"]  }
-	},
-    "commute_bus" : {
-		"field": "commute_bus",
-		"category": "green",
-		"title": "Commute by Bus",
-		"description": "The principal mode of travel from home to work for participants 16 years of age or older reported as one of the following - Drove Alone, Carpooled, Bus, Streetcar, Subway, Railroad, Ferryboat, Taxicab, Motorcycle, Bicycle, Walked, Worked at Home or Other.",
-        "quicklinks": ["total_commuters","commute_drive_alone","commute_bus","commute_carpool","commute_subway","commute_streetcar","commute_ferry","commute_railroad","commute_motorcycle","commute_taxi","commute_bicycle","commute_walk","commute_other","work_at_home"],		
-		"importance": "Transportation alternatives offer mobility options for residents of all ages and income levels and can help bridge the spatial divide between people and jobs, services, and training opportunities.",
-		"tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
-		"source": "U.S. Census American Community Survey",
-		"links": {"text": [ "CATS Carpooling", "Guide for Bicyclists and Pedestrians" ], "links": [ "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx", "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx" ]},
-		"style": { "type": "range", "units": "%", "breaks": ["0", "5", "10", "15"]  }
-	},
-    "commute_carpool" : {
-		"field": "commute_carpool",
-		"category": "green",
-		"title": "Commute by Carpool",
-		"description": "The principal mode of travel from home to work for participants 16 years of age or older reported as one of the following - Drove Alone, Carpooled, Bus, Streetcar, Subway, Railroad, Ferryboat, Taxicab, Motorcycle, Bicycle, Walked, Worked at Home or Other.",
-        "quicklinks": ["total_commuters","commute_drive_alone","commute_bus","commute_carpool","commute_subway","commute_streetcar","commute_ferry","commute_railroad","commute_motorcycle","commute_taxi","commute_bicycle","commute_walk","commute_other","work_at_home"],		
-		"importance": "Transportation alternatives offer mobility options for residents of all ages and income levels and can help bridge the spatial divide between people and jobs, services, and training opportunities.",
-		"tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
-		"source": "U.S. Census American Community Survey",
-		"links": {"text": [ "CATS Carpooling", "Guide for Bicyclists and Pedestrians" ], "links": [ "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx", "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx" ]},
-		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"]  }
-	},
-    "commute_subway" : {
-		"field": "commute_subway",
-		"category": "green",
-		"title": "Commute by Subway",
-		"description": "The principal mode of travel from home to work for participants 16 years of age or older reported as one of the following - Drove Alone, Carpooled, Bus, Streetcar, Subway, Railroad, Ferryboat, Taxicab, Motorcycle, Bicycle, Walked, Worked at Home or Other.",
-        "quicklinks": ["total_commuters","commute_drive_alone","commute_bus","commute_carpool","commute_subway","commute_streetcar","commute_ferry","commute_railroad","commute_motorcycle","commute_taxi","commute_bicycle","commute_walk","commute_other","work_at_home"],		
-		"importance": "Transportation alternatives offer mobility options for residents of all ages and income levels and can help bridge the spatial divide between people and jobs, services, and training opportunities.",
-		"tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
-		"source": "U.S. Census American Community Survey",
-		"links": {"text": [ "CATS Carpooling", "Guide for Bicyclists and Pedestrians" ], "links": [ "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx", "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx" ]},
-		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"]  }
-	},
-    "commute_streetcar" : {
-		"field": "commute_streetcar",
-		"category": "green",
-		"title": "Commute by Streetcar",
-		"description": "The principal mode of travel from home to work for participants 16 years of age or older reported as one of the following - Drove Alone, Carpooled, Bus, Streetcar, Subway, Railroad, Ferryboat, Taxicab, Motorcycle, Bicycle, Walked, Worked at Home or Other.",
-        "quicklinks": ["total_commuters","commute_drive_alone","commute_bus","commute_carpool","commute_subway","commute_streetcar","commute_ferry","commute_railroad","commute_motorcycle","commute_taxi","commute_bicycle","commute_walk","commute_other","work_at_home"],		
-		"importance": "Transportation alternatives offer mobility options for residents of all ages and income levels and can help bridge the spatial divide between people and jobs, services, and training opportunities.",
-		"tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
-		"source": "U.S. Census American Community Survey",
-		"links": {"text": [ "CATS Carpooling", "Guide for Bicyclists and Pedestrians" ], "links": [ "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx", "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx" ]},
-		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"]  }
-	},
-    "commute_ferry" : {
-		"field": "commute_ferry",
-		"category": "green",
-		"title": "Commute by Ferry",
-		"description": "The principal mode of travel from home to work for participants 16 years of age or older reported as one of the following - Drove Alone, Carpooled, Bus, Streetcar, Subway, Railroad, Ferryboat, Taxicab, Motorcycle, Bicycle, Walked, Worked at Home or Other.",
-        "quicklinks": ["total_commuters","commute_drive_alone","commute_bus","commute_carpool","commute_subway","commute_streetcar","commute_ferry","commute_railroad","commute_motorcycle","commute_taxi","commute_bicycle","commute_walk","commute_other","work_at_home"],		
-		"importance": "Transportation alternatives offer mobility options for residents of all ages and income levels and can help bridge the spatial divide between people and jobs, services, and training opportunities.",
-		"tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
-		"source": "U.S. Census American Community Survey",
-		"links": {"text": [ "CATS Carpooling", "Guide for Bicyclists and Pedestrians" ], "links": [ "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx", "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx" ]},
-		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"]  }
-	},
-    "commute_railroad" : {
-		"field": "commute_railroad",
-		"category": "green",
-		"title": "Commute by Railroad",
-		"description": "The principal mode of travel from home to work for participants 16 years of age or older reported as one of the following - Drove Alone, Carpooled, Bus, Streetcar, Subway, Railroad, Ferryboat, Taxicab, Motorcycle, Bicycle, Walked, Worked at Home or Other.",
-        "quicklinks": ["total_commuters","commute_drive_alone","commute_bus","commute_carpool","commute_subway","commute_streetcar","commute_ferry","commute_railroad","commute_motorcycle","commute_taxi","commute_bicycle","commute_walk","commute_other","work_at_home"],		
-		"importance": "Transportation alternatives offer mobility options for residents of all ages and income levels and can help bridge the spatial divide between people and jobs, services, and training opportunities.",
-		"tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
-		"source": "U.S. Census American Community Survey",
-		"links": {"text": [ "CATS Carpooling", "Guide for Bicyclists and Pedestrians" ], "links": [ "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx", "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx" ]},
-		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"]  }
-	},
-    "commute_motorcycle" : {
-		"field": "commute_motorcycle",
-		"category": "green",
-		"title": "Commute by Motorcycle",
-		"description": "The principal mode of travel from home to work for participants 16 years of age or older reported as one of the following - Drove Alone, Carpooled, Bus, Streetcar, Subway, Railroad, Ferryboat, Taxicab, Motorcycle, Bicycle, Walked, Worked at Home or Other.",
-        "quicklinks": ["total_commuters","commute_drive_alone","commute_bus","commute_carpool","commute_subway","commute_streetcar","commute_ferry","commute_railroad","commute_motorcycle","commute_taxi","commute_bicycle","commute_walk","commute_other","work_at_home"],		
-		"importance": "Transportation alternatives offer mobility options for residents of all ages and income levels and can help bridge the spatial divide between people and jobs, services, and training opportunities.",
-		"tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
-		"source": "U.S. Census American Community Survey",
-		"links": {"text": [ "CATS Carpooling", "Guide for Bicyclists and Pedestrians" ], "links": [ "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx", "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx" ]},
-		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"]  }
-	},
-    "commute_taxi" : {
-		"field": "commute_taxi",
-		"category": "green",
-		"title": "Commute by Taxi",
-		"description": "The principal mode of travel from home to work for participants 16 years of age or older reported as one of the following - Drove Alone, Carpooled, Bus, Streetcar, Subway, Railroad, Ferryboat, Taxicab, Motorcycle, Bicycle, Walked, Worked at Home or Other.",
-        "quicklinks": ["total_commuters","commute_drive_alone","commute_bus","commute_carpool","commute_subway","commute_streetcar","commute_ferry","commute_railroad","commute_motorcycle","commute_taxi","commute_bicycle","commute_walk","commute_other","work_at_home"],		
-		"importance": "Transportation alternatives offer mobility options for residents of all ages and income levels and can help bridge the spatial divide between people and jobs, services, and training opportunities.",
-		"tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
-		"source": "U.S. Census American Community Survey",
-		"links": {"text": [ "CATS Carpooling", "Guide for Bicyclists and Pedestrians" ], "links": [ "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx", "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx" ]},
-		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"]  }
-	},
-    "commute_bicycle" : {
-		"field": "commute_bicycle",
-		"category": "green",
-		"title": "Commute by Bicycle",
-		"description": "The principal mode of travel from home to work for participants 16 years of age or older reported as one of the following - Drove Alone, Carpooled, Bus, Streetcar, Subway, Railroad, Ferryboat, Taxicab, Motorcycle, Bicycle, Walked, Worked at Home or Other.",
-        "quicklinks": ["total_commuters","commute_drive_alone","commute_bus","commute_carpool","commute_subway","commute_streetcar","commute_ferry","commute_railroad","commute_motorcycle","commute_taxi","commute_bicycle","commute_walk","commute_other","work_at_home"],		
-		"importance": "Transportation alternatives offer mobility options for residents of all ages and income levels and can help bridge the spatial divide between people and jobs, services, and training opportunities.",
-		"tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
-		"source": "U.S. Census American Community Survey",
-		"links": {"text": [ "CATS Carpooling", "Guide for Bicyclists and Pedestrians" ], "links": [ "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx", "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx" ]},
-		"style": { "type": "range", "units": "%", "breaks": ["0", "1", "2", "3"]  }
-	},
-    "commute_walk" : {
-		"field": "commute_walk",
-		"category": "green",
-		"title": "Commute by Walking",
-		"description": "The principal mode of travel from home to work for participants 16 years of age or older reported as one of the following - Drove Alone, Carpooled, Bus, Streetcar, Subway, Railroad, Ferryboat, Taxicab, Motorcycle, Bicycle, Walked, Worked at Home or Other.",
-        "quicklinks": ["total_commuters","commute_drive_alone","commute_bus","commute_carpool","commute_subway","commute_streetcar","commute_ferry","commute_railroad","commute_motorcycle","commute_taxi","commute_bicycle","commute_walk","commute_other","work_at_home"],		
-		"importance": "Transportation alternatives offer mobility options for residents of all ages and income levels and can help bridge the spatial divide between people and jobs, services, and training opportunities.",
-		"tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
-		"source": "U.S. Census American Community Survey",
-		"links": {"text": [ "CATS Carpooling", "Guide for Bicyclists and Pedestrians" ], "links": [ "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx", "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx" ]},
-		"style": { "type": "range", "units": "%", "breaks": ["0", "1", "3", "5"]  }
-	},
-    "commute_other" : {
-		"field": "commute_other",
-		"category": "green",
-		"title": "Commute by Other",
-		"description": "The principal mode of travel from home to work for participants 16 years of age or older reported as one of the following - Drove Alone, Carpooled, Bus, Streetcar, Subway, Railroad, Ferryboat, Taxicab, Motorcycle, Bicycle, Walked, Worked at Home or Other.",
-        "quicklinks": ["total_commuters","commute_drive_alone","commute_bus","commute_carpool","commute_subway","commute_streetcar","commute_ferry","commute_railroad","commute_motorcycle","commute_taxi","commute_bicycle","commute_walk","commute_other","work_at_home"],		
-		"importance": "Transportation alternatives offer mobility options for residents of all ages and income levels and can help bridge the spatial divide between people and jobs, services, and training opportunities.",
-		"tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
-		"source": "U.S. Census American Community Survey",
-		"links": {"text": [ "CATS Carpooling", "Guide for Bicyclists and Pedestrians" ], "links": [ "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx", "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx" ]},
-		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"]  }
-	},
-    "work_at_home" : {
-		"field": "work_at_home",
-		"category": "green",
-		"title": "Work at Home",
-		"description": "The principal mode of travel from home to work for participants 16 years of age or older reported as one of the following - Drove Alone, Carpooled, Bus, Streetcar, Subway, Railroad, Ferryboat, Taxicab, Motorcycle, Bicycle, Walked, Worked at Home or Other.",
-        "quicklinks": ["total_commuters","commute_drive_alone","commute_bus","commute_carpool","commute_subway","commute_streetcar","commute_ferry","commute_railroad","commute_motorcycle","commute_taxi","commute_bicycle","commute_walk","commute_other","work_at_home"],		
-		"importance": "Transportation alternatives offer mobility options for residents of all ages and income levels and can help bridge the spatial divide between people and jobs, services, and training opportunities.",
-		"tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
-		"source": "U.S. Census American Community Survey",
-		"links": {"text": [ "CATS Carpooling", "Guide for Bicyclists and Pedestrians" ], "links": [ "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx", "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx" ]},
-		"style": { "type": "range", "units": "%", "breaks": ["0", "2", "4", "6"]  }
-	},
-    "health_1" : {
-		"field": "health_1",
-		"category": "health",
-		"title": "Fake Health Metric",
-		"description": "Big long description here.",
-		"importance": "Notes on importance.",
-		"tech_notes": "Technical notes for the geeks.",
-		"source": "Information on the data source.",
-		"links": {"text": [ "Link 1", "Link 2" ], "links": [ "http://www.charmeck.org", "http://www.charmeck.org" ]},
-		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"]  }
-	},
-    "education_1" : {
-		"field": "education_1",
-		"category": "education",
-		"title": "Fake Education Metric",
-		"description": "Big long description here.",
-		"importance": "Notes on importance.",
-		"tech_notes": "Technical notes for the geeks.",
-		"source": "Information on the data source.",
-		"links": {"text": [ "Link 1", "Link 2" ], "links": [ "http://www.charmeck.org", "http://www.charmeck.org" ]},
-		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"]  }
-	},
-    "safety_1" : {
-		"field": "safety_1",
-		"category": "safety",
-		"title": "Fake Safety Metric",
-		"description": "Big long description here.",
-		"importance": "Notes on importance.",
-		"tech_notes": "Technical notes for the geeks.",
-		"source": "Information on the data source.",
-		"links": {"text": [ "Link 1", "Link 2" ], "links": [ "http://www.charmeck.org", "http://www.charmeck.org" ]},
-		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"]  }
-	},
-    "housing_1" : {
-		"field": "housing_1",
-		"category": "housing",
-		"title": "Fake Housing Metric",
-		"description": "Big long description here.",
-		"importance": "Notes on importance.",
-		"tech_notes": "Technical notes for the geeks.",
-		"source": "Information on the data source.",
-		"links": {"text": [ "Link 1", "Link 2" ], "links": [ "http://www.charmeck.org", "http://www.charmeck.org" ]},
-		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"]  }
-	},
-    "economics_1" : {
-		"field": "economics_1",
-		"category": "economics",
-		"title": "Fake Economics Metric",
-		"description": "Big long description here.",
-		"importance": "Notes on importance.",
-		"tech_notes": "Technical notes for the geeks.",
-		"source": "Information on the data source.",
-		"links": {"text": [ "Link 1", "Link 2" ], "links": [ "http://www.charmeck.org", "http://www.charmeck.org" ]},
-		"style": { "type": "range", "units": "%", "breaks": ["0", "25", "50", "75"]  }
-	}
+        "tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
+        "source": "U.S. Census American Community Survey",
+        "links": {
+            "text": [
+                "CATS Carpooling",
+                "Guide for Bicyclists and Pedestrians"
+            ],
+            "links": [
+                "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx",
+                "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx"
+            ]
+        },
+        "style": {
+            "type": "range",
+            "units": "",
+            "min": 0,
+            "max": 5209,
+            "avg": 958.1
+        }
+    },
+    "drive_alone": {
+        "field": "drive_alone",
+        "category": "green",
+        "title": "Commute Driving Alone",
+        "description": "The principal mode of travel from home to work for participants 16 years of age or older reported as one of the following - Drove Alone, Carpooled, Bus, Streetcar, Subway, Railroad, Ferryboat, Taxicab, Motorcycle, Bicycle, Walked, Worked at Home or Other.",
+        "quicklinks": [
+            "commuters",
+            "drive_alone",
+            "bus",
+            "carpool",
+            "subway",
+            "streetcar",
+            "ferry",
+            "railroad",
+            "motorcycle",
+            "taxi",
+            "bicycle",
+            "walk",
+            "commute_other",
+            "work_at_home"
+        ],
+        "importance": "Transportation alternatives offer mobility options for residents of all ages and income levels and can help bridge the spatial divide between people and jobs, services, and training opportunities.",
+        "tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
+        "source": "U.S. Census American Community Survey",
+        "links": {
+            "text": [
+                "CATS Carpooling",
+                "Guide for Bicyclists and Pedestrians"
+            ],
+            "links": [
+                "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx",
+                "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx"
+            ]
+        },
+        "style": {
+            "type": "range",
+            "units": "%",
+            "min": 0,
+            "max": 98.7,
+            "avg": 75.2
+        }
+    },
+    "bus": {
+        "field": "bus",
+        "category": "green",
+        "title": "Commute by Bus",
+        "description": "The principal mode of travel from home to work for participants 16 years of age or older reported as one of the following - Drove Alone, Carpooled, Bus, Streetcar, Subway, Railroad, Ferryboat, Taxicab, Motorcycle, Bicycle, Walked, Worked at Home or Other.",
+        "quicklinks": [
+            "commuters",
+            "drive_alone",
+            "bus",
+            "carpool",
+            "subway",
+            "streetcar",
+            "ferry",
+            "railroad",
+            "motorcycle",
+            "taxi",
+            "bicycle",
+            "walk",
+            "commute_other",
+            "work_at_home"
+        ],
+        "importance": "Transportation alternatives offer mobility options for residents of all ages and income levels and can help bridge the spatial divide between people and jobs, services, and training opportunities.",
+        "tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
+        "source": "U.S. Census American Community Survey",
+        "links": {
+            "text": [
+                "CATS Carpooling",
+                "Guide for Bicyclists and Pedestrians"
+            ],
+            "links": [
+                "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx",
+                "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx"
+            ]
+        },
+        "style": {
+            "type": "range",
+            "units": "%",
+            "min": 0,
+            "max": 45.3,
+            "avg": 3.6
+        }
+    },
+    "carpool": {
+        "field": "carpool",
+        "category": "green",
+        "title": "Commute by Carpool",
+        "description": "The principal mode of travel from home to work for participants 16 years of age or older reported as one of the following - Drove Alone, Carpooled, Bus, Streetcar, Subway, Railroad, Ferryboat, Taxicab, Motorcycle, Bicycle, Walked, Worked at Home or Other.",
+        "quicklinks": [
+            "commuters",
+            "drive_alone",
+            "bus",
+            "carpool",
+            "subway",
+            "streetcar",
+            "ferry",
+            "railroad",
+            "motorcycle",
+            "taxi",
+            "bicycle",
+            "walk",
+            "commute_other",
+            "work_at_home"
+        ],
+        "importance": "Transportation alternatives offer mobility options for residents of all ages and income levels and can help bridge the spatial divide between people and jobs, services, and training opportunities.",
+        "tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
+        "source": "U.S. Census American Community Survey",
+        "links": {
+            "text": [
+                "CATS Carpooling",
+                "Guide for Bicyclists and Pedestrians"
+            ],
+            "links": [
+                "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx",
+                "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx"
+            ]
+        },
+        "style": {
+            "type": "range",
+            "units": "%",
+            "min": 0,
+            "max": 64.5,
+            "avg": 12
+        }
+    },
+    "subway": {
+        "field": "subway",
+        "category": "green",
+        "title": "Commute by Subway",
+        "description": "The principal mode of travel from home to work for participants 16 years of age or older reported as one of the following - Drove Alone, Carpooled, Bus, Streetcar, Subway, Railroad, Ferryboat, Taxicab, Motorcycle, Bicycle, Walked, Worked at Home or Other.",
+        "quicklinks": [
+            "commuters",
+            "drive_alone",
+            "bus",
+            "carpool",
+            "subway",
+            "streetcar",
+            "ferry",
+            "railroad",
+            "motorcycle",
+            "taxi",
+            "bicycle",
+            "walk",
+            "commute_other",
+            "work_at_home"
+        ],
+        "importance": "Transportation alternatives offer mobility options for residents of all ages and income levels and can help bridge the spatial divide between people and jobs, services, and training opportunities.",
+        "tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
+        "source": "U.S. Census American Community Survey",
+        "links": {
+            "text": [
+                "CATS Carpooling",
+                "Guide for Bicyclists and Pedestrians"
+            ],
+            "links": [
+                "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx",
+                "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx"
+            ]
+        },
+        "style": {
+            "type": "range",
+            "units": "%",
+            "min": 0,
+            "max": 7.5,
+            "avg": 0.2
+        }
+    },
+    "streetcar": {
+        "field": "streetcar",
+        "category": "green",
+        "title": "Commute by Streetcar",
+        "description": "The principal mode of travel from home to work for participants 16 years of age or older reported as one of the following - Drove Alone, Carpooled, Bus, Streetcar, Subway, Railroad, Ferryboat, Taxicab, Motorcycle, Bicycle, Walked, Worked at Home or Other.",
+        "quicklinks": [
+            "commuters",
+            "drive_alone",
+            "bus",
+            "carpool",
+            "subway",
+            "streetcar",
+            "ferry",
+            "railroad",
+            "motorcycle",
+            "taxi",
+            "bicycle",
+            "walk",
+            "commute_other",
+            "work_at_home"
+        ],
+        "importance": "Transportation alternatives offer mobility options for residents of all ages and income levels and can help bridge the spatial divide between people and jobs, services, and training opportunities.",
+        "tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
+        "source": "U.S. Census American Community Survey",
+        "links": {
+            "text": [
+                "CATS Carpooling",
+                "Guide for Bicyclists and Pedestrians"
+            ],
+            "links": [
+                "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx",
+                "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx"
+            ]
+        },
+        "style": {
+            "type": "range",
+            "units": "%",
+            "min": 0,
+            "max": 4.8,
+            "avg": 0
+        }
+    },
+    "ferry": {
+        "field": "ferry",
+        "category": "green",
+        "title": "Commute by Ferry",
+        "description": "The principal mode of travel from home to work for participants 16 years of age or older reported as one of the following - Drove Alone, Carpooled, Bus, Streetcar, Subway, Railroad, Ferryboat, Taxicab, Motorcycle, Bicycle, Walked, Worked at Home or Other.",
+        "quicklinks": [
+            "commuters",
+            "drive_alone",
+            "bus",
+            "carpool",
+            "subway",
+            "streetcar",
+            "ferry",
+            "railroad",
+            "motorcycle",
+            "taxi",
+            "bicycle",
+            "walk",
+            "commute_other",
+            "work_at_home"
+        ],
+        "importance": "Transportation alternatives offer mobility options for residents of all ages and income levels and can help bridge the spatial divide between people and jobs, services, and training opportunities.",
+        "tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
+        "source": "U.S. Census American Community Survey",
+        "links": {
+            "text": [
+                "CATS Carpooling",
+                "Guide for Bicyclists and Pedestrians"
+            ],
+            "links": [
+                "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx",
+                "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx"
+            ]
+        },
+        "style": {
+            "type": "range",
+            "units": "%",
+            "min": 0,
+            "max": 2,
+            "avg": 0
+        }
+    },
+    "railroad": {
+        "field": "railroad",
+        "category": "green",
+        "title": "Commute by Railroad",
+        "description": "The principal mode of travel from home to work for participants 16 years of age or older reported as one of the following - Drove Alone, Carpooled, Bus, Streetcar, Subway, Railroad, Ferryboat, Taxicab, Motorcycle, Bicycle, Walked, Worked at Home or Other.",
+        "quicklinks": [
+            "commuters",
+            "drive_alone",
+            "bus",
+            "carpool",
+            "subway",
+            "streetcar",
+            "ferry",
+            "railroad",
+            "motorcycle",
+            "taxi",
+            "bicycle",
+            "walk",
+            "commute_other",
+            "work_at_home"
+        ],
+        "importance": "Transportation alternatives offer mobility options for residents of all ages and income levels and can help bridge the spatial divide between people and jobs, services, and training opportunities.",
+        "tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
+        "source": "U.S. Census American Community Survey",
+        "links": {
+            "text": [
+                "CATS Carpooling",
+                "Guide for Bicyclists and Pedestrians"
+            ],
+            "links": [
+                "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx",
+                "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx"
+            ]
+        },
+        "style": {
+            "type": "range",
+            "units": "%",
+            "min": 0,
+            "max": 8.9,
+            "avg": 0.1
+        }
+    },
+    "motorcycle": {
+        "field": "motorcycle",
+        "category": "green",
+        "title": "Commute by Motorcycle",
+        "description": "The principal mode of travel from home to work for participants 16 years of age or older reported as one of the following - Drove Alone, Carpooled, Bus, Streetcar, Subway, Railroad, Ferryboat, Taxicab, Motorcycle, Bicycle, Walked, Worked at Home or Other.",
+        "quicklinks": [
+            "commuters",
+            "drive_alone",
+            "bus",
+            "carpool",
+            "subway",
+            "streetcar",
+            "ferry",
+            "railroad",
+            "motorcycle",
+            "taxi",
+            "bicycle",
+            "walk",
+            "commute_other",
+            "work_at_home"
+        ],
+        "importance": "Transportation alternatives offer mobility options for residents of all ages and income levels and can help bridge the spatial divide between people and jobs, services, and training opportunities.",
+        "tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
+        "source": "U.S. Census American Community Survey",
+        "links": {
+            "text": [
+                "CATS Carpooling",
+                "Guide for Bicyclists and Pedestrians"
+            ],
+            "links": [
+                "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx",
+                "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx"
+            ]
+        },
+        "style": {
+            "type": "range",
+            "units": "%",
+            "min": 0,
+            "max": 4.6,
+            "avg": 0.1
+        }
+    },
+    "taxi": {
+        "field": "taxi",
+        "category": "green",
+        "title": "Commute by Taxi",
+        "description": "The principal mode of travel from home to work for participants 16 years of age or older reported as one of the following - Drove Alone, Carpooled, Bus, Streetcar, Subway, Railroad, Ferryboat, Taxicab, Motorcycle, Bicycle, Walked, Worked at Home or Other.",
+        "quicklinks": [
+            "commuters",
+            "drive_alone",
+            "bus",
+            "carpool",
+            "subway",
+            "streetcar",
+            "ferry",
+            "railroad",
+            "motorcycle",
+            "taxi",
+            "bicycle",
+            "walk",
+            "commute_other",
+            "work_at_home"
+        ],
+        "importance": "Transportation alternatives offer mobility options for residents of all ages and income levels and can help bridge the spatial divide between people and jobs, services, and training opportunities.",
+        "tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
+        "source": "U.S. Census American Community Survey",
+        "links": {
+            "text": [
+                "CATS Carpooling",
+                "Guide for Bicyclists and Pedestrians"
+            ],
+            "links": [
+                "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx",
+                "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx"
+            ]
+        },
+        "style": {
+            "type": "range",
+            "units": "%",
+            "min": 0,
+            "max": 3.6,
+            "avg": 0.1
+        }
+    },
+    "bicycle": {
+        "field": "bicycle",
+        "category": "green",
+        "title": "Commute by Bicycle",
+        "description": "The principal mode of travel from home to work for participants 16 years of age or older reported as one of the following - Drove Alone, Carpooled, Bus, Streetcar, Subway, Railroad, Ferryboat, Taxicab, Motorcycle, Bicycle, Walked, Worked at Home or Other.",
+        "quicklinks": [
+            "commuters",
+            "drive_alone",
+            "bus",
+            "carpool",
+            "subway",
+            "streetcar",
+            "ferry",
+            "railroad",
+            "motorcycle",
+            "taxi",
+            "bicycle",
+            "walk",
+            "commute_other",
+            "work_at_home"
+        ],
+        "importance": "Transportation alternatives offer mobility options for residents of all ages and income levels and can help bridge the spatial divide between people and jobs, services, and training opportunities.",
+        "tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
+        "source": "U.S. Census American Community Survey",
+        "links": {
+            "text": [
+                "CATS Carpooling",
+                "Guide for Bicyclists and Pedestrians"
+            ],
+            "links": [
+                "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx",
+                "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx"
+            ]
+        },
+        "style": {
+            "type": "range",
+            "units": "%",
+            "min": 0,
+            "max": 25.9,
+            "avg": 0.2
+        }
+    },
+    "walk": {
+        "field": "walk",
+        "category": "green",
+        "title": "Commute by Walking",
+        "description": "The principal mode of travel from home to work for participants 16 years of age or older reported as one of the following - Drove Alone, Carpooled, Bus, Streetcar, Subway, Railroad, Ferryboat, Taxicab, Motorcycle, Bicycle, Walked, Worked at Home or Other.",
+        "quicklinks": [
+            "commuters",
+            "drive_alone",
+            "bus",
+            "carpool",
+            "subway",
+            "streetcar",
+            "ferry",
+            "railroad",
+            "motorcycle",
+            "taxi",
+            "bicycle",
+            "walk",
+            "commute_other",
+            "work_at_home"
+        ],
+        "importance": "Transportation alternatives offer mobility options for residents of all ages and income levels and can help bridge the spatial divide between people and jobs, services, and training opportunities.",
+        "tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
+        "source": "U.S. Census American Community Survey",
+        "links": {
+            "text": [
+                "CATS Carpooling",
+                "Guide for Bicyclists and Pedestrians"
+            ],
+            "links": [
+                "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx",
+                "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx"
+            ]
+        },
+        "style": {
+            "type": "range",
+            "units": "%",
+            "min": 0,
+            "max": 67.7,
+            "avg": 1.8
+        }
+    },
+    "commute_other": {
+        "field": "commute_other",
+        "category": "green",
+        "title": "Commute by Other",
+        "description": "The principal mode of travel from home to work for participants 16 years of age or older reported as one of the following - Drove Alone, Carpooled, Bus, Streetcar, Subway, Railroad, Ferryboat, Taxicab, Motorcycle, Bicycle, Walked, Worked at Home or Other.",
+        "quicklinks": [
+            "commuters",
+            "drive_alone",
+            "bus",
+            "carpool",
+            "subway",
+            "streetcar",
+            "ferry",
+            "railroad",
+            "motorcycle",
+            "taxi",
+            "bicycle",
+            "walk",
+            "commute_other",
+            "work_at_home"
+        ],
+        "importance": "Transportation alternatives offer mobility options for residents of all ages and income levels and can help bridge the spatial divide between people and jobs, services, and training opportunities.",
+        "tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
+        "source": "U.S. Census American Community Survey",
+        "links": {
+            "text": [
+                "CATS Carpooling",
+                "Guide for Bicyclists and Pedestrians"
+            ],
+            "links": [
+                "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx",
+                "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx"
+            ]
+        },
+        "style": {
+            "type": "range",
+            "units": "%",
+            "min": 0,
+            "max": 17.6,
+            "avg": 0.7
+        }
+    },
+    "work_at_home": {
+        "field": "work_at_home",
+        "category": "green",
+        "title": "Work at Home",
+        "description": "The principal mode of travel from home to work for participants 16 years of age or older reported as one of the following - Drove Alone, Carpooled, Bus, Streetcar, Subway, Railroad, Ferryboat, Taxicab, Motorcycle, Bicycle, Walked, Worked at Home or Other.",
+        "quicklinks": [
+            "commuters",
+            "drive_alone",
+            "bus",
+            "carpool",
+            "subway",
+            "streetcar",
+            "ferry",
+            "railroad",
+            "motorcycle",
+            "taxi",
+            "bicycle",
+            "walk",
+            "commute_other",
+            "work_at_home"
+        ],
+        "importance": "Transportation alternatives offer mobility options for residents of all ages and income levels and can help bridge the spatial divide between people and jobs, services, and training opportunities.",
+        "tech_notes": "Data derived from the American Community Survey and only measures mode of transit from home to work.",
+        "source": "U.S. Census American Community Survey",
+        "links": {
+            "text": [
+                "CATS Carpooling",
+                "Guide for Bicyclists and Pedestrians"
+            ],
+            "links": [
+                "http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.aspx",
+                "http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/companies%20in%20ETC.aspx"
+            ]
+        },
+        "style": {
+            "type": "range",
+            "units": "%",
+            "min": 0,
+            "max": 31.4,
+            "avg": 4.9
+        }
+    },
+    "health": {
+        "field": "health",
+        "category": "health",
+        "title": "Fake Health Metric",
+        "description": "Big long description here.",
+        "importance": "Notes on importance.",
+        "tech_notes": "Technical notes for the geeks.",
+        "source": "Information on the data source.",
+        "links": {
+            "text": [
+                "Link 1",
+                "Link 2"
+            ],
+            "links": [
+                "http://www.charmeck.org",
+                "http://www.charmeck.org"
+            ]
+        },
+        "style": {
+            "type": "range",
+            "units": "%",
+            "min": 2,
+            "max": 100,
+            "avg": 51.2
+        }
+    },
+    "education": {
+        "field": "education",
+        "category": "education",
+        "title": "Fake Education Metric",
+        "description": "Big long description here.",
+        "importance": "Notes on importance.",
+        "tech_notes": "Technical notes for the geeks.",
+        "source": "Information on the data source.",
+        "links": {
+            "text": [
+                "Link 1",
+                "Link 2"
+            ],
+            "links": [
+                "http://www.charmeck.org",
+                "http://www.charmeck.org"
+            ]
+        },
+        "style": {
+            "type": "range",
+            "units": "%",
+            "min": 2,
+            "max": 100,
+            "avg": 49.1
+        }
+    },
+    "safety": {
+        "field": "safety",
+        "category": "safety",
+        "title": "Fake Safety Metric",
+        "description": "Big long description here.",
+        "importance": "Notes on importance.",
+        "tech_notes": "Technical notes for the geeks.",
+        "source": "Information on the data source.",
+        "links": {
+            "text": [
+                "Link 1",
+                "Link 2"
+            ],
+            "links": [
+                "http://www.charmeck.org",
+                "http://www.charmeck.org"
+            ]
+        },
+        "style": {
+            "type": "range",
+            "units": "%",
+            "min": 1,
+            "max": 100,
+            "avg": 50.8
+        }
+    },
+    "housing": {
+        "field": "housing",
+        "category": "housing",
+        "title": "Fake Housing Metric",
+        "description": "Big long description here.",
+        "importance": "Notes on importance.",
+        "tech_notes": "Technical notes for the geeks.",
+        "source": "Information on the data source.",
+        "links": {
+            "text": [
+                "Link 1",
+                "Link 2"
+            ],
+            "links": [
+                "http://www.charmeck.org",
+                "http://www.charmeck.org"
+            ]
+        },
+        "style": {
+            "type": "range",
+            "units": "%",
+            "min": 1,
+            "max": 100,
+            "avg": 45.8
+        }
+    },
+    "economics": {
+        "field": "economics",
+        "category": "economics",
+        "title": "Fake Economics Metric",
+        "description": "Big long description here.",
+        "importance": "Notes on importance.",
+        "tech_notes": "Technical notes for the geeks.",
+        "source": "Information on the data source.",
+        "links": {
+            "text": [
+                "Link 1",
+                "Link 2"
+            ],
+            "links": [
+                "http://www.charmeck.org",
+                "http://www.charmeck.org"
+            ]
+        },
+        "style": {
+            "type": "range",
+            "units": "%",
+            "min": 2,
+            "max": 100,
+            "avg": 49.3
+        }
+    }
 }
