@@ -1,50 +1,46 @@
+/* =============================================================================
+   Chrome Frame Prompt
+   ========================================================================== */
+.chromeframe { display: block; position: absolute; top: 40px; z-index: 100; width: 100%; margin: 0; text-align: center; font-size: 0.9em; background: #FFFF07; color: black; padding: 1px; }
 
 
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
 
-/* =============================================================================
-   Chrome Frame Prompt
-   ========================================================================== */
-
-.chromeframe { display: block; position: absolute; top: 40px; z-index: 100; width: 100%; margin: 0; text-align: center; font-size: 0.9em; background: #FFFF07; color: black; padding: 1px; }
-
-
-/*body { padding: 0; }*/
+/* Helper Classes */
 .textcenter { text-align: center; }
 .textleft { text-align: left; }
 .textright { text-align: right; }
 .main-row { padding-top: 15px; }
 
+/* Header */
 .jumbotron {
-position: relative;
-padding: 50px 0 5px;
-color: white;
-text-align: left;
-text-shadow: 0 1px 3px rgba(0, 0, 0, .4), 0 0 30px rgba(0, 0, 0, .075);
-background: #020031;
-background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,#020031), color-stop(100%,#6D3353));
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#020031', endColorstr='#6d3353',GradientType=1 );
--webkit-box-shadow: inset 0 3px 7px rgba(0, 0, 0, .2), inset 0 -3px 7px rgba(0, 0, 0, .2);
--moz-box-shadow: inset 0 3px 7px rgba(0,0,0,.2), inset 0 -3px 7px rgba(0,0,0,.2);
-box-shadow: inset 0 3px 7px rgba(0, 0, 0, .2), inset 0 -3px 7px rgba(0, 0, 0, .2);
+    position: relative;
+    padding: 50px 0 5px;
+    color: white;
+    text-align: left;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, .4), 0 0 30px rgba(0, 0, 0, .075);
+    background: #020031;
+    background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,#020031), color-stop(100%,#6D3353));
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#020031', endColorstr='#6d3353',GradientType=1 );
+    -webkit-box-shadow: inset 0 3px 7px rgba(0, 0, 0, .2), inset 0 -3px 7px rgba(0, 0, 0, .2);
+    -moz-box-shadow: inset 0 3px 7px rgba(0,0,0,.2), inset 0 -3px 7px rgba(0,0,0,.2);
+    box-shadow: inset 0 3px 7px rgba(0, 0, 0, .2), inset 0 -3px 7px rgba(0, 0, 0, .2);
 }
-
-
 .jumbotron::after {
-content: '';
-display: block;
-position: absolute;
-top: 0;
-right: 0;
-bottom: 0;
-left: 0;
-background: url(../img/bs-docs-masthead-pattern.png) repeat center center;
-opacity: .4;
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: url(../img/bs-docs-masthead-pattern.png) repeat center center;
+    opacity: .4;
 }
 
-
+/* map elements */
 #map {
     height: 480px;
     box-shadow: 0 8px 16px -8px #222;
@@ -54,7 +50,6 @@ opacity: .4;
     border: 1px solid #E5E5E5;
     border-radius: 6px;
 }
-
 .info {
     padding: 6px 8px;
     font: 14px/16px Arial, Helvetica, sans-serif;
@@ -79,6 +74,7 @@ opacity: .4;
     opacity: 0.7;
 }
 
+/* measure details area */
 .measure-details {
     border-radius: 6px;
     border: 1px solid #e5e5e5;
@@ -101,49 +97,51 @@ opacity: .4;
     margin: 0; l padding: 0;
 }
 
+/* report dialog */
 #report_metrics { height: 200px; }
 
+/* Sidebar */
 .sidenav {
-padding: 0;
-background-color: white;
--webkit-border-radius: 6px;
--moz-border-radius: 6px;
-border-radius: 6px;
--webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, .065);
--moz-box-shadow: 0 1px 4px rgba(0,0,0,.065);
-box-shadow: 0 1px 4px rgba(0, 0, 0, .065);
+    padding: 0;
+    background-color: white;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, .065);
+    -moz-box-shadow: 0 1px 4px rgba(0,0,0,.065);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .065);
 }
 .sidenav > li > a {
-display: block;
-margin: 0 0 -1px;
-padding: 8px 14px;
-border: 1px solid #E5E5E5;
+    display: block;
+    margin: 0 0 -1px;
+    padding: 8px 14px;
+    border: 1px solid #E5E5E5;
 }
 .sidenav > li:last-child > a {
-border-radius: 0 0 6px 6px;
+    border-radius: 0 0 6px 6px;
 }
 .sidenav > li:first-child > a {
-border-radius: 6px 6px 0 0;
+    border-radius: 6px 6px 0 0;
 }
 .sidenav .icon-chevron-down {
-float: right;
-margin-top: 2px;
-margin-right: -6px;
-opacity: .25;
+    float: right;
+    margin-top: 2px;
+    margin-right: -6px;
+    opacity: .25;
 }
 .sidenav .icon-chevron-right {
-float: left;
-margin-top: 2px;
-margin-left: -16px;
-opacity: .25;
+    float: left;
+    margin-top: 2px;
+    margin-left: -16px;
+    opacity: .25;
 }
 .sidenav > .active > a {
-position: relative;
-z-index: 2;
-padding: 9px 15px;
-border: 0;
-text-shadow: 0 1px 0 rgba(0, 0, 0, .15);
-box-shadow: inset 1px 0 0 rgba(0, 0, 0, .1), inset -1px 0 0 rgba(0, 0, 0, .1);
+    position: relative;
+    z-index: 2;
+    padding: 9px 15px;
+    border: 0;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, .15);
+    box-shadow: inset 1px 0 0 rgba(0, 0, 0, .1), inset -1px 0 0 rgba(0, 0, 0, .1);
 }
 .sidenav .accordion-group {
     margin-bottom: 0;
@@ -160,13 +158,13 @@ box-shadow: inset 1px 0 0 rgba(0, 0, 0, .1), inset -1px 0 0 rgba(0, 0, 0, .1);
 }
 
 
-
+/* jquery ui tweaks */
 .ui-autocomplete-loading { background: transparent url('../img/ui-anim_basic_16x16.gif') right no-repeat !important }
 .ui-autocomplete .ui-menu-item { padding-left: 10px }
 .ui-autocomplete { overflow: auto; overflow-y: auto; overflow-x: hidden; font-size: 0.9em; font-weight: normal; max-height: 400px; box-shadow: 2px 2px 4px #666;}
 .ui-autocomplete-category { font-weight: bold; padding: 0 4px; line-height: 1.5; font-variant: small-caps; font-size: 14px; }
 
-
+/* tweaks to responsive design behavior */
 @media (max-width: 979px) {
     .navbar-fixed-top {
         margin-bottom: 0;

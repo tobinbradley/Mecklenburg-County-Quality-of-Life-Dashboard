@@ -21,7 +21,9 @@ $(document).ready(function() {
         }
     });
 
-    // Add metrics to sidebar et al
+    updateData(FTmeta[activeMeasure]);
+
+    // Add metrics to sidebar and report list
     var writebuffer = "";
     var category = "";
     $.each(FTmeta, function(index) {
@@ -36,6 +38,10 @@ $(document).ready(function() {
     writebuffer += '</optgroup>';
     $("#report_metrics").html(writebuffer);
 
+    // Set default metric in sidebar
+    $('a[data-measure=population]').children("i").addClass("icon-chevron-right");
+
+    // Click events for sidebar
     $("a.measure-link").on("click", function(e) {
         $("a.measure-link").children("i").removeClass("icon-chevron-right");
         $(this).children("i").addClass("icon-chevron-right");
@@ -45,32 +51,30 @@ $(document).ready(function() {
     $(".sidenav li p").on("click", function(e) {
         e.stopPropagation();
     });
-
-    $(".gps").click(function() {
-        map.locate({
-            enableHighAccuracy: true
-        });
-    });
-
-    $("#searchbox").click(function() { $(this).select(); });
-
-    $(".show-overview").on("click", function(){
-        $(".measure-info").hide();
-        $(".overview").fadeIn();
-        //activeRecord = {};
-        //geojson.setStyle(style);
-        map.setView([35.260, -80.807], 10);
-        window.location.hash = "";
-    });
-
-
-    // Sidebar navigation
     $(".sidenav li.metrics-dropdown").on("click", function() {
         $(this).addClass("active").siblings().removeClass("active");
         $(this).siblings().children("p").each(function(){
             if (!$(this).is(':hidden')) $(this).animate({ height: 'toggle' }, 250);
         });
         $(this).children("p").animate({ height: 'toggle' }, 250);
+    });
+
+    // Geolocation link click event
+    $(".gps").click(function() {
+        map.locate({ enableHighAccuracy: true });
+    });
+
+    // Highlight any search box text on click
+    $("#searchbox").click(function() { $(this).select(); });
+
+    // Show the overview introduction text
+    $(".show-overview").on("click", function(){
+        $(".measure-info").hide();
+        $(".overview").fadeIn();
+        activeRecord = {};
+        geojson.setStyle(style);
+        map.setView([35.260, -80.807], 10);
+        window.location.hash = "";
     });
 
     // Autocomplete
@@ -150,14 +154,14 @@ $(document).ready(function() {
 
 });
 
-/**
- * Window load events
+/*
+    Window load events
  */
 $(window).load(function(){
     // load map
     mapInit();
 
-    // Process hash
+    // Process hash and add listener for navigation
     hashRead();
     window.addEventListener("hashchange", hashRead, false);
 });
@@ -186,32 +190,39 @@ function hashRead() {
             }
 
             // Process the metric
-            if (theHash[1].length > 0 ) {
-                $('a[data-measure=' + theHash[1] + ']').parent("p").parent("li").trigger("click");
+            if (theHash[1].length > 0 && !$('a[data-measure=' + theHash[1] + ']').children("i").hasClass("icon-chevron-right")) {
+                if ( $('a[data-measure=' + theHash[1] + ']').parent("p").is(':hidden') ) $('a[data-measure=' + theHash[1] + ']').parent("p").parent("li").trigger("click");
+                $("a.measure-link").children("i").removeClass("icon-chevron-right");
                 $('a[data-measure=' + theHash[1] + ']').children("i").addClass("icon-chevron-right");
                 changeMeasure(theHash[1], true);
             }
-
         }
     }
     else { $("body").removeClass("nonav"); }
 }
 
+/*
+    Change active measure
+*/
 function changeMeasure(measure, nohash) {
     nohash = (typeof nohash === "undefined") ? false : nohash;
     activeMeasure = measure;
     geojson.setStyle(style);
     legend.update();
     info.update();
+    updateData(FTmeta[activeMeasure]);
     if (jQuery.isEmptyObject(activeRecord) === false) {
         $(".overview").hide();
         $(".measure-info").show();
-        updateData(FTmeta[activeMeasure]);
+
         highlightSelected(getNPALayer(activeRecord.id));
     }
     if (!nohash) hashChange();
 }
 
+/*
+    Change active neighborhood
+*/
 function changeNeighborhood(npaid, nohash) {
     nohash = (typeof nohash === "undefined") ? false : nohash;
     var layer = getNPALayer(npaid);
@@ -223,8 +234,8 @@ function changeNeighborhood(npaid, nohash) {
     if (!nohash) hashChange();
 }
 
-/**
- * Assign data to active record
+/*
+    Assign data to active record
  */
 function assignData(data) {
     $.each(data, function(key, value){
@@ -233,23 +244,28 @@ function assignData(data) {
 
     // Select neighborhood in report
     $("#report_neighborhood option[selected]").removeAttr("selected");
-    $("#report_neighborhood option").each(function() {
-        if ($(this).text() == activeRecord.id) $(this).attr('selected', 'selected');
-    });
-
+    $("#report_neighborhood option[value=" + activeRecord.id + "]").attr('selected', 'selected');
 }
 
 
-/**
- * Update detailed data
- */
+/*
+    Update detailed data
+*/
 function updateData(measure) {
+    if (activeRecord.id) {
+        $("#selectedNeighborhood").html("Neighborhood Profile Area " + activeRecord.id);
+        // charts
+        barChart(measure);
+        if (measure.auxchart) { auxChart(measure); }
+        else { $("#indicator_auxchart").empty(); }
+    }
+
     // set neighborhood overview
-    $("#selectedNeighborhood").html("Neighborhood Profile Area " + activeRecord.id);
     $("#selectedMeasure").html(measure.title);
+    $("#indicator_description").html(measure.description);
 
     // set details info
-    $("#indicator_description").html(measure.description);
+
     $("#indicator_why").html(measure.importance);
     $("#indicator_technical").empty();
     if (measure.tech_notes.length > 0) $("#indicator_technical").append('<p>' + measure.tech_notes + '</p>');
@@ -274,21 +290,14 @@ function updateData(measure) {
         $("#indicator_resources").append("<h5>Links</h5><p>" + links + "</p>");
     }
 
-
-    // charts
-    barChart(measure);
-    if (measure.auxchart) { auxChart(measure); }
-    else { $("#indicator_auxchart").empty(); }
-
-
-    // Show
-    $("#welcome, #metricslist").hide();
+    // Show stuff
+    $("#welcome").hide();
     $("#selected-summary").show("fade", {}, 1500);
 }
 
-/**
- * Bar Chart
- */
+/*
+    Bar Chart
+*/
 function barChart(measure){
     var data = google.visualization.arrayToDataTable([
           ['Year', 'Neighborhood', 'NPA Average'],
@@ -311,11 +320,10 @@ function barChart(measure){
     chart.draw(data, options);
 }
 
-/**
- * Extra chart
- */
+/*
+    Extra chart
+*/
 function auxChart(measure) {
-
     // add each measure to array
     items = [];
     items[0] = ["test","test"];
@@ -326,7 +334,6 @@ function auxChart(measure) {
             i++;
         }
     });
-
 
     var data = google.visualization.arrayToDataTable(items);
 
@@ -343,7 +350,6 @@ function auxChart(measure) {
 
     var chart = new google.visualization.PieChart(document.getElementById('indicator_auxchart'));
     chart.draw(data, options);
-
 }
 
 
@@ -358,30 +364,22 @@ function auxChart(measure) {
 ********************************************/
 function mapInit() {
 
-    /*  initialize map  */
+    // initialize map
     map = new L.Map('map', {
         center: [35.260, -80.807],
         zoom: 10,
         minZoom: 9,
-        maxZoom: 17
+        maxZoom: 16
     });
     map.attributionControl.setPrefix(false).setPosition("bottomleft");
 
-    /* Add marker on locationfound event */
-    map.on('locationfound', function(e) {
-        var radius = e.accuracy / 2;
-        performIntersection(e.latlng.lat, e.latlng.lng);
-    });
-
-    /*  Add Layers  */
+    //  Add Base Layer
     L.tileLayer( "http://maps.co.mecklenburg.nc.us/mbtiles/mbtiles-server.php?db=meckbase-desaturated.mbtiles&z={z}&x={x}&y={y}",
-     { "attribution": "Mecklenburg County GIS" } ).addTo( map );
+     { "attribution": "<a href='http://emaps.charmeck.org'>Mecklenburg County GIS</a>" } ).addTo( map );
 
-
-
-     // Load geojson
+    // Load NPA geojson
     $.ajax({
-        url: "js/npa2.json",
+        url: "js/npa.json",
         dataType: "json",
         type: "GET",
         async: false,
@@ -390,19 +388,20 @@ function mapInit() {
         }
     });
 
-    /*  Locate user position via GeoLocation API  */
-    if (!Modernizr.geolocation) {
-        $(".gpsarea").hide();
-    }
+    // Locate user position via GeoLocation API
+    if (!Modernizr.geolocation) $(".gpsarea").hide();
+    map.on('locationfound', function(e) {
+        var radius = e.accuracy / 2;
+        performIntersection(e.latlng.lat, e.latlng.lng);
+    });
 
-    /* Hover information */
+    // Hover information
     info = L.control();
     info.onAdd = function (map) {
         this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
         this.update();
         return this._div;
     };
-    // method that we will use to update the control based on feature properties passed
     info.update = function (props) {
         this._div.innerHTML = '<h4>' + FTmeta[activeMeasure].title + '</h4>' +  (props && props[activeMeasure] != undefined ?
             '<b>NPA ' + props.id + '</b><br />Score: ' + numberWithCommas(props[activeMeasure]) + FTmeta[activeMeasure].style.units + '<br>NPA Average: ' + numberWithCommas(FTmeta[activeMeasure].style.avg)  + FTmeta[activeMeasure].style.units :
@@ -411,7 +410,7 @@ function mapInit() {
     };
     info.addTo(map);
 
-    /* Legend Control */
+    // Legend
     legend = L.control({position: 'bottomright'});
     legend.onAdd = function (map) {
         this._div = L.DomUtil.create('div', 'info legend');
@@ -431,8 +430,15 @@ function mapInit() {
 }
 
 /*
-    Map theme functions
+    Map NPA geojson decoration functions
 */
+function onEachFeature(feature, layer) {
+    layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetHighlight,
+        click: selectFeature
+    });
+}
 function style(feature) {
     return {
         fillColor: getColor(feature.properties[activeMeasure]),
@@ -463,14 +469,7 @@ function getColor(d) {
            d >= 0 && d != undefined   ?  '#FFEDA0' : '#666666';
 }
 function getFillOpacity(d) {
-    return d == undefined ? 0 : 0.8;
-}
-function onEachFeature(feature, layer) {
-    layer.on({
-        mouseover: highlightFeature,
-        mouseout: resetHighlight,
-        click: selectFeature
-    });
+    return d == undefined ? 0 : 0.7;
 }
 function highlightFeature(e) {
     var layer = e.target;
@@ -508,9 +507,8 @@ function zoomToFeature(bounds) {
 }
 function selectFeature(e) {
     var layer = e.target;
-    changeNeighborhood(layer.feature.properties.id);
+    if (layer.feature.properties[activeMeasure] != null) changeNeighborhood(layer.feature.properties.id);
 }
-
 
 /*
     Add marker
@@ -524,7 +522,7 @@ function addMarker(lat, lng) {
 }
 
 /*
-    Retrieve Data via intersect
+    Get xy NPA intersection via web service
 */
 function performIntersection(lat, lon) {
     url = wsbase + 'v1/ws_geo_pointoverlay.php?geotable=neighborhoods&callback=?&format=json&srid=4326&fields=id&parameters=&x=' + lon + '&y=' + lat;
