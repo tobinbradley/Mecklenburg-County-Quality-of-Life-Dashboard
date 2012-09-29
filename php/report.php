@@ -3,19 +3,14 @@
 /**
  * Set content header
  */
-//header('Content-type: application/pdf');
-error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
+header('Content-type: application/pdf');
+//error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 
 /**
  * Load Dependecies
  */
 require('fpdf17/fpdf.php');
-// require('gft.php');
 
-
-
-// GFT table ID
-// $tableID = "1XgEWtjmUsb68BtKetDqwB-fNzYCa0-tfd_8Jp7U";
 
 // Colors for the aux chart
 $chartColors = array("FEDFAC", "D2E6A0", "F8A6CB", "6BA5BF", "FDEC6C");
@@ -41,13 +36,18 @@ foreach ($json as $value) {
 }
 
 /**
- * Load neighborhood information from Google Fusion Tables
+ * Load neighborhood information from geojson
  */
 if (count($measures) > 0) {
-    // neighborhood
-    $conn = new PDO ("pgsql:host=meckgisdbopen;dbname=GISData","postgrereader","postgrereader", array(PDO::ATTR_PERSISTENT => true));
-    $data = $conn->query('SELECT * from view_neighborhoods where id = ' . $neighborhood );
-    $npadata = $data->fetchAll(PDO::FETCH_ASSOC);
+    $string = file_get_contents("../js/npa.json");
+    $npa_json = json_decode($string, true);
+
+
+    foreach ($npa_json["features"] as $value) {
+        if ( $value["properties"]["id"] = $neighborhood ) {
+            $npadata = $value["properties"];
+        }
+    }
 }
 
 /**
@@ -160,12 +160,12 @@ function createMeasure($x, $y, $themeasure) {
     $pdf->Write(0, $json[$themeasure][title] );
     $pdf->Ln(0.2);
     $pdf->SetX($x);
-    $pdf->Write(0, $npadata[0][$json[$themeasure]["field"]] . $json[$themeasure]["style"]["units"]);
+    $pdf->Write(0, $npadata[$json[$themeasure]["field"]] . $json[$themeasure]["style"]["units"]);
     $pdf->Ln(0.2);
     $pdf->SetX($x);
-    $chartMax = ($npadata[0][$json[$themeasure]["field"]] >= round($json[$themeasure]["style"]["avg"]) ? $npadata[0][$json[$themeasure]["field"]] : round($json[$themeasure]["style"]["avg"]));
+    $chartMax = ($npadata[$json[$themeasure]["field"]] >= round($json[$themeasure]["style"]["avg"]) ? $npadata[$json[$themeasure]["field"]] : round($json[$themeasure]["style"]["avg"]));
     $chartMax = ($chartMax > 100 ? $chartMax + 100 : 100 );
-    $pdf->Image( "http://chart.apis.google.com/chart?chxr=0,0," . $chartMax . "&chxl=1:|2010&chxt=x,y&chbh=a,4,9&chs=250x75&cht=bhg&chco=FF9900,FFCA7A&chds=0," . $chartMax . ",0," . $chartMax . "&chd=t:" . $npadata[0][$json[$themeasure]["field"]] . "|" . round($json[$themeasure]["style"]["avg"]) . "&chdl=Neightborhood|NPA+Average&chdlp=t&chg=-1,0", null , null, 0, 0, "PNG");
+    $pdf->Image( "http://chart.apis.google.com/chart?chxr=0,0," . $chartMax . "&chxl=1:|2010&chxt=x,y&chbh=a,4,9&chs=250x75&cht=bhg&chco=FF9900,FFCA7A&chds=0," . $chartMax . ",0," . $chartMax . "&chd=t:" . $npadata[$json[$themeasure]["field"]] . "|" . round($json[$themeasure]["style"]["avg"]) . "&chdl=Neightborhood|NPA+Average&chdlp=t&chg=-1,0", null , null, 0, 0, "PNG");
     $pdf->Ln(0.2);
     $pdf->SetX($x);
     $pdf->SetFont('Arial','B',10);
@@ -180,9 +180,9 @@ function createMeasure($x, $y, $themeasure) {
         $measureTitles = array();
         $measureValues = array();
         foreach ($json[$themeasure]["auxchart"]["measures"] as $value) {
-            if ($npadata[0][$value] > 0) {
-                array_push($measureTitles,  $npadata[0][$value] . $json[$value][style][units]. " " . $json[$value][title]);
-                array_push($measureValues, $npadata[0][$value]);
+            if ($npadata[$value] > 0) {
+                array_push($measureTitles,  $npadata[$value] . $json[$value][style][units]. " " . $json[$value][title]);
+                array_push($measureValues, $npadata[$value]);
             }
         }
         $comma_separated = implode(",", $json[$themeasure]["auxchart"]["measures"]);
