@@ -50,6 +50,7 @@
     border: 1px solid #E5E5E5;
     border-radius: 6px;
 }
+#opacity_slider { margin: 10px 20px; }
 .info {
     padding: 6px 8px;
     font: 14px/16px Arial, Helvetica, sans-serif;
@@ -82,20 +83,15 @@
     box-shadow: 0 8px 16px -8px #222;
     margin-top: 20px;
 }
-.measure-details p {
-    padding: 5px;
-}
+.measure-details p { padding: 5px; }
 .measure-info-header {
     border-bottom: 1px solid #EEE;
     background-color: whiteSmoke;
     padding: 1px 5px;
 }
-#selectedNeighborhood {
-    line-height: 20px;
-}
-.measure-details h5 {
-    margin: 0; l padding: 0;
-}
+#selectedNeighborhood { line-height: 20px; }
+.measureText { font-size: 1.2em; font-weight: bold; }
+.measure-details h5 { margin: 0; l padding: 0; }
 
 /* report dialog */
 #report_metrics { height: 200px; }

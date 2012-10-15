@@ -35,6 +35,20 @@ function urldecode(str) {
     return str;
 }
 
+/**
+* Add left and right labels to a jQuery UI Slider
+*/
+$.fn.extend({
+    sliderLabels: function(left,right) {
+        var $this = $(this);
+        var $sliderdiv= $this;
+        $sliderdiv
+        .css({'font-weight': 'normal'});
+        $sliderdiv
+        .prepend('<span class="ui-slider-inner-label"  style="position: absolute; left:0px; top:15px; font-size: 12px; ">'+left+ '</span>')
+        .append('<span class="ui-slider-inner-label" style="position: absolute; right:0px; top:15px; font-size: 12px;">'+right+ '</span>');
+    }
+});
 
 /**
  * Capitalize first letter of word
@@ -49,7 +63,7 @@ function capitaliseFirstLetter(string) {
  */
 function sortAlpha(a, b) {
     return a.innerHTML.toLowerCase() > b.innerHTML.toLowerCase() ? 1 : -1;
-};
+}
 
 
 /*

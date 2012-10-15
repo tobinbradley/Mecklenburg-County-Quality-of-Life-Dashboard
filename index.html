@@ -22,7 +22,7 @@
 
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
-        <link rel="stylesheet" href="css/jquery-ui-1.8.23.custom.css">
+        <link rel="stylesheet" href="css/jquery-ui-1.8.16.custom.css">
         <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.4/leaflet.css" />
         <!--[if lte IE 8]><link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.4/leaflet.ie.css" /><![endif]-->
         <link rel="stylesheet" href="css/main.css">
@@ -32,7 +32,6 @@
         <script src="js/vendor/modernizr-2.6.1.min.js"></script>
     </head>
     <body>
-
 
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="navbar-inner">
@@ -61,7 +60,7 @@
 
         <!-- Subhead ================================================== -->
         <header class="jumbotron subhead">
-            <!--[if lt IE 9]>
+            <!--[if lt IE 8]>
                 <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
             <![endif]-->
           <div class="container">
@@ -72,10 +71,7 @@
 
         <div class="container">
 
-
-
             <div class="row main-row">
-
                 <div class="span3">
                     <ul class="nav nav-list sidenav">
                         <li class="show-overview">
@@ -135,46 +131,45 @@
                                 </p>
                             </div>
                             <div>
-                                <h4 id="selectedMeasure"></h4>
-                                <p class="textleft muted" id="indicator_description"></p>
+                                <h3 id="selectedNeighborhood" class="measure-info hide"></h3>
+                                <p class="textleft">
+                                     <span id="selectedValue" class="measure-info measureText text-info"></span>
+                                     <span id="selectedMeasure" class="measureText"></span>
+                                     <br>
+                                     <span id="indicator_description" class="muted"></span>
+                                </p>
                             </div>
                             <div class="measure-info textcenter hide">
-                                <h3 id="selectedNeighborhood"></h3>
                                 <div id='details_chart' class="chart"></div>
                                 <div id="indicator_auxchart"></div>
                             </div>
                         </div>
-                        <div id="map" class="span5 pull-right"></div>
+                        <div id="map-area" class="span5 pull-right">
+                            <div id="map"></div>
+                            <div id="opacity_slider"></div>
+                        </div>
                     </div>
 
-
                     <div class="row">
-
                         <div class="span3 measure-details">
                             <div class="measure-info-header">
                                 <h4>Why is this important?</h4>
                             </div>
                             <p id="indicator_why" ></p>
                         </div>
-
                         <div class="span3 measure-details">
                             <div class="measure-info-header">
                                 <h4>About the Data</h4>
                             </div>
                             <div id="indicator_technical"></div>
                         </div>
-
                         <div class="span3 measure-details">
                             <div class="measure-info-header">
                                 <h4>Additional Resources</h4>
                             </div>
                             <p id="indicator_resources"></p>
                         </div>
-
                     </div>
-
-
-
                </div>
 
             </div>
@@ -198,7 +193,7 @@
         <script>google.load("visualization", "1", {packages:["corechart"]});</script>
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-        <script src="js/vendor/jquery-ui-1.8.23.custom.min.js"></script>
+        <script src="js/vendor/jquery-ui-1.8.24.custom.min.js"></script>
         <script src="js/vendor/bootstrap.min.js"></script>
         <script src="http://cdn.leafletjs.com/leaflet-0.4.4/leaflet.js"></script>
         <script src="js/plugins.js"></script>

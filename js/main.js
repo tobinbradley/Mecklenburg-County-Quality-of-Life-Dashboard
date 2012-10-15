@@ -45,12 +45,11 @@ $(document).ready(function() {
     $("a.measure-link").on("click", function(e) {
         $("a.measure-link").children("i").removeClass("icon-chevron-right");
         $(this).children("i").addClass("icon-chevron-right");
+        if ( $(window).width() <= 767 ) $('html, body').animate({ scrollTop: $("#data").offset().top }, 1000);
         changeMeasure( $(this).data("measure") );
         e.stopPropagation();
     });
-    $(".sidenav li p").on("click", function(e) {
-        e.stopPropagation();
-    });
+    $(".sidenav li p").on("click", function(e) { e.stopPropagation(); });
     $(".sidenav li.metrics-dropdown").on("click", function() {
         $(this).addClass("active").siblings().removeClass("active");
         $(this).siblings().children("p").each(function(){
@@ -76,6 +75,12 @@ $(document).ready(function() {
         map.setView([35.260, -80.807], 10);
         window.location.hash = "";
     });
+
+    // Opacity slider
+    $( "#opacity_slider" ).slider({ range: "min", value: 70, min: 25, max: 100, stop: function (event, ui) {
+            geojson.setStyle(style);
+        }
+    }).sliderLabels('Map','Data');
 
     // Autocomplete
     $("#searchbox").autocomplete({
@@ -254,6 +259,7 @@ function assignData(data) {
 function updateData(measure) {
     if (activeRecord.id) {
         $("#selectedNeighborhood").html("Neighborhood Profile Area " + activeRecord.id);
+        $("#selectedValue").html(numberWithCommas(activeRecord[measure.field]) + measure.style.units);
         // charts
         barChart(measure);
         if (measure.auxchart) { auxChart(measure); }
@@ -446,7 +452,7 @@ function style(feature) {
         opacity: 1,
         color: '#666',
         dashArray: '3',
-        fillOpacity: getFillOpacity(feature.properties[activeMeasure])
+        fillOpacity: $("#opacity_slider").slider("value") / 100
     };
 }
 function getColorGrades(metric) {
@@ -468,16 +474,12 @@ function getColor(d) {
            d > breaks[1] ? '#FED976' :
            d >= 0 && d != undefined   ?  '#FFEDA0' : '#666666';
 }
-function getFillOpacity(d) {
-    return d == undefined ? 0 : 0.7;
-}
 function highlightFeature(e) {
     var layer = e.target;
     if (!activeRecord || (activeRecord && activeRecord.id != e.target.feature.properties.id)) layer.setStyle({
         weight: 4,
         color: '#666',
-        dashArray: '',
-        fillOpacity: 0.7
+        dashArray: ''
     });
     if (!L.Browser.ie && !L.Browser.opera) {
         layer.bringToFront();
