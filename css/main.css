@@ -39,6 +39,7 @@
     background: url(../img/bs-docs-masthead-pattern.png) repeat center center;
     opacity: .4;
 }
+.navbar .brand { display: none; }
 
 /* map elements */
 #map {
@@ -172,7 +173,15 @@
 @media (max-width: 767px) {
     body { padding: 0; }
     .navbar, .container { padding-left: 10px; padding-right: 10px; }
-
+    .navbar .brand { display: block; padding-left: 20px; }
+    .jumbotron { display: none; }
 }
 
 
+/* Print Handling */
+@media print {
+
+    .sidenav, #opacity_slider, .btn-navbar { display: none !important; }
+    .measure-details, #map { box-shadow: none;  }
+
+}

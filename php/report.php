@@ -217,18 +217,12 @@ function createMeasure($x, $y, $themeasure) {
     $pdf->Ln(0.2);
     $pdf->SetX($x);
     $pdf->SetFont('Arial','B',10);
-    $pdf->Write(0, "Additional Resources");
-    $pdf->Ln(0.1);
-    $pdf->SetX($x);
-    $pdf->SetFont('Arial','',9);
-    $pdf->SetTextColor(0,0,255);
-    $pdf->SetFont('','U');
-    $count = count($json[$themeasure][links][text]);
-    for ($i = 0; $i < $count; $i++) {
-        $pdf->Write(0.2, $json[$themeasure][links][text][$i],$json[$themeasure][links][links][$i]);
-        $pdf->Ln(0.15);
-        $pdf->SetX($x);
-    }
+    //$pdf->Write(0, "Additional Resources");
+    //$pdf->Ln(0.1);
+    //$pdf->SetX($x);
+    //$pdf->SetFont('Arial','',9);
+    //$pdf->SetTextColor(0,0,255);
+    //$pdf->SetFont('','U');
 
 }
 

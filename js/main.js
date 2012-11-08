@@ -1,6 +1,6 @@
 var FTmeta,
     activeRecord = {},
-    activeMeasure = "population",
+    activeMeasure = "p1",
     wsbase = "http://maps.co.mecklenburg.nc.us/rest/",
     map,
     geojson,
@@ -27,19 +27,21 @@ $(document).ready(function() {
     var writebuffer = "";
     var category = "";
     $.each(FTmeta, function(index) {
-        $('p[data-group=' + this.category + ']').append('<a href="javascript:void(0)" class="measure-link" data-measure="' + this.field + '">' + this.title + ' <i></i></a><br>');
-        if (index === 0 || this.category != category) {
-            if (index !== 0) writebuffer += '</optgroup>';
-            writebuffer += '<optgroup label="' + capitaliseFirstLetter(this.category) + '">';
-            category = this.category;
+        if (this.style.breaks.length > 0) {
+            $('p[data-group=' + this.category + ']').append('<a href="javascript:void(0)" class="measure-link" data-measure="' + this.field + '">' + this.title + ' <i></i></a><br>');
+            if (index === 0 || this.category != category) {
+                if (index !== 0) writebuffer += '</optgroup>';
+                writebuffer += '<optgroup label="' + capitaliseFirstLetter(this.category) + '">';
+                category = this.category;
+            }
+            writebuffer += '<option value="' + this.field + '">' + this.title + '</option>';
         }
-        writebuffer += '<option value="' + this.field + '">' + this.title + '</option>';
     });
     writebuffer += '</optgroup>';
     $("#report_metrics").html(writebuffer);
 
     // Set default metric in sidebar
-    $('a[data-measure=population]').children("i").addClass("icon-chevron-right");
+    $('a[data-measure=p1]').children("i").addClass("icon-chevron-right");
 
     // Click events for sidebar
     $("a.measure-link").on("click", function(e) {
@@ -187,6 +189,8 @@ function hashRead() {
             if (theHash[2] && theHash[2].length > 0) {
                 if (theHash[2].indexOf(",") == -1) {
                     changeNeighborhood(theHash[2], true);
+                    var layer = getNPALayer(theHash[2]);
+                    zoomToFeature(layer.getBounds());
                 }
                 else {
                     coords = theHash[2].split(",");
@@ -212,17 +216,33 @@ function hashRead() {
 function changeMeasure(measure, nohash) {
     nohash = (typeof nohash === "undefined") ? false : nohash;
     activeMeasure = measure;
+    // get average if haven't already
+    if (!FTmeta[activeMeasure].style.avg) calcAverage(activeMeasure);
     geojson.setStyle(style);
     legend.update();
     info.update();
-    updateData(FTmeta[activeMeasure]);
-    if (jQuery.isEmptyObject(activeRecord) === false) {
+    var layer = getNPALayer(activeRecord.id);
+    if (jQuery.isEmptyObject(activeRecord) === false && layer.feature.properties[measure] != null ) {
+        updateData(FTmeta[activeMeasure]);
         $(".overview").hide();
         $(".measure-info").show();
-
-        highlightSelected(getNPALayer(activeRecord.id));
+        highlightSelected(layer);
+    }
+    else {
+        $(".measure-info").hide();
+        $(".overview").fadeIn();
     }
     if (!nohash) hashChange();
+}
+
+function calcAverage(measure) {
+    if (!FTmeta[activeMeasure].style.avg) {
+        var theSum = 0;
+        $.each(geojson._layers, function() {
+            theSum = theSum + this.feature.properties[measure];
+        });
+        FTmeta[measure].style.avg = Math.round(theSum / 464);
+    }
 }
 
 /*
@@ -289,11 +309,7 @@ function updateData(measure) {
 
     // Links
     if (measure.links) {
-        var links = "";
-        $.each(measure.links.text, function(index, value) {
-            links += '<a href="' + measure.links.links[index] + '">' + measure.links.text[index] + '</a><br />';
-        });
-        $("#indicator_resources").append("<h5>Links</h5><p>" + links + "</p>");
+        $("#indicator_resources").append("<h5>Links</h5><p>" + measure.links + "</p>");
     }
 
     // Show stuff
@@ -306,7 +322,7 @@ function updateData(measure) {
 */
 function barChart(measure){
     var data = google.visualization.arrayToDataTable([
-          ['Year', 'Neighborhood', 'NPA Average'],
+          ['Year', 'NPA ' + activeRecord.id, 'County Average'],
           ['2010',  parseFloat(activeRecord[measure.field]), Math.round(FTmeta[measure.field].style.avg) ]
         ]);
 
@@ -334,7 +350,7 @@ function auxChart(measure) {
     items = [];
     items[0] = ["test","test"];
     i = 1;
-    $.each(measure.auxchart.measures, function(index, value) {
+    $.each(measure.quicklinks, function(index, value) {
         if (activeRecord[value] > 0) {
             items[i] = [ FTmeta[value].title.replace("Commute by ","").replace("Commute ","") + " " + activeRecord[FTmeta[value].field] + "%",  activeRecord[FTmeta[value].field] ];
             i++;
@@ -360,7 +376,6 @@ function auxChart(measure) {
 
 
 
-
 /********************************************
 
 
@@ -368,6 +383,7 @@ function auxChart(measure) {
 
 
 ********************************************/
+var tmpdata;
 function mapInit() {
 
     // initialize map
@@ -390,7 +406,9 @@ function mapInit() {
         type: "GET",
         async: false,
         success: function(data) {
+           tmpdata = data;
            geojson = L.geoJson(data, { style: style, onEachFeature: onEachFeature }).addTo(map);
+           calcAverage(activeMeasure);
         }
     });
 
@@ -424,13 +442,12 @@ function mapInit() {
         return this._div;
     };
     legend.update = function() {
-        var grades = getColorGrades(activeMeasure);
-        this._div.innerHTML = "";
-        for (var i = 0; i < grades.length; i++) {
-            this._div.innerHTML +=
-                '<i style="background:' + getColor(grades[i] + 1) + '"></i> <span id="legend-' + i + '">' +
-                grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '</span><br>' : '+</span>');
-        }
+        var theLegend = '<i style="background: #666666"></i> <span id="legend-">No Data</span><br>';
+        $.each(FTmeta[activeMeasure].style.breaks, function(index, value) {
+            theLegend += '<i style="background:' + FTmeta[activeMeasure].style.colors[index] + '"></i> <span id="legend-' + index + '">' +
+                value + (FTmeta[activeMeasure].style.colors[index + 1] ? '&ndash;' + FTmeta[activeMeasure].style.breaks[index + 1] + FTmeta[activeMeasure].style.units + '</span><br>' : FTmeta[activeMeasure].style.units + '+</span>');
+        });
+        this._div.innerHTML = theLegend;
     };
     legend.addTo(map);
 }
@@ -455,24 +472,19 @@ function style(feature) {
         fillOpacity: $("#opacity_slider").slider("value") / 100
     };
 }
-function getColorGrades(metric) {
-    var theBreak = Math.round((FTmeta[metric].style.max / 7) * 10) / 10;
-    var grades = [0];
-    for (i=1; i <= 6; i++) {
-        grades.push( Math.round( theBreak * 10 * i ) / 10 );
-    }
-    return grades;
-}
+
 function getColor(d) {
-    var breaks = getColorGrades(activeMeasure);
-    return d > breaks[7] ? '#800026' :
-           d > breaks[6] ? '#BD0026' :
-           d > breaks[5] ? '#E31A1C' :
-           d > breaks[4] ? '#FC4E2A' :
-           d > breaks[3] ? '#FD8D3C' :
-           d > breaks[2] ? '#FEB24C' :
-           d > breaks[1] ? '#FED976' :
-           d >= 0 && d != undefined   ?  '#FFEDA0' : '#666666';
+    var color = "";
+    var colors = FTmeta[activeMeasure].style.colors.reverse();
+    var breaks = FTmeta[activeMeasure].style.breaks.reverse();
+    $.each(breaks, function(index, value) {
+        if (d >= value && d !== null) {
+            color = colors[index];
+            return;
+        }
+    });
+    if (color.length > 0) return color;
+    else return "#666666";
 }
 function highlightFeature(e) {
     var layer = e.target;
@@ -502,7 +514,6 @@ function highlightSelected(layer) {
     if (!L.Browser.ie && !L.Browser.opera) {
         layer.bringToFront();
     }
-    zoomToFeature(layer.getBounds());
 }
 function zoomToFeature(bounds) {
     map.fitBounds(bounds);
@@ -510,6 +521,7 @@ function zoomToFeature(bounds) {
 function selectFeature(e) {
     var layer = e.target;
     if (layer.feature.properties[activeMeasure] != null) changeNeighborhood(layer.feature.properties.id);
+    zoomToFeature(layer.getBounds());
 }
 
 /*
@@ -532,6 +544,8 @@ function performIntersection(lat, lon) {
         if (data.total_rows > 0) {
             changeNeighborhood(data.rows[0].row.id);
             addMarker(lat, lon);
+            var layer = getNPALayer(data.rows[0].row.id);
+            zoomToFeature(layer.getBounds());
         }
     });
 }
