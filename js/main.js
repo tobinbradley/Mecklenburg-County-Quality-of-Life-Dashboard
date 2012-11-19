@@ -1,12 +1,15 @@
 var FTmeta,
     activeRecord = {},
-    activeMeasure = "p1",
+    defaultMeasure = "p1",
+    activeMeasure = defaultMeasure,
     wsbase = "http://maps.co.mecklenburg.nc.us/rest/",
     map,
     geojson,
+    jsonData,
     info,
     legend,
-    marker;
+    marker,
+    chart;
 
 
 $(document).ready(function() {
@@ -21,7 +24,17 @@ $(document).ready(function() {
         }
     });
 
-    updateData(FTmeta[activeMeasure]);
+    // Grab NPA JSON
+    $.ajax({
+        url: "js/npa.json",
+        dataType: "json",
+        type: "GET",
+        async: false,
+        success: function(data) {
+           jsonData = data;
+        }
+    });
+
 
     // Add metrics to sidebar and report list
     var writebuffer = "";
@@ -40,14 +53,18 @@ $(document).ready(function() {
     writebuffer += '</optgroup>';
     $("#report_metrics").html(writebuffer);
 
-    // Set default metric in sidebar
-    $('a[data-measure=p1]').children("i").addClass("icon-chevron-right");
+    // Set default metric
+    updateData(FTmeta[defaultMeasure]);
+    calcAverage(defaultMeasure);
+    barChart(FTmeta[defaultMeasure]);
+    $('a[data-measure=' + defaultMeasure + ']').children("i").addClass("icon-chevron-right");
 
     // Click events for sidebar
     $("a.measure-link").on("click", function(e) {
         $("a.measure-link").children("i").removeClass("icon-chevron-right");
         $(this).children("i").addClass("icon-chevron-right");
         if ( $(window).width() <= 767 ) $('html, body').animate({ scrollTop: $("#data").offset().top }, 1000);
+        activeMeasure = $(this).data("measure");
         changeMeasure( $(this).data("measure") );
         e.stopPropagation();
     });
@@ -69,14 +86,7 @@ $(document).ready(function() {
     $("#searchbox").click(function() { $(this).select(); });
 
     // Show the overview introduction text
-    $(".show-overview").on("click", function(){
-        $(".measure-info").hide();
-        $(".overview").fadeIn();
-        activeRecord = {};
-        geojson.setStyle(style);
-        map.setView([35.260, -80.807], 10);
-        window.location.hash = "";
-    });
+    $(".show-overview").on("click", function(){ resetOverview(); });
 
     // Opacity slider
     $( "#opacity_slider" ).slider({ range: "min", value: 70, min: 25, max: 100, stop: function (event, ui) {
@@ -109,7 +119,6 @@ $(document).ready(function() {
                             getid: item.row.getid
                         };
                     }));
-
                 }
                 else if (data.total_rows == 0) {
                     response($.map([{}], function(item) {
@@ -176,45 +185,51 @@ $(window).load(function(){
 /*
     Hash reading and writing
 */
-function hashChange() {
-    $("body").addClass("nonav");
-    window.location.hash = "/" + activeMeasure + "/" + ((activeRecord.id) ? activeRecord.id : "");
+function hashChange(measure, record) {
+    window.location.hash = "/" + measure + "/" + record;
 }
 function hashRead() {
-    if (!$("body").hasClass("nonav")) {
-        if (window.location.hash.length > 1) {
-            theHash = window.location.hash.replace("#","").split("/");
+    if (window.location.hash.length > 1) {
+        theHash = window.location.hash.replace("#","").split("/");
 
-            // Process the lat,lon or neighborhood number
-            if (theHash[2] && theHash[2].length > 0) {
-                if (theHash[2].indexOf(",") == -1) {
-                    changeNeighborhood(theHash[2], true);
-                    var layer = getNPALayer(theHash[2]);
-                    zoomToFeature(layer.getBounds());
-                }
-                else {
-                    coords = theHash[2].split(",");
-                    performIntersection(coords[0], coords[1]);
-                }
+        // Process the lat,lon or neighborhood number
+        if (theHash[2] && theHash[2].length > 0 && theHash[2] !== activeRecord.id) {
+            if (theHash[2].indexOf(",") == -1) {
+                changeNeighborhood(theHash[2], true);
+                var layer = getNPALayer(theHash[2]);
+                zoomToFeature(layer.getBounds());
             }
-
-            // Process the metric
-            if (theHash[1].length > 0 && !$('a[data-measure=' + theHash[1] + ']').children("i").hasClass("icon-chevron-right")) {
-                if ( $('a[data-measure=' + theHash[1] + ']').parent("p").is(':hidden') ) $('a[data-measure=' + theHash[1] + ']').parent("p").parent("li").trigger("click");
-                $("a.measure-link").children("i").removeClass("icon-chevron-right");
-                $('a[data-measure=' + theHash[1] + ']').children("i").addClass("icon-chevron-right");
-                changeMeasure(theHash[1], true);
+            else {
+                coords = theHash[2].split(",");
+                performIntersection(coords[0], coords[1]);
             }
         }
+
+        // Process the metric
+        if (theHash[1].length > 0 && !$('a[data-measure=' + theHash[1] + ']' && theHash[1] !== activeMeasure).children("i").hasClass("icon-chevron-right")) {
+            if ( $('a[data-measure=' + theHash[1] + ']').parent("p").is(':hidden') ) $('a[data-measure=' + theHash[1] + ']').parent("p").parent("li").trigger("click");
+            $("a.measure-link").children("i").removeClass("icon-chevron-right");
+            $('a[data-measure=' + theHash[1] + ']').children("i").addClass("icon-chevron-right");
+            changeMeasure(theHash[1]);
+        }
     }
-    else { $("body").removeClass("nonav"); }
+}
+
+/* reset to overview */
+function resetOverview() {
+    $(".measure-info").hide();
+    $(".overview").fadeIn();
+    activeRecord = {};
+    barChart(FTmeta[activeMeasure]);
+    geojson.setStyle(style);
+    map.setView([35.260, -80.807], 10);
+    hashChange(activeMeasure, "");
 }
 
 /*
     Change active measure
 */
-function changeMeasure(measure, nohash) {
-    nohash = (typeof nohash === "undefined") ? false : nohash;
+function changeMeasure(measure) {
     activeMeasure = measure;
     // get average if haven't already
     if (!FTmeta[activeMeasure].style.avg) calcAverage(activeMeasure);
@@ -222,41 +237,22 @@ function changeMeasure(measure, nohash) {
     legend.update();
     info.update();
     var layer = getNPALayer(activeRecord.id);
-    if (jQuery.isEmptyObject(activeRecord) === false && layer.feature.properties[measure] != null ) {
-        updateData(FTmeta[activeMeasure]);
-        $(".overview").hide();
-        $(".measure-info").show();
-        highlightSelected(layer);
-    }
-    else {
-        $(".measure-info").hide();
-        $(".overview").fadeIn();
-    }
-    if (!nohash) hashChange();
-}
-
-function calcAverage(measure) {
-    if (!FTmeta[activeMeasure].style.avg) {
-        var theSum = 0;
-        $.each(geojson._layers, function() {
-            theSum = theSum + this.feature.properties[measure];
-        });
-        FTmeta[measure].style.avg = Math.round(theSum / 464);
-    }
+    updateData(FTmeta[activeMeasure]);
+    if (activeRecord.id) highlightSelected(layer);
+    hashChange(activeMeasure, activeRecord.id ? activeRecord.id : "");
 }
 
 /*
     Change active neighborhood
 */
-function changeNeighborhood(npaid, nohash) {
-    nohash = (typeof nohash === "undefined") ? false : nohash;
+function changeNeighborhood(npaid) {
     var layer = getNPALayer(npaid);
     assignData(layer.feature.properties);
     $(".overview").hide();
     $(".measure-info").show();
     updateData(FTmeta[activeMeasure]);
     highlightSelected(layer);
-    if (!nohash) hashChange();
+    hashChange(activeMeasure, activeRecord.id ? activeRecord.id : "");
 }
 
 /*
@@ -279,12 +275,12 @@ function assignData(data) {
 function updateData(measure) {
     if (activeRecord.id) {
         $("#selectedNeighborhood").html("Neighborhood Profile Area " + activeRecord.id);
-        $("#selectedValue").html(numberWithCommas(activeRecord[measure.field]) + measure.style.units);
+        $("#selectedValue").html( prettyMetric(activeRecord[measure.field], activeMeasure) );
         // charts
-        barChart(measure);
         if (measure.auxchart) { auxChart(measure); }
         else { $("#indicator_auxchart").empty(); }
     }
+    barChart(measure);
 
     // set neighborhood overview
     $("#selectedMeasure").html(measure.title);
@@ -314,31 +310,45 @@ function updateData(measure) {
 
     // Show stuff
     $("#welcome").hide();
-    $("#selected-summary").show("fade", {}, 1500);
+    $("#selected-summary").show();
 }
 
 /*
     Bar Chart
 */
 function barChart(measure){
-    var data = google.visualization.arrayToDataTable([
-          ['Year', 'NPA ' + activeRecord.id, 'County Average'],
-          ['2010',  parseFloat(activeRecord[measure.field]), Math.round(FTmeta[measure.field].style.avg) ]
+    var data, theTitle, theColors;
+    if (jQuery.isEmptyObject(activeRecord) || !activeRecord[activeMeasure]) {
+        data = google.visualization.arrayToDataTable([
+            ['Year', 'County Average'],
+            ['2010',  Math.round(FTmeta[measure.field].style.avg) ]
         ]);
+        theTitle = prettyMetric(Math.round(FTmeta[measure.field].style.avg), activeMeasure);
+        theColors = ["#DC3912"];
+    }
+    else {
+        data = google.visualization.arrayToDataTable([
+            ['Year', 'NPA ' + activeRecord.id, 'County Average'],
+            ['2010',  parseFloat(activeRecord[measure.field]), Math.round(FTmeta[measure.field].style.avg) ]
+        ]);
+        theTitle = prettyMetric(activeRecord[measure.field], activeMeasure);
+        theColors = ["#0283D5", "#DC3912"];
+    }
 
     var options = {
-      title: numberWithCommas(activeRecord[measure.field]) + measure.style.units,
+      title: theTitle,
       titlePosition: 'out',
       titleTextStyle: { fontSize: 14 },
       vAxis: {title: 'Year',  titleTextStyle: {color: 'red'}},
       hAxis: { minValue: 0 },
-      width: $("aside").width(),
+      width: "95%",
       height: 150,
-      legend: 'bottom'
+      legend: 'bottom',
+      colors: theColors
     };
     if (measure.style.units == "%") options.hAxis = { minValue: 0, maxValue: 100 };
 
-    var chart = new google.visualization.BarChart(document.getElementById('details_chart'));
+    if (!chart) chart = new google.visualization.BarChart(document.getElementById('details_chart'));
     chart.draw(data, options);
 }
 
@@ -383,7 +393,6 @@ function auxChart(measure) {
 
 
 ********************************************/
-var tmpdata;
 function mapInit() {
 
     // initialize map
@@ -399,18 +408,8 @@ function mapInit() {
     L.tileLayer( "http://maps.co.mecklenburg.nc.us/mbtiles/mbtiles-server.php?db=meckbase-desaturated.mbtiles&z={z}&x={x}&y={y}",
      { "attribution": "<a href='http://emaps.charmeck.org'>Mecklenburg County GIS</a>" } ).addTo( map );
 
-    // Load NPA geojson
-    $.ajax({
-        url: "js/npa.json",
-        dataType: "json",
-        type: "GET",
-        async: false,
-        success: function(data) {
-           tmpdata = data;
-           geojson = L.geoJson(data, { style: style, onEachFeature: onEachFeature }).addTo(map);
-           calcAverage(activeMeasure);
-        }
-    });
+    // Add geojson data
+    geojson = L.geoJson(jsonData, { style: style, onEachFeature: onEachFeature }).addTo(map);
 
     // Locate user position via GeoLocation API
     if (!Modernizr.geolocation) $(".gpsarea").hide();
@@ -428,7 +427,7 @@ function mapInit() {
     };
     info.update = function (props) {
         this._div.innerHTML = '<h4>' + FTmeta[activeMeasure].title + '</h4>' +  (props && props[activeMeasure] != undefined ?
-            '<b>NPA ' + props.id + '</b><br />Score: ' + numberWithCommas(props[activeMeasure]) + FTmeta[activeMeasure].style.units + '<br>NPA Average: ' + numberWithCommas(FTmeta[activeMeasure].style.avg)  + FTmeta[activeMeasure].style.units :
+            '<b>NPA ' + props.id + '</b><br />Score: ' + prettyMetric(props[activeMeasure], activeMeasure) + '<br>NPA Average: ' + prettyMetric(FTmeta[activeMeasure].style.avg, activeMeasure) :
             props && props[activeMeasure] == undefined ? '<b>NPA: ' + props.id + '</b><br />No data available.' :
             '');
     };
@@ -445,12 +444,57 @@ function mapInit() {
         var theLegend = '<i style="background: #666666"></i> <span id="legend-">No Data</span><br>';
         $.each(FTmeta[activeMeasure].style.breaks, function(index, value) {
             theLegend += '<i style="background:' + FTmeta[activeMeasure].style.colors[index] + '"></i> <span id="legend-' + index + '">' +
-                value + (FTmeta[activeMeasure].style.colors[index + 1] ? '&ndash;' + FTmeta[activeMeasure].style.breaks[index + 1] + FTmeta[activeMeasure].style.units + '</span><br>' : FTmeta[activeMeasure].style.units + '+</span>');
+                prettyMetric(value, activeMeasure)  + (FTmeta[activeMeasure].style.colors[index + 1] ? '&ndash;' + prettyMetric(FTmeta[activeMeasure].style.breaks[index + 1], activeMeasure) + '</span><br>' : '+</span>');
         });
         this._div.innerHTML = theLegend;
     };
     legend.addTo(map);
 }
+
+
+
+/* zoom to bounds */
+function zoomToFeature(bounds) {
+    map.fitBounds(bounds);
+}
+
+/*
+    Add marker
+*/
+function addMarker(lat, lng) {
+    if (marker) {
+        try { map.removeLayer(marker); }
+        catch(err) {}
+    }
+    marker = L.marker([lat, lng]).addTo(map);
+}
+
+/*
+    Get xy NPA intersection via web service
+*/
+function performIntersection(lat, lon) {
+    url = wsbase + 'v1/ws_geo_pointoverlay.php?geotable=neighborhoods&callback=?&format=json&srid=4326&fields=id&parameters=&x=' + lon + '&y=' + lat;
+    $.getJSON(url, function(data) {
+        if (data.total_rows > 0) {
+            changeNeighborhood(data.rows[0].row.id);
+            addMarker(lat, lon);
+            var layer = getNPALayer(data.rows[0].row.id);
+            zoomToFeature(layer.getBounds());
+        }
+    });
+}
+
+/*
+    Get NPA feature
+*/
+function getNPALayer(idvalue) {
+    var layer;
+    $.each(geojson._layers, function() {
+        if (this.feature.properties.id == idvalue) layer = this;
+    });
+    return layer;
+}
+
 
 /*
     Map NPA geojson decoration functions
@@ -490,7 +534,7 @@ function highlightFeature(e) {
     var layer = e.target;
     if (!activeRecord || (activeRecord && activeRecord.id != e.target.feature.properties.id)) layer.setStyle({
         weight: 4,
-        color: '#666',
+        color: '#F5FE51',
         dashArray: ''
     });
     if (!L.Browser.ie && !L.Browser.opera) {
@@ -500,14 +544,19 @@ function highlightFeature(e) {
 }
 
 function resetHighlight(e) {
-    if (!activeRecord || (activeRecord && activeRecord.id != e.target.feature.properties.id)) geojson.resetStyle(e.target);
+    var layer = e.target;
+     if (!activeRecord || (activeRecord && activeRecord.id != layer.feature.properties.id)) layer.setStyle({
+        weight: 2,
+        color: '#666',
+        dashArray: '3'
+    });
     info.update();
 }
 function highlightSelected(layer) {
     geojson.setStyle(style);
     layer.setStyle({
-        weight: 5,
-        color: '#3366CC',
+        weight: 7,
+        color: '#0283D5',
         dashArray: '',
         fillOpacity: 0.7
     });
@@ -515,51 +564,12 @@ function highlightSelected(layer) {
         layer.bringToFront();
     }
 }
-function zoomToFeature(bounds) {
-    map.fitBounds(bounds);
-}
 function selectFeature(e) {
     var layer = e.target;
-    if (layer.feature.properties[activeMeasure] != null) changeNeighborhood(layer.feature.properties.id);
+    changeNeighborhood(layer.feature.properties.id);
     zoomToFeature(layer.getBounds());
 }
 
-/*
-    Add marker
-*/
-function addMarker(lat, lng) {
-    if (marker) {
-        try { map.removeLayer(marker); }
-        catch(err) {}
-    }
-    marker = L.marker([lat, lng]).addTo(map);
-}
-
-/*
-    Get xy NPA intersection via web service
-*/
-function performIntersection(lat, lon) {
-    url = wsbase + 'v1/ws_geo_pointoverlay.php?geotable=neighborhoods&callback=?&format=json&srid=4326&fields=id&parameters=&x=' + lon + '&y=' + lat;
-    $.getJSON(url, function(data) {
-        if (data.total_rows > 0) {
-            changeNeighborhood(data.rows[0].row.id);
-            addMarker(lat, lon);
-            var layer = getNPALayer(data.rows[0].row.id);
-            zoomToFeature(layer.getBounds());
-        }
-    });
-}
-
-/*
-    Get NPA feature
-*/
-function getNPALayer(idvalue) {
-    var layer;
-    $.each(geojson._layers, function() {
-        if (this.feature.properties.id == idvalue) layer = this;
-    });
-    return layer;
-}
 
 
 /**

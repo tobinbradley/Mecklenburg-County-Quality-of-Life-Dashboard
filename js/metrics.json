@@ -235,6 +235,7 @@
         "links": "<a href='http://www.charlotteworks.com/'>Charlotte Works</a>, <a href='http://www.goodwill.org/goodwill-for-you/jobs-and-careers/find-a-job/'>Goodwill</a>, <a href='http://www.jacobsladdercharlotte.org/'>Jacob’s Ladder</a>, <a href='https://www.ncesc.com/default.aspx'>North Carolina Employment Security Commission</a>, <a href='http://www.nc-joblink.com/'>NC Joblink</a>, <a href='http://www.self-help.org/'>Self Help</a>, <a href='http://www.uwcentralcarolinas.org/agency-list'>United Way</a>, <a href='http://www.urbanleaguecc.org/'>Urban League of Central Carolinas</a>, <a href='www.charmeck.org/mecklenburg/county/dss'>Mecklenburg County Department of Social Services</a>, <a href='https://www.efanniemae.com/sf/refmaterials/hudmedinc/hudincomeresults.jsp?STATE=NC&choice=county&CITY=Mecklenburg&FormsButton1=Search'>Median incomes in surrounding North Carolina counties</a>",
         "style": {
             "units": "",
+            "prefix": "$",
             "breaks": [0, 50000, 100000],
             "colors": ["#97DBF1", "#556CC9", "#003994"]
         }
@@ -499,7 +500,7 @@
         "db": "proficient_3_5",
         "field": "k3",
         "category": "education",
-        "title": "3-5 Graders who were Proficient in End of Grade (EOG) Tests",
+        "title": "3-5 Graders Proficient in EOG Tests",
         "description": "Percent of students proficient in End of Grade testing for CMS students in grades 3-5 for each Neighborhood Profile Area (NPA).",
         "importance": "Averaging test scores in a neighborhood assists education administrators, businesses, and residents develop strategies for improving academic performance where needed.  Tracking the data over time also provides a trend analysis for preventing continued decline in education indicators. Measuring the improvement of schools with increasing scores allows administrators and residents to discuss best practices in public education that could be used in other areas. Related variables to academic performance are education attainment of parents, economics, health indicators and the proximity neighborhood supporting land uses.",
         "source": "Charlotte-Mecklenburg Schools, 2010-2011",
@@ -515,7 +516,7 @@
         "db": "proficient_6_8",
         "field": "k4",
         "category": "education",
-        "title": "6-8 Graders who were Proficient in End of Grade (EOG) Tests",
+        "title": "6-8 Graders Proficient in EOG Tests",
         "description": "Percentage of students meeting expected growth goals in End of Grade testing for CMS students in grades 6-8 for each Neighborhood Profile Area (NPA).",
         "importance": "Averaging test scores in a neighborhood assists education administrators, businesses, and residents develop strategies for improving academic performance where needed.  Tracking the data over time also provides a trend analysis for preventing continued decline in education indicators. Measuring the improvement of schools with increasing scores allows administrators and residents to discuss best practices in public education that could be used in other areas. Related variables to academic performance are education attainment of parents, economics, health indicators and the proximity neighborhood supporting land uses.",
         "source": "Charlotte-Mecklenburg Schools, 2010-2011",
@@ -531,7 +532,7 @@
         "db": "proficient_9_12",
         "field": "k5",
         "category": "education",
-        "title": "9-12 Graders who were Proficient in End of Grade (EOG) Tests",
+        "title": "9-12 Graders Proficient in EOG Tests",
         "description": "Percentage of students meeting expected growth goals in End of Grade testing for CMS students in grades 9-12 for each Neighborhood Profile Area (NPA).",
         "importance": "Averaging test scores in a neighborhood assists education administrators, businesses, and residents develop strategies for improving academic performance where needed.  Tracking the data over time also provides a trend analysis for preventing continued decline in education indicators. Measuring the improvement of schools with increasing scores allows administrators and residents to discuss best practices in public education that could be used in other areas. Related variables to academic performance are education attainment of parents, economics, health indicators and the proximity neighborhood supporting land uses.",
         "source": "Charlotte-Mecklenburg Schools, 2010-2011",
@@ -874,6 +875,7 @@
         "tech_notes": "The total assessed value for single family dwellings, condominiums, and townhomes was averaged for each NPA.",
         "links": "<a href='http://charmeck.org/mecklenburg/county/AssessorsOffice/Appeals/Pages/default.aspx'>Mecklenburg County property revaluation process</a>, <a href='http://charmeck.org/mecklenburg/county/AssessorsOffice/Pages/Tax%20Relief.asp'>Am I eligible for tax relief on my home?</a>, <a href='http://meckcama.co.mecklenburg.nc.us/relookup/'>Mecklenburg County real estate database</a>, <a href='http://factfinder2.census.gov/faces/tableservices/jsf/pages/productview.xhtml?src=bkmk'>North Carolina housing statistics</a>",
         "style": {
+            "prefix": "$",
             "units": "",
             "breaks": [0, 125000, 275000],
             "colors": ["#D8F2ED", "#2ca79e", "#154F4A"]

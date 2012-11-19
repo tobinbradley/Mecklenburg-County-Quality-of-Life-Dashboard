@@ -69,36 +69,25 @@ function sortAlpha(a, b) {
 /*
     Prototypes and helpers
 */
-function numberWithCommas(x) {
-    return x.toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ",");
+function prettyMetric(x, metric) {
+    if (isNumber(x)) {
+        return (FTmeta[metric].style.prefix ? FTmeta[activeMeasure].style.prefix : "") + x.toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ",") + FTmeta[metric].style.units;
+    }
+    else {
+        return "N/A";
+    }
 }
 function isNumber(n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
 }
-Array.prototype.sum = function(){
-    var val = 0;
-    this.forEach(function(v){
-        val +=v;
-    });
-    return val;
-};
-Array.prototype.avg = function(){
-    var narray = [];
-    for ( var i = 0; i < this.length; i++ )
-    if ( isNumber(this[i]) ) narray.push( this[i] );
-    var tl = narray.sum();
-    return tl/narray.length;
-};
-Array.prototype.max = function(){
-  var narray = [];
-  for ( var i = 0; i < this.length; i++ )
-    if ( isNumber(this[i]) ) narray.push( this[i] );
-  return Math.max.apply( Math, narray );
-};
-Array.prototype.min = function(){
-  var narray = [];
-  for ( var i = 0; i < this.length; i++ )
-    if ( isNumber(this[i]) )
-      narray.push( this[i] );
-  return Math.min.apply( Math, narray );
-};
+function calcAverage(measure) {
+    if (!FTmeta[activeMeasure].style.avg) {
+        var theSum = 0;
+        var theCount = 0;
+        $.each(jsonData.features, function() {
+            theSum = theSum + this.properties[measure];
+            if (this.properties[measure] !== null) theCount++;
+        });
+        FTmeta[measure].style.avg = Math.round(theSum / theCount);
+    }
+}
