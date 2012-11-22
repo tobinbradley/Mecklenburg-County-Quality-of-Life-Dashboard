@@ -318,7 +318,7 @@ function updateData(measure) {
 */
 function barChart(measure){
     var data, theTitle, theColors;
-    if (jQuery.isEmptyObject(activeRecord) || !activeRecord[activeMeasure]) {
+    if (jQuery.isEmptyObject(activeRecord) || activeRecord[activeMeasure] === null) {
         data = google.visualization.arrayToDataTable([
             ['Year', 'County Average'],
             ['2010',  Math.round(FTmeta[measure.field].style.avg) ]
