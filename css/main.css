@@ -17,7 +17,7 @@
 /* Header */
 .jumbotron {
     position: relative;
-    padding: 50px 0 0;
+    padding: 60px 0 0;
     color: white;
     text-align: left;
     text-shadow: 0 1px 3px rgba(0, 0, 0, .4), 0 0 30px rgba(0, 0, 0, .075);
@@ -42,6 +42,7 @@
 }
 .navbar .brand { display: none; }
 .navbar-fixed-top { box-shadow: 0 3px 6px black; }
+#searchbox { color: #555 !important;}
 
 /* map elements */
 #map {
@@ -80,6 +81,7 @@
 }
 
 /* measure details area */
+.overview { margin-bottom: 25px; }
 .measure-details {
     border-radius: 6px;
     border: 1px solid #e5e5e5;
@@ -159,7 +161,6 @@
 
 
 /* jquery ui tweaks */
-.ui-autocomplete-loading { background: transparent url('../img/ui-anim_basic_16x16.gif') right no-repeat !important }
 .ui-autocomplete .ui-menu-item { padding-left: 10px }
 .ui-autocomplete { overflow: auto; overflow-y: auto; overflow-x: hidden; font-size: 0.9em; font-weight: normal; max-height: 400px; box-shadow: 2px 2px 4px #666;}
 .ui-autocomplete-category { font-weight: bold; padding: 0 4px; line-height: 1.5; font-variant: small-caps; font-size: 14px; }

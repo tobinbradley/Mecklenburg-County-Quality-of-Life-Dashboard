@@ -16,7 +16,7 @@ $(document).ready(function() {
 
     // Load JSON metric configuration
     $.ajax({
-        url: "js/metrics.json",
+        url: "js/metrics.json?V=7",
         dataType: "json",
         async: false,
         success: function(data){
@@ -35,23 +35,26 @@ $(document).ready(function() {
         }
     });
 
+    // Placeholder
+    $('input, textarea').placeholder();
 
     // Add metrics to sidebar and report list
     var writebuffer = "";
     var category = "";
     $.each(FTmeta, function(index) {
         if (this.style.breaks.length > 0) {
-            $('p[data-group=' + this.category + ']').append('<a href="javascript:void(0)" class="measure-link" data-measure="' + this.field + '">' + this.title + ' <i></i></a><br>');
-            if (index === 0 || this.category != category) {
-                if (index !== 0) writebuffer += '</optgroup>';
-                writebuffer += '<optgroup label="' + capitaliseFirstLetter(this.category) + '">';
-                category = this.category;
-            }
-            writebuffer += '<option value="' + this.field + '">' + this.title + '</option>';
+            $('p[data-group=' + this.category + ']').append('<li><a href="javascript:void(0)" class="measure-link" data-measure="' + this.field + '">' + this.title + ' <i></i></a></li>');
+            $('optgroup[label=' + this.category.toProperCase() + ']').append('<option value="' + this.field + '">' + this.title + '</option>');
         }
     });
-    writebuffer += '</optgroup>';
-    $("#report_metrics").html(writebuffer);
+
+    // sort metrics
+    $(".sidenav p").each(function() {
+        $("li", this).sort(asc_sort).appendTo(this);
+    });
+    $("#modalReport optgroup").each(function() {
+        $("option", this).sort(asc_sort).appendTo(this);
+    });
 
     // Set default metric
     updateData(FTmeta[defaultMeasure]);
@@ -76,6 +79,18 @@ $(document).ready(function() {
         });
         $(this).children("p").animate({ height: 'toggle' }, 250);
     });
+    $(".talkback").click(function() {
+        $('#modalHelp').modal('hide');
+        $('#modalTalkback').modal('show');
+    });
+    $(".reports").click(function() {
+        $('#modalData').modal('hide');
+        $('#modalReport').modal('show');
+    });
+    $(".reportToData").click(function(){
+        $('#modalReport').modal('hide');
+        $('#modalData').modal('show');
+    });
 
     // Geolocation link click event
     $(".gps").click(function() {
@@ -91,81 +106,73 @@ $(document).ready(function() {
     // Opacity slider
     $( "#opacity_slider" ).slider({ range: "min", value: 70, min: 25, max: 100, stop: function (event, ui) {
             geojson.setStyle(style);
+            if (activeRecord.id) highlightSelected( getNPALayer(activeRecord.id) );
         }
     }).sliderLabels('Map','Data');
 
-    // Autocomplete
+    // Feedback from submit
+    $("#talkback").submit(function(e){
+        e.preventDefault();
+    });
+
+    // jQuery UI Autocomplete
     $("#searchbox").autocomplete({
         minLength: 4,
-        delay: 300,
+        delay: 400,
         autoFocus: true,
         source: function(request, response) {
-        $.ajax({
-            url: wsbase + "v2/ws_geo_ubersearch.php",
-            dataType: "jsonp",
-            data: {
-                searchtypes: "Address,Library,School,Park,GeoName,Road,CATS,Intersection,PID,NSA",
-                query: request.term
-            },
-            success: function(data) {
-                if (data.total_rows > 0) {
-                    response($.map(data.rows, function(item) {
-                        return {
-                            label: urldecode(item.row.displaytext),
-                            value: item.row.displaytext,
-                            responsetype: item.row.responsetype,
-                            responsetable: item.row.responsetable,
-                            getfield: item.row.getfield,
-                            getid: item.row.getid
-                        };
-                    }));
-                }
-                else if (data.total_rows == 0) {
-                    response($.map([{}], function(item) {
-                        return {
-                            // Message indicating nothing is found
-                            label: "No records found."
-                        };
-                    }));
-                }
-                        else if  (data.total_rows == -1) {
-                             response($.map([{}], function(item) {
-                                  return {
-                                       // Message indicating no search performed
-                                       label: "More information needed for search."
-                                  };
-                             }));
-                        }
-                   }
-              });
-         },
-         select: function(event, ui) {
-              // Run function on selected record
-              if (ui.item.responsetype) {
-                   locationFinder(ui.item.responsetype, ui.item.responsetable, ui.item.getfield, ui.item.getid, ui.item.label, ui.item.value);
-              }
-         },
-         open: function(event, ui) {
-            $(this).keypress(function(e){
-                if (e.keyCode == 13 || e.keyCode == 39) {
-                   $($(this).data('autocomplete').menu.active).find('a').trigger('click');
+            $.ajax({
+                url: wsbase + "v4/ws_geo_ubersearch.php",
+                dataType: "jsonp",
+                data: {
+                    searchtypes: "address,library,school,park,geoname,cast,nsa,intersection,pid",
+                    query: request.term
+                },
+                success: function(data) {
+                    if (data.length > 0) {
+                        response($.map(data, function(item) {
+                            return {
+                                label: item.name,
+                                gid: item.gid,
+                                responsetype: item.type,
+                                lng: item.lng,
+                                lat: item.lat
+                            };
+                        }));
+                    } else {
+                        response($.map([{}], function(item) {
+                            if (isNumber(request.term)) {
+                                // Needs more data
+                                return { label: "More information needed for search.", responsetype: "I've got nothing" };
+                            } else {
+                                // No records found
+                                return { label: "No records found.", responsetype: "I've got nothing" };
+                            }
+                        }));
+                    }
                 }
             });
+        },
+        select: function(event, ui) {
+            if (ui.item.gid) locationFinder(ui.item);
+        },
+        open: function(event, ui) {
             // Go if only 1 result
             menuItems = $("ul.ui-autocomplete li.ui-menu-item");
             if (menuItems.length == 1 && menuItems.text() != "More information needed for search." && menuItems.text() != "No records found.") {
                 $($(this).data('autocomplete').menu.active).find('a').trigger('click');
             }
-         }
+        }
     }).data("autocomplete")._renderMenu = function (ul, items) {
-         var self = this, currentCategory = "";
-         $.each( items, function( index, item ) {
-              if ( item.responsetype != currentCategory && item.responsetype !== undefined) {
-                   ul.append( "<li class='ui-autocomplete-category'>" + item.responsetype + "</li>" );
-                   currentCategory = item.responsetype;
-              }
-              self._renderItem( ul, item );
-         });
+        // Match categories
+        var self = this, currentCategory = "";
+        $.each( items, function( index, item ) {
+            if ( item.responsetype != currentCategory && item.responsetype !== undefined) {
+                ul.append( "<li class='ui-autocomplete-category'>" + item.responsetype + "</li>" );
+                currentCategory = item.responsetype;
+            }
+            self._renderItemData( ul, item );
+        });
     };
 
 });
@@ -193,7 +200,7 @@ function hashRead() {
         theHash = window.location.hash.replace("#","").split("/");
 
         // Process the lat,lon or neighborhood number
-        if (theHash[2] && theHash[2].length > 0 && theHash[2] !== activeRecord.id) {
+        if (theHash[2] && theHash[2].length > 0 && parseInt(theHash[2],10) !== activeRecord.id) {
             if (theHash[2].indexOf(",") == -1) {
                 changeNeighborhood(theHash[2], true);
                 var layer = getNPALayer(theHash[2]);
@@ -207,7 +214,7 @@ function hashRead() {
 
         // Process the metric
         if (theHash[1].length > 0 && !$('a[data-measure=' + theHash[1] + ']' && theHash[1] !== activeMeasure).children("i").hasClass("icon-chevron-right")) {
-            if ( $('a[data-measure=' + theHash[1] + ']').parent("p").is(':hidden') ) $('a[data-measure=' + theHash[1] + ']').parent("p").parent("li").trigger("click");
+            if ( $('a[data-measure=' + theHash[1] + ']').parent("li").parent("p").is(':hidden') ) $('a[data-measure=' + theHash[1] + ']').parent("li").parent("p").parent("li").trigger("click");
             $("a.measure-link").children("i").removeClass("icon-chevron-right");
             $('a[data-measure=' + theHash[1] + ']').children("i").addClass("icon-chevron-right");
             changeMeasure(theHash[1]);
@@ -218,7 +225,7 @@ function hashRead() {
 /* reset to overview */
 function resetOverview() {
     $(".measure-info").hide();
-    $(".overview").fadeIn();
+    $(".overview").show();
     activeRecord = {};
     barChart(FTmeta[activeMeasure]);
     geojson.setStyle(style);
@@ -248,7 +255,7 @@ function changeMeasure(measure) {
 function changeNeighborhood(npaid) {
     var layer = getNPALayer(npaid);
     assignData(layer.feature.properties);
-    $(".overview").hide();
+    //$(".overview").hide();
     $(".measure-info").show();
     updateData(FTmeta[activeMeasure]);
     highlightSelected(layer);
@@ -305,7 +312,7 @@ function updateData(measure) {
 
     // Links
     if (measure.links) {
-        $("#indicator_resources").append("<h5>Links</h5><p>" + measure.links + "</p>");
+        $("#indicator_resources").append(measure.links);
     }
 
     // Show stuff
@@ -339,14 +346,15 @@ function barChart(measure){
       title: theTitle,
       titlePosition: 'out',
       titleTextStyle: { fontSize: 14 },
-      vAxis: {title: 'Year',  titleTextStyle: {color: 'red'}},
-      hAxis: { minValue: 0 },
+      vAxis: { title: 'Year',  titleTextStyle: {color: 'red'}},
+      hAxis: { format: "#", minValue: FTmeta[measure.field].style.breaks[0] },
       width: "95%",
       height: 150,
       legend: 'bottom',
       colors: theColors
     };
-    if (measure.style.units == "%") options.hAxis = { minValue: 0, maxValue: 100 };
+    //if (measure.style.min)
+    //if (measure.style.units == "%") options.hAxis = { minValue: 0, maxValue: 100 };
 
     if (!chart) chart = new google.visualization.BarChart(document.getElementById('details_chart'));
     chart.draw(data, options);
@@ -427,7 +435,7 @@ function mapInit() {
     };
     info.update = function (props) {
         this._div.innerHTML = '<h4>' + FTmeta[activeMeasure].title + '</h4>' +  (props && props[activeMeasure] != undefined ?
-            '<b>NPA ' + props.id + '</b><br />Score: ' + prettyMetric(props[activeMeasure], activeMeasure) + '<br>NPA Average: ' + prettyMetric(FTmeta[activeMeasure].style.avg, activeMeasure) :
+            'NPA ' + props.id + ': ' + prettyMetric(props[activeMeasure], activeMeasure) + '<br>County Average: ' + prettyMetric(FTmeta[activeMeasure].style.avg, activeMeasure) :
             props && props[activeMeasure] == undefined ? '<b>NPA: ' + props.id + '</b><br />No data available.' :
             '');
     };
@@ -441,7 +449,7 @@ function mapInit() {
         return this._div;
     };
     legend.update = function() {
-        var theLegend = '<i style="background: #666666"></i> <span id="legend-">No Data</span><br>';
+        var theLegend = '<i style="background: #666666"></i> <span id="legend-">N/A</span><br>';
         $.each(FTmeta[activeMeasure].style.breaks, function(index, value) {
             theLegend += '<i style="background:' + FTmeta[activeMeasure].style.colors[index] + '"></i> <span id="legend-' + index + '">' +
                 prettyMetric(value, activeMeasure)  + (FTmeta[activeMeasure].style.colors[index + 1] ? '&ndash;' + prettyMetric(FTmeta[activeMeasure].style.breaks[index + 1], activeMeasure) + '</span><br>' : '+</span>');
@@ -557,8 +565,7 @@ function highlightSelected(layer) {
     layer.setStyle({
         weight: 7,
         color: '#0283D5',
-        dashArray: '',
-        fillOpacity: 0.7
+        dashArray: ''
     });
     if (!L.Browser.ie && !L.Browser.opera) {
         layer.bringToFront();
@@ -571,65 +578,8 @@ function selectFeature(e) {
 }
 
 
-
-/**
- * Find locations
- * @param {string} findType  The type of find to perform
- * @param {string} findTable  The table to search on
- * @param {string} findField  The field to search in
- * @param {string} findID  The value to search for
- */
-function locationFinder(findType, findTable, findField, findID, findLabel, findValue) {
-    // grab the hash to rebuild it with the coordinates
-    theHash = window.location.hash.replace("#","").split("/");
-
-    switch (findType) {
-        case "Address": case "PID": case "API":
-            url = wsbase + 'v1/ws_mat_addressnum.php?format=json&callback=?&jsonp=?&addressnum=' + findID;
-            $.getJSON(url, function(data) {
-                if (data.total_rows > 0) {
-                    performIntersection(data.rows[0].row.latitude, data.rows[0].row.longitude);
-                }
-            });
-            break;
-        case "Library": case "Park": case "School": case "GeoName": case "CATS": case "NSA":
-            // Set list of fields to retrieve from POI Layers
-            poiFields = {
-                "libraries" : "x(transform(the_geom, 4326)) as lon, y(transform(the_geom, 4326)) as lat, '<h5>' || name || '</h5><p>' || address || '</p>' AS label",
-                "schools_1011" : "x(transform(the_geom, 4326)) as lon, y(transform(the_geom, 4326)) as lat, '<h5>' || coalesce(schlname,'') || '</h5><p>' || coalesce(type,'') || ' School</p><p>' || coalesce(address,'') || '</p>' AS label",
-                "parks" : "x(transform(the_geom, 4326)) as lon, y(transform(the_geom, 4326)) as lat, '<h5>' || prkname || '</h5><p>Type: ' || prktype || '</p><p>' || prkaddr || '</p>' AS label",
-                "geonames" : "longitude as lon, latitude as lat, '<h3>' || name || '</h3>'  as label",
-                "neighborhood_statistical_areas" : "x(transform(ST_Centroid(the_geom), 4326)) as lon, y(transform(ST_Centroid(the_geom), 4326)) as lat, '<h5>' || nsa_name || '</h5><p></p>' as label",
-                "cats_light_rail_stations" : "x(transform(the_geom, 4326)) as lon, y(transform(the_geom, 4326)) as lat, '<h5>' || name || '</h5><p></p>' as label",
-                "cats_park_and_ride" : "x(transform(the_geom, 4326)) as lon, y(transform(the_geom, 4326)) as lat, '<h5>' || name || '</h5><p>Routes ' || routes || '</p><p>' || address || '</p>' AS label"
-            };
-            url = wsbase + "v1/ws_geo_attributequery.php?format=json&geotable=" + findTable + "&parameters=" + urlencode(findField + " = " + findID) + "&fields=" + urlencode(poiFields[findTable]) + '&callback=?';
-            $.getJSON(url, function(data) {
-                if (data.total_rows > 0) {
-                    performIntersection(data.rows[0].row.lat, data.rows[0].row.lon);
-                }
-            });
-            break;
-        case "Road":
-            url = wsbase + "v1/ws_geo_getcentroid.php?format=json&geotable=" + findTable + "&parameters=streetname='" + findValue + "' order by ll_add limit 1&forceonsurface=true&srid=4326&callback=?";
-            $.getJSON(url, function(data) {
-                if (data.total_rows > 0) {
-                    performIntersection(data.rows[0].row.y, data.rows[0].row.x);
-                }
-            });
-
-            break;
-        case "Intersection":
-            url = wsbase + "v1/ws_geo_centerlineintersection.php?format=json&callback=?";
-            streetnameArray = findID.split("&");
-            args = "&srid=4326&streetname1=" + urlencode(jQuery.trim(streetnameArray[0])) + "&streetname2=" + urlencode(jQuery.trim(streetnameArray[1]));
-            $.getJSON(url + args, function(data) {
-                if (data.total_rows > 0 ) {
-                    if (data.total_rows > 0) {
-                        performIntersection(data.rows[0].row.xcoord, data.rows[0].row.ycoord);
-                    }
-                }
-            });
-            break;
-    }
+// Find locations
+function locationFinder(data) {
+    performIntersection(data.lat, data.lng);
 }
+
