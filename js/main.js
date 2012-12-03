@@ -39,12 +39,10 @@ $(document).ready(function() {
     $('input, textarea').placeholder();
 
     // Add metrics to sidebar and report list
-    var writebuffer = "";
-    var category = "";
     $.each(FTmeta, function(index) {
         if (this.style.breaks.length > 0) {
             $('p[data-group=' + this.category + ']').append('<li><a href="javascript:void(0)" class="measure-link" data-measure="' + this.field + '">' + this.title + ' <i></i></a></li>');
-            $('optgroup[label=' + this.category.toProperCase() + ']').append('<option value="' + this.field + '">' + this.title + '</option>');
+            //$('optgroup[label=' + this.category.toProperCase() + ']').append('<option value="' + this.field + '">' + this.title + '</option>');
         }
     });
 
@@ -52,9 +50,9 @@ $(document).ready(function() {
     $(".sidenav p").each(function() {
         $("li", this).sort(asc_sort).appendTo(this);
     });
-    $("#modalReport optgroup").each(function() {
+    /*$("#modalReport optgroup").each(function() {
         $("option", this).sort(asc_sort).appendTo(this);
-    });
+    });*/
 
     // Set default metric
     updateData(FTmeta[defaultMeasure]);
@@ -102,6 +100,22 @@ $(document).ready(function() {
 
     // Show the overview introduction text
     $(".show-overview").on("click", function(){ resetOverview(); });
+
+    // activate popovers
+    $('*[rel=popover]').popover();
+    $(".popover-trigger").hoverIntent( function(){
+            if ( $(window).width() > 979 ) $( $(this).data("popover-selector") ).popover("show");
+        }, function(){
+            $( $(this).data("popover-selector") ).popover("hide");
+        }
+    );
+
+    // Window resize
+    $(window).smartresize( function() {
+        // charts
+        if ( $("#details_chart svg").width() !== $("#data").width() ) barChart(FTmeta[activeMeasure]);
+        //popovers
+    });
 
     // Opacity slider
     $( "#opacity_slider" ).slider({ range: "min", value: 70, min: 25, max: 100, stop: function (event, ui) {
@@ -436,7 +450,7 @@ function mapInit() {
     info.update = function (props) {
         this._div.innerHTML = '<h4>' + FTmeta[activeMeasure].title + '</h4>' +  (props && props[activeMeasure] != undefined ?
             'NPA ' + props.id + ': ' + prettyMetric(props[activeMeasure], activeMeasure) + '<br>County Average: ' + prettyMetric(FTmeta[activeMeasure].style.avg, activeMeasure) :
-            props && props[activeMeasure] == undefined ? '<b>NPA: ' + props.id + '</b><br />No data available.' :
+            props && props[activeMeasure] == undefined ? 'NPA ' + props.id + '<br />No data available.' :
             '');
     };
     info.addTo(map);

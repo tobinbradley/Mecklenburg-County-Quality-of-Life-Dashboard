@@ -21,7 +21,7 @@
         <link rel="stylesheet" href="css/jquery-ui-1.9.2.custom.min.css">
         <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.5/leaflet.css" />
         <!--[if lte IE 8]><link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.5/leaflet.ie.css" /><![endif]-->
-        <link rel="stylesheet" href="css/main.css?V=9">
+        <link rel="stylesheet" href="css/main.css?V=10">
 
         <!-- Modernizr -->
         <script src="js/vendor/modernizr-2.6.1.min.js"></script>
@@ -44,11 +44,11 @@
                             <li><a href="javascript:void(0)" data-toggle="modal" data-target="#modalReport">Report</a></li>
                             <li><a href="javascript:void(0)" data-toggle="modal" data-target="#modalData">Data</a></li>
                             <li><a href="javascript:void(0)" data-toggle="modal" data-target="#modalHelp">Help</a></li>
-                            <li><a href="//www.charmeck.org/">CharMeck.org</a></li>
+                            <li><a href="//www.charmeck.org/">About</a></li>
                         </ul>
                         <form class="navbar-form pull-right">
                             <label for="searchbox" class="hide">Search</label>
-                            <input id="searchbox" class="span4" type="text" placeholder="Search">
+                            <input id="searchbox" class="span4 transition" type="text" placeholder="Search" rel="popover" data-content="Search for an address (try <em>700 N</em>) or location (try <em>freedom</em>)." data-original-title="Search" data-placement="bottom" data-html="true" data-trigger="manual">
                         </form>
                     </div><!--/.nav-collapse -->
                 </div>
@@ -70,7 +70,7 @@
 
             <div class="row main-row">
                 <div class="span3">
-                    <ul class="nav nav-list sidenav">
+                    <ul class="nav nav-list sidenav transition" rel="popover" data-content="Use the sidebar to choose dimensions and variables." data-original-title="Sidebar" data-placement="right" data-trigger="manual">
                         <li class="show-overview">
                             <a href="javascript:void(0)"> Overview</a>
                         </li>
@@ -120,10 +120,9 @@
                         <div id="data" class="span4 pull-left">
                             <div class="overview">
                                 <p>
-                                    The <strong>Quality of Life Dashboard</strong> is designed to help officials and residents assess the health of neighborhoods in Charlotte and Mecklenburg County.
-                                </p>
-                                <p>
-                                    Begin by choosing a measure in the sidebar, interacting with the map, or searching for an address</strong> (<a href="javascript:void(0)" data-toggle="modal" data-target="#modalHelp">help</a>), such as <em>700 N Tryon</em>.
+                                    The <strong>Quality of Life Dashboard</strong> is designed to help assess the health of neighborhoods in Charlotte and Mecklenburg County.
+                                    Begin by choosing a variable in the
+                                    <a href="javascript:void" class="popover-trigger" data-popover-selector=".sidenav">sidebar</a>, interacting with the <a href="javascript:void" class="popover-trigger" data-popover-selector="#map">map</a>, or <a href="javascript:void" class="popover-trigger" data-popover-selector="#searchbox">searching</a> for an address or location, such as <em>700 N Tryon</em>.
                                 </p>
                             </div>
                             <div>
@@ -132,16 +131,18 @@
                                      <span id="selectedValue" class="measure-info measureText text-info"></span>
                                      <span id="selectedMeasure" class="measureText"></span>
                                      <br>
-                                     <span id="indicator_description" class="muted"></span>
+                                     <span id="indicator_description" class=""></span>
                                 </p>
                             </div>
                             <div class="textcenter">
                                 <div id='details_chart' class="chart"></div>
                                 <div id="indicator_auxchart"></div>
                             </div>
+
+
                         </div>
                         <div id="map-area" class="span5 pull-right">
-                            <div id="map"></div>
+                            <div id="map" class="transition" rel="popover" data-content="Hover over neighborhoods to get more information or  click a neighborhood to select it." data-original-title="Map" data-placement="left" data-trigger="manual"></div>
                             <div id="opacity_slider"></div>
                         </div>
                     </div>
@@ -196,8 +197,8 @@
         <script src="js/vendor/jquery-ui-1.9.2.custom.min.js"></script>
         <script src="js/vendor/bootstrap.min.js"></script>
         <script src="http://cdn.leafletjs.com/leaflet-0.4.5/leaflet.js"></script>
-        <script src="js/plugins.js?V=9"></script>
-        <script src="js/main.js?V=9"></script>
+        <script src="js/plugins.js?V=10"></script>
+        <script src="js/main.js?V=10"></script>
 
         <script>
             var _gaq=[['_setAccount','UA-127085-9'],['_trackPageview']];
@@ -304,7 +305,7 @@
                         <div class="control-group">
                             <label class="control-label" for="inputFeedback">Feedback</label>
                             <div class="controls">
-                                <textarea rows="8" id="inputFeedback" class="input-xlarge"></textarea>
+                                <textarea rows="7" id="inputFeedback" class="input-xlarge"></textarea>
                             </div>
                         </div>
                         <div class="control-group">
