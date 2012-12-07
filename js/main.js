@@ -16,7 +16,7 @@ $(document).ready(function() {
 
     // Load JSON metric configuration
     $.ajax({
-        url: "js/metrics.json?V=8",
+        url: "js/metrics.json?V=9",
         dataType: "json",
         async: false,
         success: function(data){
@@ -26,7 +26,7 @@ $(document).ready(function() {
 
     // Grab NPA JSON
     $.ajax({
-        url: "js/npa.json?V=8",
+        url: "js/npa.json?V=9",
         dataType: "json",
         type: "GET",
         async: false,

@@ -1,49 +1,33 @@
 <?php
 
+// begin output buffer
 ob_start();
 
-/**
- * Set content header
- */
+// set content header
 header('Content-type: application/pdf');
 //error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 
-/**
- * Load Dependecies
- */
+// Load Dependecies
 require('fpdf17/fpdf.php');
 
-
-// Colors for the aux chart
-$chartColors = array("FEDFAC", "D2E6A0", "F8A6CB", "6BA5BF", "FDEC6C");
-
-/**
- * Get form variables
- */
+// Get form variables
 $neighborhood = $_REQUEST['n'];
 $measures = $_REQUEST['m'];
 
-/**
- * Load data JSON
- */
+// Load data JSON
 $string = file_get_contents("../js/metrics.json");
 $json = json_decode($string, true);
 
-/**
- * Get complete metrics fields array
- */
+// Get complete metrics fields array
 $metrics = array();
 foreach ($json as $value) {
     array_push($metrics, $value[field]);
 }
 
-/**
- * Load neighborhood information from geojson
- */
+// Load neighborhood information from geojson
 if (count($measures) > 0) {
     $string = file_get_contents("../js/npa.json");
     $npa_json = json_decode($string, true);
-
 
     foreach ($npa_json["features"] as $value) {
         if ( $value["properties"]["id"] = $neighborhood ) {
@@ -52,27 +36,21 @@ if (count($measures) > 0) {
     }
 }
 
-/**
- * Extend FPDF for header/footer/etc.
- */
+// extend FPDF for footer
 class PDF extends FPDF
 {
-    // Page footer
     function Footer()
     {
-        // Position at 1.5 cm from bottom
         $this->SetY(-0.4);
-        // Arial italic 8
         $this->SetFont('Arial','I',8);
         $this->SetTextColor(0,0,0);
-        // Page number
         $this->Cell(0,0,'Quality of Life Dashboard - http://maps.co.mecklenburg.nc.us/qoldashboard/',0,0,'C');
     }
 }
 
 // Prety up the number
 function prettyData($data, $themeasure) {
-    global $pdf, $json, $npadata, $chartColors;
+    global $pdf, $json, $npadata;
     if (is_null($data) || !is_numeric($data)) {
         return "N/A";
     }
@@ -82,20 +60,16 @@ function prettyData($data, $themeasure) {
     }
 }
 
-/**
- * Create PDF
- */
+// Create PDF
 $pdf = new PDF('P','in','Letter');
 
 
-
-/************************************************************/
-/*                 Cover Page                               */
-/************************************************************/
+/************************************************************
+Cover Page
+************************************************************/
 $pdf->AddPage();
 
-
-// Title page image background
+// title page image background
 $pdf->Image('report_cover_page.png',0,0,8.5);
 
 // White text on top of title page
@@ -106,12 +80,9 @@ $pdf->SetFont('Arial','B',40);
 $pdf->Ln(0.7);
 $pdf->Cell(0.3);
 $pdf->Cell(0,0, "Neighborhood Profile Area");
-
-// Title page neighborhood
 $pdf->SetFont('Arial','B',180);
 $pdf->Ln(1.75);
 $pdf->Cell(0.3);
-//$pdf->Cell(1.7);
 $pdf->Cell(0, 0, $neighborhood);
 
 // Title page main content
@@ -119,8 +90,7 @@ $pdf->Ln(3.15);
 $pdf->Cell(0.43);
 $pdf->SetTextColor(0,0,45);
 $pdf->SetFont('Arial','B', 50);
-$text = "Quality of Life Study";
-$pdf->MultiCell(0, 0.2, $text);
+$pdf->MultiCell(0, 0.2, "Quality of Life Study");
 
 
 /************************************************************/
@@ -128,7 +98,7 @@ $pdf->MultiCell(0, 0.2, $text);
 /************************************************************/
 $pdf->AddPage();
 
-// Get map extent
+// Get map extent - seriously crappy math here
 $extent = file_get_contents('http://maps.co.mecklenburg.nc.us/rest/v1/ws_geo_getextent.php?srid=2264&geotable=neighborhoods&format=json&parameters=id=' . $neighborhood);
 $extentJSON = json_decode($extent, true);
 $ditch = array("BOX(",")", " ");
@@ -153,37 +123,49 @@ $final_extent[1] = $final_extent[1] - 250;
 $final_extent[2] = $final_extent[2] + 250;
 $final_extent[3] = $final_extent[3] + 250;
 
-// Put map image (WMS) on page
+// put map image (WMS) on page
 $mapURL = "http://maps.co.mecklenburg.nc.us/geoserver/wms/reflect?layers=meckbase,neighborhoods&width=800&bbox=" . implode(",", $final_extent) . "&srs=EPSG:2264&CQL_FILTER=include;id=" . $neighborhood;
 $pdf->Image($mapURL,0.3,0.3,7.9, 10, "PNG");
 
+// draw border around map
 $pdf->SetLineWidth(0.05);
 $pdf->rect(0.3,0.3,7.9, 10);
 
-/************************************************************/
-/*                 Create Measure Function                           */
-/************************************************************/
+
+/************************************************************
+Data Report
+************************************************************/
+
+if (strlen($measures[0]) > 0) {
+    $measureCount = 0;
+    $mpp = 4; // measures per page
+    for ($i=0; $i < ceil(count($measures) / $mpp); $i++) {
+        $pdf->AddPage();
+
+        if ($measures[ $measureCount]) createMeasure(0.5, 0.5, $measures[$measureCount]);
+        if ($measures[$measureCount + 1]) createMeasure(4.3, 0.5, $measures[$measureCount + 1]);
+        if ($measures[$measureCount + 2]) createMeasure(0.5, 5.5, $measures[$measureCount + 2]);
+        if ($measures[$measureCount + 3]) createMeasure(4.3, 5.5, $measures[$measureCount + 3]);
+
+        $measureCount = $measureCount + $mpp;
+    }
+}
+
+/************************************************************
+Variable Report
+************************************************************/
 function createMeasure($x, $y, $themeasure) {
+    global $pdf, $json, $npadata;
 
-    global $pdf, $json, $npadata, $chartColors;
-
+    // value and title
     $pdf->SetTextColor(0,0,0);
     $pdf->SetY($y);
     $pdf->SetX($x);
-    //$pdf->SetLeftMargin($x);
-    //$pdf->SetRightMargin($x + 4);
     $pdf->SetFont('Arial','B',12);
-   // $pdf->Write(0, $json[$themeasure][title] );
     $pdf->MultiCell(3.5, 0.15, prettyData($npadata[$json[$themeasure]["field"]], $themeasure) . " " . utf8_decode($json[$themeasure][title]), 0, "L");
-    //$pdf->Ln(0.15);
-    //$pdf->SetX($x);
-    //$pdf->Write(0, $json[$themeasure]["style"]["prefix"] . (is_null($npadata[$json[$themeasure]["field"]]) ? "N/A" : $npadata[$json[$themeasure]["field"]]) . $json[$themeasure]["style"]["units"]);
+
+    // what it is
     $pdf->Ln(0.15);
-    //$pdf->SetX($x);
-    //$chartMax = ($npadata[$json[$themeasure]["field"]] >= round($json[$themeasure]["style"]["avg"]) ? $npadata[$json[$themeasure]["field"]] : round($json[$themeasure]["style"]["avg"]));
-    //$chartMax = ($chartMax > 100 ? $chartMax + 100 : 100 );
-    // $pdf->Image( "http://chart.apis.google.com/chart?chxr=0,0," . $chartMax . "&chxl=1:|2010&chxt=x,y&chbh=a,4,9&chs=250x75&cht=bhg&chco=FF9900,FFCA7A&chds=0," . $chartMax . ",0," . $chartMax . "&chd=t:" . $npadata[$json[$themeasure]["field"]] . "|" . round($json[$themeasure]["style"]["avg"]) . "&chdl=Neightborhood|NPA+Average&chdlp=t&chg=-1,0", null , null, 0, 0, "PNG");
-    // $pdf->Ln(0.2);
     $pdf->SetX($x);
     $pdf->SetFont('Arial','B',10);
     $pdf->Write(0, "What is this Indicator?");
@@ -191,22 +173,8 @@ function createMeasure($x, $y, $themeasure) {
     $pdf->SetX($x);
     $pdf->SetFont('Arial','',10);
     $pdf->MultiCell(3.5, 0.15, utf8_decode(strip_tags($json[$themeasure][description])), 0, "L");
-    /*if ($json[$themeasure][auxchart]) {
-        $pdf->Ln(0.15);
-        $pdf->SetX($x);
-        $measureTitles = array();
-        $measureValues = array();
-        foreach ($json[$themeasure]["auxchart"]["measures"] as $value) {
-            if ($npadata[$value] > 0) {
-                array_push($measureTitles,  $npadata[$value] . $json[$value][style][units]. " " . $json[$value][title]);
-                array_push($measureValues, $npadata[$value]);
-            }
-        }
-        $comma_separated = implode(",", $json[$themeasure]["auxchart"]["measures"]);
-        $auxContent = "http://chart.apis.google.com/chart?chf=bg,s,00000000&chs=320x165&cht=p&chp=0.1";
-        $auxContent .= "&chd=t:" . implode(",", $measureValues) . "&chdl=" . str_replace(" ", "+", implode("|", $measureTitles)) . "&chco=";
-        $pdf->Image( $auxContent, null , null, 0, 0, "PNG");
-    }*/
+
+    // why it's important
     $pdf->Ln(0.15);
     $pdf->SetX($x);
     $pdf->SetFont('Arial','B',10);
@@ -215,6 +183,8 @@ function createMeasure($x, $y, $themeasure) {
     $pdf->SetX($x);
     $pdf->SetFont('Arial','',10);
     $pdf->MultiCell(3.5, 0.15, utf8_decode(strip_tags($json[$themeasure][importance])), 0, "L");
+
+    // about the data
     $pdf->Ln(0.15);
     $pdf->SetX($x);
     $pdf->SetFont('Arial','B',10);
@@ -223,55 +193,14 @@ function createMeasure($x, $y, $themeasure) {
     $pdf->SetX($x);
     $pdf->SetFont('Arial','',10);
     $pdf->MultiCell(3.5, 0.15, utf8_decode(strip_tags($json[$themeasure][tech_notes])) . "\n\n". utf8_decode(strip_tags($json[$themeasure][source])), 0, "L");
-    //$pdf->Ln(0.15);
-    //$pdf->SetX($x);
-    //$pdf->SetFont('Arial','B',10);
-    //$pdf->Write(0, "Data Something");
-    //$pdf->Ln(0.1);
-    //$pdf->SetX($x);
-    //$pdf->SetFont('Arial','',10);
-    //$pdf->MultiCell(3.5, 0.15, utf8_decode(strip_tags($json[$themeasure][source])), 0, "L");
-
-    //$pdf->Ln(0.2);
-    //$pdf->SetX($x);
-    //$pdf->SetFont('Arial','B',10);
-    //$pdf->Write(0, "Additional Resources");
-    //$pdf->Ln(0.1);
-    //$pdf->SetX($x);
-    //$pdf->SetFont('Arial','',9);
-    //$pdf->SetTextColor(0,0,255);
-    //$pdf->SetLeftMargin($x);
-    //$pdf->WriteHTML($json[$themeasure][links]);
-    //$pdf->SetFont('','U');
 
 }
 
 
 
-/************************************************************/
-/*                 Data Report                              */
-/************************************************************/
-// loop for each page - 4 measures per page
-if (strlen($measures[0]) > 0) {
-    $measureCount = 0;
-    for ($i=0; $i < ceil(count($measures) / 4); $i++) {
-        // add page
-        $pdf->AddPage();
-
-        if ($measures[ $measureCount]) createMeasure(0.5, 0.5, $measures[$measureCount]);
-        if ($measures[$measureCount + 1]) createMeasure(4.3, 0.5, $measures[$measureCount + 1]);
-        if ($measures[$measureCount + 2]) createMeasure(0.5, 5.5, $measures[$measureCount + 2]);
-        if ($measures[$measureCount + 3]) createMeasure(4.3, 5.5, $measures[$measureCount + 3]);
-
-        $measureCount = $measureCount + 4;
-    }
-}
-
-
-
-/************************************************************/
-/*                 Output PDF Report                        */
-/************************************************************/
+/************************************************************
+Output PDF Report
+************************************************************/
 $pdf->Output();
 
 ob_end_flush();
