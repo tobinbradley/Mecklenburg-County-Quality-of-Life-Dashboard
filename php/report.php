@@ -193,7 +193,6 @@ function createMeasure($x, $y, $themeasure) {
     $pdf->SetX($x);
     $pdf->SetFont('Arial','',10);
     $pdf->MultiCell(3.5, 0.15, utf8_decode(strip_tags($json[$themeasure][tech_notes])) . "\n\n". utf8_decode(strip_tags($json[$themeasure][source])), 0, "L");
-
 }
 
 
