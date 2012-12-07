@@ -38,6 +38,7 @@
     content: '';
     display: block;
     position: absolute;
+    pointer-events: none;
     top: 0;
     right: 0;
     bottom: 0;
@@ -105,6 +106,7 @@
 #selectedNeighborhood { line-height: 20px; }
 .measureText { font-size: 1.2em; font-weight: bold; }
 .measure-details h5 { margin: 0; padding: 0; }
+.chart { margin-bottom: 20px; }
 
 /* report dialog */
 #report_metrics { height: 200px; }

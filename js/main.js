@@ -16,7 +16,7 @@ $(document).ready(function() {
 
     // Load JSON metric configuration
     $.ajax({
-        url: "js/metrics.json?V=7",
+        url: "js/metrics.json?V=8",
         dataType: "json",
         async: false,
         success: function(data){
@@ -26,7 +26,7 @@ $(document).ready(function() {
 
     // Grab NPA JSON
     $.ajax({
-        url: "js/npa.json",
+        url: "js/npa.json?V=8",
         dataType: "json",
         type: "GET",
         async: false,
@@ -42,7 +42,7 @@ $(document).ready(function() {
     $.each(FTmeta, function(index) {
         if (this.style.breaks.length > 0) {
             $('p[data-group=' + this.category + ']').append('<li><a href="javascript:void(0)" class="measure-link" data-measure="' + this.field + '">' + this.title + ' <i></i></a></li>');
-            //$('optgroup[label=' + this.category.toProperCase() + ']').append('<option value="' + this.field + '">' + this.title + '</option>');
+            $('optgroup[label=' + this.category.toProperCase() + ']').append('<option value="' + this.field + '">' + this.title + '</option>');
         }
     });
 
@@ -50,9 +50,16 @@ $(document).ready(function() {
     $(".sidenav p").each(function() {
         $("li", this).sort(asc_sort).appendTo(this);
     });
-    /*$("#modalReport optgroup").each(function() {
+    $("#modalReport optgroup").each(function() {
         $("option", this).sort(asc_sort).appendTo(this);
-    });*/
+    });
+
+    // report optgroup click
+    $("#report_metrics optgroup").click(function(e) { $(this).children().prop('selected','selected');  });
+    $("#report_metrics optgroup option").click(function(e) { e.stopPropagation(); });
+    $("#all_metrics").change(function () {
+        $(this).is(":checked") ? $("#report_metrics optgroup option").prop('selected','selected') : $("#report_metrics optgroup option").prop('selected', false);
+    });
 
     // Set default metric
     updateData(FTmeta[defaultMeasure]);
@@ -118,7 +125,7 @@ $(document).ready(function() {
     });
 
     // Opacity slider
-    $( "#opacity_slider" ).slider({ range: "min", value: 70, min: 25, max: 100, stop: function (event, ui) {
+    $( "#opacity_slider" ).slider({ range: "min", value: 80, min: 25, max: 100, stop: function (event, ui) {
             geojson.setStyle(style);
             if (activeRecord.id) highlightSelected( getNPALayer(activeRecord.id) );
         }
@@ -127,6 +134,12 @@ $(document).ready(function() {
     // Feedback from submit
     $("#talkback").submit(function(e){
         e.preventDefault();
+        $('#modalTalkback').modal('hide');
+        $.ajax({
+            type: "POST",
+            url: "php/feedback.php",
+            data: { inputName: $("#inputName").val(), inputEmail: $("#inputEmail").val(), inputURL: window.location.href, inputFeedback: $("#inputFeedback").val() }
+        });
     });
 
     // jQuery UI Autocomplete

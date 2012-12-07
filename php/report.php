@@ -1,5 +1,7 @@
 <?php
 
+ob_start();
+
 /**
  * Set content header
  */
@@ -68,11 +70,23 @@ class PDF extends FPDF
     }
 }
 
+// Prety up the number
+function prettyData($data, $themeasure) {
+    global $pdf, $json, $npadata, $chartColors;
+    if (is_null($data) || !is_numeric($data)) {
+        return "N/A";
+    }
+    else {
+        if ($data >= 10000) $data = number_format($data);
+        return $json[$themeasure]["style"]["prefix"] . $data . $json[$themeasure]["style"]["units"];
+    }
+}
 
 /**
  * Create PDF
  */
 $pdf = new PDF('P','in','Letter');
+
 
 
 /************************************************************/
@@ -89,24 +103,24 @@ $pdf->SetTextColor(255,255,255);
 
 // Title page header
 $pdf->SetFont('Arial','B',40);
-$pdf->Ln(0.8);
+$pdf->Ln(0.7);
 $pdf->Cell(0.3);
 $pdf->Cell(0,0, "Neighborhood Profile Area");
 
 // Title page neighborhood
 $pdf->SetFont('Arial','B',180);
-$pdf->Ln(1.8);
+$pdf->Ln(1.75);
 $pdf->Cell(0.3);
 //$pdf->Cell(1.7);
 $pdf->Cell(0, 0, $neighborhood);
 
 // Title page main content
-$pdf->Ln(3.8);
-$pdf->Cell(1);
-$pdf->SetTextColor(0,0,0);
-$pdf->SetFont('Arial','', 14);
-$text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce elementum tortor vitae tortor dapibus quis porta est fringilla. Etiam vulputate erat id purus elementum scelerisque. Sed id risus nisi, at dapibus nisi. Aliquam in enim eu odio gravida interdum sed sed odio. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Cras ullamcorper ornare augue. Nulla mollis orci quis quam pulvinar semper. Pellentesque interdum libero vitae enim ultrices faucibus. Duis vel enim eget ipsum aliquet sollicitudin in ut massa. In diam lacus, sodales id ornare eu, dictum et sem. Fusce iaculis viverra tortor, et volutpat nulla posuere quis.";
-$pdf->MultiCell(5.8, 0.2, $text);
+$pdf->Ln(3.15);
+$pdf->Cell(0.43);
+$pdf->SetTextColor(0,0,45);
+$pdf->SetFont('Arial','B', 50);
+$text = "Quality of Life Study";
+$pdf->MultiCell(0, 0.2, $text);
 
 
 /************************************************************/
@@ -156,26 +170,29 @@ function createMeasure($x, $y, $themeasure) {
     $pdf->SetTextColor(0,0,0);
     $pdf->SetY($y);
     $pdf->SetX($x);
+    //$pdf->SetLeftMargin($x);
+    //$pdf->SetRightMargin($x + 4);
     $pdf->SetFont('Arial','B',12);
-    $pdf->Write(0, $json[$themeasure][title] );
-    $pdf->Ln(0.2);
-    $pdf->SetX($x);
-    $pdf->Write(0, $npadata[$json[$themeasure]["field"]] . $json[$themeasure]["style"]["units"]);
-    $pdf->Ln(0.2);
-    $pdf->SetX($x);
-    $chartMax = ($npadata[$json[$themeasure]["field"]] >= round($json[$themeasure]["style"]["avg"]) ? $npadata[$json[$themeasure]["field"]] : round($json[$themeasure]["style"]["avg"]));
-    $chartMax = ($chartMax > 100 ? $chartMax + 100 : 100 );
-    $pdf->Image( "http://chart.apis.google.com/chart?chxr=0,0," . $chartMax . "&chxl=1:|2010&chxt=x,y&chbh=a,4,9&chs=250x75&cht=bhg&chco=FF9900,FFCA7A&chds=0," . $chartMax . ",0," . $chartMax . "&chd=t:" . $npadata[$json[$themeasure]["field"]] . "|" . round($json[$themeasure]["style"]["avg"]) . "&chdl=Neightborhood|NPA+Average&chdlp=t&chg=-1,0", null , null, 0, 0, "PNG");
-    $pdf->Ln(0.2);
+   // $pdf->Write(0, $json[$themeasure][title] );
+    $pdf->MultiCell(3.5, 0.15, prettyData($npadata[$json[$themeasure]["field"]], $themeasure) . " " . utf8_decode($json[$themeasure][title]), 0, "L");
+    //$pdf->Ln(0.15);
+    //$pdf->SetX($x);
+    //$pdf->Write(0, $json[$themeasure]["style"]["prefix"] . (is_null($npadata[$json[$themeasure]["field"]]) ? "N/A" : $npadata[$json[$themeasure]["field"]]) . $json[$themeasure]["style"]["units"]);
+    $pdf->Ln(0.15);
+    //$pdf->SetX($x);
+    //$chartMax = ($npadata[$json[$themeasure]["field"]] >= round($json[$themeasure]["style"]["avg"]) ? $npadata[$json[$themeasure]["field"]] : round($json[$themeasure]["style"]["avg"]));
+    //$chartMax = ($chartMax > 100 ? $chartMax + 100 : 100 );
+    // $pdf->Image( "http://chart.apis.google.com/chart?chxr=0,0," . $chartMax . "&chxl=1:|2010&chxt=x,y&chbh=a,4,9&chs=250x75&cht=bhg&chco=FF9900,FFCA7A&chds=0," . $chartMax . ",0," . $chartMax . "&chd=t:" . $npadata[$json[$themeasure]["field"]] . "|" . round($json[$themeasure]["style"]["avg"]) . "&chdl=Neightborhood|NPA+Average&chdlp=t&chg=-1,0", null , null, 0, 0, "PNG");
+    // $pdf->Ln(0.2);
     $pdf->SetX($x);
     $pdf->SetFont('Arial','B',10);
     $pdf->Write(0, "What is this Indicator?");
     $pdf->Ln(0.1);
     $pdf->SetX($x);
     $pdf->SetFont('Arial','',10);
-    $pdf->MultiCell(3.5, 0.15, strip_tags($json[$themeasure][description]), 0, "L");
-    if ($json[$themeasure][auxchart]) {
-        $pdf->Ln(0.2);
+    $pdf->MultiCell(3.5, 0.15, utf8_decode(strip_tags($json[$themeasure][description])), 0, "L");
+    /*if ($json[$themeasure][auxchart]) {
+        $pdf->Ln(0.15);
         $pdf->SetX($x);
         $measureTitles = array();
         $measureValues = array();
@@ -189,39 +206,42 @@ function createMeasure($x, $y, $themeasure) {
         $auxContent = "http://chart.apis.google.com/chart?chf=bg,s,00000000&chs=320x165&cht=p&chp=0.1";
         $auxContent .= "&chd=t:" . implode(",", $measureValues) . "&chdl=" . str_replace(" ", "+", implode("|", $measureTitles)) . "&chco=";
         $pdf->Image( $auxContent, null , null, 0, 0, "PNG");
-    }
-    $pdf->Ln(0.2);
+    }*/
+    $pdf->Ln(0.15);
     $pdf->SetX($x);
     $pdf->SetFont('Arial','B',10);
     $pdf->Write(0, "Why is this Important?");
     $pdf->Ln(0.1);
     $pdf->SetX($x);
     $pdf->SetFont('Arial','',10);
-    $pdf->MultiCell(3.5, 0.15, strip_tags($json[$themeasure][importance]), 0, "L");
-    $pdf->Ln(0.2);
+    $pdf->MultiCell(3.5, 0.15, utf8_decode(strip_tags($json[$themeasure][importance])), 0, "L");
+    $pdf->Ln(0.15);
     $pdf->SetX($x);
     $pdf->SetFont('Arial','B',10);
-    $pdf->Write(0, "Technical Notes");
+    $pdf->Write(0, "About the Data");
     $pdf->Ln(0.1);
     $pdf->SetX($x);
     $pdf->SetFont('Arial','',10);
-    $pdf->MultiCell(3.5, 0.15, strip_tags($json[$themeasure][tech_notes]), 0, "L");
-    $pdf->Ln(0.2);
-    $pdf->SetX($x);
-    $pdf->SetFont('Arial','B',10);
-    $pdf->Write(0, "Data Source");
-    $pdf->Ln(0.1);
-    $pdf->SetX($x);
-    $pdf->SetFont('Arial','',10);
-    $pdf->MultiCell(3.5, 0.15, strip_tags($json[$themeasure][source]), 0, "L");
-    $pdf->Ln(0.2);
-    $pdf->SetX($x);
-    $pdf->SetFont('Arial','B',10);
+    $pdf->MultiCell(3.5, 0.15, utf8_decode(strip_tags($json[$themeasure][tech_notes])) . "\n\n". utf8_decode(strip_tags($json[$themeasure][source])), 0, "L");
+    //$pdf->Ln(0.15);
+    //$pdf->SetX($x);
+    //$pdf->SetFont('Arial','B',10);
+    //$pdf->Write(0, "Data Something");
+    //$pdf->Ln(0.1);
+    //$pdf->SetX($x);
+    //$pdf->SetFont('Arial','',10);
+    //$pdf->MultiCell(3.5, 0.15, utf8_decode(strip_tags($json[$themeasure][source])), 0, "L");
+
+    //$pdf->Ln(0.2);
+    //$pdf->SetX($x);
+    //$pdf->SetFont('Arial','B',10);
     //$pdf->Write(0, "Additional Resources");
     //$pdf->Ln(0.1);
     //$pdf->SetX($x);
     //$pdf->SetFont('Arial','',9);
     //$pdf->SetTextColor(0,0,255);
+    //$pdf->SetLeftMargin($x);
+    //$pdf->WriteHTML($json[$themeasure][links]);
     //$pdf->SetFont('','U');
 
 }
@@ -234,14 +254,16 @@ function createMeasure($x, $y, $themeasure) {
 // loop for each page - 4 measures per page
 if (strlen($measures[0]) > 0) {
     $measureCount = 0;
-    for ($i=0; $i < ceil(count($measures) / 2); $i++) {
+    for ($i=0; $i < ceil(count($measures) / 4); $i++) {
         // add page
         $pdf->AddPage();
 
         if ($measures[ $measureCount]) createMeasure(0.5, 0.5, $measures[$measureCount]);
         if ($measures[$measureCount + 1]) createMeasure(4.3, 0.5, $measures[$measureCount + 1]);
+        if ($measures[$measureCount + 2]) createMeasure(0.5, 5.5, $measures[$measureCount + 2]);
+        if ($measures[$measureCount + 3]) createMeasure(4.3, 5.5, $measures[$measureCount + 3]);
 
-        $measureCount = $measureCount + 2;
+        $measureCount = $measureCount + 4;
     }
 }
 
@@ -252,6 +274,6 @@ if (strlen($measures[0]) > 0) {
 /************************************************************/
 $pdf->Output();
 
-
+ob_end_flush();
 
 ?>
