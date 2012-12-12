@@ -21,7 +21,7 @@
         <link rel="stylesheet" href="css/jquery-ui-1.9.2.custom.min.css">
         <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.5/leaflet.css" />
         <!--[if lte IE 8]><link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.5/leaflet.ie.css" /><![endif]-->
-        <link rel="stylesheet" href="css/main.css?V=13">
+        <link rel="stylesheet" href="css/main.css?V=14">
 
         <!-- Modernizr -->
         <script src="js/vendor/modernizr-2.6.1.min.js"></script>
@@ -62,7 +62,7 @@
             <![endif]-->
           <div class="container">
             <h1>Quality of Life Dashboard <span class="text-info">(beta)</span></h1>
-            <p class="lead">Gateway to the Quality of Life Study</p>
+            <h2 class="lead">Gateway to the Quality of Life Study</h2>
           </div>
         </header>
 
@@ -187,35 +187,7 @@
 
         </div> <!-- /container -->
 
-
-        <!-- Javascript at the end -->
-        <script src="https://www.google.com/jsapi"></script>
-        <script>google.load("visualization", "1", {packages:["corechart"]});</script>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-        <script src="js/vendor/jquery-ui-1.9.2.custom.min.js"></script>
-        <script src="js/vendor/bootstrap.min.js"></script>
-        <script src="http://cdn.leafletjs.com/leaflet-0.4.5/leaflet.js"></script>
-        <script src="js/plugins.js?V=13"></script>
-        <script src="js/main.js?V=13"></script>
-
-        <script>
-            var _gaq=[['_setAccount','UA-127085-9'],['_trackPageview']];
-            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-            s.parentNode.insertBefore(g,s)}(document,'script'));
-        </script>
-
-        <script>
-            function googleTranslateElementInit() {
-              new google.translate.TranslateElement({
-                pageLanguage: 'en'
-              });
-            }
-        </script>
-        <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
-
-        <!-- Dialogs - not shown on page load -->
+        <!-- Modals - not shown on page load -->
         <div class="modal hide fade" id="modalHelp">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -348,7 +320,7 @@
                                     <optgroup label="Housing"></optgroup>
                                     <optgroup label="Safety"></optgroup>
                                 </select>
-                                <label class="checkbox">
+                                <label class="checkbox" for="all_metrics">
                                     <input type="checkbox" id="all_metrics"> Select All
                                 </label>
                             </div>
@@ -365,6 +337,33 @@
                 <a href="javascript:void(0)" class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
             </div>
         </div>
+
+
+        <!-- Javascript at the end -->
+        <script src="https://www.google.com/jsapi"></script>
+        <script>google.load("visualization", "1", {packages:["corechart"]});</script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script src="js/vendor/jquery-ui-1.9.2.custom.min.js"></script>
+        <script src="js/vendor/bootstrap.min.js"></script>
+        <script src="http://cdn.leafletjs.com/leaflet-0.4.5/leaflet.js"></script>
+        <script src="js/plugins.js?V=14"></script>
+        <script src="js/main.js?V=14"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-127085-9'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>
+            function googleTranslateElementInit() {
+              new google.translate.TranslateElement({
+                pageLanguage: 'en'
+              });
+            }
+        </script>
+        <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
     </body>
 </html>

@@ -152,7 +152,7 @@ $(document).ready(function() {
                 url: wsbase + "v4/ws_geo_ubersearch.php",
                 dataType: "jsonp",
                 data: {
-                    searchtypes: "address,library,school,park,geoname,cast,nsa,intersection,pid",
+                    searchtypes: "address,library,school,park,geoname,cast,nsa,intersection,pid,business",
                     query: request.term
                 },
                 success: function(data) {
@@ -240,7 +240,7 @@ function hashRead() {
         }
 
         // Process the metric
-        if (theHash[1].length > 0 && !$('a[data-measure=' + theHash[1] + ']' && theHash[1] !== activeMeasure).children("i").hasClass("icon-chevron-right")) {
+        if (theHash[1].length > 0 && theHash[1] !== activeMeasure) {
             if ( $('a[data-measure=' + theHash[1] + ']').parent("li").parent("p").is(':hidden') ) $('a[data-measure=' + theHash[1] + ']').parent("li").parent("p").parent("li").trigger("click");
             $("a.measure-link").children("i").removeClass("icon-chevron-right");
             $('a[data-measure=' + theHash[1] + ']').children("i").addClass("icon-chevron-right");
@@ -554,10 +554,10 @@ function style(feature) {
 
 function getColor(d) {
     var color = "";
-    var colors = FTmeta[activeMeasure].style.colors.reverse();
-    var breaks = FTmeta[activeMeasure].style.breaks.reverse();
+    var colors = FTmeta[activeMeasure].style.colors;
+    var breaks = FTmeta[activeMeasure].style.breaks;
     $.each(breaks, function(index, value) {
-        if (d >= value && d !== null) {
+        if (value < d && d !== null) {
             color = colors[index];
             return;
         }
