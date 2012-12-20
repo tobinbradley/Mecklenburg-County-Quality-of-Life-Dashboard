@@ -3,10 +3,7 @@
 {console.log();return window.console;}catch(err){return window.console={};}})());
 
 
-/**
- * Takes a string a URL encodes or decodes it
- * @param {string} str
- */
+// Takes a string a URL encodes or decodes it
 function urlencode(str) {
     str = escape(str);
     str = str.replace('+', '%2B');
@@ -22,9 +19,7 @@ function urldecode(str) {
     return str;
 }
 
-/**
-* Add left and right labels to a jQuery UI Slider
-*/
+// Add left and right labels to a jQuery UI Slider
 $.fn.extend({
     sliderLabels: function(left,right) {
         var $this = $(this);
@@ -37,25 +32,19 @@ $.fn.extend({
     }
 });
 
-/**
- * Capitalize first letter of word
- */
+// Capitalize first letter of word
 function capitaliseFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 
-/**
- * Sort option list
- */
+// Sort option list
 function asc_sort(a, b){
     return ($(b).text()) < ($(a).text());
 }
 
 
-/*
-    Prototypes and helpers
-*/
+// Prototypes and helpers
 function prettyMetric(x, metric) {
     if (isNumber(x)) {
         if (x >=10000) x = x.toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ",");

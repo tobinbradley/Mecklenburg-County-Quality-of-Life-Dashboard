@@ -80,8 +80,16 @@
         "links": "Future land use plans in Charlotte-Mecklenburg: <a href='http://www.charlotteplanning.org'>Charlotte</a><br><a href='http://www.ci.davidson.nc.us'>Davidson</a><br><a href='Huntersville'>http://www.huntersville.org/Departments/Planning.aspx</a><br><a href='http://www.matthewsnc.com/Departments/PlanningandDevelopment.aspx'>Matthews</a><br><a href='http://www.minthill.com/index.aspx?nid=85'>Mint Hill</a><br><a href='http://www.pinevillenc.net/town-department/town-planning'>Pineville</a>",
         "style": {
             "units": "%",
-            "breaks": [],
-            "colors": []
+            "breaks": [
+                0,
+                70,
+                85
+            ],
+            "colors": [
+                "#D8F2ED",
+                "#2ca79e",
+                "#154F4A"
+            ]
         }
     },
     "p5": {
@@ -143,15 +151,19 @@
         "db": "white",
         "field": "p8",
         "category": "character",
-        "title": "Caucasian",
-        "description": "",
+        "title": "Race - White or Caucasian",
+        "description": "Percent of Neighborhood Profile Area (NPA) population self-identified as White or Caucasian population.",
         "importance": "",
-        "tech_notes": "",
-        "source": "",
+        "tech_notes": "Caucasian population divided by the total population.",
+        "source": "U.S. Census, 2010",
         "links": "",
         "style": {
             "units": "%",
-            "breaks": [],
+            "breaks": [
+                0,
+                30,
+                60
+            ],
             "colors": [
                 "#D8F2ED",
                 "#2ca79e",
@@ -163,15 +175,19 @@
         "db": "black",
         "field": "p9",
         "category": "character",
-        "title": "African American",
-        "description": "",
+        "title": "Race - Black or African American",
+        "description": "Percent of Neighborhood Profile Area (NPA) population self-identified as Black or African American.",
         "importance": "",
-        "tech_notes": "",
-        "source": "",
+        "tech_notes": "Black or African American population divided by the total population.",
+        "source": "U.S. Census, 2010",
         "links": "",
         "style": {
             "units": "%",
-            "breaks": [],
+            "breaks": [
+                0,
+                15,
+                45
+            ],
             "colors": [
                 "#D8F2ED",
                 "#2ca79e",
@@ -183,15 +199,19 @@
         "db": "asian",
         "field": "p10",
         "category": "character",
-        "title": "Asian",
-        "description": "",
+        "title": "Race - Asian",
+        "description": "Percent of Neighborhood Profile Area (NPA) population self-identified as Asian.",
         "importance": "",
-        "tech_notes": "",
-        "source": "",
+        "tech_notes": "Asian population divided by the total population.",
+        "source": "U.S. Census, 2010",
         "links": "",
         "style": {
             "units": "%",
-            "breaks": [],
+            "breaks": [
+                0,
+                5,
+                10
+            ],
             "colors": [
                 "#D8F2ED",
                 "#2ca79e",
@@ -203,15 +223,19 @@
         "db": "other_population",
         "field": "p11",
         "category": "character",
-        "title": "Other Race",
-        "description": "",
+        "title": "Race - Some Other Race",
+        "description": "Percent of Neighborhood Profile Area (NPA) population self-identified as Some Other Race.",
         "importance": "",
-        "tech_notes": "",
-        "source": "",
+        "tech_notes": "Some Other Race population divided by the total population.",
+        "source": "U.S. Census, 2010",
         "links": "",
         "style": {
             "units": "%",
-            "breaks": [],
+            "breaks": [
+                0,
+                3,
+                10
+            ],
             "colors": [
                 "#D8F2ED",
                 "#2ca79e",
@@ -223,15 +247,19 @@
         "db": "group_population",
         "field": "p12",
         "category": "character",
-        "title": "Group Population",
-        "description": "",
+        "title": "Population in Group Quarters",
+        "description": "Percent of Neighborhood Profile Area (NPA) population living in group quarters",
         "importance": "",
-        "tech_notes": "",
-        "source": "",
+        "tech_notes": "Population living in group quarters divided by the total population.",
+        "source": "U.S. Census, 2010",
         "links": "",
         "style": {
             "units": "%",
-            "breaks": [],
+            "breaks": [
+                0,
+                1,
+                10
+            ],
             "colors": [
                 "#D8F2ED",
                 "#2ca79e",
@@ -251,8 +279,16 @@
         "links": "<a href='http://www.charmeck.org/mecklenburg/county/BOE'>Area election precincts, voting sites, voter registration and other related information</a><br><a href='http://www.eac.gov/research/election_administration_and_voting_survey.aspx'>national voting statistics</a>",
         "style": {
             "units": "%",
-            "breaks": [],
-            "colors": []
+            "breaks": [
+                0,
+                60,
+                80
+            ],
+            "colors": [
+                "#D8F2ED",
+                "#2ca79e",
+                "#154F4A"
+            ]
         }
     },
     "e2": {
@@ -282,8 +318,16 @@
         "source": "City of Charlotte, Mecklenburg County, Towns",
         "links": "Opportunities for Board and Commission Positions: <a href='http://charmeck.org/city/charlotte/CityClerk/BoardsandCommissions/Pages/Boards.aspx'>City of Charlotte</a><br><a href='http://charmeck.org/mecklenburg/county/BOCC/AdvisoryBoards/Pages/Default.aspx'>Mecklenburg County</a>",
         "style": {
-            "breaks": [],
-            "colors": []
+            "breaks": [
+                0,
+                1,
+                2
+            ],
+            "colors": [
+                "#D8F2ED",
+                "#2ca79e",
+                "#154F4A"
+            ]
         }
     },
     "e4": {
@@ -312,8 +356,16 @@
         "source": "Neighborhood and Business Services",
         "links": "<a href='http://charmeck.org/city/charlotte/planning/AreaPlanning/NeighborhoodOrganizationalList/Pages/home.aspx'>Neighborhood organization registration process</a><br><a href='http://charmeck.org/CITY/CHARLOTTE/NBS/ED/FINANCIALPROGRAMS/Pages/default.aspx'>Funding opportunities for neighborhood organizations</a><br><a href='http://www.artsandscience.org/grants-a funding/organizations/cultural-projects-grants'>Arts and Science Council</a><br><a href='http://www.communitybuildinginitiative.org/'>Community Building Initiative</a>",
         "style": {
-            "breaks": [],
-            "colors": []
+            "breaks": [
+                0,
+                1,
+                2
+            ],
+            "colors": [
+                "#D8F2ED",
+                "#2ca79e",
+                "#154F4A"
+            ]
         }
     },
     "e6": {
@@ -343,8 +395,16 @@
         "links": "<a href='http://charmeck.org/city/charlotte/nbs/kcb/Pages/AdoptaCityStreetProgram.aspx'>Adopt a City Street</a><br><a href='http://charmeck.org/mecklenburg/county/SolidWaste/Litter/Pages/KeepMecklenburgBeautiful.aspx'>Keep Mecklenburg Beautiful</a><br><a href='http://keepncbeautiful.org/contact/'>Keep North Carolina Beautiful</a>",
         "style": {
             "units": " Miles",
-            "breaks": [],
-            "colors": []
+            "breaks": [
+                0,
+                1,
+                2
+            ],
+            "colors": [
+                "#D8F2ED",
+                "#2ca79e",
+                "#154F4A"
+            ]
         }
     },
     "m1": {
@@ -471,8 +531,16 @@
         "links": "",
         "style": {
             "units": "sqft",
-            "breaks": [],
-            "colors": []
+            "breaks": [
+                0,
+                250000,
+                1000000
+            ],
+            "colors": [
+                "#D8F2ED",
+                "#2ca79e",
+                "#154F4A"
+            ]
         }
     },
     "m7": {
@@ -563,7 +631,11 @@
         "tech_notes": "The total number of violent crime in each Neighborhood Profile Area as described were divided by the population for each Neighborhood Profile Area. The per person rate was converted to number of crimes per 100,000.",
         "links": "<a href='http://charmeck.org/city/charlotte/CMPD/organization/investigative/ViolentCrimes/Pages/default.aspx'>Charlotte-Mecklenburg Police Department Violent Crimes Division</a><br><a href='http://charmeck.org/city/charlotte/CMPD/safety/SafetyPrevention/Pages/default.aspx'>Crime prevention and safety best practices</a><br><a href='http://charmeck.org/city/charlotte/CMPD/safety/NeighborhoodWatch/Pages/default.aspx'>How to start a neighborhood crime watch</a><br><a href='http://www.cornelius.org/index.aspx?nid=189'>Cornelius Police Department</a><br><a href='http://www.ci.davidson.nc.us/index.aspx?NID=126'>Davidson Police Department</a><br><a href='http://www.huntersville.org/Departments/Police.aspx'>Huntersville Police Department</a><br><a href='http://matthewsnc.gov/Departments/Police/DepartmentWelcome.aspx'>Matthews Police Department</a><br><a href='http://www.minthill.com/index.aspx?nid=102'>Mint Hill Police Department</a><br><a href='http://www.pinevillencpolice.com/'>Pineville Police Department</a>",
         "style": {
-            "breaks": [],
+            "breaks": [
+                0,
+                200,
+                800
+            ],
             "colors": [
                 "#D8F2ED",
                 "#2ca79e",
@@ -582,7 +654,11 @@
         "tech_notes": "The total number of property crimes in each NPA as described were divided by the population for each NPA. The rate was converted to number of crimes per 100,000.",
         "links": "<a href='http://charmeck.org/CITY/CHARLOTTE/CMPD/ORGANIZATION/INVESTIGATIVE/PROPERTYCRIMES/Pages/default.aspx'>Charlotte-Mecklenburg Police Department Property  Crimes Division</a><br><a href='http://charmeck.org/city/charlotte/CMPD/safety/SafetyPrevention/Pages/Crime%20Prevention%20Through%20Environmental%20Design.aspx'>Crime Prevention through Environmental Design (CPTED)</a><br><a href='http://charmeck.org/city/charlotte/CMPD/safety/SafetyPrevention/Pages/default.aspx'>Crime prevention and safety best practices</a><br><a href='http://charmeck.org/city/charlotte/CMPD/safety/NeighborhoodWatch/Pages/default.aspx'>How to start a neighborhood crime watch</a><br><a href='http://charmeck.org/city/charlotte/nbs/ed/financialprograms/Pages/SecurityGrantProgram.aspx'>City of Charlotte security grant program</a><br><a href='http://www.cornelius.org/index.aspx?nid=189'>Cornelius Police Department</a><br><a href='http://www.ci.davidson.nc.us/index.aspx?NID=126'>Davidson Police Department</a><br><a href='http://www.huntersville.org/Departments/Police.aspx'>Huntersville Police Department</a><br><a href='http://matthewsnc.gov/Departments/Police/DepartmentWelcome.aspx'>Matthews Police Department</a><br><a href='http://www.minthill.com/index.aspx?nid=102'>Mint Hill Police Department</a><br><a href='http://www.pinevillencpolice.com/'>Pineville Police Department</a>",
         "style": {
-            "breaks": [],
+            "breaks": [
+                0,
+                2000,
+                6000
+            ],
             "colors": [
                 "#D8F2ED",
                 "#2ca79e",
@@ -601,7 +677,11 @@
         "tech_notes": "The total number of incidents committed resulting in an arrest of children under the age of 16 were divided by the juvenile population for each Neighborhood Profile Area.",
         "links": "<a href='http://charmeck.org/city/charlotte/CMPD/organization/Support/Pages/Gang%20of%20One.aspx'>Charlotte Mecklenburg Police Department gang prevention programs</a><br><a href='http://www.cms.k12.nc.us/cmsdepartments/safety/SchoolLaw/Pages/About%20Us.aspx'>Charlotte Mecklenburg School System Police Department</a><br><a href='http://charmeck.org/city/charlotte/CRC/DisputeSettlement/Pages/Juvenilevictim-offendermediation.aspx'>Juvenile and victim mediation services</a><br><a href='http://charmeck.org/mecklenburg/county/CountyManagersOffice/CriminalJusticeServices/Pages/JCPC.aspx'>Mecklenburg County Juvenile Crime Prevention Council</a><br><a href='http://charmeck.org/city/charlotte/mayor/myep/Pages/default.aspx'>City of Charlotte youth service initiatives</a>",
         "style": {
-            "breaks": [],
+            "breaks": [
+                0,
+                1000,
+                5000
+            ],
             "colors": [
                 "#D8F2ED",
                 "#2ca79e",
@@ -643,7 +723,11 @@
         "tech_notes": "The number of animal control calls divided by the NPA population.",
         "links": "<a href='http://charmeck.org/city/charlotte/CMPD/organization/Support/AnimalControl/Pages/default.aspx'>Charlotte-Mecklenburg Animal Care and Control</a>",
         "style": {
-            "breaks": [],
+            "breaks": [
+                0,
+                50,
+                150
+            ],
             "colors": [
                 "#D8F2ED",
                 "#2ca79e",
@@ -910,15 +994,23 @@
         "field": "k13",
         "category": "education",
         "title": "Attending Neighborhood Schools",
-        "description": "",
+        "description": "Percent of CMS students attending their assigned neighborhood school",
         "importance": "",
-        "source": "",
-        "tech_notes": "",
+        "source": "Charlotte-Mecklenburg Schools, 2010-2011",
+        "tech_notes": "The total number of students attending their assigned neighborhood school divided by the total number of students.",
         "links": "",
         "style": {
             "units": "%",
-            "breaks": [],
-            "colors": []
+            "breaks": [
+                0,
+                65,
+                85
+            ],
+            "colors": [
+                "#D8F2ED",
+                "#2ca79e",
+                "#154F4A"
+            ]
         }
     },
     "h1": {
@@ -1004,7 +1096,6 @@
         "tech_notes": "The average age of death for each NPA.",
         "links": "<a href='http://www.arcmeck.org/family_support.html'>The Arc Of Mecklenburg County</a><br><a href='http://www.unitedfamilyservices.org/programdescriptions_outcomes.html'>United Family Services</a><br><a href='http://www.uwcentralcarolinas.org/who-we-help/agency-list'>Agencies supported by United Way of Central Carolinas</a><br><a href='http://charmeck.org/city/charlotte/Transportation/Traffic/Pages/home.aspx'>Charlotte Department of Transportation</a><br><a href='http://www.ncdhhs.gov/dss/stats/'>NC Department of Health and Human Services</a><br><a href='http://www.mapprnet.org/'>Mecklenburg County resource portal for Latino populations</a>",
         "style": {
-            "units": "%",
             "breaks": [
                 0,
                 65,
@@ -1029,7 +1120,11 @@
         "links": "<a href='http://www.charmeck.org/mecklenburg/county/dss/esd/Pages/MedicaidChildrenFamilies'>Mecklenburg County Department of Social Services</a><br><a href='http://www.adajenkins.org/health/'>Ada Jenkins Center</a><br><a href='http://www.careringnc.org/'>Care Ring</a><br><a href='http://www.cwwilliams.org/v5/index.php#info'>C.W. Williams Community Health Center</a><br><a href='http://charlottecommunityhealthclinic.org/'>Charlotte Community Health Clinic</a><br><a href='http://www.medassist.org/'>NC MedAssist</a><br><a href='http://www.uwcentralcarolinas.org/who-we-help/agency-list'>Agencies supported by United Way of Central Carolinas</a><br><a href='http://www.mapprnet.org/'>Mecklenburg County resource portal for Latino populations</a>",
         "style": {
             "units": "%",
-            "breaks": [],
+            "breaks": [
+                0,
+                5,
+                25
+            ],
             "colors": [
                 "#D8F2ED",
                 "#2ca79e",
@@ -1073,7 +1168,11 @@
         "links": "<a href='http://charmeck.org/mecklenburg/county/ParkandRec/Parks/ParkPlanning/Pages/10YrPlan.aspx'>Mecklenburg County Park and Recreation Master Plan</a><br><a href='http://www.ymcacharlotte.org/'>YMCA of Greater Charlotte</a><br><a href='http://www.ywcacentralcarolinas.org/'>YWCA of Greater Charlotte</a><br><a href='http://www.mapprnet.org/'>Mecklenburg County resource portal for Latino populations</a>",
         "style": {
             "units": "%",
-            "breaks": [],
+            "breaks": [
+                0,
+                60,
+                90
+            ],
             "colors": [
                 "#D8F2ED",
                 "#2ca79e",
@@ -1093,7 +1192,11 @@
         "links": "",
         "style": {
             "units": "%",
-            "breaks": [],
+            "breaks": [
+                0,
+                15,
+                45
+            ],
             "colors": [
                 "#D8F2ED",
                 "#2ca79e",
@@ -1327,7 +1430,11 @@
         "links": "<a href='http://charmeck/city/charlotte/nbs/CodeEnforcement/nuisance/Pages/home.aspx'>Municipal residential zoning code enforcement information</a>",
         "style": {
             "units": "%",
-            "breaks": [],
+            "breaks": [
+                0,
+                5,
+                15
+            ],
             "colors": [
                 "#D8F2ED",
                 "#2ca79e",
@@ -1390,7 +1497,7 @@
         "tech_notes": "The median gross rent for each NPA.  Gross rent is the contract rent plus the estimated average monthly cost of utilities (electricity, gas, and water and sewer) and fuels (oil, coal, kerosene, wood, etc.) if these are paid by the renter (or paid for the renter by someone else). The median gross rent for Mecklenburg County is $829. N/A includes only NPAs with less than 50 rental units. Rent cost is inflation adjusted to 2010.",
         "links": "<a href='http://www.buildersofhope.org'>Builders of Hope</a><br><a href='http://www.cha-nc.org/'>Charlotte Housing Authority</a><br><a href='http://www.cmhp.org'>Charlotte Mecklenburg Housing Partnership</a><br><a href='http://www.ourtownshabitat.org/our_towns_habitat_for_humanity.html'>Habitat for Humanity</a><br><a href='http://www.self-help.org/building-communities'>Self Help Credit Union</a><br><a href='http://charmeck.org/city/charlotte/nbs/housing/Pages/CityHousingPrograms.aspx'>City of Charlotte housing services</a><br><a href='http://www.ywcacentralcarolinas.org/programs/women-in-transition-wit'>YWCA</a><br><a href='http://hopehaven.org/Adult_Living_Services_-_Hope_Haven'>Hope Haven</a><br><a href='http://www.mensshelterofcharlotte.org/'>Charlotte Men's Shelter</a>",
         "style": {
-            "units": "%",
+            "units": "$",
             "breaks": [],
             "colors": [
                 "#D8F2ED",
@@ -1410,8 +1517,11 @@
         "tech_notes": "Shown as an average compared to total number of dwellings in the NPA.",
         "links": "<a href='http://charmeck/city/charlotte/nbs/CodeEnforcement/nuisance/Pages/home.aspx'>Municipal residential zoning code enforcement information</a><br><a href='http://charmeck.org/city/charlotte/nbs/housing/Pages/ForeclosureResourceCenter.aspx'>City of Charlotte Housing Services</a><br><a href='http://www.buildersofhope.org'>Builders of Hope</a><br><a href='http://www.habitatcharlotte.org'>Habitat for Humanity</a><br><a href='http://www.loveinc-charlotte.org/service-overview.htm'>Love-INC.</a><br><a href='http://charmeck.org/city/charlotte/nbs/housing/Pages/CityHousingPrograms.aspx'>City of Charlotte Housing Services</a><br><a href='http://charmeck.org/mecklenburg/county/CodeEnforcement/Pages/default.aspx'>How to apply for a building permit</a>",
         "style": {
-            "units": "%",
-            "breaks": [],
+            "breaks": [
+                0,
+                1,
+                5
+            ],
             "colors": [
                 "#D8F2ED",
                 "#2ca79e",
@@ -1430,7 +1540,11 @@
         "tech_notes": "",
         "links": "<a href='http://charmeck/city/charlotte/nbs/CodeEnforcement/nuisance/Pages/home.aspx'>Municipal residential zoning code enforcement information</a>",
         "style": {
-            "breaks": [],
+            "breaks": [
+                0,
+                50,
+                200
+            ],
             "colors": [
                 "#D8F2ED",
                 "#2ca79e",
@@ -1462,13 +1576,18 @@
         "field": "g17",
         "category": "housing",
         "title": "Owner-Occupied Housing",
-        "description": "",
+        "description": "Percent of housing units that are owner-occupied",
         "importance": "",
-        "source": "",
-        "tech_notes": "",
+        "source": "U.S Census, 2010",
+        "tech_notes": "The number of owner-occupied units divided by the the total number of occupied units.",
         "links": "",
         "style": {
-            "breaks": [],
+            "units": "%",
+            "breaks": [
+                0,
+                50,
+                75
+            ],
             "colors": [
                 "#D8F2ED",
                 "#2ca79e",
@@ -1588,7 +1707,12 @@
         "links": "",
         "style": {
             "units": "%",
-            "breaks": [],
+            "breaks": [
+                0,
+                30,
+                40,
+                50
+            ],
             "colors": [
                 "#DCF5E9",
                 "#95C2A2",
@@ -1819,7 +1943,11 @@
         "tech_notes": "Data includes information aggregated at the zip code + 4 scale of geography.  Data is not included for cases where the zip code +4 sample is fewer than 5 customers.  Specific customer information,  such as names, addresses, and account numbers will not be disclosed or included.  Data represents the average energy use in kilowatts for the 12-month period beginning January 1, 2011 and ending December 31, 2011.",
         "links": "",
         "style": {
-            "breaks": [],
+            "breaks": [
+                0,
+                1000,
+                1300
+            ],
             "colors": [
                 "#B6EDF0",
                 "#1F83E0",

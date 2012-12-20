@@ -1,6 +1,19 @@
 Quality of Life Dashboard
 =================
 
-In active development (i.e. I haven't gotten round to filling this out yet).
+A joint project between the City of Charlotte, Mecklenburg County, and UNCC. Features include:
++ Interactive map with hover information about features and on-the-fly choropleth maps.
++ Fully responsive design - scales from a desktop to a phone.
++ Customizable PDF reports.
++ Passes [WCAG 2.0 AAA](http://www.w3.org/TR/WCAG/) with 0 known errors and 0 likely errors. 
 
-Beta site: http://maps.co.mecklenburg.nc.us/qoldashboard/
+
+Built using the following awesome open source libraries:
++ [HTML5 Boilerplate](http://html5boilerplate.com/) via [Initializr](http://www.initializr.com/)
++ [Bootstrap](http://twitter.github.com/bootstrap/) via [Initializr](http://www.initializr.com/)
++ [jQuery](http://jquery.com/)
++ [jQuery UI](http://jqueryui.com/) - for autosuggest and slider
++ [Leaflet](http://leafletjs.com/)
++ [FPDF](http://www.fpdf.org/)
+
+It also leverages the [Google Chart Tools](https://developers.google.com/chart/) for charts.

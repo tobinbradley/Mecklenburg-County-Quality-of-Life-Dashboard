@@ -16,7 +16,7 @@ $(document).ready(function() {
 
     // Load JSON metric configuration
     $.ajax({
-        url: "js/metrics.json?V=9",
+        url: "js/metrics.json?V=10",
         dataType: "json",
         async: false,
         success: function(data){
@@ -26,7 +26,7 @@ $(document).ready(function() {
 
     // Grab NPA JSON
     $.ajax({
-        url: "js/npa.json?V=9",
+        url: "js/npa.json?V=10",
         dataType: "json",
         type: "GET",
         async: false,
@@ -128,6 +128,7 @@ $(document).ready(function() {
     $( "#opacity_slider" ).slider({ range: "min", value: 80, min: 25, max: 100, stop: function (event, ui) {
             geojson.setStyle(style);
             if (activeRecord.id) highlightSelected( getNPALayer(activeRecord.id) );
+            legend.update();
         }
     }).sliderLabels('Map','Data');
 
@@ -354,16 +355,16 @@ function barChart(measure){
     var data, theTitle, theColors;
     if (jQuery.isEmptyObject(activeRecord) || activeRecord[activeMeasure] === null) {
         data = google.visualization.arrayToDataTable([
-            ['Year', 'County Average'],
-            ['2010',  Math.round(FTmeta[measure.field].style.avg) ]
+            [null, 'County Average'],
+            [null,  Math.round(FTmeta[measure.field].style.avg) ]
         ]);
         theTitle = prettyMetric(Math.round(FTmeta[measure.field].style.avg), activeMeasure);
         theColors = ["#DC3912"];
     }
     else {
         data = google.visualization.arrayToDataTable([
-            ['Year', 'NPA ' + activeRecord.id, 'County Average'],
-            ['2010',  parseFloat(activeRecord[measure.field]), Math.round(FTmeta[measure.field].style.avg) ]
+            [null, 'NPA ' + activeRecord.id, 'County Average'],
+            [null,  parseFloat(activeRecord[measure.field]), Math.round(FTmeta[measure.field].style.avg) ]
         ]);
         theTitle = prettyMetric(activeRecord[measure.field], activeMeasure);
         theColors = ["#0283D5", "#DC3912"];
@@ -373,12 +374,13 @@ function barChart(measure){
       title: theTitle,
       titlePosition: 'out',
       titleTextStyle: { fontSize: 14 },
-      vAxis: { title: 'Year',  titleTextStyle: {color: 'red'}},
+      //vAxis: { title: null,  titleTextStyle: {color: 'red'}},
       hAxis: { format: "#", minValue: FTmeta[measure.field].style.breaks[0] },
       width: "95%",
       height: 150,
       legend: 'bottom',
-      colors: theColors
+      colors: theColors,
+      chartArea: { left: 20, right: 20, width: '100%' }
     };
     //if (measure.style.min)
     //if (measure.style.units == "%") options.hAxis = { minValue: 0, maxValue: 100 };
@@ -476,9 +478,9 @@ function mapInit() {
         return this._div;
     };
     legend.update = function() {
-        var theLegend = '<i style="background: #666666"></i> <span id="legend-">N/A</span><br>';
+        var theLegend = '<i style="background: #666666; opacity: ' + ($("#opacity_slider").slider( "option", "value" ) + 10) / 100 + '"></i> <span id="legend-">N/A</span><br>';
         $.each(FTmeta[activeMeasure].style.breaks, function(index, value) {
-            theLegend += '<i style="background:' + FTmeta[activeMeasure].style.colors[index] + '"></i> <span id="legend-' + index + '">' +
+            theLegend += '<i style="background:' + FTmeta[activeMeasure].style.colors[index] + '; opacity: ' + ($("#opacity_slider").slider( "option", "value" ) + 10) / 100 + '"></i> <span id="legend-' + index + '">' +
                 prettyMetric(value, activeMeasure)  + (FTmeta[activeMeasure].style.colors[index + 1] ? '&ndash;' + prettyMetric(FTmeta[activeMeasure].style.breaks[index + 1], activeMeasure) + '</span><br>' : '+</span>');
         });
         this._div.innerHTML = theLegend;
@@ -544,10 +546,9 @@ function onEachFeature(feature, layer) {
 function style(feature) {
     return {
         fillColor: getColor(feature.properties[activeMeasure]),
-        weight: 2,
+        weight: 1,
         opacity: 1,
-        color: '#666',
-        dashArray: '3',
+        color: '#f5f5f5',
         fillOpacity: $("#opacity_slider").slider("value") / 100
     };
 }
@@ -557,7 +558,7 @@ function getColor(d) {
     var colors = FTmeta[activeMeasure].style.colors;
     var breaks = FTmeta[activeMeasure].style.breaks;
     $.each(breaks, function(index, value) {
-        if (value < d && d !== null) {
+        if (value <= d && d !== null) {
             color = colors[index];
             return;
         }
@@ -568,9 +569,8 @@ function getColor(d) {
 function highlightFeature(e) {
     var layer = e.target;
     if (!activeRecord || (activeRecord && activeRecord.id != e.target.feature.properties.id)) layer.setStyle({
-        weight: 4,
-        color: '#F5FE51',
-        dashArray: ''
+        weight: 3,
+        color: '#ffcc00'
     });
     if (!L.Browser.ie && !L.Browser.opera) {
         layer.bringToFront();
@@ -581,9 +581,8 @@ function highlightFeature(e) {
 function resetHighlight(e) {
     var layer = e.target;
      if (!activeRecord || (activeRecord && activeRecord.id != layer.feature.properties.id)) layer.setStyle({
-        weight: 2,
-        color: '#666',
-        dashArray: '3'
+        weight: 1,
+        color: '#f5f5f5'
     });
     info.update();
 }

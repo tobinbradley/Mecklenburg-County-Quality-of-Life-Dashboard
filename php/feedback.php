@@ -1,8 +1,10 @@
 <?php
     // Set mailing parameters
-    ini_set("SMTP","meckexchevs01.co.mecklenburg.nc.us");
-    ini_set("smtp_port","25");
-    ini_set("sendmail_from","noreply@mecklenburgcountync.gov");
+    // include file looks like this:
+    // ini_set("SMTP","your_server");
+    // ini_set("smtp_port","25");
+    // ini_set("sendmail_from","email_address");
+    include("inc.feedback.php");
 
     // Get referrer and browser arguments
     $browser = get_browser(null, true);

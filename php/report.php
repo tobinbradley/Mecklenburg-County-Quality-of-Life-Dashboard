@@ -41,10 +41,11 @@ class PDF extends FPDF
 {
     function Footer()
     {
-        $this->SetY(-0.4);
+        $today = getdate();
+        $this->SetY(-0.42);
         $this->SetFont('Arial','I',8);
         $this->SetTextColor(0,0,0);
-        $this->Cell(0,0,'Quality of Life Dashboard - http://maps.co.mecklenburg.nc.us/qoldashboard/',0,0,'C');
+        $this->Cell(0,0,'Quality of Life Dashboard - http://maps.co.mecklenburg.nc.us/qoldashboard/ - ' . $today['year'] . "." . $today['mon'] . "." . $today['mday'],0,0,'C', false, 'http://maps.co.mecklenburg.nc.us/qoldashboard/');
     }
 }
 
