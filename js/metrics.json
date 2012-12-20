@@ -5,10 +5,10 @@
         "category": "character",
         "title": "Population",
         "description": "Total Neighborhood Profile Area (NPA) population.",
-        "importance": "Total population is a baseline measure that tells us the number of people living in an NPA. It is used to calculate density, and other per capita data. Trends in population show where the community is growing and where it is decreasing, which can help the City and other services providers know where infrastructure and other services may be needed. For additional information, you can click through to find the population breakdown by race and ethnicity, which can also help communities better understand themselves. The 2010 Census reported 308.7 million people in the United States, a 9.7 percent increase from the Census 2000 population of 281.4 million. Overall, the South and West accounted for 84.4 percent of the U.S. population increase from 2000 to 2010.",
-        "tech_notes": "Summarized the population from the 2010 Census for each NPA using Block Group geography.",
+        "importance": "Total population is a baseline measure that indicates the number of people living in an NPA.   It is used to calculate density, and other per capita data.Trends in population show where the community is growing and where it is decreasing, which can help the City, County and Towns as well as other services providers know where infrastructure and other services may be needed.The 2010 Census reported 308.7 million people in the United States, a 9.7 percent increase from the Census 2000 population of 281.4 million.",
+        "tech_notes": "Provides the population based on the 2010 Census for each NPA using Block Group geography. Census block groups are the second smallest unit of measure used in the decennial Census. Only the census block is smaller. A block group is a cluster of census blocks within the same census tract. The average block group contains 39 blocks comprising between 600 and 3,000 people, with an optimum size of 1,500 people.",
         "source": "U.S. Census, 2010",
-        "links": "<h5>Heading 1</h5><a href='http://www.census.gov/people/'>National population statistics</a><h5>Heading 2</h5><a href='http://charmeck.org/city/charlotte/growthstrategy/Pages/default.aspx'>Charlotte-Mecklenburg's growth strategy</a>",
+        "links": "<a href='http://2010.census.gov/2010census/'>National population statistics</a><br><a href='http://charmeck.org/city/charlotte/growthstrategy/Pages/default.aspx'>Charlotte-Mecklenburg's growth strategy</a>",
         "style": {
             "breaks": [
                 0,
@@ -28,10 +28,10 @@
         "category": "character",
         "title": "Median Age of Residents",
         "description": "Median age of residents for each Neighborhood Profile Area (NPA).",
-        "importance": "Measuring the average age of a neighborhood's population provides an indication of its resources and the services it may need.  A neighborhood that is getting older may need services or housing to help residents age in place.  A younger population could need help with educational or employment resources. According to the U.S. 2010 census the median age in North Carolina is 37.4.  The U.S. median age is 37.2.",
-        "tech_notes": "Averaged the median age from the 2005-2010 American Community Survey for each NPA using Block Group geography.",
-        "source": "American Community Survey,  2006-2010",
-        "links": "<a href='http://www.census.gov/people/'>National population statistics</a>",
+        "importance": "The median age of residents in a Neighborhood Profile Area (NPA) provides an indication of its character, including the resources and the services it may need. For example, an NPA with aging residents may need services or housing to help residents age in place.  In contrast, a younger population could need help with educational or employment resources. According to the U.S. 2010 census the median age in North Carolina is 37.4.",
+        "tech_notes": "The median age of residents for each NPA using Block Group geography. Census block groups are the second smallest unit of measure used in the decennial Census. Only the census block is smaller. A block group is a cluster of census blocks within the same census tract. The average block group contains 39 blocks comprising between 600 and 3,000 people, with an optimum size of 1,500 people.",
+        "source": "American Community Survey, 2006-2010. The data is a five year sample for the years 2006 to 2010.",
+        "links": "<a href='http://www.census.gov/people/'>National population statistics</a><br><a href='http://www.census.gov/acs/www/'>American Community Survey</a>",
         "style": {
             "breaks": [
                 0,
@@ -51,9 +51,9 @@
         "category": "character",
         "title": "Area (in acres)",
         "description": "Physical size of each Neighborhood Profile Area (NPA).",
-        "importance": "The size of a NPA is best used to analyze physical characteristics within the neighborhood when measured with population, density, and land use allocation.",
-        "tech_notes": "ArcGIS (ESRI) calculates the area of each NPA.",
-        "source": "UNC Charlotte Metropolitan Studies",
+        "importance": "The size of a NPA is best used as a profile variable for analysis with population, density, and land use data.",
+        "tech_notes": "The size of each NPA is calculated using ArcGIS, a geographic information system for working with maps and geographic information. ArcGIS is used for: creating and using maps; compiling geographic data; analyzing mapped information; sharing and discovering geographic information; using maps and geographic information in a range of applications; and managing geographic information in a database.",
+        "source": "UNC Charlotte Metropolitan Studies, 2011.",
         "links": "Future land use plans in Charlotte-Mecklenburg: <a href='http://www.charlotteplanning.org'>Charlotte</a><br><a href='http://www.ci.davidson.nc.us'>Davidson</a><br><a href='http://www.huntersville.org/Departments/Planning.aspx'>Huntersville</a><br><a href='http://www.matthewsnc.com/Departments/PlanningandDevelopment.aspx'>Matthews</a><br><a href='http://www.minthill.com/index.aspx?nid=85'>Mint Hill</a><br><a href='http://www.pinevillenc.net/town-department/town-planning'>Pineville</a>",
         "style": {
             "breaks": [
@@ -72,10 +72,10 @@
         "db": "developed_land",
         "category": "character",
         "field": "p4",
-        "title": "Percentage of Developed Land",
-        "description": "Percentage of land built upon for each Neighborhood Profile Area (NPA).",
+        "title": "Developed Tax Parcels",
+        "description": "Percentage of tax parcels developed by land area for each Neighborhood Profile Area (NPA).",
         "importance": "Calculating the percentage of developed land is useful when compared to the type and density of uses that exist in a neighborhood for future land use planning.",
-        "tech_notes": "Percentage land built upon in each NPA divided by the total land area in a NPA.",
+        "tech_notes": "Tax parcel areas regardless of size with a structure of any kind that is taxable are summarized to the NPA geography and divided by the land area of the NPA. Infrastructure development is not included. Any tax parcel regardless of zoning with a structure that is taxed is considered developed. Data does not represent impervious surface or metric used for environmental measures.",
         "source": "Charlotte-Mecklenburg Planning Department",
         "links": "Future land use plans in Charlotte-Mecklenburg: <a href='http://www.charlotteplanning.org'>Charlotte</a><br><a href='http://www.ci.davidson.nc.us'>Davidson</a><br><a href='Huntersville'>http://www.huntersville.org/Departments/Planning.aspx</a><br><a href='http://www.matthewsnc.com/Departments/PlanningandDevelopment.aspx'>Matthews</a><br><a href='http://www.minthill.com/index.aspx?nid=85'>Mint Hill</a><br><a href='http://www.pinevillenc.net/town-department/town-planning'>Pineville</a>",
         "style": {
@@ -89,7 +89,7 @@
                 "#D8F2ED",
                 "#2ca79e",
                 "#154F4A"
-            ]
+             ]
         }
     },
     "p5": {
@@ -128,10 +128,10 @@
         "field": "p7",
         "category": "character",
         "title": "Public Transit Proximity",
-        "description": "Percent of housing units within a half mile of a transit stop for each Neighborhood Profile Area (NPA). The average percent for Mecklenburg County is 67%.",
-        "importance": "Residents in neighborhoods with frequent, easily accessible transit services have the opportunity to use alternate forms of transportation. Benefits of public transportation include reducing the expenses of owning and operating a private vehicle and environment benefits such as improving air quality and reducing congestion.",
-        "tech_notes": "The number of units within a half-mile of a transit stop in each NPA divided by the number of housing units in each NPA.",
-        "source": "Charlotte Area Transit System, Mecklenburg County Tax Parcels",
+        "description": "Percent of housing units within a half mile of a transit stop for each Neighborhood Profile Area (NPA).",
+        "importance": "Residents in neighborhoods with transit services nearby have more opportunities to use alternate forms of transportation. Benefits of public transportation include reducing the expenses of owning and operating a private vehicle and environment benefits such as improving air quality and reducing congestion.",
+        "tech_notes": "The number of units within a half‐mile of a transit stop in each NPA divided by the number of housing units in each NPA.  Transit modes include local bus, express bus and light rail. ",
+        "source": "Charlotte Area Transit System, 2011; Mecklenburg County Tax Parcels, 2011.",
         "links": "<a href='http://charmeck.org/city/charlotte/cats/Pages/default.aspx'>Public transportation use, upcoming plans and public meetings</a><br><a href='http://charmeck.org/CITY/CHARLOTTE/CATS/BUS/Pages/mobileapp.aspx'>CATS Mobile App for your phone</a><br><a href='http://www.charlottesgotalot.com/default.asp?charlotte=74'>Getting around in Charlotte-Mecklenburg using public transportation</a>",
         "style": {
             "units": "%",
@@ -152,9 +152,9 @@
         "field": "p8",
         "category": "character",
         "title": "Race - White or Caucasian",
-        "description": "Percent of Neighborhood Profile Area (NPA) population self-identified as White or Caucasian population.",
+        "description": "Percentage of Neighborhood Profile Area (NPA) population self-identified as White or Caucasian population.",
         "importance": "",
-        "tech_notes": "Caucasian population divided by the total population.",
+        "tech_notes": "White or Caucasian population divided by the total population.",
         "source": "U.S. Census, 2010",
         "links": "",
         "style": {
@@ -176,7 +176,7 @@
         "field": "p9",
         "category": "character",
         "title": "Race - Black or African American",
-        "description": "Percent of Neighborhood Profile Area (NPA) population self-identified as Black or African American.",
+        "description": "Percentage of Neighborhood Profile Area (NPA) population self-identified as Black or African American.",
         "importance": "",
         "tech_notes": "Black or African American population divided by the total population.",
         "source": "U.S. Census, 2010",
@@ -200,14 +200,14 @@
         "field": "p10",
         "category": "character",
         "title": "Race - Asian",
-        "description": "Percent of Neighborhood Profile Area (NPA) population self-identified as Asian.",
+        "description": "Percentage of Neighborhood Profile Area (NPA) population self-identified as Asian.",
         "importance": "",
         "tech_notes": "Asian population divided by the total population.",
         "source": "U.S. Census, 2010",
         "links": "",
         "style": {
             "units": "%",
-            "breaks": [
+           "breaks": [
                 0,
                 5,
                 10
@@ -224,7 +224,7 @@
         "field": "p11",
         "category": "character",
         "title": "Race - Some Other Race",
-        "description": "Percent of Neighborhood Profile Area (NPA) population self-identified as Some Other Race.",
+        "description": "Percentage of Neighborhood Profile Area (NPA) population self-identified as Some Other Race.",
         "importance": "",
         "tech_notes": "Some Other Race population divided by the total population.",
         "source": "U.S. Census, 2010",
@@ -248,7 +248,7 @@
         "field": "p12",
         "category": "character",
         "title": "Population in Group Quarters",
-        "description": "Percent of Neighborhood Profile Area (NPA) population living in group quarters",
+        "description": "Percentage of Neighborhood Profile Area (NPA) population living in group quarters",
         "importance": "",
         "tech_notes": "Population living in group quarters divided by the total population.",
         "source": "U.S. Census, 2010",
@@ -272,10 +272,10 @@
         "field": "e1",
         "category": "engagement",
         "title": "Registered Voters",
-        "description": "Percent registered voters as of the 2010 election for each Neighborhood Profile Area (NPA).",
-        "importance": "Registering to vote is a fundamental component of community engagement. A low percentage of eligible citizens registered to vote may indicate a need to engage people in the electoral process.  It may also reflect a large percentage of foreign or transient populations.",
-        "tech_notes": "Number of voters registered in each NPA divided by the population in each NPA.",
-        "source": "Mecklenburg County Board of Elections",
+        "description": "Percentage of registered voters in the 2010 election for each Neighborhood Profile Area (NPA).",
+        "importance": "Registering to vote is a fundamental component of community engagement. Data is not available to determine the percent of those eligible who are registered, so this number can be impacted by large immigrant, transient or youth populations in a Neighborhood Profile Area (NPA).",
+        "tech_notes": "Number of voters  registered in each NPA divided by the population (18 years of age and older) in each NPA.",
+        "source": "Mecklenburg County Board of Elections, 2010",
         "links": "<a href='http://www.charmeck.org/mecklenburg/county/BOE'>Area election precincts, voting sites, voter registration and other related information</a><br><a href='http://www.eac.gov/research/election_administration_and_voting_survey.aspx'>national voting statistics</a>",
         "style": {
             "units": "%",
@@ -296,10 +296,10 @@
         "field": "e2",
         "category": "engagement",
         "title": "Voter Participation",
-        "description": "Percentage of registered voter that voted in the 2010 elections for each Neighborhood Profile Area (NPA).",
-        "importance": "Local and statewide elections can have a larger impact on our communities than national elections. In November 2010 (national election) the voter turnout in Mecklenburg County was 37.98% which translates into 228,929 out of 602,710 registered voters who participated.  By comparison, the turnout was 16% in 2009. Tracking NPA's with low voter participation provides opportunities for officials and residents to implement education and registration activities to increase participation. ",
+        "description": "Percentage of registered voters that voted in the 2010 elections for each Neighborhood Profile Area (NPA).",
+        "importance": "Exercising your right to vote is fundamental to community engagement. National elections tend to have greater turnout.  In November 2010 (national election) the voter turnout in Mecklenburg County was 37.98% which translates into 228,929 out of 602,710 registered voters who participated.  By comparison, the turnout in 2009 (local and state election) was 16%.",
         "tech_notes": "Number of voters in the 2010 election for each NPA divided by the registered voter population in each NPA.",
-        "source": "Mecklenburg County Board of Elections",
+        "source": "Mecklenburg County Board of Elections, 2010",
         "links": "<a href='http://charmeck.org/mecklenburg/county/BOE/data/Pages/ElectionDayResults.aspx'>Area voting sites and voter turnout</a><br><a href='http://www.eac.gov/research/election_administration_and_voting_survey.aspx'>national voting statistics</a>",
         "style": {
             "units": "%",
@@ -311,11 +311,11 @@
         "db": "residents_on_committees",
         "field": "e3",
         "category": "engagement",
-        "title": "Residents Serving on Boards and Committees",
-        "description": "Total number of residents that serve on appointed public boards, committees and commissions for each Neighborhood Profile Area (NPA).",
-        "importance": "There are a variety of opportunities for residents to be engaged with local government on the City and County level.  Appointees have the ability to make important policy and regulatory decisions that impact neighborhoods. Identifying where appointees are located provides neighborhood leaders, residents and elected officials with information regarding underrepresented areas.",
-        "tech_notes": "Total number of residents that serve on appointed public boards, committees and commissions including libraries, sheriff and police departments.",
-        "source": "City of Charlotte, Mecklenburg County, Towns",
+        "title": "Residents Serving on Municipal Boards and Committees",
+        "description": "Total number of residents that serve on appointed city, town, and/or county boards, committees and commissions for each Neighborhood Profile Area (NPA).",
+        "importance": "There are a variety of opportunities for residents to be engaged with local government on the City, Town, and County level.  Appointees have the ability to make important policy and regulatory decisions that impact neighborhoods.",
+        "tech_notes": "Total number of residents that serve on appointed public boards, committees and commissions including public libraries, sheriff office and police departments.",
+        "source": "City of Charlotte, Mecklenburg County, Towns, 2011",
         "links": "Opportunities for Board and Commission Positions: <a href='http://charmeck.org/city/charlotte/CityClerk/BoardsandCommissions/Pages/Boards.aspx'>City of Charlotte</a><br><a href='http://charmeck.org/mecklenburg/county/BOCC/AdvisoryBoards/Pages/Default.aspx'>Mecklenburg County</a>",
         "style": {
             "breaks": [
@@ -351,9 +351,9 @@
         "category": "engagement",
         "title": "Registered Neighborhood Organizations",
         "description": "Number of neighborhood organizations registered with the Charlotte-Mecklenburg Planning Department.",
-        "importance": "A key characteristic of community engagement is an active neighborhood organization.  These groups allow residents to discuss issues that are relevant to their area. Identifying registered neighborhood organizations allows city staff to inform leaders about grants and other community building opportunities.  ",
-        "tech_notes": "Number of neighborhood organizations registered with the Charlotte-Mecklenburg Planning Department for each NPA.",
-        "source": "Neighborhood and Business Services",
+        "importance": "A key characteristic of community engagement is an active neighborhood organization.  These groups allow residents to discuss issues relevant to their area and take action. Identifying registered organizations allows staff to inform leaders about grants and other community building opportunities. It also allows opportunities for greater citizen engagement.",
+        "tech_notes": "Number of neighborhood organizations registered with the Charlotte-Mecklenburg Planning Department for each Neighborhood Profile Area (NPA).",
+        "source": "Charlotte-Mecklenburg Planning Department, 2011",
         "links": "<a href='http://charmeck.org/city/charlotte/planning/AreaPlanning/NeighborhoodOrganizationalList/Pages/home.aspx'>Neighborhood organization registration process</a><br><a href='http://charmeck.org/CITY/CHARLOTTE/NBS/ED/FINANCIALPROGRAMS/Pages/default.aspx'>Funding opportunities for neighborhood organizations</a><br><a href='http://www.artsandscience.org/grants-a funding/organizations/cultural-projects-grants'>Arts and Science Council</a><br><a href='http://www.communitybuildinginitiative.org/'>Community Building Initiative</a>",
         "style": {
             "breaks": [
@@ -373,7 +373,7 @@
         "field": "e6",
         "category": "engagement",
         "title": "Grants Awarded",
-        "description": "Number of City sponsored matching grants applied for and awarded for each Neighborhood Profile Area (NPA). Neighborhoods (Neighborhood Matching Grant, Keep Charlotte Beautiful, Neighborhood Energy Challenge, Tree Banding, Tree Banding Grant), Businesses (Business District Organization Program, Façade Improvement program, Security grants, Brownfield grant).",
+        "description": "Number of City sponsored matching grants applied for and awarded for each Neighborhood Profile Area (NPA). Neighborhoods (Neighborhood Matching Grant, Keep Charlotte Beautiful, Neighborhood Energy Challenge, Tree Banding), Businesses (Business District Organization Program, Façade Improvement program, Security grants, Brownfield grant).",
         "importance": "Healthy, vibrant neighborhoods typically have residents that are engaged in the activities that affect where they live. The City's Neighborhood Matching Grant program awards funds to eligible neighborhood-based organizations for projects that will make neighborhoods better places to live, work, play, and shop. Tracking the number, type and location of neighborhood led projects assists grant providers with outreach and programming strategies.  Additionally, residents are able to monitor the types of projects that were implemented to develop strategic plans for future projects.",
         "tech_notes": "Number of matching grants applied for and awarded for each NPA.",
         "source": "Neighborhood and Business Services",
@@ -387,10 +387,10 @@
         "db": "streets_adopted",
         "field": "e7",
         "category": "engagement",
-        "title": "Streets Adopted",
-        "description": "Number of miles of streets adopted for litter cleanup for each Neighborhood Profile Area (NPA).",
-        "importance": "Neighborhoods, businesses and individuals can make a difference in their community by adopting a City street and committing to cleanups once per quarter. Identifying adopted streets provides an indication of the level of involvement residents and businesses have in keeping their neighborhood streets clean and safe.  In areas with no adopted streets residents, businesses and other organizations can develop strategies collaboratively to keep neighborhood streets clean. ",
-        "tech_notes": "Number of miles of streets adopted for litter cleanup for each NPA. Does not include major thoroughfare, private streets, or state maintained roads.",
+        "title": "Streets Adopted for Clean Up",
+        "description": "Miles of streets adopted for litter cleanup for each Neighborhood Profile Area (NPA).",
+        "importance": "Neighborhoods, businesses and individuals can make a difference in their community by adopting a City street and committing to cleanups once per quarter. Identifying adopted streets provides an indication of the level of involvement residents and businesses have in keeping their neighborhood streets clean and safe.  In areas without adopted streets residents, businesses, and other organizations can develop strategies collaboratively to keep neighborhood streets clean.",
+        "tech_notes": "Number of miles of streets adopted for litter cleanup for each NPA. It does not include major thoroughfare, private streets, or state maintained roads.",
         "source": "Various",
         "links": "<a href='http://charmeck.org/city/charlotte/nbs/kcb/Pages/AdoptaCityStreetProgram.aspx'>Adopt a City Street</a><br><a href='http://charmeck.org/mecklenburg/county/SolidWaste/Litter/Pages/KeepMecklenburgBeautiful.aspx'>Keep Mecklenburg Beautiful</a><br><a href='http://keepncbeautiful.org/contact/'>Keep North Carolina Beautiful</a>",
         "style": {
@@ -413,8 +413,8 @@
         "category": "economics",
         "title": "Median Household Income",
         "description": "Median household income of each Neighborhood Profile Area (NPA).",
-        "importance": "The median household income provides an indication of how well people are doing financially in a neighborhood.   Income is related to disposable income and saving.  Lower wage earners may have higher percentages of their income devoted to critical needs and less for saving.  Higher wage earners may have more savings that can enable them to be more resilient in economic downturns and more of their income available for consumption. Total disposable income is a function of both consumption and population. Service providers and retailers look at income levels to help them locate their services. According to the Census Bureau the federal poverty threshold for a family of four was $22,350 in the lower 48 states and the median household income in North Carolina for a family of four was $65,036. ",
-        "source": "American Community Survey, 2006 to 2010.",
+        "importance": "The median household income provides an indication of how well people are doing financially in a neighborhood.Lower wage earners may have higher percentages of their income devoted to consumption and less for saving, making them less resilient in economic downturns.  Higher wage earners may have more of their income available for consumption and more savings that can enable them to be more resilient in economic downturns. Total disposable income is a function of both consumption and population. Service providers and retailers look at income levels to help them locate their services. According to the Census Bureau the federal poverty threshold for a family of four was $22,350 in the lower 48 states.  The median household income in Charlotte for a family of four was $65,036 in North Carolina.",
+        "source": "American Community Survey, 2006 to 2010.  The data is a five year sample for the years 2006 to 2010.",
         "tech_notes": "The median household income for each neighborhood profile area. The amount is inflation adjusted for 2010.",
         "links": "<a href='http://www.charlotteworks.com/'>Charlotte Works</a><br><a href='http://www.goodwill.org/goodwill-for-you/jobs-and-careers/find-a-job/'>Goodwill</a><br><a href='http://www.jacobsladdercharlotte.org/'>Jacob's Ladder</a><br><a href='https://www.ncesc.com/default.aspx'>North Carolina Employment Security Commission</a><br><a href='http://www.nc-joblink.com/'>NC Joblink</a><br><a href='http://www.self-help.org/'>Self Help</a><br><a href='http://www.uwcentralcarolinas.org/agency-list'>United Way</a><br><a href='http://www.urbanleaguecc.org/'>Urban League of Central Carolinas</a><br><a href='www.charmeck.org/mecklenburg/county/dss'>Mecklenburg County Department of Social Services</a><br><a href='https://www.efanniemae.com/sf/refmaterials/hudmedinc/hudincomeresults.jsp?STATE=NC&choice=county&CITY=Mecklenburg&FormsButton1=Search'>Median incomes in surrounding North Carolina counties</a>",
         "style": {
@@ -436,10 +436,10 @@
         "field": "m2",
         "category": "economics",
         "title": "Persons Employed 6 Months or Less",
-        "description": "Percent of Work Force Age 16-64 working less than 26 weeks in the past year.",
-        "importance": "Information on unemployment is not available at the neighborhood level.  Therefore, we are using Percentage of Employed 6 Month or Less in combination with Percentage of Persons Working 35 Hours or Less  as proxies to examine under and un employment in our community. Measured in conjunction with the Percentage of Persons Working 35 Hours or Less provides a more complete picture of how people are working. According to the Bureau of Labor Statistics, the unemployment rate in North Carolina declined from 11.4% in January 2010 to 10.6% in December 2010.  ",
-        "source": "American Community Survey, 2006 to 2010.",
-        "tech_notes": "The sum of work force working less than 26 weeks divided by the work force who worked any time within the last 12 months. N/A includes NPAs with zero work force age population.",
+        "description": "Percentage of Workforce Age 16-64 working less than 26 weeks in the past year.",
+        "importance": "Information on unemployment is not available at the neighborhood level. Therefore,the Percentage of Persons Employed 6 Month or Less in combination with Percentage of Persons Working 35 Hours or Less serve as proxies to examine potential employment issues in the community. According to the Bureau of Labor Statistics, the unemployment rate in North Carolina declined from 11.4% in January 2010 to 10.6% in December 2010. ",
+        "source": "American Community Survey, 2006 to 2010. The data is a five year sample for the years 2006 to 2010.",
+        "tech_notes": "The sum of the workforce age population working less than 26 weeks divided by the workforce age population who worked any time within the last 12 months. N/A includes Neighborhood Profile Areas (NPAs) where there were no workforce age individuals. The workforce population is defined as persons 16–64 years of age.",
         "links": "<a href='http://www.charlotteworks.com/'>Charlotte Works</a><br><a href='http://www.goodwill.org/goodwill-for-you/jobs-and-careers/find-a-job/'>Goodwill</a><br><a href='http://www.jacobsladdercharlotte.org/'>Jacob's Ladder</a><br><a href='https://www.ncesc.com/default.aspx'>North Carolina Employment Security Commission</a><br><a href='http://www.nc-joblink.com/'>NC Joblink</a><br><a href='http://www.self-help.org/'>Self Help</a><br><a href='http://www.uwcentralcarolinas.org/agency-list'>United Way</a><br><a href='http://www.urbanleaguecc.org/'>Urban League of Central Carolinas</a><br><a href='www.charmeck.org/mecklenburg/county/dss'>Mecklenburg County Department of Social Services</a><br><a href='http://www.charlottebusinessresources.com/starting-a-business/'>Starting a business</a><br><a href='http://www.sba.gov/content/home-based-business'>Small Business Administration</a><br><a href='http://charmeck/city/charlotte/nbs/CodeEnforcement/Pages/ZoningEnforcement.aspx'>Business licenses and permitting</a><br><a href='http://www.bls.gov/bdm/entrepreneurship/entrepreneurship.htm'>Entrepreneurship and the U.S. economy</a>",
         "style": {
             "units": "%",
@@ -461,9 +461,9 @@
         "category": "economics",
         "title": "Persons Working 35 Hours or Less",
         "description": "Percentage of persons not working full time for each Neighborhood Profile Area (NPA).",
-        "importance": "Information on the unemployment rate is not available at the neighborhood level.  Therefore, we are using Percentage of Persons Employed 6 Month or Less in combination with Percentage of Persons Working 35 Hours or Less a week as proxies to examine under and un employment in our community. Recent changes in the economy have negatively impacted families across the country.   Analyzing the strength of our workforce through persons not working full time provides an indication of a community's economic stability. According to the Bureau of Labor Statistics, the unemployment rate in North Carolina declined from 11.4% in January 2010 to 10.6% in December 2010.  This equates to 490,460 unemployed North Carolinians at the end of the year 2010.",
-        "source": "American Community Survey, 2006 to 2010.",
-        "tech_notes": "The sum of work force working less than 35 hours and 50 weeks of the year divided by the working age population (ages 16-64).  Does not include number of jobs.",
+        "importance": "Information on unemployment is not available at the neighborhood level. Therefore, Percentage of Persons Working 35 Hours or Less a week in conjunction with Percentage of Persons Employed 6 months or Less serve as proxies to examine potential employment issues in the community. In some communities, individuals choose to work less than full-time, in others they are unable to find full-time work.  Analyzing the characteristics of our workforce through persons not working full time helps us understand a community’s economy. According to the Bureau of Labor Statistics, the unemployment rate in North Carolina declined from 11.4% in January 2010 to 10.6% in December 2010. ",
+        "source": "American Community Survey, 2006 to 2010. The data is a five year sample for the years 2006 to 2010.",
+        "tech_notes": "The sum of the workforce age population working less than 35 hours and 50 weeks of the year divided by the working age population. The workforce population is defined as persons 16 – 64 years of age. Does not include number of jobs. ",
         "links": "<a href='http://www.charmeck.org/mecklenburg/county/dss'>Mecklenburg County Department of Social Services</a><br><a href='http://www.charlotteworks.com/'>Charlotte Works</a><br><a href='http://www.goodwill.org/goodwill-for-you/jobs-and-careers/find-a-job/'>Goodwill</a><br><a href='http://www.jacobsladdercharlotte.org/'>Jacob's Ladder</a><br><a href='http://www.self-help.org/'>Self Help</a><br><a href='http://www.uwcentralcarolinas.org/agency-list'>United Way</a><br><a href='http://www.charlottebusinessresources.com/starting-a-business/'>Starting a business</a><br><a href='http://www.sba.gov/content/home-based-business'>Small Business Administration</a><br><a href='http://charmeck/city/charlotte/nbs/CodeEnforcement/Pages/ZoningEnforcement.aspx'>Business licenses and permitting</a><br><a href='http://www.bls.gov/bdm/entrepreneurship/entrepreneurship.htm'>Entrepreneurship and the U.S. economy</a>",
         "style": {
             "units": "%",
@@ -483,11 +483,11 @@
         "db": "foodstamps",
         "field": "m4",
         "category": "economics",
-        "title": "Population Receiving Food and Nutrition Servces (FNS)",
-        "description": "The percentage of population receiving Food and Nutrition Services (FNS) for each Neighborhood Profile Area (NPA).",
-        "importance": "The Food and Nutrition Services (FNS)  is established to end hunger and improve the health of low-income people by helping families buy the food they need for a nutritionally adequate diet. Increasing numbers of FNS recipients signifies changes in household incomes.  Identifying the locations of this trend can be useful for service providers for improving access to healthcare providers, full service grocers and other supportive uses. According to the Food Research and Action Center, the number of FNS recipients in North Carolina increased 18.9% from 2009 to 2010.  By December 2010 the total number of residents was 1,547,621.",
+        "title": "Population Receiving Food & Nutrition Services (FNS)",
+        "description": "Percentage of the total population receiving Food and Nutrition Services for each Neighborhood Profile Area (NPA).",
+        "importance": "The Food and Nutrition Services is established to end hunger and improve the health of low-income people by helping families buy the food they need for a nutritionally adequate diet. Identifying communities with high FNS percentages is useful for service providers and neighborhoods who want to know where families in distress are located.",
         "source": "Mecklenburg County Department of Social Services as of August 2011.",
-        "tech_notes": "The total population receiving Food and Nutrition Services (FNS) for a NPA divided the total population for a NPA.   Areas with less than 5 FNS recipients has been suppressed. ",
+        "tech_notes": "The total population receiving Food and Nutrition Services (FNS) for a Neighborhood Profile Area (NPA) divided the total population for a NPA.  Areas with less than 5 FNS recipients has been suppressed and are shown as N/A.",
         "links": "<a href='http://charmeck.org/mecklenburg/county/dss/Pages/Default.aspx'>Applying for Food and Nutrition Services</a><br><a href='http://www.careringnc.org/'>Care Ring</a><br><a href='http://www.cwwilliams.org/v5/index.php#info'>CW Williams Community Health Center</a><br><a href='http://www.needymeds.org/free_clinics.taf?_function=list&state=nc'>Free or low cost clinics</a>",
         "style": {
             "units": "%",
@@ -508,10 +508,10 @@
         "field": "m5",
         "category": "economics",
         "title": "Change in Single Family Property Value",
-        "description": "Percent change in single family property value for each Neighborhood Profile Area (NPA).",
-        "importance": "Measuring the rate of change in property value indicates the level of stability. Higher values may be perceived as being a positive trend based on new amenities in the area and other factors.  Neighborhoods with below average housing values may increase in value at a faster rate than other neighborhoods. Between 2008 and 2010, property values in North Carolina declined approximately $2,000 overall according to the Zillow Home Value Index.",
-        "source": "Mecklenburg County Tax Parcels from 2003 to 2011",
-        "tech_notes": "The change in total assessed value for single family attached and detached housing units from 2003 to 2011 divided by the total assessed value for single family attached and detached housing units from 2003 was averaged for each NPA. NPAs with less than 5 qualifying properties were classified as N/A. The average change in house value per year was 0.8% in Mecklenburg County. ",
+        "description": "Percentage change in residential property value for each Neighborhood Profile Area (NPA).",
+        "importance": "Higher increases in value indicate a market that values a neighborhood’s amenities, while decreasing values may indicate some level of neighborhood distress.  High increases rewards homeowners with increased equity and wealth, but can also make it challenging for those with fixed or limited incomes to remain in place.",
+        "source": "Mecklenburg County Tax Parcels, 2003 and 2011.",
+        "tech_notes": "The total assessed value for residential housing units in 2011 minus the total assessed value for residential housing units in 2003 divided by the total assessed value for residential housing units in 2003 for each Neighborhood Profile Area (NPA).  NPAs with less than 5 qualifying properties were classified as N/A. Residential housing units include condominiums, single-family detached units and townhouses. Pearson’s Appraisal Service identified that some neighborhoods needed to be reassessed. Based on these findings, the County will reassess the value of property in complex areas, particularly pre-1980 heterogeneous neighborhoods, to ensure equity which may change the values represented in this variable.",
         "links": "<a href='http://factfinder2.census.gov/faces/tableservices/jsf/pages/productview.xhtml?src=bkmk'>North Carolina housing statistics</a><br><a href='http://meckcama.co.mecklenburg.nc.us/relookup/'>Mecklenburg County real estate database</a><br><a href='http://charmeck.org/mecklenburg/county/AssessorsOffice/Pages/Tax%20Relief.asp'>Am I eligible for tax relief on my home?</a><br><a href='http://charmeck.org/mecklenburg/county/AssessorsOffice/Appeals/Pages/default.aspx'>Mecklenburg County property revaluation process</a>",
         "style": {
             "units": "%",
@@ -524,10 +524,10 @@
         "field": "m6",
         "category": "economics",
         "title": "Square Feet of Commercial Buildings",
-        "description": "The total square footage of developed commercial space zoned for said use which includes business, office, industrial and institutional uses, not including religious institutions and schools.",
-        "importance": "Calculating the total amount of commercial space, when compared to the amount of vacant space, provides a method to determine if there is an oversupply of commercial space.",
-        "source": "Mecklenburg County Tax Parcels",
-        "tech_notes": "",
+        "description": "The total square footage of developed commercial space zoned for said use which includes business, office, industrial and institutional uses, not including religious institutions and schools or each Neighborhood Profile Area (NPA)..",
+        "importance": "The calculation is an indicator of the amount of commercial space within a Neighborhood Profile Area (NPA).",
+        "source": "Mecklenburg County Tax Parcels, 2011",
+        "tech_notes": "The total heated square footage of developed commercial space zoned for said use which includes business, office, industrial and institutional uses, not including religious institutions and schools summarized for each NPA.",
         "links": "",
         "style": {
             "units": "sqft",
@@ -547,11 +547,11 @@
         "db": "commercial_permits",
         "field": "m7",
         "category": "economics",
-        "title": "Permitted New and Renovated Commercial Buildings",
+        "title": "Square Feet of Permitted New and Renovated Commercial Buildings",
         "description": "The total square footage of new and renovated (complete upfits) commercial buildings for each Neighborhood Profile Area (NPA).",
-        "importance": "Determining the amount of new and renovated commercial space in a neighborhood is an indicator of where economic activity is occurring in our community. Similar to capturing the number of total square feet available, a neighborhood may not be able to absorb additional commercial development based on zoning, infrastructure, future land use plans, or demographics.",
-        "source": "Mecklenburg County Tax Parcels",
-        "tech_notes": "The total heated square feet of permitted new and renovated Commercial Buildings each NPA using US Department of Commerce reporting data on New and Alterations to Buildings (Codes 213,318-320,322-328). There are 8.4 million square feet represented on this map.",
+        "importance": "Determining the amount of new and renovated commercial space in a neighborhood is an indicator of where there is economic growth and expansion in a community. To accommodate increasing population and development in underutilized areas, an increase in commercial permits is desirable to keep up with demand.",
+        "source": "Mecklenburg County Land Use and Environmental Services, 2011",
+        "tech_notes": "The total heated square footage of permitted new and renovated Commercial Buildings for each NPA using US Department of Commerce reporting data on New and Alterations to Buildings (Codes 213,318-320,322-328). Upfits include changes based on building code, safety measures or enhancements to heating/cooling, plumbing and electrical systems. From July 2010 to June 2011, there was 8.4 million square feet of permitted new and renovated commercial space in Mecklenburg County. N/A includes NPAs with zero square feet permitted or value was unknown.",
         "links": "<a href='http://charmeck.org/development/Pages/default.aspx'>Apply for a building permit</a><br><a href='http://charmeck.org/mecklenburg/county/HealthDepartment/EnvironmentalHealth/Programs-Services/PlanReview/Pages/PlanReviewQA.aspx'>Commercial plan review process</a><br><a href='http://charmeck.org/CITY/CHARLOTTE/NBS/ED/FINANCIALPROGRAMS/Pages/default.aspx'>City of Charlotte financial programs</a><br><a href='http://maps.co.mecklenburg.nc.us/geoportal'>GeoPortal</a><br><a href='http://vc.charmeck.org/'>Virtual Charlotte</a><br><a href='http://polaris.mecklenburgcountync.gov/website/redesign/viewer.htm'>Polaris</a>",
         "style": {
             "breaks": [
@@ -585,11 +585,11 @@
         "db": "commercial_year_built",
         "field": "m9",
         "category": "economics",
-        "title": "Average Year of Construction of Commercial Buildings",
-        "description": "Average age of commercial buildings for each Neighborhood Profile Area (NPA).",
-        "importance": "Older buildings are often obsolete and need help to be reused.   Ageing commercial structures may provide opportunities for rehabilitation and reuse, particularly big box retail and older commercial strip centers.  Knowing the age of building helps the City and County determine where to target incentives and inspections.",
+        "title": "Year Commercial Buildings Constructed ",
+        "description": "Average year of construction for commercial buildings for each Neighborhood Profile Area (NPA).",
+        "importance": "Aging commercial structures may provide opportunities for rehabilitation and reuse, particularly big box retail and older commercial strip centers.  Knowing the age of buildings helps the City and County determine where to target incentives and inspections.",
         "source": "Mecklenburg County Tax Parcels as of October 2011",
-        "tech_notes": "Average year of construction for commercial buildings for each Neighborhood Profile Area.",
+        "tech_notes": "The year of construction for each commercial building is summed and divided by the total number of commercial buildings for each Neighborhood Profile Area.",
         "links": "<a href='http://charmeck.org/development/Pages/default.aspx'>Apply for a building permit</a><br><a href='http://charmeck.org/mecklenburg/county/HealthDepartment/EnvironmentalHealth/Programs-Services/PlanReview/Pages/PlanReviewQA.aspx'>Commercial plan review process</a><br><a href='http://charmeck.org/CITY/CHARLOTTE/NBS/ED/FINANCIALPROGRAMS/Pages/default.aspx'>City of Charlotte financial programs</a>",
         "style": {
             "breaks": [
@@ -609,10 +609,10 @@
         "field": "m10",
         "category": "economics",
         "title": "Change in Non-Residential Property Value",
-        "description": "Change in non-residential property value from year to year for each Neighborhood Profile Area (NPA).",
-        "importance": "Measuring the rate of change in property value indicates the stability, rate of increase or rate of decrease in a neighborhood's non-residential building stock. It is also a measure of desirability in terms of running a successful business in relation to the supply and cost of available sites. Increasing values may indicate limited supply of commercial space, improving employment opportunities, higher median incomes and other economic indicators. Decreases in value may indicate an oversupply in commercial space or, competition from newer commercial space in the area.  ",
-        "source": "Mecklenburg County Tax Parcels",
-        "tech_notes": "",
+        "description": "Percentage Change in non-residential property value for each Neighborhood Profile Area (NPA).",
+        "importance": "Higher increases in value indicate a market that values a business district’s amenities or uses, while decreases may indicate an oversupply in commercial space, competition from newer commercial space in the area, or other changes in surrounding area. ",
+        "source": "Mecklenburg County Tax Parcels, 2011",
+        "tech_notes": "The total assessed value for non-residential property in 2011 minus the total assessed value for non-residential property in 2003 divided by the total assessed value for non-residential property  in 2003 for each Neighborhood Profile Area (NPA).  NPAs with less than 5 qualifying properties were classified as N/A.",
         "links": "<a href='http://charmeck.org/mecklenburg/county/AssessorsOffice/Appeals/Pages/default.aspx'>Mecklenburg County property revaluation process</a>",
         "style": {
             "units": "%",
@@ -636,6 +636,7 @@
                 200,
                 800
             ],
+
             "colors": [
                 "#D8F2ED",
                 "#2ca79e",
@@ -728,6 +729,7 @@
                 50,
                 150
             ],
+
             "colors": [
                 "#D8F2ED",
                 "#2ca79e",
@@ -1197,6 +1199,7 @@
                 15,
                 45
             ],
+
             "colors": [
                 "#D8F2ED",
                 "#2ca79e",
@@ -1435,6 +1438,7 @@
                 5,
                 15
             ],
+
             "colors": [
                 "#D8F2ED",
                 "#2ca79e",
@@ -1980,3 +1984,4 @@
         }
     }
 }
+
