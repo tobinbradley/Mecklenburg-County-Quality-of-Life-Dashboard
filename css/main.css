@@ -109,7 +109,7 @@
     padding: 1px 5px;
 }
 #selectedNeighborhood { line-height: 20px; }
-.measureText { font-size: 1.2em; font-weight: bold; }
+.measureText { font-size: 1.4em; font-weight: bold; }
 .measure-details h5 { margin: 0; padding: 0; }
 .chart { margin-bottom: 20px; }
 
@@ -121,7 +121,7 @@
     padding: 0;
     background-color: white;
     border-radius: 6px;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, .065);
+    box-shadow: 0 8px 16px -8px #222;
 }
 .sidenav > li > a {
     display: block;

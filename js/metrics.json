@@ -54,7 +54,7 @@
         "importance": "The size of a NPA is best used as a profile variable for analysis with population, density, and land use data.",
         "tech_notes": "The size of each NPA is calculated using ArcGIS, a geographic information system for working with maps and geographic information. ArcGIS is used for: creating and using maps; compiling geographic data; analyzing mapped information; sharing and discovering geographic information; using maps and geographic information in a range of applications; and managing geographic information in a database.",
         "source": "UNC Charlotte Metropolitan Studies, 2011.",
-        "links": "Future land use plans in Charlotte-Mecklenburg: <a href='http://www.charlotteplanning.org'>Charlotte</a><br><a href='http://www.ci.davidson.nc.us'>Davidson</a><br><a href='http://www.huntersville.org/Departments/Planning.aspx'>Huntersville</a><br><a href='http://www.matthewsnc.com/Departments/PlanningandDevelopment.aspx'>Matthews</a><br><a href='http://www.minthill.com/index.aspx?nid=85'>Mint Hill</a><br><a href='http://www.pinevillenc.net/town-department/town-planning'>Pineville</a>",
+        "links": "Future land use plans in Charlotte-Mecklenburg: <a href='http://www.charlotteplanning.org'>Charlotte</a><br><a href='http://www.ci.davidson.nc.us/index.aspx?nid=68'>Davidson</a><br><a href='http://www.huntersville.org/Departments/Planning.aspx'>Huntersville</a><br><a href='http://matthewsnc.gov/Departments/PlanningandDevelopment.aspx'>Matthews</a><br><a href='http://www.minthill.com/index.aspx?nid=85'>Mint Hill</a><br><a href='http://townofpineville.com/town-departments/planning-and-zoning/'>Pineville</a>",
         "style": {
             "breaks": [
                 0,
@@ -77,7 +77,7 @@
         "importance": "Calculating the percentage of developed land is useful when compared to the type and density of uses that exist in a neighborhood for future land use planning.",
         "tech_notes": "Tax parcel areas regardless of size with a structure of any kind that is taxable are summarized to the NPA geography and divided by the land area of the NPA. Infrastructure development is not included. Any tax parcel regardless of zoning with a structure that is taxed is considered developed. Data does not represent impervious surface or metric used for environmental measures.",
         "source": "Charlotte-Mecklenburg Planning Department",
-        "links": "Future land use plans in Charlotte-Mecklenburg: <a href='http://www.charlotteplanning.org'>Charlotte</a><br><a href='http://www.ci.davidson.nc.us'>Davidson</a><br><a href=http://www.huntersville.org/Departments/Planning.aspx>Huntersville</a><br><a href='http://www.matthewsnc.com/Departments/PlanningandDevelopment.aspx'>Matthews</a><br><a href='http://www.minthill.com/index.aspx?nid=85'>Mint Hill</a><br><a href='http://www.pinevillenc.net/town-department/town-planning'>Pineville</a>",
+        "links": "Future land use plans in Charlotte-Mecklenburg: <a href='http://www.charlotteplanning.org'>Charlotte</a><br><a href='http://www.ci.davidson.nc.us/index.aspx?nid=68'>Davidson</a><br><a href=http://www.huntersville.org/Departments/Planning.aspx>Huntersville</a><br><a href='http://matthewsnc.gov/Departments/PlanningandDevelopment.aspx'>Matthews</a><br><a href='http://www.minthill.com/index.aspx?nid=85'>Mint Hill</a><br><a href='http://townofpineville.com/town-departments/planning-and-zoning/'>Pineville</a>",
         "style": {
             "units": "%",
             "breaks": [
@@ -96,15 +96,23 @@
         "db": "residential_density",
         "field": "p5",
         "category": "character",
-        "title": "Single Family Residential Density",
-        "description": "Average number of single family dwelling units per acre for each Neighborhood Profile Area (NPA).",
-        "importance": "Calculating single family residential provides an indication of the residential character of a neighborhood.  Lower density single family is typified by larger lots in a suburban development pattern while higher density neighborhoods have smaller lots.  However, residential density is not directly related to house size.",
-        "tech_notes": "The number of units for each NPA divided by the number of land acres.",
-        "source": "Mecklenburg County Tax Parcels",
-        "links": "Future land use plans in Charlotte-Mecklenburg: <a href='http://www.charlotteplanning.org'>Charlotte</a><br><a href='http://www.ci.davidson.nc.us'>Davidson</a><br><a href='Huntersville'>http://www.huntersville.org/Departments/Planning.aspx</a><br><a href='http://www.matthewsnc.com/Departments/PlanningandDevelopment.aspx'>Matthews</a><br><a href='http://www.minthill.com/index.aspx?nid=85'>Mint Hill</a><br><a href='http://www.pinevillenc.net/town-department/town-planning'>Pineville</a>",
+        "title": "Residential Housing Density",
+        "description": "Average number of housing units per acre for each Neighborhood Profile Area (NPA).",
+        "importance": "Calculating housing residential density provides an indication of the residential character of a neighborhood.  Lower housing unit density is typified by larger lots in a suburban development pattern while higher density neighborhoods have smaller lots.  Residential density is not directly related to house size. ",
+        "tech_notes": "The number of housing units for each Neighborhood Profile Area divided by the number of land acres.",
+        "source": "Mecklenburg County Tax Parcels, 2011.",
+        "links": "Future land use plans in Charlotte-Mecklenburg: <a href='http://www.charlotteplanning.org'>Charlotte</a><br><a href='http://www.ci.davidson.nc.us'>Davidson</a><br><a href='Huntersville'>Huntersville</a><br><a href='http://www.matthewsnc.com/Departments/PlanningandDevelopment.aspx'>Matthews</a><br><a href='http://www.minthill.com/index.aspx?nid=85'>Mint Hill</a><br><a href='http://www.pinevillenc.net/town-department/town-planning'>Pineville</a>",
         "style": {
-            "breaks": [],
-            "colors": []
+            "breaks": [
+                0,
+                1,
+                3
+            ],
+            "colors": [
+                "#D8F2ED",
+                "#2ca79e",
+                "#154F4A"
+            ]
         }
     },
     "p6": {
@@ -276,7 +284,7 @@
         "importance": "Registering to vote is a fundamental component of community engagement. Data is not available to determine the percent of those eligible who are registered, so this number can be impacted by large immigrant, transient or youth populations in a Neighborhood Profile Area (NPA).",
         "tech_notes": "Number of voters  registered in each NPA divided by the population (18 years of age and older) in each NPA.",
         "source": "Mecklenburg County Board of Elections, 2010",
-        "links": "<a href='http://www.charmeck.org/mecklenburg/county/BOE'>Area election precincts, voting sites, voter registration and other related information</a><br><a href='http://www.eac.gov/research/election_administration_and_voting_survey.aspx'>national voting statistics</a>",
+        "links": "<a href='http://www.charmeck.org/mecklenburg/county/BOE'>Area election precincts, voting sites, voter registration and other related information</a><br><a href='http://www.eac.gov/research/election_administration_and_voting_survey.aspx'>National voting statistics</a>",
         "style": {
             "units": "%",
             "breaks": [
@@ -300,7 +308,7 @@
         "importance": "Exercising your right to vote is fundamental to community engagement. National elections tend to have greater turnout.  In November 2010 (national election) the voter turnout in Mecklenburg County was 37.98% which translates into 228,929 out of 602,710 registered voters who participated.  By comparison, the turnout in 2009 (local and state election) was 16%.",
         "tech_notes": "Number of voters in the 2010 election for each NPA divided by the registered voter population in each NPA.",
         "source": "Mecklenburg County Board of Elections, 2010",
-        "links": "<a href='http://charmeck.org/mecklenburg/county/BOE/data/Pages/ElectionDayResults.aspx'>Area voting sites and voter turnout</a><br><a href='http://www.eac.gov/research/election_administration_and_voting_survey.aspx'>national voting statistics</a>",
+        "links": "<a href='http://www.charmeck.org/mecklenburg/county/BOE'>Area election precincts, voting sites, voter registration and other related information</a><br><a href='http://www.eac.gov/research/election_administration_and_voting_survey.aspx'>National voting statistics</a>",
         "style": {
             "units": "%",
             "breaks": [
@@ -320,7 +328,7 @@
         "importance": "There are a variety of opportunities for residents to be engaged with local government on the City, Town, and County level.  Appointees have the ability to make important policy and regulatory decisions that impact neighborhoods.",
         "tech_notes": "Total number of residents that serve on appointed public boards, committees and commissions including public libraries, sheriff office and police departments.",
         "source": "City of Charlotte, Mecklenburg County, Towns, 2011",
-        "links": "Opportunities for Board and Commission Positions: <a href='http://charmeck.org/city/charlotte/CityClerk/BoardsandCommissions/Pages/Boards.aspx'>City of Charlotte</a><br><a href='http://charmeck.org/mecklenburg/county/BOCC/AdvisoryBoards/Pages/Default.aspx'>Mecklenburg County</a>",
+        "links": "Opportunities for Board and Commission Positions: <br><a href='http://charmeck.org/city/charlotte/CityClerk/BoardsandCommissions/Pages/Boards.aspx'>City of Charlotte</a><br><a href='http://charmeck.org/mecklenburg/county/BOCC/AdvisoryBoards/Pages/Default.aspx'>Mecklenburg County</a>",
         "style": {
             "breaks": [
                 0,
@@ -334,21 +342,6 @@
             ]
         }
     },
-    "e4": {
-        "db": "calls_311",
-        "field": "e4",
-        "category": "engagement",
-        "title": "311 Calls for Service",
-        "description": "Number of non-emergency calls for service for each Neighborhood Profile Area (NPA).",
-        "importance": "The CharMeck 311 system was developed to centralize resident's calls for the various services provided by the City and County. This is an important piece of information to show the community's engagement in policing itself.  A higher than average number of calls may be a sign that the neighborhood is improving by correcting issues.  A lower number may reflect better social and economic data, or it could show the lack of engagement by residents if there are incidents that need monitoring and correcting.",
-        "tech_notes": "Number of non-emergency calls forservice for each NPA.",
-        "source": "311",
-        "links": "<a href='http://www.charmeck.org/services'>CharMeck 311</a><br><a href='http://charmeck.org/Pages/MobileApp.aspx'>311 Mobile App</a>",
-        "style": {
-            "breaks": [],
-            "colors": []
-        }
-    },
     "e5": {
         "db": "neighborhood_organizations",
         "field": "e5",
@@ -358,7 +351,7 @@
         "importance": "A key characteristic of community engagement is an active neighborhood organization.  These groups allow residents to discuss issues relevant to their area and take action. Identifying registered organizations allows staff to inform leaders about grants and other community building opportunities. It also allows opportunities for greater citizen engagement.",
         "tech_notes": "Number of neighborhood organizations registered with the Charlotte-Mecklenburg Planning Department for each Neighborhood Profile Area (NPA).",
         "source": "Charlotte-Mecklenburg Planning Department, 2011",
-        "links": "<a href='http://charmeck.org/city/charlotte/planning/AreaPlanning/NeighborhoodOrganizationalList/Pages/home.aspx'>Neighborhood organization registration process</a><br><a href='http://charmeck.org/CITY/CHARLOTTE/NBS/ED/FINANCIALPROGRAMS/Pages/default.aspx'>Funding opportunities for neighborhood organizations</a><br><a href='http://www.artsandscience.org/grants-a funding/organizations/cultural-projects-grants'>Arts and Science Council</a><br><a href='http://www.communitybuildinginitiative.org/'>Community Building Initiative</a>",
+        "links": "<a href='http://charmeck.org/city/charlotte/planning/AreaPlanning/NeighborhoodOrganizationalList/Pages/home.aspx'>Neighborhood organization registration process</a><br><a href='http://charmeck.org/CITY/CHARLOTTE/NBS/ED/FINANCIALPROGRAMS/Pages/default.aspx'>Funding opportunities for neighborhood organizations</a><br><a href='http://www.communitybuildinginitiative.org/'>Community Building Initiative</a>",
         "style": {
             "breaks": [
                 0,
@@ -420,7 +413,7 @@
         "importance": "The median household income provides an indication of how well people are doing financially in a neighborhood.Lower wage earners may have higher percentages of their income devoted to consumption and less for saving, making them less resilient in economic downturns.  Higher wage earners may have more of their income available for consumption and more savings that can enable them to be more resilient in economic downturns. Total disposable income is a function of both consumption and population. Service providers and retailers look at income levels to help them locate their services. According to the Census Bureau the federal poverty threshold for a family of four was $22,350 in the lower 48 states.  The median household income in Charlotte for a family of four was $65,036 in North Carolina.",
         "source": "American Community Survey, 2006 to 2010.  The data is a five year sample for the years 2006 to 2010.",
         "tech_notes": "The median household income for each neighborhood profile area. The amount is inflation adjusted for 2010.",
-        "links": "<a href='http://www.charlotteworks.com/'>Charlotte Works</a><br><a href='http://www.goodwill.org/goodwill-for-you/jobs-and-careers/find-a-job/'>Goodwill</a><br><a href='http://www.jacobsladdercharlotte.org/'>Jacob's Ladder</a><br><a href='https://www.ncesc.com/default.aspx'>North Carolina Employment Security Commission</a><br><a href='http://www.nc-joblink.com/'>NC Joblink</a><br><a href='http://www.self-help.org/'>Self Help</a><br><a href='http://www.uwcentralcarolinas.org/agency-list'>United Way</a><br><a href='http://www.urbanleaguecc.org/'>Urban League of Central Carolinas</a><br><a href='www.charmeck.org/mecklenburg/county/dss'>Mecklenburg County Department of Social Services</a><br><a href='https://www.efanniemae.com/sf/refmaterials/hudmedinc/hudincomeresults.jsp?STATE=NC&choice=county&CITY=Mecklenburg&FormsButton1=Search'>Median incomes in surrounding North Carolina counties</a>",
+        "links": "<a href='http://www.charlotteworks.com/'>Charlotte Works</a><br><a href='http://www.goodwill.org/goodwill-for-you/jobs-and-careers/find-a-job/'>Goodwill</a><br><a href='http://www.jacobsladdercharlotte.org/'>Jacob's Ladder</a><br><a href='https://www.ncesc.com/default.aspx'>North Carolina Employment Security Commission</a><br><a href='http://www.nc-joblink.com/'>NC Joblink</a><br><a href='http://www.self-help.org/'>Self Help</a><br><a href='http://www.uwcentralcarolinas.org/agency-list'>United Way</a><br><a href='http://www.urbanleaguecc.org/'>Urban League of Central Carolinas</a>",
         "style": {
             "prefix": "$",
             "breaks": [
@@ -444,7 +437,7 @@
         "importance": "Information on unemployment is not available at the neighborhood level. Therefore,the Percentage of Persons Employed 6 Month or Less in combination with Percentage of Persons Working 35 Hours or Less serve as proxies to examine potential employment issues in the community. According to the Bureau of Labor Statistics, the unemployment rate in North Carolina declined from 11.4% in January 2010 to 10.6% in December 2010. ",
         "source": "American Community Survey, 2006 to 2010. The data is a five year sample for the years 2006 to 2010.",
         "tech_notes": "The sum of the workforce age population working less than 26 weeks divided by the workforce age population who worked any time within the last 12 months. N/A includes Neighborhood Profile Areas (NPAs) where there were no workforce age individuals. The workforce population is defined as persons 16–64 years of age.",
-        "links": "<a href='http://www.charlotteworks.com/'>Charlotte Works</a><br><a href='http://www.goodwill.org/goodwill-for-you/jobs-and-careers/find-a-job/'>Goodwill</a><br><a href='http://www.jacobsladdercharlotte.org/'>Jacob's Ladder</a><br><a href='https://www.ncesc.com/default.aspx'>North Carolina Employment Security Commission</a><br><a href='http://www.nc-joblink.com/'>NC Joblink</a><br><a href='http://www.self-help.org/'>Self Help</a><br><a href='http://www.uwcentralcarolinas.org/agency-list'>United Way</a><br><a href='http://www.urbanleaguecc.org/'>Urban League of Central Carolinas</a><br><a href='www.charmeck.org/mecklenburg/county/dss'>Mecklenburg County Department of Social Services</a><br><a href='http://www.charlottebusinessresources.com/starting-a-business/'>Starting a business</a><br><a href='http://www.sba.gov/content/home-based-business'>Small Business Administration</a><br><a href='http://charmeck/city/charlotte/nbs/CodeEnforcement/Pages/ZoningEnforcement.aspx'>Business licenses and permitting</a><br><a href='http://www.bls.gov/bdm/entrepreneurship/entrepreneurship.htm'>Entrepreneurship and the U.S. economy</a>",
+        "links": "<a href='http://www.charlotteworks.com/'>Charlotte Works</a><br><a href='http://www.goodwill.org/goodwill-for-you/jobs-and-careers/find-a-job/'>Goodwill</a><br><a href='http://www.jacobsladdercharlotte.org/'>Jacob's Ladder</a><br><a href='https://www.ncesc.com/default.aspx'>North Carolina Employment Security Commission</a><br><a href='http://www.nc-joblink.com/'>NC Joblink</a><br><a href='http://www.self-help.org/'>Self Help</a><br><a href='http://www.uwcentralcarolinas.org/agency-list'>United Way</a><br><a href='http://www.urbanleaguecc.org/'>Urban League of Central Carolinas</a><br><a href='http://charmeck.org/mecklenburg/county/dss/Pages/Default.aspx'>Mecklenburg County Department of Social Services</a><br><a href='http://www.charlottebusinessresources.com/starting-a-business/'>Starting a business</a><br><a href='http://www.sba.gov/content/home-based-business'>Small Business Administration</a><br><a href='http://charmeck/city/charlotte/nbs/CodeEnforcement/Pages/ZoningEnforcement.aspx'>Business licenses and permitting</a><br><a href='http://www.bls.gov/bdm/entrepreneurship/entrepreneurship.htm'>Entrepreneurship and the U.S. economy</a>",
         "style": {
             "units": "%",
             "breaks": [
@@ -511,16 +504,28 @@
         "db": "change_residential_property_value",
         "field": "m5",
         "category": "economics",
-        "title": "Change in Single Family Property Value",
+        "title": "Change in Residential Property Value",
         "description": "Percentage change in residential property value for each Neighborhood Profile Area (NPA).",
-        "importance": "Higher increases in value indicate a market that values a neighborhood’s amenities, while decreasing values may indicate some level of neighborhood distress.  High increases rewards homeowners with increased equity and wealth, but can also make it challenging for those with fixed or limited incomes to remain in place.",
-        "source": "Mecklenburg County Tax Parcels, 2003 and 2011.",
-        "tech_notes": "The total assessed value for residential housing units in 2011 minus the total assessed value for residential housing units in 2003 divided by the total assessed value for residential housing units in 2003 for each Neighborhood Profile Area (NPA).  NPAs with less than 5 qualifying properties were classified as N/A. Residential housing units include condominiums, single-family detached units and townhouses. Pearson’s Appraisal Service identified that some neighborhoods needed to be reassessed. Based on these findings, the County will reassess the value of property in complex areas, particularly pre-1980 heterogeneous neighborhoods, to ensure equity which may change the values represented in this variable.",
-        "links": "<a href='http://factfinder2.census.gov/faces/tableservices/jsf/pages/productview.xhtml?src=bkmk'>North Carolina housing statistics</a><br><a href='http://meckcama.co.mecklenburg.nc.us/relookup/'>Mecklenburg County real estate database</a><br><a href='http://charmeck.org/mecklenburg/county/AssessorsOffice/Pages/Tax%20Relief.asp'>Am I eligible for tax relief on my home?</a><br><a href='http://charmeck.org/mecklenburg/county/AssessorsOffice/Appeals/Pages/default.aspx'>Mecklenburg County property revaluation process</a>",
+        "importance": "Higher increases in value indicate a market that values a neighborhood’s amenities, while decreasing values may indicate some level of neighborhood distress. High increases rewards homeowners with increased equity and wealth, but can also make it challenging for those with fixed or limited incomes to remain in place.",
+        "source": "Mecklenburg County Tax Parcels as of April 2012.",
+        "tech_notes": "The total assessed value for residential housing units in 2011 minus the total assessed value for residential housing units in 2003 divided by the total assessed value for residential housing units in 2003 for each Neighborhood Profile Area (NPA). NPAs with less than 5 qualifying properties were classified as N/A. Residential housing units include condominiums, single-family detached units and townhouses. Pearson’s Appraisal Service identified that some neighborhoods needed to be reassessed. Based on these findings, the County will reassess the value of property in complex areas, particularly pre-1980 heterogeneous neighborhoods, to ensure equity which may change the values represented in this variable.",
+        "links": "<a href='http://charmeck.org/mecklenburg/county/AssessorsOffice/Appeals/Pages/default.aspx'>Mecklenburg County property revaluation process</a><br><a href='http://meckcama.co.mecklenburg.nc.us/relookup/'>Mecklenburg County real estate database</a>",
         "style": {
             "units": "%",
-            "breaks": [],
-            "colors": []
+            "breaks": [
+                -10,
+                -2.4,
+                0,
+                2.5,
+                5
+            ],
+            "colors": [
+                "#D6D6FF",
+                "#8F97E3",
+                "#556CC9",
+                "#244EAD",
+                "#003994"
+            ]
         }
     },
     "m6": {
@@ -532,7 +537,7 @@
         "importance": "The calculation is an indicator of the amount of commercial space within a Neighborhood Profile Area (NPA).",
         "source": "Mecklenburg County Tax Parcels, 2011",
         "tech_notes": "The total heated square footage of developed commercial space zoned for said use which includes business, office, industrial and institutional uses, not including religious institutions and schools summarized for each NPA.",
-        "links": "",
+        "links": "<a href='http://www.charlotteplanning.org'>Charlotte</a><br><a href='http://www.ci.davidson.nc.us/index.aspx?nid=68'>Davidson</a><br><a href=http://www.huntersville.org/Departments/Planning.aspx>Huntersville</a><br><a href='http://matthewsnc.gov/Departments/PlanningandDevelopment.aspx'>Matthews</a><br><a href='http://www.minthill.com/index.aspx?nid=85'>Mint Hill</a><br><a href='http://townofpineville.com/town-departments/planning-and-zoning/'>Pineville</a>",
         "style": {
             "units": "sqft",
             "breaks": [
@@ -720,7 +725,7 @@
         "db": "animal_control",
         "field": "s5",
         "category": "safety",
-        "title": "Calls for Animal Control Rate",
+        "title": "Calls for Animal Control",
         "description": "The number of animal control calls for Neighborhood Profile Area (NPA). ",
         "importance": "Animal control issues create unsafe environments for residents as well as animals.  Higher than average calls for animal control could signify a lack of education regarding responsible pet ownership, a lack of resources to manage pets, or a growing wildlife population.",
         "source": "Charlotte-Mecklenburg Police Department, calendar year 2011.",
@@ -750,8 +755,16 @@
         "tech_notes": "Number of licensed childcare programs for ages 0-5 including Center Based and Family Care for each NPA. Center Based childcare facilities provide care for three or more children. The number of children in care is based on the size of individual classrooms and having sufficient staff, equipment and materials. Family Care childcare facilities are provided in the providers’ residence and are able to accommodate three to five children at one time.",
         "links": "<a href='http://www.charmeck.org/mecklenburg/county/ParkandRec/Aquatics/RaysSplashPlanet/Pages/Preschool'>Mecklenburg County preschool programs</a><br><a href='http://www.thechildrensalliance.org/resources/where-to-find-help.html'>The Children's Alliance out of school programs and partners</a><br><a href='http://www.uwcentralcarolinas.org/who-we-help/agency-list'>Agencies supported by United Way of Central Carolinas</a><br><a href='http://ncchildcare.dhhs.state.nc.us/parents/pr_sn2_ov_sr.asp'>North Carolina Division of Child Development and Early Education</a>",
         "style": {
-            "breaks": [],
-            "colors": []
+            "breaks": [
+                0,
+                1,
+                3
+            ],
+            "colors": [
+                "#D8F2ED",
+                "#2ca79e",
+                "#154F4A"
+            ]
         }
     },
     "k2": {
@@ -763,22 +776,30 @@
         "importance": "Tracking the number and location of after school programs allows residents to identify providers in their neighborhoods. The data is also useful for education providers. A low number of programs may assist in determining where and how to implement services based on related variables such as population age, population density, and household income.   The location of programs in adjacent Neighborhood Profile Areas (NPAs) should also be considered to determine the level of service.",
         "source": "Child Care Resources, Inc., August 2012.",
         "tech_notes": "Number of licensed school-age programs for ages 5-12 for each Neighborhood Profile Area (NPA).",
-        "links": "<a href='http://ncchildcare.dhhs.state.nc.us/parents/pr_sn2_ov_sr.asp'>North Carolina Division of Child Development and Early Education</a><br><a href='http://www.urbanleaguecc.org/home/?page_id=1076'>After school computer literacy and technology programs</a><br><a href='http://www.bbbscharlotte.org/site/c.7gLMK5MKLgIUF/b.6422659/k.A36B/So_many_ways_to_get_started.htm'>Programs offered by Big Brothers, Big Sisters</a><br><a href='http://www.uwcentralcarolinas.org/who-we-help/agency-list'>Agencies supported by United Way of Central Carolinas</a><br><a href='http://www.ymcacharlotte.org/programs/socialresponsibility/socialservices/familysvs/starfish.aspx'>http://www.thechildrensalliance.org/resources/where-to-find-help.html</a><br><a href='http://www.thechildrensalliance.org/resources/where-to-find-help.html '>The Children's Alliance out of school programs and partners</a><br><a href='http://www.edweek.org/ew/issues/after-school-programs/'>Education Week report on the benefits of after-school education programs</a>",
+        "links": "<a href='http://ncchildcare.dhhs.state.nc.us/parents/pr_sn2_ov_sr.asp'>North Carolina Division of Child Development and Early Education</a><br><a href='http://www.urbanleaguecc.org/home/?page_id=1076'>After school computer literacy and technology programs</a><br><a href='http://www.bbbscharlotte.org/site/c.7gLMK5MKLgIUF/b.6422659/k.A36B/So_many_ways_to_get_started.htm'>Programs offered by Big Brothers, Big Sisters</a><br><a href='http://www.uwcentralcarolinas.org/who-we-help/agency-list'>Agencies supported by United Way of Central Carolinas</a><br><a href='http://www.ymcacharlotte.org/programs/socialresponsibility/socialservices/familysvs/starfish.aspx'>YMCA</a><br><a href='http://www.thechildrensalliance.org/resources/where-to-find-help.html '>The Children's Alliance out of school programs and partners</a><br><a href='http://www.edweek.org/ew/issues/after-school-programs/'>Education Week report on the benefits of after-school education programs</a>",
         "style": {
-            "breaks": [],
-            "colors": []
+            "breaks": [
+                0,
+                1,
+                3
+            ],
+            "colors": [
+                "#D8F2ED",
+                "#2ca79e",
+                "#154F4A"
+            ]
         }
     },
     "k3": {
         "db": "proficient_3_5",
         "field": "k3",
         "category": "education",
-        "title": "CMS 3-5 Graders who were Proficient in End of Grade (EOG) Tests ",
+        "title": "CMS 3-5 Graders Proficient in EOG Tests ",
         "description": "Percentage of Charlotte-Mecklenburg Schools (CMS) students in grades 3-5 proficient in End of Grade testing for each Neighborhood Profile Area (NPA).",
         "importance": "Averaging test scores in a neighborhood assists education administrators, policy-makers, businesses, and residents in developing strategies to improving academic performance where needed.  Tracking the data over time also provides a trend analysis for improving education indicators.",
         "source": "Charlotte-Mecklenburg Schools, school year 2010-2011.",
         "tech_notes": "The total number of CMS 3-5 graders passing both reading and math end of grade tests divided by the total number of CMS 3-5 graders taking both reading and math end of grade tests. Every student may not have taken an EOG test. NPAs with less than 5 students were coded as N/A. NPAs do not match and cover one or more school boundary. Data represented in this variable are based on students living within the NPA regardless of which school they attend.",
-        "links": "<a href='http://www.ncpublicschools.org/accountability/testing/eog/'>The North Carolina End-of-Grade Tests</a><br><a href='http://www.ncpublicschools.org/accountability/testing/eoc/'>North Carolina End-of-Course Tests</a><br><a href='http://www.achildsplace.org/help-for-homeless-kids/student-services'>Education support for homeless children and families</a><br><a href='http://charmeck.org/city/charlotte/mayor/MentoringAlliance/Pages/default.aspx'>City of Charlotte youth service initiatives</a><br><a href='http://www.urbanleaguecc.org/home/?page_id=1076'>After school computer literacy and technology programs</a><br><a href='http://www.cms.k12.nc.us/parents/ParentUniv/Pages/ParentResources.aspx'>Help your child succeed with ‘Parent University'</a><br><a href='http://www.uwcentralcarolinas.org/who-we-help/agency-list'>Agencies supported by United Way of Central Carolinas</a>",
+        "links": "<a href='http://www.ncpublicschools.org/accountability/testing/eog/'>The North Carolina End-of-Grade Tests</a><br><a href='http://www.ncpublicschools.org/accountability/testing/eoc/'>North Carolina End-of-Course Tests</a><br><a href='http://www.achildsplace.org/help-for-homeless-kids/student-services'>Education support for homeless children and families</a><br><a href='http://charmeck.org/city/charlotte/mayor/MentoringAlliance/Pages/default.aspx'>City of Charlotte youth service initiatives</a><br><a href='http://www.cms.k12.nc.us/parents/ParentUniv/Pages/ParentResources.aspx'>Help your child succeed with ‘Parent University'</a><br><a href='http://www.uwcentralcarolinas.org/who-we-help/agency-list'>Agencies supported by United Way of Central Carolinas</a>",
         "style": {
             "units": "%",
             "breaks": [
@@ -802,7 +823,7 @@
         "importance": "Averaging test scores in a neighborhood assists education administrators, policy-makers, businesses, and residents in developing strategies to improve academic performance where needed.  Tracking the data over time also provides a trend analysis for improving education indicators.",
         "source": "Charlotte-Mecklenburg Schools, school year 2010-2011.",
         "tech_notes": "The total number of CMS 6-8 graders passing both reading and math end of grade tests divided by the total number of CMS 6-8 graders taking both reading and math end of grade tests. Every student may not have taken an EOG test. NPAs with less than 5 students were coded as N/A. NPAs do not match and cover one or more school boundary. Data represented in this variable are based on students living within the NPA regardless of which school they attend. ",
-        "links": "<a href='http://www.ncpublicschools.org/accountability/testing/eog/'>The North Carolina End-of-Grade Tests</a><br><a href='http://www.ncpublicschools.org/accountability/testing/eoc/'>North Carolina End-of-Course Tests</a><br><a href='http://www.achildsplace.org/help-for-homeless-kids/student-services'>Education support for homeless children and families</a><br><a href='http://charmeck.org/city/charlotte/mayor/MentoringAlliance/Pages/default.aspx'>City of Charlotte youth service initiatives</a><br><a href='http://www.urbanleaguecc.org/home/?page_id=1076'>After school computer literacy and technology programs</a><br><a href='http://www.cms.k12.nc.us/parents/ParentUniv/Pages/ParentResources.aspx'>Help your child succeed with ‘Parent University'</a><br><a href='http://www.uwcentralcarolinas.org/who-we-help/agency-list'>Agencies supported by United Way of Central Carolinas</a>",
+        "links": "<a href='http://www.ncpublicschools.org/accountability/testing/eog/'>The North Carolina End-of-Grade Tests</a><br><a href='http://www.ncpublicschools.org/accountability/testing/eoc/'>North Carolina End-of-Course Tests</a><br><a href='http://www.achildsplace.org/help-for-homeless-kids/student-services'>Education support for homeless children and families</a><br><a href='http://charmeck.org/city/charlotte/mayor/MentoringAlliance/Pages/default.aspx'>City of Charlotte youth service initiatives</a><br><a href='http://www.cms.k12.nc.us/parents/ParentUniv/Pages/ParentResources.aspx'>Help your child succeed with ‘Parent University'</a><br><a href='http://www.uwcentralcarolinas.org/who-we-help/agency-list'>Agencies supported by United Way of Central Carolinas</a>",
         "style": {
             "units": "%",
             "breaks": [
@@ -826,7 +847,7 @@
         "importance": "Averaging test scores in a neighborhood assists education administrators, policy-makers, businesses, and residents in developing strategies to improve academic performance where needed.  Tracking the data over time also provides a trend analysis for improving education indicators.",
         "source": "Charlotte-Mecklenburg Schools, school year 2010-2011.",
         "tech_notes": "The total number of CMS 9-12 graders with 2 or more end of course tests and passed them all divided by the total number of CMS 9-12 graders with 2 or more end of course tests.  Every student does not have at least two EOC test. NPAs with less than 5 students were coded as N/A. NPAs do not match and cover one or more school boundary. Data represented in this variable are based on students living within the NPA regardless of which school they attend.",
-        "links": "<a href='http://www.ncpublicschools.org/accountability/testing/eog/'>The North Carolina End-of-Grade Tests</a><br><a href='http://www.ncpublicschools.org/accountability/testing/eoc/'>North Carolina End-of-Course Tests</a><br><a href='http://www.achildsplace.org/help-for-homeless-kids/student-services'>Education support for homeless children and families</a><br><a href='http://charmeck.org/city/charlotte/mayor/MentoringAlliance/Pages/default.aspx'>City of Charlotte youth service initiatives</a><br><a href='http://www.urbanleaguecc.org/home/?page_id=1076'>After school computer literacy and technology programs</a><br><a href='http://www.cms.k12.nc.us/parents/ParentUniv/Pages/ParentResources.aspx'>Help your child succeed with ‘Parent University'</a><br><a href='http://www.uwcentralcarolinas.org/who-we-help/agency-list'>Agencies supported by United Way of Central Carolinas</a>",
+        "links": "<a href='http://www.ncpublicschools.org/accountability/testing/eog/'>The North Carolina End-of-Grade Tests</a><br><a href='http://www.ncpublicschools.org/accountability/testing/eoc/'>North Carolina End-of-Course Tests</a><br><a href='http://www.achildsplace.org/help-for-homeless-kids/student-services'>Education support for homeless children and families</a><br><a href='http://charmeck.org/city/charlotte/mayor/MentoringAlliance/Pages/default.aspx'>City of Charlotte youth service initiatives</a><br><a href='http://www.cms.k12.nc.us/parents/ParentUniv/Pages/ParentResources.aspx'>Help your child succeed with ‘Parent University'</a><br><a href='http://www.uwcentralcarolinas.org/who-we-help/agency-list'>Agencies supported by United Way of Central Carolinas</a>",
         "style": {
             "units": "%",
             "breaks": [
@@ -850,7 +871,7 @@
         "importance": "Averaging test scores in a neighborhood assists education administrators, policy-makers, businesses, and residents in developing strategies to improve academic performance where needed.  Tracking the data over time also provides a trend analysis for improving education indicators.",
         "source": "Charlotte-Mecklenburg Schools, school year 2010-2011.",
         "tech_notes": "The total number of CMS 3-5 graders with an end of grade test growth value in reading and math with an average greater than zero divided by the total number of CMS 3-5 graders  with end of grade growth values. Every student does not have an EOG growth value. NPAs with less than 5 students were coded as N/A. NPAs do not match and cover one or more school boundary. Data represented in this variable are based on students living within the NPA regardless of which school they attend.",
-        "links": "<a href='http://www.ncpublicschools.org/accountability/testing/eog/'>The North Carolina End-of-Grade Tests</a><br><a href='http://www.ncpublicschools.org/accountability/testing/eoc/'>North Carolina End-of-Course Tests</a><br><a href='http://www.achildsplace.org/help-for-homeless-kids/student-services'>Education support for homeless children and families</a><br><a href='http://charmeck.org/city/charlotte/mayor/MentoringAlliance/Pages/default.aspx'>City of Charlotte youth service initiatives</a><br><a href='http://www.urbanleaguecc.org/home/?page_id=1076'>After school computer literacy and technology programs</a><br><a href='http://www.cms.k12.nc.us/parents/ParentUniv/Pages/ParentResources.aspx'>Help your child succeed with ‘Parent University'</a><br><a href='http://www.uwcentralcarolinas.org/who-we-help/agency-list'>Agencies supported by United Way of Central Carolinas</a>",
+        "links": "<a href='http://www.ncpublicschools.org/accountability/testing/eog/'>The North Carolina End-of-Grade Tests</a><br><a href='http://www.ncpublicschools.org/accountability/testing/eoc/'>North Carolina End-of-Course Tests</a><br><a href='http://www.achildsplace.org/help-for-homeless-kids/student-services'>Education support for homeless children and families</a><br><a href='http://charmeck.org/city/charlotte/mayor/MentoringAlliance/Pages/default.aspx'>City of Charlotte youth service initiatives</a><br><a href='http://www.cms.k12.nc.us/parents/ParentUniv/Pages/ParentResources.aspx'>Help your child succeed with ‘Parent University'</a><br><a href='http://www.uwcentralcarolinas.org/who-we-help/agency-list'>Agencies supported by United Way of Central Carolinas</a>",
         "style": {
             "units": "%",
             "breaks": [
@@ -874,7 +895,7 @@
         "importance": "Averaging test scores in a neighborhood assists education administrators, policy-makers, businesses, and residents in developing strategies to improve academic performance where needed.  Tracking the data over time also provides a trend analysis for improving education indicators.",
         "source": "Charlotte-Mecklenburg Schools, school year 2010-2011.",
         "tech_notes": "The total number of CMS 6-8 graders with an end of grade test growth value in reading and math with an average greater than zero divided by the total number of CMS 6-8 graders with end of grade growth values. Every student does not have an EOG growth value. NPAs with less than 5 students were coded as N/A. NPAs do not match and cover one or more school boundary. Data represented in this variable are based on students living within the NPA regardless of which school they attend. ",
-        "links": "<a href='http://www.ncpublicschools.org/accountability/testing/eog/'>The North Carolina End-of-Grade Tests</a><br><a href='http://www.ncpublicschools.org/accountability/testing/eoc/'>North Carolina End-of-Course Tests</a><br><a href='http://www.achildsplace.org/help-for-homeless-kids/student-services'>Education support for homeless children and families</a><br><a href='http://charmeck.org/city/charlotte/mayor/MentoringAlliance/Pages/default.aspx'>City of Charlotte youth service initiatives</a><br><a href='http://www.urbanleaguecc.org/home/?page_id=1076'>After school computer literacy and technology programs</a><br><a href='http://www.cms.k12.nc.us/parents/ParentUniv/Pages/ParentResources.aspx'>Help your child succeed with ‘Parent University'</a><br><a href='http://www.uwcentralcarolinas.org/who-we-help/agency-list'>Agencies supported by United Way of Central Carolinas</a>",
+        "links": "<a href='http://www.ncpublicschools.org/accountability/testing/eog/'>The North Carolina End-of-Grade Tests</a><br><a href='http://www.ncpublicschools.org/accountability/testing/eoc/'>North Carolina End-of-Course Tests</a><br><a href='http://www.achildsplace.org/help-for-homeless-kids/student-services'>Education support for homeless children and families</a><br><a href='http://charmeck.org/city/charlotte/mayor/MentoringAlliance/Pages/default.aspx'>City of Charlotte youth service initiatives</a><br><a href='http://www.cms.k12.nc.us/parents/ParentUniv/Pages/ParentResources.aspx'>Help your child succeed with ‘Parent University'</a><br><a href='http://www.uwcentralcarolinas.org/who-we-help/agency-list'>Agencies supported by United Way of Central Carolinas</a>",
         "style": {
             "units": "%",
             "breaks": [
@@ -898,7 +919,7 @@
         "importance": "Averaging test scores in a neighborhood assists education administrators, policy-makers, businesses, and residents in developing strategies to improve academic performance where needed.  Tracking the data over time also provides a trend analysis for improving education indicators.",
         "source": "Charlotte-Mecklenburg Schools, school year 2010-2011.",
         "tech_notes": "The total number of CMS 9-12 graders with 2 or more end of course growth values with an average greater than zero divided by the total number of CMS 9-12 graders with 2 or more end of course growth values. Every student does not have an EOC growth value. NPAs with less than 5 students were coded as N/A. NPAs do not match and cover one or more school boundary. Data represented in this variable are based on students living within the NPA regardless of which school they attend.",
-        "links": "<a href='http://www.ncpublicschools.org/accountability/testing/eog/'>The North Carolina End-of-Grade Tests</a><br><a href='http://www.ncpublicschools.org/accountability/testing/eoc/'>North Carolina End-of-Course Tests</a><br><a href='http://www.achildsplace.org/help-for-homeless-kids/student-services'>Education support for homeless children and families</a><br><a href='http://charmeck.org/city/charlotte/mayor/MentoringAlliance/Pages/default.aspx'>City of Charlotte youth service initiatives</a><br><a href='http://www.urbanleaguecc.org/home/?page_id=1076'>After school computer literacy and technology programs</a><br><a href='http://www.cms.k12.nc.us/parents/ParentUniv/Pages/ParentResources.aspx'>Help your child succeed with ‘Parent University'</a><br><a href='http://www.uwcentralcarolinas.org/who-we-help/agency-list'>Agencies supported by United Way of Central Carolinas</a>",
+        "links": "<a href='http://www.ncpublicschools.org/accountability/testing/eog/'>The North Carolina End-of-Grade Tests</a><br><a href='http://www.ncpublicschools.org/accountability/testing/eoc/'>North Carolina End-of-Course Tests</a><br><a href='http://www.achildsplace.org/help-for-homeless-kids/student-services'>Education support for homeless children and families</a><br><a href='http://charmeck.org/city/charlotte/mayor/MentoringAlliance/Pages/default.aspx'>City of Charlotte youth service initiatives</a><br><a href='http://www.cms.k12.nc.us/parents/ParentUniv/Pages/ParentResources.aspx'>Help your child succeed with ‘Parent University'</a><br><a href='http://www.uwcentralcarolinas.org/who-we-help/agency-list'>Agencies supported by United Way of Central Carolinas</a>",
         "style": {
             "units": "%",
             "breaks": [
@@ -922,7 +943,7 @@
         "importance": "A high number of unexcused absences not only reduces the likelihood a child will perform adequately, it could also lead to other negative behaviors such as juvenile crime, dropping out of school, and decreasing their ability to find a job or seek higher education. By identifying neighborhoods with high numbers of students with unexcused absences, education administrators, policy-makers, and community stakeholders may be able to develop strategies for keeping students engaged and in school.",
         "source": "Charlotte-Mecklenburg Schools, school year 2010-2011.",
         "tech_notes": "The total number of Charlotte-Mecklenburg School (CMS) students with 10 or more unexcused absences divided by the total number of students. NPAs with less than 5 students were coded as N/A. NPAs do not match and cover one or more school boundary. Data represented in this variable are based on students living within the NPA regardless of which school they attend.",
-        "links": "",
+        "links": "<a href='http://www.cms.k12.nc.us/cmsdepartments/social-work/Pages/TruancyCourt.aspx>Charlotte-Mecklenburg Schools Truancy Court</a>",
         "style": {
             "units": "%",
             "breaks": [
@@ -946,7 +967,7 @@
         "importance": "Dropping out of high school significantly reduces the likelihood finding steady employment with reasonable wages.  Studies have consistently shown that the higher level of educational attainment, the greater the chance of earning higher wages and staying employed. By identifying neighborhoods with high dropout rates, education administrators, policy-makers, and community stakeholders are able to develop strategies that will reduce dropout rates.",
         "source": "Charlotte-Mecklenburg Schools, school year 2010-2011.",
         "tech_notes": "The total number of CMS students who withdrew (CODE W2A) from CMS divided by the total number of 9‐12 grade students.  NPAs with less than 5 students were coded as N/A. NPAs do not match and cover one or more school boundary. Data represented in this variable are based on students living within the NPA regardless of which school they attend.",
-        "links": "<a href='http://www.cms.k12.nc.us/parents/ParentUniv/Pages/ParentResources.aspx'>Parent University</a><br><a href='http://www.urbanleaguecc.org/home/?page_id=523'>Urban Youth Empowerment Program</a><br><a href='http://www.achildsplace.org/help-for-homeless-kids/student-services'>Resources for improving student performance</a><br><a href='http://www.ncpublicschools.org/accountability/testing/eog/'>North Carolina End-of-Grade Tests</a><br><a href='http://www.ncpublicschools.org/accountability/testing/eoc/'>North Carolina End-of-Course Tests</a><br><a href='http://www.acementor.org'>ACE Mentor Program</a><br><a href='http://www.ncmentoring.org/id25.html'>North Carolina Mentoring Partnership</a><br><a href='http://www.achildsplace.org/'>A Child's Place</a><br><a href='http://charmeck.org/city/charlotte/mayor/myep/Pages/default.aspx'>Mayor's Youth Employment Program</a><br><a href='http://charmeck.org/city/charlotte/mayor/MentoringAlliance/Pages/default.aspx'>Mayr's Mentoring Alliance</a><br><a href='http://www.cischarlotte.org/school-based-dropout-prevention/'>Communities in Schools</a><br><a href='http://cfcrights.org/the-larry-king-center/'>Council for Children's Rights</a><br><a href='http://charmeck.org/city/charlotte/CMPD/organization/Support/Pages/Gang%20of%20One.aspx'>Gang Prevention</a><br><a href='http://www.fcsnc.org/'>Florence Crittenton Services</a><br><a href='http://www.unitedfamilyservices.org/programdescriptions_outcomes.html'>United Family Services</a><br><a href='http://www.levinechildrenshospital.org/body.cfm?id=604'>Teen Health Connection</a><br><a href='http://www.therelatives.org/Page.aspx?pid=459'>Services for at-risk teenagers</a><br><a href='http://www.uwcentralcarolinas.org/who-we-help/agency-list'>Agencies supported by United Way of Central Carolinas</a><br><a href='http://www.princeton.edu/futureofchildren/publications/journals/article/index.xml?journalid=30&articleid=49&sectionid=174'>Who drops out of school, and why?</a>",
+        "links": "<a href='http://www.cms.k12.nc.us/parents/ParentUniv/Pages/ParentResources.aspx'>Parent University</a><br><a href='http://www.achildsplace.org/help-for-homeless-kids/student-services'>Resources for improving student performance</a><br><a href='http://www.ncmentoring.org/id25.html'>North Carolina Mentoring Partnership</a><br><a href='http://www.achildsplace.org/'>A Child's Place</a><br><a href='http://charmeck.org/city/charlotte/mayor/myep/Pages/default.aspx'>Mayor's Youth Employment Program</a><br><a href='http://charmeck.org/city/charlotte/mayor/MentoringAlliance/Pages/default.aspx'>Mayor's Mentoring Alliance</a><br><a href='http://www.cischarlotte.org/school-based-dropout-prevention/'>Communities in Schools</a><br><a href='http://charmeck.org/city/charlotte/CMPD/organization/Support/Pages/Gang%20of%20One.aspx'>Gang Prevention</a><br><a href='http://www.fcsnc.org/'>Florence Crittenton Services</a><br><a href='http://www.therelatives.org/Page.aspx?pid=459'>Services for at-risk teenagers</a><br><a href='http://www.uwcentralcarolinas.org/who-we-help/agency-list'>Agencies supported by United Way of Central Carolinas</a><br><a href='http://www.princeton.edu/futureofchildren/publications/journals/article/index.xml?journalid=30&articleid=49&sectionid=174'>Who drops out of school, and why?</a>",
         "style": {
             "units": "%",
             "breaks": [
@@ -969,12 +990,20 @@
         "description": "Percentage adults without a high school diploma for each Neighborhood Profile Area (NPA).",
         "importance": "Adult educational attainment is closely correlated with economic opportunity and financial stability.  Knowing the location of adults without high school diplomas can help direct education and training resources to areas of need. According to American Community Survey, the nation’s unemployment rate for adults without a high school diploma was 14.9%, with a high school diploma it decreases to 9.4%, and with a Bachelor’s Degree decreases to 4.9%.",
         "source": "American Community Survey, 2006-2010.  The data is a five year sample for the years 2006 to 2010.",
-        "tech_notes": "r with less than a high school diploma for each Neighborhood Profile Area (NPA) divided by the number of people 25 or older for each NPA.  N/A includes only NPA’s with zero people 25 and older.",
+        "tech_notes": "The number of people 25 or older with less than a high school diploma for each Neighborhood Profile Area (NPA) divided by the number of people 25 or older for each NPA.  N/A includes only NPA’s with zero people 25 and older.",
         "links": "<a href='www.cpcc.edu/community_development/pre-college/ged'>Obtaining a GED</a><br><a href='http://fillmycupliteracy.org/'>Fill My Cup</a><br><a href='http://www.jacobsladdercharlotte.org/'>Jacob's Ladder</a><br><a href='http://www.uwcentralcarolinas.org/who-we-help/agency-list'>Agencies supported by United Way of Central Carolinas</a><br><a href='http://www.bls.gov/news.release/empsit.t04.htm/'>U.S. Bureau of Labor education statistics</a><br><a href='http://www.luminafoundation.org/publications/state_data/2012/North_Carolina-2012.pdf'>A Stronger Nation Through Higher Education</a><br><a href='http://www.indexmundi.com/facts/united-states/quick-facts/north-carolina/percent-of-people-25-years-and-over-with-high-school-degree-or-higher#map'>North Carolina Educational attainment - percent high school graduate or higher</a><br><a href='http://www.census.gov/compendia/statab/2012/tables/12s0233.pdf'>Educational Attainment by State</a><br><a href='http://www.higheredinfo.org/dbrowser/index.php?measure=93'>Educational Attainment by Degree-Level and Age-Group</a><br><a href='http://www.nd.edu/~jwarlick/documents/Levin_Belfield_Muennig_Rouse.pdf'>Benefits of education</a>",
         "style": {
             "units": "%",
-            "breaks": [],
-            "colors": []
+            "breaks": [
+                0,
+                5,
+                15
+            ],
+            "colors": [
+                "#DCF5E9",
+                "#76A882",
+                "#226633"
+            ]
         }
     },
     "k12": {
@@ -989,8 +1018,16 @@
         "links": "<a href='http://www.nche.com'>State requirements for home schooling</a><br><a href='http://www.cms.k12.nc.us/cmsdepartments/ec/Pages/HomeSchoolPrivateSchoolNotificationofServices'>Charlotte-Mecklenburg Schools services for home schooled children and parents</a><br><a href='http://www.urbanleaguecc.org/home/?page_id=1076'>After school computer literacy and technology programs</a><br><a href='http://nces.ed.gov/fastfacts/display.asp?id=91'>Fast Facts - Homeschooling</a><br><a href='http://www.census.gov/population/www/documentation/twps0053/twps0053.html'>Home Schooling in the United States</a>",
         "style": {
             "units": "%",
-            "breaks": [],
-            "colors": []
+            "breaks": [
+                0,
+                5,
+                20
+            ],
+            "colors": [
+                "#D8F2ED",
+                "#2ca79e",
+                "#154F4A"
+            ]
         }
     },
     "k13": {
@@ -1002,7 +1039,7 @@
         "importance": "Access to quality schools is important to family and neighborhood health.  Neighborhoods with schools that families choose to utilize have more opportunities to build strong community partnerships, strengthening student outcomes and experiences.",
         "source": "Charlotte-Mecklenburg Schools, school year 2010-2011.",
         "tech_notes": "The number of CMS students attending their home school in each NPA divided by the total number of CMS students in each NPA. NPAs with less than 5 students were coded as N/A. NPAs do not match and cover one or more school boundary. Data represented in this variable are based on students living within the NPA regardless of which school they attend.",
-        "links": "",
+        "links": "<a href='http://www.cms.k12.nc.us/cmsdepartments/StudentPlacement/Pages/BoundaryMaps.aspx'>Charlotte-Mecklenburg Schools Truancy Court</a>",
         "style": {
             "units": "%",
             "breaks": [
@@ -1026,7 +1063,7 @@
         "importance": "North Carolina State Children’s Health Choice is a program that provides health care for low-income children that do not qualify for Medicaid and who are not insured through a private healthcare provider. Parents report that the program helps make health services financially accessible to their children, enabling them to get needed physician's care, eyeglasses, or prescription drugs. According to the North Carolina Institute of Medicine, there were 1,046,396 children insured through public health insurance programs in 2010, a 24% increase from 2005.",
         "source": "Mecklenburg County Department of Social Services, September 2011.",
         "tech_notes": "The total juvenile population receiving NCHC for a Neighborhood Profile Areas (NPA) divided the total juvenile population for the NPA. Areas with less than 5 NCHC recipients are represented as N/A.",
-        "links": "<a href='http://www.ncdhhs.gov/dma/healthchoice'>NC Department of Health and Human Services</a><br><a href='http://www.adajenkins.org/health/'>Ada Jenkins Center</a><br><a href='http://www.careringnc.org/'>Care Ring</a><br><a href='http://www.cwwilliams.org/v5/index.php#info'>C.W. Williams Community Health Center</a><br><a href='http://charlottecommunityhealthclinic.org/'>Charlotte Community Health Clinic</a><br><a href='http://www.childcareresourcesinc.org/'>Childcare Resources</a><br><a href='http://www.medassist.org/'>NC MedAssist</a><br><a href='http://www.uwcentralcarolinas.org/who-we-help/agency-list'>Agencies supported by United Way of Central Carolinas</a><br><a href='http://www.mapprnet.org/'>Mecklenburg County resource portal for Latino populations</a><br><a href='http://www.nciom.org/wp-content/uploads/2011/11/2011-CHRC-FINAL.pdf'>North Carolina Child Health Report Card</a>",
+        "links": "<a href='http://www.ncdhhs.gov/dma/healthchoice'>NC Department of Health and Human Services</a><br><a href='http://www.adajenkins.org/health/'>Ada Jenkins Center</a><br><a href='http://www.careringnc.org/'>Care Ring</a><br><a href='http://www.cwwilliams.org/v5/index.php#info'>C.W. Williams Community Health Center</a><br><a href='http://charlottecommunityhealthclinic.org/'>Charlotte Community Health Clinic</a><br><a href='http://www.childcareresourcesinc.org/'>Childcare Resources</a><br><a href='http://www.medassist.org/'>NC MedAssist</a><br><a href='http://www.uwcentralcarolinas.org/who-we-help/agency-list'>Agencies supported by United Way of Central Carolinas</a><br><a href='http://www.nciom.org/wp-content/uploads/2011/11/2011-CHRC-FINAL.pdf'>North Carolina Child Health Report Card</a>",
         "style": {
             "units": "%",
             "breaks": [
@@ -1047,10 +1084,10 @@
         "category": "health",
         "title": "Births to Adolescents",
         "description": "Percentage of births to females under age 19 for each Neighborhood Profile Area (NPA).",
-        "importance": "While Births to Adolescents is a different measure than teen pregnancy, research shows that teenage pregnancy is associated with increased risk of poor social, economic and health outcomes for both mother and child. High rates of births to adolescents may influence trends in education variables (e.g., dropout rates, absences, etc.) and reflect accessibility issues with health education and health providers (location and affordability) as well as a number of other socioeconomic factors. According to the U.S. Department of Health and Human Services, North Carolina was ranked 34 out of 51 states and the District of Columbia on 2010 preliminary teen birth rates among females aged 15-19 (with 1 representing the lowest rate and 51 representing the highest rate).On a similar scale – where 1 is the lowest teen pregnancy rate and 51 is the highest – North Carolina was ranked 37 out of 51 states and the District of Columbia in pregnancies to females aged 15- 19 in 2005.",
+        "importance": "While Births to Adolescents is a different measure than teen pregnancy, research shows that teenage pregnancy is associated with increased risk of poor social, economic and health outcomes for both mother and child. High rates of births to adolescents may influence trends in education variables and reflect accessibility issues with health education and health providers as well as a number of other socioeconomic factors. According to the U.S. Department of Health and Human Services, North Carolina was ranked 34 out of 51 states and the District of Columbia on 2010 preliminary teen birth rates among females aged 15-19 (with 1 representing the lowest rate and 51 representing the highest rate). On a similar scale, North Carolina was ranked 37 out of 51 states and the District of Columbia in pregnancies to females aged 15-19 in 2005.",
         "source": "Mecklenburg County Health Department, 2009 and 2010.",
         "tech_notes": "Number of births to females under the age of 19 in 2009 and 2010 divided by all births in 2009 and 2010 for each Neighborhood Profile Areas (NPA). NPAs with less than 5 births are shown as N/A.",
-        "links": "<a href='http://www.teenpregnancy.ncdhhs.gov/app.htm'>NC Department of Health and Human Services</a><br><a href='http://www.fcsnc.org/'>Florence Crittenton Services of North Carolina</a><br><a href='http://www.levinechildrenshospital.org/body.cfm?id=604'>Levine Children's Hospital</a><br><a href='http://www.unitedfamilyservices.org/programdescriptions_outcomes.html'>United Family Services</a><br><a href='http://www.uwcentralcarolinas.org/who-we-help/agency-list'>Agencies supported by United Way of Central Carolinas</a><br><a href='http://www.ncdhhs.gov/dss/stats/'>Health statistics, surveys and publications for North Carolina</a><br><a href='http://www.mapprnet.org/'>Mecklenburg County resource portal for Latino populations</a>",
+        "links": "<a href='http://www.teenpregnancy.ncdhhs.gov/app.htm'>NC Department of Health and Human Services</a><br><a href='http://www.fcsnc.org/'>Florence Crittenton Services of North Carolina</a><br><a href='http://www.levinechildrenshospital.org/body.cfm?id=604'>Levine Children's Hospital</a><br><a href='http://www.safealliance.org/'>Safe Alliance</a><br><a href='http://www.uwcentralcarolinas.org/who-we-help/agency-list'>Agencies supported by United Way of Central Carolinas</a><br><a href='http://www.ncdhhs.gov/dss/stats/'>Health statistics, surveys and publications for North Carolina</a>",
         "style": {
             "units": "%",
             "breaks": [
@@ -1074,7 +1111,7 @@
         "importance": "Medicaid provides health coverage for low-income individuals and families.  High or increasing numbers of Medicaid recipients may be connected to other issues such as access to healthcare providers and usually reflects high unemployment or policy changes which expand eligibility. According to the North Carolina Department of Health and Human Services, a total of 1,726,412 individuals were eligible for Medicaid in 2008, approximately 19% of the state’s population.",
         "source": "Mecklenburg County Department of Social Services, September 2011.",
         "tech_notes": "The total population receiving Medicaid in a Neighborhood Profile Area (NPA) divided the total population of the NPA. Areas with less than 5 Medicaid recipients are represented as N/A.",
-        "links": "<a href='http://www.charmeck.org/mecklenburg/county/dss/esd/Pages/MedicaidChildrenFamilies'>Mecklenburg County Department of Social Services</a><br><a href='http://www.adajenkins.org/health/'>Ada Jenkins Center</a><br><a href='http://www.careringnc.org/'>Care Ring</a><br><a href='http://www.cwwilliams.org/v5/index.php#info'>C.W. Williams Community Health Center</a><br><a href='http://charlottecommunityhealthclinic.org/'>Charlotte Community Health Clinic</a><br><a href='http://www.medassist.org/'>NC MedAssist</a><br><a href='http://www.uwcentralcarolinas.org/who-we-help/agency-list'>Agencies supported by United Way of Central Carolinas</a><br><a href='http://www.mapprnet.org/'>Mecklenburg County resource portal for Latino populations</a>",
+        "links": "<a href='http://www.ncdhhs.gov/dma/healthchoice'>NC Department of Health and Human Services</a><br><a href='http://charmeck.org/mecklenburg/county/dss/Pages/Default.aspx'>Mecklenburg County Department of Social Services</a><br><a href='http://www.adajenkins.org/health/'>Ada Jenkins Center</a><br><a href='http://www.careringnc.org/'>Care Ring</a><br><a href='http://www.cwwilliams.org/v5/index.php#info'>C.W. Williams Community Health Center</a><br><a href='http://charlottecommunityhealthclinic.org/'>Charlotte Community Health Clinic</a><br><a href='http://www.medassist.org/'>NC MedAssist</a><br><a href='http://www.uwcentralcarolinas.org/who-we-help/agency-list'>Agencies supported by United Way of Central Carolinas</a>",
         "style": {
             "units": "%",
             "breaks": [
@@ -1098,7 +1135,7 @@
         "importance": "Knowing the average age of death is valuable in understanding the health of neighborhood residents.  A low average may be caused by a variety of reasons, including poor health behaviors (low physical activity, poor nutrition, tobacco and alcohol use, and high risk activities), lack of access to health care providers, environmental issues, traffic safety conditions, violent crime, and mental health problems. According to the Center for Disease Control more than 9,000 children died from injuries in the US in 2009. Car crashes, suffocation, drowning, poisoning, fires, and falls are some of the most common ways children are hurt or killed.",
         "source": "Mecklenburg County Health Department, 2009 and 2010",
         "tech_notes": "Summing the age of death for each Neighborhood Profile Area (NPA) divided by the total number of deaths for the NPA.",
-        "links": "<a href='http://www.arcmeck.org/family_support.html'>The Arc Of Mecklenburg County</a><br><a href='http://www.unitedfamilyservices.org/programdescriptions_outcomes.html'>United Family Services</a><br><a href='http://www.uwcentralcarolinas.org/who-we-help/agency-list'>Agencies supported by United Way of Central Carolinas</a><br><a href='http://charmeck.org/city/charlotte/Transportation/Traffic/Pages/home.aspx'>Charlotte Department of Transportation</a><br><a href='http://www.ncdhhs.gov/dss/stats/'>NC Department of Health and Human Services</a><br><a href='http://www.mapprnet.org/'>Mecklenburg County resource portal for Latino populations</a>",
+        "links": "<a href='http://www.arcmeck.org/family_support.html'>The Arc Of Mecklenburg County</a><br><a href='http://www.safealliance.org/'>Safe Alliance</a><br><a href='http://www.uwcentralcarolinas.org/who-we-help/agency-list'>Agencies supported by United Way of Central Carolinas</a><br><a href='http://charmeck.org/city/charlotte/Transportation/Traffic/Pages/home.aspx'>Charlotte Department of Transportation</a><br><a href='http://www.ncdhhs.gov/dss/stats/'>NC Department of Health and Human Services</a>",
         "style": {
             "breaks": [
                 0,
@@ -1119,9 +1156,9 @@
         "title": "Residents within ½ Mile of Medicaid Provider or Free Clinic",
         "description": "Percentage of residential housing units within ½ mile of Medicaid provider or free clinic for each Neighborhood Profile Area (NPA).",
         "importance": "This variable looks at the location of all healthcare providers including primary care, OB/GYN, internal medicine, and pediatrics and free health clinics within a neighborhood.  It does not take into account whether these providers have restrictions on persons they care for.  It is a way to analyze potential gaps in areas that may need certain types of health services.",
-        "source": "Mecklenburg County Department of Social Services, 2011  ",
+        "source": "Mecklenburg County Department of Social Services, 2011",
         "tech_notes": "The number of housing units with ½ mile of a health care provider or free clinic in a Neighborhood Profile Area (NPA) divided by the total number of housing units in an NPA.",
-        "links": "<a href='http://www.charmeck.org/mecklenburg/county/dss/esd/Pages/MedicaidChildrenFamilies'>Mecklenburg County Department of Social Services</a><br><a href='http://www.adajenkins.org/health/'>Ada Jenkins Center</a><br><a href='http://www.careringnc.org/'>Care Ring</a><br><a href='http://www.cwwilliams.org/v5/index.php#info'>C.W. Williams Community Health Center</a><br><a href='http://charlottecommunityhealthclinic.org/'>Charlotte Community Health Clinic</a><br><a href='http://www.medassist.org/'>NC MedAssist</a><br><a href='http://www.uwcentralcarolinas.org/who-we-help/agency-list'>Agencies supported by United Way of Central Carolinas</a><br><a href='http://www.mapprnet.org/'>Mecklenburg County resource portal for Latino populations</a>",
+        "links": "<a href='http://charmeck.org/mecklenburg/county/dss/Pages/Default.aspx'>Mecklenburg County Department of Social Services</a><br><a href='http://www.adajenkins.org/health/'>Ada Jenkins Center</a><br><a href='http://www.careringnc.org/'>Care Ring</a><br><a href='http://www.cwwilliams.org/v5/index.php#info'>C.W. Williams Community Health Center</a><br><a href='http://charlottecommunityhealthclinic.org/'>Charlotte Community Health Clinic</a><br><a href='http://www.medassist.org/'>NC MedAssist</a><br><a href='http://www.uwcentralcarolinas.org/who-we-help/agency-list'>Agencies supported by United Way of Central Carolinas</a>",
         "style": {
             "units": "%",
             "breaks": [
@@ -1145,7 +1182,7 @@
         "importance": "Chain groceries are one measure of access to healthy foods as they offer fresh meat, dairy and produce in one location. National studies report the presence of affordable fresh food in a community has the potential to improve residents’ nutrition and overall health.",
         "source": "Chain grocery store addresses, 2012.",
         "tech_notes": "The number of housing units with ½ mile of a chain grocery story in a Neighborhood Profile Area (NPA) divided by the total number of housing units in a NPA. Does not include non-full service stores (e.g. convenience stores), farmer’s markets or food delivery services.",
-        "links": "<a href='http://www.charmeck.org/mecklenburg/county/dss/esd/Pages/FoodandNutrition'>Mecklenburg County Food and Nutrition Services Program</a><br><a href='http://charlottegreen.org/history.htm'>Charlotte Green</a><br><a href='http://charmeck.org/city/charlotte/nbs/kcb/Pages/HowDoesYourGardenGROGrant.aspx'>City of Charlotte</a><br><a href='http://charmeck.org/mecklenburg/county/parkandrec/facilities/pages/community%20gardens.aspx'>Mecklenburg County Park and Recreation</a><br><a href='http://ui.uncc.edu/story/mecklenburg-food-assessment-phase-2-results'>UNCC food service assessment report</a><br><a href='http://www.mapprnet.org/'>Mecklenburg County resource portal for Latino populations</a>",
+        "links": "<a href='http://charmeck.org/mecklenburg/county/dss/esd/Pages/FoodandNutrition.aspx'>Mecklenburg County Food and Nutrition Services Program</a><br><a href='http://charlottegreen.org/history.htm'>Charlotte Green Garden Program</a><br><a href='http://charmeck.org/city/charlotte/nbs/kcb/Pages/HowDoesYourGardenGROGrant.aspx'>How Does Your Garden G.R.O Grant</a><br><a href='http://charmeck.org/mecklenburg/county/parkandrec/facilities/pages/community%20gardens.aspx'>Mecklenburg County Park and Recreation</a><br><a href='http://ui.uncc.edu/story/mecklenburg-food-assessment-phase-2-results'>UNCC food service assessment report</a>",
         "style": {
             "units": "%",
             "breaks": [
@@ -1169,7 +1206,7 @@
         "importance": "Recreational facilities provide opportunities for physical activity and social interaction, both key components of good physical and mental health.",
         "source": "Mecklenburg County Parks and Recreation, Towns of Davidson, Cornelius, Huntersville, Pineville, Matthews and Mint Hill, 2012.",
         "tech_notes": "The number of housing units with ½ mile of a public outdoor recreation area in a Neighborhood Profile Area (NPA) divided by the total number of housing units in an NPA. Recreation areas include those maintained by Mecklenburg County Parks and Recreation, Town Parks and Charlotte Mecklenburg Schools, including parks, greenways, and boat landings. ",
-        "links": "<a href='http://charmeck.org/mecklenburg/county/ParkandRec/Parks/ParkPlanning/Pages/10YrPlan.aspx'>Mecklenburg County Park and Recreation Master Plan</a><br><a href='http://www.ymcacharlotte.org/'>YMCA of Greater Charlotte</a><br><a href='http://www.ywcacentralcarolinas.org/'>YWCA of Greater Charlotte</a><br><a href='http://www.mapprnet.org/'>Mecklenburg County resource portal for Latino populations</a>",
+        "links": "<a href='http://charmeck.org/mecklenburg/county/ParkandRec/Parks/ParkPlanning/Pages/10YrPlan.aspx'>Mecklenburg County Park and Recreation Master Plan</a><br><a href='http://www.ymcacharlotte.org/'>YMCA of Greater Charlotte</a><br><a href='http://www.ywcacentralcarolinas.org/'>YWCA of Greater Charlotte</a>",
         "style": {
             "units": "%",
             "breaks": [
@@ -1193,7 +1230,7 @@
         "importance": "Prescription drugs allow large numbers of people to control chronic disease and disability. Easy access is a major factor in compliance along with affordable cost.  Pharmacists are an ‘in-the-community’ resource for health information and many pharmacists now offer acute care health clinics as well.",
         "source": "North Carolina Board of Pharmacy, 2012.",
         "tech_notes": "The number of housing units with ½ mile of a pharmacy in a NPA divided by the total number of housing units in an NPA.",
-        "links": "",
+        "links": "<a href='http://www.ncdhhs.gov/dma/healthchoice'>NC Department of Health and Human Services</a><br><a href='http://charmeck.org/mecklenburg/county/dss/Pages/Default.aspx'>Mecklenburg County Department of Social Services</a><br><a href='http://www.adajenkins.org/health/'>Ada Jenkins Center</a><br><a href='http://www.careringnc.org/'>Care Ring</a><br><a href='http://www.cwwilliams.org/v5/index.php#info'>C.W. Williams Community Health Center</a><br><a href='http://charlottecommunityhealthclinic.org/'>Charlotte Community Health Clinic</a><br><a href='http://www.medassist.org/'>NC MedAssist</a><br><a href='http://www.uwcentralcarolinas.org/who-we-help/agency-list'>Agencies supported by United Way of Central Carolinas</a>",
         "style": {
             "units": "%",
             "breaks": [
@@ -1379,11 +1416,11 @@
         "importance": "Higher increases in value indicate a market that values a neighborhood’s amenities, while decreasing values may indicate some level of neighborhood distress.  High increases rewards homeowners with increased equity and wealth, but can also make it challenging for those with fixed or limited incomes to remain in place.",
         "source": "Mecklenburg County Tax Parcels as of April 2012",
         "tech_notes": "The total assessed value for residential housing units in 2011 minus the total assessed value for residential housing units in 2003 divided by the total assessed value for residential housing units in 2003 for each Neighborhood Profile Area (NPA). NPAs with less than 5 qualifying properties were classified as N/A. Residential housing units include condominiums, single-family detached units and townhouses. Pearson’s Appraisal Service identified that some neighborhoods needed to be reassessed. Based on these findings, the County will reassess the value of property in complex areas, particularly pre-1980 heterogeneous neighborhoods, to ensure equity which may change the values represented in this variable.",
-        "links": "<a href='http://charmeck.org/mecklenburg/county/AssessorsOffice/Appeals/Pages/default.aspx'>Mecklenburg County property revaluation process</a><br><a href='http://charmeck.org/mecklenburg/county/AssessorsOffice/Pages/Tax%20Relief.asp'>Am I eligible for tax relief on my home?</a><br><a href='http://meckcama.co.mecklenburg.nc.us/relookup/'>Mecklenburg County real estate database</a><br><a href='http://factfinder2.census.gov/faces/tableservices/jsf/pages/productview.xhtml?src=bkmk'>North Carolina housing statistics</a>",
+        "links": "<a href='http://charmeck.org/mecklenburg/county/AssessorsOffice/Appeals/Pages/default.aspx'>Mecklenburg County property revaluation process</a><br><a href='http://meckcama.co.mecklenburg.nc.us/relookup/'>Mecklenburg County real estate database</a>",
         "style": {
             "units": "%",
             "breaks": [
-                -100,
+                -10,
                 -2.4,
                 0,
                 2.5,
@@ -1476,13 +1513,17 @@
         "category": "housing",
         "title": "Subsidized Housing Units",
         "description": "Percentage of all subsidized housing units for each Neighborhood Profile Area (NPA).",
-        "importance": "Identifying the location of subsidized units allows housing providers to develop implementation plans based on local and federal housing policies.  It also allows residents understand the types of housing choices that are present in their community. According to the U.S. Department of Housing and Urban Development, concentrating assisted-housing for low- and very low-income Americans in dense, urban areas is not an effective use of scarce affordable housing resources. Mixed-income development, which may include units for lower income residents, has become a popular housing solution by creating diverse communities and decentralizing poverty.",
+        "importance": "Identifying the location of subsidized units allows housing providers to develop implementation plans and residents to understand the types of housing choices that are present in their community. Concentrating assisted-housing for low and very low-income Americans in dense, urban areas is not an effective use of scarce affordable housing resources (USHUD). Mixed-income development has become a popular housing solution by creating diverse communities and decentralizing poverty.",
         "source": "Charlotte-Housing Authority, Housing and Urban Development, Charlotte-Mecklenburg Housing Partnership, Habitat for Humanity, 2010.",
-        "tech_notes": "The number of subsidized housing for each neighborhood Profile Area (NPA) divided by the total number of housing units for each NPA.Subsidized housing includes single-family, condominiums and townhouses and multi-family housing. The data provided for NPAs within the City of Charlotte include but are not limited to subsidized units that are defined in the Housing Locational Policy. Although most subsidized housing units are multi‐family, the data and information available to distinguish between the two housing types is not reliable. The definition of subsidized housing varies depending on the municipality.",
+        "tech_notes": "The number of subsidized housing for each neighborhood Profile Area (NPA) divided by the total number of housing units for each NPA. Subsidized housing includes single-family, condominiums and townhouses and multi-family housing. Although most subsidized housing units are multi‐family, the data and information available to distinguish between the two housing types is not reliable. The definition of subsidized housing varies depending on the municipality.",
         "links": "<a href='http://www.buildersofhope.org'>Builders of Hope</a><br><a href='http://www.cha-nc.org/'>Charlotte Housing Authority</a><br><a href='http://www.cmhp.org'>Charlotte Mecklenburg Housing Partnership</a><br><a href='http://www.habitatcharlotte.org'>Habitat for Humanity</a><br><a href='http://www.self-help.org/building-communities'>Self Help Credit Union</a><br><a href='http://charmeck.org/city/charlotte/nbs/housing/Pages/CityHousingPrograms.aspx'>City of Charlotte Housing Services Housing programs and services</a><br><a href='http://charmeck.org/city/charlotte/nbs/housing/Pages/CityHousingPolicy.aspx'>City of Charlotte's Housing Locational Policy</a>",
         "style": {
             "units": "%",
-            "breaks": [],
+            "breaks": [
+                0,
+                20,
+                50
+            ],
             "colors": [
                 "#D8F2ED",
                 "#2ca79e",
@@ -1498,11 +1539,15 @@
         "description": "Median gross rent of all housing units for each Neighborhood Profile Area (NPA).",
         "importance": "Quantifying housing affordability by median rental cost provides an indication of the overall value of residential property, amenities in the surrounding area or types of adjacent land uses among other related variables. Neighborhoods with rental costs below area averages do not always indicate a lower quality of living.  Other factors to consider in lower rents are the average size of housing units, location, housing design, and supply of housing in the area.",
         "source": "American Community Survey, 2006 to 2010.  The data is a five year sample for the years 2006 to 2010.",
-        "tech_notes": "The median gross rent of all housing units for each Neighborhood Profile Area (NPA).   Gross rent is the contract rent plus the estimated average monthly cost of utilities (electricity, gas, and water and sewer) and fuels (oil, coal, kerosene, wood, etc.) if these are paid by the renter (or paid for the renter by someone else).N/A includes only NPAs with less than 50 rental units. Rent cost is inflation adjusted to 2010.",
+        "tech_notes": "The median gross rent of all housing units for each Neighborhood Profile Area (NPA).   Gross rent is the contract rent plus the estimated average monthly cost of utilities (electricity, gas, and water and sewer) and fuels (oil, coal, kerosene, wood, etc.) if these are paid by the renter (or paid for the renter by someone else).N/A includes only NPAs with less than 50 rental units in the sample. Rent cost is inflation adjusted to 2010.",
         "links": "<a href='http://www.buildersofhope.org'>Builders of Hope</a><br><a href='http://www.cha-nc.org/'>Charlotte Housing Authority</a><br><a href='http://www.cmhp.org'>Charlotte Mecklenburg Housing Partnership</a><br><a href='http://www.ourtownshabitat.org/our_towns_habitat_for_humanity.html'>Habitat for Humanity</a><br><a href='http://www.self-help.org/building-communities'>Self Help Credit Union</a><br><a href='http://charmeck.org/city/charlotte/nbs/housing/Pages/CityHousingPrograms.aspx'>City of Charlotte housing services</a><br><a href='http://www.ywcacentralcarolinas.org/programs/women-in-transition-wit'>YWCA</a><br><a href='http://hopehaven.org/Adult_Living_Services_-_Hope_Haven'>Hope Haven</a><br><a href='http://www.mensshelterofcharlotte.org/'>Charlotte Men's Shelter</a>",
         "style": {
             "units": "$",
-            "breaks": [],
+            "breaks": [
+                0,
+                750,
+                1050
+            ],
             "colors": [
                 "#D8F2ED",
                 "#2ca79e",
@@ -1608,7 +1653,7 @@
         "importance": "Transportation alternatives offer mobility options for residents of all ages and income levels and can help bridge the spatial divide between people and jobs, services, and training opportunities.",
         "source": "American Community Survey, 2006-2010.  The data is a five year sample for the years 2006 to 2010.",
         "tech_notes": "The number of commuters 16 years and older who report that they commute to work by driving alone divided by the total number of commuters 16 years and older.",
-        "links": "<a href='http://charmeck.org/city/charlotte/cats/Bus/Pages/mobileapp.aspx'>CATS/LYNX I-Phone App</a><br><a href='http://charmeck.org/city/charlotte/cats/Pages/default.aspx'>CATS Transit Schedules and Trip Planner</a><br><a href='http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.asp'>Carpooling Program</a><br><a href='http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/default.aspx'>Employee Transportation Coordinator</a><br><a href='http://bike.charmeck.org'>Charlotte Bicycle Program</a><br><a href='http://www.minthill.com/index.aspx?nid=85'>Mint Hill</a><br><a href='http://groups.google.com/group/bikementor'>Charlotte Bicycle Mentor Program</a><br><a href='http://charmeck.org/city/charlotte/Transportation/Parking/Pages/Park%20It.aspx'>Parking Information</a>",
+        "links": "<a href='http://charmeck.org/city/charlotte/cats/Bus/Pages/mobileapp.aspx'>CATS/LYNX I-Phone App</a><br><a href='http://charmeck.org/city/charlotte/cats/Pages/default.aspx'>CATS Transit Schedules and Trip Planner</a><br><a href='http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.asp'>Carpooling Program</a><br><a href='http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/default.aspx'>Employee Transportation Coordinator</a><br><a href='http://bike.charmeck.org'>Charlotte Bicycle Program</a><br><a href='http://groups.google.com/group/bikementor'>Charlotte Bicycle Mentor Program</a><br><a href='http://charmeck.org/city/charlotte/Transportation/Parking/Pages/Park%20It.aspx'>Parking Information</a>",
         "style": {
             "units": "%",
             "breaks": [
@@ -1842,7 +1887,11 @@
         "tech_notes": "Calculated by adding the tonnage of residential recycled waste and residential yard waste divided by the tonnage of residential solid waste collected including tonnage of residential garbage, recycling, yard waste and non-recyclable bulky item pickup for the period between July 2011 and June 2012. Only includes data for single family residential units (attached and detached) and multi-family residences with less than 30 units and any additional legacy multi-family dwellings. Does not include information from all apartment complexes.",
         "links": "<a href='http://charmeck.org/mecklenburg/county/SolidWaste/homecomposting/Pages/YardWasteFacilities.aspx'>Yard Waste Drop Off Locations</a><br><a href='http://charmeck.org/mecklenburg/county/SolidWaste/RecyclingDropOffCenters/Pages/default.aspx'>Recycling Center Locations</a><br><a href='http://charmeck.org/mecklenburg/county/SolidWaste/SchoolandKidsRecycleCorner/Pages/RecyclingFundraiserPrograms.aspx’>Recycling Fundraiser Programs</a><br><a href='http://maps.co.mecklenburg.nc.us/website/recyclecenters/'>Recycling Center Locator Map</a><br><a href='http://www.catalogchoice.org/communities'>Catalog Choice</a>",
         "style": {
-            "breaks": [],
+            "breaks": [
+                0,
+                30,
+                40
+            ],
             "colors": [
                 "#D8F2ED",
                 "#2ca79e",

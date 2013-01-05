@@ -16,7 +16,7 @@ $(document).ready(function() {
 
     // Load JSON metric configuration
     $.ajax({
-        url: "js/metrics.json?V=14",
+        url: "js/metrics.json?V=16",
         dataType: "json",
         async: false,
         success: function(data){
@@ -26,7 +26,7 @@ $(document).ready(function() {
 
     // Grab NPA JSON
     $.ajax({
-        url: "js/npa.json?V=14",
+        url: "js/npa.json?V=16",
         dataType: "json",
         type: "GET",
         async: false,
@@ -38,20 +38,20 @@ $(document).ready(function() {
     // Placeholder
     $('input, textarea').placeholder();
 
-    // Add metrics to sidebar and report list
+     // Add metrics to sidebar and report list
     $.each(FTmeta, function(index) {
         if (this.style.breaks.length > 0) {
-            $('p[data-group=' + this.category + ']').append('<li><a href="javascript:void(0)" class="measure-link" data-measure="' + this.field + '">' + this.title + ' <i></i></a></li>');
-            $('optgroup[label=' + this.category.toProperCase() + ']').append('<option value="' + this.field + '">' + this.title + '</option>');
+            $('.sidenav p[data-group=' + this.category + ']').append('<li><a href="javascript:void(0)" class="measure-link" data-measure="' + this.field + '">' + this.title + ' <i></i></a></li>');
+            $('#modalReport optgroup[label=' + this.category.toProperCase() + ']').append('<option value="' + this.field + '">' + this.title + '</option>');
         }
     });
 
     // sort metrics
     $(".sidenav p").each(function() {
-        $("li", this).sort(asc_sort).appendTo(this);
+        $("li", this).tsort();
     });
     $("#modalReport optgroup").each(function() {
-        $("option", this).sort(asc_sort).appendTo(this);
+        $("option", this).tsort();
     });
 
     // report optgroup click

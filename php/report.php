@@ -172,7 +172,7 @@ function createMeasure($x, $y, $themeasure) {
     $pdf->Write(0, "What is this Indicator?");
     $pdf->Ln(0.1);
     $pdf->SetX($x);
-    $pdf->SetFont('Arial','',10);
+    $pdf->SetFont('Arial','',9);
     $pdf->MultiCell(3.5, 0.15, utf8_decode(strip_tags($json[$themeasure][description])), 0, "L");
 
     // why it's important
@@ -182,7 +182,7 @@ function createMeasure($x, $y, $themeasure) {
     $pdf->Write(0, "Why is this Important?");
     $pdf->Ln(0.1);
     $pdf->SetX($x);
-    $pdf->SetFont('Arial','',10);
+    $pdf->SetFont('Arial','',9);
     $pdf->MultiCell(3.5, 0.15, utf8_decode(strip_tags($json[$themeasure][importance])), 0, "L");
 
     // about the data
@@ -192,7 +192,7 @@ function createMeasure($x, $y, $themeasure) {
     $pdf->Write(0, "About the Data");
     $pdf->Ln(0.1);
     $pdf->SetX($x);
-    $pdf->SetFont('Arial','',10);
+    $pdf->SetFont('Arial','',9);
     $pdf->MultiCell(3.5, 0.15, utf8_decode(strip_tags($json[$themeasure][tech_notes])) . "\n\n". utf8_decode(strip_tags($json[$themeasure][source])), 0, "L");
 }
 

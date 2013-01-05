@@ -1,7 +1,7 @@
 Quality of Life Dashboard
 =================
 
-A joint project between the City of Charlotte, Mecklenburg County, and UNCC. Currently in beta testing, the site is scheduled for launch on January 8, 2013. 
+A joint project between the City of Charlotte, Mecklenburg County, and UNCC. Currently in beta testing, the site is scheduled for launch on January 8, 2013. You can see the live site [here](http://maps.co.mecklenburg.nc.us/qoldashboard).
 
 Features include:
 + Interactive map with hover information about features and on-the-fly choropleth maps.
@@ -18,4 +18,4 @@ Built using the following awesome open source libraries:
 + [Leaflet](http://leafletjs.com/)
 + [FPDF](http://www.fpdf.org/)
 
-It also leverages the [Google Chart Tools](https://developers.google.com/chart/) for charts.
+It also leverages [Google Chart Tools](https://developers.google.com/chart/) for charts.

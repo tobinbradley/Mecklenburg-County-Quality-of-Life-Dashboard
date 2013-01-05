@@ -4,6 +4,7 @@
     // ini_set("SMTP","your_server");
     // ini_set("smtp_port","25");
     // ini_set("sendmail_from","email_address");
+    // $to = "email@company.com";
     include "inc.feedback.php";
 
     // Get referrer and browser arguments
@@ -15,7 +16,6 @@
     $url = trim($_REQUEST['inputURL']);
     $comment = trim($_REQUEST['inputFeedback']);
 
-    $to = "tobin.bradley@mecklenburgcountync.gov";
     $subject = "QOL Dashboard Feedback";
 
     $message = "From: " . $name . " <" . $email . ">\n";
