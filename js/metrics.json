@@ -8,7 +8,7 @@
         "importance": "Total population is a baseline measure that indicates the number of people living in an NPA.   It is used to calculate density, and other per capita data.Trends in population show where the community is growing and where it is decreasing, which can help the City, County and Towns as well as other services providers know where infrastructure and other services may be needed.The 2010 Census reported 308.7 million people in the United States, a 9.7 percent increase from the Census 2000 population of 281.4 million.",
         "tech_notes": "Provides the population based on the 2010 Census for each NPA using Block Group geography. Census block groups are the second smallest unit of measure used in the decennial Census. Only the census block is smaller. A block group is a cluster of census blocks within the same census tract. The average block group contains 39 blocks comprising between 600 and 3,000 people, with an optimum size of 1,500 people.",
         "source": "U.S. Census, 2010",
-        "links": "<a href='http://2010.census.gov/2010census/'>National population statistics</a><br><a href='http://charmeck.org/city/charlotte/growthstrategy/Pages/default.aspx'>Charlotte-Mecklenburg's growth strategy</a>",
+        "links": "<a href='http://www.census.gov/2010census/data/'>2010 U.S. Census</a><br><a href='http://charmeck.org/city/charlotte/growthstrategy/Pages/default.aspx'>Charlotte-Mecklenburg's growth strategy</a>",
         "style": {
             "breaks": [
                 0,
@@ -31,7 +31,7 @@
         "importance": "The median age of residents in a Neighborhood Profile Area (NPA) provides an indication of its character, including the resources and the services it may need. For example, an NPA with aging residents may need services or housing to help residents age in place.  In contrast, a younger population could need help with educational or employment resources. According to the U.S. 2010 census the median age in North Carolina is 37.4.",
         "tech_notes": "The median age of residents for each NPA using Block Group geography. Census block groups are the second smallest unit of measure used in the decennial Census. Only the census block is smaller. A block group is a cluster of census blocks within the same census tract. The average block group contains 39 blocks comprising between 600 and 3,000 people, with an optimum size of 1,500 people.",
         "source": "American Community Survey, 2006-2010. The data is a five year sample for the years 2006 to 2010.",
-        "links": "<a href='http://www.census.gov/people/'>National population statistics</a><br><a href='http://www.census.gov/acs/www/'>American Community Survey</a>",
+        "links": "<a href='http://www.census.gov/acs/www/'>American Community Survey</a>",
         "style": {
             "breaks": [
                 0,
@@ -54,7 +54,7 @@
         "importance": "The size of a NPA is best used as a profile variable for analysis with population, density, and land use data.",
         "tech_notes": "The size of each NPA is calculated using ArcGIS, a geographic information system for working with maps and geographic information. ArcGIS is used for: creating and using maps; compiling geographic data; analyzing mapped information; sharing and discovering geographic information; using maps and geographic information in a range of applications; and managing geographic information in a database.",
         "source": "UNC Charlotte Metropolitan Studies, 2011.",
-        "links": "Future land use plans in Charlotte-Mecklenburg: <a href='http://www.charlotteplanning.org'>Charlotte</a><br><a href='http://www.ci.davidson.nc.us/index.aspx?nid=68'>Davidson</a><br><a href='http://www.huntersville.org/Departments/Planning.aspx'>Huntersville</a><br><a href='http://matthewsnc.gov/Departments/PlanningandDevelopment.aspx'>Matthews</a><br><a href='http://www.minthill.com/index.aspx?nid=85'>Mint Hill</a><br><a href='http://townofpineville.com/town-departments/planning-and-zoning/'>Pineville</a>",
+        "links": "Future land use plans in Charlotte-Mecklenburg: <a href='http://www.charlotteplanning.org'>Charlotte</a><br><a href='http://www.ci.davidson.nc.us/index.aspx?nid=68'>Davidson</a><br><a href='http://www.cornelius.org/index.aspx?nid=175'>Cornelius</a><br><a href='http://www.huntersville.org/Departments/Planning.aspx'>Huntersville</a><br><a href='http://matthewsnc.gov/Departments/PlanningandDevelopment.aspx'>Matthews</a><br><a href='http://www.minthill.com/index.aspx?nid=85'>Mint Hill</a><br><a href='http://townofpineville.com/town-departments/planning-and-zoning/'>Pineville</a>",
         "style": {
             "breaks": [
                 0,
@@ -77,7 +77,7 @@
         "importance": "Calculating the percentage of developed land is useful when compared to the type and density of uses that exist in a neighborhood for future land use planning.",
         "tech_notes": "Tax parcel areas regardless of size with a structure of any kind that is taxable are summarized to the NPA geography and divided by the land area of the NPA. Infrastructure development is not included. Any tax parcel regardless of zoning with a structure that is taxed is considered developed. Data does not represent impervious surface or metric used for environmental measures.",
         "source": "Charlotte-Mecklenburg Planning Department",
-        "links": "Future land use plans in Charlotte-Mecklenburg: <a href='http://www.charlotteplanning.org'>Charlotte</a><br><a href='http://www.ci.davidson.nc.us/index.aspx?nid=68'>Davidson</a><br><a href=http://www.huntersville.org/Departments/Planning.aspx>Huntersville</a><br><a href='http://matthewsnc.gov/Departments/PlanningandDevelopment.aspx'>Matthews</a><br><a href='http://www.minthill.com/index.aspx?nid=85'>Mint Hill</a><br><a href='http://townofpineville.com/town-departments/planning-and-zoning/'>Pineville</a>",
+        "links": "Future land use plans in Charlotte-Mecklenburg: <a href='http://www.charlotteplanning.org'>Charlotte</a><br><a href='http://www.ci.davidson.nc.us/index.aspx?nid=68'>Davidson</a><br><a href='http://www.cornelius.org/index.aspx?nid=175'>Cornelius</a><br><a href=http://www.huntersville.org/Departments/Planning.aspx>Huntersville</a><br><a href='http://matthewsnc.gov/Departments/PlanningandDevelopment.aspx'>Matthews</a><br><a href='http://www.minthill.com/index.aspx?nid=85'>Mint Hill</a><br><a href='http://townofpineville.com/town-departments/planning-and-zoning/'>Pineville</a>",
         "style": {
             "units": "%",
             "breaks": [
@@ -101,7 +101,7 @@
         "importance": "Calculating housing residential density provides an indication of the residential character of a neighborhood.  Lower housing unit density is typified by larger lots in a suburban development pattern while higher density neighborhoods have smaller lots.  Residential density is not directly related to house size. ",
         "tech_notes": "The number of housing units for each Neighborhood Profile Area divided by the number of land acres.",
         "source": "Mecklenburg County Tax Parcels, 2011.",
-        "links": "Future land use plans in Charlotte-Mecklenburg: <a href='http://www.charlotteplanning.org'>Charlotte</a><br><a href='http://www.ci.davidson.nc.us'>Davidson</a><br><a href='Huntersville'>Huntersville</a><br><a href='http://www.matthewsnc.com/Departments/PlanningandDevelopment.aspx'>Matthews</a><br><a href='http://www.minthill.com/index.aspx?nid=85'>Mint Hill</a><br><a href='http://www.pinevillenc.net/town-department/town-planning'>Pineville</a>",
+        "links": "Future land use plans in Charlotte-Mecklenburg: <a href='http://www.charlotteplanning.org'>Charlotte</a><br><a href='http://www.ci.davidson.nc.us'>Davidson</a><br><a href='http://www.cornelius.org/index.aspx?nid=175'>Cornelius</a><br><a href='Huntersville'>Huntersville</a><br><a href='http://www.matthewsnc.com/Departments/PlanningandDevelopment.aspx'>Matthews</a><br><a href='http://www.minthill.com/index.aspx?nid=85'>Mint Hill</a><br><a href='http://www.pinevillenc.net/town-department/town-planning'>Pineville</a>",
         "style": {
             "breaks": [
                 0,
@@ -124,7 +124,7 @@
         "importance": "National surveys have shown trends in how people choose to live.  An upward trend shows people choosing to live where they have access to basic services such as retail, parks, employment, and educational services. Living close to these types of services can save people money by being located close to compatible uses.  This living pattern also reduces auto useage and negative environmental impacts. However, although a high number of uses reflects greater land use diversity in a specific area, a low number does not  necessarily equate to a less desirable living environment.  Some areas have a low density, rural or suburban character that, in some cases, should remain unchanged.  This development pattern also has environmental benefits which could lead to healthier lifestyles.",
         "tech_notes": "",
         "source": "Various",
-        "links": "Future land use plans in Charlotte-Mecklenburg: <a href='http://www.charlotteplanning.org'>Charlotte</a><br><a href='http://www.ci.davidson.nc.us'>Davidson</a><br><a href='Huntersville'>http://www.huntersville.org/Departments/Planning.aspx</a><br><a href='http://www.matthewsnc.com/Departments/PlanningandDevelopment.aspx'>Matthews</a><br><a href='http://www.minthill.com/index.aspx?nid=85'>Mint Hill</a><br><a href='http://www.pinevillenc.net/town-department/town-planning'>Pineville</a>",
+        "links": "Future land use plans in Charlotte-Mecklenburg: <a href='http://www.charlotteplanning.org'>Charlotte</a><br><a href='http://www.ci.davidson.nc.us'>Davidson</a><br><a href='http://www.cornelius.org/index.aspx?nid=175'>Cornelius</a><br><a href='Huntersville'>http://www.huntersville.org/Departments/Planning.aspx</a><br><a href='http://www.matthewsnc.com/Departments/PlanningandDevelopment.aspx'>Matthews</a><br><a href='http://www.minthill.com/index.aspx?nid=85'>Mint Hill</a><br><a href='http://www.pinevillenc.net/town-department/town-planning'>Pineville</a>",
         "style": {
             "units": "%",
             "breaks": [],
@@ -161,10 +161,10 @@
         "category": "character",
         "title": "Race - White or Caucasian",
         "description": "Percentage of Neighborhood Profile Area (NPA) population self-identified as White or Caucasian population.",
-        "importance": "",
+        "importance": "Information on race is required for many Federal programs and is critical in making policy decisions, particularly for civil rights. Race data also are used to promote equal employment opportunities and to assess racial disparities in health and environmental risks.<a href='http://www.census.gov/population/race/about/faq.html'>U.S. Census</a>",
         "tech_notes": "White or Caucasian population divided by the total population.",
         "source": "U.S. Census, 2010",
-        "links": "",
+        "links": "<a href='http://www.census.gov/2010census/data/'>2010 U.S. Census</a>",
         "style": {
             "units": "%",
             "breaks": [
@@ -185,10 +185,10 @@
         "category": "character",
         "title": "Race - Black or African American",
         "description": "Percentage of Neighborhood Profile Area (NPA) population self-identified as Black or African American.",
-        "importance": "",
+        "importance": "Information on race is required for many Federal programs and is critical in making policy decisions, particularly for civil rights. Race data also are used to promote equal employment opportunities and to assess racial disparities in health and environmental risks.<a href='http://www.census.gov/population/race/about/faq.html'>U.S. Census</a>",
         "tech_notes": "Black or African American population divided by the total population.",
         "source": "U.S. Census, 2010",
-        "links": "",
+        "links": "<a href='http://www.census.gov/2010census/data/'>2010 U.S. Census</a>",
         "style": {
             "units": "%",
             "breaks": [
@@ -209,10 +209,10 @@
         "category": "character",
         "title": "Race - Asian",
         "description": "Percentage of Neighborhood Profile Area (NPA) population self-identified as Asian.",
-        "importance": "",
+        "importance": "Information on race is required for many Federal programs and is critical in making policy decisions, particularly for civil rights. Race data also are used to promote equal employment opportunities and to assess racial disparities in health and environmental risks.<a href='http://www.census.gov/population/race/about/faq.html'>U.S. Census</a>",
         "tech_notes": "Asian population divided by the total population.",
         "source": "U.S. Census, 2010",
-        "links": "",
+        "links": "<a href='http://www.census.gov/2010census/data/'>2010 U.S. Census</a>",
         "style": {
             "units": "%",
             "breaks": [
@@ -233,10 +233,10 @@
         "category": "character",
         "title": "Race - Some Other Race",
         "description": "Percentage of Neighborhood Profile Area (NPA) population self-identified as Some Other Race.",
-        "importance": "",
+        "importance": "Information on race is required for many Federal programs and is critical in making policy decisions, particularly for civil rights. Race data also are used to promote equal employment opportunities and to assess racial disparities in health and environmental risks.<a href='http://www.census.gov/population/race/about/faq.html'>U.S. Census</a>",
         "tech_notes": "Some Other Race population divided by the total population.",
         "source": "U.S. Census, 2010",
-        "links": "",
+        "links": "<a href='http://www.census.gov/2010census/data/'>2010 U.S. Census</a>",
         "style": {
             "units": "%",
             "breaks": [
@@ -256,11 +256,11 @@
         "field": "p12",
         "category": "character",
         "title": "Population in Group Quarters",
-        "description": "Percentage of Neighborhood Profile Area (NPA) population living in group quarters",
-        "importance": "",
+        "description": "Percentage of Neighborhood Profile Area (NPA) population living in Group Quarters",
+        "importance": "Group Quarters are places where people live or stay, in a group living arrangement that is owned or managed by an entity or organization providing housing and/or services for the residents. These services may include custodial or medical care, as well as other types of assistance, and residency is commonly restricted to those receiving these services. People living in GQs usually are not related to each other. Group Quarters include such places as college residence halls, residential treatment centers,skilled nursing facilities, group homes, military barracks, correctional facilities, workers’ dormitories, and facilities for people experiencing homelessness.<a href='http://www.census.gov/acs/www/Downloads/survey_methodology/acs_design_methodology_ch08.pdf'>U.S. Census</a>",
         "tech_notes": "Population living in group quarters divided by the total population.",
         "source": "U.S. Census, 2010",
-        "links": "",
+        "links": "<a href='http://www.census.gov/acs/www/Downloads/survey_methodology/acs_design_methodology_ch08.pdf'>U.S. Census</a>",
         "style": {
             "units": "%",
             "breaks": [
@@ -311,11 +311,7 @@
         "links": "<a href='http://www.charmeck.org/mecklenburg/county/BOE'>Area election precincts, voting sites, voter registration and other related information</a><br><a href='http://www.eac.gov/research/election_administration_and_voting_survey.aspx'>National voting statistics</a>",
         "style": {
             "units": "%",
-            "breaks": [
-                0,
-                40,
-                50
-            ],
+            "breaks": [],
             "colors": []
         }
     },
@@ -413,7 +409,7 @@
         "importance": "The median household income provides an indication of how well people are doing financially in a neighborhood.Lower wage earners may have higher percentages of their income devoted to consumption and less for saving, making them less resilient in economic downturns.  Higher wage earners may have more of their income available for consumption and more savings that can enable them to be more resilient in economic downturns. Total disposable income is a function of both consumption and population. Service providers and retailers look at income levels to help them locate their services. According to the Census Bureau the federal poverty threshold for a family of four was $22,350 in the lower 48 states.  The median household income in Charlotte for a family of four was $65,036 in North Carolina.",
         "source": "American Community Survey, 2006 to 2010.  The data is a five year sample for the years 2006 to 2010.",
         "tech_notes": "The median household income for each neighborhood profile area. The amount is inflation adjusted for 2010.",
-        "links": "<a href='http://www.charlotteworks.com/'>Charlotte Works</a><br><a href='http://www.goodwill.org/goodwill-for-you/jobs-and-careers/find-a-job/'>Goodwill</a><br><a href='http://www.jacobsladdercharlotte.org/'>Jacob's Ladder</a><br><a href='https://www.ncesc.com/default.aspx'>North Carolina Employment Security Commission</a><br><a href='http://www.nc-joblink.com/'>NC Joblink</a><br><a href='http://www.self-help.org/'>Self Help</a><br><a href='http://www.uwcentralcarolinas.org/agency-list'>United Way</a><br><a href='http://www.urbanleaguecc.org/'>Urban League of Central Carolinas</a>",
+        "links": "<a href='http://www.charlotteworks.com/'>Charlotte Works</a><br><a href='http://www.goodwill.org/goodwill-for-you/jobs-and-careers/find-a-job/'>Goodwill</a><br><a href='http://www.jacobsladdercharlotte.org/'>Jacob's Ladder</a><br><a href='https://www.ncesc.com/default.aspx'>North Carolina Employment Security Commission</a><br><a href='http://www.nc-joblink.com/'>NC Joblink</a><br><a href='http://www.self-help.org/'>Self Help</a><br><a href='http://www.uwcentralcarolinas.org/agency-list'>United Way</a><br><a href='http://www.urbanleaguecc.org/'>Urban League of Central Carolinas</a><br><a href='http://www.census.gov/acs/www/'>American Community Survey</a>",
         "style": {
             "prefix": "$",
             "breaks": [
@@ -437,7 +433,7 @@
         "importance": "Information on unemployment is not available at the neighborhood level. Therefore,the Percentage of Persons Employed 6 Month or Less in combination with Percentage of Persons Working 35 Hours or Less serve as proxies to examine potential employment issues in the community. According to the Bureau of Labor Statistics, the unemployment rate in North Carolina declined from 11.4% in January 2010 to 10.6% in December 2010. ",
         "source": "American Community Survey, 2006 to 2010. The data is a five year sample for the years 2006 to 2010.",
         "tech_notes": "The sum of the workforce age population working less than 26 weeks divided by the workforce age population who worked any time within the last 12 months. N/A includes Neighborhood Profile Areas (NPAs) where there were no workforce age individuals. The workforce population is defined as persons 16–64 years of age.",
-        "links": "<a href='http://www.charlotteworks.com/'>Charlotte Works</a><br><a href='http://www.goodwill.org/goodwill-for-you/jobs-and-careers/find-a-job/'>Goodwill</a><br><a href='http://www.jacobsladdercharlotte.org/'>Jacob's Ladder</a><br><a href='https://www.ncesc.com/default.aspx'>North Carolina Employment Security Commission</a><br><a href='http://www.nc-joblink.com/'>NC Joblink</a><br><a href='http://www.self-help.org/'>Self Help</a><br><a href='http://www.uwcentralcarolinas.org/agency-list'>United Way</a><br><a href='http://www.urbanleaguecc.org/'>Urban League of Central Carolinas</a><br><a href='http://charmeck.org/mecklenburg/county/dss/Pages/Default.aspx'>Mecklenburg County Department of Social Services</a><br><a href='http://www.charlottebusinessresources.com/starting-a-business/'>Starting a business</a><br><a href='http://www.sba.gov/content/home-based-business'>Small Business Administration</a><br><a href='http://charmeck/city/charlotte/nbs/CodeEnforcement/Pages/ZoningEnforcement.aspx'>Business licenses and permitting</a><br><a href='http://www.bls.gov/bdm/entrepreneurship/entrepreneurship.htm'>Entrepreneurship and the U.S. economy</a>",
+        "links": "<a href='http://www.charlotteworks.com/'>Charlotte Works</a><br><a href='http://www.goodwill.org/goodwill-for-you/jobs-and-careers/find-a-job/'>Goodwill</a><br><a href='http://www.jacobsladdercharlotte.org/'>Jacob's Ladder</a><br><a href='https://www.ncesc.com/default.aspx'>North Carolina Employment Security Commission</a><br><a href='http://www.nc-joblink.com/'>NC Joblink</a><br><a href='http://www.self-help.org/'>Self Help</a><br><a href='http://www.uwcentralcarolinas.org/agency-list'>United Way</a><br><a href='http://www.urbanleaguecc.org/'>Urban League of Central Carolinas</a><br><a href='http://charmeck.org/mecklenburg/county/dss/Pages/Default.aspx'>Mecklenburg County Department of Social Services</a><br><a href='http://www.charlottebusinessresources.com/starting-a-business/'>Starting a business</a><br><a href='http://www.sba.gov/content/home-based-business'>Small Business Administration</a><br><a href='http://charmeck/city/charlotte/nbs/CodeEnforcement/Pages/ZoningEnforcement.aspx'>Business licenses and permitting</a><br><a href='http://www.bls.gov/bdm/entrepreneurship/entrepreneurship.htm'>Entrepreneurship and the U.S. economy</a><br><a href='http://www.census.gov/acs/www/'>American Community Survey</a>",
         "style": {
             "units": "%",
             "breaks": [
@@ -461,7 +457,7 @@
         "importance": "Information on unemployment is not available at the neighborhood level. Therefore, Percentage of Persons Working 35 Hours or Less a week in conjunction with Percentage of Persons Employed 6 months or Less serve as proxies to examine potential employment issues in the community. In some communities, individuals choose to work less than full-time, in others they are unable to find full-time work.  Analyzing the characteristics of our workforce through persons not working full time helps us understand a community’s economy. According to the Bureau of Labor Statistics, the unemployment rate in North Carolina declined from 11.4% in January 2010 to 10.6% in December 2010. ",
         "source": "American Community Survey, 2006 to 2010. The data is a five year sample for the years 2006 to 2010.",
         "tech_notes": "The sum of the workforce age population working less than 35 hours and 50 weeks of the year divided by the working age population. The workforce population is defined as persons 16 – 64 years of age. Does not include number of jobs. ",
-        "links": "<a href='http://www.charmeck.org/mecklenburg/county/dss'>Mecklenburg County Department of Social Services</a><br><a href='http://www.charlotteworks.com/'>Charlotte Works</a><br><a href='http://www.goodwill.org/goodwill-for-you/jobs-and-careers/find-a-job/'>Goodwill</a><br><a href='http://www.jacobsladdercharlotte.org/'>Jacob's Ladder</a><br><a href='http://www.self-help.org/'>Self Help</a><br><a href='http://www.uwcentralcarolinas.org/agency-list'>United Way</a><br><a href='http://www.charlottebusinessresources.com/starting-a-business/'>Starting a business</a><br><a href='http://www.sba.gov/content/home-based-business'>Small Business Administration</a><br><a href='http://charmeck/city/charlotte/nbs/CodeEnforcement/Pages/ZoningEnforcement.aspx'>Business licenses and permitting</a><br><a href='http://www.bls.gov/bdm/entrepreneurship/entrepreneurship.htm'>Entrepreneurship and the U.S. economy</a>",
+        "links": "<a href='http://www.charmeck.org/mecklenburg/county/dss'>Mecklenburg County Department of Social Services</a><br><a href='http://www.charlotteworks.com/'>Charlotte Works</a><br><a href='http://www.goodwill.org/goodwill-for-you/jobs-and-careers/find-a-job/'>Goodwill</a><br><a href='http://www.jacobsladdercharlotte.org/'>Jacob's Ladder</a><br><a href='http://www.self-help.org/'>Self Help</a><br><a href='http://www.uwcentralcarolinas.org/agency-list'>United Way</a><br><a href='http://www.charlottebusinessresources.com/starting-a-business/'>Starting a business</a><br><a href='http://www.sba.gov/content/home-based-business'>Small Business Administration</a><br><a href='http://charmeck/city/charlotte/nbs/CodeEnforcement/Pages/ZoningEnforcement.aspx'>Business licenses and permitting</a><br><a href='http://www.bls.gov/bdm/entrepreneurship/entrepreneurship.htm'>Entrepreneurship and the U.S. economy</a><br><a href='http://www.census.gov/acs/www/'>American Community Survey</a>",
         "style": {
             "units": "%",
             "breaks": [
@@ -537,9 +533,9 @@
         "importance": "The calculation is an indicator of the amount of commercial space within a Neighborhood Profile Area (NPA).",
         "source": "Mecklenburg County Tax Parcels, 2011",
         "tech_notes": "The total heated square footage of developed commercial space zoned for said use which includes business, office, industrial and institutional uses, not including religious institutions and schools summarized for each NPA.",
-        "links": "<a href='http://www.charlotteplanning.org'>Charlotte</a><br><a href='http://www.ci.davidson.nc.us/index.aspx?nid=68'>Davidson</a><br><a href=http://www.huntersville.org/Departments/Planning.aspx>Huntersville</a><br><a href='http://matthewsnc.gov/Departments/PlanningandDevelopment.aspx'>Matthews</a><br><a href='http://www.minthill.com/index.aspx?nid=85'>Mint Hill</a><br><a href='http://townofpineville.com/town-departments/planning-and-zoning/'>Pineville</a>",
+        "links": "<a href='http://www.charlotteplanning.org'>Charlotte</a><br><a href='http://www.ci.davidson.nc.us/index.aspx?nid=68'>Davidson</a><br><a href='http://www.cornelius.org/index.aspx?nid=175'>Cornelius</a><br><a href=http://www.huntersville.org/Departments/Planning.aspx>Huntersville</a><br><a href='http://matthewsnc.gov/Departments/PlanningandDevelopment.aspx'>Matthews</a><br><a href='http://www.minthill.com/index.aspx?nid=85'>Mint Hill</a><br><a href='http://townofpineville.com/town-departments/planning-and-zoning/'>Pineville</a>",
         "style": {
-            "units": "sqft",
+            "units": "",
             "breaks": [
                 0,
                 250000,
@@ -707,7 +703,7 @@
         "importance": "Knowing where high levels of service are requested for fire related calls can help Fire departments and resident know where fire safety problems exist.  Education on kitchen fires, alarm installations and maintenance, escape routes, and other fire prevention strategies can be better targeted to communities that have high call rates.",
         "source": "Charlotte Fire Department and Mecklenburg E911, calendar year 2011.",
         "tech_notes": "The number of fire calls for service in each NPA divided by the NPA population. Fire calls for service include, but were not limited to, structure fires, vehicle fires, and fire alarms for both residential and non-residential structures. Motor vehicle fires were included but accidents were excluded. Any calls for service where the primary reason was medic related were not included.",
-        "links": "<a href='http://charmeck.org/city/charlotte/fire/Pages/default.aspx'>Charlotte Fire Department</a><br><a href='http://charmeck.org/city/charlotte/Fire/FireStations/Pages/default.aspx'>Charlotte Fire Department station locations</a><br><a href='http://www.crisisassistance.org/'>Area resources for emergency housing or financial assistance</a><br><a href='http://www.corneliusfd.org/'>Cornelius-Lemley Fire Department</a><br><a href='http://ci.davidson.nc.us/index.aspx?nid=63'>Davidson Fire Department </a><br><a href='http://www.huntersvillefd.com/news/index/layoutfile/home'>Huntersville Fire Department</a><br><a href='http://www.matthewsnc.com/Departments/FireEMS.aspx'>Matthews Fire Department</a><br><a href='http://www.minthillvfd.com/'>Mint Hill Volunteer Fire Department</a><br><a href='http://www.pinevillevfd.org/'>Pineville-Morrow Fire Department</a>",
+        "links": "<a href='http://charmeck.org/city/charlotte/fire/Pages/default.aspx'>Charlotte Fire Department</a><br><a href='http://charmeck.org/city/charlotte/Fire/FireStations/Pages/default.aspx'>Charlotte Fire Department station locations</a><br><a href='http://www.crisisassistance.org/'>Area resources for emergency housing or financial assistance</a><br><a href='http://www.corneliusfd.org/'>Cornelius-Lemley Fire Department</a><br><a href='http://ci.davidson.nc.us/index.aspx?nid=63'>Davidson Fire Department </a><br><a href='http://www.huntersvillefd.com/news/index/layoutfile/home'>Huntersville Fire Department</a><br><a href='http://matthewsnc.gov/Departments/FireEMS.aspx'>Matthews Fire Department</a><br><a href='http://www.minthillvfd.com/'>Mint Hill Volunteer Fire Department</a><br><a href='http://www.pinevillevfd.org/'>Pineville-Morrow Fire Department</a>",
         "style": {
             "breaks": [
                 0,
@@ -750,9 +746,9 @@
         "category": "education",
         "title": "Number of Pre-School Programs",
         "description": "Number of licensed pre-school programs for ages 0-5 including Center Based and Family Care for each Neighborhood Profile Area (NPA).",
-        "importance": "Tracking the number and location of pre-school programs allows residents to identify childcare providers in their neighborhoods. The data is also useful for education providers. A low number of programs may assist in determining where and how to implement services based on related variables such as population age, population density, and household income data.  The location of programs in adjacent Neighborhood Profile Areas (NPA) should also be considered to determine the level of service.",
+        "importance": "Tracking the number and location of pre-school programs allows residents to identify child care providers in their neighborhoods. The data is also useful for education providers. A low number of programs may assist in determining where and how to implement services based on related variables such as population age, population density, and household income data.  The location of programs in adjacent Neighborhood Profile Areas (NPA) should also be considered to determine the level of service.",
         "source": "Child Care Resources, Inc., August 2012.",
-        "tech_notes": "Number of licensed childcare programs for ages 0-5 including Center Based and Family Care for each NPA. Center Based childcare facilities provide care for three or more children. The number of children in care is based on the size of individual classrooms and having sufficient staff, equipment and materials. Family Care childcare facilities are provided in the providers’ residence and are able to accommodate three to five children at one time.",
+        "tech_notes": "Number of licensed child care programs for ages 0‐5 including Center Based and Family Care for each NPA. Center Based child care facilities provide care for three or more children. The number of children in care is based on the size of individual classrooms and having sufficient staff, equipment and materials. Family Care child care facilities are provided in the providers’ residence and are able to accommodate three to five children at one time.",
         "links": "<a href='http://www.charmeck.org/mecklenburg/county/ParkandRec/Aquatics/RaysSplashPlanet/Pages/Preschool'>Mecklenburg County preschool programs</a><br><a href='http://www.thechildrensalliance.org/resources/where-to-find-help.html'>The Children's Alliance out of school programs and partners</a><br><a href='http://www.uwcentralcarolinas.org/who-we-help/agency-list'>Agencies supported by United Way of Central Carolinas</a><br><a href='http://ncchildcare.dhhs.state.nc.us/parents/pr_sn2_ov_sr.asp'>North Carolina Division of Child Development and Early Education</a>",
         "style": {
             "breaks": [
@@ -773,7 +769,7 @@
         "category": "education",
         "title": "Number of School-Age Programs",
         "description": "Number of licensed school-age programs for ages 5-12 for each Neighborhood Profile Area (NPA).",
-        "importance": "Tracking the number and location of after school programs allows residents to identify providers in their neighborhoods. The data is also useful for education providers. A low number of programs may assist in determining where and how to implement services based on related variables such as population age, population density, and household income.   The location of programs in adjacent Neighborhood Profile Areas (NPAs) should also be considered to determine the level of service.",
+        "importance": "Tracking the number and location of after school programs allows residents to identify providers in their neighborhoods.  The data is also useful for education providers. A low number of programs may assist in determining where and how to implement services based on related variables such as population age, population density, and household income. The location of programs in adjacent Neighborhood Profile Areas (NPAs) should also be considered to determine the level of service.",
         "source": "Child Care Resources, Inc., August 2012.",
         "tech_notes": "Number of licensed school-age programs for ages 5-12 for each Neighborhood Profile Area (NPA).",
         "links": "<a href='http://ncchildcare.dhhs.state.nc.us/parents/pr_sn2_ov_sr.asp'>North Carolina Division of Child Development and Early Education</a><br><a href='http://www.urbanleaguecc.org/home/?page_id=1076'>After school computer literacy and technology programs</a><br><a href='http://www.bbbscharlotte.org/site/c.7gLMK5MKLgIUF/b.6422659/k.A36B/So_many_ways_to_get_started.htm'>Programs offered by Big Brothers, Big Sisters</a><br><a href='http://www.uwcentralcarolinas.org/who-we-help/agency-list'>Agencies supported by United Way of Central Carolinas</a><br><a href='http://www.ymcacharlotte.org/programs/socialresponsibility/socialservices/familysvs/starfish.aspx'>YMCA</a><br><a href='http://www.thechildrensalliance.org/resources/where-to-find-help.html '>The Children's Alliance out of school programs and partners</a><br><a href='http://www.edweek.org/ew/issues/after-school-programs/'>Education Week report on the benefits of after-school education programs</a>",
@@ -991,7 +987,7 @@
         "importance": "Adult educational attainment is closely correlated with economic opportunity and financial stability.  Knowing the location of adults without high school diplomas can help direct education and training resources to areas of need. According to American Community Survey, the nation’s unemployment rate for adults without a high school diploma was 14.9%, with a high school diploma it decreases to 9.4%, and with a Bachelor’s Degree decreases to 4.9%.",
         "source": "American Community Survey, 2006-2010.  The data is a five year sample for the years 2006 to 2010.",
         "tech_notes": "The number of people 25 or older with less than a high school diploma for each Neighborhood Profile Area (NPA) divided by the number of people 25 or older for each NPA.  N/A includes only NPA’s with zero people 25 and older.",
-        "links": "<a href='www.cpcc.edu/community_development/pre-college/ged'>Obtaining a GED</a><br><a href='http://fillmycupliteracy.org/'>Fill My Cup</a><br><a href='http://www.jacobsladdercharlotte.org/'>Jacob's Ladder</a><br><a href='http://www.uwcentralcarolinas.org/who-we-help/agency-list'>Agencies supported by United Way of Central Carolinas</a><br><a href='http://www.bls.gov/news.release/empsit.t04.htm/'>U.S. Bureau of Labor education statistics</a><br><a href='http://www.luminafoundation.org/publications/state_data/2012/North_Carolina-2012.pdf'>A Stronger Nation Through Higher Education</a><br><a href='http://www.indexmundi.com/facts/united-states/quick-facts/north-carolina/percent-of-people-25-years-and-over-with-high-school-degree-or-higher#map'>North Carolina Educational attainment - percent high school graduate or higher</a><br><a href='http://www.census.gov/compendia/statab/2012/tables/12s0233.pdf'>Educational Attainment by State</a><br><a href='http://www.higheredinfo.org/dbrowser/index.php?measure=93'>Educational Attainment by Degree-Level and Age-Group</a><br><a href='http://www.nd.edu/~jwarlick/documents/Levin_Belfield_Muennig_Rouse.pdf'>Benefits of education</a>",
+        "links": "<a href='www.cpcc.edu/community_development/pre-college/ged'>Obtaining a GED</a><br><a href='http://fillmycupliteracy.org/'>Fill My Cup</a><br><a href='http://www.jacobsladdercharlotte.org/'>Jacob's Ladder</a><br><a href='http://www.uwcentralcarolinas.org/who-we-help/agency-list'>Agencies supported by United Way of Central Carolinas</a><br><a href='http://www.bls.gov/news.release/empsit.t04.htm/'>U.S. Bureau of Labor education statistics</a><br><a href='http://www.luminafoundation.org/publications/state_data/2012/North_Carolina-2012.pdf'>A Stronger Nation Through Higher Education</a><br><a href='http://www.indexmundi.com/facts/united-states/quick-facts/north-carolina/percent-of-people-25-years-and-over-with-high-school-degree-or-higher#map'>North Carolina Educational attainment - percent high school graduate or higher</a><br><a href='http://www.census.gov/compendia/statab/2012/tables/12s0233.pdf'>Educational Attainment by State</a><br><a href='http://www.higheredinfo.org/dbrowser/index.php?measure=93'>Educational Attainment by Degree-Level and Age-Group</a><br><a href='http://www.nd.edu/~jwarlick/documents/Levin_Belfield_Muennig_Rouse.pdf'>Benefits of education</a><br><a href='http://www.census.gov/acs/www/'>American Community Survey</a>",
         "style": {
             "units": "%",
             "breaks": [
@@ -1015,7 +1011,7 @@
         "importance": "Identifying the percentage of children enrolled in private schools reflects emerging trends of how parents choose to educate their children. It also serves as a proxy for Charlotte-Mecklenburg Schools (CMS) administration to assess the educational needs in the community.According to the Division of Non-Public Education, 10.9% of students in North Carolina attended private schools during the 2010-2011 school year, not including home schools.",
         "source": "American Community Survey, 2006-2010.  The data is a five year sample for the years 2006 to 2010.",
         "tech_notes": "The number of children attending private school divided by the number of children enrolled in all schools.",
-        "links": "<a href='http://www.nche.com'>State requirements for home schooling</a><br><a href='http://www.cms.k12.nc.us/cmsdepartments/ec/Pages/HomeSchoolPrivateSchoolNotificationofServices'>Charlotte-Mecklenburg Schools services for home schooled children and parents</a><br><a href='http://www.urbanleaguecc.org/home/?page_id=1076'>After school computer literacy and technology programs</a><br><a href='http://nces.ed.gov/fastfacts/display.asp?id=91'>Fast Facts - Homeschooling</a><br><a href='http://www.census.gov/population/www/documentation/twps0053/twps0053.html'>Home Schooling in the United States</a>",
+        "links": "<a href='http://www.nche.com'>State requirements for home schooling</a><br><a href='http://www.cms.k12.nc.us/cmsdepartments/ec/Pages/HomeSchoolPrivateSchoolNotificationofServices'>Charlotte-Mecklenburg Schools services for home schooled children and parents</a><br><a href='http://www.urbanleaguecc.org/home/?page_id=1076'>After school computer literacy and technology programs</a><br><a href='http://nces.ed.gov/fastfacts/display.asp?id=91'>Fast Facts - Homeschooling</a><br><a href='http://www.census.gov/population/www/documentation/twps0053/twps0053.html'>Home Schooling in the United States</a><br><a href='http://www.census.gov/acs/www/'>American Community Survey</a>",
         "style": {
             "units": "%",
             "breaks": [
@@ -1085,7 +1081,6 @@
         "title": "Births to Adolescents",
         "description": "Percentage of births to females under age 19 for each Neighborhood Profile Area (NPA).",
         "importance": "While Births to Adolescents is a different measure than teen pregnancy, research shows that teenage pregnancy is associated with increased risk of poor social, economic and health outcomes for both mother and child. High rates of births to adolescents may influence trends in education variables and reflect accessibility issues with health education and health providers as well as a number of other socioeconomic factors. According to the U.S. Department of Health and Human Services, North Carolina was ranked 34 out of 51 states and the District of Columbia on 2010 preliminary teen birth rates among females aged 15-19 (with 1 representing the lowest rate and 51 representing the highest rate). On a similar scale, North Carolina was ranked 37 out of 51 states and the District of Columbia in pregnancies to females aged 15-19 in 2005.",
-        "source": "Mecklenburg County Health Department, 2009 and 2010.",
         "tech_notes": "Number of births to females under the age of 19 in 2009 and 2010 divided by all births in 2009 and 2010 for each Neighborhood Profile Areas (NPA). NPAs with less than 5 births are shown as N/A.",
         "links": "<a href='http://www.teenpregnancy.ncdhhs.gov/app.htm'>NC Department of Health and Human Services</a><br><a href='http://www.fcsnc.org/'>Florence Crittenton Services of North Carolina</a><br><a href='http://www.levinechildrenshospital.org/body.cfm?id=604'>Levine Children's Hospital</a><br><a href='http://www.safealliance.org/'>Safe Alliance</a><br><a href='http://www.uwcentralcarolinas.org/who-we-help/agency-list'>Agencies supported by United Way of Central Carolinas</a><br><a href='http://www.ncdhhs.gov/dss/stats/'>Health statistics, surveys and publications for North Carolina</a>",
         "style": {
@@ -1254,7 +1249,7 @@
         "importance": "The total number of housing units is a profile variable that identifies the number of all residential units in a neighborhood.",
         "source": "Mecklenburg County Tax Parcels, 2011.",
         "tech_notes": "The number of housing units identified as residential property for each Neighborhood Profile Area.",
-        "links": "<a href='www.buildersofhope.org'>Builders of Hope</a><br><a href='http://www.cha-nc.org/'>Charlotte Housing Authority</a><br><a href='http://www.cmhp.org'>Charlotte Mecklenburg Housing Partnership</a><br><a href='http://www.ourtownshabitat.org/our_towns_habitat_for_humanity.html'>Habitat for Humanity</a><br><a href='http://www.self-help.org/building-communities'>Self Help Credit Union</a><br><a href='http://charmeck.org/city/charlotte/nbs/housing/Pages/CityHousingPrograms.aspx'>City of Charlotte housing services</a><br><a href='http://charmeck.org/city/charlotte/nbs/ed/financialprograms/Pages/ApartmentFacadeGrantProgram.aspx'>Façade grants for apartment complexes</a><br><a href='http://charmeck.org/city/charlotte/nbs/ed/financialprograms/Pages/ApartmentSecurityGrantProgram.aspx'>Security grants for apartment complexes</a>",
+        "links": "<a href='http://www.buildersofhope.org/'>Builders of Hope</a><br><a href='http://www.cha-nc.org/'>Charlotte Housing Authority</a><br><a href='http://www.cmhp.org'>Charlotte Mecklenburg Housing Partnership</a><br><a href='http://www.ourtownshabitat.org/our_towns_habitat_for_humanity.html'>Our Towns-Habitat for Humanity</a><br><a href='http://www.habitatcharlotte.org/'>Habitat for Humanity - Charlotte</a><br><a href='http://www.self-help.org/building-communities'>Self Help Credit Union</a><br><a href='http://charmeck.org/city/charlotte/nbs/housing/Pages/CityHousingPrograms.aspx'>City of Charlotte housing services</a><br><a href='http://charmeck.org/city/charlotte/nbs/ed/financialprograms/Pages/ApartmentFacadeGrantProgram.aspx'>Façade grants for apartment complexes</a><br><a href='http://charmeck.org/city/charlotte/nbs/ed/financialprograms/Pages/ApartmentSecurityGrantProgram.aspx'>Security grants for apartment complexes</a>",
         "style": {
             "breaks": [
                 0,
@@ -1277,7 +1272,7 @@
         "importance": "Identifying vacant single-family parcels provides information for new housing opportunities and helps communities know where new housing could occur.",
         "source": "Mecklenburg County Tax Parcels, 2011",
         "tech_notes": "The total number of vacant parcels zoned single-family less than 3 acres.",
-        "links": "<a href='http://www.charlotteplanning.org'>Charlotte</a><br><a href='http://www.ci.davidson.nc.us'>Davidson</a><br><a href='http://www.huntersville.org/Departments/Planning.aspx'>Huntersville</a><br><a href='http://www.matthewsnc.com/Departments/PlanningandDevelopment.aspx'>Matthews</a><br><a href='http://www.minthill.com/index.aspx?nid=85'>Mint Hill</a><br><a href='http://www.pinevillenc.net/town-department/town-planning'>Pineville</a><br><a href='http://charmeck.org/city/charlotte/epm/Services/RealEstate/Pages/Real%20Estate%20Division.aspx'>Purchasing real estate owned by the City of Charlotte</a>",
+        "links": "<a href='http://www.charlotteplanning.org'>Charlotte</a><br><a href='http://www.ci.davidson.nc.us/index.aspx?nid=68'>Davidson</a><br><a href='http://www.cornelius.org/index.aspx?nid=175'>Cornelius</a><br><a href='http://www.cornelius.org/index.aspx?nid=175'>Cornelius</a><br><a href='http://www.huntersville.org/Departments/Planning.aspx'>Huntersville</a><br><a href='http://matthewsnc.gov/Departments/PlanningandDevelopment.aspx'>Matthews</a><br><a href='http://www.minthill.com/index.aspx?nid=85'>Mint Hill</a><br><a href='http://townofpineville.com/town-departments/planning-and-zoning/'>Pineville</a>",
         "style": {
             "breaks": [
                 0,
@@ -1300,7 +1295,7 @@
         "importance": "Categorizing the average year of construction for single-family housing provides an indication of the condition of a neighborhood’s housing stock.  Typically, older houses need some level of repair, renovation, or maintenance.Comparing the average year of construction with other variables such as housing code violations provides an indication of areas in need of home improvement resources.",
         "source": "Mecklenburg County Tax Parcels, 2011",
         "tech_notes": "The year of construction for each single-family detached housing in each Neighborhood Profile Area (NPA) is summed and dived by the number of housing units in the NPA. N/A includes NPAs with zero residential buildings.",
-        "links": "<a href='http://www.buildersofhope.org'>Builders of Hope</a><br><a href='www.habitatcharlotte.org'>Habitat for Humanity</a><br><a href='http://www.loveinc-charlotte.org/service-overview.htm'>Love-INC.</a><br><a href='http://charmeck.org/city/charlotte/nbs/housing/Pages/CityHousingPrograms.aspx'>City of Charlotte Housing Services</a><br><a href='http://charmeck.org/CITY/CHARLOTTE/PLANNING/HISTORICDISTRICTS/Pages/Home.aspx'>Local historic districts</a><br><a href='http://www.cmhpf.org/'>Local historic landmarks</a>",
+        "links": "<a href='http://www.buildersofhope.org/'>Builders of Hope</a><br><a href='http://www.habitatcharlotte.org/'>Habitat for Humanity</a><br><a href='http://www.ourtownshabitat.org/our_towns_habitat_for_humanity.html'>Our Towns-Habitat for Humanity</a><br><a href='http://www.loveinc-charlotte.org/service-overview.htm'>Love-INC.</a><br><a href='http://charmeck.org/city/charlotte/nbs/housing/Pages/CityHousingPrograms.aspx'>City of Charlotte Housing Services</a><br><a href='http://charmeck.org/CITY/CHARLOTTE/PLANNING/HISTORICDISTRICTS/Pages/Home.aspx'>Local historic districts</a><br><a href='http://www.cmhpf.org/'>Local historic landmarks</a>",
         "style": {
             "breaks": [
                 0,
@@ -1323,7 +1318,7 @@
         "importance": "Calculating the average dwelling size can be useful in assessing the impact of house size on the environment.  Such impacts include household energy consumption, lot coverage, tree canopy coverage, and storm water system impacts. The data may also reveal trends of how people are choosing to live, relative to recent changes in the economy.",
         "source": "Mecklenburg County Tax Parcels, 2011",
         "tech_notes": "The heated square footage of all single-family detached housing summed and divided by the total number of single-family housing units.",
-        "links": "<a href='http://www.buildersofhope.org'>Builders of Hope</a><br><a href='www.habitatcharlotte.org'>Habitat for Humanity</a><br><a href='http://www.loveinc-charlotte.org/service-overview.htm'>Love-INC.</a><br><a href='http://charmeck.org/city/charlotte/nbs/housing/Pages/CityHousingPrograms.aspx'>City of Charlotte Housing Services</a>",
+        "links": "<a href='http://www.buildersofhope.org/'>Builders of Hope</a><br><a href='http://www.habitatcharlotte.org/'>Habitat for Humanity</a><br><a href='http://www.ourtownshabitat.org/our_towns_habitat_for_humanity.html'>Our Towns - Habitat for Humanity</a><br><a href='http://www.loveinc-charlotte.org/service-overview.htm'>Love-INC.</a><br><a href='http://charmeck.org/city/charlotte/nbs/housing/Pages/CityHousingPrograms.aspx'>City of Charlotte Housing Services</a>",
         "style": {
             "breaks": [
                 0,
@@ -1346,7 +1341,7 @@
         "importance": "Tracking permit data for new residential construction provides an indication of market conditions, the availability of developable land, or trends in how people choose to live (single-family vs. multi- family housing). Related variables that identify trends in the housing market include average size of single-family dwellings, median income, non-residential development, renovation permits, and change in property value.",
         "source": "Mecklenburg County Code Enforcement, July 2010 to June 2011.",
         "tech_notes": "The number of all “new” residential building permits for each Neighborhood Profile Area (NPA) ) using U.S. Department of Commerce reporting data on New Buildings (Codes 100 through 105).",
-        "links": "<a href='www.buildersofhope.org'>Builders of Hope</a><br><a href='http://www.cha-nc.org/'>Charlotte Housing Authority</a><br><a href='http://www.cmhp.org'>Charlotte Mecklenburg Housing Partnership</a><br><a href='http://www.ourtownshabitat.org/our_towns_habitat_for_humanity.html'>Habitat for Humanity</a><br><a href='http://www.self-help.org/building-communities'>Self Help Credit Union</a><br><a href='http://charmeck.org/city/charlotte/nbs/housing/Pages/CityHousingPrograms.aspx'>City of Charlotte housing services </a>",
+        "links": "<a href='http://www.buildersofhope.org/'>Builders of Hope</a><br><a href='http://www.cha-nc.org/'>Charlotte Housing Authority</a><br><a href='http://www.cmhp.org'>Charlotte Mecklenburg Housing Partnership</a><br><a href='http://www.ourtownshabitat.org/our_towns_habitat_for_humanity.html'>Our Towns-Habitat for Humanity</a><br><a href='http://www.habitatcharlotte.org/'>Habitat for Humanity - Charlotte</a><br><a href='http://www.self-help.org/building-communities'>Self Help Credit Union</a><br><a href='http://charmeck.org/city/charlotte/nbs/housing/Pages/CityHousingPrograms.aspx'>City of Charlotte housing services </a>",
         "style": {
             "breaks": [
                 0,
@@ -1369,7 +1364,7 @@
         "importance": "Tracking permit data of renovation projects provides an indication of market trends (new construction vs. improving an existing home), availability of developable land, or trends in how people choose to invest in housing (purchase new or improve an existing home). An increase in renovation permits could also signal broad based rehabilitation projects in older neighborhoods.",
         "source": "Mecklenburg County Code Enforcement, July 2010 to June 2011.",
         "tech_notes": "The number of all “renovation” residential building permits for each Neighborhood Profile Area ) using US Department of Commerce reporting data on Alterations to Buildings (Codes 434 and 438).",
-        "links": "<a href='http://www.buildersofhope.org'>Builders of Hope</a><br><a href='http://www.habitatcharlotte.org'>Habitat for Humanity</a><br><a href='http://www.loveinc-charlotte.org/service-overview.htm'>Love-INC.</a><br><a href='http://charmeck.org/city/charlotte/nbs/housing/Pages/CityHousingPrograms.aspx'>City of Charlotte Housing Services</a><br><a href='http://charmeck.org/mecklenburg/county/CodeEnforcement/Pages/default.aspx'>How to apply for a building permit</a>",
+        "links": "<a href='http://www.buildersofhope.org'>Builders of Hope</a><br><a href='http://www.habitatcharlotte.org/'>Habitat for Humanity</a><br><a href='http://www.ourtownshabitat.org/our_towns_habitat_for_humanity.html'>Our Towns-Habitat for Humanity</a><br><a href='http://www.loveinc-charlotte.org/service-overview.htm'>Love-INC.</a><br><a href='http://charmeck.org/city/charlotte/nbs/housing/Pages/CityHousingPrograms.aspx'>City of Charlotte Housing Services</a><br><a href='http://charmeck.org/mecklenburg/county/CodeEnforcement/Pages/default.aspx'>How to apply for a building permit</a>",
         "style": {
             "breaks": [
                 0,
@@ -1392,7 +1387,7 @@
         "importance": "The average value of a residence depends on a number of factors, including the size and age of the home as well as the perceived desirability of the neighborhood.  A high or low value isn’t necessarily good or bad.   However, since homes are the major source of most family’s wealth, it is important that all residents share in the economic prosperity of the community. According to the Zillow Home Value Index the average value for North Carolina in December 2010 was $135,000.",
         "source": "Mecklenburg County Tax Parcels as of April 2012",
         "tech_notes": "The total assessed value for single -family dwellings, condominiums, and townhomes summed and divided by the number of single-family dwellings, condominiums and townhouses for each Neighborhood Profile Area. Pearson’s Appraisal Service identified that some neighborhoods needed to be reassessed. Based on these findings, the County will reassess the value of property in complex areas, particularly pre-1980 heterogeneous neighborhoods, to ensure equity which may change the values represented in this variable.",
-        "links": "<a href='http://charmeck.org/mecklenburg/county/AssessorsOffice/Appeals/Pages/default.aspx'>Mecklenburg County property revaluation process</a><br><a href='http://charmeck.org/mecklenburg/county/AssessorsOffice/Pages/Tax%20Relief.asp'>Am I eligible for tax relief on my home?</a><br><a href='http://meckcama.co.mecklenburg.nc.us/relookup/'>Mecklenburg County real estate database</a><br><a href='http://factfinder2.census.gov/faces/tableservices/jsf/pages/productview.xhtml?src=bkmk'>North Carolina housing statistics</a>",
+        "links": "<a href='http://charmeck.org/mecklenburg/county/AssessorsOffice/Appeals/Pages/default.aspx'>Mecklenburg County property revaluation process</a><br><a href='http://meckcama.co.mecklenburg.nc.us/relookup/'>Mecklenburg County real estate database</a>",
         "style": {
             "prefix": "$",
             "breaks": [
@@ -1412,7 +1407,7 @@
         "field": "g8",
         "category": "housing",
         "title": "Change in Residential Property Value",
-        "description": "Percentage change in residential property value.",
+        "description": "Percentage change in residential property value for each Neighborhood Profile Area (NPA).",
         "importance": "Higher increases in value indicate a market that values a neighborhood’s amenities, while decreasing values may indicate some level of neighborhood distress.  High increases rewards homeowners with increased equity and wealth, but can also make it challenging for those with fixed or limited incomes to remain in place.",
         "source": "Mecklenburg County Tax Parcels as of April 2012",
         "tech_notes": "The total assessed value for residential housing units in 2011 minus the total assessed value for residential housing units in 2003 divided by the total assessed value for residential housing units in 2003 for each Neighborhood Profile Area (NPA). NPAs with less than 5 qualifying properties were classified as N/A. Residential housing units include condominiums, single-family detached units and townhouses. Pearson’s Appraisal Service identified that some neighborhoods needed to be reassessed. Based on these findings, the County will reassess the value of property in complex areas, particularly pre-1980 heterogeneous neighborhoods, to ensure equity which may change the values represented in this variable.",
@@ -1444,7 +1439,7 @@
         "importance": "The foreclosure crisis can have debilitating effects on neighborhoods.  Concentrations of foreclosed homes in an area negatively affect property values and public services. Foreclosures can be found in all neighborhoods; however, the impacts are more problematic in certain locations and within certain housing markets. There are 3,520 foreclosures represented on this map or 1.2% of single-family (attached and detached) housing units.",
         "source": "Mecklenburg County Register of Deeds from fiscal year July 2010 to June 2011.",
         "tech_notes": "The number of foreclosures for single-family dwellings, condominiums and townhouses in each Neighborhood Profile Area (NPA) identified by the Sales Code of FC in Sale History divided by the number of residential units in each NPA.",
-        "links": "<a href='http://charmeck.org/city/charlotte/nbs/housing/Pages/ForeclosureResourceCenter.aspx'>City of Charlotte Housing Services</a><br><a href='http://www.mensshelterofcharlotte.org/'>Charlotte Family Housing</a><br><a href='http://www.mensshelterofcharlotte.org/'>Charlotte Men's Shelter</a><br><a href='http://hopehaven.org/Adult_Living_Services_-_Hope_Haven'>Hope Haven</a><br><a href='http://www.self-help.org/building-communities'>Self Help Credit Union</a><br><a href='http://www.ywcacentralcarolinas.org/programs/women-in-transition-wit'>YWCA</a>",
+        "links": "<a href='http://charmeck.org/city/charlotte/nbs/housing/Pages/ForeclosureResourceCenter.aspx'>City of Charlotte Housing Services</a><br><a href='http://www.mensshelterofcharlotte.org/'>Charlotte Men's Shelter</a><br><a href='http://hopehaven.org/Adult_Living_Services_-_Hope_Haven'>Hope Haven</a><br><a href='http://www.self-help.org/building-communities'>Self Help Credit Union</a><br><a href='http://www.ywcacentralcarolinas.org/programs/women-in-transition-wit'>YWCA</a>",
         "style": {
             "units": "%",
             "breaks": [
@@ -1516,13 +1511,13 @@
         "importance": "Identifying the location of subsidized units allows housing providers to develop implementation plans and residents to understand the types of housing choices that are present in their community. Concentrating assisted-housing for low and very low-income Americans in dense, urban areas is not an effective use of scarce affordable housing resources (USHUD). Mixed-income development has become a popular housing solution by creating diverse communities and decentralizing poverty.",
         "source": "Charlotte-Housing Authority, Housing and Urban Development, Charlotte-Mecklenburg Housing Partnership, Habitat for Humanity, 2010.",
         "tech_notes": "The number of subsidized housing for each neighborhood Profile Area (NPA) divided by the total number of housing units for each NPA. Subsidized housing includes single-family, condominiums and townhouses and multi-family housing. Although most subsidized housing units are multi‐family, the data and information available to distinguish between the two housing types is not reliable. The definition of subsidized housing varies depending on the municipality.",
-        "links": "<a href='http://www.buildersofhope.org'>Builders of Hope</a><br><a href='http://www.cha-nc.org/'>Charlotte Housing Authority</a><br><a href='http://www.cmhp.org'>Charlotte Mecklenburg Housing Partnership</a><br><a href='http://www.habitatcharlotte.org'>Habitat for Humanity</a><br><a href='http://www.self-help.org/building-communities'>Self Help Credit Union</a><br><a href='http://charmeck.org/city/charlotte/nbs/housing/Pages/CityHousingPrograms.aspx'>City of Charlotte Housing Services Housing programs and services</a><br><a href='http://charmeck.org/city/charlotte/nbs/housing/Pages/CityHousingPolicy.aspx'>City of Charlotte's Housing Locational Policy</a>",
+        "links": "<a href='http://www.buildersofhope.org/'>Builders of Hope</a><br><a href='http://www.cha-nc.org/'>Charlotte Housing Authority</a><br><a href='http://www.cmhp.org'>Charlotte Mecklenburg Housing Partnership</a><br><a href='http://www.ourtownshabitat.org/our_towns_habitat_for_humanity.html'>Our Towns-Habitat for Humanity</a><br><a href='http://www.habitatcharlotte.org/'>Habitat for Humanity - Charlotte</a><br><a href='http://www.self-help.org/building-communities'>Self Help Credit Union</a><br><a href='http://charmeck.org/city/charlotte/nbs/housing/Pages/CityHousingPrograms.aspx'>City of Charlotte Housing Services Housing programs and services</a><br><a href='http://charmeck.org/city/charlotte/nbs/housing/Pages/CityHousingPolicy.aspx'>City of Charlotte's Housing Locational Policy</a>",
         "style": {
             "units": "%",
             "breaks": [
                 0,
-                20,
-                50
+                2,
+                12
             ],
             "colors": [
                 "#D8F2ED",
@@ -1540,9 +1535,9 @@
         "importance": "Quantifying housing affordability by median rental cost provides an indication of the overall value of residential property, amenities in the surrounding area or types of adjacent land uses among other related variables. Neighborhoods with rental costs below area averages do not always indicate a lower quality of living.  Other factors to consider in lower rents are the average size of housing units, location, housing design, and supply of housing in the area.",
         "source": "American Community Survey, 2006 to 2010.  The data is a five year sample for the years 2006 to 2010.",
         "tech_notes": "The median gross rent of all housing units for each Neighborhood Profile Area (NPA).   Gross rent is the contract rent plus the estimated average monthly cost of utilities (electricity, gas, and water and sewer) and fuels (oil, coal, kerosene, wood, etc.) if these are paid by the renter (or paid for the renter by someone else).N/A includes only NPAs with less than 50 rental units in the sample. Rent cost is inflation adjusted to 2010.",
-        "links": "<a href='http://www.buildersofhope.org'>Builders of Hope</a><br><a href='http://www.cha-nc.org/'>Charlotte Housing Authority</a><br><a href='http://www.cmhp.org'>Charlotte Mecklenburg Housing Partnership</a><br><a href='http://www.ourtownshabitat.org/our_towns_habitat_for_humanity.html'>Habitat for Humanity</a><br><a href='http://www.self-help.org/building-communities'>Self Help Credit Union</a><br><a href='http://charmeck.org/city/charlotte/nbs/housing/Pages/CityHousingPrograms.aspx'>City of Charlotte housing services</a><br><a href='http://www.ywcacentralcarolinas.org/programs/women-in-transition-wit'>YWCA</a><br><a href='http://hopehaven.org/Adult_Living_Services_-_Hope_Haven'>Hope Haven</a><br><a href='http://www.mensshelterofcharlotte.org/'>Charlotte Men's Shelter</a>",
+        "links": "<a href='http://www.buildersofhope.org/'>Builders of Hope</a><br><a href='http://www.cha-nc.org/'>Charlotte Housing Authority</a><br><a href='http://www.cmhp.org'>Charlotte Mecklenburg Housing Partnership</a><br><a href='http://www.ourtownshabitat.org/our_towns_habitat_for_humanity.html'>Our Towns-Habitat for Humanity</a><br><a href='http://www.habitatcharlotte.org/'>Habitat for Humanity - Charlotte</a><br><a href='http://www.self-help.org/building-communities'>Self Help Credit Union</a><br><a href='http://charmeck.org/city/charlotte/nbs/housing/Pages/CityHousingPrograms.aspx'>City of Charlotte housing services</a><br><a href='http://www.ywcacentralcarolinas.org/programs/women-in-transition-wit'>YWCA</a><br><a href='http://hopehaven.org/Adult_Living_Services_-_Hope_Haven'>Hope Haven</a><br><a href='http://www.mensshelterofcharlotte.org/'>Charlotte Men's Shelter</a><br><a href='http://www.census.gov/acs/www/'>American Community Survey</a>",
         "style": {
-            "units": "$",
+            "prefix": "$",
             "breaks": [
                 0,
                 750,
@@ -1610,7 +1605,7 @@
         "importance": "Zoning code violations are improper uses of a structure based on the zoning district regulations, such as an auto repair business operating in a residential zoning district.   Zoning violation data provides information on the effectiveness of enforcement regulations. Sudden increases in violations may show signs of improvement in a community through focused enforcement efforts.",
         "source": "Neighborhood and Business Services and Mecklenburg County Code Enforcement",
         "tech_notes": "",
-        "links": "<a href='http://charmeck/city/charlotte/nbs/CodeEnforcement/Pages/ZoningEnforcement.aspx'>Zoning code</a><br><a href='http://charmeck.org/city/charlotte/planning/Rezoning/Pages/Home.aspx'>City of Charlotte rezoning process</a><br><a href='http://www.ci.davidson.nc.us/index.aspx?nid=68'>Davidson</a><br><a href='http://www.huntersville.org/Departments/Planning.aspx'>Huntersville</a><br><a href='http://www.matthewsnc.com/Departments/PlanningandDevelopment.aspx'>Matthews</a><br><a href='http://www.minthill.com/index.aspx?nid=85'>Mint Hill</a><br><a href='http://www.pinevillenc.net/town-department/town-planning'>Pineville</a><br><a href='http://maps.co.mecklenburg.nc.us/geoportal/'>GeoPortal</a><br><a href='http://vc.charmeck.org/'>Virtual Charlotte</a><br><a href='http://polaris.mecklenburgcountync.gov/website/redesign/viewer.htm'>POLARIS</a>",
+        "links": "<a href='http://charmeck/city/charlotte/nbs/CodeEnforcement/Pages/ZoningEnforcement.aspx'>Zoning code</a><br><a href='http://charmeck.org/city/charlotte/planning/Rezoning/Pages/Home.aspx'>City of Charlotte rezoning process</a><br><a href='http://www.ci.davidson.nc.us/index.aspx?nid=68'>Davidson</a><br><a href='http://www.cornelius.org/index.aspx?nid=175'>Cornelius</a><br><a href='http://www.huntersville.org/Departments/Planning.aspx'>Huntersville</a><br><a href='http://www.matthewsnc.com/Departments/PlanningandDevelopment.aspx'>Matthews</a><br><a href='http://www.minthill.com/index.aspx?nid=85'>Mint Hill</a><br><a href='http://www.pinevillenc.net/town-department/town-planning'>Pineville</a><br><a href='http://maps.co.mecklenburg.nc.us/geoportal/'>GeoPortal</a><br><a href='http://vc.charmeck.org/'>Virtual Charlotte</a><br><a href='http://polaris.mecklenburgcountync.gov/website/redesign/viewer.htm'>POLARIS</a>",
         "style": {
             "breaks": [],
             "colors": [
@@ -1653,7 +1648,7 @@
         "importance": "Transportation alternatives offer mobility options for residents of all ages and income levels and can help bridge the spatial divide between people and jobs, services, and training opportunities.",
         "source": "American Community Survey, 2006-2010.  The data is a five year sample for the years 2006 to 2010.",
         "tech_notes": "The number of commuters 16 years and older who report that they commute to work by driving alone divided by the total number of commuters 16 years and older.",
-        "links": "<a href='http://charmeck.org/city/charlotte/cats/Bus/Pages/mobileapp.aspx'>CATS/LYNX I-Phone App</a><br><a href='http://charmeck.org/city/charlotte/cats/Pages/default.aspx'>CATS Transit Schedules and Trip Planner</a><br><a href='http://charmeck.org/city/charlotte/cats/commuting/Carpool/Pages/default.asp'>Carpooling Program</a><br><a href='http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/default.aspx'>Employee Transportation Coordinator</a><br><a href='http://bike.charmeck.org'>Charlotte Bicycle Program</a><br><a href='http://groups.google.com/group/bikementor'>Charlotte Bicycle Mentor Program</a><br><a href='http://charmeck.org/city/charlotte/Transportation/Parking/Pages/Park%20It.aspx'>Parking Information</a>",
+        "links": "<a href='http://charmeck.org/city/charlotte/cats/Bus/Pages/mobileapp.aspx'>CATS/LYNX I-Phone App</a><br><a href='http://charmeck.org/city/charlotte/cats/Pages/default.aspx'>Public Transit Trip Planner</a><br><a href='https://www.sharetheridenc.org/sharetheridenc/TDMLoginPage.jsp?id=1000&idactivation=37I8Zpvdl'>Carpool Matching Program</a><br><a href='http://charmeck.org/city/charlotte/cats/commuting/ETC/Pages/default.aspx'>Establish Company Transit Coordinator </a><br><a href='http://bike.charmeck.org'>Charlotte Bicycle Program</a><br><a href='http://www.mumpo.org/'>Regional Transportation Initiatives</a><br><a href='http://groups.google.com/group/bikementor'>Charlotte Bicycle Mentor Program</a><br><a href='http://charmeck.org/city/charlotte/Transportation/Parking/Pages/Park%20It.aspx'>Charlotte Parking Information</a><br><a href='http://www.census.gov/acs/www/'>American Community Survey</a>",
         "style": {
             "units": "%",
             "breaks": [
@@ -1681,7 +1676,7 @@
         "importance": "Lengthy commutes contribute to increased fossil fuel consumption and congestion.  Significant use of fossil fuels increases costs and contributes to diminished air quality.",
         "source": "American Community Survey, 2006-2010.  The data is a five year sample for the years 2006 to 2010.",
         "tech_notes": "The number of commuters 16 years and older who report that their commute to work is 30 minutes or greater divided by the total number of commuters 16 years and older.",
-        "links": "<a href='http://www.ncdot.org/traffictravel/'>NCDOT Traveler Information Management System</a><br><a href='http://charmeck.org/city/charlotte/Transportation/Parking/Pages/Park%20It.aspx'>Parking Information</a>",
+        "links": "<a href='http://www.ncdot.org/traffictravel/'>NCDOT Travel Information</a><br><a href='http://charmeck.org/city/charlotte/Transportation/Parking/Pages/Park%20It.aspx'>Charlotte Parking Information</a><br><a href='http://www.census.gov/acs/www/'>American Community Survey</a>",
         "style": {
             "units": "%",
             "breaks": [
@@ -1703,11 +1698,11 @@
         "field": "w3",
         "category": "environment",
         "title": "Daily Transit Boardings",
-        "description": "The average number of daily users boarding public transit including transfers for each Neighborhood Profile Area (NPA). Includes bus and light-rail users.",
-        "importance": "Determines a baseline for evaluating the number of residents utilizing public transit for weekday trips. This baseline can be used to determine whether ridership is increasing or decreasing over time.",
+        "description": "The average number of weekday public transit boardings including transfers for each Neighborhood Profile Area (NPA). Includes bus and light-rail users.",
+        "importance": "Determines a baseline for evaluating the number of transit boardings for weekday trips. This baseline can be used to determine whether ridership is increasing or decreasing over time.",
         "source": "Charlotte Area Transit System, 2011",
-        "tech_notes": "Derived by averaging the total number of boardings occurring at all stops within the NPA over the course of the current year divided by the number of days in a year.",
-        "links": "<a href='http://charmeck.org/city/charlotte/cats/Bus/Pages/mobileapp.aspx'>CATS/LYNX I-Phone App</a><br><a href='http://charmeck.org/city/charlotte/cats/Pages/default.aspx'>CATS Transit Schedules and Trip Planner</a>",
+        "tech_notes": "Derived by averaging the total number of weekday boardings occurring at all stops within the NPA over the course of the current year divided by the number of weekdays in a year.",
+        "links": "<a href='http://charmeck.org/city/charlotte/cats/Bus/Pages/mobileapp.aspx'>CATS/LYNX I-Phone App</a><br><a href='http://charmeck.org/city/charlotte/cats/Pages/default.aspx'>Public Transit Trip Planner</a>",
         "style": {
             "breaks": [
                 0,
@@ -1732,7 +1727,7 @@
         "importance": "Cycling has positive transportation, environmental, economic and health benefits.  Bicycle Friendliness references a neighborhood's ability to comfortably support bicycling. ",
         "source": "Charlotte Department of Transportation, 2012",
         "tech_notes": "Defined as (Low Speed Street Miles + Bike Lane Miles + Completed Greenways/Multiuse Path Miles) divided by (Total Street Mileage + Total Completed and Proposed Greenways/Multiuse Path Mileage) + (Connectivity Ratio).  The result is a score between 1 and 3 with 1 being least bicycle friendly and 3 being most bicycle friendly. Low speed streets are streets with a speed limit of 25mph or less. Unpaved paths without a surface intended to support most bicycles are not included.",
-        "links": "<a href='http://bike.charmeck.org'>Charlotte Bicycle Program</a><br><a href='http://charmeck.org/city/charlotte/nbs/communitycommerce/Pages/NMG.aspx'>Neighborhood Matching Grants</a><br><a href='http://www.charlottebcycle.com'>Charlotte B-Cycle</a>",
+        "links": "<a href='http://bike.charmeck.org'>Charlotte Bicycle Master Plan</a><br><a href='http://charmeck.org/city/charlotte/nbs/communitycommerce/Pages/NMG.aspx'>Project Funding Opportunity</a><br><a href='http://www.charlottebcycle.com'>Charlotte Bike Sharing Program</a>",
         "style": {
             "units": "",
             "breaks": [
@@ -1758,7 +1753,7 @@
         "importance": "Adequate sidewalk systems encourage pedestrian connectivity  which provides mobility options for residents of all ages and incomes.  Identifies NPA's where additional sidewalks may be needed.",
         "source": "Charlotte Department of Transportation, Mecklenburg County Landuse and Environmental Services, Towns of Cornelius and Huntersville, 2011.",
         "tech_notes": "Calculated by dividing the length of paved street with sidewalk on at least one side divided by the total length of paved streets.  Sidewalks not adjacent to public streets and unpaved walking trails are not included.  Data does not take into account any physical obstructions that would prevent or impair an individual’s ability to access the location or amenity. The quality of the sidewalk is also not assessed.",
-        "links": "<a href='http://charmeck.org/city/charlotte/Transportation/CDOTrequests/Pages/NewSidewalkRequestForm.aspx'>Charlotte Sidewalk Request</a><br><a href='http://charmeck.org/city/charlotte/Transportation/CDOTrequests/Pages/SidewalkRepairRequest.aspx'>Charlotte Sidewalk Repair Request</a><br><a href='http://charmeck.org/city/charlotte/epm/Projects/Sidewalk/Pages/home.aspx’>Current Sidewalk Projects</a><br><a href='http://charmeck.org/city/charlotte/Transportation/PedBike/Pages/North%20Carolina%20Pedestrian%20Laws.aspx'>NC Pedestrian Laws</a>",
+        "links": "<a href='http://charmeck.org/city/charlotte/Transportation/CDOTrequests/Pages/NewSidewalkRequestForm.aspx'>Charlotte New Sidewalk Request</a><br><a href='http://charmeck.org/city/charlotte/Transportation/CDOTrequests/Pages/SidewalkRepairRequest.aspx'>Charlotte Sidewalk Repair Request</a><br><a href='http://charmeck.org/city/charlotte/epm/Projects/Sidewalk/Pages/home.aspx’>Charlotte Active Sidewalk Projects</a><br><a href='http://charmeck.org/city/charlotte/Transportation/PedBike/Pages/North%20Carolina%20Pedestrian%20Laws.aspx'>NC Pedestrian Laws</a>",
         "style": {
             "units": "%",
             "breaks": [
@@ -1781,7 +1776,7 @@
         "category": "environment",
         "title": "Street Connectivity Index",
         "description": "Ratio of links to nodes within the street network for each Neighborhood Profile Area (NPA).",
-        "importance": "Internal and external street connectivity provides public access within a development and between adjoining developments..  Connectivity facilitates vehicular, bicycle and pedestrian transportation options.",
+        "importance": "Internal and external street connectivity provides public access within a development and between adjoining developments. Connectivity facilitates vehicular, bicycle and pedestrian transportation options.",
         "source": "Charlotte Department of Transportation, Mecklenburg County Landuse and Environmental Services, 2012.",
         "tech_notes": "Defined as the Total Number of Street Links (roadways or pathways) divided by the Number of Nodes (cul-de-sac or endpoint).",
         "links": "<a href='http://library.municode.com/HTML/19970/level3/PTIICOOR_CH20SU_ARTIINGE.html'>Charlotte Subdivison Ordinance</a>",
@@ -1807,10 +1802,10 @@
         "category": "environment",
         "title": "Impervious Surface",
         "description": "Percentage of impervious surface coverage in relation to total number of acres  for each Neighborhood Profile Area (NPA).",
-        "importance": "Impervious surface is a standard profile variable that allows evaluatation of the amount of increase or decrease over time.",
+        "importance": "Impervious surface is a standard profile variable that allows evaluation of the amount of increase or decrease over time.",
         "source": "Mecklenburg County Land Use & Environmental Services, 2011",
         "tech_notes": "The total acres classified as <em>impervious surface</em> using digital orthophotos provided by Mecklenburg County LUESA divided by the total acreage in the NPA.",
-        "links": "<a href='http://charmeck.org/stormwater/Projects/Pages/ActiveSWProjects.aspx'>Current Storm Water Projects</a><br><a href='http://charmeck.org/stormwater/DrainageandFlooding/Pages/FloodPreparedness.aspx'>Flooding Preparedness</a><br><a href='http://charmeck.org/stormwater/basics/Pages/default.aspx’>Storm Water Basic Information</a>",
+        "links": "<a href='http://charmeck.org/stormwater/Projects/Pages/ActiveSWProjects.aspx'>Active Storm Water Projects</a><br><a href='http://charmeck.org/stormwater/DrainageandFlooding/Pages/FloodPreparedness.aspx'>Get Prepared for Flooding</a><br><a href='http://charmeck.org/stormwater/basics/Pages/default.aspx’>Storm Water Basic Information</a><br><a href='http://charmeck.org/stormwater/PollutionPrevention/Pages/default.aspx’>Prevent Water Pollution</a>",
         "style": {
             "units": "%",
             "breaks": [
@@ -1838,7 +1833,7 @@
         "importance": "Defines the number of structures likely to experience flooding over time and can assist in prioritizing what areas may be beneficial for participation in FEMA sponsored buyout programs.",
         "source": "Mecklenburg County Land Use & Environmental Services, 2011",
         "tech_notes": "Does not include areas subject to flooding that are not regulated by FEMA.  N/A indicates NPA's where there were no structures within the floodplain or no floodplain within the NPA.",
-        "links": "<a href='http://polaris.mecklenburgcountync.gov/website/redesign/viewer.htm'>Located in a FEMA Floodplain?</a><br><a href='http://charmeck.org/stormwater/DrainageandFlooding/Pages/FloodplainBuyout(Acquisition)Program.aspx'>Floodplain Buyout Program </a><br><a href='http://charmeck.org/stormwater/DrainageandFlooding/Pages/FloodInsurance.aspx’>Flood Insurance Information</a><br><a href='http://charmeck.org/stormwater/Projects/Pages/ActiveSWProjects.aspx'>Current Storm Water Projects</a><br><a href='http://charmeck.org/stormwater/DrainageandFlooding/Pages/FloodPreparedness.aspx'>Flooding Preparedness</a>",
+        "links": "<a href='http://polaris.mecklenburgcountync.gov/website/redesign/viewer.htm'>POLARIS Property Search</a><br><a href='http://charmeck.org/stormwater/DrainageandFlooding/Pages/FloodplainBuyout(Acquisition)Program.aspx'>Floodplain Buyout Program </a><br><a href='http://charmeck.org/stormwater/DrainageandFlooding/Pages/FloodInsurance.aspx’>Flood Insurance Information</a><br><a href='http://charmeck.org/stormwater/Projects/Pages/ActiveSWProjects.aspx'>Active Storm Water Projects</a><br><a href='http://charmeck.org/stormwater/DrainageandFlooding/Pages/FloodPreparedness.aspx'>Get Prepared for Flooding</a>",
         "style": {
             "breaks": [
                 0,
@@ -1861,7 +1856,7 @@
         "importance": "Reflects the amount of tree cover within an NPA and establishes a baseline.",
         "source": "Mecklenburg County Land Use & Environmental Services, 2008 ",
         "tech_notes": "Tree canopy coverage calculated using aerial photography.  Commercial, industrial, residential, institutional and open space areas are included in the percentage.",
-        "links": "<a href='http://www.treescharlotte.org'>Trees Charlotte</a><br><a href='http://charmeck.org/city/charlotte/nbs/communitycommerce/Pages/NMG.aspx'>Neighborhood Matching Grants </a><br><a href='http://www.charmeck.org/mecklenburg/county/WaterandLandResources/Conservation/Pages/Tree%20Seedling%20Sale.aspx’>Annual Tree Sapling Sale</a><br><a href='http://www.charmeck.org/city/charlotte/epm/Services/LandDevelopment/trees/Pages/City%20of%20Charlotte%20Tree%20Ordinance%20and%20Guidelines.aspx'>Charlotte Tree Ordinance</a><br><a href='http://charmeck.org/city/charlotte/nbs/kcb/Pages/home.aspx'>Keep Charlotte Beautiful</a>",
+        "links": "<a href='http://www.treescharlotte.org'>Tree Charlotte Canopy Program</a><br><a href='http://charmeck.org/city/charlotte/nbs/communitycommerce/Pages/NMG.aspx'>Project Funding Opportunity </a><br><a href='http://www.charmeck.org/mecklenburg/county/WaterandLandResources/Conservation/Pages/Tree%20Seedling%20Sale.aspx’>Annual Tree Sapling Sale</a><br><a href='http://www.charmeck.org/city/charlotte/epm/Services/LandDevelopment/trees/Pages/City%20of%20Charlotte%20Tree%20Ordinance%20and%20Guidelines.aspx'>Charlotte Tree Ordinance</a><br><a href='http://charmeck.org/city/charlotte/nbs/kcb/Pages/home.aspx'>Keep Charlotte Beautiful</a>",
         "style": {
             "units": "%",
             "breaks": [
@@ -1887,6 +1882,7 @@
         "tech_notes": "Calculated by adding the tonnage of residential recycled waste and residential yard waste divided by the tonnage of residential solid waste collected including tonnage of residential garbage, recycling, yard waste and non-recyclable bulky item pickup for the period between July 2011 and June 2012. Only includes data for single family residential units (attached and detached) and multi-family residences with less than 30 units and any additional legacy multi-family dwellings. Does not include information from all apartment complexes.",
         "links": "<a href='http://charmeck.org/mecklenburg/county/SolidWaste/homecomposting/Pages/YardWasteFacilities.aspx'>Yard Waste Drop Off Locations</a><br><a href='http://charmeck.org/mecklenburg/county/SolidWaste/RecyclingDropOffCenters/Pages/default.aspx'>Recycling Center Locations</a><br><a href='http://charmeck.org/mecklenburg/county/SolidWaste/SchoolandKidsRecycleCorner/Pages/RecyclingFundraiserPrograms.aspx’>Recycling Fundraiser Programs</a><br><a href='http://maps.co.mecklenburg.nc.us/website/recyclecenters/'>Recycling Center Locator Map</a><br><a href='http://www.catalogchoice.org/communities'>Catalog Choice</a>",
         "style": {
+            "units": "%",
             "breaks": [
                 0,
                 30,
@@ -1908,7 +1904,7 @@
         "importance": "This information could help the city and towns develop more targeted residential recycling campaigns; lessons learned from areas of high participation can be applied to recycling promotional efforts in other areas.",
         "source": "Charlotte Solid Waste Services, 2012",
         "tech_notes": "Determined by data from sensors affixed to residential roll out bins.  Recycling participation is determined by dividing the number of residences who have participated in the residential recycling program one or more times per quarter for the period between July 2011 and June 2012 divided by the total number of eligible residences. Only includes data for single family residential units (attached and detached) and multi-family residences with less than 30 units and any additional legacy multi-family dwellings.  Does not include information from all apartment complexes.",
-        "links": "<a href='http://charmeck.org/mecklenburg/county/SolidWaste/homecomposting/Pages/YardWasteFacilities.aspx'>Yard Waste Drop Off Locations</a><br><a href='http://charmeck.org/mecklenburg/county/SolidWaste/RecyclingDropOffCenters/Pages/default.aspx'>Recycling Center Locations</a><br><a href='http://charmeck.org/mecklenburg/county/SolidWaste/SchoolandKidsRecycleCorner/Pages/RecyclingFundraiserPrograms.aspx’>Recycling Fundraiser Programs</a><br><a href='http://maps.co.mecklenburg.nc.us/website/recyclecenters/'>Recycling Center Locator Map</a><br><a href='http://www.catalogchoice.org/communities'>Catalog Choice</a>",
+        "links": "<<a href='http://charmeck.org/mecklenburg/county/SolidWaste/RecyclingDropOffCenters/Pages/default.aspx'>Recycling Center Locations</a><br><a href='http://charmeck.org/city/charlotte/SWS/CurbIt/Recycling/Pages/Home.aspx'>What Can Be Recycled</a><br><a href='http://charmeck.org/mecklenburg/county/SolidWaste/SchoolandKidsRecycleCorner/Pages/RecyclingFundraiserPrograms.aspx’>Recycling Fundraiser Programs</a><br><a href='http://www.catalogchoice.org/communities'>Stop Junk Mail</a><br><a href='http://charmeck.org/city/charlotte/SWS/FAQ/Pages/ElectronicWasteLandfillBan.aspx'>Electronic Waste Disposal</a><br><a href='http://charmeck.org/city/charlotte/SWS/CurbIt/BulkyItems/Pages/Home.aspx'>Schedule Bulky Item Pick Up</a>",
         "style": {
             "units": "%",
             "breaks": [
@@ -1970,8 +1966,9 @@
         "importance": "Reflects amount of water being consumed per capita within the NPA.  This information could help in identifying areas where resident education programs could be beneficial.",
         "source": "Charlotte-Mecklenburg Utilities, 2011",
         "tech_notes": "The number of residential accounts and their total CCF were summarized for each NPA. The total CCF was divided by the number of accounts to obtain the average residential CCFs.  Does not include multi-family structures utilizing a single meter, homes on well water or non-residential structures. N/A include NPAs with less than 10 single family meter accounts. Data does not include multi-family or irrigation meter accounts. ",
-        "links": "<a href='http://charmeck.org/city/charlotte/Utilities/WaterSmart/Pages/SmartIrrigationProgram.aspx'>Smart Irrigation Program</a><br><a href='http://charmeck.org/city/charlotte/Utilities/CustomerService/Pages/SaveOnWaterBill.aspx'>Water Saving Tips</a><br><a href='http://charmeck.org/city/charlotte/Utilities/WaterSmart/Documents/WaterSmartLandscapingTipsforwebsite.pdf’>Water Smart Landscaping Guide</a><br><a href='http://charmeck.org/city/charlotte/Utilities/WaterSmart/Documents/CMUD83204WaterUseAudit2008.pdf'>Home Water Use Audit</a><br><a href='http://charmeck.org/city/charlotte/Utilities/WaterSmart/Pages/Indoor%20Water%20Conservation.aspx'>Water Conservation Tips</a>",
+        "links": "<a href='http://charmeck.org/city/charlotte/Utilities/WaterSmart/Pages/home.aspx'>CMUD Water Conservation Tips</a><br><a href='http://charmeck.org/city/charlotte/Utilities/WaterSmart/Documents/WaterSmartLandscapingTipsforwebsite.pdf’>Water Smart Landscaping Guide</a><br><a href='http://www.epa.gov/watersense/'>EPA WaterSense Program</a>",
         "style": {
+            "units": " CCF",
             "breaks": [
                 0,
                 6,
@@ -1995,6 +1992,7 @@
         "tech_notes": "The length of stream banks maintained by the adopt-a-stream program divided by the total length of stream banks in each NPA. Does not include shoreline along the Catawba river.  For areas where a stream forms the NPA boundary, the linear feet of adopted area will be equally attributed to both NPA's.",
         "links": "<a href='http://www.charmeck.org/stormwater/VolunteerGetInvolved/Pages/Adopt-A-StreamProgram.aspx'>Adopt-a-Stream Program</a><br><a href='http://mapserver.mecklenburgcountync.gov/adoptastream/'>Map of Eligible & Adopted Streams</a>",
         "style": {
+            "units": "%",
             "breaks": [
                 0,
                 5,
@@ -2012,11 +2010,11 @@
         "field": "w17",
         "category": "environment",
         "title": "Residential Electricity Consumption",
-        "description": "Average monthly electricity consumption in kilowatts per NPA.",
+        "description": "Average household monthly electricity consumption in kilowatts per Neighborhood Profile Area (NPA).",
         "importance": "Provides baseline information to determine the average electricity use for households within the NPA.  Data can been used to target educational programs, weatherization services, grant funds or other initiatives to reduce energy use in areas that exhibit higher usage.  Reducing electricity use saves money and lowers the demand for additional power plants to be constructed which may lead to increased air pollution and degradation of resources.",
         "source": "Duke Energy",
         "tech_notes": "Data was received at the block group level and aggregated to the NPA geography.  Data is not included for cases where the block group contains fewer than five (5) residential customers.  Data represents the average monthly energy use in kilowatt hours for the 12-month period beginning July 1, 2010 and ending June 30, 2011.",
-        "links": "<a href='http://www.energysavers.gov/your_home/energy_audits/index.cfm/mytopic=11160'>Home Energy Assessments</a><br><a href='http://www.duke-energy.com/youtility/'>Duke Energy Youtility Program</a><br><a href='http://doyourpart.com/green-living/book/room-by-room-checklist/’>Home Checklist</a><br><a href='https://www.energystar.gov/index.cfm?fuseaction=home_energy_advisor.showGetInput'>Home Energy Advisor</a><br><a href='http://www.energystar.gov/index.cfm?c=home_improvement.hm_improvement_index'>ENERGY STAR</a><br><a href='http://www.duke-energy.com/north-carolina/savings.asp'>Energy Saving Tips</a><br><a href='http://www.Power2charlotte.com'>Charlotte's Energy Efficiency Strategy</a>",
+        "links": "<a href='http://www.energysavers.gov/your_home/energy_audits/index.cfm/mytopic=11160'>DIY Home Energy Resources</a><br><a href='http://doyourpart.com/green-living/book/room-by-room-checklist/’>Home Checklist</a><br><a href='http://www.energystar.gov/index.cfm?c=home_improvement.hm_improvement_index'>ENERGY STAR Information</a><br><a href='http://www.duke-energy.com/north-carolina/savings.asp'>Duke Energy Programs</a><br><a href='http://www.Power2charlotte.com'>Charlotte's Energy Efficiency Strategy</a>",
         "style": {
             "breaks": [
                 0,
@@ -2035,11 +2033,11 @@
         "field": "w16",
         "category": "environment",
         "title": "Residential Natural Gas Consumption",
-        "description": "Average monthly natural gas consumption in therms per NPA.",
+        "description": "Average household monthly natural gas consumption in therms per Neighborhood Profile Area (NPA).",
         "importance": "Provides baseline information to determine the average natural gas use for households within the NPA.  Data can been used to target educational programs, weatherization services, grant funds or other initiatives to reduce natural gas use in areas that exhibit higher usage.  Reducing natural gas use saves money and decreases the need for additional wells and pipelines which may contribute to degradation of resources.",
         "source": "Piedmont Natural Gas",
         "tech_notes": "Data was received at the block group level and aggregated to the NPA geography.  Data is not included for cases where the block group contains fewer than five (5) residential customers.  Data represents the average monthly energy use in Therms for the 12-month period beginning July 1, 2010 and ending June 30, 2011.",
-        "links": "<a href='http://www.energysavers.gov/your_home/energy_audits/index.cfm/mytopic=11160'>Home Energy Assessments</a><br><a href='http://doyourpart.com/green-living/book/room-by-room-checklist/’>Home Checklist</a><br><a href='http://piedmontng.com/yourhome/savemoneyandenergy/home.aspx’>Natural Gas Energy Saving Tips</a><br>",
+        "links": "<a href='http://www.energysavers.gov/your_home/energy_audits/index.cfm/mytopic=11160'>DIY Home Energy Resources</a><br><a href='http://doyourpart.com/green-living/book/room-by-room-checklist/’>Home Checklist</a><br><a href='http://piedmontng.com/yourhome/savemoneyandenergy/home.aspx’>Piedmont Natural Gas Programs</a><br>",
         "style": {
             "units": " therms",
             "breaks": [

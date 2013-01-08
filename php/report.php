@@ -30,7 +30,7 @@ if (count($measures) > 0) {
     $npa_json = json_decode($string, true);
 
     foreach ($npa_json["features"] as $value) {
-        if ( $value["properties"]["id"] = $neighborhood ) {
+        if ( $value["properties"]["id"] == $neighborhood ) {
             $npadata = $value["properties"];
         }
     }
