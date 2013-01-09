@@ -1455,7 +1455,7 @@
         }
     },
     "g10": {
-        "db": "residential_vacant",
+        "db": "residential_vacant_rate",
         "field": "g10",
         "category": "housing",
         "title": "Vacancy Rate",
