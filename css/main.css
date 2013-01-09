@@ -183,6 +183,7 @@
     .navbar, .container { padding-left: 10px; padding-right: 10px; }
     .navbar .brand { display: block; padding-left: 20px; }
     .jumbotron { display: none; }
+    .modal.fade.in { top: 10px; } /* fix for modals on phones */
 }
 
 
@@ -190,4 +191,6 @@
 @media print {
     .sidenav, #opacity_slider, .btn-navbar { display: none !important; }
     .measure-details, #map { box-shadow: none;  }
+    #map { border: 2px solid #666;  }
+    #map-area { max-width: 450px; float: left;}
 }
