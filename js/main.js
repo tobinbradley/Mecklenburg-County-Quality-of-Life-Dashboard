@@ -16,7 +16,7 @@ $(document).ready(function() {
 
     // Load JSON metric configuration
     $.ajax({
-        url: "js/metrics.json?V=18",
+        url: "js/metrics.json?V=20",
         dataType: "json",
         async: false,
         success: function(data){
@@ -26,7 +26,7 @@ $(document).ready(function() {
 
     // Grab NPA JSON
     $.ajax({
-        url: "js/npa.json?V=18",
+        url: "js/npa.json?V=20",
         dataType: "json",
         type: "GET",
         async: false,
@@ -325,8 +325,8 @@ function updateData(measure) {
 
     $("#indicator_why").html(measure.importance);
     $("#indicator_technical").empty();
-    if (measure.tech_notes.length > 0) $("#indicator_technical").append('<p>' + measure.tech_notes + '</p>');
-    if (measure.source.length > 0) $("#indicator_technical").append('<p>' + measure.source + '</p>');
+    if (measure.tech_notes && measure.tech_notes.length > 0) $("#indicator_technical").append('<p>' + measure.tech_notes + '</p>');
+    if (measure.source && measure.source.length > 0) $("#indicator_technical").append('<p>' + measure.source + '</p>');
     $("#indicator_resources").empty();
 
     // Quick links
