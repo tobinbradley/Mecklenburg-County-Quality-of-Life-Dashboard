@@ -13,10 +13,9 @@ var FTmeta,
 
 
 $(document).ready(function() {
-
     // Load JSON metric configuration
     $.ajax({
-        url: "js/metrics.json?V=20",
+        url: "js/metrics.json?V=21",
         dataType: "json",
         async: false,
         success: function(data){
@@ -26,7 +25,7 @@ $(document).ready(function() {
 
     // Grab NPA JSON
     $.ajax({
-        url: "js/npa.json?V=20",
+        url: "js/npa.json?V=21",
         dataType: "json",
         type: "GET",
         async: false,
@@ -144,7 +143,20 @@ $(document).ready(function() {
     });
 
     // jQuery UI Autocomplete
-    $("#searchbox").autocomplete({
+    $.widget( "custom.catcomplete", $.ui.autocomplete, {
+        _renderMenu: function( ul, items ) {
+            var that = this,
+                currentCategory = "";
+            $.each( items, function( index, item ) {
+                if ( item.category != currentCategory ) {
+                    ul.append( "<li class='ui-autocomplete-category'>" + item.responsetype + "</li>" );
+                    currentCategory = item.category;
+                }
+                that._renderItemData( ul, item );
+            });
+        }
+    });
+    $("#searchbox").catcomplete({
         minLength: 4,
         delay: 400,
         autoFocus: true,
@@ -185,23 +197,12 @@ $(document).ready(function() {
             if (ui.item.gid) locationFinder(ui.item);
         },
         open: function(event, ui) {
-            // Go if only 1 result
             menuItems = $("ul.ui-autocomplete li.ui-menu-item");
             if (menuItems.length == 1 && menuItems.text() != "More information needed for search." && menuItems.text() != "No records found.") {
-                $($(this).data('autocomplete').menu.active).find('a').trigger('click');
+                $(".ui-autocomplete .ui-menu-item a").trigger("click");
             }
         }
-    }).data("autocomplete")._renderMenu = function (ul, items) {
-        // Match categories
-        var self = this, currentCategory = "";
-        $.each( items, function( index, item ) {
-            if ( item.responsetype != currentCategory && item.responsetype !== undefined) {
-                ul.append( "<li class='ui-autocomplete-category'>" + item.responsetype + "</li>" );
-                currentCategory = item.responsetype;
-            }
-            self._renderItemData( ul, item );
-        });
-    };
+    });
 
 });
 
@@ -311,9 +312,6 @@ function updateData(measure) {
     if (activeRecord.id) {
         $("#selectedNeighborhood").html("Neighborhood Profile Area " + activeRecord.id);
         $("#selectedValue").html( prettyMetric(activeRecord[measure.field], activeMeasure) );
-        // charts
-        if (measure.auxchart) { auxChart(measure); }
-        else { $("#indicator_auxchart").empty(); }
     }
     barChart(measure);
 
@@ -389,37 +387,6 @@ function barChart(measure){
     chart.draw(data, options);
 }
 
-/*
-    Extra chart
-*/
-function auxChart(measure) {
-    // add each measure to array
-    items = [];
-    items[0] = ["test","test"];
-    i = 1;
-    $.each(measure.quicklinks, function(index, value) {
-        if (activeRecord[value] > 0) {
-            items[i] = [ FTmeta[value].title.replace("Commute by ","").replace("Commute ","") + " " + activeRecord[FTmeta[value].field] + "%",  activeRecord[FTmeta[value].field] ];
-            i++;
-        }
-    });
-
-    var data = google.visualization.arrayToDataTable(items);
-
-    var options = {
-        width: $("aside").width(),
-        height: 180,
-        legend: 'right',
-        titlePosition: 'out',
-        title: measure.auxchart.title,
-        titleTextStyle: { fontSize: 14 },
-        pieSliceText: 'value',
-        chartArea: {top: 35,  height: 135}
-    };
-
-    var chart = new google.visualization.PieChart(document.getElementById('indicator_auxchart'));
-    chart.draw(data, options);
-}
 
 
 
@@ -488,8 +455,6 @@ function mapInit() {
     legend.addTo(map);
 }
 
-
-
 /* zoom to bounds */
 function zoomToFeature(bounds) {
     map.fitBounds(bounds);
@@ -532,6 +497,12 @@ function getNPALayer(idvalue) {
     return layer;
 }
 
+/*
+    Find locations
+*/
+function locationFinder(data) {
+    performIntersection(data.lat, data.lng);
+}
 
 /*
     Map NPA geojson decoration functions
@@ -552,7 +523,6 @@ function style(feature) {
         fillOpacity: $("#opacity_slider").slider("value") / 100
     };
 }
-
 function getColor(d) {
     var color = "";
     var colors = FTmeta[activeMeasure].style.colors;
@@ -577,7 +547,6 @@ function highlightFeature(e) {
     }
     info.update(layer.feature.properties);
 }
-
 function resetHighlight(e) {
     var layer = e.target;
      if (!activeRecord || (activeRecord && activeRecord.id != layer.feature.properties.id)) layer.setStyle({
@@ -602,10 +571,3 @@ function selectFeature(e) {
     changeNeighborhood(layer.feature.properties.id);
     zoomToFeature(layer.getBounds());
 }
-
-
-// Find locations
-function locationFinder(data) {
-    performIntersection(data.lat, data.lng);
-}
-

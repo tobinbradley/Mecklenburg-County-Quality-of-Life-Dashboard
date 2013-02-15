@@ -275,6 +275,30 @@
             ]
         }
     },
+    "p13": {
+        "db": "hispanic",
+        "field": "p13",
+        "category": "character",
+        "title": "Ethnicity- Hispanic/Latino",
+        "description": "Percentage of Neighborhood Profile Area (NPA) population self-identified as Hispanic.",
+        "importance": "Information on race/ethnicity is required for many Federal programs and is critical in making policy decisions, particularly for civil rights. Race/Ethnicity data also are used to promote equal employment opportunities and to assess  disparities in health and environmental risks.<a href='http://www.census.gov/population/race/about/faq.html'>U.S. Census</a>",
+        "tech_notes": "Hispanic/Latino population divided by the total population.",
+        "source": "U.S. Census, 2010",
+        "links": "<a href='http://www.census.gov/2010census/data/'>2010 U.S. Census</a>",
+        "style": {
+            "units": "%",
+            "breaks": [
+                0,
+                15,
+                30
+            ],
+            "colors": [
+                "#D8F2ED",
+                "#2ca79e",
+                "#154F4A"
+            ]
+        }
+    },
     "e1": {
         "db": "registered_voters",
         "field": "e1",
@@ -1864,6 +1888,30 @@
                 0,
                 40,
                 60
+            ],
+            "colors": [
+                "#D8F2ED",
+                "#2ca79e",
+                "#154F4A"
+            ]
+        }
+    },
+    "w18": {
+        "db": "residential_tree_canopy",
+        "field": "w18",
+        "category": "environment",
+        "title": "Residential Tree Canopy",
+        "description": "Percentage of total area covered by tree canopy for each Neighborhood Profile Area (NPA). Includes residential areas only.",
+        "importance": "Reflects the amount of tree cover within an NPA and establishes a baseline for residential areas only.",
+        "source": "Mecklenburg County Land Use & Environmental Services, 2008 ",
+        "tech_notes": "Tree canopy coverage calculated using aerial photography.  Residential areas were only included in the percentage. Residential areas included existing land use as defined by the Planning Department in 2011. They included included Agriculture, Mixed Use - Residential, Large Lot Residential, Multi-Family, and Single Family.",
+        "links": "<a href='http://www.treescharlotte.org'>Tree Charlotte Canopy Program</a><br><a href='http://charmeck.org/city/charlotte/nbs/communitycommerce/Pages/NMG.aspx'>Project Funding Opportunity </a><br><a href='http://www.charmeck.org/mecklenburg/county/WaterandLandResources/Conservation/Pages/Tree%20Seedling%20Sale.aspx'>Annual Tree Sapling Sale</a><br><a href='http://www.charmeck.org/city/charlotte/epm/Services/LandDevelopment/trees/Pages/City%20of%20Charlotte%20Tree%20Ordinance%20and%20Guidelines.aspx'>Charlotte Tree Ordinance</a><br><a href='http://charmeck.org/city/charlotte/nbs/kcb/Pages/home.aspx'>Keep Charlotte Beautiful</a>",
+        "style": {
+            "units": "%",
+            "breaks": [
+                0,
+                30,
+                50
             ],
             "colors": [
                 "#D8F2ED",
