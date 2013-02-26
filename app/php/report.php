@@ -5,7 +5,7 @@ ob_start();
 
 // set content header
 header('Content-type: application/pdf');
-//error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
+error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 
 // Load Dependecies
 require('fpdf17/fpdf.php');
@@ -35,6 +35,21 @@ if (count($measures) > 0) {
         }
     }
 }
+
+// Calc county average
+function calcAverage($measure) {
+    global $npa_json;
+
+    $theSum = 0;
+    $theCount = 0;
+
+    foreach ($npa_json["features"] as $value) {
+        $theSum += $value["properties"][$measure];
+        if ( !is_null($value["properties"][$measure]) ) $theCount++;
+    }
+    return round($theSum / $theCount, 1);
+}
+
 
 // extend FPDF for footer
 class PDF extends FPDF
@@ -159,14 +174,21 @@ function createMeasure($x, $y, $themeasure) {
     global $pdf, $json, $npadata;
 
     // value and title
-    $pdf->SetTextColor(0,0,0);
+    $pdf->SetTextColor(13,100,140);
     $pdf->SetY($y);
     $pdf->SetX($x);
     $pdf->SetFont('Arial','B',12);
     $pdf->MultiCell(3.5, 0.15, prettyData($npadata[$json[$themeasure]["field"]], $themeasure) . " " . utf8_decode($json[$themeasure][title]), 0, "L");
 
+    // average
+    $pdf->SetTextColor(0,0,0);
+    $pdf->Ln(0.1);
+    $pdf->SetX($x);
+    $pdf->SetFont('Arial','B',9);
+    $pdf->Write(0, "County Average: " . prettyData(calcAverage($themeasure), $themeasure));
+
     // what it is
-    $pdf->Ln(0.15);
+    $pdf->Ln(0.2);
     $pdf->SetX($x);
     $pdf->SetFont('Arial','B',10);
     $pdf->Write(0, "What is this Indicator?");

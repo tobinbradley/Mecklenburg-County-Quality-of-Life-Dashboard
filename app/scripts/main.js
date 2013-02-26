@@ -67,49 +67,49 @@ $(document).ready(function() {
     $('a[data-measure=' + defaultMeasure + ']').children("i").addClass("icon-chevron-right");
 
     // Click events for sidebar
-    $("a.measure-link").on("click", function(e) {
+    $("a.measure-link").on("click", function (e) {
         $("a.measure-link").children("i").removeClass("icon-chevron-right");
         $(this).children("i").addClass("icon-chevron-right");
-        if ( $(window).width() <= 767 ) $('html, body').animate({ scrollTop: $("#data").offset().top }, 1000);
+        if ($(window).width() <= 767 ) $('html, body').animate({ scrollTop: $("#data").offset().top }, 1000);
         activeMeasure = $(this).data("measure");
-        changeMeasure( $(this).data("measure") );
+        changeMeasure($(this).data("measure"));
         e.stopPropagation();
     });
-    $(".sidenav li p").on("click", function(e) { e.stopPropagation(); });
-    $(".sidenav li.metrics-dropdown").on("click", function() {
+    $(".sidenav li p").on("click", function (e) { e.stopPropagation(); });
+    $(".sidenav li.metrics-dropdown").on("click", function () {
         $(this).addClass("active").siblings().removeClass("active");
-        $(this).siblings().children("p").each(function(){
+        $(this).siblings().children("p").each(function (){
             if (!$(this).is(':hidden')) $(this).animate({ height: 'toggle' }, 250);
         });
         $(this).children("p").animate({ height: 'toggle' }, 250);
     });
-    $(".talkback").click(function() {
+    $(".talkback").click(function () {
         $('#modalHelp').modal('hide');
         $('#modalTalkback').modal('show');
     });
-    $(".reports").click(function() {
+    $(".reports").click(function () {
         $('#modalData').modal('hide');
         $('#modalReport').modal('show');
     });
-    $(".reportToData").click(function(){
+    $(".reportToData").click(function () {
         $('#modalReport').modal('hide');
         $('#modalData').modal('show');
     });
 
     // Geolocation link click event
-    $(".gps").click(function() {
+    $(".gps").click(function () {
         map.locate({ enableHighAccuracy: true });
     });
 
     // Highlight any search box text on click
-    $("#searchbox").click(function() { $(this).select(); });
+    $("#searchbox").click(function () { $(this).select(); });
 
     // Show the overview introduction text
-    $(".show-overview").on("click", function(){ resetOverview(); });
+    $(".show-overview").on("click", function () { resetOverview(); });
 
     // activate popovers
     $('*[rel=popover]').popover();
-    $(".popover-trigger").hoverIntent( function(){
+    $(".popover-trigger").hover( function () {
             if ( $(window).width() > 979 ) $( $(this).data("popover-selector") ).popover("show");
         }, function(){
             $( $(this).data("popover-selector") ).popover("hide");
@@ -120,7 +120,6 @@ $(document).ready(function() {
     $(window).smartresize( function() {
         // charts
         if ( $("#details_chart svg").width() !== $("#data").width() ) barChart(FTmeta[activeMeasure]);
-        //popovers
     });
 
     // Opacity slider
@@ -227,8 +226,6 @@ $(document).ready(function() {
             }
             else if (ui.item.gid) {
                 changeNeighborhood(ui.item.gid);
-                var layer = getNPALayer(ui.item.gid);
-                zoomToFeature(layer.getBounds());
             }
 
         }
@@ -243,60 +240,90 @@ $(window).load(function(){
     // load map
     mapInit();
 
-    // Process hash and add listener for navigation
-    hashRead();
-    window.addEventListener("hashchange", hashRead, false);
+    // Process any legacy hash, if not process arguments
+    if ( window.location.hash.length > 1 ) {
+        hashRead();
+    }
+    else {
+        historyNav();
+    }
+
+    // Process
+
+    // set up history API
+    if (Modernizr.history) {
+        // history is supported; do magical things
+        $(window).bind("popstate", function() {
+            if ( !getURLParameter("npa") && !getURLParameter("variable") ) {
+                resetOverview();
+            }
+            else {
+                historyNav();
+            }
+        });
+    }
 });
+
+
+/*
+    Read args on load and popstate
+*/
+function historyNav() {
+    // run neighborhood
+    if ( getURLParameter("npa") ) {
+        changeNeighborhood(getURLParameter("npa"), false);
+    }
+    // run variable
+    if ( getURLParameter("variable") ) {
+        changeMeasure(getURLParameter("variable"), false);
+    }
+}
+
 
 /*
     Hash reading and writing
 */
-function hashChange(measure, record) {
-    window.location.hash = "/" + measure + "/" + record;
-}
 function hashRead() {
-    if (window.location.hash.length > 1) {
-        theHash = window.location.hash.replace("#","").split("/");
+    theHash = window.location.hash.replace("#","").split("/");
 
-        // Process the lat,lon or neighborhood number
-        if (theHash[2] && theHash[2].length > 0 && parseInt(theHash[2],10) !== activeRecord.id) {
-            if (theHash[2].indexOf(",") == -1) {
-                changeNeighborhood(theHash[2], true);
-                var layer = getNPALayer(theHash[2]);
-                zoomToFeature(layer.getBounds());
-            }
-            else {
-                coords = theHash[2].split(",");
-                performIntersection(coords[0], coords[1]);
-            }
-        }
-
-        // Process the metric
-        if (theHash[1].length > 0 && theHash[1] !== activeMeasure) {
-            if ( $('a[data-measure=' + theHash[1] + ']').parent("li").parent("p").is(':hidden') ) $('a[data-measure=' + theHash[1] + ']').parent("li").parent("p").parent("li").trigger("click");
-            $("a.measure-link").children("i").removeClass("icon-chevron-right");
-            $('a[data-measure=' + theHash[1] + ']').children("i").addClass("icon-chevron-right");
-            changeMeasure(theHash[1]);
+    // Process the neighborhood number
+    if (theHash[2] && theHash[2].length > 0) {
+        if (theHash[2].indexOf(",") == -1) {
+            changeNeighborhood(theHash[2], true);
         }
     }
+    // Process the metric
+    if (theHash[1].length > 0) {
+        changeMeasure(theHash[1]);
+    }
+    // clear out old hash nonsense
+    window.location.hash = "";
 }
 
 /* reset to overview */
 function resetOverview() {
     $(".measure-info").hide();
-    $(".overview").show();
     activeRecord = {};
     barChart(FTmeta[activeMeasure]);
     geojson.setStyle(style);
     map.setView([35.260, -80.807], 10);
-    hashChange(activeMeasure, "");
 }
 
 /*
     Change active measure
 */
-function changeMeasure(measure) {
+function changeMeasure(measure, setHistory) {
+    if(typeof(setHistory)==='undefined') setHistory = true;
     activeMeasure = measure;
+    // activate sidebar etc. if not already there
+    if ( $('a[data-measure=' + measure + ']').parent("li").parent("p").is(':hidden') ) {
+        $('a[data-measure=' + measure + ']').parent("li").parent("p").parent("li").trigger("click");
+    }
+    if (!$('a[data-measure=' + measure + ']').children("i").hasClass("icon-chevron-right")) {
+        $("a.measure-link").children("i").removeClass("icon-chevron-right");
+        $('a[data-measure=' + measure + ']').children("i").addClass("icon-chevron-right");
+    }
+
     // get average if haven't already
     if (!FTmeta[activeMeasure].style.avg) calcAverage(activeMeasure);
     geojson.setStyle(style);
@@ -305,20 +332,31 @@ function changeMeasure(measure) {
     var layer = getNPALayer(activeRecord.id);
     updateData(FTmeta[activeMeasure]);
     if (activeRecord.id) highlightSelected(layer);
-    hashChange(activeMeasure, activeRecord.id ? activeRecord.id : "");
+
+    // pushstate
+    if (Modernizr.history && setHistory) {
+        history.pushState(null, null, "?npa=" + (activeRecord["id"] ? activeRecord["id"] : "") + "&variable=" + activeMeasure);
+    }
 }
 
 /*
     Change active neighborhood
 */
-function changeNeighborhood(npaid) {
+function changeNeighborhood(npaid, setHistory) {
+    if(typeof(setHistory)==='undefined') setHistory = true;
     var layer = getNPALayer(npaid);
     assignData(layer.feature.properties);
-    //$(".overview").hide();
     $(".measure-info").show();
     updateData(FTmeta[activeMeasure]);
     highlightSelected(layer);
-    hashChange(activeMeasure, activeRecord.id ? activeRecord.id : "");
+    $('#report_neighborhood').val(npaid);
+    zoomToFeature(layer.getBounds());
+
+    // pushstate
+    if (Modernizr.history && setHistory) {
+        history.pushState(null, null, "?npa=" + (activeRecord["id"] ? activeRecord["id"] : "") + "&variable=" + activeMeasure);
+    }
+
 }
 
 /*
@@ -328,10 +366,6 @@ function assignData(data) {
     $.each(data, function(key, value){
         activeRecord[key] = value;
     });
-
-    // Select neighborhood in report
-    $("#report_neighborhood option[selected]").removeAttr("selected");
-    $("#report_neighborhood option[value=" + activeRecord.id + "]").attr('selected', 'selected');
 }
 
 
@@ -350,21 +384,11 @@ function updateData(measure) {
     $("#indicator_description").html(measure.description);
 
     // set details info
-
     $("#indicator_why").html(measure.importance);
     $("#indicator_technical").empty();
     if (measure.tech_notes && measure.tech_notes.length > 0) $("#indicator_technical").append('<p>' + measure.tech_notes + '</p>');
     if (measure.source && measure.source.length > 0) $("#indicator_technical").append('<p>' + measure.source + '</p>');
     $("#indicator_resources").empty();
-
-    // Quick links
-    if (measure.quicklinks) {
-        quicklinks = [];
-        $.each(measure.quicklinks, function(index, value) {
-            quicklinks[index] = '<a href="javascript:void(0)" class="quickLink" onclick="changeMeasure(\'' + value + '\')">' + FTmeta[value]["title"] + '</a>';
-        });
-        $("#indicator_resources").append("<h5>Related Variables</h5><p>" + quicklinks.join(", ") + "</p>");
-    }
 
     // Links
     if (measure.links) {
@@ -510,8 +534,6 @@ function performIntersection(lat, lon) {
         if (data.total_rows > 0) {
             changeNeighborhood(data.rows[0].row.id);
             addMarker(lat, lon);
-            var layer = getNPALayer(data.rows[0].row.id);
-            zoomToFeature(layer.getBounds());
         }
     });
 }
@@ -599,5 +621,4 @@ function highlightSelected(layer) {
 function selectFeature(e) {
     var layer = e.target;
     changeNeighborhood(layer.feature.properties.id);
-    zoomToFeature(layer.getBounds());
 }
