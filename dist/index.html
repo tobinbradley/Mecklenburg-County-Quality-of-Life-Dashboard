@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Quality of Life Dashboard</title>
+        <meta name="description" content="Quality of Life Dashboard">
+
+        <!-- Mobile viewport optimized: j.mp/bplateviewport -->
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+        <!-- Favicon -->
+        <link rel="shortcut icon" type="image/png" href="./favicon.png" />
+        <link rel="apple-touch-icon-precomposed" href="./apple-touch-icon-precomposed.png"/>
+
+        <!-- Stylesheets -->
+        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.css" />
+        <!--[if lte IE 8]><link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.ie.css" /><![endif]-->
+
+        <link rel="stylesheet" href="styles/8228d223.main.css">
+
+        <!-- Modernizr -->
+        <script src="scripts/vendor/bf831518.modernizr.min.js"></script>
+    </head>
+    <body>
+
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="brand hide" href="./index.html">Quality of Life Dashboard</a>
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+
+                    <div class="nav-collapse collapse">
+                        <ul class="nav">
+                            <li class="active"><a href="./index.html"><em class="icon-home icon-white"></em> QOL Dashboard</a></li>
+                            <li><a href="javascript:void(0)" data-toggle="modal" data-target="#modalReport">Report</a></li>
+                            <li><a href="javascript:void(0)" data-toggle="modal" data-target="#modalData">Data</a></li>
+                            <li class="gpsarea"><a href="javascript:void(0)" class="gps">Find Me</a></li>
+                            <li><a href="//qol.charmeck.org/">About</a></li>
+                            <li><a href="javascript:void(0)" data-toggle="modal" data-target="#modalHelp">Help</a></li>
+                        </ul>
+                        <form class="navbar-form pull-right">
+                            <label for="searchbox" class="hide">Search</label>
+                            <input id="searchbox" class="input-large span4 transition" type="text" placeholder="Search" rel="popover" data-content="Search for an address (try <em>700 N</em>) or location (try <em>freedom</em>)." data-original-title="Search" data-placement="bottom" data-html="true" data-trigger="manual">
+                        </form>
+                    </div><!--/.nav-collapse -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Subhead ================================================== -->
+        <header class="jumbotron subhead">
+            <!--[if lt IE 8]>
+                <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+            <![endif]-->
+          <div class="container">
+            <h1>Quality of Life Dashboard <span class="text-info"></span></h1>
+            <h2 class="lead">Gateway to the Quality of Life Study</h2>
+          </div>
+        </header>
+
+        <div class="container">
+
+            <div class="row main-row">
+                <div class="span3">
+                    <ul class="nav nav-list sidenav transition" rel="popover" data-content="Use the sidebar to choose dimensions and variables." data-original-title="Sidebar" data-placement="right" data-trigger="manual">
+                        <li class="metrics-dropdown active">
+                            <a href="javascript:void(0)"><em class="icon-chevron-down"></em> Character</a>
+                            <p data-group="character" class=""></p>
+                        </li>
+                        <li class="metrics-dropdown">
+                            <a href="javascript:void(0)"><em class="icon-chevron-down"></em> Economics</a>
+                            <p data-group="economics" class="hide"></p>
+                        </li>
+                        <li class="metrics-dropdown">
+                            <a href="javascript:void(0)"><em class="icon-chevron-down"></em> Education</a>
+                            <p data-group="education" class="hide"></p>
+                        </li>
+                        <li class="metrics-dropdown">
+                            <a href="javascript:void(0)"><em class="icon-chevron-down"></em> Engagement</a>
+                            <p data-group="engagement" class="hide"></p>
+                        </li>
+                        <li class="metrics-dropdown">
+                            <a href="javascript:void(0)"><em class="icon-chevron-down"></em> Environment</a>
+                            <p data-group="environment" class="hide"></p>
+                        </li>
+                        <li class="metrics-dropdown">
+                            <a href="javascript:void(0)"><em class="icon-chevron-down"></em> Health</a>
+                            <p data-group="health" class="hide"></p>
+                        </li>
+                        <li class="metrics-dropdown">
+                            <a href="javascript:void(0)"><em class="icon-chevron-down"></em> Housing</a>
+                            <p data-group="housing" class="hide"></p>
+                        </li>
+                        <li class="metrics-dropdown">
+                            <a href="javascript:void(0)"><em class="icon-chevron-down"></em> Safety</a>
+                            <p data-group="safety" class="hide"></p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="span9">
+                    <div class="row">
+                        <div id="data" class="span4 pull-left">
+                            <div class="overview">
+                                <p>
+                                    The <strong>Quality of Life Dashboard</strong> is designed to help assess the health of neighborhoods in Charlotte and Mecklenburg County.
+                                    Begin by choosing a variable in the
+                                    <a href="javascript:void" class="popover-trigger" data-popover-selector=".sidenav">sidebar</a>, interacting with the <a href="javascript:void" class="popover-trigger" data-popover-selector="#map">map</a>, or <a href="javascript:void" class="popover-trigger" data-popover-selector="#searchbox">searching</a> for an address or location. You can find additional help including a tutorial video <a href="javascript:void(0)" data-toggle="modal" data-target="#modalHelp">here</a>.
+                                </p>
+                            </div>
+                            <div>
+                                <h3 id="selectedNeighborhood" class="measure-info hide"></h3>
+                                <p class="textleft">
+                                     <span id="selectedValue" class="measure-info measureText text-info"></span>
+                                     <span id="selectedMeasure" class="measureText"></span>
+                                     <br>
+                                     <span id="indicator_description" class=""></span>
+                                </p>
+                            </div>
+                            <div class="textcenter">
+                                <div id='details_chart' class="chart"></div>
+                            </div>
+                        </div>
+                        <div id="map-area" class="span5 pull-right">
+                            <div id="map" class="transition" rel="popover" data-content="Hover over neighborhoods to get more information or  click a neighborhood to select it." data-original-title="Map" data-placement="left" data-trigger="manual"></div>
+                            <div id="opacity_slider"></div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="span6 measure-details">
+                            <div class="measure-info-header">
+                                <h4>Why is this important?</h4>
+                            </div>
+                            <p id="indicator_why" ></p>
+                                 <div class="measure-info-header">
+                                <h4>About the Data</h4>
+                            </div>
+                            <div id="indicator_technical"></div>
+
+                        </div>
+
+                        <div class="span3 measure-details">
+                            <div class="measure-info-header">
+                                <h4>Additional Resources</h4>
+                            </div>
+                            <p id="indicator_resources"></p>
+                        </div>
+                    </div>
+               </div>
+
+            </div>
+
+            <hr>
+
+            <footer class="textcenter">
+                <p class="muted">
+                    Created by the <a href="http://charmeck.org/city/charlotte/Pages/default.aspx">City of Charlotte</a>, <a href="http://charmeck.org/mecklenburg/county/Pages/Default.aspx">Mecklenburg County</a>, and <a href="http://www.uncc.edu/">UNCC</a>
+                    <br />
+                    <a href="https://github.com/tobinbradley/Mecklenburg-County-Quality-of-Life-Dashboard">GitHub</a>
+                    &bull;
+                    <a href="javascript:void(0)" data-toggle="modal" data-target="#modalTalkback">Report a Problem</a>
+                    &bull;
+                    <a href="javascript:void(0)" data-toggle="modal" data-target="#modalDisclaimer">Disclaimer</a>
+                </p>
+                <p><img src="images/9e9d9f12.seals.png" width="177" height="36" alt="City and County Seals"></p>
+                <p></p>
+            </footer>
+
+        </div> <!-- /container -->
+
+        <!-- Modals - not shown on page load -->
+        <div class="modal hide fade" id="modalHelp">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3>Help</h3>
+            </div>
+            <div class="modal-body">
+                <div class="textcenter">
+                    <iframe width="480" height="300" src="http://www.youtube.com/embed/q44rj2M8NKc" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <p>
+                    <h4>Additional Resources</h4>
+                    <ul>
+                        <li><a href="https://support.google.com/fusiontables/" target="_blank">Google Fusion Tables Help</a></li>
+                        <li><a href="javascript:void(0)" class="talkback">Report a Problem</a></li>
+                    </ul>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <a href="javascript:void(0)" class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
+            </div>
+        </div>
+
+        <div class="modal hide fade" id="modalDisclaimer">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3>Disclaimer</h3>
+            </div>
+            <div class="modal-body">
+                <p>This system is subject to current public information rules and regulations. Information presented on this web site is considered public information and may be redistributed or copied. Mecklenburg County and its data providers give no warranty, expressed or implied, as to the accuracy, precision, timeliness, completeness, or any other aspect of the data presented. The publisher and data providers assume no liability for damage arrising from the use of this web site or the data provided herein.</p>
+            </div>
+            <div class="modal-footer">
+                <a href="javascript:void(0)" class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
+            </div>
+        </div>
+
+        <div class="modal hide fade" id="modalData">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3>Data</h3>
+            </div>
+            <div class="modal-body">
+                <p>
+                    <h4>Download the Data</h4>
+                    <ul>
+                        <li><a href="data/npa.csv.zip">CSV/Excel</a></li>
+                        <li><a href="data/npa.shapefile.zip">GIS Shapefile</a></li>
+                        <li><a href="data/npa.kml.zip">KML</a></li>
+                    </ul>
+                    <h4>Access the Data Online</h4>
+                    <ul>
+                        <li><a href="https://www.google.com/fusiontables/DataSource?docid=1M-08kYjjhzZvitf9FclbSMxgratuQQObJBuSf2s">Google Fusion Tables</a> (<a href="https://support.google.com/fusiontables/" target="_blank">help</a>)</li>
+                    </ul>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <a href="javascript:void(0)" class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
+            </div>
+        </div>
+
+        <div class="modal hide fade" id="modalTalkback">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3>Report a Problem</h3>
+            </div>
+            <div class="modal-body">
+                <p>Thank you for taking the time to let us know about a problem or giving us feedback. Please fill out the form below and let us know about the issue in as much detail as possible.</p>
+                <form id="talkback" class="form-horizontal">
+                    <fieldset>
+                        <div class="control-group">
+                            <label class="control-label" for="inputEmail">Email</label>
+                            <div class="controls">
+                                <input type="text" id="inputEmail" class="input-xlarge" placeholder="Email">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="inputName">Name</label>
+                            <div class="controls">
+                                <input type="text" id="inputName" class="input-xlarge" placeholder="Name">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="inputFeedback">Feedback</label>
+                            <div class="controls">
+                                <textarea rows="7" id="inputFeedback" class="input-xlarge"></textarea>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="controls">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a href="javascript:void(0)" class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
+            </div>
+        </div>
+
+        <div class="modal hide fade" id="modalReport">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3>Report</h3>
+            </div>
+            <div class="modal-body">
+                <form action="php/report.php" method="get" target="_blank">
+                    <div class="form-horizontal">
+                        <div class="control-group">
+                            <label class="control-label" for="report_neighborhood"><strong>Neighborhood Profile Area</strong></label>
+                            <div class="controls">
+                                <select id="report_neighborhood" name="n" class="input-small">
+                                <option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option><option>32</option><option>33</option><option>34</option><option>35</option><option>36</option><option>37</option><option>38</option><option>39</option><option>40</option><option>41</option><option>42</option><option>43</option><option>44</option><option>45</option><option>46</option><option>47</option><option>48</option><option>49</option><option>50</option><option>51</option><option>52</option><option>53</option><option>54</option><option>55</option><option>56</option><option>57</option><option>58</option><option>59</option><option>60</option><option>61</option><option>62</option><option>63</option><option>64</option><option>65</option><option>66</option><option>67</option><option>68</option><option>69</option><option>70</option><option>71</option><option>72</option><option>73</option><option>74</option><option>75</option><option>76</option><option>77</option><option>78</option><option>79</option><option>80</option><option>81</option><option>82</option><option>83</option><option>84</option><option>85</option><option>86</option><option>87</option><option>88</option><option>89</option><option>90</option><option>91</option><option>92</option><option>93</option><option>94</option><option>95</option><option>96</option><option>97</option><option>98</option><option>99</option><option>100</option><option>101</option><option>102</option><option>103</option><option>104</option><option>105</option><option>106</option><option>107</option><option>108</option><option>109</option><option>110</option><option>111</option><option>112</option><option>113</option><option>114</option><option>115</option><option>116</option><option>117</option><option>118</option><option>119</option><option>120</option><option>121</option><option>122</option><option>123</option><option>124</option><option>125</option><option>126</option><option>127</option><option>128</option><option>129</option><option>130</option><option>131</option><option>132</option><option>133</option><option>134</option><option>135</option><option>136</option><option>137</option><option>138</option><option>139</option><option>140</option><option>141</option><option>142</option><option>143</option><option>144</option><option>145</option><option>146</option><option>147</option><option>148</option><option>149</option><option>150</option><option>151</option><option>152</option><option>153</option><option>154</option><option>155</option><option>156</option><option>157</option><option>158</option><option>159</option><option>160</option><option>161</option><option>162</option><option>163</option><option>164</option><option>165</option><option>166</option><option>167</option><option>168</option><option>169</option><option>170</option><option>171</option><option>172</option><option>173</option><option>174</option><option>175</option><option>176</option><option>177</option><option>178</option><option>179</option><option>180</option><option>181</option><option>182</option><option>183</option><option>184</option><option>185</option><option>186</option><option>187</option><option>188</option><option>189</option><option>190</option><option>191</option><option>192</option><option>193</option><option>194</option><option>195</option><option>196</option><option>197</option><option>198</option><option>199</option><option>200</option><option>201</option><option>202</option><option>203</option><option>204</option><option>205</option><option>206</option><option>207</option><option>208</option><option>209</option><option>210</option><option>211</option><option>212</option><option>213</option><option>215</option><option>216</option><option>217</option><option>218</option><option>219</option><option>220</option><option>221</option><option>222</option><option>223</option><option>224</option><option>225</option><option>226</option><option>227</option><option>228</option><option>229</option><option>230</option><option>231</option><option>232</option><option>233</option><option>234</option><option>235</option><option>236</option><option>237</option><option>238</option><option>240</option><option>241</option><option>242</option><option>243</option><option>244</option><option>245</option><option>246</option><option>247</option><option>248</option><option>249</option><option>250</option><option>251</option><option>252</option><option>253</option><option>254</option><option>255</option><option>256</option><option>257</option><option>258</option><option>259</option><option>260</option><option>261</option><option>262</option><option>263</option><option>264</option><option>265</option><option>266</option><option>267</option><option>268</option><option>269</option><option>270</option><option>271</option><option>272</option><option>273</option><option>274</option><option>275</option><option>276</option><option>277</option><option>278</option><option>279</option><option>280</option><option>281</option><option>282</option><option>283</option><option>284</option><option>285</option><option>286</option><option>287</option><option>288</option><option>289</option><option>290</option><option>291</option><option>292</option><option>293</option><option>294</option><option>295</option><option>296</option><option>297</option><option>298</option><option>299</option><option>300</option><option>301</option><option>302</option><option>303</option><option>304</option><option>305</option><option>306</option><option>307</option><option>308</option><option>309</option><option>310</option><option>311</option><option>312</option><option>313</option><option>314</option><option>315</option><option>316</option><option>317</option><option>318</option><option>319</option><option>320</option><option>321</option><option>322</option><option>323</option><option>324</option><option>325</option><option>326</option><option>327</option><option>328</option><option>329</option><option>330</option><option>331</option><option>332</option><option>333</option><option>334</option><option>335</option><option>336</option><option>337</option><option>338</option><option>339</option><option>340</option><option>341</option><option>342</option><option>343</option><option>344</option><option>345</option><option>346</option><option>347</option><option>348</option><option>349</option><option>350</option><option>351</option><option>352</option><option>353</option><option>354</option><option>355</option><option>356</option><option>357</option><option>358</option><option>359</option><option>360</option><option>361</option><option>362</option><option>363</option><option>364</option><option>365</option><option>366</option><option>367</option><option>368</option><option>369</option><option>370</option><option>371</option><option>372</option><option>373</option><option>374</option><option>375</option><option>376</option><option>377</option><option>378</option><option>379</option><option>380</option><option>381</option><option>382</option><option>383</option><option>384</option><option>385</option><option>386</option><option>387</option><option>388</option><option>389</option><option>390</option><option>391</option><option>392</option><option>393</option><option>394</option><option>395</option><option>396</option><option>397</option><option>398</option><option>399</option><option>400</option><option>401</option><option>402</option><option>403</option><option>404</option><option>405</option><option>406</option><option>407</option><option>408</option><option>409</option><option>410</option><option>411</option><option>412</option><option>413</option><option>416</option><option>417</option><option>418</option><option>419</option><option>420</option><option>421</option><option>422</option><option>423</option><option>424</option><option>425</option><option>426</option><option>428</option><option>430</option><option>431</option><option>432</option><option>433</option><option>434</option><option>435</option><option>436</option><option>437</option><option>438</option><option>442</option><option>443</option><option>444</option><option>445</option><option>446</option><option>447</option><option>448</option><option>449</option><option>450</option><option>451</option><option>452</option><option>453</option><option>454</option><option>455</option><option>456</option><option>457</option><option>458</option><option>459</option><option>460</option><option>462</option><option>463</option><option>464</option><option>465</option><option>466</option><option>467</option><option>468</option><option>469</option><option>470</option><option>471</option><option>472</option><option>473</option><option>474</option><option>475</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="report_metrics" class="control-label"><strong>Variables</strong></label>
+                            <div class="controls">
+                                <small>Use CTRL + click to select multiple variables.</small>
+                                <select id="report_metrics" multiple="multiple" name="m[]" class="input-xlarge">
+                                    <optgroup label="Character"></optgroup>
+                                    <optgroup label="Economics"></optgroup>
+                                    <optgroup label="Education"></optgroup>
+                                    <optgroup label="Engagement"></optgroup>
+                                    <optgroup label="Environment"></optgroup>
+                                    <optgroup label="Health"></optgroup>
+                                    <optgroup label="Housing"></optgroup>
+                                    <optgroup label="Safety"></optgroup>
+                                </select>
+                                <label class="checkbox" for="all_metrics">
+                                    <input type="checkbox" id="all_metrics"> Select All
+                                </label>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="controls">
+                                <input class="btn btn-primary" type="submit" id="submitPDFReport" name="mysubmit" value="Create Custom Report" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a href="javascript:void(0)" class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
+            </div>
+        </div>
+
+
+        <!-- Javascript at the end -->
+        <script src="https://www.google.com/jsapi"></script>
+        <script>google.load("visualization", "1", {packages:["corechart"]});</script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.js"></script>
+
+
+
+        <script src="scripts/a493e7d5.plugins.js"></script>
+
+
+        <script>
+            var _gaq=[['_setAccount','UA-127085-9'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+    </body>
+</html>

@@ -18,6 +18,7 @@
         <!-- Stylesheets -->
         <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.css" />
         <!--[if lte IE 8]><link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.ie.css" /><![endif]-->
+
         <link rel="stylesheet" href="styles/main.css">
 
         <!-- Modernizr -->
@@ -40,8 +41,9 @@
                             <li class="active"><a href="./index.html"><em class="icon-home icon-white"></em> QOL Dashboard</a></li>
                             <li><a href="javascript:void(0)" data-toggle="modal" data-target="#modalReport">Report</a></li>
                             <li><a href="javascript:void(0)" data-toggle="modal" data-target="#modalData">Data</a></li>
-                            <li><a href="javascript:void(0)" data-toggle="modal" data-target="#modalHelp">Help</a></li>
+                            <li class="gpsarea"><a href="javascript:void(0)" class="gps">Find Me</a></li>
                             <li><a href="//qol.charmeck.org/">About</a></li>
+                            <li><a href="javascript:void(0)" data-toggle="modal" data-target="#modalHelp">Help</a></li>
                         </ul>
                         <form class="navbar-form pull-right">
                             <label for="searchbox" class="hide">Search</label>
@@ -68,12 +70,6 @@
             <div class="row main-row">
                 <div class="span3">
                     <ul class="nav nav-list sidenav transition" rel="popover" data-content="Use the sidebar to choose dimensions and variables." data-original-title="Sidebar" data-placement="right" data-trigger="manual">
-                        <li class="show-overview">
-                            <a href="javascript:void(0)"> Overview</a>
-                        </li>
-                        <li class="gpsarea">
-                            <a href="javascript:void(0)" class="gps">Find My Location</a>
-                        </li>
                         <li class="metrics-dropdown active">
                             <a href="javascript:void(0)"><em class="icon-chevron-down"></em> Character</a>
                             <p data-group="character" class=""></p>
@@ -106,9 +102,6 @@
                             <a href="javascript:void(0)"><em class="icon-chevron-down"></em> Safety</a>
                             <p data-group="safety" class="hide"></p>
                         </li>
-                        <li>
-                            <a href="javascript:void(0)" data-toggle="modal" data-target="#modalHelp"> Help</a>
-                        </li>
                     </ul>
                 </div>
 
@@ -119,7 +112,7 @@
                                 <p>
                                     The <strong>Quality of Life Dashboard</strong> is designed to help assess the health of neighborhoods in Charlotte and Mecklenburg County.
                                     Begin by choosing a variable in the
-                                    <a href="javascript:void" class="popover-trigger" data-popover-selector=".sidenav">sidebar</a>, interacting with the <a href="javascript:void" class="popover-trigger" data-popover-selector="#map">map</a>, or <a href="javascript:void" class="popover-trigger" data-popover-selector="#searchbox">searching</a> for an address or location.
+                                    <a href="javascript:void" class="popover-trigger" data-popover-selector=".sidenav">sidebar</a>, interacting with the <a href="javascript:void" class="popover-trigger" data-popover-selector="#map">map</a>, or <a href="javascript:void" class="popover-trigger" data-popover-selector="#searchbox">searching</a> for an address or location. You can find additional help including a tutorial video <a href="javascript:void(0)" data-toggle="modal" data-target="#modalHelp">here</a>.
                                 </p>
                             </div>
                             <div>
@@ -191,7 +184,7 @@
             </div>
             <div class="modal-body">
                 <div class="textcenter">
-                    <iframe width="480" height="360" src="http://www.youtube.com/embed/q44rj2M8NKc" frameborder="0" allowfullscreen></iframe>
+                    <iframe width="480" height="300" src="http://www.youtube.com/embed/q44rj2M8NKc" frameborder="0" allowfullscreen></iframe>
                 </div>
                 <p>
                     <h4>Additional Resources</h4>

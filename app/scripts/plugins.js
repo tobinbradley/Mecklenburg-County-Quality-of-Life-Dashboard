@@ -3,28 +3,13 @@
 {console.log();return window.console;}catch(err){return window.console={};}})());
 
 
-// Takes a string a URL encodes or decodes it
-function urlencode(str) {
-    str = escape(str);
-    str = str.replace('+', '%2B');
-    str = str.replace('%20', '+');
-    str = str.replace('*', '%2A');
-    str = str.replace('/', '%2F');
-    str = str.replace('@', '%40');
-    return str;
-}
-function urldecode(str) {
-    str = str.replace('+', ' ');
-    str = unescape(str);
-    return str;
-}
-
 // get url parameters
 function getURLParameter(name) {
     return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
 }
 
-// Add left and right labels to a jQuery UI Slider
+
+// Add left and right labels to jQuery UI Slider
 $.fn.extend({
     sliderLabels: function(left,right) {
         var $this = $(this);
@@ -36,16 +21,6 @@ $.fn.extend({
         .append('<span class="ui-slider-inner-label" style="position: absolute; right:0px; top:15px; font-size: 12px;">'+right+ '</span>');
     }
 });
-
-// Capitalize first letter of word
-function capitaliseFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-// Sort option list
-function asc_sort(a, b){
-    return ($(b).text().toUpperCase()) < ($(a).text().toUpperCase());
-}
 
 
 // Prototypes and helpers
@@ -69,7 +44,7 @@ function calcAverage(measure) {
             theSum = theSum + this.properties[measure];
             if (this.properties[measure] !== null) theCount++;
         });
-        FTmeta[measure].style.avg = Math.round(theSum / theCount);
+        FTmeta[measure].style.avg = Math.round((theSum / theCount) * 100) / 100;
     }
 }
 // Function to change any text to Proper Case (e.g. picco -> Picco)
