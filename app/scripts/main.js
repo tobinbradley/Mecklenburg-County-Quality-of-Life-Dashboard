@@ -1,8 +1,8 @@
 var FTmeta,
     activeRecord = {},
-    defaultMeasure = "p1",
+    defaultMeasure = 'p1',
     activeMeasure = defaultMeasure,
-    wsbase = "http://maps.co.mecklenburg.nc.us/rest/",
+    wsbase = 'http://maps.co.mecklenburg.nc.us/rest/',
     map,
     geojson,
     jsonData,
@@ -13,32 +13,33 @@ var FTmeta,
 
 
 $(document).ready(function() {
-    // Load JSON metric configuration
+
+    // Load variable metadata JSON
     $.ajax({
-        url: "scripts/metrics.json?V=22",
-        dataType: "json",
+        url: 'scripts/metrics.json?V=23',
+        dataType: 'json',
         async: false,
-        success: function(data){
+        success: function (data) {
             FTmeta = data;
         }
     });
 
-    // Grab NPA JSON
+    // Load NPA GeoJSON
     $.ajax({
-        url: "scripts/npa.json?V=22",
-        dataType: "json",
-        type: "GET",
+        url: 'scripts/npa.json?V=23',
+        dataType: 'json',
+        type: 'GET',
         async: false,
-        success: function(data) {
-           jsonData = data;
+        success: function (data) {
+            jsonData = data;
         }
     });
 
-    // Placeholder
+    // Placeholder extension for crap browsers
     $('input, textarea').placeholder();
 
      // Add metrics to sidebar and report list
-    $.each(FTmeta, function(index) {
+    $.each(FTmeta, function (index) {
         if (this.style.breaks.length > 0) {
             $('.sidenav p[data-group=' + this.category + ']').append('<li><a href="javascript:void(0)" class="measure-link" data-measure="' + this.field + '">' + this.title + ' <i></i></a></li>');
             $('#modalReport optgroup[label=' + this.category.toProperCase() + ']').append('<option value="' + this.field + '">' + this.title + '</option>');
@@ -46,43 +47,45 @@ $(document).ready(function() {
     });
 
     // sort metrics
-    $(".sidenav p").each(function() {
-        $("li", this).tsort();
+    $('.sidenav p').each(function () {
+        $('li', this).tsort();
     });
-    $("#modalReport optgroup").each(function() {
-        $("option", this).tsort();
-    });
-
-    // report optgroup click
-    $("#report_metrics optgroup").click(function(e) { $(this).children().prop('selected','selected');  });
-    $("#report_metrics optgroup option").click(function(e) { e.stopPropagation(); });
-    $("#all_metrics").change(function () {
-        $(this).is(":checked") ? $("#report_metrics optgroup option").prop('selected','selected') : $("#report_metrics optgroup option").prop('selected', false);
+    $('#modalReport optgroup').each(function () {
+        $('option', this).tsort();
     });
 
-    // Set default metric
+    // report event handlers
+    $('#report_metrics optgroup').click(function (e) { $(this).children().prop('selected', 'selected');  });
+    $('#report_metrics optgroup option').click(function (e) { e.stopPropagation(); });
+    $('#all_metrics').change(function () {
+        $(this).is(':checked') ? $('#report_metrics optgroup option').prop('selected', 'selected') : $('#report_metrics optgroup option').prop('selected', false);
+    });
+
+    // Set default metric display
     updateData(FTmeta[defaultMeasure]);
     calcAverage(defaultMeasure);
     barChart(FTmeta[defaultMeasure]);
-    $('a[data-measure=' + defaultMeasure + ']').children("i").addClass("icon-chevron-right");
+    $('a[data-measure=' + defaultMeasure + ']').children('i').addClass('icon-chevron-right');
 
-    // Click events for sidebar
-    $("a.measure-link").on("click", function (e) {
-        $("a.measure-link").children("i").removeClass("icon-chevron-right");
-        $(this).children("i").addClass("icon-chevron-right");
-        if ($(window).width() <= 767 ) $('html, body').animate({ scrollTop: $("#data").offset().top }, 1000);
-        activeMeasure = $(this).data("measure");
-        changeMeasure($(this).data("measure"));
+    // Sidebar events
+    $('a.measure-link').on('click', function (e) {
+        $('a.measure-link').children('i').removeClass('icon-chevron-right');
+        $(this).children('i').addClass('icon-chevron-right');
+        if ($(window).width() <= 767 ) { $('html, body').animate({ scrollTop: $('#data').offset().top }, 1000); }
+        activeMeasure = $(this).data('measure');
+        changeMeasure($(this).data('measure'));
         e.stopPropagation();
     });
-    $(".sidenav li p").on("click", function (e) { e.stopPropagation(); });
-    $(".sidenav li.metrics-dropdown").on("click", function () {
-        $(this).addClass("active").siblings().removeClass("active");
-        $(this).siblings().children("p").each(function (){
-            if (!$(this).is(':hidden')) $(this).animate({ height: 'toggle' }, 250);
+    $('.sidenav li p').on('click', function (e) { e.stopPropagation(); });
+    $('.sidenav li.metrics-dropdown').on('click', function () {
+        $(this).addClass('active').siblings().removeClass('active');
+        $(this).siblings().children('p').each(function () {
+            if (!$(this).is(':hidden')) { $(this).animate({ height: 'toggle' }, 250); }
         });
-        $(this).children("p").animate({ height: 'toggle' }, 250);
+        $(this).children('p').animate({ height: 'toggle' }, 250);
     });
+
+    // Modal events
     $(".talkback").click(function () {
         $('#modalHelp').modal('hide');
         $('#modalTalkback').modal('show');
@@ -96,42 +99,40 @@ $(document).ready(function() {
         $('#modalData').modal('show');
     });
 
-    // Geolocation link click event
-    $(".gps").click(function () {
-        map.locate({ enableHighAccuracy: true });
-    });
+    // Geolocation
+    if (!Modernizr.geolocation) {
+        $(".gpsarea").hide();
+    } else {
+        $(".gps").click(function () {
+            map.locate({ enableHighAccuracy: true });
+        });
+    }
 
-    // Highlight any search box text on click
-    $("#searchbox").click(function () { $(this).select(); });
-
-    // Show the overview introduction text
-    $(".show-overview").on("click", function () { resetOverview(); });
-
-    // activate popovers
+    // popover events
     $('*[rel=popover]').popover();
-    $(".popover-trigger").hover( function () {
-            if ( $(window).width() > 979 ) $( $(this).data("popover-selector") ).popover("show");
+    $(".popover-trigger").hover(function () {
+            if ( $(window).width() > 979 ) { $( $(this).data("popover-selector") ).popover("show"); }
         }, function(){
             $( $(this).data("popover-selector") ).popover("hide");
         }
     );
 
-    // Window resize
-    $(window).smartresize( function() {
+    // Window resize for SVG charts
+    $(window).smartresize(function () {
         // charts
-        if ( $("#details_chart svg").width() !== $("#data").width() ) barChart(FTmeta[activeMeasure]);
+        if ( $("#details_chart svg").width() !== $("#data").width() ) { barChart(FTmeta[activeMeasure]); }
     });
 
     // Opacity slider
-    $( "#opacity_slider" ).slider({ range: "min", value: 80, min: 25, max: 100, stop: function (event, ui) {
+    $("#opacity_slider").slider({ range: "min", value: 80, min: 25, max: 100, stop: function (event, ui) {
             geojson.setStyle(style);
-            if (activeRecord.id) highlightSelected( getNPALayer(activeRecord.id) );
+            if (activeRecord.id) { highlightSelected(getNPALayer(activeRecord.id)); }
             legend.update();
         }
-    }).sliderLabels('Map','Data');
+    }).sliderLabels('Map', 'Data');
 
     // Feedback from submit
-    $("#talkback").submit(function(e){
+    $("#talkback").submit(function (e) {
         e.preventDefault();
         $('#modalTalkback').modal('hide');
         $.ajax({
@@ -142,6 +143,7 @@ $(document).ready(function() {
     });
 
     // jQuery UI Autocomplete
+    $("#searchbox").click(function () { $(this).select(); });
     $.widget( "custom.catcomplete", $.ui.autocomplete, {
         _renderMenu: function( ul, items ) {
             var that = this,
@@ -162,10 +164,10 @@ $(document).ready(function() {
         source: function(request, response) {
             if (request.term.length > 3) {
                 $.ajax({
-                    url: wsbase + "v4/ws_geo_ubersearch.php",
-                    dataType: "jsonp",
+                    url: wsbase + 'v4/ws_geo_ubersearch.php',
+                    dataType: 'jsonp',
                     data: {
-                        searchtypes: "address,library,school,park,geoname,cast,nsa,intersection,pid,business",
+                        searchtypes: 'address,library,school,park,geoname,cast,nsa,intersection,pid,business',
                         query: request.term
                     },
                     success: function(data) {
@@ -183,7 +185,7 @@ $(document).ready(function() {
                             response($.map([{}], function(item) {
                                 if (isNumber(request.term)) {
                                     // Needs more data
-                                    return { label: "More information needed for search.", responsetype: "I've got nothing" };
+                                    return { label: 'More information needed for search.', responsetype: "I've got nothing" };
                                 } else {
                                     // No records found
                                     return { label: "No records found.", responsetype: "I've got nothing" };
@@ -241,6 +243,7 @@ $(window).load(function(){
     mapInit();
 
     // Process any legacy hash, if not process arguments
+    // burn this out layer
     if ( window.location.hash.length > 1 ) {
         hashRead();
     }
@@ -248,12 +251,11 @@ $(window).load(function(){
         historyNav();
     }
 
-    // Process
-
     // set up history API
     if (Modernizr.history) {
         // history is supported; do magical things
         $(window).bind("popstate", function() {
+            // reset if no args
             if ( !getURLParameter("npa") && !getURLParameter("variable") ) {
                 resetOverview();
             }
@@ -282,6 +284,7 @@ function historyNav() {
 
 /*
     Hash reading and writing
+    burn this out later
 */
 function hashRead() {
     theHash = window.location.hash.replace("#","").split("/");
@@ -315,6 +318,7 @@ function resetOverview() {
 function changeMeasure(measure, setHistory) {
     if(typeof(setHistory)==='undefined') setHistory = true;
     activeMeasure = measure;
+
     // activate sidebar etc. if not already there
     if ( $('a[data-measure=' + measure + ']').parent("li").parent("p").is(':hidden') ) {
         $('a[data-measure=' + measure + ']').parent("li").parent("p").parent("li").trigger("click");
@@ -403,12 +407,12 @@ function updateData(measure) {
 /*
     Bar Chart
 */
-function barChart(measure){
+function barChart(measure) {
     var data, theTitle, theColors;
     if (jQuery.isEmptyObject(activeRecord) || activeRecord[activeMeasure] === null) {
         data = google.visualization.arrayToDataTable([
             [null, 'County Average'],
-            [null,  Math.round(FTmeta[measure.field].style.avg) ]
+            [null,  FTmeta[measure.field].style.avg ]
         ]);
         theTitle = prettyMetric(Math.round(FTmeta[measure.field].style.avg), activeMeasure);
         theColors = ["#DC3912"];
@@ -423,21 +427,19 @@ function barChart(measure){
     }
 
     var options = {
-      title: theTitle,
-      titlePosition: 'out',
-      titleTextStyle: { fontSize: 14 },
-      //vAxis: { title: null,  titleTextStyle: {color: 'red'}},
-      hAxis: { format: "#", minValue: FTmeta[measure.field].style.breaks[0] },
-      width: "95%",
-      height: 150,
-      legend: 'bottom',
-      colors: theColors,
-      chartArea: { left: 20, right: 20, width: '100%' }
+        title: theTitle,
+        titlePosition: 'out',
+        titleTextStyle: { fontSize: 14 },
+        //vAxis: { title: null,  titleTextStyle: {color: 'red'}},
+        hAxis: { format: "#.##", minValue: FTmeta[measure.field].style.breaks[0] },
+        width: "95%",
+        height: 150,
+        legend: 'bottom',
+        colors: theColors,
+        chartArea: { left: 20, right: 20, width: '100%' }
     };
-    //if (measure.style.min)
-    //if (measure.style.units == "%") options.hAxis = { minValue: 0, maxValue: 100 };
 
-    if (!chart) chart = new google.visualization.BarChart(document.getElementById('details_chart'));
+    if (!chart) { chart = new google.visualization.BarChart(document.getElementById('details_chart')); }
     chart.draw(data, options);
 }
 
@@ -470,7 +472,6 @@ function mapInit() {
     geojson = L.geoJson(jsonData, { style: style, onEachFeature: onEachFeature }).addTo(map);
 
     // Locate user position via GeoLocation API
-    if (!Modernizr.geolocation) $(".gpsarea").hide();
     map.on('locationfound', function(e) {
         var radius = e.accuracy / 2;
         performIntersection(e.latlng.lat, e.latlng.lng);
