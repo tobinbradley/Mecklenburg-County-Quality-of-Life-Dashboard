@@ -47,7 +47,7 @@ function calcAverage($measure) {
         $theSum += $value["properties"][$measure];
         if ( !is_null($value["properties"][$measure]) ) $theCount++;
     }
-    return round($theSum / $theCount, 1);
+    return round($theSum / $theCount, 3);
 }
 
 
