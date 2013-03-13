@@ -159,7 +159,7 @@ $(document).ready(function() {
     });
     $("#searchbox").catcomplete({
         minLength: 1,
-        delay: 400,
+        delay: 250,
         autoFocus: true,
         source: function(request, response) {
             if (request.term.length > 3) {
@@ -229,7 +229,10 @@ $(document).ready(function() {
             else if (ui.item.gid) {
                 changeNeighborhood(ui.item.gid);
             }
-
+        }
+    }).bind( "keydown", function( event ) {
+        if ( event.keyCode === $.ui.keyCode.ENTER ) {
+            $(this).catcomplete( "search" );
         }
     });
 
