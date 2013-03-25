@@ -307,22 +307,6 @@
             ]
         }
     },
-    "e2": {
-        "db": "voter_participation",
-        "field": "e2",
-        "category": "engagement",
-        "title": "Voter Participation",
-        "description": "Percentage of registered voters that voted in the 2010 elections for each Neighborhood Profile Area (NPA).",
-        "importance": "Exercising your right to vote is fundamental to community engagement. National elections tend to have greater turnout.  In November 2010 (national election) the voter turnout in Mecklenburg County was 37.98% which translates into 228,929 out of 602,710 registered voters who participated.  By comparison, the turnout in 2009 (local and state election) was 16%.",
-        "tech_notes": "Number of voters in the 2010 election for each NPA divided by the registered voter population in each NPA.",
-        "source": "Mecklenburg County Board of Elections, 2010",
-        "links": "<a href='http://www.charmeck.org/mecklenburg/county/BOE'>Area election precincts, voting sites, voter registration and other related information</a><br><a href='http://www.eac.gov/research/election_administration_and_voting_survey.aspx'>National voting statistics</a>",
-        "style": {
-            "units": "%",
-            "breaks": [],
-            "colors": []
-        }
-    },
     "e3": {
         "db": "residents_on_committees",
         "field": "e3",

@@ -42,21 +42,21 @@ module.exports = function( grunt ) {
     },
 
     // generate application cache manifest
-    manifest:{
-      dest: ''
-    },
+    //manifest:{
+    //  dest: ''
+    //},
 
     // headless testing through PhantomJS
-    mocha: {
-      all: ['test/**/*.html']
-    },
+    //mocha: {
+    //  all: ['test/**/*.html']
+    //},
 
     // default watch configuration
     watch: {
-      coffee: {
-        files: 'app/scripts/**/*.coffee',
-        tasks: 'coffee reload'
-      },
+      //coffee: {
+      //  files: 'app/scripts/**/*.coffee',
+      //  tasks: 'coffee reload'
+      //},
       compass: {
         files: [
           'app/styles/**/*.{scss,sass}'
@@ -76,17 +76,17 @@ module.exports = function( grunt ) {
 
     // default lint configuration, change this to match your setup:
     // https://github.com/cowboy/grunt/blob/master/docs/task_lint.md#lint-built-in-task
-    lint: {
-      files: [
-        'Gruntfile.js',
-        'app/scripts/**/*.js',
-        'spec/**/*.js'
-      ]
-    },
+    //lint: {
+    //  files: [
+    //    'Gruntfile.js',
+    //    'app/scripts/**/*.js',
+    //    'spec/**/*.js'
+    //  ]
+    //},
 
     // specifying JSHint options and globals
     // https://github.com/cowboy/grunt/blob/master/docs/task_lint.md#specifying-jshint-options-and-globals
-    jshint: {
+    /*jshint: {
       options: {
         curly: true,
         eqeqeq: true,
@@ -103,7 +103,7 @@ module.exports = function( grunt ) {
       globals: {
         jQuery: true
       }
-    },
+    },*/
 
     // Build configuration
     // -------------------
@@ -184,6 +184,6 @@ module.exports = function( grunt ) {
   });
 
   // Alias the `test` task to run the `mocha` task instead
-  grunt.registerTask('test', 'server:phantom mocha');
+  //grunt.registerTask('test', 'server:phantom mocha');
 
 };
