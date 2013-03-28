@@ -179,8 +179,10 @@ module.exports = function (grunt) {
                     dest: '<%= yeoman.dist %>',
                     src: [
                         '*.{ico,txt,png,json}',
-                        '.htaccess',
+                        '.htaccess',			
 			'php/*',
+			'php/*/*',
+			'php/*/*/*',
 		        'data/*',
 			'scripts/*.json',
 			'scripts/vendor/modernizr.min.js'
