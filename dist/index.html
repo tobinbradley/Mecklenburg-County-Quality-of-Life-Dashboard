@@ -8,23 +8,18 @@
 
         <!-- Mobile viewport optimized: j.mp/bplateviewport -->
         <meta name="viewport" content="width=device-width,initial-scale=1">
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
         <!-- Favicon -->
-        <link rel="shortcut icon" type="image/png" href="favicon.png" />
-        <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png"/>
+        <link rel="shortcut icon" type="image/png" href="favicon.png">
+        <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png">
 
         <!-- Stylesheets -->
-        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.css" />
+        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.css">
         <!--[if lte IE 8]><link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.ie.css" /><![endif]-->
 
-        <!-- build:css styles/main.css -->
-        <link rel="stylesheet" href="styles/bootstrap.css">
-        <link rel="stylesheet" href="styles/bootstrap-responsive.css">
-        <link rel="stylesheet" href="styles/jquery-ui-1.10.0.custom.min.css">
         <link rel="stylesheet" href="styles/main.css">
-        <!-- endbuild -->
 
         <!-- Modernizr -->
         <script src="scripts/vendor/modernizr.min.js"></script>
@@ -49,7 +44,7 @@
                             <li><a href="//qol.charmeck.org/">About</a></li>
                             <li><a href="javascript:void(0)" data-toggle="modal" data-target="#modalHelp">Help</a></li>
                         </ul>
-                        <div class="navbar-form pull-right" >
+                        <div class="navbar-form pull-right">
                             <label for="searchbox" class="hide">Search</label>
                             <input id="searchbox" class="span4" type="text" placeholder="Search" rel="popover" data-content="<ul><li><strong>Address</strong>: Enter the beginning of an address. Ex: for 700 North Tryon Street, try <em>700 n</em></li><li><strong>NPA</strong>: Enter the NPA number. Ex: <em>45</em></li><li><strong>Location</strong>: Enter the name of a location or a street. Ex: <em>freedom</em></li></ul>" data-original-title="Search" data-placement="bottom" data-html="true" data-trigger="focus">
                             <button class="btn btn-inverse searchbtn" type="button">Go!</button>
@@ -79,7 +74,7 @@
                         <button type="button" class="close" data-dismiss="alert">&times;</button>
                         The <strong>Quality of Life Dashboard</strong> is designed to help assess the health of neighborhoods in Charlotte and Mecklenburg County. There's <a href="javascript:void(0)" class="popover-trigger" data-toggle="modal" data-target="#modalHelp">help</a> if you need it.
                     </div>
-                    <ul class="nav nav-list sidenav transition" >
+                    <ul class="nav nav-list sidenav transition">
                         <li class="metrics-dropdown active">
                             <a href="javascript:void(0)"><em class="icon-chevron-down"></em> Character</a>
                             <ul data-group="character" class="">
@@ -206,6 +201,9 @@
                                 <li>
                                     <a href="javascript:void(0)" class="measure-link" data-measure="e3">Residents Serving on Municipal Boards and Committees <i></i></a>
                                 </li>
+                                <li>
+                                    <a href="javascript:void(0)" class="measure-link" data-measure="e7">Streets Adopted for Clean Up <i></i></a>
+                                </li>
                             </ul>
                         </li>
                         <li class="metrics-dropdown">
@@ -249,9 +247,6 @@
                                 </li>
                                 <li>
                                     <a href="javascript:void(0)" class="measure-link" data-measure="w6">Street Connectivity Index <i></i></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="e7">Streets Adopted for Clean Up <i></i></a>
                                 </li>
                                 <li>
                                     <a href="javascript:void(0)" class="measure-link" data-measure="w8">Structures in Floodplain <i></i></a>
@@ -484,6 +479,9 @@
                             <option value="e3">
                                 Residents Serving on Municipal Boards and Committees
                             </option>
+                            <option value="e7">
+                                Streets Adopted for Clean Up
+                            </option>
                         </optgroup>
                         <optgroup label="Environment">
                             <option value="w15">
@@ -524,9 +522,6 @@
                             </option>
                             <option value="w6">
                                 Street Connectivity Index
-                            </option>
-                            <option value="e7">
-                                Streets Adopted for Clean Up
                             </option>
                             <option value="w8">
                                 Structures in Floodplain
@@ -648,13 +643,13 @@
                                 </p>
                             </div>
                             <div class="textcenter">
-                                <div id='details_chart' class="chart"></div>
+                                <div id="details_chart" class="chart"></div>
                             </div>
                             <div>
                                 <div>
                                     <h4>Why is this important?</h4>
                                 </div>
-                                <p id="indicator_why" >Total population is a baseline measure that indicates the number of people living in an NPA. It is used to calculate density, and other per capita data.Trends in population show where the community is growing and where it is decreasing, which can help the City, County and Towns as well as other services providers know where infrastructure and other services may be needed.The 2010 Census reported 308.7 million people in the United States, a 9.7 percent increase from the Census 2000 population of 281.4 million.</p>
+                                <p id="indicator_why">Total population is a baseline measure that indicates the number of people living in an NPA. It is used to calculate density, and other per capita data.Trends in population show where the community is growing and where it is decreasing, which can help the City, County and Towns as well as other services providers know where infrastructure and other services may be needed.The 2010 Census reported 308.7 million people in the United States, a 9.7 percent increase from the Census 2000 population of 281.4 million.</p>
                                 <div>
                                     <h4>Additional Resources</h4>
                                 </div>
@@ -686,7 +681,7 @@
             <footer class="textcenter">
                 <p class="muted">
                     Created by the <a href="http://charmeck.org/city/charlotte/Pages/default.aspx">City of Charlotte</a>, <a href="http://charmeck.org/mecklenburg/county/Pages/Default.aspx">Mecklenburg County</a>, and <a href="http://www.uncc.edu/">UNCC</a>
-                    <br />
+                    <br>
                     <a href="https://github.com/tobinbradley/Mecklenburg-County-Quality-of-Life-Dashboard">GitHub</a>
                     &bull;
                     <a href="javascript:void(0)" data-toggle="modal" data-target="#modalTalkback">Report a Problem</a>
@@ -707,7 +702,7 @@
             </div>
             <div class="modal-body">
                 <div class="textcenter">
-                    <iframe width="480" height="300" src="http://www.youtube.com/embed/q44rj2M8NKc" frameborder="0" allowfullscreen></iframe>
+                    <iframe width="480" height="300" src="http://www.youtube.com/embed/q44rj2M8NKc" frameborder="0" allowfullscreen=""></iframe>
                 </div>
                 <p>
                     <h4>Additional Resources</h4>
@@ -828,7 +823,7 @@
                         </div>
                         <div class="control-group">
                             <div class="controls">
-                                <input class="btn btn-primary" type="submit" id="submitPDFReport" name="mysubmit" value="Create Custom Report" />
+                                <input class="btn btn-primary" type="submit" id="submitPDFReport" name="mysubmit" value="Create Custom Report">
                             </div>
                         </div>
                     </div>
@@ -848,21 +843,7 @@
 
 
 
-        <!-- build:js scripts/main.js -->
-        <script src="scripts/vendor/bootstrap/bootstrap-tooltip.js"></script>
-        <script src="scripts/vendor/bootstrap/bootstrap-modal.js"></script>
-        <script src="scripts/vendor/bootstrap/bootstrap-transition.js"></script>
-        <script src="scripts/vendor/bootstrap/bootstrap-button.js"></script>
-        <script src="scripts/vendor/bootstrap/bootstrap-popover.js"></script>
-        <script src="scripts/vendor/bootstrap/bootstrap-alert.js"></script>
-        <script src="scripts/vendor/jquery-ui-1.10.0.custom.min.js"></script>
-        <script src="scripts/vendor/jquery.ui.slider.labels.js"></script>
-        <script src="scripts/vendor/jquery.placeholder.js"></script>
-        <script src="scripts/vendor/jquery.debounce.js"></script>
-        <script src="scripts/plugins.js"></script>
-        <script src="scripts/map.js"></script>
         <script src="scripts/main.js"></script>
-        <!-- endbuild -->
 
 
         <script>

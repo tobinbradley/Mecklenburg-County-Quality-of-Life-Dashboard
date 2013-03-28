@@ -356,7 +356,7 @@
     "e7": {
         "db": "streets_adopted",
         "field": "e7",
-        "category": "environment",
+        "category": "engagement",
         "title": "Streets Adopted for Clean Up",
         "description": "Miles of streets adopted for litter cleanup for each Neighborhood Profile Area (NPA).",
         "importance": "Neighborhoods, businesses and individuals can make a difference in their community by adopting a City street and committing to cleanups once per quarter. Identifying adopted streets provides an indication of the level of involvement residents and businesses have in keeping their neighborhood streets clean and safe.  In areas without adopted streets residents, businesses, and other organizations can develop strategies collaboratively to keep neighborhood streets clean.",
