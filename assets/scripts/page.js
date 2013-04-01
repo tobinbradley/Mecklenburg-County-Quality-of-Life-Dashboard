@@ -11,11 +11,11 @@ var FTmeta,
     marker,
     chart;
 
+$(document).ready(function () {
 
-$(document).ready(function() {
     // Load variable metadata JSON
     $.ajax({
-        url: 'scripts/metrics.json?V=23',
+        url: 'data/metrics.json?V=23',
         dataType: 'json',
         async: false,
         success: function (data) {
@@ -25,7 +25,7 @@ $(document).ready(function() {
 
     // Load NPA GeoJSON
     $.ajax({
-        url: 'scripts/npa.json?V=23',
+        url: 'data/npa.json?V=23',
         dataType: 'json',
         type: 'GET',
         async: false,
@@ -54,7 +54,7 @@ $(document).ready(function() {
     $('a.measure-link').on('click', function (e) {
         $('a.measure-link').children('i').removeClass('icon-chevron-right');
         $(this).children('i').addClass('icon-chevron-right');
-        if ($(window).width() <= 767 ) { $('html, body').animate({ scrollTop: $('#data').offset().top }, 1000); }
+        if ($(window).width() <= 767) { $('html, body').animate({ scrollTop: $('#data').offset().top }, 1000); }
         changeMeasure($(this).data('measure'));
         e.stopPropagation();
     });
@@ -66,7 +66,7 @@ $(document).ready(function() {
         });
         $(this).children('ul').animate({ height: 'toggle' }, 250);
     });
-    $('#metrics-select').change(function() {
+    $('#metrics-select').change(function () {
         changeMeasure($(this).val());
     });
 
@@ -96,16 +96,16 @@ $(document).ready(function() {
     // popover events
     $('*[rel=popover]').popover();
     $(".popover-trigger").hover(function () {
-            if ( $(window).width() > 979 ) { $( $(this).data("popover-selector") ).popover("show"); }
-        }, function(){
-            $( $(this).data("popover-selector") ).popover("hide");
+            if ($(window).width() > 979) { $($(this).data("popover-selector")).popover("show"); }
+        }, function () {
+            $($(this).data("popover-selector")).popover("hide");
         }
     );
 
     // Window resize for SVG charts
     $(window).smartresize(function () {
         // charts
-        if ( $("#details_chart svg").width() !== $("#data").width() ) { barChart(FTmeta[activeMeasure]); }
+        if ($("#details_chart svg").width() !== $("#data").width()) { barChart(FTmeta[activeMeasure]); }
     });
 
 
@@ -123,16 +123,16 @@ $(document).ready(function() {
 
     // jQuery UI Autocomplete
     $("#searchbox").click(function () { $(this).select(); });
-    $.widget( "custom.catcomplete", $.ui.autocomplete, {
-        _renderMenu: function( ul, items ) {
+    $.widget("custom.catcomplete", $.ui.autocomplete, {
+        _renderMenu: function(ul, items) {
             var that = this,
                 currentCategory = "";
-            $.each( items, function( index, item ) {
-                if ( item.responsetype !== currentCategory ) {
-                    ul.append( "<li class='ui-autocomplete-category'>" + item.responsetype + "</li>" );
+            $.each(items, function(index, item) {
+                if (item.responsetype !== currentCategory) {
+                    ul.append("<li class='ui-autocomplete-category'>" + item.responsetype + "</li>");
                     currentCategory = item.responsetype;
                 }
-                that._renderItemData( ul, item );
+                that._renderItemData(ul, item);
             });
         }
     });
@@ -140,7 +140,7 @@ $(document).ready(function() {
         minLength: 1,
         delay: 250,
         autoFocus: true,
-        source: function(request, response) {
+        source: function (request, response) {
             if (request.term.length > 3) {
                 $.ajax({
                     url: wsbase + 'v4/ws_geo_ubersearch.php',
@@ -149,9 +149,9 @@ $(document).ready(function() {
                         searchtypes: 'address,library,school,park,geoname,cast,nsa,intersection,pid,business,road',
                         query: request.term
                     },
-                    success: function(data) {
+                    success: function (data) {
                         if (data.length > 0) {
-                            response($.map(data, function(item) {
+                            response($.map(data, function (item) {
                                 return {
                                     label: item.name,
                                     gid: item.gid,
@@ -161,7 +161,7 @@ $(document).ready(function() {
                                 };
                             }));
                         } else {
-                            response($.map([{}], function(item) {
+                            response($.map([{}], function (item) {
                                 if (isNumber(request.term)) {
                                     // Needs more data
                                     return { label: 'More information needed for search.', responsetype: "I've got nothing" };
@@ -183,9 +183,9 @@ $(document).ready(function() {
                         fields: "id as gid, id as name, 'NPA' as type",
                         parameters: "id = " + request.term
                     },
-                    success: function(data) {
+                    success: function (data) {
                         if (data.length > 0) {
-                            response($.map(data, function(item) {
+                            response($.map(data, function (item) {
                                 return {
                                     label: item.name,
                                     gid: item.gid,
@@ -193,7 +193,7 @@ $(document).ready(function() {
                                 };
                             }));
                         } else {
-                            response($.map([{}], function(item) {
+                            response($.map([{}], function (item) {
                                 return { label: "No records found. I might need more information.", responsetype: "I've got nothing" };
                             }));
                         }
@@ -201,7 +201,7 @@ $(document).ready(function() {
                 });
             }
         },
-        select: function(event, ui) {
+        select: function (event, ui) {
             if (ui.item.lat) {
                 locationFinder(ui.item);
             }
@@ -210,12 +210,12 @@ $(document).ready(function() {
             }
             $(this).popover('hide').blur();
         },
-        open: function(event,ui) {
+        open: function (event, ui) {
             $(this).popover('hide');
         }
     });
-    $(".searchbtn").bind( "click", function( event ) {
-        $("#searchbox").catcomplete( "search" );
+    $(".searchbtn").bind("click", function (event) {
+        $("#searchbox").catcomplete("search");
     });
 
 });
@@ -223,13 +223,13 @@ $(document).ready(function() {
 /*
     Window load events
  */
-$(window).load(function(){
+$(window).load(function () {
     // load map
     mapInit();
 
     // Process any legacy hash, if not process arguments
     // burn this out layer
-    if ( window.location.hash.length > 1 ) {
+    if (window.location.hash.length > 1) {
         hashRead();
     }
     else {
@@ -239,9 +239,9 @@ $(window).load(function(){
     // set up history API
     if (Modernizr.history) {
         // history is supported; do magical things
-        $(window).bind("popstate", function() {
+        $(window).bind("popstate", function () {
             // reset if no args
-            if ( !getURLParameter("npa") && !getURLParameter("variable") ) {
+            if (!getURLParameter("npa") && !getURLParameter("variable")) {
                 $(".measure-info").hide();
                 activeRecord = {};
                 barChart(FTmeta[activeMeasure]);
@@ -255,7 +255,7 @@ $(window).load(function(){
     }
 
     // set up report dialog metric content
-    $('#report_metrics').html( $('#metrics-select').html() );
+    $('#report_metrics').html($('#metrics-select').html());
 });
 
 
@@ -264,11 +264,11 @@ $(window).load(function(){
 */
 function historyNav() {
     // run neighborhood
-    if ( getURLParameter("npa") ) {
+    if (getURLParameter("npa")) {
         changeNeighborhood(getURLParameter("npa"), false);
     }
     // run variable
-    if ( getURLParameter("variable") ) {
+    if (getURLParameter("variable")) {
         changeMeasure(getURLParameter("variable"), false);
     }
 }
@@ -279,11 +279,11 @@ function historyNav() {
     burn this out later
 */
 function hashRead() {
-    theHash = window.location.hash.replace("#","").split("/");
+    theHash = window.location.hash.replace("#", "").split("/");
 
     // Process the neighborhood number
     if (theHash[2] && theHash[2].length > 0) {
-        if (theHash[2].indexOf(",") == -1) {
+        if (theHash[2].indexOf(",") === -1) {
             changeNeighborhood(theHash[2], true);
         }
     }
@@ -298,12 +298,12 @@ function hashRead() {
 /*
     Change active measure
 */
-function changeMeasure(measure, setHistory) {
-    if(typeof(setHistory)==='undefined') { setHistory = true; }
+function changeMeasure (measure, setHistory) {
+    if (typeof(setHistory) === 'undefined') { setHistory = true; }
     activeMeasure = measure;
 
     // activate sidebar etc. if not already there
-    if ( $('a[data-measure=' + measure + ']').parent("li").parent("ul").is(':hidden') && $('.sidenav').is(':visible') ) {
+    if ($('a[data-measure=' + measure + ']').parent("li").parent("ul").is(':hidden') && $('.sidenav').is(':visible')) {
         $('a[data-measure=' + measure + ']').parent("li").parent("ul").parent("li").trigger("click");
     }
     if (!$('a[data-measure=' + measure + ']').children("i").hasClass("icon-chevron-right")) {
@@ -333,8 +333,8 @@ function changeMeasure(measure, setHistory) {
 /*
     Change active neighborhood
 */
-function changeNeighborhood(npaid, setHistory) {
-    if(typeof(setHistory)==='undefined') setHistory = true;
+function changeNeighborhood (npaid, setHistory) {
+    if (typeof(setHistory) === 'undefined') { setHistory = true; }
     var layer = getNPALayer(npaid);
     assignData(layer.feature.properties);
     $(".measure-info").show();
@@ -354,7 +354,7 @@ function changeNeighborhood(npaid, setHistory) {
     Assign data to active record
  */
 function assignData(data) {
-    $.each(data, function(key, value){
+    $.each(data, function (key, value) {
         activeRecord[key] = value;
     });
 }
@@ -366,7 +366,7 @@ function assignData(data) {
 function updateData(measure) {
     if (activeRecord.id) {
         $("#selectedNeighborhood").html("Neighborhood Profile Area " + activeRecord.id);
-        $("#selectedValue").html( prettyMetric(activeRecord[measure.field], activeMeasure) );
+        $("#selectedValue").html(prettyMetric(activeRecord[measure.field], activeMeasure));
     }
     barChart(measure);
 
