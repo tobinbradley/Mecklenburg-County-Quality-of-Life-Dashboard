@@ -48,12 +48,12 @@ $(document).ready(function () {
     updateData(FTmeta[defaultMeasure]);
     calcAverage(defaultMeasure);
     barChart(FTmeta[defaultMeasure]);
-    $('a[data-measure=' + defaultMeasure + ']').children('i').addClass('icon-chevron-right');
+    $('a[data-measure=' + defaultMeasure + ']').children('i').addClass('icon-active');
 
     // Sidebar events
     $('a.measure-link').on('click', function (e) {
-        $('a.measure-link').children('i').removeClass('icon-chevron-right');
-        $(this).children('i').addClass('icon-chevron-right');
+        $('a.measure-link').children('i').removeClass('icon-active');
+        $(this).children('i').addClass('icon-active');
         if ($(window).width() <= 767) { $('html, body').animate({ scrollTop: $('#data').offset().top }, 1000); }
         changeMeasure($(this).data('measure'));
         e.stopPropagation();
@@ -306,9 +306,9 @@ function changeMeasure (measure, setHistory) {
     if ($('a[data-measure=' + measure + ']').parent("li").parent("ul").is(':hidden') && $('.sidenav').is(':visible')) {
         $('a[data-measure=' + measure + ']').parent("li").parent("ul").parent("li").trigger("click");
     }
-    if (!$('a[data-measure=' + measure + ']').children("i").hasClass("icon-chevron-right")) {
-        $("a.measure-link").children("i").removeClass("icon-chevron-right");
-        $('a[data-measure=' + measure + ']').children("i").addClass("icon-chevron-right");
+    if (!$('a[data-measure=' + measure + ']').children("i").hasClass("icon-active")) {
+        $("a.measure-link").children("i").removeClass("icon-active");
+        $('a[data-measure=' + measure + ']').children("i").addClass("icon-active");
     }
 
     // get average if haven't already
