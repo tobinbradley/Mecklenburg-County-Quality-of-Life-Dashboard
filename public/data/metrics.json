@@ -95,7 +95,7 @@
     "p5": {
         "db": "residential_density",
         "field": "p5",
-        "category": "character",
+        "category": "housing",
         "title": "Residential Housing Density",
         "description": "Average number of housing units per acre for each Neighborhood Profile Area (NPA).",
         "importance": "Calculating housing residential density provides an indication of the residential character of a neighborhood.  Lower housing unit density is typified by larger lots in a suburban development pattern while higher density neighborhoods have smaller lots.  Residential density is not directly related to house size. ",
@@ -357,7 +357,7 @@
         "db": "streets_adopted",
         "field": "e7",
         "category": "engagement",
-        "title": "Streets Adopted for Clean Up",
+        "title": "Adopt-a-Street Participation",
         "description": "Miles of streets adopted for litter cleanup for each Neighborhood Profile Area (NPA).",
         "importance": "Neighborhoods, businesses and individuals can make a difference in their community by adopting a City street and committing to cleanups once per quarter. Identifying adopted streets provides an indication of the level of involvement residents and businesses have in keeping their neighborhood streets clean and safe.  In areas without adopted streets residents, businesses, and other organizations can develop strategies collaboratively to keep neighborhood streets clean.",
         "tech_notes": "Number of miles of streets adopted for litter cleanup for each NPA. It does not include major thoroughfare, private streets, or state maintained roads.",
@@ -1679,7 +1679,7 @@
         "title": "Paved Streets with Sidewalks",
         "description": "Percentage of paved streets that have sidewalks on at least one side of the street for each Neighborhood Profile Area (NPA).  Sidewalks not adjacent to public streets and unpaved walking trails are not included.  The quality of the sidewalk is also not assessed. ",
         "importance": "Adequate sidewalk systems encourage pedestrian connectivity  which provides mobility options for residents of all ages and incomes.  Identifies NPA's where additional sidewalks may be needed.",
-        "source": "Charlotte Department of Transportation, Mecklenburg County Landuse and Environmental Services, Towns of Cornelius and Huntersville, 2011.",
+        "source": "Charlotte Department of Transportation, Mecklenburg County Land Use and Environmental Services, Towns of Cornelius and Huntersville, 2011.",
         "tech_notes": "Calculated by dividing the length of paved street with sidewalk on at least one side divided by the total length of paved streets.  Sidewalks not adjacent to public streets and unpaved walking trails are not included.  Data does not take into account any physical obstructions that would prevent or impair an individual's ability to access the location or amenity. The quality of the sidewalk is also not assessed. Data for the towns will be included in the future.",
         "links": "<a href='http://charmeck.org/city/charlotte/Transportation/CDOTrequests/Pages/NewSidewalkRequestForm.aspx'>Charlotte New Sidewalk Request</a><br><a href='http://charmeck.org/city/charlotte/Transportation/CDOTrequests/Pages/SidewalkRepairRequest.aspx'>Charlotte Sidewalk Repair Request</a><br><a href='http://charmeck.org/city/charlotte/epm/Projects/Sidewalk/Pages/home.aspx'>Charlotte Active Sidewalk Projects</a><br><a href='http://charmeck.org/city/charlotte/Transportation/PedBike/Pages/North%20Carolina%20Pedestrian%20Laws.aspx'>NC Pedestrian Laws</a>",
         "style": {
@@ -1705,7 +1705,7 @@
         "title": "Street Connectivity Index",
         "description": "Ratio of links to nodes within the street network for each Neighborhood Profile Area (NPA).",
         "importance": "Internal and external street connectivity provides public access within a development and between adjoining developments. Connectivity facilitates vehicular, bicycle and pedestrian transportation options.",
-        "source": "Charlotte Department of Transportation, Mecklenburg County Landuse and Environmental Services, 2012.",
+        "source": "Charlotte Department of Transportation, Mecklenburg County Land Use and Environmental Services, 2012.",
         "tech_notes": "Defined as the Total Number of Street Links (roadways or pathways) divided by the Number of Nodes (cul-de-sac or endpoint). Data for the towns will be included in the future.",
         "links": "<a href='http://library.municode.com/HTML/19970/level3/PTIICOOR_CH20SU_ARTIINGE.html'>Charlotte Subdivison Ordinance</a>",
         "style": {
