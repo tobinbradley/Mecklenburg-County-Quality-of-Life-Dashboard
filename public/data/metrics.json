@@ -512,7 +512,7 @@
         "tech_notes": "The total heated square footage of developed commercial space zoned for said use which includes business, office, industrial and institutional uses, not including religious institutions and schools summarized for each NPA.",
         "links": "<a href='http://www.charlotteplanning.org'>Charlotte</a><br><a href='http://www.ci.davidson.nc.us/index.aspx?nid=68'>Davidson</a><br><a href='http://www.cornelius.org/index.aspx?nid=175'>Cornelius</a><br><a href=http://www.huntersville.org/Departments/Planning.aspx>Huntersville</a><br><a href='http://matthewsnc.gov/Departments/PlanningandDevelopment.aspx'>Matthews</a><br><a href='http://www.minthill.com/index.aspx?nid=85'>Mint Hill</a><br><a href='http://townofpineville.com/town-departments/planning-and-zoning/'>Pineville</a>",
         "style": {
-            "units": "",
+
             "breaks": [
                 0,
                 250000,
@@ -1657,7 +1657,7 @@
         "tech_notes": "Defined as (Low Speed Street Miles + Bike Lane Miles + Completed Greenways/Multiuse Path Miles) divided by (Total Street Mileage + Total Completed and Proposed Greenways/Multiuse Path Mileage) + (Connectivity Ratio).  The result is a score between 1 and 3 with 1 being least bicycle friendly and 3 being most bicycle friendly. Low speed streets are streets with a speed limit of 25mph or less. Unpaved paths without a surface intended to support most bicycles are not included. Data for the towns, if available, will be included in the future.",
         "links": "<a href='http://bike.charmeck.org'>Charlotte Bicycle Master Plan</a><br><a href='http://charmeck.org/city/charlotte/nbs/communitycommerce/Pages/NMG.aspx'>Project Funding Opportunity</a><br><a href='http://www.charlottebcycle.com'>Charlotte Bike Sharing Program</a>",
         "style": {
-            "units": "",
+
             "breaks": [
                 1,
                 1.4,
@@ -1709,7 +1709,7 @@
         "tech_notes": "Defined as the Total Number of Street Links (roadways or pathways) divided by the Number of Nodes (cul-de-sac or endpoint). Data for the towns will be included in the future.",
         "links": "<a href='http://library.municode.com/HTML/19970/level3/PTIICOOR_CH20SU_ARTIINGE.html'>Charlotte Subdivison Ordinance</a>",
         "style": {
-            "units": "",
+
             "breaks": [
                 1,
                 1.1,

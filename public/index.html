@@ -1,855 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Quality of Life Dashboard</title>
-        <meta name="description" content="Quality of Life Dashboard">
 
-        <!-- Mobile viewport optimized: j.mp/bplateviewport -->
-        <meta name="viewport" content="width=device-width,initial-scale=1">
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Quality of Life Dashboard</title>
+    <meta name="description" content="Quality of Life Dashboard.">
+    <meta name="keywords" content="GIS,Mecklenburg County,parks,libraries,schools,environment,impervious surface,floodplain,zoning,assessment,tax,photos,government">
+    <meta name="author" content="Tobin Bradley">
 
-        <!-- Favicon -->
-        <link rel="shortcut icon" type="image/png" href="favicon.png" />
-        <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png"/>
+    <!-- Mobile viewport optimized: j.mp/bplateviewport -->
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
-        <!-- Stylesheets -->
-        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.css" />
-        <!--[if lte IE 8]><link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.ie.css" /><![endif]-->
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/png" href="favicon.png" />
+    <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png" />
 
-        <link rel="stylesheet" href="css/main.css?foo=2735">
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/main.css?foo=32906">
 
-        <!-- Modernizr -->
-        <script src="js/modernizr.min.js"></script>
-    </head>
-    <body>
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="navbar-inner">
-                <div class="container">
-                    <a class="brand hide" href="./index.html">Quality of Life Dashboard</a>
-                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </a>
+    <!-- Leaflet, HTML5 and typeahead patches for oldIE -->
+    <!--[if lt IE 9]>
+            <link rel="stylesheet" href="//cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" />
+            <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.2.0/respond.min.js"></script>
+            <style> .twitter-typeahead { border: 1px solid #ccc; } </style>
+        <![endif]-->
+</head>
 
-                    <div class="nav-collapse collapse">
-                        <ul class="nav">
-                            <li class="active"><a href="./index.html"><em class="icon-home icon-white"></em> QOL Dashboard</a></li>
-                            <li><a href="javascript:void(0)" data-toggle="modal" data-target="#modalReport">Report</a></li>
-                            <li><a href="javascript:void(0)" data-toggle="modal" data-target="#modalData">Data</a></li>
-                            <li class="gpsarea"><a href="javascript:void(0)" class="gps">Find Me</a></li>
-                            <li><a href="//qol.charmeck.org/">About</a></li>
-                            <li><a href="javascript:void(0)" data-toggle="modal" data-target="#modalHelp">Help</a></li>
-                        </ul>
-                        <div class="navbar-form pull-right" >
-                            <label for="searchbox" class="hide">Search</label>
-                            <input id="searchbox" class="span4" type="text" placeholder="Search" rel="popover" data-content="<ul><li><strong>Address</strong>: Enter the beginning of an address. Ex: for 700 North Tryon Street, try <em>700 n</em></li><li><strong>NPA</strong>: Enter the NPA number. Ex: <em>45</em></li><li><strong>Location</strong>: Enter the name of a location or a street. Ex: <em>freedom</em></li></ul>" data-original-title="Search" data-placement="bottom" data-html="true" data-trigger="focus">
-                            <button class="btn btn-inverse searchbtn" type="button">Go!</button>
-                        </div>
-                    </div><!--/.nav-collapse -->
-                </div>
-            </div>
-        </div>
-
-
-        <!-- Subhead ================================================== -->
-        <header class="jumbotron subhead">
-            <!--[if lt IE 8]>
-                <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
-            <![endif]-->
-          <div class="container">
-            <h1>Quality of Life Dashboard <span class="text-info"></span></h1>
-            <h2 class="lead">Gateway to the Quality of Life Study</h2>
-          </div>
-        </header>
-
+<body>
+    <!--[if lt IE 9]>
+        <p class="oldie alert-info text-center">You are using an outdated browser. <a href="http://whatbrowser.org/">Upgrade your browser today</a> to better experience this site.</p>
+        <![endif]-->
+    <nav class="navbar navbar-default navbar-main" role="navigation">
         <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Quality of Life Dashboard <span class="text-primary">Beta</span></a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Link</a>
+                    </li>
+                    <li><a href="#">Link</a>
+                    </li>
+                    <li><a href="#">Link</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Action</a>
+                            </li>
+                            <li><a href="#">Another action</a>
+                            </li>
+                            <li><a href="#">Something else here</a>
+                            </li>
+                            <li><a href="#">Separated link</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+    </nav>
 
-            <div class="row main-row">
-                <div class="span3">
-                    <div class="overview alert alert-info">
-                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-                        The <strong>Quality of Life Dashboard</strong> is designed to help assess the health of neighborhoods in Charlotte and Mecklenburg County. There's <a href="javascript:void(0)" class="popover-trigger" data-toggle="modal" data-target="#modalHelp">help</a> if you need it.
-                    </div>
-                    <ul class="nav nav-list sidenav transition" >
-                        <li class="metrics-dropdown active">
-                            <a href="javascript:void(0)"><em class="icon-chevron-down"></em> Character</a>
-                            <ul data-group="character" class="">
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="p3"><i class="icon-chevron-right"></i>Area (in acres)</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="p4"><i class="icon-chevron-right"></i>Developed Tax Parcels</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="p13"><i class="icon-chevron-right"></i>Ethnicity- Hispanic/Latino</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="p2"><i class="icon-chevron-right"></i>Median Age of Residents</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="p1"><i class="icon-chevron-right icon-active"></i>Population</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="p12"><i class="icon-chevron-right"></i>Population in Group Quarters</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="p7"><i class="icon-chevron-right"></i>Public Transit Proximity</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="p10"><i class="icon-chevron-right"></i>Race - Asian</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="p9"><i class="icon-chevron-right"></i>Race - Black or African American</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="p11"><i class="icon-chevron-right"></i>Race - Some Other Race</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="p8"><i class="icon-chevron-right"></i>Race - White or Caucasian</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="metrics-dropdown">
-                            <a href="javascript:void(0)"><em class="icon-chevron-down"></em> Economics</a>
-                            <ul data-group="economics" class="hide">
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="m5"><i class="icon-chevron-right"></i>Change in Residential Property Value</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="m1"><i class="icon-chevron-right"></i>Median Household Income</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="m2"><i class="icon-chevron-right"></i>Persons Employed 6 Months or Less</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="m3"><i class="icon-chevron-right"></i>Persons Working 35 Hours or Less</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="m4"><i class="icon-chevron-right"></i>Population Receiving Food &amp; Nutrition Services (FNS)</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="m6"><i class="icon-chevron-right"></i>Square Feet of Commercial Buildings</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="m7"><i class="icon-chevron-right"></i>Square Feet of Permitted New and Renovated Commercial Buildings</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="m9"><i class="icon-chevron-right"></i>Year Commercial Buildings Constructed</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="metrics-dropdown">
-                            <a href="javascript:void(0)"><em class="icon-chevron-down"></em> Education</a>
-                            <ul data-group="education" class="hide">
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="k11"><i class="icon-chevron-right"></i>Adults without High School Diploma</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="k12"><i class="icon-chevron-right"></i>Children Attending Private Schools</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="k6"><i class="icon-chevron-right"></i>CMS 3-5 Graders EOG Test Score Growth</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="k3"><i class="icon-chevron-right"></i>CMS 3-5 Graders Proficient in EOG Tests</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="k7"><i class="icon-chevron-right"></i>CMS 6-8 Graders EOG Test Score Growth</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="k4"><i class="icon-chevron-right"></i>CMS 6-8 Graders Proficient in EOG Tests</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="k8"><i class="icon-chevron-right"></i>CMS 9-12 Graders EOC Test Score Growth</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="k5"><i class="icon-chevron-right"></i>CMS 9-12 Graders Proficient in EOC Tests</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="k10"><i class="icon-chevron-right"></i>CMS Dropout Rate</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="k13"><i class="icon-chevron-right"></i>CMS Students Attending Neighborhood Schools</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="k9"><i class="icon-chevron-right"></i>CMS Students with 10 or more Unexcused Absences</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="k1"><i class="icon-chevron-right"></i>Number of Pre-School Programs</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="k2"><i class="icon-chevron-right"></i>Number of School-Age Programs</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="metrics-dropdown">
-                            <a href="javascript:void(0)"><em class="icon-chevron-down"></em> Engagement</a>
-                            <ul data-group="engagement" class="hide">
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="e5"><i class="icon-chevron-right"></i>Registered Neighborhood Organizations</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="e1"><i class="icon-chevron-right"></i>Registered Voters</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="e3"><i class="icon-chevron-right"></i>Residents Serving on Municipal Boards and Committees</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="metrics-dropdown">
-                            <a href="javascript:void(0)"><em class="icon-chevron-down"></em> Environment</a>
-                            <ul data-group="environment" class="hide">
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="w15"><i class="icon-chevron-right"></i>Adopt-a-Stream Participation</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="e7"><i class="icon-chevron-right"></i>Adopt-a-Street Participation</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="w4"><i class="icon-chevron-right"></i>Bicycle Friendliness Index</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="w1"><i class="icon-chevron-right"></i>Commuters Driving Alone</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="w3"><i class="icon-chevron-right"></i>Daily Transit Boardings</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="w7"><i class="icon-chevron-right"></i>Impervious Surface</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="w2"><i class="icon-chevron-right"></i>Length of Commute</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="w5"><i class="icon-chevron-right"></i>Paved Streets with Sidewalks</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="w17"><i class="icon-chevron-right"></i>Residential Electricity Consumption</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="w16"><i class="icon-chevron-right"></i>Residential Natural Gas Consumption</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="w11"><i class="icon-chevron-right"></i>Residential Recycling Participation Rate</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="w10"><i class="icon-chevron-right"></i>Residential Solid Waste Diversion Rate</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="w18"><i class="icon-chevron-right"></i>Residential Tree Canopy</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="w6"><i class="icon-chevron-right"></i>Street Connectivity Index</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="w8"><i class="icon-chevron-right"></i>Structures in Floodplain</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="w9"><i class="icon-chevron-right"></i>Tree Canopy</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="w14"><i class="icon-chevron-right"></i>Water Consumption</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="metrics-dropdown">
-                            <a href="javascript:void(0)"><em class="icon-chevron-down"></em> Health</a>
-                            <ul data-group="health" class="hide">
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="h4"><i class="icon-chevron-right"></i>Age of Death</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="h2"><i class="icon-chevron-right"></i>Births to Adolescents</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="h3"><i class="icon-chevron-right"></i>Medicaid Population</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="h1"><i class="icon-chevron-right"></i>North Carolina State Children's Health Choice Population</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="h6"><i class="icon-chevron-right"></i>Residents within ½ Mile of a Chain Grocery Store</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="h8"><i class="icon-chevron-right"></i>Residents within ½ Mile of a Pharmacy</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="h5"><i class="icon-chevron-right"></i>Residents within ½ Mile of Medicaid Provider or Free Clinic</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="h7"><i class="icon-chevron-right"></i>Residents within ½ Mile of Public Outdoor Recreation Area</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="metrics-dropdown">
-                            <a href="javascript:void(0)"><em class="icon-chevron-down"></em> Housing</a>
-                            <ul data-group="housing" class="hide">
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="g8"><i class="icon-chevron-right"></i>Change in Residential Property Value</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="g4"><i class="icon-chevron-right"></i>Heated Square Feet of Single-Family Detached Dwellings</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="g14"><i class="icon-chevron-right"></i>Housing Code Violations</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="g1"><i class="icon-chevron-right"></i>Housing Units</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="g13"><i class="icon-chevron-right"></i>Median Gross Rent</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="g15"><i class="icon-chevron-right"></i>Neighborhood Nuisance Violations</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="g5"><i class="icon-chevron-right"></i>New Residential Building Permits</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="g17"><i class="icon-chevron-right"></i>Owner-Occupied Housing</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="g6"><i class="icon-chevron-right"></i>Residential Building Permits (Renovation)</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="g9"><i class="icon-chevron-right"></i>Residential Foreclosures</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="p5"><i class="icon-chevron-right"></i>Residential Housing Density</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="g7"><i class="icon-chevron-right"></i>Residential Property Value</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="g11"><i class="icon-chevron-right"></i>Single-Family Rental Houses (Detached)</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="g12"><i class="icon-chevron-right"></i>Subsidized Housing Units</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="g10"><i class="icon-chevron-right"></i>Vacancy Rate</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="g2"><i class="icon-chevron-right"></i>Vacant Single Family Parcels</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="g3"><i class="icon-chevron-right"></i>Year Single-Family Housing Constructed</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="metrics-dropdown">
-                            <a href="javascript:void(0)"><em class="icon-chevron-down"></em> Safety</a>
-                            <ul data-group="safety" class="hide">
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="s5"><i class="icon-chevron-right"></i>Calls for Animal Control</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="s4"><i class="icon-chevron-right"></i>Fire Calls for Service Rate</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="s3"><i class="icon-chevron-right"></i>Juvenile Incident Rate</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="s2"><i class="icon-chevron-right"></i>Property Crime Rate</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="measure-link" data-measure="s1"><i class="icon-chevron-right"></i>Violent Crime Rate</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-
-                    <select id="metrics-select" class="input-xlarge hide">
-                        <optgroup label="Character">
-                            <option value="p3">
-                                Area (in acres)
-                            </option>
-                            <option value="p4">
-                                Developed Tax Parcels
-                            </option>
-                            <option value="p13">
-                                Ethnicity- Hispanic/Latino
-                            </option>
-                            <option value="p2">
-                                Median Age of Residents
-                            </option>
-                            <option value="p1">
-                                Population
-                            </option>
-                            <option value="p12">
-                                Population in Group Quarters
-                            </option>
-                            <option value="p7">
-                                Public Transit Proximity
-                            </option>
-                            <option value="p10">
-                                Race - Asian
-                            </option>
-                            <option value="p9">
-                                Race - Black or African American
-                            </option>
-                            <option value="p11">
-                                Race - Some Other Race
-                            </option>
-                            <option value="p8">
-                                Race - White or Caucasian
-                            </option>
-                        </optgroup>
-                        <optgroup label="Economics">
-                            <option value="m5">
-                                Change in Residential Property Value
-                            </option>
-                            <option value="m1">
-                                Median Household Income
-                            </option>
-                            <option value="m2">
-                                Persons Employed 6 Months or Less
-                            </option>
-                            <option value="m3">
-                                Persons Working 35 Hours or Less
-                            </option>
-                            <option value="m4">
-                                Population Receiving Food &amp; Nutrition Services (FNS)
-                            </option>
-                            <option value="m6">
-                                Square Feet of Commercial Buildings
-                            </option>
-                            <option value="m7">
-                                Square Feet of Permitted New and Renovated Commercial Buildings
-                            </option>
-                            <option value="m9">
-                                Year Commercial Buildings Constructed
-                            </option>
-                        </optgroup>
-                        <optgroup label="Education">
-                            <option value="k11">
-                                Adults without High School Diploma
-                            </option>
-                            <option value="k12">
-                                Children Attending Private Schools
-                            </option>
-                            <option value="k6">
-                                CMS 3-5 Graders EOG Test Score Growth
-                            </option>
-                            <option value="k3">
-                                CMS 3-5 Graders Proficient in EOG Tests
-                            </option>
-                            <option value="k7">
-                                CMS 6-8 Graders EOG Test Score Growth
-                            </option>
-                            <option value="k4">
-                                CMS 6-8 Graders Proficient in EOG Tests
-                            </option>
-                            <option value="k8">
-                                CMS 9-12 Graders EOC Test Score Growth
-                            </option>
-                            <option value="k5">
-                                CMS 9-12 Graders Proficient in EOC Tests
-                            </option>
-                            <option value="k10">
-                                CMS Dropout Rate
-                            </option>
-                            <option value="k13">
-                                CMS Students Attending Neighborhood Schools
-                            </option>
-                            <option value="k9">
-                                CMS Students with 10 or more Unexcused Absences
-                            </option>
-                            <option value="k1">
-                                Number of Pre-School Programs
-                            </option>
-                            <option value="k2">
-                                Number of School-Age Programs
-                            </option>
-                        </optgroup>
-                        <optgroup label="Engagement">
-                            <option value="e5">
-                                Registered Neighborhood Organizations
-                            </option>
-                            <option value="e1">
-                                Registered Voters
-                            </option>
-                            <option value="e3">
-                                Residents Serving on Municipal Boards and Committees
-                            </option>
-                        </optgroup>
-                        <optgroup label="Environment">
-                            <option value="w15">
-                                Adopt-a-Stream Participation
-                            </option>
-                            <option value="e7">
-                                Adopt-a-Street Participation
-                            </option>
-                            <option value="w4">
-                                Bicycle Friendliness Index
-                            </option>
-                            <option value="w1">
-                                Commuters Driving Alone
-                            </option>
-                            <option value="w3">
-                                Daily Transit Boardings
-                            </option>
-                            <option value="w7">
-                                Impervious Surface
-                            </option>
-                            <option value="w2">
-                                Length of Commute
-                            </option>
-                            <option value="w5">
-                                Paved Streets with Sidewalks
-                            </option>
-                            <option value="w17">
-                                Residential Electricity Consumption
-                            </option>
-                            <option value="w16">
-                                Residential Natural Gas Consumption
-                            </option>
-                            <option value="w11">
-                                Residential Recycling Participation Rate
-                            </option>
-                            <option value="w10">
-                                Residential Solid Waste Diversion Rate
-                            </option>
-                            <option value="w18">
-                                Residential Tree Canopy
-                            </option>
-                            <option value="w6">
-                                Street Connectivity Index
-                            </option>
-                            <option value="w8">
-                                Structures in Floodplain
-                            </option>
-                            <option value="w9">
-                                Tree Canopy
-                            </option>
-                            <option value="w14">
-                                Water Consumption
-                            </option>
-                        </optgroup>
-                        <optgroup label="Health">
-                            <option value="h4">
-                                Age of Death
-                            </option>
-                            <option value="h2">
-                                Births to Adolescents
-                            </option>
-                            <option value="h3">
-                                Medicaid Population
-                            </option>
-                            <option value="h1">
-                                North Carolina State Children's Health Choice Population
-                            </option>
-                            <option value="h6">
-                                Residents within ½ Mile of a Chain Grocery Store
-                            </option>
-                            <option value="h8">
-                                Residents within ½ Mile of a Pharmacy
-                            </option>
-                            <option value="h5">
-                                Residents within ½ Mile of Medicaid Provider or Free Clinic
-                            </option>
-                            <option value="h7">
-                                Residents within ½ Mile of Public Outdoor Recreation Area
-                            </option>
-                        </optgroup>
-                        <optgroup label="Housing">
-                            <option value="g8">
-                                Change in Residential Property Value
-                            </option>
-                            <option value="g4">
-                                Heated Square Feet of Single-Family Detached Dwellings
-                            </option>
-                            <option value="g14">
-                                Housing Code Violations
-                            </option>
-                            <option value="g1">
-                                Housing Units
-                            </option>
-                            <option value="g13">
-                                Median Gross Rent
-                            </option>
-                            <option value="g15">
-                                Neighborhood Nuisance Violations
-                            </option>
-                            <option value="g5">
-                                New Residential Building Permits
-                            </option>
-                            <option value="g17">
-                                Owner-Occupied Housing
-                            </option>
-                            <option value="g6">
-                                Residential Building Permits (Renovation)
-                            </option>
-                            <option value="g9">
-                                Residential Foreclosures
-                            </option>
-                            <option value="p5">
-                                Residential Housing Density
-                            </option>
-                            <option value="g7">
-                                Residential Property Value
-                            </option>
-                            <option value="g11">
-                                Single-Family Rental Houses (Detached)
-                            </option>
-                            <option value="g12">
-                                Subsidized Housing Units
-                            </option>
-                            <option value="g10">
-                                Vacancy Rate
-                            </option>
-                            <option value="g2">
-                                Vacant Single Family Parcels
-                            </option>
-                            <option value="g3">
-                                Year Single-Family Housing Constructed
-                            </option>
-                        </optgroup>
-                        <optgroup label="Safety">
-                            <option value="s5">
-                                Calls for Animal Control
-                            </option>
-                            <option value="s4">
-                                Fire Calls for Service Rate
-                            </option>
-                            <option value="s3">
-                                Juvenile Incident Rate
-                            </option>
-                            <option value="s2">
-                                Property Crime Rate
-                            </option>
-                            <option value="s1">
-                                Violent Crime Rate
-                            </option>
-                        </optgroup>
-                    </select>
-
-                </div>
-
-                <div class="span9">
-                    <div class="row">
-                        <div id="data" class="span4 pull-left">
-                            <div>
-                                <h3 id="selectedNeighborhood" class="measure-info hide"></h3>
-                                <p class="textleft">
-                                    <span id="selectedMeasure" class="measureText">Population</span>
-                                    <span id="selectedValue" class="measure-info measureText text-info"></span>
-                                    <br>
-                                    <span id="indicator_description">Total Neighborhood Profile Area (NPA) population.</span>
-                                </p>
-                            </div>
-                            <div class="textcenter">
-                                <div id='details_chart' class="chart"></div>
-                            </div>
-                            <div>
-                                <div>
-                                    <h4>Why is this important?</h4>
-                                </div>
-                                <p id="indicator_why" >Total population is a baseline measure that indicates the number of people living in an NPA. It is used to calculate density, and other per capita data.Trends in population show where the community is growing and where it is decreasing, which can help the City, County and Towns as well as other services providers know where infrastructure and other services may be needed.The 2010 Census reported 308.7 million people in the United States, a 9.7 percent increase from the Census 2000 population of 281.4 million.</p>
-                                <div>
-                                    <h4>Additional Resources</h4>
-                                </div>
-                                <p id="indicator_resources">
-                                    <a href="http://www.census.gov/2010census/data/">2010 U.S. Census</a><br><a href="http://charmeck.org/city/charlotte/growthstrategy/Pages/default.aspx">Charlotte-Mecklenburg's growth strategy</a>
-                                </p>
-                            </div>
-                        </div>
-                        <div id="map-area" class="span5 pull-right">
-                            <div id="map"></div>
-                            <div class="measure-details measure-right">
-                                <div class="measure-info-header">
-                                    <h4>About the Data</h4>
-                                </div>
-                                <div id="indicator_technical">
-                                    Provides the population based on the 2010 Census for each NPA using Block Group geography. Census block groups are the second smallest unit of measure used in the decennial Census. Only the census block is smaller. A block group is a cluster of census blocks within the same census tract. The average block group contains 39 blocks comprising between 600 and 3,000 people, with an optimum size of 1,500 people.
-                                    <br><br>
-                                    U.S. Census, 2010
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-               </div>
+    <div class="container container-content">
+        <div class="row">
+            <div class="col-md-8">
+                <select name="" id="metric" class="form-control input-lg form-metric">
+                    <option value="p1">Population</option>
+                    <option value="m1">Median Household Income</option>
+                </select>
 
             </div>
-
-            <hr>
-            <footer class="textcenter">
-                <p class="muted">
-                    Created by the <a href="http://charmeck.org/city/charlotte/Pages/default.aspx">City of Charlotte</a>, <a href="http://charmeck.org/mecklenburg/county/Pages/Default.aspx">Mecklenburg County</a>, and <a href="http://www.uncc.edu/">UNCC</a>
-                    <br />
-                    <a href="https://github.com/tobinbradley/Mecklenburg-County-Quality-of-Life-Dashboard">GitHub</a>
-                    &bull;
-                    <a href="javascript:void(0)" data-toggle="modal" data-target="#modalTalkback">Report a Problem</a>
-                    &bull;
-                    <a href="javascript:void(0)" data-toggle="modal" data-target="#modalDisclaimer">Disclaimer</a>
-                </p>
-                <p><img src="images/seals.png" width="177" height="36" alt="City and County Seals"></p>
-                <p></p>
-            </footer>
-
-        </div> <!-- /container -->
-
-        <!-- Modals - not shown on page load -->
-        <div class="modal hide fade" id="modalHelp">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h3>Help</h3>
-            </div>
-            <div class="modal-body">
-                <div class="textcenter">
-                    <iframe width="480" height="300" src="http://www.youtube.com/embed/q44rj2M8NKc" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="row row-topmargin">
+            <div class="col-md-8 map-container">
+                <div id="map-container">
+                    <svg class="map" width="100%" height="600" preserveAspectRatio="xMinYMin">
+                        <g class="neighborhoods"></g>
+                    </svg>
                 </div>
-                <p>
+            </div>
+            <div class="col-md-4 map-aside">
+                <div>
+                    <h3 class="time-year">2012</h3>
+                    <button type="button" class="btn btn-primary btn-looper">
+                        <span class="glyphicon glyphicon-play"></span>
+                    </button>
+                    <input type="text" class="slider slider-horizontal time-slider" value="" data-slider-min="2010" data-slider-max="2012" data-slider-value="2012" data-slider-tooltip="hide" data-slider-handle="square" data-slider-step="2" >
+                </div>
+                <div id="barChart">
+                    <svg width="100%" height="300" class="chart barchart" preserveAspectRatio="xMinYMin">
+                        <defs>
+                            <filter id="blur">
+                                <feGaussianBlur stdDeviation="0.7"></feGaussianBlur>
+                            </filter>
+                        </defs>
+                        <g class="barchart-container">
+                            <g class="x axis"></g>
+                            <g class="bar-container"></g>
+                            <g class="means">
+                                <circle class="mean-county chart-tooltips" data-toggle="tooltip" data-original-title=""></circle>
+                                <circle class="mean-map-hover chart-tooltips" data-toggle="tooltip" data-original-title=""></circle>
+                            </g>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <div class="row meta-container">
+            <div class="col-md-5">
+                <div class="well">
+                    <h4>Why this is Important</h4>
+                    <div class='meta-important'></div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="well">
+                <h4>About the Data</h4>
+                <div class='meta-about'></div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="well">
                     <h4>Additional Resources</h4>
-                    <ul>
-                        <li><a href="https://support.google.com/fusiontables/" target="_blank">Google Fusion Tables Help</a></li>
-                        <li><a href="javascript:void(0)" class="talkback">Report a Problem</a></li>
-                    </ul>
+                    <div class='meta-resources'><ul class="list-unstyled"></ul></div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <hr>
+            <footer class="text-center">
+                <p class="text-muted">
+                    Created by the <a href="http://charmeck.org/city/charlotte/Pages/default.aspx">City of Charlotte</a>, <a href="http://charmeck.org/mecklenburg/county/Pages/Default.aspx">Mecklenburg County</a>, and <a href="http://www.uncc.edu/">UNCC</a>
+                    &bull; Source code on <a href="https://github.com/tobinbradley/Mecklenburg-County-Quality-of-Life-Dashboard">Github</a>
                 </p>
-            </div>
-            <div class="modal-footer">
-                <a href="javascript:void(0)" class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
-            </div>
-        </div>
-
-        <div class="modal hide fade" id="modalDisclaimer">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h3>Disclaimer</h3>
-            </div>
-            <div class="modal-body">
-                <p>This system is subject to current public information rules and regulations. Information presented on this web site is considered public information and may be redistributed or copied. Mecklenburg County and its data providers give no warranty, expressed or implied, as to the accuracy, precision, timeliness, completeness, or any other aspect of the data presented. The publisher and data providers assume no liability for damage arrising from the use of this web site or the data provided herein.</p>
-            </div>
-            <div class="modal-footer">
-                <a href="javascript:void(0)" class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
-            </div>
-        </div>
-
-        <div class="modal hide fade" id="modalData">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h3>Data</h3>
-            </div>
-            <div class="modal-body">
                 <p>
-                    <h4>Download the Data</h4>
-                    <ul>
-                        <li><a href="data/npa.csv.zip">CSV/Excel</a></li>
-                        <li><a href="data/npa.shapefile.zip">GIS Shapefile</a></li>
-                        <li><a href="data/npa.kml.zip">KML</a></li>
-                        <li><a href="data/metadata.html" target="_blank">Metadata</a></li>
-                    </ul>
-                    <h4>Access the Data Online</h4>
-                    <ul>
-                        <li><a href="https://www.google.com/fusiontables/DataSource?docid=1M-08kYjjhzZvitf9FclbSMxgratuQQObJBuSf2s">Google Fusion Tables</a> (<a href="https://support.google.com/fusiontables/" target="_blank">help</a>)</li>
-                    </ul>
+                    <img src="images/seals.png" width="177" height="36" alt="City and County Seals">
                 </p>
-            </div>
-            <div class="modal-footer">
-                <a href="javascript:void(0)" class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
-            </div>
+            </footer>
         </div>
+    </div>
 
-        <div class="modal hide fade" id="modalTalkback">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h3>Report a Problem</h3>
-            </div>
-            <div class="modal-body">
-                <p>Thank you for taking the time to let us know about a problem or giving us feedback. Please fill out the form below and let us know about the issue in as much detail as possible.</p>
-                <form id="talkback" class="form-horizontal">
-                    <fieldset>
-                        <div class="control-group">
-                            <label class="control-label" for="inputEmail">Email</label>
-                            <div class="controls">
-                                <input type="text" id="inputEmail" class="input-xlarge" placeholder="Email">
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label" for="inputName">Name</label>
-                            <div class="controls">
-                                <input type="text" id="inputName" class="input-xlarge" placeholder="Name">
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label" for="inputFeedback">Feedback</label>
-                            <div class="controls">
-                                <textarea rows="7" id="inputFeedback" class="input-xlarge"></textarea>
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <div class="controls">
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </div>
-                        </div>
-                    </fieldset>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <a href="javascript:void(0)" class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
-            </div>
-        </div>
+    <!-- scripts at the bottom yo -->
+    <!--[if lt IE 9]>
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <![endif]-->
+    <!--[if gte IE 9]><!-->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <!--<![endif]-->
+    <script src="js/main.js?foo=61289"></script>
 
-        <div class="modal hide fade" id="modalReport">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h3>Report</h3>
-            </div>
-            <div class="modal-body">
-                <form action="php/report.php" method="get" target="_blank">
-                    <div class="form-horizontal">
-                        <div class="control-group">
-                            <label class="control-label" for="report_neighborhood"><strong>Neighborhood Profile Area</strong></label>
-                            <div class="controls">
-                                <select id="report_neighborhood" name="n" class="input-small">
-                                <option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option><option>32</option><option>33</option><option>34</option><option>35</option><option>36</option><option>37</option><option>38</option><option>39</option><option>40</option><option>41</option><option>42</option><option>43</option><option>44</option><option>45</option><option>46</option><option>47</option><option>48</option><option>49</option><option>50</option><option>51</option><option>52</option><option>53</option><option>54</option><option>55</option><option>56</option><option>57</option><option>58</option><option>59</option><option>60</option><option>61</option><option>62</option><option>63</option><option>64</option><option>65</option><option>66</option><option>67</option><option>68</option><option>69</option><option>70</option><option>71</option><option>72</option><option>73</option><option>74</option><option>75</option><option>76</option><option>77</option><option>78</option><option>79</option><option>80</option><option>81</option><option>82</option><option>83</option><option>84</option><option>85</option><option>86</option><option>87</option><option>88</option><option>89</option><option>90</option><option>91</option><option>92</option><option>93</option><option>94</option><option>95</option><option>96</option><option>97</option><option>98</option><option>99</option><option>100</option><option>101</option><option>102</option><option>103</option><option>104</option><option>105</option><option>106</option><option>107</option><option>108</option><option>109</option><option>110</option><option>111</option><option>112</option><option>113</option><option>114</option><option>115</option><option>116</option><option>117</option><option>118</option><option>119</option><option>120</option><option>121</option><option>122</option><option>123</option><option>124</option><option>125</option><option>126</option><option>127</option><option>128</option><option>129</option><option>130</option><option>131</option><option>132</option><option>133</option><option>134</option><option>135</option><option>136</option><option>137</option><option>138</option><option>139</option><option>140</option><option>141</option><option>142</option><option>143</option><option>144</option><option>145</option><option>146</option><option>147</option><option>148</option><option>149</option><option>150</option><option>151</option><option>152</option><option>153</option><option>154</option><option>155</option><option>156</option><option>157</option><option>158</option><option>159</option><option>160</option><option>161</option><option>162</option><option>163</option><option>164</option><option>165</option><option>166</option><option>167</option><option>168</option><option>169</option><option>170</option><option>171</option><option>172</option><option>173</option><option>174</option><option>175</option><option>176</option><option>177</option><option>178</option><option>179</option><option>180</option><option>181</option><option>182</option><option>183</option><option>184</option><option>185</option><option>186</option><option>187</option><option>188</option><option>189</option><option>190</option><option>191</option><option>192</option><option>193</option><option>194</option><option>195</option><option>196</option><option>197</option><option>198</option><option>199</option><option>200</option><option>201</option><option>202</option><option>203</option><option>204</option><option>205</option><option>206</option><option>207</option><option>208</option><option>209</option><option>210</option><option>211</option><option>212</option><option>213</option><option>215</option><option>216</option><option>217</option><option>218</option><option>219</option><option>220</option><option>221</option><option>222</option><option>223</option><option>224</option><option>225</option><option>226</option><option>227</option><option>228</option><option>229</option><option>230</option><option>231</option><option>232</option><option>233</option><option>234</option><option>235</option><option>236</option><option>237</option><option>238</option><option>240</option><option>241</option><option>242</option><option>243</option><option>244</option><option>245</option><option>246</option><option>247</option><option>248</option><option>249</option><option>250</option><option>251</option><option>252</option><option>253</option><option>254</option><option>255</option><option>256</option><option>257</option><option>258</option><option>259</option><option>260</option><option>261</option><option>262</option><option>263</option><option>264</option><option>265</option><option>266</option><option>267</option><option>268</option><option>269</option><option>270</option><option>271</option><option>272</option><option>273</option><option>274</option><option>275</option><option>276</option><option>277</option><option>278</option><option>279</option><option>280</option><option>281</option><option>282</option><option>283</option><option>284</option><option>285</option><option>286</option><option>287</option><option>288</option><option>289</option><option>290</option><option>291</option><option>292</option><option>293</option><option>294</option><option>295</option><option>296</option><option>297</option><option>298</option><option>299</option><option>300</option><option>301</option><option>302</option><option>303</option><option>304</option><option>305</option><option>306</option><option>307</option><option>308</option><option>309</option><option>310</option><option>311</option><option>312</option><option>313</option><option>314</option><option>315</option><option>316</option><option>317</option><option>318</option><option>319</option><option>320</option><option>321</option><option>322</option><option>323</option><option>324</option><option>325</option><option>326</option><option>327</option><option>328</option><option>329</option><option>330</option><option>331</option><option>332</option><option>333</option><option>334</option><option>335</option><option>336</option><option>337</option><option>338</option><option>339</option><option>340</option><option>341</option><option>342</option><option>343</option><option>344</option><option>345</option><option>346</option><option>347</option><option>348</option><option>349</option><option>350</option><option>351</option><option>352</option><option>353</option><option>354</option><option>355</option><option>356</option><option>357</option><option>358</option><option>359</option><option>360</option><option>361</option><option>362</option><option>363</option><option>364</option><option>365</option><option>366</option><option>367</option><option>368</option><option>369</option><option>370</option><option>371</option><option>372</option><option>373</option><option>374</option><option>375</option><option>376</option><option>377</option><option>378</option><option>379</option><option>380</option><option>381</option><option>382</option><option>383</option><option>384</option><option>385</option><option>386</option><option>387</option><option>388</option><option>389</option><option>390</option><option>391</option><option>392</option><option>393</option><option>394</option><option>395</option><option>396</option><option>397</option><option>398</option><option>399</option><option>400</option><option>401</option><option>402</option><option>403</option><option>404</option><option>405</option><option>406</option><option>407</option><option>408</option><option>409</option><option>410</option><option>411</option><option>412</option><option>413</option><option>416</option><option>417</option><option>418</option><option>419</option><option>420</option><option>421</option><option>422</option><option>423</option><option>424</option><option>425</option><option>426</option><option>428</option><option>430</option><option>431</option><option>432</option><option>433</option><option>434</option><option>435</option><option>436</option><option>437</option><option>438</option><option>442</option><option>443</option><option>444</option><option>445</option><option>446</option><option>447</option><option>448</option><option>449</option><option>450</option><option>451</option><option>452</option><option>453</option><option>454</option><option>455</option><option>456</option><option>457</option><option>458</option><option>459</option><option>460</option><option>462</option><option>463</option><option>464</option><option>465</option><option>466</option><option>467</option><option>468</option><option>469</option><option>470</option><option>471</option><option>472</option><option>473</option><option>474</option><option>475</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label for="report_metrics" class="control-label"><strong>Variables</strong></label>
-                            <div class="controls">
-                                <small>Use CTRL + click to select multiple variables.</small>
-                                <select id="report_metrics" multiple="multiple" name="m[]" class="input-xlarge"></select>
-                                <label class="checkbox" for="all_metrics">
-                                    <input type="checkbox" id="all_metrics"> Select All
-                                </label>
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <div class="controls">
-                                <input class="btn btn-primary" type="submit" id="submitPDFReport" name="mysubmit" value="Create Custom Report" />
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <a href="javascript:void(0)" class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
-            </div>
-        </div>
+    <!--   Google Analytics -->
+    <script>
+    </script>
 
+</body>
 
-        <!-- Javascript at the end -->
-        <script src="https://www.google.com/jsapi"></script>
-        <script>google.load("visualization", "1", {packages:["corechart"]});</script>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-        <script src="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.js"></script>
-
-        <!-- Concatenated and minified user script -->
-        <script src="js/main.js?foo=2735"></script>
-
-        <script>
-            var _gaq=[['_setAccount','UA-127085-9'],['_trackPageview']];
-            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-            s.parentNode.insertBefore(g,s)}(document,'script'));
-        </script>
-
-    </body>
 </html>
