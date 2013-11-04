@@ -1,0 +1,122 @@
+// imports
+@import "bootstrap.less";
+@import "slider.less";
+
+
+/* OldIE Prompt */
+.oldie {
+    width: 100%;
+    margin: 0;
+    font-size: 0.9em;
+    padding: 1px;
+    a {
+        text-decoration: underline;
+    }
+}
+
+
+svg {
+    //border: 1px dashed black;
+}
+
+h1, h2, h3, p, div {
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+body {
+    background: rgb(249, 249, 249);
+}
+
+.row-topmargin {
+    margin-top: 25px;
+}
+
+.meta-container {
+    margin-top: 80px;
+}
+.meta-resources ul {
+    list-style: none;
+    padding-left: 0;
+}
+.map-container {
+    height: 600px;
+}
+#barChart {
+    height: 400px;
+    margin-top: 100px;
+}
+.slider-horizontal {
+    margin-left: 10px;
+}
+.time-year {
+    padding-left: 50px;
+}
+
+.container-content {
+    margin-top: 30px;
+}
+
+.form-metric {
+    font-weight: bold;
+}
+
+
+.neighborhoods path {
+    stroke: #949494;
+    stroke-width: 0.3px;
+    transition: all 0.5s ease-out;
+}
+
+.mean-county {
+    fill: #5F607D;
+}
+
+.d3-highlight {
+    stroke: #F1BE2F !important;
+    stroke-width: 2.5px !important;
+    filter: url(#blur);
+}
+
+.q0-9 { fill:rgb(247,251,255); }
+.q1-9 { fill:rgb(222,235,247); }
+.q2-9 { fill:rgb(198,219,239); }
+.q3-9 { fill:rgb(158,202,225); }
+.q4-9 { fill:rgb(107,174,214); }
+.q5-9 { fill:rgb(66,146,198); }
+.q6-9 { fill:rgb(33,113,181); }
+.q7-9 { fill:rgb(8,81,156); }
+.q8-9 { fill:rgb(8,48,107); }
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+  stroke-width: 1;
+}
+.axis text {
+    font-size: 9px;
+}
+
+rect.bar {
+    stroke-width: 0.3px;
+    stroke: #949494;
+    transition: all 0.2s ease-out;
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+
+// repsonsive design
+@media (max-width: 979px) {
+
+}
+
+//  printing
+@media print {
+
+}
