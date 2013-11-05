@@ -15,7 +15,7 @@ function drawMap(msg, data) {
         .projection(projection);
 
     npaMap = d3.select(".map")
-        .attr("viewBox", "0 0 " + mapsize.width + " " + mapsize.height);
+        .attr("viewBox", "0 0 " + mapsize.width + " " + mapsize.height);    
 
 
     if (msg === 'initializeMap') {
@@ -23,19 +23,22 @@ function drawMap(msg, data) {
             .selectAll("path")
             .data(topojson.feature(data.neighborhoods, data.neighborhoods.objects.npa2).features)
             .enter()
-            .append("path")
+            .append("path")            
             .attr("d", path)
             .attr("fill", "none")
             .attr("data-npa", function(d) {
                 return d.id;
             });
+        
     }
 
 
     var data = metricData[year];
     d3.selectAll(".neighborhoods path").each(function () {
         var item = d3.select(this);
-        item.attr('class', quantize(data.get(item.attr('data-npa'))) + "-9 map-tooltips")
+        item.attr('class', function (d) {
+                return quantize(data.get(item.attr('data-npa'))) + "-9 map-tooltips";
+            })
             .attr("data-value", data.get(item.attr('data-npa')))
             .attr("data-quantile", quantize(data.get(item.attr('data-npa'))))
             .attr("data-toggle", "tooltip")
@@ -73,5 +76,5 @@ function drawMap(msg, data) {
     // tooltips
     $('.map-tooltips').tooltip({container:'body', delay: { show: 300, hide: 100 }, html: true});
 
-
 }
+

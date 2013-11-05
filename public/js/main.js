@@ -12274,7 +12274,7 @@ function drawMap(msg, data) {
         .projection(projection);
 
     npaMap = d3.select(".map")
-        .attr("viewBox", "0 0 " + mapsize.width + " " + mapsize.height);
+        .attr("viewBox", "0 0 " + mapsize.width + " " + mapsize.height);    
 
 
     if (msg === 'initializeMap') {
@@ -12282,19 +12282,22 @@ function drawMap(msg, data) {
             .selectAll("path")
             .data(topojson.feature(data.neighborhoods, data.neighborhoods.objects.npa2).features)
             .enter()
-            .append("path")
+            .append("path")            
             .attr("d", path)
             .attr("fill", "none")
             .attr("data-npa", function(d) {
                 return d.id;
             });
+        
     }
 
 
     var data = metricData[year];
     d3.selectAll(".neighborhoods path").each(function () {
         var item = d3.select(this);
-        item.attr('class', quantize(data.get(item.attr('data-npa'))) + "-9 map-tooltips")
+        item.attr('class', function (d) {
+                return quantize(data.get(item.attr('data-npa'))) + "-9 map-tooltips";
+            })
             .attr("data-value", data.get(item.attr('data-npa')))
             .attr("data-quantile", quantize(data.get(item.attr('data-npa'))))
             .attr("data-toggle", "tooltip")
@@ -12332,8 +12335,8 @@ function drawMap(msg, data) {
     // tooltips
     $('.map-tooltips').tooltip({container:'body', delay: { show: 300, hide: 100 }, html: true});
 
-
 }
+
 
 function drawBarChart(msg) {
 
@@ -12363,16 +12366,16 @@ function drawBarChart(msg) {
     var xAxis = d3.svg.axis()
         .scale(xScale)
         .orient("bottom")
-        .tickFormat(function(d) {
+        .tickFormat(function (d) {
             return d;
         })
         .ticks(5);
 
 
-    x.domain(data.map(function(d, i) {
+    x.domain(data.map(function (d, i) {
         return d.key;
     }));
-    y.domain([0, d3.max(data, function(d) {
+    y.domain([0, d3.max(data, function (d) {
         if (d.value > 250) {
             return d.value;
         }
@@ -12398,15 +12401,15 @@ function drawBarChart(msg) {
         barContainer.selectAll(".bar")
             .data(data)
             .enter().append("rect")
-            .attr("class", function(d) {
+            .attr("class", function (d) {
                 return "bar chart-tooltips " + d.key + "-9";
             })
-            .attr("x", function(d) {
+            .attr("x", function (d) {
                 return x(d.key);
             })
             .attr("width", x.rangeBand())
             .attr("data-toggle", "tooltip")
-            .attr("data-quantile", function(d) {
+            .attr("data-quantile", function (d) {
                 return d.key;
             });
     }
@@ -12416,12 +12419,12 @@ function drawBarChart(msg) {
 
 
     barChart.selectAll("rect")
-        .on("mouseover", function(d) {
+        .on("mouseover", function (d) {
             var sel = d3.select(this);
             d3Highlight(".neighborhoods", sel.attr("data-quantile"), true);
             sel.classed("d3-highlight", true);
         })
-        .on("mouseout", function(d) {
+        .on("mouseout", function (d) {
             var sel = d3.select(this);
             d3Highlight(".neighborhoods", sel.attr("data-quantile"), false);
             sel.classed("d3-highlight", false);
@@ -12439,7 +12442,7 @@ function drawBarChart(msg) {
         .attr("cy", y(7))
         .attr('r', 0);
 
-    $('.chart-tooltips').tooltip({container:'body', delay: { show: 100, hide: 100 }, html: true});
+    $('.chart-tooltips').tooltip({container: 'body', delay: { show: 100, hide: 100 }, html: true});
 
     var qtiles = quantize.quantiles();
 
@@ -12447,13 +12450,13 @@ function drawBarChart(msg) {
         .data(data)
         .transition()
         .duration(1000)
-        .attr("y", function(d) {
+        .attr("y", function (d) {
             return y(d.value + 5);
         })
-        .attr("height", function(d) {
+        .attr("height", function (d) {
             return height - y(d.value) + 5;
         })
-        .attr("data-original-title", function(d,i) {
+        .attr("data-original-title", function (d, i) {
             if (i === 0) {
                 return Math.round(d3.min(x_extent)) + " - " + Math.round(qtiles[i]);
             }
@@ -12465,7 +12468,6 @@ function drawBarChart(msg) {
             }
         });
 
-    var countyMean = Math.round(d3.mean(metricData[year].values()));
     barChart.select(".mean-county")
         .transition()
         .attr("cx", xScale(countyMean))
@@ -12484,8 +12486,8 @@ var npaMap,
 
 PubSub.immediateExceptions = true;
 
-d3.selection.prototype.moveToFront = function() {
-    return this.each(function() {
+d3.selection.prototype.moveToFront = function () {
+    return this.each(function () {
         this.parentNode.appendChild(this);
     });
 };
@@ -12496,10 +12498,10 @@ function sliderChange(value) {
     PubSub.publish('changeYear');
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
 
     // time slider
-    $('.time-slider').slider({formater: function(value) { return value; }}).on('slideStop', function (ev) {
+    $('.time-slider').slider({formater: function (value) { return value; }}).on('slideStop', function (ev) {
         sliderChange(ev.value);
     });
 
@@ -12509,12 +12511,12 @@ $(document).ready(function() {
         if (that.hasClass("glyphicon-play")) {
             that.removeClass("glyphicon-play").addClass("glyphicon-pause");
             if ($('.time-slider').val() === "2010") {
-                        $('.time-slider').val("2012").slider('setValue', 2012);
-                    }
-                    else {
-                        $('.time-slider').val("2010").slider('setValue', 2010);
-                    }
-                    sliderChange($('.time-slider').val());
+                $('.time-slider').val("2012").slider('setValue', 2012);
+            }
+            else {
+                $('.time-slider').val("2010").slider('setValue', 2010);
+            }
+            sliderChange($('.time-slider').val());
             timer = setInterval(function (e) {
                     if ($('.time-slider').val() === "2010") {
                         $('.time-slider').val("2012").slider('setValue', 2012);
@@ -12549,7 +12551,7 @@ $(document).ready(function() {
         .defer(d3.csv, "data/" + $("#metric").val() + ".csv")
         .await(draw);
 
-    $("#metric").change(function() {
+    $("#metric").change(function () {
         d3.csv("data/" + $(this).val() + ".csv", changeMetric);
     });
 
@@ -12600,9 +12602,9 @@ function processMetric(msg, data) {
     var y_2012 = d3.map(),
         y_2010 = d3.map();
 
-    _.each(data.metricdata, function(d) {
-        y_2012.set(d.id, +d.y_2010);
-        y_2010.set(d.id, +d.y_2012);
+    _.each(data.metricdata, function (d) {
+        if ($.isNumeric(d.y_2010)) { y_2010.set(d.id, +d.y_2010); }
+        if ($.isNumeric(d.y_2012)) { y_2012.set(d.id, +d.y_2012); }        
     });
 
     metricData = {
@@ -12616,18 +12618,18 @@ function processMetric(msg, data) {
     // set up quantile
     quantize = d3.scale.quantile()
         .domain(x_extent)
-        .range(d3.range(9).map(function(i) {
+        .range(d3.range(9).map(function (i) {
             return "q" + i;
         }));
 }
 
 function quantizeCount(data) {
-    var q1 = _.countBy(data, function(d) {
+    var q1 = _.countBy(data, function (d) {
         return quantize(d);
     });
     var q2 = [];
     for (var i = 0; i <= 8; i++) {
-        if (!q1["q" + i]) q1["q" + i] = 0;
+        if (!q1["q" + i]) { q1["q" + i] = 0; }
         q2.push({
             "key": "q" + i,
             "value": q1["q" + i]
@@ -12640,7 +12642,7 @@ function d3Highlight(vis, q, add) {
     var sel = d3.selectAll(vis + " ." + q + "-9");
     if (add === true) {
         sel.classed("d3-highlight", true);
-        if (vis === ".neighborhoods") sel.moveToFront();
+        if (vis === ".neighborhoods") { sel.moveToFront(); }
     } else {
         sel.classed("d3-highlight", false);
     }

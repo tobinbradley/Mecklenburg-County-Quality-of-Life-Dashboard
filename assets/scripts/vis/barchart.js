@@ -26,16 +26,16 @@ function drawBarChart(msg) {
     var xAxis = d3.svg.axis()
         .scale(xScale)
         .orient("bottom")
-        .tickFormat(function(d) {
+        .tickFormat(function (d) {
             return d;
         })
         .ticks(5);
 
 
-    x.domain(data.map(function(d, i) {
+    x.domain(data.map(function (d, i) {
         return d.key;
     }));
-    y.domain([0, d3.max(data, function(d) {
+    y.domain([0, d3.max(data, function (d) {
         if (d.value > 250) {
             return d.value;
         }
@@ -61,15 +61,15 @@ function drawBarChart(msg) {
         barContainer.selectAll(".bar")
             .data(data)
             .enter().append("rect")
-            .attr("class", function(d) {
+            .attr("class", function (d) {
                 return "bar chart-tooltips " + d.key + "-9";
             })
-            .attr("x", function(d) {
+            .attr("x", function (d) {
                 return x(d.key);
             })
             .attr("width", x.rangeBand())
             .attr("data-toggle", "tooltip")
-            .attr("data-quantile", function(d) {
+            .attr("data-quantile", function (d) {
                 return d.key;
             });
     }
@@ -79,12 +79,12 @@ function drawBarChart(msg) {
 
 
     barChart.selectAll("rect")
-        .on("mouseover", function(d) {
+        .on("mouseover", function (d) {
             var sel = d3.select(this);
             d3Highlight(".neighborhoods", sel.attr("data-quantile"), true);
             sel.classed("d3-highlight", true);
         })
-        .on("mouseout", function(d) {
+        .on("mouseout", function (d) {
             var sel = d3.select(this);
             d3Highlight(".neighborhoods", sel.attr("data-quantile"), false);
             sel.classed("d3-highlight", false);
@@ -102,7 +102,7 @@ function drawBarChart(msg) {
         .attr("cy", y(7))
         .attr('r', 0);
 
-    $('.chart-tooltips').tooltip({container:'body', delay: { show: 100, hide: 100 }, html: true});
+    $('.chart-tooltips').tooltip({container: 'body', delay: { show: 100, hide: 100 }, html: true});
 
     var qtiles = quantize.quantiles();
 
@@ -110,13 +110,13 @@ function drawBarChart(msg) {
         .data(data)
         .transition()
         .duration(1000)
-        .attr("y", function(d) {
+        .attr("y", function (d) {
             return y(d.value + 5);
         })
-        .attr("height", function(d) {
+        .attr("height", function (d) {
             return height - y(d.value) + 5;
         })
-        .attr("data-original-title", function(d,i) {
+        .attr("data-original-title", function (d, i) {
             if (i === 0) {
                 return Math.round(d3.min(x_extent)) + " - " + Math.round(qtiles[i]);
             }
@@ -128,7 +128,6 @@ function drawBarChart(msg) {
             }
         });
 
-    var countyMean = Math.round(d3.mean(metricData[year].values()));
     barChart.select(".mean-county")
         .transition()
         .attr("cx", xScale(countyMean))
