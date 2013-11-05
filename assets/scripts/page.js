@@ -9,8 +9,8 @@ var npaMap,
 
 PubSub.immediateExceptions = true;
 
-d3.selection.prototype.moveToFront = function() {
-    return this.each(function() {
+d3.selection.prototype.moveToFront = function () {
+    return this.each(function () {
         this.parentNode.appendChild(this);
     });
 };
@@ -21,10 +21,10 @@ function sliderChange(value) {
     PubSub.publish('changeYear');
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
 
     // time slider
-    $('.time-slider').slider({formater: function(value) { return value; }}).on('slideStop', function (ev) {
+    $('.time-slider').slider({formater: function (value) { return value; }}).on('slideStop', function (ev) {
         sliderChange(ev.value);
     });
 
@@ -34,12 +34,12 @@ $(document).ready(function() {
         if (that.hasClass("glyphicon-play")) {
             that.removeClass("glyphicon-play").addClass("glyphicon-pause");
             if ($('.time-slider').val() === "2010") {
-                        $('.time-slider').val("2012").slider('setValue', 2012);
-                    }
-                    else {
-                        $('.time-slider').val("2010").slider('setValue', 2010);
-                    }
-                    sliderChange($('.time-slider').val());
+                $('.time-slider').val("2012").slider('setValue', 2012);
+            }
+            else {
+                $('.time-slider').val("2010").slider('setValue', 2010);
+            }
+            sliderChange($('.time-slider').val());
             timer = setInterval(function (e) {
                     if ($('.time-slider').val() === "2010") {
                         $('.time-slider').val("2012").slider('setValue', 2012);
@@ -74,7 +74,7 @@ $(document).ready(function() {
         .defer(d3.csv, "data/" + $("#metric").val() + ".csv")
         .await(draw);
 
-    $("#metric").change(function() {
+    $("#metric").change(function () {
         d3.csv("data/" + $(this).val() + ".csv", changeMetric);
     });
 
@@ -125,9 +125,9 @@ function processMetric(msg, data) {
     var y_2012 = d3.map(),
         y_2010 = d3.map();
 
-    _.each(data.metricdata, function(d) {
-        y_2012.set(d.id, +d.y_2010);
-        y_2010.set(d.id, +d.y_2012);
+    _.each(data.metricdata, function (d) {
+        if ($.isNumeric(d.y_2010)) { y_2010.set(d.id, +d.y_2010); }
+        if ($.isNumeric(d.y_2012)) { y_2012.set(d.id, +d.y_2012); }        
     });
 
     metricData = {
@@ -141,18 +141,18 @@ function processMetric(msg, data) {
     // set up quantile
     quantize = d3.scale.quantile()
         .domain(x_extent)
-        .range(d3.range(9).map(function(i) {
+        .range(d3.range(9).map(function (i) {
             return "q" + i;
         }));
 }
 
 function quantizeCount(data) {
-    var q1 = _.countBy(data, function(d) {
+    var q1 = _.countBy(data, function (d) {
         return quantize(d);
     });
     var q2 = [];
     for (var i = 0; i <= 8; i++) {
-        if (!q1["q" + i]) q1["q" + i] = 0;
+        if (!q1["q" + i]) { q1["q" + i] = 0; }
         q2.push({
             "key": "q" + i,
             "value": q1["q" + i]
@@ -165,7 +165,7 @@ function d3Highlight(vis, q, add) {
     var sel = d3.selectAll(vis + " ." + q + "-9");
     if (add === true) {
         sel.classed("d3-highlight", true);
-        if (vis === ".neighborhoods") sel.moveToFront();
+        if (vis === ".neighborhoods") { sel.moveToFront(); }
     } else {
         sel.classed("d3-highlight", false);
     }

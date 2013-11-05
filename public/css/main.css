@@ -7472,6 +7472,15 @@ body {
   filter: url(#blur);
 }
 
+.background {
+  fill: none;
+  pointer-events: all;
+}
+
+.qnull {
+  fill: rbga(0, 0, 0, 0);
+}
+
 .q0-9 {
   fill: #f7fbff;
 }
