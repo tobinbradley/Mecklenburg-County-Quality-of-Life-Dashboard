@@ -7344,10 +7344,8 @@ td.visible-print {
 .slider-track {
   position: absolute;
   cursor: pointer;
-  background-image: -webkit-gradient(linear, left 0%, left 100%, from(#f5f5f5), to(#f9f9f9));
-  background-image: -webkit-linear-gradient(top, #f5f5f5, 0%, #f9f9f9, 100%);
-  background-image: -webkit-linear-gradient(top, #f5f5f5 0%, #f9f9f9 100%);
-  background-image: linear-gradient(to bottom, #f5f5f5 0%, #f9f9f9 100%);
+  background-image: -webkit-linear-gradient(top, #f5f5f5 0%, #cccccc 100%);
+  background-image: linear-gradient(to bottom, #f5f5f5 0%, #cccccc 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff5f5f5', endColorstr='#fff9f9f9', GradientType=0);
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -7356,12 +7354,10 @@ td.visible-print {
 
 .slider-selection {
   position: absolute;
-  background-image: -webkit-gradient(linear, left 0%, left 100%, from(#f9f9f9), to(#f5f5f5));
-  background-image: -webkit-linear-gradient(top, #f9f9f9, 0%, #f5f5f5, 100%);
-  background-image: -webkit-linear-gradient(top, #f9f9f9 0%, #f5f5f5 100%);
-  background-image: linear-gradient(to bottom, #f9f9f9 0%, #f5f5f5 100%);
+  background-image: -webkit-linear-gradient(top, #cccccc 0%, #f5f5f5 100%);
+  background-image: linear-gradient(to bottom, #cccccc 0%, #f5f5f5 100%);
   background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff9f9f9', endColorstr='#fff5f5f5', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ccc', endColorstr='#fff5f5f5', GradientType=0);
   box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -7372,8 +7368,6 @@ td.visible-print {
   position: absolute;
   width: 20px;
   height: 20px;
-  background-image: -webkit-gradient(linear, left 0%, left 100%, from(#149bdf), to(#0480be));
-  background-image: -webkit-linear-gradient(top, #149bdf, 0%, #0480be, 100%);
   background-image: -webkit-linear-gradient(top, #149bdf 0%, #0480be 100%);
   background-image: linear-gradient(to bottom, #149bdf 0%, #0480be 100%);
   background-repeat: repeat-x;
@@ -7402,14 +7396,6 @@ td.visible-print {
 
 .oldie a {
   text-decoration: underline;
-}
-
-h1,
-h2,
-h3,
-p,
-div {
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 body {
@@ -7475,13 +7461,14 @@ body {
 .mean-text {
   text-anchor: middle;
   text-decoration: underline;
-  font-size: 0.8em;
-  font-weight: normal;
+  font-size: 0.9em;
+  stroke-width: 0.5px;
 }
 
 .mean-county {
-  fill: black;
-  stroke: black;
+  fill: #828282;
+  stroke: #828282;
+  pointer-events: none;
 }
 
 .mean-hover {
