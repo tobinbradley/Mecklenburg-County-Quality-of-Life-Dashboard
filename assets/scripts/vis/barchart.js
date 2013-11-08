@@ -2,6 +2,7 @@ function drawBarChart(msg) {
 
     var data = quantizeCount(metricData[year].values());
     var countyMean = Math.round(d3.mean(metricData[year].values()));
+    var qtiles = quantize.quantiles();
 
     var margin = {
         top: 20,
@@ -13,17 +14,25 @@ function drawBarChart(msg) {
         height = 300 - margin.top - margin.bottom;
 
 
-    var x = d3.scale.ordinal()
-        .rangeRoundBands([0, width]);
+    // x/y/scale stuff
+    var x = d3.scale.linear()
+        .domain([0, data.length])
+        .range([0, width]);
 
-    //Create scale functions
+    var y = d3.scale.linear()
+        .range([height, 0])
+        .domain([0, d3.max(data, function(d) {
+            if (d.value > 250) {
+                return d.value;
+            } else {
+                return 250;
+            }
+        })]);
     var xScale = d3.scale.linear()
         .domain(x_extent)
         .range([0, width]);
 
-    var y = d3.scale.linear()
-        .range([height, 0]);
-
+    // axis labeling
     var xAxis = d3.svg.axis()
         .scale(xScale)
         .orient("bottom")
@@ -33,28 +42,15 @@ function drawBarChart(msg) {
         .ticks(5);
 
 
-    x.domain(data.map(function(d, i) {
-        return d.key;
-    }));
-    y.domain([0, d3.max(data, function(d) {
-        if (d.value > 250) {
-            return d.value;
-        } else {
-            return 250;
-        }
-    })]);
-
-
+    // set up bar chart
     barChart = d3.select(".barchart");
-
-    // add translate to needed features
     barChart.select("g.barchart-container")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
     barChart.select(".x.axis")
         .attr("transform", "translate(0," + height + ")")
         .call(xAxis);
 
-
+    // create bars and mean indicator on initialization
     if (msg === 'initializeBarChart') {
         // create original rects
         var barContainer = barChart.select(".bar-container");
@@ -64,10 +60,6 @@ function drawBarChart(msg) {
             .attr("class", function(d) {
                 return "bar chart-tooltips " + d.key + "-9";
             })
-            .attr("x", function(d) {
-                return x(d.key);
-            })
-            .attr("width", x.rangeBand())
             .attr("data-toggle", "tooltip")
             .attr("data-quantile", function(d) {
                 return d.key;
@@ -85,50 +77,23 @@ function drawBarChart(msg) {
             .attr("x1", xScale(countyMean))
             .attr("x2", xScale(countyMean))
             .attr("y1", y(0))
-            .attr("y2", y(40));
+            .attr("y2", y(30));
         barChart.select(".means")
             .append("text")
             .attr("class", "mean-indicator mean-text mean-county")
             .attr("x", xScale(countyMean))
-            .attr("y", y(40))
+            .attr("y", y(30))
             .text(countyMean);
     }
 
-    barChart.selectAll("rect")
-        .on("mouseover", function(d) {
-            var sel = d3.select(this);
-            d3Highlight(".neighborhoods", sel.attr("data-quantile"), true);
-            sel.classed("d3-highlight", true);
-        })
-        .on("mouseout", function(d) {
-            var sel = d3.select(this);
-            d3Highlight(".neighborhoods", sel.attr("data-quantile"), false);
-            sel.classed("d3-highlight", false);
-        });
-
-
-    barChart.select(".mean-map-hover")
-        .attr("cy", y(7))
-        .attr('r', 0);
-
-    $('.chart-tooltips').tooltip({
-        container: 'body',
-        delay: {
-            show: 100,
-            hide: 100
-        },
-        html: true
-    });
-
-    var qtiles = quantize.quantiles();
-
+    // set bar position, height, and tooltip info
     barChart.selectAll("rect")
         .data(data)
         .transition()
         .duration(1000)
-        .attr("width", x.rangeBand())
-        .attr("x", function(d) {
-            return x(d.key);
+        .attr("width", width / data.length)
+        .attr("x", function(d,i) {
+            return x(i);
         })
         .attr("y", function(d) {
             return y(d.value + 5);
@@ -147,7 +112,6 @@ function drawBarChart(msg) {
             }
         });
 
-
     // county mean indicator
      barChart.select(".mean-triangle.mean-county")
         .transition()
@@ -162,6 +126,31 @@ function drawBarChart(msg) {
         .text( Math.round(countyMean) );
 
 
+    // bar hover actions
+    barChart.selectAll("rect")
+        .on("mouseover", function(d) {
+            var sel = d3.select(this);
+            d3Highlight(".neighborhoods", sel.attr("data-quantile"), true);
+            sel.classed("d3-highlight", true);
+        })
+        .on("mouseout", function(d) {
+            var sel = d3.select(this);
+            d3Highlight(".neighborhoods", sel.attr("data-quantile"), false);
+            sel.classed("d3-highlight", false);
+        });
+
+
+    // bootstrap tooptips
+    $('.chart-tooltips').tooltip({
+        container: 'body',
+        delay: {
+            show: 100,
+            hide: 100
+        },
+        html: true
+    });
+
+    // store chart with for responsiveness
     barchartWidth = $(".barchart").width();
 
 }
