@@ -5,7 +5,8 @@ var npaMap,
     x_extent,
     metricData = {},
     timer,
-    year = "y_2012";
+    year = "y_2012",
+    barchartWidth;
 
 PubSub.immediateExceptions = true;
 
@@ -78,6 +79,12 @@ $(document).ready(function () {
         d3.csv("data/" + $(this).val() + ".csv", changeMetric);
     });
 
+    d3.select(window).on('resize', function() {
+        if ($(".barchart").parent().width() !== barchartWidth) {
+            drawBarChart();
+        }
+    });
+
 
 });
 
@@ -127,7 +134,7 @@ function processMetric(msg, data) {
 
     _.each(data.metricdata, function (d) {
         if ($.isNumeric(d.y_2010)) { y_2010.set(d.id, +d.y_2010); }
-        if ($.isNumeric(d.y_2012)) { y_2012.set(d.id, +d.y_2012); }        
+        if ($.isNumeric(d.y_2012)) { y_2012.set(d.id, +d.y_2012); }
     });
 
     metricData = {

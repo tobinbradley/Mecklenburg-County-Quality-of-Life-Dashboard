@@ -15,7 +15,7 @@ function drawMap(msg, data) {
         .projection(projection);
 
     npaMap = d3.select(".map")
-        .attr("viewBox", "0 0 " + mapsize.width + " " + mapsize.height);    
+        .attr("viewBox", "0 0 " + mapsize.width + " " + mapsize.height);
 
 
     if (msg === 'initializeMap') {
@@ -23,13 +23,13 @@ function drawMap(msg, data) {
             .selectAll("path")
             .data(topojson.feature(data.neighborhoods, data.neighborhoods.objects.npa2).features)
             .enter()
-            .append("path")            
+            .append("path")
             .attr("d", path)
             .attr("fill", "none")
             .attr("data-npa", function(d) {
                 return d.id;
             });
-        
+
     }
 
 
@@ -51,6 +51,11 @@ function drawMap(msg, data) {
         .domain(x_extent)
         .range([0, $("#barChart").parent().width() - 40]);
 
+     var y = d3.scale.linear()
+        .range([250, 0]);
+
+    y.domain([0, 250]);
+
     npaMap.selectAll(".neighborhoods path")
         //.datum(topojson.feature(data.neighborhoods, data.neighborhoods.objects.npa2))
         .on("mouseover", function(d) {
@@ -61,16 +66,37 @@ function drawMap(msg, data) {
 
             d3.select(".mean-map-hover")
                 .attr("cx", xScale(sel.attr("data-value")))
-                //.attr("cx", 100)
-                .attr("r", 5);
+                .attr("r", 3);
+
+            var xVal = xScale(sel.attr("data-value"));
+
+            // create county mean indicator
+            barChart.select(".means")
+               .append("path")
+               .attr("transform", "translate(" + xVal + "," + y(6) + ")")
+               .attr("d", d3.svg.symbol().type("triangle-down").size(60))
+               .attr("class", "mean-indicator mean-triangle mean-hover");
+             barChart.select(".means")
+                .append("line")
+                .attr("class", "mean-indicator mean-line mean-hover")
+                .attr("x1", xVal)
+                .attr("x2", xVal)
+                .attr("y1", y(0))
+                .attr("y2", y(60));
+            barChart.select(".means")
+                .append("text")
+                .attr("class", "mean-indicator mean-text mean-hover")
+                .attr("x", xVal)
+                .attr("y", y(60))
+                .text(sel.attr("data-value"));
+
         })
         .on("mouseout", function(d) {
             var sel = d3.select(this);
             d3Highlight(".barchart", sel.attr("data-quantile"), false);
             sel.classed("d3-highlight", false);
 
-            d3.select(".mean-map-hover")
-                .attr("r", 0);
+            d3.selectAll(".mean-hover").remove();
         });
 
     // tooltips
