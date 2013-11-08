@@ -7458,7 +7458,6 @@ body {
 
 .mean-text {
   text-anchor: middle;
-  text-decoration: underline;
   font-size: 0.9em;
   stroke-width: 0.5px;
 }
@@ -7528,14 +7527,17 @@ body {
 }
 
 .axis text {
-  font-size: 9px;
+  font-size: 10px;
 }
 
 rect.bar {
-  stroke-width: 0.5px;
-  stroke: #949494;
   -webkit-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
+}
+
+rect.bar.q0-9 {
+  stroke-width: 0.2px;
+  stroke: #949494;
 }
 
 .line {

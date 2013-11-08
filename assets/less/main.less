@@ -71,7 +71,6 @@ body {
 .d3-highlight {
     stroke: #F1BE2F !important;
     stroke-width: 2.5px !important;
-    //filter: url(#blur);
 }
 
 
@@ -80,7 +79,7 @@ body {
 }
 .mean-text {
     text-anchor: middle;
-    text-decoration: underline;
+    //text-decoration: underline;
     font-size: 0.9em;
     stroke-width: 0.5px;
 }
@@ -118,13 +117,15 @@ body {
   stroke-width: 1;
 }
 .axis text {
-    font-size: 9px;
+    font-size: 10px;
 }
 
 rect.bar {
-    stroke-width: 0.5px;
-    stroke: #949494;
     transition: all 0.2s ease-out;
+}
+rect.bar.q0-9 {
+    stroke-width: 0.2px;
+    stroke: #949494;
 }
 
 .line {

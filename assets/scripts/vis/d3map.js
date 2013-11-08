@@ -82,12 +82,12 @@ function drawMap(msg, data) {
                 .attr("x1", xVal)
                 .attr("x2", xVal)
                 .attr("y1", y(0))
-                .attr("y2", y(60));
+                .attr("y2", y(50));
             barChart.select(".means")
                 .append("text")
                 .attr("class", "mean-indicator mean-text mean-hover")
                 .attr("x", xVal)
-                .attr("y", y(60))
+                .attr("y", y(50))
                 .text(sel.attr("data-value"));
 
         })
