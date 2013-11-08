@@ -7450,8 +7450,6 @@ body {
 .d3-highlight {
   stroke: #F1BE2F !important;
   stroke-width: 2.5px !important;
-  -webkit-filter: url(#blur);
-  filter: url(#blur);
 }
 
 .mean-line {
