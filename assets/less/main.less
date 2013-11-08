@@ -67,9 +67,6 @@ body {
     transition: all 0.5s ease-out;
 }
 
-.mean-county {
-    fill: #5F607D;
-}
 
 .d3-highlight {
     stroke: #F1BE2F !important;
@@ -77,12 +74,31 @@ body {
     filter: url(#blur);
 }
 
+
+.mean-line {
+    stroke-dasharray: 3,3;
+}
+.mean-text {
+    text-anchor: middle;
+    text-decoration: underline;
+    font-size: 0.8em;
+    font-weight: normal;
+}
+.mean-county {
+    fill: black;
+    stroke: black;
+}
+.mean-hover {
+    fill: rgb(8,81,156);
+    stroke: rgb(8,81,156);
+}
+
 .background {
   fill: none;
   pointer-events: all;
 }
 
-.qnull { fill: rbga(0,0,0,0); }
+.qnull { fill: rgba(0,0,0,0); }
 .q0-9 { fill:rgb(247,251,255); }
 .q1-9 { fill:rgb(222,235,247); }
 .q2-9 { fill:rgb(198,219,239); }
@@ -105,7 +121,7 @@ body {
 }
 
 rect.bar {
-    stroke-width: 0.3px;
+    stroke-width: 0.5px;
     stroke: #949494;
     transition: all 0.2s ease-out;
 }

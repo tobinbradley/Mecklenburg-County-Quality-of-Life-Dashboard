@@ -14,22 +14,14 @@ module.exports = function (grunt) {
 
     // javascript stack
     var jsFiles = [
-            'assets/scripts/vendor/underscore-min.js',
             'assets/scripts/vendor/bootstrap/modal.js',
             'assets/scripts/vendor/bootstrap/transition.js',
             'assets/scripts/vendor/bootstrap/button.js',
             'assets/scripts/vendor/bootstrap/collapse.js',
             'assets/scripts/vendor/bootstrap/dropdown.js',
-            'assets/scripts/vendor/bootstrap/tab.js',
             'assets/scripts/vendor/bootstrap/tooltip.js',
-            'assets/scripts/vendor/bootstrap-slider.js',
-            'assets/scripts/vendor/d3.v3.js',
-            'assets/scripts/vendor/queue.v1.min.js',
-            'assets/scripts/vendor/topojson.v1.min.js',
-            'assets/scripts/vendor/pubsub.js',
-            'assets/scripts/vendor/pagedown.js',
-            'assets/scripts/vis/d3map.js',
-            'assets/scripts/vis/barchart.js',
+            'assets/scripts/vendor/*.js',
+            'assets/scripts/vis/*.js',
             'assets/scripts/page.js'
         ];
 

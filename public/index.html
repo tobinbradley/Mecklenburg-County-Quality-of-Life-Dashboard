@@ -9,6 +9,10 @@
     <meta name="keywords" content="GIS,Mecklenburg County,parks,libraries,schools,environment,impervious surface,floodplain,zoning,assessment,tax,photos,government">
     <meta name="author" content="Tobin Bradley">
 
+    <!-- turn off robots during dev -->
+    <meta name="robots" value="none">
+
+
     <!-- Mobile viewport optimized: j.mp/bplateviewport -->
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -98,10 +102,10 @@
                     <button type="button" class="btn btn-primary btn-looper">
                         <span class="glyphicon glyphicon-play"></span>
                     </button>
-                    <input type="text" class="slider slider-horizontal time-slider" value="" data-slider-min="2010" data-slider-max="2012" data-slider-value="2012" data-slider-tooltip="hide" data-slider-handle="square" data-slider-step="2" >
+                    <input type="text" class="slider slider-horizontal time-slider" value="" data-slider-min="2010" data-slider-max="2012" data-slider-value="2012" data-slider-tooltip="hide" data-slider-handle="round" data-slider-step="2" >
                 </div>
                 <div id="barChart">
-                    <svg width="100%" height="300" class="chart barchart" preserveAspectRatio="xMinYMin">
+                    <svg width="100%" height="300" class="chart barchart">
                         <defs>
                             <filter id="blur">
                                 <feGaussianBlur stdDeviation="0.7"></feGaussianBlur>
@@ -110,10 +114,7 @@
                         <g class="barchart-container">
                             <g class="x axis"></g>
                             <g class="bar-container"></g>
-                            <g class="means">
-                                <circle class="mean-county chart-tooltips" data-toggle="tooltip" data-original-title=""></circle>
-                                <circle class="mean-map-hover chart-tooltips" data-toggle="tooltip" data-original-title=""></circle>
-                            </g>
+                            <g class="means"></g>
                         </g>
                     </svg>
                 </div>

@@ -7461,15 +7461,32 @@ body {
   transition: all 0.5s ease-out;
 }
 
-.mean-county {
-  fill: #5F607D;
-}
-
 .d3-highlight {
   stroke: #F1BE2F !important;
   stroke-width: 2.5px !important;
   -webkit-filter: url(#blur);
   filter: url(#blur);
+}
+
+.mean-line {
+  stroke-dasharray: 3,3;
+}
+
+.mean-text {
+  text-anchor: middle;
+  text-decoration: underline;
+  font-size: 0.8em;
+  font-weight: normal;
+}
+
+.mean-county {
+  fill: black;
+  stroke: black;
+}
+
+.mean-hover {
+  fill: #08519c;
+  stroke: #08519c;
 }
 
 .background {
@@ -7478,7 +7495,7 @@ body {
 }
 
 .qnull {
-  fill: rbga(0, 0, 0, 0);
+  fill: rgba(0, 0, 0, 0);
 }
 
 .q0-9 {
@@ -7530,7 +7547,7 @@ body {
 }
 
 rect.bar {
-  stroke-width: 0.3px;
+  stroke-width: 0.5px;
   stroke: #949494;
   -webkit-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
