@@ -12341,16 +12341,13 @@ function drawMap(msg, data) {
     y.domain([0, 250]);
 
     npaMap.selectAll(".neighborhoods path")
-        //.datum(topojson.feature(data.neighborhoods, data.neighborhoods.objects.npa2))
         .on("mouseover", function(d) {
             var sel = d3.select(this);
-            sel.moveToFront();
+            // hack for movetofront because IE hates this
+            if (navigator.appName !== 'Microsoft Internet Explorer') { sel.moveToFront(); }
+
             d3Highlight(".barchart", sel.attr("data-quantile"), true);
             sel.classed("d3-highlight", true);
-
-            d3.select(".mean-map-hover")
-                .attr("cx", xScale(sel.attr("data-value")))
-                .attr("r", 3);
 
             var xVal = xScale(sel.attr("data-value"));
 
@@ -12463,11 +12460,11 @@ $(document).ready(function () {
 
     queue()
         .defer(d3.json, "data/npa.topojson")
-        .defer(d3.csv, "data/" + $("#metric").val() + ".csv")
+        .defer(d3.csv, "data/metric/" + $("#metric").val() + ".csv")
         .await(draw);
 
     $("#metric").change(function () {
-        d3.csv("data/" + $(this).val() + ".csv", changeMetric);
+        d3.csv("data/metric/" + $(this).val() + ".csv", changeMetric);
     });
 
     d3.select(window).on('resize', function() {
