@@ -72,11 +72,11 @@ $(document).ready(function () {
 
     queue()
         .defer(d3.json, "data/npa.topojson")
-        .defer(d3.csv, "data/" + $("#metric").val() + ".csv")
+        .defer(d3.csv, "data/metric/" + $("#metric").val() + ".csv")
         .await(draw);
 
     $("#metric").change(function () {
-        d3.csv("data/" + $(this).val() + ".csv", changeMetric);
+        d3.csv("data/metric/" + $(this).val() + ".csv", changeMetric);
     });
 
     d3.select(window).on('resize', function() {
