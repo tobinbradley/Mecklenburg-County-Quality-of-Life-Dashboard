@@ -20,6 +20,8 @@ module.exports = function (grunt) {
             'assets/scripts/vendor/bootstrap/collapse.js',
             'assets/scripts/vendor/bootstrap/dropdown.js',
             'assets/scripts/vendor/bootstrap/tooltip.js',
+            'assets/scripts/vendor/leaflet/leaflet.js',
+            'assets/scripts/vendor/leaflet/leaflet.d3.js',
             'assets/scripts/vendor/*.js',
             'assets/scripts/vis/*.js',
             'assets/scripts/page.js'
@@ -116,24 +118,13 @@ module.exports = function (grunt) {
         },
         replace: {
             foo: {
-                src: ['public/index.html', 'public/print.html', 'public/embed.html'],
+                src: ['public/index.html'],
                 overwrite: true,
                 replacements: [{
                     from: /\?foo=[0-9]*/g,
                     to: function () {
                         var cacheBuster = Math.floor((Math.random() * 100000) + 1);
                         return '?foo=' + cacheBuster;
-                    }
-                }]
-            },
-            template: {
-                src: ['assets/scripts/functions.js'],
-                overwrite: true,
-                replacements: [{
-                    from: /templateVersion: "[0-9]*"/g,
-                    to: function () {
-                        var cacheBuster = Math.floor((Math.random() * 100000) + 1);
-                        return 'templateVersion: "' + cacheBuster + '"';
                     }
                 }]
             }

@@ -1,37 +1,12 @@
 function drawMap(msg, data) {
 
-    var mapsize = {
-        "width": $("#map-container").parent().width(),
-        "height": $("#map-container").parent().height(),
-        "margin": "20px"
-    };
-
-    var projection = d3.geo.mercator()
-        .center([-80.827, 35.260])
-        .scale(52000)
-        .translate([mapsize.width / 2, mapsize.height / 2]);
-
-    var path = d3.geo.path()
-        .projection(projection);
-
-    npaMap = d3.select(".map")
-        .attr("viewBox", "0 0 " + mapsize.width + " " + mapsize.height);
-
-
+    // add leaflet layer on init
     if (msg === 'initializeMap') {
-        npaMap.select(".neighborhoods")
-            .selectAll("path")
-            .data(topojson.feature(data.neighborhoods, data.neighborhoods.objects.npa2).features)
-            .enter()
-            .append("path")
-            .attr("d", path)
-            .attr("fill", "none")
-            .attr("data-npa", function(d) {
-                return d.id;
-            });
-
+        L.d3(data.neighborhoods,{
+            topojson:"npa2",
+            svgClass : "neighborhoods"
+        }).addTo(map);
     }
-
 
     var data = metricData[year];
     d3.selectAll(".neighborhoods path").each(function () {
@@ -56,7 +31,7 @@ function drawMap(msg, data) {
 
     y.domain([0, 250]);
 
-    npaMap.selectAll(".neighborhoods path")
+    d3.selectAll(".neighborhoods path")
         .on("mouseover", function(d) {
             var sel = d3.select(this);
             // hack for movetofront because IE hates this

@@ -1,4 +1,5 @@
 var npaMap,
+    map,
     barChart,
     lineChart,
     quantize,
@@ -70,8 +71,16 @@ $(document).ready(function () {
     PubSub.subscribe('changeMetric', drawBarChart);
     PubSub.subscribe('changeMetric', updateMeta);
 
+    // set up map
+    map = L.map("map", { zoomControl: false }).setView([35.260, -80.827],10);
+    map.attributionControl.setPrefix('');
+    // Mecklenburg Base Layer
+    //L.tileLayer("http://maps.co.mecklenburg.nc.us/tiles/meckbase/{y}/{x}/{z}.png").addTo(map);
+
+
+
     queue()
-        .defer(d3.json, "data/npa.topojson")
+        .defer(d3.json, "data/npa.topo.json")
         .defer(d3.csv, "data/metric/" + $("#metric").val() + ".csv")
         .await(draw);
 
