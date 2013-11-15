@@ -72,8 +72,12 @@ $(document).ready(function () {
     PubSub.subscribe('changeMetric', updateMeta);
 
     // set up map
-    map = L.map("map", { zoomControl: false }).setView([35.260, -80.827],10);
-    map.attributionControl.setPrefix('');
+    map = L.map("map", {
+            zoomControl: false,
+            attributionControl: false,
+            minZoom: 9,
+            maxZoom: 18
+        }).setView([35.260, -80.827],10);
     // Mecklenburg Base Layer
     //L.tileLayer("http://maps.co.mecklenburg.nc.us/tiles/meckbase/{y}/{x}/{z}.png").addTo(map);
 

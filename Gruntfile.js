@@ -10,7 +10,7 @@ module.exports = function (grunt) {
 
     // Default task(s).
     grunt.registerTask('default', ['watch']);
-    grunt.registerTask('build', ['less:production', 'autoprefixer', 'uglify:production', 'replace', 'imagemin']);
+    grunt.registerTask('build', ['less:production', 'autoprefixer', 'uglify:production', 'replace']);
 
     // javascript stack
     var jsFiles = [
