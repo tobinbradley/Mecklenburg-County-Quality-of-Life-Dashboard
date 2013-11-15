@@ -1,7 +1,9 @@
 // imports
 @import "bootstrap.less";
 @import "slider.less";
+@import "leaflet.less";
 
+@body-color: rgb(249, 249, 249);
 
 /* OldIE Prompt */
 .oldie {
@@ -24,7 +26,7 @@ svg {
 // }
 
 body {
-    background: rgb(249, 249, 249);
+    background: @body-color;
 }
 
 .row-topmargin {
@@ -38,11 +40,32 @@ body {
     list-style: none;
     padding-left: 0;
 }
+
 .map-container {
-    height: 600px;
+    height: 550px;
 }
+.map-blend {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    //box-shadow: inset 0 0 15px @body-color;
+    background: url(../images/map-blend.png);
+    background-size: 100% 100%;
+    pointer-events: none;
+}
+#map {
+    height: 100%;
+}
+
+
+.leaflet-container {
+    background: rgba(0,0,0,0);
+}
+
 #barChart {
-    height: 400px;
+
     margin-top: 100px;
 }
 .slider-horizontal {
@@ -65,6 +88,7 @@ body {
     stroke: #949494;
     stroke-width: 0.3px;
     transition: all 0.5s ease-out;
+    //opacity: 0.8;
 }
 
 
