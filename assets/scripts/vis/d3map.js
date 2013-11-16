@@ -72,7 +72,7 @@ function drawMap(msg, data) {
         });
 
     // tooltips
-    $('.map-tooltips').tooltip({container:'body', delay: { show: 300, hide: 100 }, html: true});
+    $('.map-tooltips').tooltip({container:'#map', delay: { show: 300, hide: 100 }, html: true});
 
 }
 

@@ -9,8 +9,7 @@
     "grunt-contrib-less": "*",
     "grunt-contrib-watch": "*",
     "grunt-contrib-uglify": "*",
-    "grunt-autoprefixer": "*",
-    "grunt-contrib-imagemin": "~0.3.0"
+    "grunt-autoprefixer": "*"
   },
   "scripts": {
     "test": "grunt build"
