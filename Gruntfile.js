@@ -6,7 +6,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-text-replace');
     grunt.loadNpmTasks('grunt-autoprefixer');
-    grunt.loadNpmTasks('grunt-contrib-imagemin');
 
     // Default task(s).
     grunt.registerTask('default', ['watch']);
@@ -66,16 +65,6 @@ module.exports = function (grunt) {
             single_file: {
                 src: 'public/css/main.css',
                 dest: 'public/css/main.css'
-            }
-        },
-        imagemin: {                          // Task
-            dynamic: {                         // Another target
-                files: [{
-                    expand: true,                  // Enable dynamic expansion
-                    cwd: 'public/',                   // Src matches are relative to this path
-                    src: ['**/*.{png,jpg,gif}'],   // Actual patterns to match
-                    dest: 'public/'                  // Destination path prefix
-                }]
             }
         },
         watch: {
