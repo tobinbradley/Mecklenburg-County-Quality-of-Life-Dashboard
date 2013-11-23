@@ -7483,6 +7483,17 @@ td.visible-print {
   z-index: 7;
 }
 
+.leaflet-vml-shape {
+  width: 1px;
+  height: 1px;
+}
+
+.lvml {
+  behavior: url(#default#VML);
+  display: inline-block;
+  position: absolute;
+}
+
 /* control positioning */
 
 .leaflet-control {
@@ -7584,9 +7595,8 @@ td.visible-print {
   cursor: auto;
 }
 
-.leaflet-dragging,
-.leaflet-dragging .leaflet-clickable,
-.leaflet-dragging .leaflet-container {
+.leaflet-dragging .leaflet-container,
+.leaflet-dragging .leaflet-clickable {
   cursor: move;
   cursor: -webkit-grabbing;
 }
@@ -7607,9 +7617,8 @@ td.visible-print {
 }
 
 .leaflet-zoom-box {
-  border: 2px dotted #05f;
-  background: white;
-  opacity: 0.5;
+  border: 2px dotted #38f;
+  background: rgba(255, 255, 255, 0.5);
 }
 
 /* general typography */
@@ -7621,7 +7630,7 @@ td.visible-print {
 /* general toolbar styles */
 
 .leaflet-bar {
-  box-shadow: 0 1px 7px rgba(0, 0, 0, 0.65);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.65);
   border-radius: 4px;
 }
 
@@ -7666,51 +7675,37 @@ td.visible-print {
   color: #bbb;
 }
 
-.leaflet-touch .leaflet-bar {
-  border-radius: 10px;
-}
-
 .leaflet-touch .leaflet-bar a {
   width: 30px;
   height: 30px;
-}
-
-.leaflet-touch .leaflet-bar a:first-child {
-  border-top-left-radius: 7px;
-  border-top-right-radius: 7px;
-}
-
-.leaflet-touch .leaflet-bar a:last-child {
-  border-bottom-left-radius: 7px;
-  border-bottom-right-radius: 7px;
-  border-bottom: none;
+  line-height: 30px;
 }
 
 /* zoom control */
 
-.leaflet-control-zoom-in {
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
   font: bold 18px 'Lucida Console', Monaco, monospace;
+  text-indent: 1px;
 }
 
 .leaflet-control-zoom-out {
-  font: bold 22px 'Lucida Console', Monaco, monospace;
+  font-size: 20px;
 }
 
 .leaflet-touch .leaflet-control-zoom-in {
   font-size: 22px;
-  line-height: 30px;
 }
 
 .leaflet-touch .leaflet-control-zoom-out {
-  font-size: 28px;
-  line-height: 30px;
+  font-size: 24px;
 }
 
 /* layers control */
 
 .leaflet-control-layers {
-  box-shadow: 0 1px 7px rgba(0, 0, 0, 0.4);
-  background: #f8f8f9;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
+  background: #fff;
   border-radius: 5px;
 }
 
@@ -7765,8 +7760,8 @@ td.visible-print {
 /* attribution and scale controls */
 
 .leaflet-container .leaflet-control-attribution {
-  background-color: rgba(255, 255, 255, 0.7);
-  box-shadow: 0 0 5px #bbb;
+  background: #fff;
+  background: rgba(255, 255, 255, 0.7);
   margin: 0;
 }
 
@@ -7774,6 +7769,14 @@ td.visible-print {
 .leaflet-control-scale-line {
   padding: 0 5px;
   color: #333;
+}
+
+.leaflet-control-attribution a {
+  text-decoration: none;
+}
+
+.leaflet-control-attribution a:hover {
+  text-decoration: underline;
 }
 
 .leaflet-container .leaflet-control-attribution,
@@ -7792,22 +7795,21 @@ td.visible-print {
 .leaflet-control-scale-line {
   border: 2px solid #777;
   border-top: none;
-  color: black;
   line-height: 1.1;
   padding: 2px 5px 1px;
   font-size: 11px;
-  text-shadow: 1px 1px 1px #fff;
-  background-color: rgba(255, 255, 255, 0.5);
-  box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.2);
   white-space: nowrap;
   overflow: hidden;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  background: #fff;
+  background: rgba(255, 255, 255, 0.5);
 }
 
 .leaflet-control-scale-line:not(:first-child) {
   border-top: 2px solid #777;
   border-bottom: none;
   margin-top: -2px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .leaflet-control-scale-line:not(:first-child):not(:last-child) {
@@ -7822,7 +7824,8 @@ td.visible-print {
 
 .leaflet-touch .leaflet-control-layers,
 .leaflet-touch .leaflet-bar {
-  border: 4px solid rgba(0, 0, 0, 0.3);
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  background-clip: padding-box;
 }
 
 /* popup */
@@ -7896,15 +7899,33 @@ td.visible-print {
   border-top: 1px solid #ddd;
 }
 
+.leaflet-oldie .leaflet-popup-content-wrapper {
+  zoom: 1;
+}
+
+.leaflet-oldie .leaflet-popup-tip {
+  width: 24px;
+  margin: 0 auto;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678)";
+  filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678);
+}
+
+.leaflet-oldie .leaflet-popup-tip-container {
+  margin-top: -1px;
+}
+
+.leaflet-oldie .leaflet-control-zoom,
+.leaflet-oldie .leaflet-control-layers,
+.leaflet-oldie .leaflet-popup-content-wrapper,
+.leaflet-oldie .leaflet-popup-tip {
+  border: 1px solid #999;
+}
+
 /* div icon */
 
 .leaflet-div-icon {
   background: #fff;
   border: 1px solid #666;
-}
-
-.leaflet-editing-icon {
-  border-radius: 2px;
 }
 
 /* OldIE Prompt */
@@ -7945,19 +7966,20 @@ body {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 0;
-  right: 0;
-  background: url(../images/map-blend.png);
-  background-size: 100% 100%;
+  left: 15px;
+  right: 15px;
+  box-shadow: inset 0 0 30px 30px #f9f9f9;
+  border-radius: 16px;
   pointer-events: none;
 }
 
 #map {
   height: 100%;
+  border-radius: 16px;
 }
 
 .leaflet-container {
-  background: rgba(0, 0, 0, 0);
+  background: #f9f9f9;
 }
 
 #barChart {
