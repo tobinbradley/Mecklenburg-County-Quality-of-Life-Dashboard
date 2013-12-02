@@ -397,16 +397,16 @@ function barChart(measure) {
     var data, theTitle, theColors;
     if (jQuery.isEmptyObject(activeRecord) || activeRecord[activeMeasure] === null) {
         data = google.visualization.arrayToDataTable([
-            [null, 'County Average'],
-            [null,  FTmeta[measure.field].style.avg ]
+            ["", 'County Average'],
+            ["",  FTmeta[measure.field].style.avg ]
         ]);
         theTitle = prettyMetric(Math.round(FTmeta[measure.field].style.avg), activeMeasure);
         theColors = ["#DC3912"];
     }
     else {
         data = google.visualization.arrayToDataTable([
-            [null, 'NPA ' + activeRecord.id, 'County Average'],
-            [null,  parseFloat(activeRecord[measure.field]), Math.round(FTmeta[measure.field].style.avg) ]
+            ["", 'NPA ' + activeRecord.id, 'County Average'],
+            ["",  parseFloat(activeRecord[measure.field]), Math.round(FTmeta[measure.field].style.avg) ]
         ]);
         theTitle = prettyMetric(activeRecord[measure.field], activeMeasure);
         theColors = ["#0283D5", "#DC3912"];
