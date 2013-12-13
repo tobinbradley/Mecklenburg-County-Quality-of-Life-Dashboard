@@ -45,6 +45,9 @@ module.exports = function (grunt) {
         },
         less: {
             development: {
+                options: {
+                    sourceMap: false
+                },
                 files: {
                     "public/css/main.css": "assets/less/main.less"
                 }
