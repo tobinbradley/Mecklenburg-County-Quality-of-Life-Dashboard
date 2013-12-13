@@ -1,7 +1,10 @@
 // imports
-@import "bootstrap.less";
+@import "bootstrap/bootstrap.less";
 @import "slider.less";
 @import "leaflet.less";
+@import "typeahead.js-bootstrap.less";
+//@import "chosen.less";
+@import "bootstrap-chosen.less";
 
 @body-color: rgb(249, 249, 249);
 
@@ -21,9 +24,16 @@ svg {
     //border: 1px dashed black;
 }
 
-// h1, h2, h3, p, div {
-//     font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-// }
+/* chosen customizations */
+.chosen-container {
+    max-width: 100%;
+}
+.chosen-single {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+
 
 body {
     background: @body-color;
@@ -50,15 +60,14 @@ body {
     bottom: 0;
     left: 15px;
     right: 15px;
-    box-shadow: inset 0 0 30px 30px @body-color;
-    border-radius: 16px;
+    box-shadow: inset 0 0 15px 15px @body-color;
     //background: url(../images/map-blend.png);
     //background-size: 100% 100%;
     pointer-events: none;
 }
 #map {
     height: 100%;
-    border-radius: 16px;
+    border: 1px dashed #ccc;
 }
 
 
@@ -81,16 +90,11 @@ body {
     margin-top: 30px;
 }
 
-.form-metric {
-    font-weight: bold;
-}
-
-
 .neighborhoods path {
     stroke: #949494;
     stroke-width: 0.3px;
     transition: all 0.5s ease-out;
-    //opacity: 0.95;
+    //opacity: 0.8;
 }
 
 

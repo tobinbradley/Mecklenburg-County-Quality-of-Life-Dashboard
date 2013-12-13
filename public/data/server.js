@@ -5,23 +5,53 @@ var     start = new Date().getTime(),
         out = "",
         fs = require('fs');
 
+var new_config = [];
+
+// _.each(meta, function(item, i) {
+//         out = "## " + item.title + "\n";
+//         out += item.description + "\n\n";
+//         out += "### Why is this important?\n";
+//         out += item.importance + "\n\n";
+//         out += "### About the Data\n";
+//         out += item.tech_notes + "\n\n";
+//         out += "_Source: " + item.source + "_\n\n";
+//         out += "### Additional Resources\n";
+//         _.each(item.links.split("<br>"), function(item){
+//             out += "+ " + toMarkdown(item) + "\n";
+//         });
+//         fs.writeFile("./meta/" + item.field + ".md", out, function(err) {
+//             if(err) {
+//                 console.log(err);
+//             }
+//         });
+// });
+
 _.each(meta, function(item, i) {
-        out = "## " + item.title + "\n";
-        out += item.description + "\n\n";
-        out += "### Why is this important?\n";
-        out += item.importance + "\n\n";
-        out += "### About the Data\n";
-        out += item.tech_notes + "\n\n";
-        out += "_Source: " + item.source + "_\n\n";
-        out += "### Additional Resources\n";
-        _.each(item.links.split("<br>"), function(item){
-            out += "+ " + toMarkdown(item) + "\n";
-        });
-        fs.writeFile("./meta/" + item.field + ".md", out, function(err) {
-            if(err) {
-                console.log(err);
+        var node = {};
+                
+        if (item.style.units) {
+          node.id = item.field;  
+	  if (item.style.units === '%') {
+                node.units = 'percent';
             }
-        });
+            else {
+                node.units = item.style.units.trim();
+            }
+          new_config.push(node);
+        }
+
+        
+
+        // fs.writeFile("./meta/" + item.field + ".md", out, function(err) {
+        //     if(err) {
+        //         console.log(err);
+        //     }
+        // });
 });
 
+fs.writeFile("./data.json", JSON.stringify(new_config), function(err) {
+    if(err) {
+        console.log(err);
+    }
+});
 console.log("done in " + Math.abs(start - new Date().getTime()) / 1000 + " seconds");

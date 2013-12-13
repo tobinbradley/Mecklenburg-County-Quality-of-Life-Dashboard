@@ -1,7 +1,4 @@
-var npaMap,
-    map,
-    barChart,
-    lineChart,
+var map,
     quantize,
     x_extent,
     metricData = {},
@@ -30,6 +27,8 @@ $(document).ready(function () {
         sliderChange(ev.value);
     });
 
+    $(".chosen-select").chosen({no_results_text: "Oops, nothing found!"});
+
     // time looper
     $(".btn-looper").on("click", function () {
         var that = $(this).children("span");
@@ -42,7 +41,7 @@ $(document).ready(function () {
                 $('.time-slider').val("2010").slider('setValue', 2010);
             }
             sliderChange($('.time-slider').val());
-            timer = setInterval(function (e) {
+            timer = setInterval(function () {
                     if ($('.time-slider').val() === "2010") {
                         $('.time-slider').val("2012").slider('setValue', 2012);
                     }
@@ -76,15 +75,24 @@ $(document).ready(function () {
             zoomControl: false,
             attributionControl: false,
             minZoom: 9,
-            maxZoom: 18
+            maxZoom: 16
         }).setView([35.260, -80.827],10);
     // Mecklenburg Base Layer
-    //L.tileLayer("http://maps.co.mecklenburg.nc.us/tiles/meckbase-desaturated/{y}/{x}/{z}.png").addTo(map);
+    var baseTiles = L.tileLayer("http://maps.co.mecklenburg.nc.us/tiles/nmeckbase/{y}/{x}/{z}.png");
 
     // var Esri_WorldGrayCanvas = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
     //     attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
     //     maxZoom: 16
     // }).addTo(map);
+
+    L.control.layers( {} , {"Base Map": baseTiles}).addTo(map);
+    map.on('overlayadd',function(e){
+        // test for e.name === "Base Map"
+        $(".neighborhoods path").css("opacity", "0.7");
+    });
+    map.on('overlayremove',function(e){
+        $(".neighborhoods path").css("opacity", "1");
+    });
 
 
     queue()
@@ -96,7 +104,7 @@ $(document).ready(function () {
         d3.csv("data/metric/" + $(this).val() + ".csv", changeMetric);
     });
 
-    d3.select(window).on('resize', function() {
+    d3.select(window).on("resize", function () {
         if ($(".barchart").parent().width() !== barchartWidth) {
             drawBarChart();
         }
@@ -104,7 +112,6 @@ $(document).ready(function () {
 
 
 });
-
 
 function draw(error, neighborhoods, data) {
     PubSub.publish('initializeMap', {
