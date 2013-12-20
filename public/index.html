@@ -23,7 +23,7 @@
     <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png" />
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/main.css?foo=97955">
+    <link rel="stylesheet" href="css/main.css?foo=57225">
 
 </head>
 
@@ -42,7 +42,11 @@
                     <span class="icon-bar"></span>
                 </button>
 
-                <a class="navbar-brand" href="#"><strong>Quality of Life Dashboard <span class="text-primary">Alpha</span></strong></a>
+                <a class="navbar-brand" href="#">
+                    <strong>Quality of Life Dashboard
+                        <span class="text-primary">Alpha</span>
+                    </strong>
+                </a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
@@ -73,10 +77,11 @@
     </nav>
 
     <div class="container container-content">
-        <div class="row">
-            <div class="col-md-8 metric-container">
+        <div class="row row-vis">
+            <div class="col-md-8 map-container">
                 <select name="" id="metric" class="form-control input-lg form-metric chosen-select">
                     <optgroup label="Character">
+                        <option value></option>
                         <option value="p3">
                             Area (in acres)
                         </option>
@@ -339,32 +344,38 @@
                         </option>
                     </optgroup>
                 </select>
-                <!--<label class="sr-only" for="typeahead-metric">Metric</label>
-                <input type="text" class="form-control input-lg typeahead typeahead-metric" id="typeahead-metric" placeholder="Search">-->
-            </div>
-        </div>
-        <div class="row row-topmargin">
-            <div class="col-md-8 map-container">
                 <div id="map"></div>
-                <div class="map-blend"></div>
-            </div>
-            <div class="col-md-4 map-aside">
-                <div class="text-center">
-                    <h3 class="time-year">2012</h3>
+                <div class="year-slider">
                     <button type="button" class="btn btn-primary btn-looper">
                         <span class="glyphicon glyphicon-play"></span>
                     </button>
                     <input type="text" class="slider slider-horizontal time-slider" value="" data-slider-min="2010" data-slider-max="2012" data-slider-value="2012" data-slider-tooltip="hide" data-slider-handle="round" data-slider-step="2">
                 </div>
+            </div>
+            <div class="col-md-4 map-aside">
+                <div id="lineChart" class="text-center">
+                    <svg width="100%" height="100" class="chart linechart"></svg>
+                </div>
                 <div id="barChart">
                     <svg width="100%" height="300" class="chart barchart">
+                        <defs>
+                            <filter id="filter4219" y="-0.25" height="1.5" color-interpolation-filters="sRGB">
+                                <feGaussianBlur id="feGaussianBlur4221" stdDeviation="5" result="result6" />
+                                <feComposite id="feComposite4223" in2="result6" result="result8" in="SourceGraphic" operator="atop" />
+                                <feComposite id="feComposite4225" in2="SourceAlpha" result="result9" operator="over" in="result8" />
+                                <feColorMatrix id="feColorMatrix4227" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0 " result="result10" />
+                                <feBlend id="feBlend4229" in2="result6" in="result10" mode="normal" />
+                            </filter>
+                        </defs>
                         <g class="barchart-container">
                             <g class="x axis"></g>
                             <g class="bar-container"></g>
                             <g class="means"></g>
                         </g>
                     </svg>
+                    <p class="meta-subtitle text-center"></p>
                 </div>
+
             </div>
         </div>
         <div class="row meta-container">
@@ -406,7 +417,7 @@
 
     <!-- scripts at the bottom yo -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-    <script src="js/main.js?foo=45566"></script>
+    <script src="js/main.js?foo=64088"></script>
 
     <!--   Google Analytics -->
 

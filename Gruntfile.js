@@ -23,6 +23,7 @@ module.exports = function (grunt) {
             'assets/scripts/vendor/leaflet/leaflet.d3.js',
             'assets/scripts/vendor/*.js',
             'assets/scripts/vis/*.js',
+            'assets/scripts/datameta.js',
             'assets/scripts/page.js'
         ];
 

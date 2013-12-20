@@ -1,8 +1,9 @@
 function drawBarChart(msg) {
 
     var data = quantizeCount(metricData[year].values());
-    var countyMean = Math.round(d3.mean(metricData[year].values()));
+    var countyMean = Math.round(d3.mean(metricData[year].values()) * 10) / 10;
     var qtiles = quantize.quantiles();
+    var theMetric = $("#metric").val();
 
     var margin = {
         top: 20,
@@ -12,7 +13,6 @@ function drawBarChart(msg) {
     },
         width = $("#barChart").parent().width() - margin.left - margin.right,
         height = 300 - margin.top - margin.bottom;
-
 
     // x/y/scale stuff
     var x = d3.scale.linear()
@@ -32,13 +32,13 @@ function drawBarChart(msg) {
         .domain(x_extent)
         .range([0, width]);
 
+
+
     // axis labeling
     var xAxis = d3.svg.axis()
         .scale(xScale)
+        .tickFormat(function(d) { return d; })
         .orient("bottom")
-        .tickFormat(function(d) {
-            return d;
-        })
         .ticks(5);
 
 
@@ -66,23 +66,24 @@ function drawBarChart(msg) {
             });
 
         // create county mean indicator
+
         barChart.select(".means")
-           .append("path")
-           .attr("transform", "translate(" + xScale(countyMean) + "," + y(6) + ")")
-           .attr("d", d3.svg.symbol().type("triangle-down").size(60))
-           .attr("class", "mean-indicator mean-triangle mean-county");
-         barChart.select(".means")
             .append("line")
-            .attr("class", "mean-indicator mean-line mean-county")
+            .attr("class", "mean-indicator mean-county mean-line")
             .attr("x1", xScale(countyMean))
             .attr("x2", xScale(countyMean))
             .attr("y1", y(0))
-            .attr("y2", y(30));
+            .attr("y2", y(20));
+        barChart.select(".means")
+           .append("path")
+           .attr("transform", "translate(" + xScale(countyMean) + "," + y(5) + ")")
+           .attr("d", d3.svg.symbol().type("triangle-down").size(60))
+           .attr("class", "mean-indicator mean-county mean-triangle");
         barChart.select(".means")
             .append("text")
-            .attr("class", "mean-indicator mean-text mean-county")
+            .attr("class", "mean-indicator mean-county mean-text")
             .attr("x", xScale(countyMean))
-            .attr("y", y(30))
+            .attr("y", y(20))
             .text(countyMean);
     }
 
@@ -103,12 +104,12 @@ function drawBarChart(msg) {
         })
         .attr("data-original-title", function(d, i) {
             if (i === 0) {
-                return Math.round(d3.min(x_extent)) + " - " + Math.round(qtiles[i]);
+                return d3.min(x_extent).toFixed(1) + " - " + qtiles[i].toFixed(1);
             }
             if (i === 8) {
-                return Math.round(qtiles[i - 1]) + " - " + Math.round(d3.max(x_extent));
+                return qtiles[i - 1].toFixed(1) + " - " + d3.max(x_extent).toFixed(1);
             } else {
-                return Math.round(qtiles[i - 1]) + " - " + Math.round(qtiles[i]);
+                return qtiles[i - 1].toFixed(1) + " - " + qtiles[i].toFixed(1);
             }
         });
 
@@ -123,7 +124,7 @@ function drawBarChart(msg) {
     barChart.select(".mean-text.mean-county")
         .transition()
         .attr("x", xScale(countyMean))
-        .text( Math.round(countyMean) );
+        .text( dataPretty(theMetric, countyMean) );
 
 
     // bar hover actions
