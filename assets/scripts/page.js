@@ -27,7 +27,11 @@ $(document).ready(function () {
         sliderChange(ev.value);
     });
 
-    $(".chosen-select").chosen({no_results_text: "Oops, nothing found!"});
+    $(".chosen-select").chosen({no_results_text: "Oops, nothing found!"}).change(function () {
+        var theVal = $(this).val();
+        d3.csv("data/metric/" + theVal + ".csv", changeMetric);
+        $(this).trigger("chosen:updated");
+    });
 
     // time looper
     $(".btn-looper").on("click", function () {
@@ -72,23 +76,29 @@ $(document).ready(function () {
 
     // set up map
     map = L.map("map", {
-            zoomControl: false,
+            zoomControl: true,
             attributionControl: false,
             minZoom: 9,
             maxZoom: 16
         }).setView([35.260, -80.827],10);
+
     // Mecklenburg Base Layer
     var baseTiles = L.tileLayer("http://maps.co.mecklenburg.nc.us/tiles/nmeckbase/{y}/{x}/{z}.png");
 
-    // var Esri_WorldGrayCanvas = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
-    //     attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
-    //     maxZoom: 16
-    // }).addTo(map);
+    // Year
+    var yearControl = L.control({position: 'bottomright'});
+    yearControl.onAdd = function(map) {
+        this._div = L.DomUtil.create('div', 'yearDisplay');
+        this._div.innerHTML = '<h3 class="time-year">2012</h3>';
+        return this._div;
+    };
+    yearControl.addTo(map);
 
+    // Layer control
     L.control.layers( {} , {"Base Map": baseTiles}).addTo(map);
     map.on('overlayadd',function(e){
         // test for e.name === "Base Map"
-        $(".neighborhoods path").css("opacity", "0.7");
+        $(".neighborhoods path").css("opacity", "0.6");
     });
     map.on('overlayremove',function(e){
         $(".neighborhoods path").css("opacity", "1");
@@ -100,13 +110,11 @@ $(document).ready(function () {
         .defer(d3.csv, "data/metric/" + $("#metric").val() + ".csv")
         .await(draw);
 
-    $("#metric").change(function () {
-        d3.csv("data/metric/" + $(this).val() + ".csv", changeMetric);
-    });
 
     d3.select(window).on("resize", function () {
         if ($(".barchart").parent().width() !== barchartWidth) {
             drawBarChart();
+            //drawLineChart();
         }
     });
 
@@ -120,7 +128,8 @@ function draw(error, neighborhoods, data) {
         'metric': $("#metric").val()
     });
     PubSub.publish('initializeBarChart', {
-        "metricdata": data
+        "metricdata": data,
+        "metric": $("#metric").val()
     });
 }
 
@@ -141,6 +150,7 @@ function updateMeta(msg, d) {
             var html = converter.makeHtml(data);
             var parsedhtml = $('<div/>').append(html);
             $('.meta-resources ul').html(parsedhtml.find("ul").html());
+            $('.meta-subtitle').html(parsedhtml.find("p:eq(0)").html());
             $('.meta-important').html(parsedhtml.find("p:eq(1)").html());
             $('.meta-about').html("<p>" + parsedhtml.find("p:eq(2)").html() + "</p>");
             $('.meta-about').append("<p>" + parsedhtml.find("p:eq(3)").html() + "</p>");
@@ -202,5 +212,23 @@ function d3Highlight(vis, q, add) {
     }
 }
 
+function dataPretty(theMetric, theValue) {
+    var m = _.filter(dataMeta, (function (d) { return d.id === theMetric; }));
+    var fmat = d3.format("0,000.0");
+    if (m.length === 1) {
+        if (m[0].units === "percent") {
+            return fmat(theValue) + "%";
+        }
+        else if (m[0].units === "year") {
+            return theValue;
+        }
+        else {
+            return fmat(theValue) + " " + m[0].units;
+        }
+    }
+    else {
+        return fmat(theValue);
+    }
+}
 
 

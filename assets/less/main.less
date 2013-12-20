@@ -3,10 +3,11 @@
 @import "slider.less";
 @import "leaflet.less";
 @import "typeahead.js-bootstrap.less";
-//@import "chosen.less";
 @import "bootstrap-chosen.less";
 
+// vars
 @body-color: rgb(249, 249, 249);
+@fancyshadow: 0 8px 6px -6px #666,  inset 0 0 50px rgba(0, 0, 0, 0.1);
 
 /* OldIE Prompt */
 .oldie {
@@ -20,27 +21,35 @@
 }
 
 
-svg {
-    //border: 1px dashed black;
-}
+
 
 /* chosen customizations */
 .chosen-container {
     max-width: 100%;
 }
 .chosen-single {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
+    text-align: center;
+}
+
+// Leaflet customizations
+.leaflet-control-layers, .leaflet-control-zoom, .leaflet-bar a {
+    box-shadow: none;
+    background: none;
 }
 
 
 
 body {
-    background: @body-color;
+    background: @body-color url(images/linen.png);
 }
 
-.row-topmargin {
-    margin-top: 25px;
+.meta-subtitle { font-size: 0.9em; }
+
+
+.row-vis {
+    margin-top: 5px;
 }
 
 .meta-container {
@@ -51,40 +60,58 @@ body {
     padding-left: 0;
 }
 
+
+
+.well {
+    box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255,255,255,0.3);
+}
+.navbar-main {
+    background: none;
+}
+
+
+
+// Map
 .map-container {
     height: 550px;
 }
-.map-blend {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 15px;
-    right: 15px;
-    box-shadow: inset 0 0 15px 15px @body-color;
-    //background: url(../images/map-blend.png);
-    //background-size: 100% 100%;
-    pointer-events: none;
-}
 #map {
     height: 100%;
-    border: 1px dashed #ccc;
+    background: url(images/wet-graph-paper-seamless-background.jpg);
+    border: 1px solid #d3d4d8;
+    border-top: none;
+    box-shadow: @fancyshadow;
 }
 
-
-.leaflet-container {
-    background: @body-color;
-}
 
 #barChart {
-
-    margin-top: 100px;
+    margin-top: 10px;
 }
+
+
+// year control
 .slider-horizontal {
     margin-left: 10px;
+    width: 150px !important;
+}
+.yearDisplay {
+    margin-bottom: 5px !important;
+}
+.year-slider {
+     position: relative;
+     bottom: 43px;
+     left: 10px
 }
 .time-year {
-    padding-left: 50px;
+    padding-right: 5px;
+    font-weight: bold;
+    font-size: 3em;
+    color: #666;
+    text-shadow: 1px 1px 3px rgb(150,150,150);
+    margin-bottom: 0;
 }
+
 
 .container-content {
     margin-top: 30px;
@@ -104,23 +131,25 @@ body {
 }
 
 
+.mean-line, .mean-triangle {
+    fill: black;
+    stroke: black;
+}
 .mean-line {
     stroke-dasharray: 3,3;
 }
 .mean-text {
     text-anchor: middle;
-    //text-decoration: underline;
-    font-size: 0.9em;
-    stroke-width: 0.5px;
+    font-size: 1em;
+    font-weight: bold;
+    filter: url(#filter4219);
+    fill: white;
 }
-.mean-county {
-    fill: rgb(130,130,130);
-    stroke: rgb(130,130,130);
+.mean-indicator {
     pointer-events: none;
 }
-.mean-hover {
-    fill: rgb(8,81,156);
-    stroke: rgb(8,81,156);
+.mean-hover.mean-text {
+    fill: #F1BE2F;
 }
 
 .background {
@@ -150,6 +179,8 @@ body {
     font-size: 10px;
 }
 
+
+
 rect.bar {
     transition: all 0.2s ease-out;
 }
@@ -163,6 +194,34 @@ rect.bar.q0-9 {
   stroke: steelblue;
   stroke-width: 1.5px;
 }
+
+
+path {
+                stroke: steelblue;
+                stroke-width: 1;
+                fill: none;
+            }
+
+            .axis {
+              shape-rendering: crispEdges;
+            }
+
+            .x.axis line {
+              stroke: lightgrey;
+            }
+
+            .x.axis .minor {
+              stroke-opacity: .5;
+            }
+
+            // .x.axis path {
+            //   display: none;
+            // }
+
+            .y.axis line, .y.axis path {
+              fill: none;
+              stroke: #000;
+            }
 
 
 // repsonsive design
