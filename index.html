@@ -23,7 +23,7 @@
     <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png" />
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/main.css?foo=69524">
+    <link rel="stylesheet" href="css/main.css?foo=57225">
 
 </head>
 
@@ -41,7 +41,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Quality of Life Dashboard <span class="text-primary">Alpha</span></a>
+
+                <a class="navbar-brand" href="#">
+                    <strong>Quality of Life Dashboard
+                        <span class="text-primary">Alpha</span>
+                    </strong>
+                </a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
@@ -72,37 +77,305 @@
     </nav>
 
     <div class="container container-content">
-        <div class="row">
-            <div class="col-md-8">
-                <select name="" id="metric" class="form-control input-lg form-metric">
-                    <option value="m1">Median Household Income</option>
-                    <option value="p1">Population</option>
-                </select>
-
-            </div>
-        </div>
-        <div class="row row-topmargin">
+        <div class="row row-vis">
             <div class="col-md-8 map-container">
+                <select name="" id="metric" class="form-control input-lg form-metric chosen-select">
+                    <optgroup label="Character">
+                        <option value></option>
+                        <option value="p3">
+                            Area (in acres)
+                        </option>
+                        <option value="p4">
+                            Developed Tax Parcels
+                        </option>
+                        <option value="p13">
+                            Ethnicity- Hispanic/Latino
+                        </option>
+                        <option value="p2">
+                            Median Age of Residents
+                        </option>
+                        <option value="p1" selected>
+                            Population
+                        </option>
+                        <option value="p12">
+                            Population in Group Quarters
+                        </option>
+                        <option value="p7">
+                            Public Transit Proximity
+                        </option>
+                        <option value="p10">
+                            Race - Asian
+                        </option>
+                        <option value="p9">
+                            Race - Black or African American
+                        </option>
+                        <option value="p11">
+                            Race - Some Other Race
+                        </option>
+                        <option value="p8">
+                            Race - White or Caucasian
+                        </option>
+                    </optgroup>
+                    <optgroup label="Economics">
+                        <option value="m5">
+                            Change in Residential Property Value
+                        </option>
+                        <option value="m1">
+                            Median Household Income
+                        </option>
+                        <option value="m2">
+                            Persons Employed 6 Months or Less
+                        </option>
+                        <option value="m3">
+                            Persons Working 35 Hours or Less
+                        </option>
+                        <option value="m4">
+                            Population Receiving Food &amp; Nutrition Services (FNS)
+                        </option>
+                        <option value="m6">
+                            Square Feet of Commercial Buildings
+                        </option>
+                        <option value="m7">
+                            Square Feet of Permitted New and Renovated Commercial Buildings
+                        </option>
+                        <option value="m9">
+                            Year Commercial Buildings Constructed
+                        </option>
+                    </optgroup>
+                    <optgroup label="Education">
+                        <option value="k11">
+                            Adults without High School Diploma
+                        </option>
+                        <option value="k12">
+                            Children Attending Private Schools
+                        </option>
+                        <option value="k6">
+                            CMS 3-5 Graders EOG Test Score Growth
+                        </option>
+                        <option value="k3">
+                            CMS 3-5 Graders Proficient in EOG Tests
+                        </option>
+                        <option value="k7">
+                            CMS 6-8 Graders EOG Test Score Growth
+                        </option>
+                        <option value="k4">
+                            CMS 6-8 Graders Proficient in EOG Tests
+                        </option>
+                        <option value="k8">
+                            CMS 9-12 Graders EOC Test Score Growth
+                        </option>
+                        <option value="k5">
+                            CMS 9-12 Graders Proficient in EOC Tests
+                        </option>
+                        <option value="k10">
+                            CMS Dropout Rate
+                        </option>
+                        <option value="k13">
+                            CMS Students Attending Neighborhood Schools
+                        </option>
+                        <option value="k9">
+                            CMS Students with 10 or more Unexcused Absences
+                        </option>
+                        <option value="k1">
+                            Number of Pre-School Programs
+                        </option>
+                        <option value="k2">
+                            Number of School-Age Programs
+                        </option>
+                    </optgroup>
+                    <optgroup label="Engagement">
+                        <option value="e5">
+                            Registered Neighborhood Organizations
+                        </option>
+                        <option value="e1">
+                            Registered Voters
+                        </option>
+                        <option value="e3">
+                            Residents Serving on Municipal Boards and Committees
+                        </option>
+                    </optgroup>
+                    <optgroup label="Environment">
+                        <option value="w15">
+                            Adopt-a-Stream Participation
+                        </option>
+                        <option value="e7">
+                            Adopt-a-Street Participation
+                        </option>
+                        <option value="w4">
+                            Bicycle Friendliness Index
+                        </option>
+                        <option value="w1">
+                            Commuters Driving Alone
+                        </option>
+                        <option value="w3">
+                            Daily Transit Boardings
+                        </option>
+                        <option value="w7">
+                            Impervious Surface
+                        </option>
+                        <option value="w2">
+                            Length of Commute
+                        </option>
+                        <option value="w5">
+                            Paved Streets with Sidewalks
+                        </option>
+                        <option value="w17">
+                            Residential Electricity Consumption
+                        </option>
+                        <option value="w16">
+                            Residential Natural Gas Consumption
+                        </option>
+                        <option value="w11">
+                            Residential Recycling Participation Rate
+                        </option>
+                        <option value="w10">
+                            Residential Solid Waste Diversion Rate
+                        </option>
+                        <option value="w18">
+                            Residential Tree Canopy
+                        </option>
+                        <option value="w6">
+                            Street Connectivity Index
+                        </option>
+                        <option value="w8">
+                            Structures in Floodplain
+                        </option>
+                        <option value="w9">
+                            Tree Canopy
+                        </option>
+                        <option value="w14">
+                            Water Consumption
+                        </option>
+                    </optgroup>
+                    <optgroup label="Health">
+                        <option value="h4">
+                            Age of Death
+                        </option>
+                        <option value="h2">
+                            Births to Adolescents
+                        </option>
+                        <option value="h3">
+                            Medicaid Population
+                        </option>
+                        <option value="h1">
+                            North Carolina State Children's Health Choice Population
+                        </option>
+                        <option value="h6">
+                            Residents within ½ Mile of a Chain Grocery Store
+                        </option>
+                        <option value="h8">
+                            Residents within ½ Mile of a Pharmacy
+                        </option>
+                        <option value="h5">
+                            Residents within ½ Mile of Medicaid Provider or Free Clinic
+                        </option>
+                        <option value="h7">
+                            Residents within ½ Mile of Public Outdoor Recreation Area
+                        </option>
+                    </optgroup>
+                    <optgroup label="Housing">
+                        <option value="g8">
+                            Change in Residential Property Value
+                        </option>
+                        <option value="g4">
+                            Heated Square Feet of Single-Family Detached Dwellings
+                        </option>
+                        <option value="g14">
+                            Housing Code Violations
+                        </option>
+                        <option value="g1">
+                            Housing Units
+                        </option>
+                        <option value="g13">
+                            Median Gross Rent
+                        </option>
+                        <option value="g15">
+                            Neighborhood Nuisance Violations
+                        </option>
+                        <option value="g5">
+                            New Residential Building Permits
+                        </option>
+                        <option value="g17">
+                            Owner-Occupied Housing
+                        </option>
+                        <option value="g6">
+                            Residential Building Permits (Renovation)
+                        </option>
+                        <option value="g9">
+                            Residential Foreclosures
+                        </option>
+                        <option value="p5">
+                            Residential Housing Density
+                        </option>
+                        <option value="g7">
+                            Residential Property Value
+                        </option>
+                        <option value="g11">
+                            Single-Family Rental Houses (Detached)
+                        </option>
+                        <option value="g12">
+                            Subsidized Housing Units
+                        </option>
+                        <option value="g10">
+                            Vacancy Rate
+                        </option>
+                        <option value="g2">
+                            Vacant Single Family Parcels
+                        </option>
+                        <option value="g3">
+                            Year Single-Family Housing Constructed
+                        </option>
+                    </optgroup>
+                    <optgroup label="Safety">
+                        <option value="s5">
+                            Calls for Animal Control
+                        </option>
+                        <option value="s4">
+                            Fire Calls for Service Rate
+                        </option>
+                        <option value="s3">
+                            Juvenile Incident Rate
+                        </option>
+                        <option value="s2">
+                            Property Crime Rate
+                        </option>
+                        <option value="s1">
+                            Violent Crime Rate
+                        </option>
+                    </optgroup>
+                </select>
                 <div id="map"></div>
-                <!-- <div class="map-blend"></div> -->
-            </div>
-            <div class="col-md-4 map-aside">
-                <div class="text-center">
-                    <h3 class="time-year">2012</h3>
+                <div class="year-slider">
                     <button type="button" class="btn btn-primary btn-looper">
                         <span class="glyphicon glyphicon-play"></span>
                     </button>
-                    <input type="text" class="slider slider-horizontal time-slider" value="" data-slider-min="2010" data-slider-max="2012" data-slider-value="2012" data-slider-tooltip="hide" data-slider-handle="round" data-slider-step="2" >
+                    <input type="text" class="slider slider-horizontal time-slider" value="" data-slider-min="2010" data-slider-max="2012" data-slider-value="2012" data-slider-tooltip="hide" data-slider-handle="round" data-slider-step="2">
+                </div>
+            </div>
+            <div class="col-md-4 map-aside">
+                <div id="lineChart" class="text-center">
+                    <svg width="100%" height="100" class="chart linechart"></svg>
                 </div>
                 <div id="barChart">
                     <svg width="100%" height="300" class="chart barchart">
+                        <defs>
+                            <filter id="filter4219" y="-0.25" height="1.5" color-interpolation-filters="sRGB">
+                                <feGaussianBlur id="feGaussianBlur4221" stdDeviation="5" result="result6" />
+                                <feComposite id="feComposite4223" in2="result6" result="result8" in="SourceGraphic" operator="atop" />
+                                <feComposite id="feComposite4225" in2="SourceAlpha" result="result9" operator="over" in="result8" />
+                                <feColorMatrix id="feColorMatrix4227" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0 " result="result10" />
+                                <feBlend id="feBlend4229" in2="result6" in="result10" mode="normal" />
+                            </filter>
+                        </defs>
                         <g class="barchart-container">
                             <g class="x axis"></g>
                             <g class="bar-container"></g>
                             <g class="means"></g>
                         </g>
                     </svg>
+                    <p class="meta-subtitle text-center"></p>
                 </div>
+
             </div>
         </div>
         <div class="row meta-container">
@@ -114,14 +387,16 @@
             </div>
             <div class="col-md-4">
                 <div class="well">
-                <h4>About the Data</h4>
-                <div class='meta-about'></div>
+                    <h4>About the Data</h4>
+                    <div class='meta-about'></div>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="well">
                     <h4>Additional Resources</h4>
-                    <div class='meta-resources'><ul class="list-unstyled"></ul></div>
+                    <div class='meta-resources'>
+                        <ul class="list-unstyled"></ul>
+                    </div>
                 </div>
             </div>
 
@@ -142,7 +417,7 @@
 
     <!-- scripts at the bottom yo -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-    <script src="js/main.js?foo=56796"></script>
+    <script src="js/main.js?foo=64088"></script>
 
     <!--   Google Analytics -->
 
