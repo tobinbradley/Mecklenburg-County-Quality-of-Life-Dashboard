@@ -13,6 +13,7 @@ module.exports = function (grunt) {
 
     // javascript stack
     var jsFiles = [
+            'assets/scripts/vendor/jquery-2.0.3.min.js',
             'assets/scripts/vendor/bootstrap/modal.js',
             'assets/scripts/vendor/bootstrap/transition.js',
             'assets/scripts/vendor/bootstrap/button.js',
@@ -21,7 +22,15 @@ module.exports = function (grunt) {
             'assets/scripts/vendor/bootstrap/tooltip.js',
             'assets/scripts/vendor/leaflet/leaflet.js',
             'assets/scripts/vendor/leaflet/leaflet.d3.js',
-            'assets/scripts/vendor/*.js',
+            'assets/scripts/vendor/jquery-ui-1.10.3.custom.min.js',
+            'assets/scripts/vendor/chosen.jquery.js',
+            'assets/scripts/vendor/d3.v3.js',
+            'assets/scripts/vendor/pagedown.js',
+            'assets/scripts/vendor/pubsub.js',
+            'assets/scripts/vendor/queue.v1.min.js',
+            'assets/scripts/vendor/topojson.v0.js',
+            'assets/scripts/vendor/typeahead.js',
+            'assets/scripts/vendor/underscore-min.js',
             'assets/scripts/vis/*.js',
             'assets/scripts/datameta.js',
             'assets/scripts/page.js'

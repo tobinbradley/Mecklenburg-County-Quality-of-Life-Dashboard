@@ -1,9 +1,9 @@
 var map,
     quantize,
     x_extent,
-    metricData = {},
+    metricData = [],
     timer,
-    year = "y_2012",
+    year = 1,
     barchartWidth;
 
 PubSub.immediateExceptions = true;
@@ -15,16 +15,23 @@ d3.selection.prototype.moveToFront = function () {
 };
 
 function sliderChange(value) {
-    $('.time-year').text(value);
-    year = "y_" + value;
+    $('.time-year').text(metricData[value].year.replace("y_", ""));
+    year = value;
     PubSub.publish('changeYear');
 }
 
 $(document).ready(function () {
 
     // time slider
-    $('.time-slider').slider({formater: function (value) { return value; }}).on('slideStop', function (ev) {
-        sliderChange(ev.value);
+    $(".slider").slider({
+        value: 1,
+        min: 0,
+        max: 1,
+        step: 1,
+        animate: true,
+        slide: function( event, ui ) {
+            sliderChange(ui.value);
+        }
     });
 
     $(".chosen-select").chosen({no_results_text: "Oops, nothing found!"}).change(function () {
@@ -36,23 +43,24 @@ $(document).ready(function () {
     // time looper
     $(".btn-looper").on("click", function () {
         var that = $(this).children("span");
+        var theSlider = $('.slider');
         if (that.hasClass("glyphicon-play")) {
             that.removeClass("glyphicon-play").addClass("glyphicon-pause");
-            if ($('.time-slider').val() === "2010") {
-                $('.time-slider').val("2012").slider('setValue', 2012);
+            if (theSlider.slider("value") === theSlider.slider("option", "max")) {
+                theSlider.slider("value", 0);
             }
             else {
-                $('.time-slider').val("2010").slider('setValue', 2010);
+                theSlider.slider("value", theSlider.slider("value") + 1);
             }
-            sliderChange($('.time-slider').val());
+            sliderChange(theSlider.slider("value"));
             timer = setInterval(function () {
-                    if ($('.time-slider').val() === "2010") {
-                        $('.time-slider').val("2012").slider('setValue', 2012);
+                    if (theSlider.slider("value") === theSlider.slider("option", "max")) {
+                        theSlider.slider("value", 0);
                     }
                     else {
-                        $('.time-slider').val("2010").slider('setValue', 2010);
+                        theSlider.slider("value", theSlider.slider("value") + 1);
                     }
-                    sliderChange($('.time-slider').val());
+                    sliderChange(theSlider.slider("value"));
                 }, 3000);
         }
         else {
@@ -83,7 +91,7 @@ $(document).ready(function () {
         }).setView([35.260, -80.827],10);
 
     // Mecklenburg Base Layer
-    var baseTiles = L.tileLayer("http://maps.co.mecklenburg.nc.us/tiles/nmeckbase/{y}/{x}/{z}.png");
+    var baseTiles = L.tileLayer("http://maps.co.mecklenburg.nc.us/tiles/meckbase/{y}/{x}/{z}.png");
 
     // Year
     var yearControl = L.control({position: 'bottomright'});
@@ -162,22 +170,31 @@ function updateMeta(msg, d) {
 }
 
 function processMetric(msg, data) {
-    // break out years into maps
-    var y_2012 = d3.map(),
-        y_2010 = d3.map();
+    // clear metric data
+    metricData.length = 0;
+
+    var keys = Object.keys(data.metricdata[0]);
+    for (var i = 1; i < keys.length; i++) {
+        metricData.push({"year": keys[i], "map": d3.map()});
+    }
+
+    // set slider
+    year = metricData.length -1;
+    $(".slider").slider("option", "max", year).slider("value", year);
+    metricData.length > 1 ? $(".year-slider").fadeIn() : $(".year-slider").hide();
+    $('.time-year').text(metricData[metricData.length - 1].year.replace("y_", ""));
+
 
     _.each(data.metricdata, function (d) {
-        if ($.isNumeric(d.y_2010)) { y_2010.set(d.id, +d.y_2010); }
-        if ($.isNumeric(d.y_2012)) { y_2012.set(d.id, +d.y_2012); }
+        for (var i = 0; i < metricData.length; i++) {
+            if ($.isNumeric(d[metricData[i].year])) { metricData[i].map.set(d.id, parseFloat(d[metricData[i].year])); }
+        }
     });
 
-    metricData = {
-        "y_2010": y_2010,
-        "y_2012": y_2012
-    };
-
-    // Set up extents
-    x_extent = d3.extent(y_2012.values().concat(y_2010.values()));
+    // Set up extent
+    var extentArray = [];
+    _.each(metricData, function(d) { extentArray = extentArray.concat(d.map.values()); });
+    x_extent = d3.extent(extentArray);
 
     // set up quantile
     quantize = d3.scale.quantile()
@@ -230,5 +247,4 @@ function dataPretty(theMetric, theValue) {
         return fmat(theValue);
     }
 }
-
 

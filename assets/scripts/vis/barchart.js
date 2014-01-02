@@ -1,7 +1,7 @@
 function drawBarChart(msg) {
 
-    var data = quantizeCount(metricData[year].values());
-    var countyMean = Math.round(d3.mean(metricData[year].values()) * 10) / 10;
+    var data = quantizeCount(metricData[year].map.values());
+    var countyMean = Math.round(d3.mean(metricData[year].map.values()) * 10) / 10;
     var qtiles = quantize.quantiles();
     var theMetric = $("#metric").val();
 
