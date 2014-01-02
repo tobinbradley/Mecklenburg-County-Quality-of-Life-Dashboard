@@ -37,7 +37,7 @@ var dataMeta = [
     },
     {
         "id": "e7",
-        "units": "Miles"
+        "units": "mi"
     },
     {
         "id": "m2",

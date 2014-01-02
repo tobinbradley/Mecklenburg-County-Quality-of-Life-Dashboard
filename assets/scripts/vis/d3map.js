@@ -10,7 +10,7 @@ function drawMap(msg, data) {
 
     var theMetric = $("#metric").val();
 
-    var data = metricData[year];
+    var data = metricData[year].map;
     d3.selectAll(".neighborhoods path").each(function () {
         var item = d3.select(this);
         item.attr('class', function (d) {

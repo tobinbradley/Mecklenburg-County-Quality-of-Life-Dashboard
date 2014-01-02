@@ -1,6 +1,6 @@
 // imports
 @import "bootstrap/bootstrap.less";
-@import "slider.less";
+@import "jquery-ui-1.10.3.custom.less";
 @import "leaflet.less";
 @import "typeahead.js-bootstrap.less";
 @import "bootstrap-chosen.less";
@@ -45,6 +45,11 @@ body {
     background: @body-color url(images/linen.png);
 }
 
+.navbar-default .navbar-brand {
+    font-size: 1.8em;
+    text-shadow: #777 0 1px 1px;
+}
+
 .meta-subtitle { font-size: 0.9em; }
 
 
@@ -53,7 +58,7 @@ body {
 }
 
 .meta-container {
-    margin-top: 80px;
+    margin-top: 120px;
 }
 .meta-resources ul {
     list-style: none;
@@ -91,22 +96,24 @@ body {
 
 
 // year control
-.slider-horizontal {
-    margin-left: 10px;
-    width: 150px !important;
-}
 .yearDisplay {
-    margin-bottom: 5px !important;
+    margin-bottom: 2px !important;
 }
 .year-slider {
      position: relative;
      bottom: 43px;
-     left: 10px
+     left: 10px;
+     .slider {
+        width: 110px;
+        display: inline-block;
+        margin-left: 10px;
+        position: relative;
+        top: 3px;
+     }
 }
 .time-year {
-    padding-right: 5px;
     font-weight: bold;
-    font-size: 3em;
+    font-size: 3.5em;
     color: #666;
     text-shadow: 1px 1px 3px rgb(150,150,150);
     margin-bottom: 0;
@@ -121,6 +128,7 @@ body {
     stroke: #949494;
     stroke-width: 0.3px;
     transition: all 0.5s ease-out;
+    cursor: pointer;
     //opacity: 0.8;
 }
 
@@ -140,9 +148,9 @@ body {
 }
 .mean-text {
     text-anchor: middle;
-    font-size: 1em;
+    font-size: 0.9em;
     font-weight: bold;
-    filter: url(#filter4219);
+    filter: url(#gblur);
     fill: white;
 }
 .mean-indicator {
@@ -197,36 +205,44 @@ rect.bar.q0-9 {
 
 
 path {
-                stroke: steelblue;
-                stroke-width: 1;
-                fill: none;
-            }
+    stroke: steelblue;
+    stroke-width: 1;
+    fill: none;
+}
 
-            .axis {
-              shape-rendering: crispEdges;
-            }
+.axis {
+  shape-rendering: crispEdges;
+}
 
-            .x.axis line {
-              stroke: lightgrey;
-            }
+.x.axis line {
+  stroke: lightgrey;
+}
 
-            .x.axis .minor {
-              stroke-opacity: .5;
-            }
+.x.axis .minor {
+  stroke-opacity: .5;
+}
 
-            // .x.axis path {
-            //   display: none;
-            // }
+// .x.axis path {
+//   display: none;
+// }
 
-            .y.axis line, .y.axis path {
-              fill: none;
-              stroke: #000;
-            }
+.y.axis line, .y.axis path {
+  fill: none;
+  stroke: #000;
+}
 
 
 // repsonsive design
 @media (max-width: 979px) {
-
+    // Header text
+    .navbar-default .navbar-brand {
+        color: #666;
+        font-size: 18px;
+    }
+    // map
+    .map-container {
+        height: 380px;
+    }
 }
 
 //  printing
