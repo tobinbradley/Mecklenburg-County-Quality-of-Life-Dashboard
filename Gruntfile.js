@@ -6,6 +6,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-text-replace');
     grunt.loadNpmTasks('grunt-autoprefixer');
+    //grunt.loadNpmTasks('grunt-contrib-imagemin');
 
     // Default task(s).
     grunt.registerTask('default', ['watch']);
@@ -82,40 +83,31 @@ module.exports = function (grunt) {
         },
         watch: {
             options: {
-                livereload: true
+                spawn: true,
+                livereload: false
             },
             grunt: {
                 files: ['Gruntfile.js']
             },
             less: {
                 files: ['assets/less/*.less'],
-                tasks: ['less:development', 'autoprefixer'],
-                options: {
-                    livereload: false
-                }
+                tasks: ['less:development'],
             },
             asset_javascript: {
                 files: ['assets/**/*.js'],
                 tasks: ['concat:development'],
-                options: {
-                    livereload: false
-                }
             },
-            templates: {
-                files: ['public/templates/*.html'],
-                tasks: ['replace:template'],
+            reload: {
+                files: ['public/js/*.js', 'public/*.html'],
                 options: {
-                    livereload: false
+                    livereload: true
                 }
-            },
-            javascript: {
-                files: ['public/js/*.js']
             },
             css: {
-                files: ['public/css/*.css']
-            },
-            html: {
-                files: ['public/*.html']
+                files: ['public/css/*.css'],
+                options: {
+                    livereload: true
+                }
             }
         },
         replace: {

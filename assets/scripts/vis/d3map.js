@@ -10,6 +10,8 @@ function drawMap(msg, data) {
 
     var theMetric = $("#metric").val();
 
+
+
     var data = metricData[year].map;
     d3.selectAll(".neighborhoods path").each(function () {
         var item = d3.select(this);
@@ -67,14 +69,24 @@ function drawMap(msg, data) {
             }
         })
         .on("mouseout", function() {
-
             var sel = d3.select(this);
-
             d3Highlight(".barchart", sel.attr("data-quantile"), false);
             sel.classed("d3-highlight", false);
-
             d3.selectAll(".mean-hover").remove();
 
+        })
+        .on("mousedown", function() {
+            mapcenter = map.getCenter();
+        })
+        .on("mouseup", function(d) {
+            if (mapcenter.lat === map.getCenter().lat) {
+                var sel = d3.select(this);
+                PubSub.publish('selectGeo', {
+                    "id": sel.attr("data-npa"),
+                    "value": sel.attr("data-value"),
+                    "d3obj": sel
+                });
+            }
         });
 
     // tooltips
