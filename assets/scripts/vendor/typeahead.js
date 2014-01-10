@@ -23,9 +23,6 @@
         isNumber: function(obj) {
             return typeof obj === "number";
         },
-        isFunction: function(obj) {
-            return typeof obj === "function";
-        },
         isArray: $.isArray,
         isFunction: $.isFunction,
         isObject: $.isPlainObject,
@@ -384,23 +381,18 @@
             if (!o.local && !o.prefetch && !o.remote) {
                 $.error("one of local, prefetch, or remote is required");
             }
-            if (o.minLength === 0 && !(o.local || o.prefetch)) {
-                $.error("local or prefetch required to use default suggestions");
-            }
             this.name = o.name || utils.getUniqueId();
             this.limit = o.limit || 5;
-            this.minLength = o.minLength == null ? 1 : o.minLength;
+            this.minLength = o.minLength || 1;
             this.header = o.header;
             this.footer = o.footer;
             this.valueKey = o.valueKey || "value";
             this.template = compileTemplate(o.template, o.engine, this.valueKey);
-            this.defaultSort = o.defaultSort;
             this.local = o.local;
             this.prefetch = o.prefetch;
             this.remote = o.remote;
             this.itemHash = {};
             this.adjacencyList = {};
-            this.defaultOrder = [];
             this.storage = o.name ? new PersistentStorage(o.name) : null;
         }
         utils.mixin(Dataset.prototype, {
@@ -482,23 +474,6 @@
                     var masterAdjacency = that.adjacencyList[character];
                     that.adjacencyList[character] = masterAdjacency ? masterAdjacency.concat(adjacency) : adjacency;
                 });
-                if (this.minLength === 0) {
-                    for (var hashKey in processedData.itemHash) {
-                        this.defaultOrder.push(hashKey);
-                    }
-                    if (utils.isFunction(this.defaultSort)) {
-                        this.defaultOrder.sort(function(a, b) {
-                            return that.defaultSort(that.itemHash[a], that.itemHash[b]);
-                        });
-                    }
-                }
-            },
-            _getDefaultList: function() {
-                var defaultList = [];
-                for (var i = 0; i < this.limit; i++) {
-                    defaultList.push(this.itemHash[this.defaultOrder[i]]);
-                }
-                return defaultList;
             },
             _getLocalSuggestions: function(terms) {
                 var that = this, firstChars = [], lists = [], shortestList, suggestions = [];
@@ -549,7 +524,6 @@
                 if (query.length < this.minLength) {
                     return;
                 }
-                if (query.length == 0) return cb(this._getDefaultList());
                 terms = utils.tokenizeQuery(query);
                 suggestions = this._getLocalSuggestions(terms).slice(0, this.limit);
                 if (suggestions.length < this.limit && this.transport) {
@@ -731,7 +705,6 @@
             this.isOpen = false;
             this.isEmpty = true;
             this.isMouseOverDropdown = false;
-            this.showDefaultSuggestions = o.showDefaultSuggestions;
             this.$menu = $(o.menu).on("mouseenter.tt", this._handleMouseenter).on("mouseleave.tt", this._handleMouseleave).on("click.tt", ".tt-suggestion", this._handleSelection).on("mouseover.tt", ".tt-suggestion", this._handleMouseover);
         }
         utils.mixin(DropdownView.prototype, EventTarget, {
@@ -811,9 +784,7 @@
             open: function() {
                 if (!this.isOpen) {
                     this.isOpen = true;
-                    if (this.showDefaultSuggestions || !this.isEmpty) {
-                        this._show();
-                    }
+                    !this.isEmpty && this._show();
                     this.trigger("opened");
                 }
             },
@@ -933,22 +904,17 @@
             this.$node = buildDomStructure(o.input);
             this.datasets = o.datasets;
             this.dir = null;
-            this.showDefaultSuggestions = false;
             this.eventBus = o.eventBus;
             $menu = this.$node.find(".tt-dropdown-menu");
             $input = this.$node.find(".tt-query");
             $hint = this.$node.find(".tt-hint");
-            for (var i = 0; i < this.datasets.length; i++) {
-                if (this.datasets[i].minLength === 0) this.showDefaultSuggestions = true;
-            }
             this.dropdownView = new DropdownView({
-                menu: $menu,
-                showDefaultSuggestions: this.showDefaultSuggestions
+                menu: $menu
             }).on("suggestionSelected", this._handleSelection).on("cursorMoved", this._clearHint).on("cursorMoved", this._setInputValueToSuggestionUnderCursor).on("cursorRemoved", this._setInputValueToQuery).on("cursorRemoved", this._updateHint).on("suggestionsRendered", this._updateHint).on("opened", this._updateHint).on("closed", this._clearHint).on("opened closed", this._propagateEvent);
             this.inputView = new InputView({
                 input: $input,
                 hint: $hint
-            }).on("focused", this._handleFocus).on("blured", this._closeDropdown).on("blured", this._setInputValueToQuery).on("enterKeyed tabKeyed", this._handleSelection).on("queryChanged", this._clearHint).on("queryChanged", this._clearSuggestions).on("queryChanged", this._getSuggestions).on("whitespaceChanged", this._updateHint).on("queryChanged whitespaceChanged", this._openDropdown).on("queryChanged whitespaceChanged", this._setLanguageDirection).on("escKeyed", this._closeDropdown).on("escKeyed", this._setInputValueToQuery).on("tabKeyed upKeyed downKeyed", this._managePreventDefault).on("upKeyed downKeyed", this._moveDropdownCursor).on("upKeyed downKeyed", this._openDropdown).on("tabKeyed leftKeyed rightKeyed", this._autocomplete);
+            }).on("focused", this._openDropdown).on("blured", this._closeDropdown).on("blured", this._setInputValueToQuery).on("enterKeyed tabKeyed", this._handleSelection).on("queryChanged", this._clearHint).on("queryChanged", this._clearSuggestions).on("queryChanged", this._getSuggestions).on("whitespaceChanged", this._updateHint).on("queryChanged whitespaceChanged", this._openDropdown).on("queryChanged whitespaceChanged", this._setLanguageDirection).on("escKeyed", this._closeDropdown).on("escKeyed", this._setInputValueToQuery).on("tabKeyed upKeyed downKeyed", this._managePreventDefault).on("upKeyed downKeyed", this._moveDropdownCursor).on("upKeyed downKeyed", this._openDropdown).on("tabKeyed leftKeyed rightKeyed", this._autocomplete);
         }
         utils.mixin(TypeaheadView.prototype, EventTarget, {
             _managePreventDefault: function(e) {
@@ -979,7 +945,6 @@
                 var suggestion = this.dropdownView.getFirstSuggestion(), hint = suggestion ? suggestion.value : null, dropdownIsVisible = this.dropdownView.isVisible(), inputHasOverflow = this.inputView.isOverflow(), inputValue, query, escapedQuery, beginsWithQuery, match;
                 if (hint && dropdownIsVisible && !inputHasOverflow) {
                     inputValue = this.inputView.getInputValue();
-                    if (!inputValue) return;
                     query = inputValue.replace(/\s{2,}/g, " ").replace(/^\s+/g, "");
                     escapedQuery = utils.escapeRegExChars(query);
                     beginsWithQuery = new RegExp("^(?:" + escapedQuery + ")(.*$)", "i");
@@ -999,12 +964,6 @@
             _setInputValueToSuggestionUnderCursor: function(e) {
                 var suggestion = e.data;
                 this.inputView.setInputValue(suggestion.value, true);
-            },
-            _handleFocus: function() {
-                if (this.showDefaultSuggestions) {
-                    this._getSuggestions();
-                }
-                this._openDropdown();
             },
             _openDropdown: function() {
                 this.dropdownView.open();
@@ -1029,7 +988,7 @@
             },
             _getSuggestions: function() {
                 var that = this, query = this.inputView.getQuery();
-                if (utils.isBlankString(query) && !this.showDefaultSuggestions) {
+                if (utils.isBlankString(query)) {
                     return;
                 }
                 utils.each(this.datasets, function(i, dataset) {

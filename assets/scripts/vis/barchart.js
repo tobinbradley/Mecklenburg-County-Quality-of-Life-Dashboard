@@ -8,7 +8,7 @@ function drawBarChart(msg) {
     var margin = {
         top: 20,
         right: 20,
-        bottom: 30,
+        bottom: 20,
         left: 20
     },
         width = $("#barChart").parent().width() - margin.left - margin.right,

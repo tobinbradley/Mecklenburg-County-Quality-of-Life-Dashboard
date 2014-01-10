@@ -2,7 +2,7 @@
 @import "bootstrap/bootstrap.less";
 @import "jquery-ui-1.10.3.custom.less";
 @import "leaflet.less";
-@import "typeahead.js-bootstrap.less";
+@import "typeahead.less";
 @import "bootstrap-chosen.less";
 
 // vars
@@ -88,6 +88,16 @@ body {
     border-top: none;
     box-shadow: @fancyshadow;
 }
+.mapsearch {
+    position: absolute;
+    top: 44px;
+    right: 24px;
+    width: 30%;
+    margin: 0 auto;
+    input[type="text"] {
+        background: rgba(255,255,255,.5);
+    }
+}
 
 
 #barChart {
@@ -137,6 +147,10 @@ body {
     stroke: #F1BE2F !important;
     stroke-width: 2.5px !important;
 }
+.d3-select {
+    stroke: #9970ab !important;
+    stroke-width: 4px !important;
+}
 
 
 .mean-line, .mean-triangle {
@@ -166,15 +180,29 @@ body {
 }
 
 .qnull { fill: rgba(0,0,0,0); }
-.q0-9 { fill:rgb(247,251,255); }
-.q1-9 { fill:rgb(222,235,247); }
-.q2-9 { fill:rgb(198,219,239); }
-.q3-9 { fill:rgb(158,202,225); }
-.q4-9 { fill:rgb(107,174,214); }
-.q5-9 { fill:rgb(66,146,198); }
-.q6-9 { fill:rgb(33,113,181); }
-.q7-9 { fill:rgb(8,81,156); }
-.q8-9 { fill:rgb(8,48,107); }
+// .q0-9 { fill:rgb(247,251,255); }
+// .q1-9 { fill:rgb(222,235,247); }
+// .q2-9 { fill:rgb(198,219,239); }
+// .q3-9 { fill:rgb(158,202,225); }
+// .q4-9 { fill:rgb(107,174,214); }
+// .q5-9 { fill:rgb(66,146,198); }
+// .q6-9 { fill:rgb(33,113,181); }
+// .q7-9 { fill:rgb(8,81,156); }
+// .q8-9 { fill:rgb(8,48,107); }
+
+//.q0-9 { fill:rgb(247,251,255); }
+.q0-9 { fill:rgb(222,235,247); }
+.q1-9 { fill:rgb(198,219,239); }
+.q2-9 { fill:rgb(158,202,225); }
+.q3-9 { fill:rgb(107,174,214); }
+.q4-9 { fill:rgb(66,146,198); }
+.q5-9 { fill:rgb(33,113,181); }
+.q6-9 { fill:rgb(8,81,156); }
+.q7-9 { fill:rgb(8,48,107); }
+.q8-9 { fill:rgb(5,31,71); }
+
+
+
 
 .axis path,
 .axis line {
@@ -192,10 +220,10 @@ body {
 rect.bar {
     transition: all 0.2s ease-out;
 }
-rect.bar.q0-9 {
-    stroke-width: 0.2px;
-    stroke: #949494;
-}
+// rect.bar.q0-9 {
+//     stroke-width: 0.5px;
+//     stroke: #949494;
+// }
 
 .line {
   fill: none;
