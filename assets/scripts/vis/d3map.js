@@ -2,27 +2,35 @@ function drawMap(msg, data) {
 
     // add leaflet layer on init
     if (msg === 'initializeMap') {
-        L.d3(data.neighborhoods,{
-            topojson:"npa2",
-            svgClass : "neighborhoods"
+        L.d3(data.geom,{
+            topojson: "npa2",
+            svgClass: "geom"
         }).addTo(map);
     }
 
     var theMetric = $("#metric").val();
 
+    var theGeom = d3.selectAll(".geom path");
 
+    // clear out quantile classes
+    var classlist = [];
+    for (i = 0; i < colorbreaks.length - 1; i++) {
+        classlist.push("q" + i);
+    }
+    theGeom.classed(classlist.join(" "), false);
 
-    var data = metricData[year].map;
-    d3.selectAll(".neighborhoods path").each(function () {
+    var theData = metricData[year].map;
+    theGeom.each(function () {
         var item = d3.select(this);
-        item.attr('class', function (d) {
-                return quantize(data.get(item.attr('data-npa'))) + "-9 map-tooltips";
-            })
-            .attr("data-value", data.get(item.attr('data-npa')))
-            .attr("data-quantile", quantize(data.get(item.attr('data-npa'))))
+        var styleClass = quantize(theData.get(item.attr('data-id')));
+        if (!styleClass) { styleClass = "undefined"; }
+        item.classed("map-tooltips", true)
+            .classed(styleClass, true)
+            .attr("data-value", theData.get(item.attr('data-id')))
+            .attr("data-quantile", quantize(theData.get(item.attr('data-id'))))
             .attr("data-toggle", "tooltip")
             .attr("data-original-title", function(d) {
-                return "Neighborhood " + item.attr('data-npa') + "<br>" + dataPretty(theMetric, data.get(item.attr('data-npa')));
+                return "Neighborhood " + item.attr('data-id') + "<br>" + dataPretty(theMetric, theData.get(item.attr('data-id')));
             });
     });
 
@@ -31,14 +39,14 @@ function drawMap(msg, data) {
         .range([0, $("#barChart").parent().width() - 40]);
 
      var y = d3.scale.linear()
-        .range([250, 0]);
+        .range([260, 0]);
 
-    y.domain([0, 250]);
+    y.domain([0, 260]);
 
-    d3.selectAll(".neighborhoods path")
+    theGeom
         .on("mouseover", function() {
             var sel = d3.select(this);
-            if (!sel.classed("undefined-9")) {
+            if (!sel.classed("undefined")) {
                 // hack for movetofront because IE hates this
                 if (navigator.appName !== 'Microsoft Internet Explorer') { sel.moveToFront(); }
 
@@ -82,7 +90,7 @@ function drawMap(msg, data) {
             if (mapcenter.lat === map.getCenter().lat) {
                 var sel = d3.select(this);
                 PubSub.publish('selectGeo', {
-                    "id": sel.attr("data-npa"),
+                    "id": sel.attr("data-id"),
                     "value": sel.attr("data-value"),
                     "d3obj": sel
                 });
