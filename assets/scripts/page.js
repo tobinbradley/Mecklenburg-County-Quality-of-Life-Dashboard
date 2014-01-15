@@ -6,17 +6,19 @@ var map,                // leaflet map
     year,               // the currently selected year as array index of metricData
     barchartWidth,      // for responsive charts
     mapcenter,           // hack to fix d3 click firing on leaflet drag
-    marker
+    marker,             // marker for geocode
+    colorbreaks = 7     // the number of color breaks
     ;
 
 PubSub.immediateExceptions = true; // set to false in production
 
-// Prototype for moving svg element to the front
-// Useful so highlighted or selected element border goes on top
-d3.selection.prototype.moveToFront = function () {
-    return this.each(function () {
-        this.parentNode.appendChild(this);
+String.prototype.commafy = function () {
+    return this.replace(/(^|[^\w.])(\d{4,})/g, function($0, $1, $2) {
+        return $1 + $2.replace(/\d(?=(?:\d\d\d)+(?!\d))/g, "$&,");
     });
+};
+Number.prototype.commafy = function () {
+    return String(this).commafy();
 };
 
 // Slider change event
@@ -29,12 +31,21 @@ function sliderChange(value) {
 $(document).ready(function () {
 
     // TODO: set metric selected if argument passed
+    var $options = $('.chosen-select').find('option'),
+        random = Math.floor((Math.random() * $options.length));
+    $options.eq(random).prop('selected', true);
 
-
+    // chosen
     $(".chosen-select").chosen({width: '100%', no_results_text: "Not found - "}).change(function () {
         var theVal = $(this).val();
         d3.csv("data/metric/" + theVal + ".csv", changeMetric);
         $(this).trigger("chosen:updated");
+    });
+
+    // clear selection button
+    $(".select-clear").on("click", function() {
+        d3.selectAll(".geom path").classed("d3-select", false);
+        d3.selectAll(".mean-select .mean-triangle").remove();
     });
 
     // time slider
@@ -198,13 +209,11 @@ $(document).ready(function () {
                 'fields': 'id'
             },
             success: function (data) {
-                var sel = d3.select(".neighborhoods path[data-npa='" + data[0].id + "']");
-                PubSub.publish('selectGeo', {
+                var sel = d3.select(".geom path[data-id='" + data[0].id + "']");
+                PubSub.publish('geocode', {
                     "id": data[0].id,
                     "value": sel.attr("data-value"),
-                    "d3obj": sel
-                });
-                PubSub.publish('addMarker', {
+                    "d3obj": sel,
                     "lat": datum.lat,
                     "lng": datum.lng
                 });
@@ -223,13 +232,19 @@ $(document).ready(function () {
     PubSub.subscribe('initializeBarChart', drawBarChart);
     PubSub.subscribe('changeYear', drawMap);
     PubSub.subscribe('changeYear', drawBarChart);
+    PubSub.subscribe('changeYear', updateChartMarkers);
     PubSub.subscribe('changeMetric', processMetric);
     PubSub.subscribe('changeMetric', drawMap);
     PubSub.subscribe('changeMetric', drawBarChart);
+    PubSub.subscribe('changeMetric', updateChartMarkers);
     PubSub.subscribe('changeMetric', updateMeta);
-    PubSub.subscribe('addMarker', addMarker);
-    PubSub.subscribe('selectGeo', d3Zoom);
-     PubSub.subscribe('selectGeo', d3Select);
+
+
+    PubSub.subscribe('selectGeo', d3Select);
+
+    PubSub.subscribe('geocode', d3Zoom);
+    PubSub.subscribe('geocode', d3Select);
+    PubSub.subscribe('geocode', addMarker);
     // PubSub.subscribe('selectGeo', d3BarchartSelect);
     // PubSub.subscribe('selectGeo', d3LinechartSelect);
 
@@ -279,13 +294,13 @@ $(document).ready(function () {
 
     map.on("zoomend", function() {
         if (map.getZoom() >= 15) {
-            $(".neighborhoods path").css("fill-opacity", "0.5");
+            $(".geom path").css("fill-opacity", "0.5");
             map.addLayer(baseTiles);
         } else {
-            $(".neighborhoods path").css("fill-opacity", "1");
+            $(".geom path").css("fill-opacity", "1");
             map.removeLayer(baseTiles);
         }
-    })
+    });
 
 
     queue()
@@ -304,9 +319,9 @@ $(document).ready(function () {
 
 });
 
-function draw(error, neighborhoods, data) {
+function draw(error, geom, data) {
     PubSub.publish('initializeMap', {
-        "neighborhoods": neighborhoods,
+        "geom": geom,
         "metricdata": data,
         'metric': $("#metric").val()
     });
@@ -317,6 +332,7 @@ function draw(error, neighborhoods, data) {
 }
 
 function changeMetric(error, data) {
+    $(".d3-tip").remove();
     PubSub.publish('changeMetric', {
         'metricdata': data,
         'metric': $("#metric").val()
@@ -374,59 +390,15 @@ function processMetric(msg, data) {
     // set up quantile
     quantize = d3.scale.quantile()
         .domain(x_extent)
-        .range(d3.range(9).map(function (i) {
+        .range(d3.range(7).map(function (i) {
             return "q" + i;
         }));
 }
 
-function quantizeCount(data) {
-    var q1 = _.countBy(data, function (d) {
-        return quantize(d);
-    });
-    var q2 = [];
-    for (var i = 0; i <= 8; i++) {
-        if (!q1["q" + i]) { q1["q" + i] = 0; }
-        q2.push({
-            "key": "q" + i,
-            "value": q1["q" + i]
-        });
-    }
-    return q2;
-}
 
-function d3Highlight(vis, q, add) {
-    var sel = d3.selectAll(vis + " ." + q + "-9");
-    if (add === true) {
-        sel.classed("d3-highlight", true);
-        if (vis === ".neighborhoods") { sel.moveToFront(); }
-    } else {
-        sel.classed("d3-highlight", false);
-    }
-}
-
-function d3Select(msg, d) {
-    if (d.d3obj.classed("d3-select")) {
-        d.d3obj.classed("d3-select", false);
-    }
-    else {
-        d.d3obj.classed("d3-select", true);
-    }
-}
-
-function d3Zoom(msg, d) {
-    //var test = d3.select(".neighborhoods path[data-npa='2']").data()
-    //var thebounds = d3.geo.bounds(test[0])
-    if ($(".neighborhoods path.d3-select").length === 0 || msg === "geocode") {
-        var thebounds = d3.geo.bounds(d.d3obj.data()[0]);
-        map.fitBounds([
-            [thebounds[0][1], thebounds[0][0]],
-            [thebounds[1][1], thebounds[1][0]]
-        ]);
-    }
-}
 
 function dataPretty(theMetric, theValue) {
-    var m = _.filter(dataMeta, (function (d) { return d.id === theMetric; }));
+    var m = _.filter(dataMeta, function (d) { return d.id === theMetric; });
     var fmat = d3.format("0,000.0");
     if (m.length === 1) {
         if (m[0].units === "percent") {
@@ -442,16 +414,4 @@ function dataPretty(theMetric, theValue) {
     else {
         return fmat(theValue);
     }
-}
-
-// Add marker
-function addMarker(msg, d) {
-    // remove old markers
-    try { map.removeLayer(marker); }
-    catch (err) {}
-
-    // add new marker
-    marker = L.marker([d.lat, d.lng]).addTo(map);
-    map.panTo([d.lat, d.lng]);
-
 }
