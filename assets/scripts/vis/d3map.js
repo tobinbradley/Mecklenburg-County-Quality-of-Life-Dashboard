@@ -10,22 +10,31 @@ function drawMap(msg, data) {
 
     var theMetric = $("#metric").val();
 
+    var tip = d3.tip()
+      .attr('class', 'd3-tip')
+      .offset([-10, 0])
+      .html(function(d) {
+        return "<strong><span>NPA " + d.geomid + "</span><br>" + d.num + "</span>";
+      });
+
     var theGeom = d3.selectAll(".geom path");
+    theGeom.call(tip);
+
 
     // clear out quantile classes
     var classlist = [];
-    for (i = 0; i < colorbreaks.length - 1; i++) {
+    for (i = 0; i < colorbreaks; i++) {
         classlist.push("q" + i);
     }
+    console.log(classlist.join(" "));
     theGeom.classed(classlist.join(" "), false);
 
     var theData = metricData[year].map;
     theGeom.each(function () {
         var item = d3.select(this);
         var styleClass = quantize(theData.get(item.attr('data-id')));
-        if (!styleClass) { styleClass = "undefined"; }
-        item.classed("map-tooltips", true)
-            .classed(styleClass, true)
+        if (!styleClass) { styleClass = ""; }
+        item.classed(styleClass, true)
             .attr("data-value", theData.get(item.attr('data-id')))
             .attr("data-quantile", quantize(theData.get(item.attr('data-id'))))
             .attr("data-toggle", "tooltip")
@@ -34,24 +43,22 @@ function drawMap(msg, data) {
             });
     });
 
-    var xScale = d3.scale.linear()
-        .domain(x_extent)
-        .range([0, $("#barChart").parent().width() - 40]);
+    var xScale = d3.scale.linear().domain(x_extent).range([0, $("#barChart").parent().width() - 40]);
 
-     var y = d3.scale.linear()
-        .range([260, 0]);
-
-    y.domain([0, 260]);
+     var y = d3.scale.linear().range([260, 0]).domain([0, 260]);
 
     theGeom
         .on("mouseover", function() {
             var sel = d3.select(this);
-            if (!sel.classed("undefined")) {
+            tip.show(sel.attr("data-original-title"));
+            if (sel.attr("data-value") !== "undefined") {
                 // hack for movetofront because IE hates this
                 if (navigator.appName !== 'Microsoft Internet Explorer') { sel.moveToFront(); }
 
                 d3Highlight(".barchart", sel.attr("data-quantile"), true);
                 sel.classed("d3-highlight", true);
+
+                tip.attr('class', 'd3-tip animate').show({"geomid": sel.attr("data-id"), "num": sel.attr("data-value")});
 
                 var xVal = xScale(sel.attr("data-value"));
 
@@ -81,24 +88,21 @@ function drawMap(msg, data) {
             d3Highlight(".barchart", sel.attr("data-quantile"), false);
             sel.classed("d3-highlight", false);
             d3.selectAll(".mean-hover").remove();
-
+            tip.attr('class', 'd3-tip').show({"geomid": sel.attr("data-id"), "num": sel.attr("data-value") });
+            tip.hide();
         })
         .on("mousedown", function() {
             mapcenter = map.getCenter();
         })
-        .on("mouseup", function(d) {
-            if (mapcenter.lat === map.getCenter().lat) {
+        .on("click", function(d) {
                 var sel = d3.select(this);
                 PubSub.publish('selectGeo', {
                     "id": sel.attr("data-id"),
                     "value": sel.attr("data-value"),
                     "d3obj": sel
                 });
-            }
+            //}
         });
-
-    // tooltips
-    $('.map-tooltips').tooltip({container:'#map', delay: { show: 300, hide: 100 }, html: true});
 
 }
 

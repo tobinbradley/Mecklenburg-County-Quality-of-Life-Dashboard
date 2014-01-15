@@ -66,7 +66,7 @@ L.D3 = L.Class.extend({
 			this.options.before.call(this, this.data);
 		}
 		var opts = this.options;
-        this._feature = this._g.selectAll("path").data(this.options.topojson?this.data.geometries:this.data.features).enter().append("path").attr("class", this.options.pathClass).attr("data-npa", function(d) { return d[opts.featureID]; }).attr("fill", "none");
+        this._feature = this._g.selectAll("path").data(this.options.topojson?this.data.geometries:this.data.features).enter().append("path").attr("class", this.options.pathClass).attr("data-id", function(d) { return d[opts.featureID]; }).attr("fill", "none");
 		this._map.on('viewreset', this._reset, this);
 		this._reset();
 	},

@@ -14,6 +14,11 @@ function drawBarChart(msg) {
         width = $("#barChart").parent().width() - margin.left - margin.right,
         height = 300 - margin.top - margin.bottom;
 
+    var qtilesLabel = [];
+    _.each(qtiles, function(d, i) {
+        qtilesLabel[i] = parseFloat(d).toFixed(1).commafy();
+    });
+
     // x/y/scale stuff
     var x = d3.scale.linear()
         .domain([0, data.length])
@@ -42,8 +47,18 @@ function drawBarChart(msg) {
         .ticks(5);
 
 
+    var tip = d3.tip()
+      .attr('class', 'd3-tip')
+      .offset([-10, 0])
+      .html(function(d) {
+        return "<span>" + d.range + "</span><br><span>" + d.num + "</span> NPA(s)";
+      });
+
+
+
     // set up bar chart
     barChart = d3.select(".barchart");
+    barChart.call(tip);
     barChart.select("g.barchart-container")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
     barChart.select(".x.axis")
@@ -58,33 +73,34 @@ function drawBarChart(msg) {
             .data(data)
             .enter().append("rect")
             .attr("class", function(d) {
-                return "bar chart-tooltips " + d.key + "-9";
+                return "bar chart-tooltips " + d.key;
             })
-            .attr("data-toggle", "tooltip")
             .attr("data-quantile", function(d) {
                 return d.key;
             });
 
         // create county mean indicator
-
         barChart.select(".means")
             .append("line")
             .attr("class", "mean-indicator mean-county mean-line")
             .attr("x1", xScale(countyMean))
             .attr("x2", xScale(countyMean))
             .attr("y1", y(0))
-            .attr("y2", y(20));
-        barChart.select(".means")
-           .append("path")
-           .attr("transform", "translate(" + xScale(countyMean) + "," + y(5) + ")")
-           .attr("d", d3.svg.symbol().type("triangle-down").size(60))
-           .attr("class", "mean-indicator mean-county mean-triangle");
+            .attr("y2", y(150));
         barChart.select(".means")
             .append("text")
             .attr("class", "mean-indicator mean-county mean-text")
             .attr("x", xScale(countyMean))
-            .attr("y", y(20))
+            .attr("text-anchor", "middle")
+            .attr("y", y(155))
             .text(countyMean);
+        barChart.select(".means")
+            .append("text")
+            .attr("class", "mean-indicator mean-county-label mean-text")
+            .attr("x", xScale(countyMean))
+            .attr("text-anchor", "middle")
+            .attr("y", y(167))
+            .text("Mean");
     }
 
     // set bar position, height, and tooltip info
@@ -104,19 +120,16 @@ function drawBarChart(msg) {
         })
         .attr("data-original-title", function(d, i) {
             if (i === 0) {
-                return d3.min(x_extent).toFixed(1) + " - " + qtiles[i].toFixed(1);
+                return d3.min(x_extent).toFixed(1).commafy() + " - " + qtilesLabel[i];
             }
-            if (i === 8) {
-                return qtiles[i - 1].toFixed(1) + " - " + d3.max(x_extent).toFixed(1);
+            if (i === colorbreaks - 1) {
+                return qtilesLabel[i - 1] + " - " + d3.max(x_extent).toFixed(1).commafy();
             } else {
-                return qtiles[i - 1].toFixed(1) + " - " + qtiles[i].toFixed(1);
+                return qtilesLabel[i - 1] + " - " + qtilesLabel[i];
             }
         });
 
     // county mean indicator
-     barChart.select(".mean-triangle.mean-county")
-        .transition()
-        .attr("transform", "translate(" + xScale(countyMean) + "," + y(6) + ")");
     barChart.select(".mean-line.mean-county")
         .transition()
         .attr("x1", xScale(countyMean))
@@ -125,31 +138,41 @@ function drawBarChart(msg) {
         .transition()
         .attr("x", xScale(countyMean))
         .text( dataPretty(theMetric, countyMean) );
+    barChart.select(".mean-text.mean-county-label")
+        .transition()
+        .attr("x", xScale(countyMean));
+
 
 
     // bar hover actions
     barChart.selectAll("rect")
         .on("mouseover", function(d) {
             var sel = d3.select(this);
-            d3Highlight(".neighborhoods", sel.attr("data-quantile"), true);
+            d3Highlight(".geom", sel.attr("data-quantile"), true);
             sel.classed("d3-highlight", true);
+            tip.attr('class', 'd3-tip animate').show({"range": sel.attr("data-original-title"), "num": d.value});
         })
         .on("mouseout", function(d) {
             var sel = d3.select(this);
-            d3Highlight(".neighborhoods", sel.attr("data-quantile"), false);
+            d3Highlight(".geom", sel.attr("data-quantile"), false);
             sel.classed("d3-highlight", false);
+            tip.attr('class', 'd3-tip').show({"range": sel.attr("data-original-title"), "num": d.value});
+            tip.hide();
+        })
+        .on("click", function(d) {
+            var sel = d3.select(this);
+            d3.selectAll(".geom path[data-quantile='" + sel.attr("data-quantile") + "'").each(function () {
+                //var mrk = d3.select(this);
+                // if marker doesn't exist
+                var sel = d3.select(this);
+                PubSub.publish('selectGeo', {
+                    "id": sel.attr("data-id"),
+                    "value": sel.attr("data-value"),
+                    "d3obj": sel
+                });
+            });
         });
 
-
-    // bootstrap tooptips
-    $('.chart-tooltips').tooltip({
-        container: 'body',
-        delay: {
-            show: 100,
-            hide: 100
-        },
-        html: true
-    });
 
     // store chart with for responsiveness
     barchartWidth = $(".barchart").width();

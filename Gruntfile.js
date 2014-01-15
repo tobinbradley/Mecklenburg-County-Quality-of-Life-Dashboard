@@ -30,6 +30,7 @@ module.exports = function (grunt) {
             'assets/scripts/vendor/pubsub.js',
             'assets/scripts/vendor/queue.v1.min.js',
             'assets/scripts/vendor/topojson.v0.js',
+            'assets/scripts/vendor/d3.tip.v0.6.3.js',
             'assets/scripts/vendor/typeahead.js',
             'assets/scripts/vendor/underscore-min.js',
             'assets/scripts/vis/*.js',

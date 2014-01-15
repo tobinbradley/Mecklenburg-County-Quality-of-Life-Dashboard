@@ -20,6 +20,27 @@
     }
 }
 
+@-webkit-keyframes bounceIn {
+    0% {
+      opacity: 0;
+      -webkit-transform: scale(.3);
+    }
+
+    50% {
+      opacity: 1;
+      -webkit-transform: scale(1.05);
+    }
+
+    70% {
+      -webkit-transform: scale(.9);
+    }
+
+    100% {
+      -webkit-transform: scale(1);
+    }
+  }
+
+
 
 
 
@@ -134,11 +155,12 @@ body {
     margin-top: 30px;
 }
 
-.neighborhoods path {
+.geom path {
     stroke: #949494;
-    stroke-width: 0.3px;
+    stroke-width: 0.5px;
     transition: all 0.5s ease-out;
     cursor: pointer;
+    stroke-linecap: round;
     //opacity: 0.8;
 }
 
@@ -146,10 +168,11 @@ body {
 .d3-highlight {
     stroke: #F1BE2F !important;
     stroke-width: 2.5px !important;
+    //fill: orangered !important;
 }
 .d3-select {
-    stroke: #9970ab !important;
-    stroke-width: 4px !important;
+    stroke: #d500a5 !important;
+    stroke-width: 2.5px !important;
 }
 
 
@@ -158,7 +181,7 @@ body {
     stroke: black;
 }
 .mean-line {
-    stroke-dasharray: 3,3;
+    stroke-dasharray: 8,3;
 }
 .mean-text {
     text-anchor: middle;
@@ -180,28 +203,13 @@ body {
 }
 
 .qnull { fill: rgba(0,0,0,0); }
-// .q0-9 { fill:rgb(247,251,255); }
-// .q1-9 { fill:rgb(222,235,247); }
-// .q2-9 { fill:rgb(198,219,239); }
-// .q3-9 { fill:rgb(158,202,225); }
-// .q4-9 { fill:rgb(107,174,214); }
-// .q5-9 { fill:rgb(66,146,198); }
-// .q6-9 { fill:rgb(33,113,181); }
-// .q7-9 { fill:rgb(8,81,156); }
-// .q8-9 { fill:rgb(8,48,107); }
-
-//.q0-9 { fill:rgb(247,251,255); }
-.q0-9 { fill:rgb(222,235,247); }
-.q1-9 { fill:rgb(198,219,239); }
-.q2-9 { fill:rgb(158,202,225); }
-.q3-9 { fill:rgb(107,174,214); }
-.q4-9 { fill:rgb(66,146,198); }
-.q5-9 { fill:rgb(33,113,181); }
-.q6-9 { fill:rgb(8,81,156); }
-.q7-9 { fill:rgb(8,48,107); }
-.q8-9 { fill:rgb(5,31,71); }
-
-
+.q0{fill:rgb(198,219,239)}
+.q1{fill:rgb(158,202,225)}
+.q2{fill:rgb(107,174,214)}
+.q3{fill:rgb(66,146,198)}
+.q4{fill:rgb(33,113,181)}
+.q5{fill:rgb(8,81,156)}
+.q6{fill:rgb(8,48,107)}
 
 
 .axis path,
@@ -258,6 +266,44 @@ path {
   fill: none;
   stroke: #000;
 }
+
+
+.d3-tip {
+    line-height: 1.4;
+    text-align: center;
+    font-weight: bold;
+    padding: 8px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    border-radius: 2px;
+  }
+
+  .d3-tip.animate {
+    animation: bounceIn 0.2s ease-out;
+    -webkit-animation: bounceIn 0.2s ease-out;
+  }
+
+  .d3-tip:after {
+    box-sizing: border-box;
+    display: inline;
+    font-size: 10px;
+    width: 100%;
+    line-height: 1;
+    color: rgba(0, 0, 0, 0.8);
+    content: "\25BC";
+    position: absolute;
+    text-align: center;
+  }
+
+  .d3-tip.n:after {
+    margin: -1px 0 0 0;
+    top: 100%;
+    left: 0;
+  }
+
+  .d3-tip span {
+    color: #ff00c7;
+  }
 
 
 // repsonsive design

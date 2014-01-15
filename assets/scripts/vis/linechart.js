@@ -36,7 +36,7 @@ function drawLineChart(msg) {
                 console.log('Plotting Y value for data point: ' + d + ' to be at: ' + y(d) + " using our yScale.");
                 // return the Y coordinate where we want to plot this datapoint
                 return y(d);
-            })
+            });
 
             // Add an SVG element with the desired dimensions and margin.
             var graph = d3.select(".linechart")
