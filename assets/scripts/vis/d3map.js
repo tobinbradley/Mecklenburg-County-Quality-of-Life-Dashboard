@@ -1,7 +1,7 @@
 function drawMap(msg, data) {
 
     // add leaflet layer on init
-    if (msg === 'initializeMap') {
+    if (msg === 'initialize') {
         L.d3(data.geom,{
             topojson: "npa2",
             svgClass: "geom"
@@ -26,7 +26,6 @@ function drawMap(msg, data) {
     for (i = 0; i < colorbreaks; i++) {
         classlist.push("q" + i);
     }
-    console.log(classlist.join(" "));
     theGeom.classed(classlist.join(" "), false);
 
     var theData = metricData[year].map;
@@ -81,6 +80,7 @@ function drawMap(msg, data) {
                     .attr("x", xVal)
                     .attr("y", y(40))
                     .text(dataPretty(theMetric, sel.attr("data-value")));
+
             }
         })
         .on("mouseout", function() {

@@ -66,7 +66,7 @@ function drawBarChart(msg) {
         .call(xAxis);
 
     // create bars and mean indicator on initialization
-    if (msg === 'initializeBarChart') {
+    if (msg === 'initialize') {
         // create original rects
         var barContainer = barChart.select(".bar-container");
         barContainer.selectAll(".bar")
@@ -83,24 +83,22 @@ function drawBarChart(msg) {
         barChart.select(".means")
             .append("line")
             .attr("class", "mean-indicator mean-county mean-line")
-            .attr("x1", xScale(countyMean))
-            .attr("x2", xScale(countyMean))
             .attr("y1", y(0))
-            .attr("y2", y(150));
+            .attr("y2", 100);
         barChart.select(".means")
             .append("text")
             .attr("class", "mean-indicator mean-county mean-text")
-            .attr("x", xScale(countyMean))
             .attr("text-anchor", "middle")
-            .attr("y", y(155))
-            .text(countyMean);
+            .attr("y", 95);
         barChart.select(".means")
             .append("text")
-            .attr("class", "mean-indicator mean-county-label mean-text")
-            .attr("x", xScale(countyMean))
-            .attr("text-anchor", "middle")
-            .attr("y", y(167))
-            .text("Mean");
+                  .attr("class", "mean-label")
+                  .attr("transform", "rotate(-90)")
+                  .attr("x", -155)
+                  //.attr("dy", ".71em")
+                  .style("text-anchor", "end")
+                  .text("mean");
+
     }
 
     // set bar position, height, and tooltip info
@@ -113,7 +111,7 @@ function drawBarChart(msg) {
             return x(i);
         })
         .attr("y", function(d) {
-            return y(d.value + 5);
+            return y(d.value + 6);
         })
         .attr("height", function(d) {
             return height - y(d.value) + 5;
@@ -137,10 +135,11 @@ function drawBarChart(msg) {
     barChart.select(".mean-text.mean-county")
         .transition()
         .attr("x", xScale(countyMean))
-        .text( dataPretty(theMetric, countyMean) );
-    barChart.select(".mean-text.mean-county-label")
+        .text(dataPretty(theMetric, countyMean) );
+    barChart.select(".mean-label")
         .transition()
-        .attr("x", xScale(countyMean));
+        .attr("y", xScale(countyMean) - 4);
+
 
 
 

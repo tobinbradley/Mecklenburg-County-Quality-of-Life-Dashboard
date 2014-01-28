@@ -8,6 +8,8 @@
 // vars
 @body-color: rgb(249, 249, 249);
 @fancyshadow: 0 8px 6px -6px #666,  inset 0 0 50px rgba(0, 0, 0, 0.1);
+@highlightColor: #F1BE2F;
+@selectedColor: #d500a5;
 
 /* OldIE Prompt */
 .oldie {
@@ -60,6 +62,14 @@
     background: none;
 }
 
+// Bootstrap customizations
+.well {
+    box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255,255,255,0.3);
+}
+.navbar-main {
+    background: rgba(0,0,0,0.03);
+}
 
 
 body {
@@ -71,6 +81,7 @@ body {
     text-shadow: #777 0 1px 1px;
 }
 
+
 .meta-subtitle { font-size: 0.9em; }
 
 
@@ -79,7 +90,7 @@ body {
 }
 
 .meta-container {
-    margin-top: 120px;
+    margin-top: 80px;
 }
 .meta-resources ul {
     list-style: none;
@@ -88,13 +99,7 @@ body {
 
 
 
-.well {
-    box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.1);
-    background-color: rgba(255,255,255,0.3);
-}
-.navbar-main {
-    background: none;
-}
+
 
 
 
@@ -166,18 +171,18 @@ body {
 
 
 .d3-highlight {
-    stroke: #F1BE2F !important;
+    stroke: @highlightColor !important;
     stroke-width: 2.5px !important;
     //fill: orangered !important;
 }
 .d3-select {
-    stroke: #d500a5 !important;
+    stroke: @selectedColor !important;
     stroke-width: 2.5px !important;
 }
 
 
 .mean-line, .mean-triangle {
-    fill: black;
+    fill: @highlightColor;
     stroke: black;
 }
 .mean-line {
@@ -194,7 +199,15 @@ body {
     pointer-events: none;
 }
 .mean-hover.mean-text {
-    fill: #F1BE2F;
+    fill: @highlightColor;
+}
+
+.mean-select .mean-triangle {
+    fill: @selectedColor;
+}
+
+.mean-label {
+    font-weight: bold;
 }
 
 .background {
@@ -267,6 +280,10 @@ path {
   stroke: #000;
 }
 
+.trend-mean path {
+    stroke-dasharray: 8,3;
+    stroke: black;
+}
 
 .d3-tip {
     line-height: 1.4;
@@ -304,7 +321,6 @@ path {
   .d3-tip span {
     color: #ff00c7;
   }
-
 
 // repsonsive design
 @media (max-width: 979px) {

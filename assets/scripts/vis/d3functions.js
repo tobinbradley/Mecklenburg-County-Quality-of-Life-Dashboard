@@ -61,7 +61,7 @@ function d3Select(msg, d) {
 function d3Zoom(msg, d) {
     //var test = d3.select(".neighborhoods path[data-npa='2']").data()
     //var thebounds = d3.geo.bounds(test[0])
-    if ($(".geom path.d3-select").length === 0 || msg === "geocode") {
+    if ($(".geom path.d3-select").length === 0 || msg === "geocode" || msg === "findNeighborhood") {
         var thebounds = d3.geo.bounds(d.d3obj.data()[0]);
         map.fitBounds([
             [thebounds[0][1], thebounds[0][0]],
@@ -78,7 +78,7 @@ function addMarker(msg, d) {
 
     // add new marker
     marker = L.marker([d.lat, d.lng]).addTo(map);
-    map.panTo([d.lat, d.lng]);
+    //map.panTo([d.lat, d.lng]);
 
 }
 

@@ -17,6 +17,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="mobile-web-app-capable" content="yes">
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/png" href="favicon.png" />
@@ -354,9 +355,7 @@
                 </div>
             </div>
             <div class="col-md-4 map-aside">
-                <div id="lineChart" class="text-center">
-                    <svg width="100%" height="200" class="chart linechart"></svg>
-                </div>
+
                 <div id="barChart">
                     <svg width="100%" height="300" class="chart barchart">
                         <defs>
@@ -375,6 +374,21 @@
                             <g class="mean-select"></g>
                         </g>
                     </svg>
+                </div>
+                <div id="lineChart" class="text-center">
+                    <svg width="100%" height="150" class="chart linechart">
+                        <g class="linechart-container">
+                            <g class="x axis"></g>
+                            <g class="y axis"></g>
+                            <g class="trend-mean">
+                                <path />
+                            </g>
+                            <g class="trend-select"></g>
+                            <g class="trend-highlight"></g>
+                        </g>
+                    </svg>
+                </div>
+                <div>
                     <p class="meta-subtitle text-center"></p>
                     <p class="text-center">
                         <button type="button" class="btn btn-primary select-clear"><span class="glyphicon glyphicon-unchecked"></span> Clear Selected</button>
@@ -399,9 +413,7 @@
             <div class="col-md-3">
                 <div class="well">
                     <h4>Additional Resources</h4>
-                    <div class='meta-resources'>
-                        <ul class="list-unstyled"></ul>
-                    </div>
+                    <div class='meta-resources'></div>
                 </div>
             </div>
 
