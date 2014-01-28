@@ -9,7 +9,8 @@
     "grunt-contrib-less": "*",
     "grunt-contrib-watch": "*",
     "grunt-contrib-uglify": "*",
-    "grunt-autoprefixer": "*"
+    "grunt-autoprefixer": "*",
+    "grunt-browser-sync": "~0.5.2"
   },
   "scripts": {
     "test": "grunt build"
