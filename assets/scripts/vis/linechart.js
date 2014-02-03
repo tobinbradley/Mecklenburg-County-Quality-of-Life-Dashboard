@@ -1,10 +1,17 @@
-function drawLineChart(msg) {
-    var m = [15, 15, 20, 50]; // margins
-    var w = $("#lineChart").parent().width() - m[1] - m[3]; // width
-    var h = 150 - m[0] - m[2]; // height
+function lineChart() {
+  var width = 720, // default width
+      height = 280, // default height
+      margins = [15, 15, 20, 60],
+      x,
+      y;
+
+  function my() {
+
+    //console.log(my.width());
 
     var formatYear = d3.format("04d");
-
+    var w = width - margins[1] - margins[3]; // width
+    var h = height - margins[0] - margins[2]; // height
     var countymean = [];
     var years = [];
 
@@ -13,10 +20,9 @@ function drawLineChart(msg) {
         countymean.push(d3.mean(d.map.values()));
     });
 
-    var x = d3.scale.linear().domain([d3.min(years), d3.max(years)]).range([0, w]);
-    var y = d3.scale.linear().domain(x_extent).range([h, 0]);
+    my.x(d3.min(years), d3.max(years), w, h);
+    my.y(d3.min(years), d3.max(years), w, h);
 
-    // create a line function that can convert data[] into x and y points
     var line = d3.svg.line()
         .x(function(d, i) {
             return x(years[i]);
@@ -25,31 +31,24 @@ function drawLineChart(msg) {
             return y(d);
         });
 
-    // Add an SVG element with the desired dimensions and margin.
-    var graph = d3.select(".linechart-container").attr("transform", "translate(" + m[3] + "," + m[0] + ")");
-
-
+    // svg transform
+    var graph = d3.select(".linechart-container").attr("transform", "translate(" + margins[3] + "," + margins[0] + ")");
 
     // create yAxis
     var xAxis = d3.svg.axis().scale(x).tickSize(-h).ticks(countymean.length).tickFormat(formatYear);
-    //Add the x-axis.
     graph.select(".x.axis")
           .attr("transform", "translate(0," + h + ")")
           .call(xAxis);
 
-
     // create left yAxis
     var yAxisLeft = d3.svg.axis().scale(y).ticks(4).orient("left");
-    // Add the y-axis to the left
     graph.select(".y.axis")
         .call(yAxisLeft);
 
-
-    // Add the line by appending an svg:path element with the data line we created above
-    // do this AFTER the axes above so that the line is above the tick-lines
+    // county mean line
     graph.select(".trend-mean path").attr("d", line(countymean, years));
 
-    // make circles
+    // county mean circles
     graph.selectAll('.node-mean').remove();
     graph.selectAll(".trend-mean .node")
         .data(countymean)
@@ -58,19 +57,92 @@ function drawLineChart(msg) {
             .attr("cx", function(d, i) { return x(metricData[i].year.replace("y_", "")); })
             .attr("cy", function(d) { return y(d); })
             .attr("r", 4);
+  }
+
+  my.width = function(value) {
+    if (!arguments.length) { return width; }
+    width = value;
+    return my;
+  };
+
+  my.height = function(value) {
+    if (!arguments.length) { return height; }
+    height = value;
+    return my;
+  };
+
+  my.margins = function(value) {
+    if (!arguments.length) { return margins; }
+    margins = value;
+    return my;
+  };
+
+  my.container = function(value) {
+    if (!arguments.length) { return margins; }
+    var el = document.getElementById(value);
+    width = el.offsetWidth;
+    height = el.offsetHeight;
+    return my;
+  };
+
+  my.x = function(min, max, w, h) {
+    if (!arguments.length) { return x; }
+    x = d3.scale.linear().domain([min, max]).range([0, w]);
+    return my;
+  };
+
+  my.y = function(min, max, w, h) {
+    if (!arguments.length) { return y; }
+    y = d3.scale.linear().domain(x_extent).range([h, 0]);
+    return my;
+  };
+
+  return my;
 }
 
-function addLine(container, theClass, data) {
-    // set x and y scaling
-    var m = [15, 15, 20, 50]; // margins
-    var w = $("#lineChart").parent().width() - m[1] - m[3]; // width
-    var h = 150 - m[0] - m[2]; // height
-    var x = d3.scale.linear().domain([d3.min(years), d3.max(years)]).range([0, w]);
-    var y = d3.scale.linear().domain(x_extent).range([h, 0]);
+function drawLineChart(msg) {
 
-    // add line
+    trendChart.container("lineChart");
+    trendChart();
 
-    // add nodes
-
-    // add node functionality
 }
+
+function highlightLine(npa, container) {
+    var graph = d3.select(".linechart-container");
+    var x = trendChart.x();
+    var y = trendChart.y();
+    var npavalues = [];
+    var years = [];
+
+    _.each(metricData, function(d, i) {
+        years.push(d.year.replace("y_", ""));
+        npavalues.push(d.map.get(npa));
+    });
+
+    var line = d3.svg.line()
+        .x(function(d, i) {
+            return x(years[i]);
+        })
+        .y(function(d) {
+            return y(d);
+        });
+
+    // add lines and nodes
+    graph.select(container)
+        .append("path")
+            .attr("d", line(npavalues, years))
+            .attr("data-id", npa);
+    _.each(npavalues, function (d, i) {
+        graph.selectAll(container)
+            .append("circle")
+                    .attr("cx", x(metricData[i].year.replace("y_", "")))
+                    .attr("cy", y(d))
+                    .attr("r", 4)
+                    .attr("data-id", npa)
+                    .attr("data-year", metricData[i].year.replace("y_", ""))
+                    .attr("data-value", d);
+    });
+}
+
+
+

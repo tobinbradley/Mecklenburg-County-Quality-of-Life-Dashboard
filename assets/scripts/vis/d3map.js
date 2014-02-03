@@ -42,17 +42,21 @@ function drawMap(msg, data) {
             });
     });
 
-    var xScale = d3.scale.linear().domain(x_extent).range([0, $("#barChart").parent().width() - 40]);
+    var xScale = d3.scale.linear().domain(x_extent).range([0, $("#barChart").parent().width() - 60]);
 
      var y = d3.scale.linear().range([260, 0]).domain([0, 260]);
 
+    d3.selectAll(".geom path").on("mouseover", null);
     theGeom
         .on("mouseover", function() {
             var sel = d3.select(this);
-            tip.show(sel.attr("data-original-title"));
-            if (sel.attr("data-value") !== "undefined") {
+            if ($.isNumeric(sel.attr("data-value"))) {
+
+                tip.show(sel.attr("data-original-title"));
                 // hack for movetofront because IE hates this
                 if (navigator.appName !== 'Microsoft Internet Explorer') { sel.moveToFront(); }
+
+                highlightLine(sel.attr("data-id"), ".trend-highlight");
 
                 d3Highlight(".barchart", sel.attr("data-quantile"), true);
                 sel.classed("d3-highlight", true);
@@ -90,6 +94,8 @@ function drawMap(msg, data) {
             d3.selectAll(".mean-hover").remove();
             tip.attr('class', 'd3-tip').show({"geomid": sel.attr("data-id"), "num": sel.attr("data-value") });
             tip.hide();
+
+            d3.selectAll('.trend-highlight path, .trend-highlight circle').remove();
         })
         .on("mousedown", function() {
             mapcenter = map.getCenter();

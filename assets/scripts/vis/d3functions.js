@@ -32,11 +32,11 @@ function d3Highlight(vis, q, add) {
 }
 
 function d3Select(msg, d) {
-
     if (d.d3obj.classed("d3-select") && msg !== "geocode") {
         d.d3obj.classed("d3-select", false);
         // remove chart pointer
         d3.select(".mean-select .mean-triangle[data-id='" + d.d3obj.attr("data-id") + "']").remove();
+        d3.selectAll(".trend-select circle[data-id='" + d.d3obj.attr("data-id") + "'], .trend-select path[data-id='" + d.d3obj.attr("data-id") + "']").remove();
     }
     else {
         d.d3obj.classed("d3-select", true);
@@ -54,6 +54,9 @@ function d3Select(msg, d) {
            .attr("d", d3.svg.symbol().type("triangle-down").size(60))
            .attr("class", "mean-indicator mean-triangle")
            .attr("data-id", d.d3obj.attr("data-id"));
+
+        // trend line
+        highlightLine(d.d3obj.attr("data-id"), ".trend-select");
 
     }
 }
@@ -86,6 +89,9 @@ function updateChartMarkers(msg, d) {
     var xScale = d3.scale.linear().domain(x_extent).range([0, $("#barChart").parent().width() - 40]);
     var y = d3.scale.linear().range([260, 0]).domain([0, 260]);
 
+    // update trend lines
+    d3.selectAll(".trend-select circle, .trend-select path").remove();
+
     d3.selectAll(".geom path.d3-select").each(function () {
         var item = d3.select(this);
         var itemBarChart = d3.select(".mean-select .mean-triangle[data-id='" + item.attr("data-id") + "']");
@@ -100,5 +106,10 @@ function updateChartMarkers(msg, d) {
                 .attr("opacity", "1")
                 .attr("transform", "translate(" + xVal + "," + y(5) + ")");
         }
+
+        // update trend lines
+        highlightLine(item.attr("data-id"), ".trend-select");
+
     });
+
 }

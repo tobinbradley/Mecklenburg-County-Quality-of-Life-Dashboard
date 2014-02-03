@@ -7,8 +7,9 @@ var map,                // leaflet map
     barchartWidth,      // for responsive charts
     mapcenter,           // hack to fix d3 click firing on leaflet drag
     marker,             // marker for geocode
-    colorbreaks = 7     // the number of color breaks
-    ;
+    colorbreaks = 7,     // the number of color breaks
+    trendChart,
+    valueChart;
 
 PubSub.immediateExceptions = true; // set to false in production
 
@@ -316,6 +317,7 @@ $(document).ready(function () {
         }
     });
 
+    trendChart = lineChart();
 
     queue()
         .defer(d3.json, "data/npa.topo.json")
@@ -394,10 +396,10 @@ function processMetric(msg, data) {
         metricData.push({"year": keys[i], "map": d3.map()});
     }
 
-    // set slider
+    // set slider and time related stuff
     year = metricData.length -1;
     $(".slider").slider("option", "max", year).slider("value", year);
-    metricData.length > 1 ? $(".year-slider").fadeIn() : $(".year-slider").hide();
+    metricData.length > 1 ? $(".time").fadeIn() : $(".time").hide();
     $('.time-year').text(metricData[metricData.length - 1].year.replace("y_", ""));
 
 

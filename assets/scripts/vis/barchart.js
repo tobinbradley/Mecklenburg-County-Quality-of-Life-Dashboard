@@ -5,14 +5,11 @@ function drawBarChart(msg) {
     var qtiles = quantize.quantiles();
     var theMetric = $("#metric").val();
 
-    var margin = {
-        top: 20,
-        right: 20,
-        bottom: 20,
-        left: 20
-    },
-        width = $("#barChart").parent().width() - margin.left - margin.right,
-        height = 300 - margin.top - margin.bottom;
+    var container = $("#barChart");
+
+    var margin = [ 20, 20, 20, 40];
+    width = container.width() - margin[3] - margin[1],
+    height = container.height() - margin[0] - margin[2];
 
     var qtilesLabel = [];
     _.each(qtiles, function(d, i) {
@@ -60,7 +57,7 @@ function drawBarChart(msg) {
     barChart = d3.select(".barchart");
     barChart.call(tip);
     barChart.select("g.barchart-container")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        .attr("transform", "translate(" + margin[3] + "," + margin[0] + ")");
     barChart.select(".x.axis")
         .attr("transform", "translate(0," + height + ")")
         .call(xAxis);
