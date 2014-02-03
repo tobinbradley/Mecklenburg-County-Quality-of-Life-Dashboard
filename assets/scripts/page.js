@@ -47,6 +47,7 @@ $(document).ready(function () {
     $(".select-clear").on("click", function() {
         d3.selectAll(".geom path").classed("d3-select", false);
         d3.selectAll(".mean-select .mean-triangle").remove();
+        d3.selectAll(".trend-select circle, .trend-select path").remove();
         try { map.removeLayer(marker); }
         catch (err) {}
     });
