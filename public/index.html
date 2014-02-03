@@ -24,7 +24,8 @@
     <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png" />
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/main.css?foo=61304">
+    <link href='http://fonts.googleapis.com/css?family=Coming+Soon' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/main.css?foo=90302">
 
 </head>
 
@@ -344,7 +345,7 @@
                     </optgroup>
                 </select>
                 <div id="map"></div>
-                <div class="year-slider">
+                <div class="time year-slider">
                     <button type="button" class="btn btn-primary btn-looper">
                         <span class="glyphicon glyphicon-play"></span>
                     </button>
@@ -354,8 +355,7 @@
                     <input id="searchbox" type="text" class="typeahead form-control" placeholder="search map">
                 </div>
             </div>
-            <div class="col-md-4 map-aside">
-
+            <div class="col-md-4 map-aside fill-height">
                 <div id="barChart">
                     <svg width="100%" height="300" class="chart barchart">
                         <defs>
@@ -376,7 +376,7 @@
                     </svg>
                 </div>
                 <div id="lineChart" class="text-center">
-                    <svg width="100%" height="150" class="chart linechart">
+                    <svg width="100%" height="100%" class="chart linechart time">
                         <g class="linechart-container">
                             <g class="x axis"></g>
                             <g class="y axis"></g>
@@ -388,13 +388,18 @@
                         </g>
                     </svg>
                 </div>
+
                 <div>
-                    <p class="meta-subtitle text-center"></p>
                     <p class="text-center">
                         <button type="button" class="btn btn-primary select-clear"><span class="glyphicon glyphicon-unchecked"></span> Clear Selected</button>
                     </p>
                 </div>
 
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-11 col-md-offset-1">
+                <p class="meta-subtitle text-center"></p>
             </div>
         </div>
         <div class="row meta-container">
@@ -433,7 +438,7 @@
     </div>
 
     <!-- scripts at the bottom yo -->
-    <script src="js/main.js?foo=74563"></script>
+    <script src="js/main.js?foo=96458"></script>
 
     <!--   Google Analytics -->
 
