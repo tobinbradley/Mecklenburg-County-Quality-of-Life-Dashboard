@@ -56,7 +56,8 @@ function drawMap(msg, data) {
                 // hack for movetofront because IE hates this
                 if (navigator.appName !== 'Microsoft Internet Explorer') { sel.moveToFront(); }
 
-                highlightLine(sel.attr("data-id"), ".trend-highlight");
+
+                trendChart.lineAdd(".trend-highlight", sel.attr("data-id"));
 
                 d3Highlight(".barchart", sel.attr("data-quantile"), true);
                 sel.classed("d3-highlight", true);
@@ -95,7 +96,7 @@ function drawMap(msg, data) {
             tip.attr('class', 'd3-tip').show({"geomid": sel.attr("data-id"), "num": sel.attr("data-value") });
             tip.hide();
 
-            d3.selectAll('.trend-highlight path, .trend-highlight circle').remove();
+            trendChart.linesRemove(".trend-highlight");
         })
         .on("mousedown", function() {
             mapcenter = map.getCenter();
@@ -107,7 +108,9 @@ function drawMap(msg, data) {
                     "value": sel.attr("data-value"),
                     "d3obj": sel
                 });
-            //}
+
+                trendChart.lineAdd(".trend-select", sel.attr("data-id"));
+
         });
 
 }

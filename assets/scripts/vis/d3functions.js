@@ -42,7 +42,7 @@ function d3Select(msg, d) {
         d.d3obj.classed("d3-select", true);
 
         // add chart pointer
-        var xScale = d3.scale.linear().domain(x_extent).range([0, $("#barChart").parent().width() - 40]);
+        var xScale = d3.scale.linear().domain(x_extent).range([0, $("#barChart").parent().width() - 60]);
 
         var y = d3.scale.linear().range([260, 0]).domain([0, 260]);
         var xVal = xScale(d.d3obj.attr("data-value"));
@@ -56,7 +56,7 @@ function d3Select(msg, d) {
            .attr("data-id", d.d3obj.attr("data-id"));
 
         // trend line
-        highlightLine(d.d3obj.attr("data-id"), ".trend-select");
+        trendChart.lineAdd(".trend-select", d.d3obj.attr("data-id"));
 
     }
 }
@@ -86,7 +86,7 @@ function addMarker(msg, d) {
 }
 
 function updateChartMarkers(msg, d) {
-    var xScale = d3.scale.linear().domain(x_extent).range([0, $("#barChart").parent().width() - 40]);
+    var xScale = d3.scale.linear().domain(x_extent).range([0, $("#barChart").parent().width() - 60]);
     var y = d3.scale.linear().range([260, 0]).domain([0, 260]);
 
     // update trend lines
@@ -108,7 +108,7 @@ function updateChartMarkers(msg, d) {
         }
 
         // update trend lines
-        highlightLine(item.attr("data-id"), ".trend-select");
+        if ($.isNumeric(item.attr("data-value"))) { trendChart.lineAdd(".trend-select", item.attr("data-id")); }
 
     });
 

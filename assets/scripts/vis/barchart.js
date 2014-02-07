@@ -137,9 +137,6 @@ function drawBarChart(msg) {
         .transition()
         .attr("y", xScale(countyMean) - 4);
 
-
-
-
     // bar hover actions
     barChart.selectAll("rect")
         .on("mouseover", function(d) {

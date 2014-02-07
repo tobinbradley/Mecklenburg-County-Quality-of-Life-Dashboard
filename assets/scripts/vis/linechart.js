@@ -23,14 +23,6 @@ function lineChart() {
     my.x(d3.min(years), d3.max(years), w, h);
     my.y(d3.min(years), d3.max(years), w, h);
 
-    var line = d3.svg.line()
-        .x(function(d, i) {
-            return x(years[i]);
-        })
-        .y(function(d) {
-            return y(d);
-        });
-
     // svg transform
     var graph = d3.select(".linechart-container").attr("transform", "translate(" + margins[3] + "," + margins[0] + ")");
 
@@ -45,18 +37,18 @@ function lineChart() {
     graph.select(".y.axis")
         .call(yAxisLeft);
 
-    // county mean line
-    graph.select(".trend-mean path").attr("d", line(countymean, years));
+    // add mean line
+    my.linesRemove(".trend-mean");
+    my.lineAdd(".trend-mean", "mean");
 
-    // county mean circles
-    graph.selectAll('.node-mean').remove();
-    graph.selectAll(".trend-mean .node")
-        .data(countymean)
-        .enter().append("circle")
-            .attr("class", 'node node-mean')
-            .attr("cx", function(d, i) { return x(metricData[i].year.replace("y_", "")); })
-            .attr("cy", function(d) { return y(d); })
-            .attr("r", 4);
+    // add selected line(s)
+    my.linesRemove(".trend-select");
+    d3.selectAll(".geom .d3-select").each(function() {
+        var item = d3.select(this);
+        if ($.isNumeric(item.attr("data-value"))) {
+            my.lineAdd(".trend-select", item.attr("data-id"));
+        }
+    });
   }
 
   my.width = function(value) {
@@ -97,27 +89,17 @@ function lineChart() {
     return my;
   };
 
-  return my;
-}
+  my.lineAdd = function(container, id) {
+    var graph = d3.select(container);
+    var values;
+    var years = _.map(_.pluck(metricData, 'year'), function(d) { return parseInt(d.replace("y_", "")); });
 
-function drawLineChart(msg) {
-
-    trendChart.container("lineChart");
-    trendChart();
-
-}
-
-function highlightLine(npa, container) {
-    var graph = d3.select(".linechart-container");
-    var x = trendChart.x();
-    var y = trendChart.y();
-    var npavalues = [];
-    var years = [];
-
-    _.each(metricData, function(d, i) {
-        years.push(d.year.replace("y_", ""));
-        npavalues.push(d.map.get(npa));
-    });
+    if (container === '.trend-mean') {
+        values = _.map(_.pluck(metricData, 'map'), function(d) { return d3.mean(d.values()); });
+    }
+    else {
+        values = _.map(_.pluck(metricData, 'map'), function(d) { return d.get(id); });
+    }
 
     var line = d3.svg.line()
         .x(function(d, i) {
@@ -128,20 +110,69 @@ function highlightLine(npa, container) {
         });
 
     // add lines and nodes
-    graph.select(container)
-        .append("path")
-            .attr("d", line(npavalues, years))
-            .attr("data-id", npa);
-    _.each(npavalues, function (d, i) {
-        graph.selectAll(container)
-            .append("circle")
-                    .attr("cx", x(metricData[i].year.replace("y_", "")))
+    graph.append("path")
+            .attr("d", line(values, years))
+            .attr("data-id", id);
+    _.each(values, function (d, i) {
+        graph.append("circle")
+                    .attr("cx", x(years[i]))
                     .attr("cy", y(d))
                     .attr("r", 4)
-                    .attr("data-id", npa)
-                    .attr("data-year", metricData[i].year.replace("y_", ""))
+                    .attr("data-id", id)
                     .attr("data-value", d);
     });
+
+    return my;
+  };
+
+  my.linesRemove = function(container) {
+    d3.select(container).selectAll("path, circle").remove();
+    return my;
+  };
+
+  return my;
+}
+
+function drawLineChart(msg) {
+    trendChart.container("lineChart");
+    trendChart();
+}
+
+function highlightLine(npa, container) {
+    // var graph = d3.select(".linechart-container");
+    // var x = trendChart.x();
+    // var y = trendChart.y();
+    // var npavalues = [];
+    // var years = [];
+
+    // _.each(metricData, function(d, i) {
+    //     years.push(d.year.replace("y_", ""));
+    //     npavalues.push(d.map.get(npa));
+    // });
+
+    // var line = d3.svg.line()
+    //     .x(function(d, i) {
+    //         return x(years[i]);
+    //     })
+    //     .y(function(d) {
+    //         return y(d);
+    //     });
+
+    // // add lines and nodes
+    // graph.select(container)
+    //     .append("path")
+    //         .attr("d", line(npavalues, years))
+    //         .attr("data-id", npa);
+    // _.each(npavalues, function (d, i) {
+    //     graph.selectAll(container)
+    //         .append("circle")
+    //                 .attr("cx", x(metricData[i].year.replace("y_", "")))
+    //                 .attr("cy", y(d))
+    //                 .attr("r", 4)
+    //                 .attr("data-id", npa)
+    //                 .attr("data-year", metricData[i].year.replace("y_", ""))
+    //                 .attr("data-value", d);
+    // });
 }
 
 
