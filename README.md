@@ -1,7 +1,7 @@
 Quality of Life Dashboard v2 Alpha
 =================
 
-A joint project between the City of Charlotte, Mecklenburg County, and UNCC. A reasonably up-to-date version of this dev branch is [here](http://tobinbradley.github.io/Mecklenburg-County-Quality-of-Life-Dashboard/). The current site site launched in January 2013 and is over [here](http://maps.co.mecklenburg.nc.us/qoldashboard).
+A joint project between the City of Charlotte, Mecklenburg County, and UNCC. A reasonably up-to-date version of this dev branch is [here](http://tobinbradley.github.io/Mecklenburg-County-Quality-of-Life-Dashboard/). The current site site launched in January 2013 and is over [here](http://maps.co.mecklenburg.nc.us/qoldashboard). There's no launch date for the next release. You can see what I'm banging at on [Trello](https://trello.com/b/GxsdKVUl/quality-of-life-dashboard).
 
 The new project uses D3 for visualizations. Leaflet holds the D3 layer for the time being but that may change. The good news is despite the new capabilities the dev branch is less than half the size (935kb vs 2425kb) and load time is down to 1.09s (vs 2.29s), and I haven't really started optimizing it yet. It will also be much easier for us (and others) to add their own data on the backend. The bad news is IE8 absolutely will not work (D3=SVG). If you really need to support IE8, stick with the current release.
 

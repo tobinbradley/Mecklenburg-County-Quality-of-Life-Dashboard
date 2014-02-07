@@ -6,9 +6,6 @@ function lineChart() {
       y;
 
   function my() {
-
-    //console.log(my.width());
-
     var formatYear = d3.format("04d");
     var w = width - margins[1] - margins[3]; // width
     var h = height - margins[0] - margins[2]; // height
@@ -111,15 +108,15 @@ function lineChart() {
 
     // add lines and nodes
     graph.append("path")
-            .attr("d", line(values, years))
-            .attr("data-id", id);
+        .attr("d", line(values, years))
+        .attr("data-id", id);
     _.each(values, function (d, i) {
         graph.append("circle")
-                    .attr("cx", x(years[i]))
-                    .attr("cy", y(d))
-                    .attr("r", 4)
-                    .attr("data-id", id)
-                    .attr("data-value", d);
+            .attr("cx", x(years[i]))
+            .attr("cy", y(d))
+            .attr("r", 4)
+            .attr("data-id", id)
+            .attr("data-value", d);
     });
 
     return my;
@@ -137,43 +134,3 @@ function drawLineChart(msg) {
     trendChart.container("lineChart");
     trendChart();
 }
-
-function highlightLine(npa, container) {
-    // var graph = d3.select(".linechart-container");
-    // var x = trendChart.x();
-    // var y = trendChart.y();
-    // var npavalues = [];
-    // var years = [];
-
-    // _.each(metricData, function(d, i) {
-    //     years.push(d.year.replace("y_", ""));
-    //     npavalues.push(d.map.get(npa));
-    // });
-
-    // var line = d3.svg.line()
-    //     .x(function(d, i) {
-    //         return x(years[i]);
-    //     })
-    //     .y(function(d) {
-    //         return y(d);
-    //     });
-
-    // // add lines and nodes
-    // graph.select(container)
-    //     .append("path")
-    //         .attr("d", line(npavalues, years))
-    //         .attr("data-id", npa);
-    // _.each(npavalues, function (d, i) {
-    //     graph.selectAll(container)
-    //         .append("circle")
-    //                 .attr("cx", x(metricData[i].year.replace("y_", "")))
-    //                 .attr("cy", y(d))
-    //                 .attr("r", 4)
-    //                 .attr("data-id", npa)
-    //                 .attr("data-year", metricData[i].year.replace("y_", ""))
-    //                 .attr("data-value", d);
-    // });
-}
-
-
-

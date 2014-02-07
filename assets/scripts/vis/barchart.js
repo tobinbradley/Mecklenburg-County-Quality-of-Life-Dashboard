@@ -1,3 +1,55 @@
+function barChart() {
+    var width = 720, // default width
+        height = 280, // default height
+        margins = [20, 20, 20, 40],
+        x,
+        y;
+
+    function my() {
+
+    }
+
+    my.width = function(value) {
+      if (!arguments.length) { return width; }
+      width = value;
+      return my;
+    };
+
+    my.height = function(value) {
+      if (!arguments.length) { return height; }
+      height = value;
+      return my;
+    };
+
+    my.margins = function(value) {
+      if (!arguments.length) { return margins; }
+      margins = value;
+      return my;
+    };
+
+    my.container = function(value) {
+      if (!arguments.length) { return margins; }
+      var el = document.getElementById(value);
+      width = el.offsetWidth;
+      height = el.offsetHeight;
+      return my;
+    };
+
+    my.x = function(min, max, w, h) {
+      if (!arguments.length) { return x; }
+      x = d3.scale.linear().domain([min, max]).range([0, w]);
+      return my;
+    };
+
+    my.y = function(min, max, w, h) {
+      if (!arguments.length) { return y; }
+      y = d3.scale.linear().domain(x_extent).range([h, 0]);
+      return my;
+    };
+
+    return my;
+}
+
 function drawBarChart(msg) {
 
     var data = quantizeCount(metricData[year].map.values());
