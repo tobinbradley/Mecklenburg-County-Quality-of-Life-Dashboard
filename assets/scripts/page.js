@@ -22,6 +22,15 @@ Number.prototype.commafy = function () {
     return String(this).commafy();
 };
 
+function getNearestNumber(a, n){
+    if((l = a.length) < 2)
+        return l - 1;
+    for(var l, p = Math.abs(a[--l] - n); l--;)
+        if(p < (p = Math.abs(a[l] - n)))
+            break;
+    return l + 1;
+}
+
 // Slider change event
 function sliderChange(value) {
     $('.time-year').text(metricData[value].year.replace("y_", ""));
@@ -389,6 +398,11 @@ function updateMeta(msg, d) {
 }
 
 function processMetric(msg, data) {
+    // get current year if available so slider can find nearest
+    if (_.isNumber(year)) {
+        var prevYear = parseInt(metricData[year].year.replace("y_", ""));
+    }
+
     // clear metric data
     metricData.length = 0;
 
@@ -398,11 +412,15 @@ function processMetric(msg, data) {
     }
 
     // set slider and time related stuff
-    year = metricData.length -1;
-    $(".slider").slider("option", "max", year).slider("value", year);
+    if (!_.isNumber(year)) {
+        year = metricData.length -1;
+    } else {
+        var newYears = _.map(_.pluck(metricData, 'year'), function(d) { return parseInt(d.replace("y_", "")); });
+        year = getNearestNumber(newYears, prevYear);
+    }
+    $(".slider").slider("option", "max", metricData.length - 1).slider("value", year);
     metricData.length > 1 ? $(".time").fadeIn() : $(".time").hide();
-    $('.time-year').text(metricData[metricData.length - 1].year.replace("y_", ""));
-
+    $('.time-year').text(metricData[year].year.replace("y_", ""));
 
     _.each(data.metricdata, function (d) {
         for (var i = 0; i < metricData.length; i++) {
