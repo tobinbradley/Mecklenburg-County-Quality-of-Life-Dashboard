@@ -48,24 +48,6 @@ function lineChart() {
     });
   }
 
-  my.width = function(value) {
-    if (!arguments.length) { return width; }
-    width = value;
-    return my;
-  };
-
-  my.height = function(value) {
-    if (!arguments.length) { return height; }
-    height = value;
-    return my;
-  };
-
-  my.margins = function(value) {
-    if (!arguments.length) { return margins; }
-    margins = value;
-    return my;
-  };
-
   my.container = function(value) {
     if (!arguments.length) { return margins; }
     var el = document.getElementById(value);

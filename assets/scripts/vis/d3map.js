@@ -67,19 +67,19 @@ function drawMap(msg, data) {
                 var xVal = xScale(sel.attr("data-value"));
 
                 // create county mean indicator
-                barChart.select(".means")
+                d3.select(".value-hover")
                     .append("line")
                     .attr("class", "mean-indicator mean-line mean-hover")
                     .attr("x1", xVal)
                     .attr("x2", xVal)
                     .attr("y1", y(0))
                     .attr("y2", y(40));
-                barChart.select(".means")
+                d3.select(".value-hover")
                    .append("path")
                    .attr("transform", "translate(" + xVal + "," + y(5) + ")")
                    .attr("d", d3.svg.symbol().type("triangle-down").size(60))
                    .attr("class", "mean-indicator mean-triangle mean-hover");
-                barChart.select(".means")
+                d3.select(".value-hover")
                     .append("text")
                     .attr("class", "mean-indicator mean-text mean-hover")
                     .attr("x", xVal)
