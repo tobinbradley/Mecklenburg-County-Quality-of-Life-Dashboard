@@ -35,7 +35,7 @@ function d3Select(msg, d) {
     if (d.d3obj.classed("d3-select") && msg !== "geocode") {
         d.d3obj.classed("d3-select", false);
         // remove chart pointer
-        d3.select(".mean-select .mean-triangle[data-id='" + d.d3obj.attr("data-id") + "']").remove();
+        d3.select(".value-select .mean-triangle[data-id='" + d.d3obj.attr("data-id") + "']").remove();
         d3.selectAll(".trend-select circle[data-id='" + d.d3obj.attr("data-id") + "'], .trend-select path[data-id='" + d.d3obj.attr("data-id") + "']").remove();
     }
     else {
@@ -48,7 +48,7 @@ function d3Select(msg, d) {
         var xVal = xScale(d.d3obj.attr("data-value"));
 
         // create county mean indicator
-        barChart.select(".mean-select")
+        d3.select(".value-select")
            .append("path")
            .attr("transform", "translate(" + xVal + "," + y(5) + ")")
            .attr("d", d3.svg.symbol().type("triangle-down").size(60))

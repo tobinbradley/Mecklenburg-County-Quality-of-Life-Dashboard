@@ -55,7 +55,7 @@ $(document).ready(function () {
     // clear selection button
     $(".select-clear").on("click", function() {
         d3.selectAll(".geom path").classed("d3-select", false);
-        d3.selectAll(".mean-select .mean-triangle").remove();
+        d3.selectAll(".value-select path").remove();
         d3.selectAll(".trend-select circle, .trend-select path").remove();
         try { map.removeLayer(marker); }
         catch (err) {}
@@ -274,6 +274,7 @@ $(document).ready(function () {
     PubSub.subscribe('findNeighborhood', d3Zoom);
 
     // set up map
+    L.Icon.Default.imagePath = './images';
     map = L.map("map", {
             zoomControl: true,
             attributionControl: false,
@@ -328,6 +329,7 @@ $(document).ready(function () {
     });
 
     trendChart = lineChart();
+    valueChart = barChart();
 
     queue()
         .defer(d3.json, "data/npa.topo.json")
