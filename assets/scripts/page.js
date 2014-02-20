@@ -55,8 +55,8 @@ $(document).ready(function () {
     // clear selection button
     $(".select-clear").on("click", function() {
         d3.selectAll(".geom path").classed("d3-select", false);
-        d3.selectAll(".value-select path").remove();
-        d3.selectAll(".trend-select circle, .trend-select path").remove();
+        d3.select(".value-select").selectAll("path, line, text").remove();
+        d3.selectAll(".trend-select").selectAll("path, circle").remove();
         try { map.removeLayer(marker); }
         catch (err) {}
     });
@@ -258,13 +258,10 @@ $(document).ready(function () {
     PubSub.subscribe('initialize', drawLineChart);
     PubSub.subscribe('changeYear', drawMap);
     PubSub.subscribe('changeYear', drawBarChart);
-    PubSub.subscribe('changeYear', drawLineChart);
-    PubSub.subscribe('changeYear', updateChartMarkers);
     PubSub.subscribe('changeMetric', processMetric);
     PubSub.subscribe('changeMetric', drawMap);
     PubSub.subscribe('changeMetric', drawBarChart);
     PubSub.subscribe('changeMetric', drawLineChart);
-    PubSub.subscribe('changeMetric', updateChartMarkers);
     PubSub.subscribe('changeMetric', updateMeta);
     PubSub.subscribe('selectGeo', d3Select);
     PubSub.subscribe('geocode', d3Zoom);

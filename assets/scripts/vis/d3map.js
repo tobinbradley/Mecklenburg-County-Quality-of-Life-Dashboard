@@ -56,46 +56,27 @@ function drawMap(msg, data) {
                 // hack for movetofront because IE hates this
                 if (navigator.appName !== 'Microsoft Internet Explorer') { sel.moveToFront(); }
 
-
+                // chart highlight
                 trendChart.lineAdd(".trend-highlight", sel.attr("data-id"));
+                valueChart.pointerAdd(sel.attr("data-id"), sel.attr("data-value"), ".value-hover");
 
-                d3Highlight(".barchart", sel.attr("data-quantile"), true);
+                //d3Highlight(".barchart", sel.attr("data-quantile"), true);
                 sel.classed("d3-highlight", true);
 
                 tip.attr('class', 'd3-tip animate').show({"geomid": sel.attr("data-id"), "num": sel.attr("data-value")});
-
-                var xVal = xScale(sel.attr("data-value"));
-
-                // create county mean indicator
-                d3.select(".value-hover")
-                    .append("line")
-                    .attr("class", "mean-indicator mean-line mean-hover")
-                    .attr("x1", xVal)
-                    .attr("x2", xVal)
-                    .attr("y1", y(0))
-                    .attr("y2", y(40));
-                d3.select(".value-hover")
-                   .append("path")
-                   .attr("transform", "translate(" + xVal + "," + y(5) + ")")
-                   .attr("d", d3.svg.symbol().type("triangle-down").size(60))
-                   .attr("class", "mean-indicator mean-triangle mean-hover");
-                d3.select(".value-hover")
-                    .append("text")
-                    .attr("class", "mean-indicator mean-text mean-hover")
-                    .attr("x", xVal)
-                    .attr("y", y(40))
-                    .text(dataPretty(theMetric, sel.attr("data-value")));
 
             }
         })
         .on("mouseout", function() {
             var sel = d3.select(this);
-            d3Highlight(".barchart", sel.attr("data-quantile"), false);
+            //d3Highlight(".barchart", sel.attr("data-quantile"), false);
             sel.classed("d3-highlight", false);
-            d3.selectAll(".mean-hover").remove();
+
             tip.attr('class', 'd3-tip').show({"geomid": sel.attr("data-id"), "num": sel.attr("data-value") });
             tip.hide();
 
+            // remove chart highlights
+            valueChart.pointerRemove(sel.attr("data-id"), ".value-hover");
             trendChart.linesRemove(".trend-highlight");
         })
         .on("mousedown", function() {
@@ -108,9 +89,6 @@ function drawMap(msg, data) {
                     "value": sel.attr("data-value"),
                     "d3obj": sel
                 });
-
-                trendChart.lineAdd(".trend-select", sel.attr("data-id"));
-
         });
 
 }
