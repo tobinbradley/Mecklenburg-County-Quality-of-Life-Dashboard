@@ -1,7 +1,7 @@
 function lineChart() {
   var width = 720, // default width
       height = 280, // default height
-      margins = [15, 15, 20, 60],
+      margins = [15, 15, 20, 65],
       x,
       y;
 
@@ -96,11 +96,16 @@ function lineChart() {
         graph.append("circle")
             .attr("cx", x(years[i]))
             .attr("cy", y(d))
-            .attr("r", 4)
+            .attr("r", 5)
             .attr("data-id", id)
             .attr("data-value", d);
     });
 
+    return my;
+  };
+
+  my.lineRemove = function(id, container) {
+    d3.selectAll(container + " [data-id='" + id + "']").remove();
     return my;
   };
 

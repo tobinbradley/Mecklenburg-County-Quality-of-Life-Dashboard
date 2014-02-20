@@ -7,9 +7,9 @@
 
 // vars
 @body-color: rgb(249, 249, 249);
-@fancyshadow: 0 8px 6px -6px #666,  inset 0 0 50px rgba(0, 0, 0, 0.1);
-@highlightColor: #F1BE2F;
-@selectedColor: #d500a5;
+@fancyshadow: inset 0 0 40px rgba(0, 0, 0, 0.12); //0 8px 6px -6px #666,
+@highlightColor: #F6FB57;
+@selectedColor: #FFA400;
 
 /* OldIE Prompt */
 .oldie {
@@ -22,25 +22,31 @@
     }
 }
 
-@-webkit-keyframes bounceIn {
+@keyframes bounceIn {
     0% {
       opacity: 0;
-      -webkit-transform: scale(.3);
+      transform: scale(.3);
     }
 
     50% {
       opacity: 1;
-      -webkit-transform: scale(1.05);
+      transform: scale(1.05);
     }
 
     70% {
-      -webkit-transform: scale(.9);
+      transform: scale(.9);
     }
 
     100% {
-      -webkit-transform: scale(1);
+      transform: scale(1);
     }
   }
+
+@keyframes dash {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
 
 .fill-height {
     display: flex;
@@ -68,7 +74,7 @@
 
 // Bootstrap customizations
 .well {
-    box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.1);
+    box-shadow: @fancyshadow;
     background-color: rgba(255,255,255,0.3);
 }
 .navbar-main {
@@ -87,9 +93,10 @@ body {
 
 
 .meta-subtitle {
-    font-size: 1.6em;
-    font-family: 'Coming Soon', cursive;
+    font-size: 1.4em;
     margin: 50px 0 30px;
+    text-shadow: 1px 1px 3px #ccc;
+    color: #666;
 }
 
 .row-vis {
@@ -198,35 +205,65 @@ body {
         fill: white;
     }
 }
-.mean-line, .mean-triangle {
-    fill: @highlightColor;
+
+.value-hover {
+    line {
+        stroke: @highlightColor;
+    }
+    path {
+        fill: @highlightColor;
+        stroke: black;
+        display: none;
+    }
+    text {
+        font-weight: bold;
+        text-anchor: middle;
+        font-size: 0.9em;
+        fill: @highlightColor;
+        filter: url(#gblur);
+    }
+}
+.value-select {
+    line, text {
+        display: none;
+    }
+    path {
+        fill: @selectedColor;
+        stroke: black;
+    }
+}
+
+.trend-mean path {
+    stroke-dasharray: 8,3;
     stroke: black;
 }
-.mean-line {
-    stroke-dasharray: 8,3;
+.trend-highlight {
+    path {
+        stroke: @highlightColor;
+        fill: none;
+        stroke-width: 2px;
+        opacity: 0.8;
+        display: none;
+    }
+    circle {
+        fill: @highlightColor;
+        stroke: darken(@highlightColor, 30%);
+    }
 }
-.mean-text {
-    text-anchor: middle;
-    font-size: 0.9em;
-    font-weight: bold;
-    filter: url(#gblur);
-    fill: white;
-}
-.mean-indicator {
-    pointer-events: none;
-}
-.mean-hover.mean-text {
-    fill: @highlightColor;
+.trend-select {
+    path {
+        stroke: @selectedColor;
+        fill: none;
+        stroke-dasharray: 1000;
+        stroke-dashoffset: 1000;
+        animation: dash 2s linear forwards;
+    }
+    circle {
+        fill: @selectedColor;
+        stroke: darken(@selectedColor, 30%);
+    }
 }
 
-.mean-select .mean-triangle {
-    fill: @selectedColor;
-}
-
-.mean-label {
-    font-weight: bold;
-    text-anchor: end;
-}
 
 .background {
   fill: none;
@@ -271,11 +308,6 @@ rect.bar {
 }
 
 
-path {
-    stroke: steelblue;
-    stroke-width: 1;
-    fill: none;
-}
 
 .axis {
   shape-rendering: crispEdges;
@@ -298,26 +330,7 @@ path {
   stroke: #000;
 }
 
-.trend-mean path {
-    stroke-dasharray: 8,3;
-    stroke: black;
-}
-.trend-highlight {
-    path {
-        stroke: @highlightColor;
-    }
-    circle {
-        fill: @highlightColor;
-    }
-}
-.trend-select {
-    path {
-        stroke: @selectedColor;
-    }
-    circle {
-        fill: @selectedColor;
-    }
-}
+
 
 .d3-tip {
     line-height: 1.4;
@@ -331,7 +344,6 @@ path {
 
   .d3-tip.animate {
     animation: bounceIn 0.2s ease-out;
-    -webkit-animation: bounceIn 0.2s ease-out;
   }
 
   .d3-tip:after {
