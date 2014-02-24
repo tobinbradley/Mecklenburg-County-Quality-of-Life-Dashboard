@@ -17,11 +17,6 @@ function barChart() {
 
         var container = $("#barChart");
 
-        var qtilesLabel = [];
-        _.each(qtiles, function(d, i) {
-            qtilesLabel[i] = parseFloat(d).toFixed(1).commafy();
-        });
-
         // x/y/scale stuff
         my.x(w, data.length);
         my.y(h, _.max(data, function(d){ return d.value; }).value) ;
@@ -38,7 +33,8 @@ function barChart() {
           .attr('class', 'd3-tip')
           .offset([-10, 0])
           .html(function(d) {
-            return "<span>" + d.range + "</span><br><span>" + d.num + "</span> NPA(s)";
+            var theRange = _.map(d.range.split("-"), function(num){ return parseFloat(parseFloat(num).toFixed(1)).toString().commafy(); });
+            return "<span>" + theRange.join(" to ") + "</span><br><span>" + d.num + "</span> NPA(s)";
           });
 
         // set up bar chart
@@ -79,12 +75,12 @@ function barChart() {
             })
             .attr("data-original-title", function(d, i) {
                 if (i === 0) {
-                    return d3.min(x_extent).toFixed(1).commafy() + " - " + qtilesLabel[i];
+                    return d3.min(x_extent) + " - " + qtiles[i];
                 }
                 if (i === colorbreaks - 1) {
-                    return qtilesLabel[i - 1] + " - " + d3.max(x_extent).toFixed(1).commafy();
+                    return qtiles[i - 1] + " - " + d3.max(x_extent);
                 } else {
-                    return qtilesLabel[i - 1] + " - " + qtilesLabel[i];
+                    return qtiles[i - 1] + " - " + qtiles[i];
                 }
             });
 
