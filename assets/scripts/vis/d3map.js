@@ -14,7 +14,7 @@ function drawMap(msg, data) {
       .attr('class', 'd3-tip')
       .offset([-10, 0])
       .html(function(d) {
-        return "<strong><span>NPA " + d.geomid + "</span><br>" + d.num + "</span>";
+        return "<strong><span>NPA " + d.geomid + "</span><br>" + parseFloat(parseFloat(d.num).toFixed(1)).toString().commafy() + "</span>";
       });
 
     var theGeom = d3.selectAll(".geom path");
