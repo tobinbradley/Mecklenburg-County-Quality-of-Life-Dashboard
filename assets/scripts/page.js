@@ -5,11 +5,11 @@ var map,                // leaflet map
     timer,              // timer for year slider
     year,               // the currently selected year as array index of metricData
     barchartWidth,      // for responsive charts
-    mapcenter,           // hack to fix d3 click firing on leaflet drag
     marker,             // marker for geocode
     colorbreaks = 7,     // the number of color breaks
     trendChart,
-    valueChart;
+    valueChart,
+    d3Layer;
 
 PubSub.immediateExceptions = true; // set to false in production
 
@@ -48,7 +48,7 @@ $(document).ready(function () {
     // chosen
     $(".chosen-select").chosen({width: '100%', no_results_text: "Not found - "}).change(function () {
         var theVal = $(this).val();
-        d3.csv("data/metric/" + theVal + ".csv", changeMetric);
+        d3.json("data/metric/" + theVal + ".json", changeMetric);
         $(this).trigger("chosen:updated");
     });
 
@@ -226,7 +226,8 @@ $(document).ready(function () {
                     'fields': 'id'
                 },
                 success: function (data) {
-                    var sel = d3.select(".geom path[data-id='" + data[0].id + "']");
+                    var sel = d3.select(".geom [data-id='" + data[0].id + "']");
+
                     PubSub.publish('geocode', {
                         "id": data[0].id,
                         "value": sel.attr("data-value"),
@@ -241,12 +242,10 @@ $(document).ready(function () {
             // select neighborhood
             var sel = d3.select(".geom path[data-id='" + datum.value + "']");
             PubSub.publish('findNeighborhood', {
-                "d3obj": sel
+                "d3obj": sel,
+                "id": parseInt(datum.value)
             });
         }
-    });
-    $("#btn-search").bind("click", function (event) {
-        $('.typeahead').focus();
     });
 
 
@@ -273,18 +272,16 @@ $(document).ready(function () {
     // set up map
     L.Icon.Default.imagePath = './images';
     map = L.map("map", {
-            zoomControl: true,
             attributionControl: false,
-            scrollWheelZoom: true,
-            zoomAnimation: false,
+            touchZoom: true,
             minZoom: 9,
             maxZoom: 17
-        }).setView([35.260, -80.827],10);
+        }).setView([35.260, -80.827], 10);
 
     L.Icon.Default.imagePath = "images/";
 
     // Mecklenburg Base Layer
-    var baseTiles = L.tileLayer("http://maps.co.mecklenburg.nc.us/tiles/meckbase/{y}/{x}/{z}.png");
+    var baseTiles = L.tileLayer("http://mcmap.org:3000/meckbase/{z}/{x}/{y}.png");
 
     // Year control
     var yearControl = L.control({position: 'bottomright'});
@@ -294,26 +291,6 @@ $(document).ready(function () {
         return this._div;
     };
     yearControl.addTo(map);
-
-    // map typeahead
-    // var mapsearch = L.control({position: 'topcenter'});
-    // mapsearch.onAdd = function(map) {
-    //     this._div = L.DomUtil.create('div', 'yearDisplay');
-    //     this._div.innerHTML = '<h3 class="time-year">2012</h3>';
-    //     return this._div;
-    // };
-    // mapsearch.addTo(map);
-
-    // Layer control
-    // L.control.layers( {} , {"Base Map": baseTiles}).addTo(map);
-    // map.on('overlayadd',function(e){
-    //     // test for e.name === "Base Map"
-    //     $(".neighborhoods path").css("opacity", "0.6");
-
-    // });
-    // map.on('overlayremove',function(e){
-    //     $(".neighborhoods path").css("opacity", "1");
-    // });
 
     map.on("zoomend", function() {
         if (map.getZoom() >= 15) {
@@ -328,11 +305,12 @@ $(document).ready(function () {
     trendChart = lineChart();
     valueChart = barChart();
 
-    queue()
-        .defer(d3.json, "data/npa.topo.json")
-        .defer(d3.csv, "data/metric/" + $("#metric").val() + ".csv")
-        .await(draw);
-
+    $.when(
+        $.getJSON("data/npa.topo.json"),
+        $.getJSON("data/metric/" + $("#metric").val() + ".json")
+    ).then(function(geom, data) {
+        draw(geom[0], data[0]);
+    });
 
     d3.select(window).on("resize", function () {
         if ($(".barchart").parent().width() !== barchartWidth) {
@@ -344,7 +322,7 @@ $(document).ready(function () {
 
 });
 
-function draw(error, geom, data) {
+function draw(geom, data) {
     PubSub.publish('initialize', {
         "geom": geom,
         "metricdata": data,
@@ -369,25 +347,26 @@ function GetSubstringIndex(str, substring, n) {
     return index;
 }
 
+// Eyes wide open for this giant hack. I'm reading the metric HTML (converted from
+// markdown in build process) and pulling substrings out to place on the page. If your
+// metric meta is different *at all*, and it will be, you will need to edit here.
 function updateMeta(msg, d) {
     $.ajax({
-        url: 'data/meta/' + d.metric + '.md',
+        url: 'data/meta/' + d.metric + '.html',
         type: 'GET',
         dataType: 'text',
         success: function (data) {
-            var converter = new Markdown.Converter();
-            var html = converter.makeHtml(data);
             $('.meta-subtitle').html(
-                html.substring(GetSubstringIndex(html, '</h2>', 1) + 5, GetSubstringIndex(html, '<h3>', 1))
+                data.substring(GetSubstringIndex(data, '</h2>', 1) + 5, GetSubstringIndex(data, '<h3', 1))
             );
             $('.meta-important').html(
-                html.substring(GetSubstringIndex(html, '</h3>', 1) + 5, GetSubstringIndex(html, '<h3>', 2))
+                data.substring(GetSubstringIndex(data, '</h3>', 1) + 5, GetSubstringIndex(data, '<h3', 2))
             );
             $('.meta-about').html(
-                html.substring(GetSubstringIndex(html, '</h3>', 2) + 5, GetSubstringIndex(html, '<h3>', 3))
+                data.substring(GetSubstringIndex(data, '</h3>', 2) + 5, GetSubstringIndex(data, '<h3', 3))
             );
             $('.meta-resources').html(
-                html.substring(GetSubstringIndex(html, '</h3>', 3) + 5, html.length)
+                data.substring(GetSubstringIndex(data, '</h3>', 3) + 5, data.length)
             );
         },
         error: function (error, status, desc) {
@@ -442,21 +421,27 @@ function processMetric(msg, data) {
 
 
 
-function dataPretty(theMetric, theValue) {
-    var m = _.filter(dataMeta, function (d) { return d.id === theMetric; });
-    var fmat = d3.format("0,000.0");
-    if (m.length === 1) {
-        if (m[0].units === "percent") {
-            return fmat(theValue) + "%";
-        }
-        else if (m[0].units === "year") {
-            return theValue;
-        }
-        else {
-            return fmat(theValue) + " " + m[0].units;
-        }
+function dataPretty(theValue) {
+    var fmat = d3.format("0,000.0"),
+        suf = "";
+    if ($('.meta-subtitle').text().toUpperCase().search('PERCENT') !== -1) {
+        suf = "%";
     }
-    else {
-        return fmat(theValue);
-    }
+    return fmat(theValue) + suf;
+    // var m = _.filter(dataMeta, function (d) { return d.id === theMetric; });
+    // var fmat = d3.format("0,000.0");
+    // if (m.length === 1) {
+    //     if (m[0].units === "percent") {
+    //         return fmat(theValue) + "%";
+    //     }
+    //     else if (m[0].units === "year") {
+    //         return theValue;
+    //     }
+    //     else {
+    //         return fmat(theValue) + " " + m[0].units;
+    //     }
+    // }
+    // else {
+    //     return fmat(theValue);
+    // }
 }
