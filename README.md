@@ -9,11 +9,7 @@ This sucker is still baking, but most things work. The topojson is linked to dat
 
 The meta is pretty sloppy - some markdown that is being hand parsed with henious lefts and rights. You'll probably need to screw with it. What can I tell you, I needed *normals* to edit that stuff.
 
-Things to customize for your data:
-+ The hella select needs your metrics with the value being the CSV file to fetch.
-+ The map center, zoom, and any base tiles.
-+ For the D3 layer, customize the id field (the default is `id`) of the layer along with the subclass in the topojson (here it's `npa2`).
-+ For shapefile to topojson I'm using `topojson -o npa.json -s 7e-11  --id-property=+id  npa.shp`
+Docs on how to modify this project for your data coming soon.
 
 How to set up:
 + Install nodejs
