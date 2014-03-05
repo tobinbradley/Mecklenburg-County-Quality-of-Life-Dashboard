@@ -39,14 +39,9 @@ function d3Select(msg, d) {
 }
 
 function d3Zoom(msg, d) {
-    //var test = d3.select(".neighborhoods path[data-npa='2']").data()
-    //var thebounds = d3.geo.bounds(test[0])
     if ($(".geom path.d3-select").length === 0 || msg === "geocode" || msg === "findNeighborhood") {
-        var thebounds = d3.geo.bounds(d.d3obj.data()[0]);
-        map.fitBounds([
-            [thebounds[0][1], thebounds[0][0]],
-            [thebounds[1][1], thebounds[1][0]]
-        ]);
+        var feature = _.filter(d3Layer.toGeoJSON().features, function(data) { return data.id === d.id; });
+        map.fitBounds(L.geoJson(feature[0]).getBounds());
     }
 }
 

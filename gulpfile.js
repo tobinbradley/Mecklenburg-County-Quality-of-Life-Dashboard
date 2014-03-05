@@ -7,32 +7,30 @@ var gulp = require('gulp'),
     imagemin = require('gulp-imagemin'),
     concat = require('gulp-concat'),
     replace = require('gulp-replace'),
+    markdown = require('gulp-markdown'),
     refresh = require('gulp-livereload'),
+    convert = require('gulp-convert'),
     lr = require('tiny-lr'),
     server = lr();
 
 var jsFiles = [
-    'assets/scripts/vendor/jquery-2.0.3.min.js',
-    'assets/scripts/vendor/bootstrap/modal.js',
-    'assets/scripts/vendor/bootstrap/transition.js',
-    'assets/scripts/vendor/bootstrap/button.js',
-    'assets/scripts/vendor/bootstrap/collapse.js',
-    'assets/scripts/vendor/bootstrap/dropdown.js',
-    'assets/scripts/vendor/bootstrap/tooltip.js',
+    'bower_components/jquery/dist/jquery.js',
+    'bower_components/bootstrap/js/modal.js',
+    'bower_components/bootstrap/js/transition.js',
+    'bower_components/bootstrap/js/button.js',
+    'bower_components/bootstrap/js/collapse.js',
+    'bower_components/bootstrap/js/dropdown.js',
+    'bower_components/bootstrap/js/tooltip.js',
     'assets/scripts/vendor/leaflet/leaflet.js',
-    'assets/scripts/vendor/leaflet/leaflet.d3.js',
     'assets/scripts/vendor/jquery-ui-1.10.3.custom.min.js',
     'assets/scripts/vendor/chosen.jquery.js',
-    'assets/scripts/vendor/d3.v3.js',
-    'assets/scripts/vendor/pagedown.js',
+    'bower_components/d3/d3.js',
     'assets/scripts/vendor/pubsub.js',
-    'assets/scripts/vendor/queue.v1.min.js',
-    'assets/scripts/vendor/topojson.v0.js',
+    'bower_components/topojson/topojson.js',
     'assets/scripts/vendor/d3.tip.v0.6.3.js',
     'assets/scripts/vendor/typeahead.js',
-    'assets/scripts/vendor/underscore-min.js',
+    'bower_components/lodash/dist/lodash.underscore.js',
     'assets/scripts/vis/*.js',
-    'assets/scripts/datameta.js',
     'assets/scripts/page.js'
 ];
 
@@ -56,9 +54,28 @@ gulp.task('scripts', function() {
 
 // Script uglify
 gulp.task('uglify', function() {
-    return gulp.src('public/js/main.js')
+    return gulp.src(jsFiles)
+        .pipe(concat('main.js'))
         .pipe(uglify())
         .pipe(gulp.dest('public/js'));
+});
+
+// Markdown processing
+gulp.task('markdown', function() {
+    return gulp.src('assets/data/meta/*.md')
+        .pipe(markdown())
+        .pipe(gulp.dest('public/data/meta/'));
+});
+
+// CSV to JSON
+// // Markdown processing
+gulp.task('convert', function() {
+    return gulp.src('assets/data/metric/*.csv')
+        .pipe(convert({
+            from: 'csv',
+            to: 'json'
+        }))
+        .pipe(gulp.dest('public/data/metric/'));
 });
 
 // Image Minification
@@ -111,5 +128,5 @@ gulp.task('dev', function() {
 
 // build task
 gulp.task('build', function() {
-    gulp.run('styles', 'replace', 'imagemin', 'uglify');
+    gulp.run('styles', 'replace', 'imagemin', 'uglify', 'markdown', 'convert');
 });

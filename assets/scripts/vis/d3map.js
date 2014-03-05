@@ -1,12 +1,36 @@
 function drawMap(msg, data) {
 
-    // add leaflet layer on init
     if (msg === 'initialize') {
-        L.d3(data.geom,{
-            topojson: "npa2",
-            svgClass: "geom"
+
+      // Eyes wide open for this narly hack.
+      // There are lots of different ways to put a D3 layer on Leaflet, and I found
+      // them all to be annoying and/or weird. So, here I'm adding the topojson as a
+      // regular leaflet layer so Leaflet can manage zooming/redrawing/events/etc. However,
+      // I want D3 to manage symbolization et al, so I rely on the fact that Leaflet
+      // adds the polys in the topojson order to add a data-id and geom class to the
+      // layer so I can handle it D3-ish rather than through the Leaflet API.
+
+      d3Layer = L.geoJson(topojson.feature(data.geom, data.geom.objects.npa),
+        {
+            style:  {
+                "fillColor": "none",
+                "color": "none",
+                "fillOpacity": 1
+            }
         }).addTo(map);
-    }
+
+      d3Layer.on("click", function(d) {
+        var sel = d3.select(".geom [data-id='" + d.layer.feature.id + "']");
+        PubSub.publish('selectGeo', {
+            "id": sel.attr("data-id"),
+            "value": sel.attr("data-value"),
+            "d3obj": sel
+        });
+      });
+
+      d3.select(".leaflet-overlay-pane svg").classed("geom", true).selectAll(".geom path").attr("data-id",  function(d, i) { return data.geom.objects.npa.geometries[i].id; });
+
+  }
 
     var theMetric = $("#metric").val();
 
@@ -38,7 +62,7 @@ function drawMap(msg, data) {
             .attr("data-quantile", quantize(theData.get(item.attr('data-id'))))
             .attr("data-toggle", "tooltip")
             .attr("data-original-title", function(d) {
-                return "Neighborhood " + item.attr('data-id') + "<br>" + dataPretty(theMetric, theData.get(item.attr('data-id')));
+                return "Neighborhood " + item.attr('data-id') + "<br>" + dataPretty(theData.get(item.attr('data-id')));
             });
     });
 
@@ -78,17 +102,6 @@ function drawMap(msg, data) {
             // remove chart highlights
             valueChart.pointerRemove(sel.attr("data-id"), ".value-hover");
             trendChart.linesRemove(".trend-highlight");
-        })
-        .on("mousedown", function() {
-            mapcenter = map.getCenter();
-        })
-        .on("click", function(d) {
-                var sel = d3.select(this);
-                PubSub.publish('selectGeo', {
-                    "id": sel.attr("data-id"),
-                    "value": sel.attr("data-value"),
-                    "d3obj": sel
-                });
         });
 
 }

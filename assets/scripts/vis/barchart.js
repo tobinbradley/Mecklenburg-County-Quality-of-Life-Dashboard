@@ -95,7 +95,7 @@ function barChart() {
             .transition()
             .attr("x", xScale(countyMean))
             .attr("y", 95)
-            .text(dataPretty(theMetric, countyMean) );
+            .text(dataPretty(countyMean));
         graph.select(".value-mean .mean-label")
             .transition()
             .attr("y", xScale(countyMean) - 4);
@@ -177,7 +177,7 @@ function barChart() {
             .append("text")
             .attr("x", xScale(value))
             .attr("y", y(40))
-            .text(dataPretty($("#metric").val(), value))
+            .text(dataPretty(value))
             .attr("data-id", id);
         return my;
     };
