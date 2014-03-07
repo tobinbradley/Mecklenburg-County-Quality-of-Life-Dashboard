@@ -17,7 +17,8 @@
     "tiny-lr": "~0.0.5",
     "gulp-convert": "0.0.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

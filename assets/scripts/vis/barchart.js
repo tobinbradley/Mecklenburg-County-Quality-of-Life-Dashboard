@@ -25,7 +25,7 @@ function barChart() {
         // axis labeling
         var xAxis = d3.svg.axis()
             .scale(xScale)
-            .tickFormat(function(d) { return d; })
+            .tickFormat(function(d) { return dataPretty(d); })
             .orient("bottom")
             .ticks(5);
 
@@ -33,7 +33,7 @@ function barChart() {
           .attr('class', 'd3-tip')
           .offset([-10, 0])
           .html(function(d) {
-            var theRange = _.map(d.range.split("-"), function(num){ return parseFloat(parseFloat(num).toFixed(1)).toString().commafy(); });
+            var theRange = _.map(d.range.split("-"), function(num){ return dataPretty(num); });
             return "<span>" + theRange.join(" to ") + "</span><br><span>" + d.num + "</span> NPA(s)";
           });
 
@@ -96,12 +96,12 @@ function barChart() {
             .attr("x", xScale(countyMean))
             .attr("y", 95)
             .text(dataPretty(countyMean));
-        graph.select(".value-mean .mean-label")
-            .transition()
-            .attr("y", xScale(countyMean) - 4);
+        // graph.select(".value-mean .mean-label")
+        //     .transition()
+        //     .attr("y", xScale(countyMean) - 4);
 
         // bar hover actions
-        graph.selectAll("rect")
+        graph.selectAll(".bar")
             .on("mouseover", function(d) {
                 var sel = d3.select(this);
                 d3.selectAll(".geom path[data-quantile='" + sel.attr("data-quantile") + "']").classed("d3-highlight", true);
@@ -166,20 +166,46 @@ function barChart() {
             .attr("x1", xScale(value))
             .attr("x2", xScale(value))
             .attr("y1", y(0))
-            .attr("y2", y(40))
+            .attr("y2", 185)
             .attr("data-id", id);
         d3.select(container)
-           .append("path")
-           .attr("transform", "translate(" + xScale(value) + "," + 255 + ")")
-           .attr("d", d3.svg.symbol().type("triangle-down").size(75))
-           .attr("data-id", id);
+            .append("circle")
+            .attr("cx", xScale(value))
+            .attr("cy", y(0))
+            .attr("r", 4)
+            .attr("data-id", id);
+        d3.select(container)
+            .append("rect")
+            .attr("x", xScale(value) - 15)
+            .attr("y", 165)
+            .attr("rx", 3)
+            .attr("ry", 3)
+            .attr("width", 30)
+            .attr("height", 21)
+            .attr("data-id", id);
         d3.select(container)
             .append("text")
             .attr("x", xScale(value))
-            .attr("y", y(40))
-            .text(dataPretty(value))
+            .attr("y", 180)
+            .text(id)
             .attr("data-id", id);
+
+        d3.select(container).selectAll("rect")
+            .on("mouseover", function(d) {
+                var sel = d3.select(this);
+                d3.selectAll(".geom path[data-id='" + sel.attr("data-id") + "'], .trend-select path[data-id='" + sel.attr("data-id") + "']").classed("d3-callout", true);
+            })
+            .on("mouseout", function(d) {
+                var sel = d3.select(this);
+                d3.selectAll(".geom path[data-id='" + sel.attr("data-id") + "'], .trend-select path[data-id='" + sel.attr("data-id") + "']").classed("d3-callout", false);
+            });
+
         return my;
+
+        // shit to do cross-hover-y stuff
+        // secret: tip.show({values, container})
+
+
     };
 
     my.pointerRemove = function (id, container) {
@@ -192,11 +218,28 @@ function barChart() {
             .each(function(d) {
                 var item = d3.select(this);
                 if ($.isNumeric(item.attr("data-value"))) {
-                    d3.select(".value-select path[data-id='" + item.attr("data-id") + "']")
+                    var theX = xScale(metricData[year].map.get(item.attr("data-id")));
+                    d3.select(".value-select circle[data-id='" + item.attr("data-id") + "']")
+                        .transition()
+                        .duration(1000)
+                        .attr("cx", theX)
+                        .attr("opacity", "1");
+                    d3.select(".value-select rect[data-id='" + item.attr("data-id") + "']")
                         .transition()
                         .duration(1000)
                         .attr("opacity", "1")
-                        .attr("transform", "translate(" + xScale(metricData[year].map.get(item.attr("data-id"))) + "," + 255 + ")");
+                        .attr("x", theX - 15);
+                    d3.select(".value-select text[data-id='" + item.attr("data-id") + "']")
+                        .transition()
+                        .duration(1000)
+                        .attr("opacity", "1")
+                        .attr("x", theX);
+                    d3.select(".value-select line[data-id='" + item.attr("data-id") + "']")
+                        .transition()
+                        .duration(1000)
+                        .attr("x1", theX)
+                        .attr("opacity", "1")
+                        .attr("x2", theX);
                 }
                 else {
                     d3.select(".value-select path[data-id='" + item.attr("data-id") + "']")

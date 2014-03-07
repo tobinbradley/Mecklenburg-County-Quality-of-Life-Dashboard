@@ -30,7 +30,7 @@ function lineChart() {
           .call(xAxis);
 
     // create left yAxis
-    var yAxisLeft = d3.svg.axis().scale(y).ticks(4).orient("left");
+    var yAxisLeft = d3.svg.axis().scale(y).ticks(4).orient("left").tickFormat(function(d) { return dataPretty(d); });
     graph.select(".y.axis")
         .call(yAxisLeft);
 

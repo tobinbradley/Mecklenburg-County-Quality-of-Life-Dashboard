@@ -34,15 +34,15 @@ function drawMap(msg, data) {
 
     var theMetric = $("#metric").val();
 
-    var tip = d3.tip()
-      .attr('class', 'd3-tip')
-      .offset([-10, 0])
-      .html(function(d) {
-        return "<strong><span>NPA " + d.geomid + "</span><br>" + parseFloat(parseFloat(d.num).toFixed(1)).toString().commafy() + "</span>";
-      });
+    var maptip = d3.tip()
+        .attr('class', 'd3-tip')
+        .offset([-10, 0])
+        .html(function(d) {
+            return "<strong><span>NPA " + d.geomid + "</span><br>" + dataPretty(d.num) + "</span>";
+        });
 
     var theGeom = d3.selectAll(".geom path");
-    theGeom.call(tip);
+    theGeom.call(maptip);
 
 
     // clear out quantile classes
@@ -76,7 +76,7 @@ function drawMap(msg, data) {
             var sel = d3.select(this);
             if ($.isNumeric(sel.attr("data-value"))) {
 
-                tip.show(sel.attr("data-original-title"));
+                maptip.show(sel.attr("data-original-title"));
                 // hack for movetofront because IE hates this
                 if (navigator.appName !== 'Microsoft Internet Explorer') { sel.moveToFront(); }
 
@@ -87,7 +87,7 @@ function drawMap(msg, data) {
                 //d3Highlight(".barchart", sel.attr("data-quantile"), true);
                 sel.classed("d3-highlight", true);
 
-                tip.attr('class', 'd3-tip animate').show({"geomid": sel.attr("data-id"), "num": sel.attr("data-value")});
+                maptip.attr('class', 'd3-tip animate').show({"geomid": sel.attr("data-id"), "num": sel.attr("data-value")});
 
             }
         })
@@ -96,8 +96,8 @@ function drawMap(msg, data) {
             //d3Highlight(".barchart", sel.attr("data-quantile"), false);
             sel.classed("d3-highlight", false);
 
-            tip.attr('class', 'd3-tip').show({"geomid": sel.attr("data-id"), "num": sel.attr("data-value") });
-            tip.hide();
+            maptip.attr('class', 'd3-tip').show({"geomid": sel.attr("data-id"), "num": sel.attr("data-value") });
+            maptip.hide();
 
             // remove chart highlights
             valueChart.pointerRemove(sel.attr("data-id"), ".value-hover");
