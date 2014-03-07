@@ -30,6 +30,8 @@ var jsFiles = [
     'assets/scripts/vendor/d3.tip.v0.6.3.js',
     'assets/scripts/vendor/typeahead.js',
     'bower_components/lodash/dist/lodash.underscore.js',
+    'bower_components/jquery-joyride/jquery.cookie.js',
+    'bower_components/jquery-joyride/jquery.joyride-2.0.3.js',
     'assets/scripts/vis/*.js',
     'assets/scripts/search.js',
     'assets/scripts/page.js'

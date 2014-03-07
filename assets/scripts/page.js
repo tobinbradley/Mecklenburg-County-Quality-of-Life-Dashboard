@@ -23,11 +23,14 @@ Number.prototype.commafy = function () {
 };
 
 function getNearestNumber(a, n){
-    if((l = a.length) < 2)
+    if((l = a.length) < 2) {
         return l - 1;
-    for(var l, p = Math.abs(a[--l] - n); l--;)
-        if(p < (p = Math.abs(a[l] - n)))
+    }
+    for(var l, p = Math.abs(a[--l] - n); l--;) {
+        if(p < (p = Math.abs(a[l] - n))) {
             break;
+        }
+    }
     return l + 1;
 }
 
@@ -45,12 +48,26 @@ $(document).ready(function () {
         random = Math.floor((Math.random() * $options.length));
     $options.eq(random).prop('selected', true);
 
+
+
     // chosen
     $(".chosen-select").chosen({width: '100%', no_results_text: "Not found - "}).change(function () {
         var theVal = $(this).val();
         d3.json("data/metric/" + theVal + ".json", changeMetric);
         $(this).trigger("chosen:updated");
     });
+
+    // joyride
+    $('.btn-help').on("click", function() {
+        //$.cookie("JoyRide", 1, {expires: 10000 });
+        $('.leaflet-control-zoom').hide();
+        $("#tutorial").joyride({
+            postRideCallback: function() { $('.leaflet-control-zoom').show(); }
+        });
+    });
+    // if (!$.cookie('JoyRide')) {
+    //     $('.btn-help').trigger('click');
+    // }
 
     // clear selection button
     $(".select-clear").on("click", function() {
