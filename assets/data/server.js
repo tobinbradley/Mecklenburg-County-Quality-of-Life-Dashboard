@@ -1,7 +1,7 @@
 var     start = new Date().getTime(),
         _ = require('./underscore-min.js'),
         meta = require('./metrics.json'),
-        toMarkdown = require('./to-markdown.js').toMarkdown,
+        //toMarkdown = require('./to-markdown.js').toMarkdown,
         out = "",
         fs = require('fs');
 
@@ -26,21 +26,21 @@ var new_config = [];
 //         });
 // });
 
+var x = 1;
 _.each(meta, function(item, i) {
+
         var node = {};
-                
-        if (item.style.units) {
-          node.id = item.field;  
-	  if (item.style.units === '%') {
-                node.units = 'percent';
-            }
-            else {
-                node.units = item.style.units.trim();
-            }
+
+        if (item.style.prefix) {
+          node.id = "m" + x;
+
+                node.units = item.style.prefix.trim();
+
           new_config.push(node);
         }
 
-        
+x++;
+
 
         // fs.writeFile("./meta/" + item.field + ".md", out, function(err) {
         //     if(err) {

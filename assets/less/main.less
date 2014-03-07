@@ -4,12 +4,14 @@
 @import (less) "leaflet.css";
 @import "typeahead.less";
 @import "bootstrap-chosen.less";
+@import "vis.less";
 
 // vars
 @body-color: rgb(249, 249, 249);
 @fancyshadow: inset 0 0 40px rgba(0, 0, 0, 0.12); //0 8px 6px -6px #666,
 @highlightColor: #F6FB57;
 @selectedColor: #FFA400;
+@darkGray: #666;
 
 /* OldIE Prompt */
 .oldie {
@@ -22,38 +24,12 @@
     }
 }
 
-@keyframes bounceIn {
-    0% {
-      opacity: 0;
-      transform: scale(.3);
-    }
-
-    50% {
-      opacity: 1;
-      transform: scale(1.05);
-    }
-
-    70% {
-      transform: scale(.9);
-    }
-
-    100% {
-      transform: scale(1);
-    }
-  }
-
-@keyframes dash {
-    to {
-        stroke-dashoffset: 0;
-    }
+body {
+    background: @body-color url(../images/linen.png);
 }
 
-.fill-height {
-    display: flex;
-    flex-direction: column;
-    div {
-        flex: 1;
-    }
+.container-content {
+    margin-top: 30px;
 }
 
 /* chosen customizations */
@@ -82,10 +58,6 @@
 }
 
 
-body {
-    background: @body-color url(../images/linen.png);
-}
-
 .navbar-default .navbar-brand {
     font-size: 1.8em;
     text-shadow: #777 0 1px 1px;
@@ -97,10 +69,6 @@ body {
     margin: 50px 0 30px;
     text-shadow: 1px 1px 3px #ccc;
     color: #666;
-}
-
-.row-vis {
-    margin-top: 5px;
 }
 
 .meta-resources ul {
@@ -134,7 +102,6 @@ body {
 
 
 #barChart {
-    //margin-top: 10px;
     height: 300px;
 }
 #lineChart {
@@ -168,207 +135,6 @@ body {
     margin-bottom: 0;
 }
 
-
-.container-content {
-    margin-top: 30px;
-}
-
-.geom path {
-    stroke: #949494;
-    stroke-width: 0.5px;
-    transition: all 0.5s ease-out;
-    cursor: pointer;
-    stroke-linecap: round;
-}
-
-
-.d3-highlight {
-    stroke: @highlightColor !important;
-    stroke-width: 2.5px !important;
-    //fill: orangered !important;
-}
-.d3-select {
-    stroke: @selectedColor !important;
-    stroke-width: 2.5px !important;
-}
-
-
-.value-mean {
-    line {
-       stroke: black;
-       stroke-dasharray: 8,3;
-    }
-    text {
-        text-anchor: middle;
-        font-size: 0.9em;
-        font-weight: bold;
-        filter: url(#gblur);
-        fill: white;
-    }
-}
-
-.value-hover {
-    line {
-        stroke: @highlightColor;
-    }
-    path {
-        fill: @highlightColor;
-        stroke: black;
-        display: none;
-    }
-    text {
-        font-weight: bold;
-        text-anchor: middle;
-        font-size: 0.9em;
-        fill: @highlightColor;
-        filter: url(#gblur);
-    }
-}
-.value-select {
-    line, text {
-        display: none;
-    }
-    path {
-        fill: @selectedColor;
-        stroke: black;
-    }
-}
-
-.trend-mean path {
-    stroke-dasharray: 8,3;
-    stroke: black;
-}
-.trend-highlight {
-    path {
-        stroke: @highlightColor;
-        fill: none;
-        stroke-width: 2px;
-        opacity: 0.8;
-        display: none;
-    }
-    circle {
-        fill: @highlightColor;
-        stroke: darken(@highlightColor, 30%);
-    }
-}
-.trend-select {
-    path {
-        stroke: @selectedColor;
-        fill: none;
-        stroke-dasharray: 1000;
-        stroke-dashoffset: 1000;
-        animation: dash 2s linear forwards;
-    }
-    circle {
-        fill: @selectedColor;
-        stroke: darken(@selectedColor, 30%);
-    }
-}
-
-
-.background {
-  fill: none;
-  pointer-events: all;
-}
-
-.qnull { fill: rgba(0,0,0,0); }
-.q0{fill:rgb(198,219,239)}
-.q1{fill:rgb(158,202,225)}
-.q2{fill:rgb(107,174,214)}
-.q3{fill:rgb(66,146,198)}
-.q4{fill:rgb(33,113,181)}
-.q5{fill:rgb(8,81,156)}
-.q6{fill:rgb(8,48,107)}
-
-
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-  stroke-width: 1;
-}
-.axis text {
-    font-size: 10px;
-}
-
-
-
-rect.bar {
-    transition: all 0.2s ease-out;
-}
-// rect.bar.q0-9 {
-//     stroke-width: 0.5px;
-//     stroke: #949494;
-// }
-
-.line {
-  fill: none;
-  stroke: steelblue;
-  stroke-width: 1.5px;
-}
-
-
-
-.axis {
-  shape-rendering: crispEdges;
-}
-
-.x.axis line {
-  stroke: lightgrey;
-}
-
-.x.axis .minor {
-  stroke-opacity: .5;
-}
-
-// .x.axis path {
-//   display: none;
-// }
-
-.y.axis line, .y.axis path {
-  fill: none;
-  stroke: #000;
-}
-
-
-
-.d3-tip {
-    line-height: 1.4;
-    text-align: center;
-    font-weight: bold;
-    padding: 8px;
-    background: rgba(0, 0, 0, 0.8);
-    color: #fff;
-    border-radius: 2px;
-    z-index: 5;
-  }
-
-  .d3-tip.animate {
-    animation: bounceIn 0.2s ease-out;
-  }
-
-  .d3-tip:after {
-    box-sizing: border-box;
-    display: inline;
-    font-size: 10px;
-    width: 100%;
-    line-height: 1;
-    color: rgba(0, 0, 0, 0.8);
-    content: "\25BC";
-    position: absolute;
-    text-align: center;
-  }
-
-  .d3-tip.n:after {
-    margin: -1px 0 0 0;
-    top: 100%;
-    left: 0;
-  }
-
-  .d3-tip span {
-    color: #ff00c7;
-  }
 
 // repsonsive design
 @media (max-width: 979px) {

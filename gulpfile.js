@@ -31,6 +31,7 @@ var jsFiles = [
     'assets/scripts/vendor/typeahead.js',
     'bower_components/lodash/dist/lodash.underscore.js',
     'assets/scripts/vis/*.js',
+    'assets/scripts/search.js',
     'assets/scripts/page.js'
 ];
 
@@ -68,7 +69,6 @@ gulp.task('markdown', function() {
 });
 
 // CSV to JSON
-// // Markdown processing
 gulp.task('convert', function() {
     return gulp.src('assets/data/metric/*.csv')
         .pipe(convert({
@@ -128,5 +128,5 @@ gulp.task('dev', function() {
 
 // build task
 gulp.task('build', function() {
-    gulp.run('styles', 'replace', 'imagemin', 'uglify', 'markdown', 'convert');
+    gulp.run('styles', 'replace', 'uglify', 'markdown', 'convert');
 });
