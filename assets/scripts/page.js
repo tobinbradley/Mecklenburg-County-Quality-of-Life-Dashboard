@@ -41,12 +41,23 @@ function sliderChange(value) {
     PubSub.publish('changeYear');
 }
 
+function getURLParameter(name) {
+    return decodeURI(
+        (new RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
+    );
+}
+
 $(document).ready(function () {
 
-    // TODO: set metric selected if argument passed
-    var $options = $('.chosen-select').find('option'),
-        random = Math.floor((Math.random() * $options.length));
-    $options.eq(random).prop('selected', true);
+    // Start with random metric if none passed
+    if (getURLParameter("m") !== "null") {
+        $("#metric option[value='" + getURLParameter('m') + "']").prop('selected', true);
+    }
+    else {
+        var $options = $('.chosen-select').find('option'),
+            random = Math.floor((Math.random() * $options.length));
+        $options.eq(random).prop('selected', true);
+    }
 
 
 
@@ -169,9 +180,41 @@ $(document).ready(function () {
         }
     });
 
+    // geolocate if on a mobile device
+    // bit hacky here on detection, but should cover most things
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+        map.locate({setView: false});
+        map.on('locationfound', function(e) {
+            $.ajax({
+                url: 'http://maps.co.mecklenburg.nc.us/rest/v2/ws_geo_pointoverlay.php',
+                type: 'GET',
+                dataType: 'jsonp',
+                data: {
+                    'x': e.latlng.lng,
+                    'y': e.latlng.lat,
+                    'srid': 4326,
+                    'table': 'neighborhoods',
+                    'fields': 'id'
+                },
+                success: function (data) {
+                    var sel = d3.select(".geom [data-id='" + data[0].id + "']");
+                    PubSub.publish('geocode', {
+                        "id": data[0].id,
+                        "value": sel.attr("data-value"),
+                        "d3obj": sel,
+                        "lat": e.latlng.lat,
+                        "lng": e.latlng.lng
+                    });
+                }
+            });
+        });
+    }
+
+    // initialize charts
     trendChart = lineChart();
     valueChart = barChart();
 
+    // jquery promise so we get geometry and data before anything goes
     $.when(
         $.getJSON("data/npa.topo.json"),
         $.getJSON("data/metric/" + $("#metric").val() + ".json")
@@ -179,6 +222,7 @@ $(document).ready(function () {
         draw(geom[0], data[0]);
     });
 
+    // window resize so charts change
     d3.select(window).on("resize", function () {
         if ($(".barchart").parent().width() !== barchartWidth) {
             drawBarChart();
@@ -284,4 +328,16 @@ function processMetric(msg, data) {
         .range(d3.range(7).map(function (i) {
             return "q" + i;
         }));
+
+    // push state
+
+
+    // push metric to GA and state
+    // Note I'm doing the text descript, not the little name, for clarity in analytics
+    if (msg !== 'initialize') {
+        if (history.pushState) {
+            history.pushState({myTag: true}, null, "?m=" + $("#metric").val());
+        }
+        ga('send', 'event', 'metric', $("#metric option:selected").text().trim());
+    }
 }

@@ -19,6 +19,7 @@
     "d3": "*",
     "jquery": "*",
     "lodash": "*",
-    "jquery-joyride": "*"
+    "jquery-joyride": "*",
+    "d3-tip": "*"
   }
 }
