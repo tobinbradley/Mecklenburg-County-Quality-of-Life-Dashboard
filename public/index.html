@@ -24,7 +24,7 @@
     <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png" />
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/main.css?foo=56165">
+    <link rel="stylesheet" href="css/main.css?foo=58936">
 
 </head>
 
@@ -43,7 +43,7 @@
                     <span class="icon-bar"></span>
                 </button>
 
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="./">
                     <strong>Quality of Life Dashboard
                         <span class="text-primary">Alpha</span>
                     </strong>
@@ -359,11 +359,11 @@
                     <svg width="100%" height="300" class="chart barchart">
                         <defs>
                             <filter id="gblur" y="-0.25" height="1.5" color-interpolation-filters="sRGB">
-                                <feGaussianBlur id="feGaussianBlur4221" stdDeviation="5" result="result6" />
-                                <feComposite id="feComposite4223" in2="result6" result="result8" in="SourceGraphic" operator="atop" />
-                                <feComposite id="feComposite4225" in2="SourceAlpha" result="result9" operator="over" in="result8" />
-                                <feColorMatrix id="feColorMatrix4227" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0 " result="result10" />
-                                <feBlend id="feBlend4229" in2="result6" in="result10" mode="normal" />
+                                <feGaussianBlur id="feGaussianBlur4221" stdDeviation="5" result="result6"></feGaussianBlur>
+                                <feComposite id="feComposite4223" in2="result6" result="result8" in="SourceGraphic" operator="atop"></feComposite>
+                                <feComposite id="feComposite4225" in2="SourceAlpha" result="result9" operator="over" in="result8"></feComposite>
+                                <feColorMatrix id="feColorMatrix4227" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0 " result="result10"></feColorMatrix>
+                                <feBlend id="feBlend4229" in2="result6" in="result10" mode="normal"></feBlend>
                             </filter>
                         </defs>
                         <g class="barchart-container">
@@ -445,50 +445,60 @@
     <ol id="tutorial" class="hide">
         <li>
             <h4>Welcome!</h4>
-            <p>Some general garbage.</p>
+            <p>The Quality of Life Dashboard is designed to help assess the health of neighborhoods in Charlotte and Mecklenburg County.</p>
+            <p>Click <strong>Next</strong> to start the tour.</p>
         </li>
         <li data-class="chosen-container" data-options="tipLocation:top;" class="joyride-push-right">
             <h4>Metrics</h4>
-            <p>This is how you pick your metrics</p>
+            <p>Use this control to select the <strong>Metric</strong> you're interested in. Metrics are divided into categories, and you can also search for Metrics using the search box.</p>
         </li>
         <li data-id="map" data-options="tipLocation:top;">
             <h4>Map</h4>
-            <p>This is how you use the map.</p>
+            <p>The <strong>Map</strong> is fully interactive - you can pan, zoom, and select neighborhoods by mouse or touch. If you zoom in close, the neighborhoods become transparent so you can view roads and map features.</p>
         </li>
         <li data-id="searchbox" data-options="tipLocation:bottom;tipAnimation:fade">
             <h4>Search</h4>
-            <p>Search box help</p>
+            <p>The <strong>Search</strong> control lets you search for almost anything. Type in a neighborhood number, the first part of an address or a place name, and select a match using your mouse, keyboard, or by touch.</p>
         </li>
-        <li data-class="year-slider" data-options="tipLocation:top;tipAnimation:fade">
+        <li data-class="year-slider" data-options="tipLocation:bottom;tipAnimation:fade">
             <h4>Year</h4>
-            <p>Year slider</p>
+            <p>The <strong>Year</strong> controls let you control the year being shown on the map and in the <strong>Bar Chart</strong>. You can change the year by moving the slider and cycle the years available for the metric by using the Play/Pause button.</p>
         </li>
         <li data-class="barchart" data-options="tipLocation:bottom;tipAnimation:fade">
-            <h4>Value Chart</h4>
-            <p>Bar Chart</p>
+            <h4>Bar Chart</h4>
+            <p>The <strong>Bar Chart</strong> shows a lot of information about the <strong>Metric</strong>. First, it acts as a legend for the map - the map colors correspond to the the chart colors. It also shows you the density of the data - the taller the <em>quantile</em>, or bar, the more neighborhoods exist in that range. Clicking on a bar will select every neighborhood in that quantile.</p>
+            <p>The dashed line represents the average value of the neighborhoods.</p>
         </li>
         <li data-class="linechart" data-options="tipLocation:bottom;tipAnimation:fade">
-            <h4>Trend Chart</h4>
-            <p>Line Chart</p>
+            <h4>Line Chart</h4>
+            <p>The <strong>Line Chart</strong> shows the trend of the <strong>Metric</strong> over time. The dashed line represents the average value of the neighborhoods.</p>
         </li>
         <li data-class="select-clear" data-options="tipLocation:bottom;tipAnimation:fade">
             <h4>Clear Selected</h4>
-            <p>Clear selected.</p>
+            <p>The <strong>Clear Selected</strong> button clears any selected neighborhoods from the map and charts.</p>
         </li>
         <li data-class="meta-subtitle" data-options="tipLocation:top;tipAnimation:fade">
             <h4>Metric Information</h4>
-            <p>meta</p>
+            <p>The bottom of the page shows information about the <strong>Metric</strong>, including a brief description, why it is important, where the data came from, and additional resources related to the metric.</p>
         </li>
         <li data-class="navbar-right" data-options="tipLocation:bottom;tipAnimation:fade" data-button="Finished!">
             <h4>Nav Bar</h4>
-            <p>Nav bar goodies</p>
+            <p>The <strong>Nav Bar</strong> can show you more <em>About</em> the Quality of Life study, links to <em>Download</em> the data in a variety of formats, and <em>Help</em> you get started.</p>
         </li>
     </ol>
 
     <!-- scripts at the bottom yo -->
-    <script src="js/main.js?foo=56165"></script>
+    <script src="js/main.js?foo=58936"></script>
 
     <!--   Google Analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-48797957-1', 'mcmap.org');
+      ga('send', 'pageview');
+    </script>
 
 </body>
 
