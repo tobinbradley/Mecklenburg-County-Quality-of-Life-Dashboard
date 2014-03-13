@@ -170,12 +170,13 @@ $(document).ready(function () {
     };
     yearControl.addTo(map);
 
+    // Only show map when zoomed in
     map.on("zoomend", function() {
         if (map.getZoom() >= 15) {
             $(".geom path").css("fill-opacity", "0.5");
             map.addLayer(baseTiles);
         } else {
-            $(".geom path").css("fill-opacity", "1");
+            $(".geom path").css("fill-opacity", "0.8");
             map.removeLayer(baseTiles);
         }
     });

@@ -60,21 +60,26 @@ function addMarker(msg, d) {
 // format data
 function dataPretty(theValue) {
     var theMetric = $("#metric").val(),
-        fmat = d3.format("0,000.0")
+        fmat = d3.format("0,000.0"),
         prefix = "",
         suffix = "",
         pretty = "",
         pct = [],
-        money = [];
+        money = [],
+        year = [];
 
     pct = ["m4", "m6", "m7", "m8", "m9", "m10", "m11", "m12", "m13", "m18", "m19", "m20", "m21", "m32", "m33", "m34", "m35", "m36", "m37", "m38", "m39", "m40", "m41", "m42", "m43", "m44", "m45", "m47", "m48", "m49", "m50", "m58", "m59", "m60", "m61", "m62", "m66", "m67", "m68", "m71", "m73", "m75", "m76", "m77", "m78", "m80"];
     money = ["m17","m57","m63"];
+    year = ["m24", "m53"];
 
     pretty = parseFloat(parseFloat(theValue).toFixed(1)).toString().commafy();
     if (pct.indexOf(theMetric) !== -1) { suffix = "%"; }
     if (money.indexOf(theMetric) !== -1) {
         prefix = "$";
-        pretty = parseFloat(theValue).toFixed(0).commafy()
+        pretty = parseFloat(theValue).toFixed(0).commafy();
+    }
+    if(year.indexOf(theMetric) !== -1) {
+        pretty = parseFloat(pretty.replace(",", "")).toFixed(0);
     }
 
     return prefix + pretty + suffix;
