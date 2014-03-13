@@ -30,6 +30,24 @@ function drawMap(msg, data) {
 
       d3.select(".leaflet-overlay-pane svg").classed("geom", true).selectAll(".geom path").attr("data-id",  function(d, i) { return data.geom.objects.npa.geometries[i].id; });
 
+
+      // $.ajax({
+      //     url: 'data/test.json',
+      //     type: 'GET',
+      //     dataType: 'json',
+      //     success: function (roads) {
+      //         L.geoJson(roads,
+      //                       {
+      //                           style:  {
+      //                               color: "#D60A04",
+      //                               weight: 3,
+      //                               opacity: 0.5
+      //                           }
+      //                       }).addTo(map);
+      //     }
+      // });
+
+
   }
 
     var theMetric = $("#metric").val();
@@ -78,7 +96,7 @@ function drawMap(msg, data) {
 
                 maptip.show(sel.attr("data-original-title"));
                 // hack for movetofront because IE hates this
-                if (navigator.appName !== 'Microsoft Internet Explorer') { sel.moveToFront(); }
+                if (navigator.userAgent.match(/Trident/) === null) { sel.moveToFront(); }
 
                 // chart highlight
                 trendChart.lineAdd(".trend-highlight", sel.attr("data-id"));

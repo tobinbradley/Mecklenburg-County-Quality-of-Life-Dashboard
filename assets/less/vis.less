@@ -151,7 +151,7 @@ rect.bar {
         fill: none;
         stroke-width: 2px;
         opacity: 0.8;
-        display: none;
+        // display: none;
     }
     circle {
         fill: @highlightColor;
@@ -163,6 +163,7 @@ rect.bar {
         stroke: @selectedColor;
         fill: none;
         stroke-dasharray: 1000;
+        // This next line is causing an IE line rendering problem (no line)
         stroke-dashoffset: 1000;
         animation: dash 2s linear forwards;
     }
@@ -172,6 +173,12 @@ rect.bar {
     }
 }
 
+.legend-mean {
+    margin-top: -15px;
+}
+.select-clear {
+    margin-top: 20px;
+}
 
 // d3 tip
 .d3-tip {

@@ -27,7 +27,7 @@ function barChart() {
             .scale(xScale)
             .tickFormat(function(d) { return dataPretty(d); })
             .orient("bottom")
-            .ticks(5);
+            .ticks(4);
 
         var tip = d3.tip()
           .attr('class', 'd3-tip')
