@@ -30,24 +30,6 @@ function drawMap(msg, data) {
 
       d3.select(".leaflet-overlay-pane svg").classed("geom", true).selectAll(".geom path").attr("data-id",  function(d, i) { return data.geom.objects.npa.geometries[i].id; });
 
-
-      // $.ajax({
-      //     url: 'data/test.json',
-      //     type: 'GET',
-      //     dataType: 'json',
-      //     success: function (roads) {
-      //         L.geoJson(roads,
-      //                       {
-      //                           style:  {
-      //                               color: "#D60A04",
-      //                               weight: 3,
-      //                               opacity: 0.5
-      //                           }
-      //                       }).addTo(map);
-      //     }
-      // });
-
-
   }
 
     var theMetric = $("#metric").val();
