@@ -59,8 +59,6 @@ $(document).ready(function () {
         $options.eq(random).prop('selected', true);
     }
 
-
-
     // chosen
     $(".chosen-select").chosen({width: '100%', no_results_text: "Not found - "}).change(function () {
         var theVal = $(this).val();
@@ -70,15 +68,11 @@ $(document).ready(function () {
 
     // joyride
     $('.btn-help').on("click", function() {
-        //$.cookie("JoyRide", 1, {expires: 10000 });
         $('.leaflet-control-zoom').hide();
         $("#tutorial").joyride({
             postRideCallback: function() { $('.leaflet-control-zoom').show(); }
         });
     });
-    // if (!$.cookie('JoyRide')) {
-    //     $('.btn-help').trigger('click');
-    // }
 
     // clear selection button
     $(".select-clear").on("click", function() {
@@ -98,6 +92,13 @@ $(document).ready(function () {
         animate: true,
         slide: function( event, ui ) {
             sliderChange(ui.value);
+        }
+    });
+
+    // Track outbound resource links
+    $(".meta-resources").on("click", "a", function(){
+        if (window.ga) {
+            ga('send', 'event', 'resource', $(this).text().trim(), $(this).prop("href"));
         }
     });
 
@@ -330,15 +331,14 @@ function processMetric(msg, data) {
             return "q" + i;
         }));
 
-    // push state
-
-
     // push metric to GA and state
     // Note I'm doing the text descript, not the little name, for clarity in analytics
     if (msg !== 'initialize') {
         if (history.pushState) {
             history.pushState({myTag: true}, null, "?m=" + $("#metric").val());
         }
-        ga('send', 'event', 'metric', $("#metric option:selected").text().trim());
+        if (window.ga) {
+            ga('send', 'event', 'metric', $("#metric option:selected").text().trim());
+        }
     }
 }

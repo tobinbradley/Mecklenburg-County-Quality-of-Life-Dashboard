@@ -193,11 +193,11 @@ function barChart() {
         d3.select(container).selectAll("rect")
             .on("mouseover", function(d) {
                 var sel = d3.select(this);
-                d3.selectAll(".geom path[data-id='" + sel.attr("data-id") + "'], .trend-select path[data-id='" + sel.attr("data-id") + "']").classed("d3-callout", true);
+                d3.selectAll(".geom path[data-id='" + sel.attr("data-id") + "'], .trend-select path[data-id='" + sel.attr("data-id") + "']").classed("d3-highlight", true);
             })
             .on("mouseout", function(d) {
                 var sel = d3.select(this);
-                d3.selectAll(".geom path[data-id='" + sel.attr("data-id") + "'], .trend-select path[data-id='" + sel.attr("data-id") + "']").classed("d3-callout", false);
+                d3.selectAll(".geom path[data-id='" + sel.attr("data-id") + "'], .trend-select path[data-id='" + sel.attr("data-id") + "']").classed("d3-highlight", false);
             });
 
         return my;
