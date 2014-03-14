@@ -89,6 +89,9 @@ function drawMap(msg, data) {
 
                 maptip.attr('class', 'd3-tip animate').show({"geomid": sel.attr("data-id"), "num": sel.attr("data-value")});
 
+                // highlight charts
+                d3.selectAll(".trend-select [data-id='" + sel.attr("data-id") + "'], .value-select rect[data-id='" + sel.attr("data-id") + "']").classed("d3-highlight", true);
+
             }
         })
         .on("mouseout", function() {
@@ -102,6 +105,8 @@ function drawMap(msg, data) {
             // remove chart highlights
             valueChart.pointerRemove(sel.attr("data-id"), ".value-hover");
             trendChart.linesRemove(".trend-highlight");
+
+            d3.selectAll(".trend-select [data-id='" + sel.attr("data-id") + "'], .value-select rect[data-id='" + sel.attr("data-id") + "']").classed("d3-highlight", false);
         });
 
 }
