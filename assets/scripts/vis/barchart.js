@@ -242,7 +242,7 @@ function barChart() {
                         .attr("x2", theX);
                 }
                 else {
-                    d3.select(".value-select path[data-id='" + item.attr("data-id") + "']")
+                    d3.selectAll(".value-select [data-id='" + item.attr("data-id") + "']")
                         .attr("opacity", "0");
                 }
             });
