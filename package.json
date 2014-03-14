@@ -4,6 +4,8 @@
   "description": "Node packages for gulp",
   "main": "gulpfile.js",
   "dependencies": {
+  },
+  "devDependencies": {
     "gulp": "~3.5.2",
     "gulp-autoprefixer": "~0.0.6",
     "gulp-concat": "~2.1.7",
@@ -16,8 +18,6 @@
     "gulp-markdown": "~0.1.2",
     "tiny-lr": "~0.0.5",
     "gulp-convert": "0.0.1"
-  },
-  "devDependencies": {
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
