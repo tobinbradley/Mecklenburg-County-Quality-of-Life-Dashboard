@@ -89,9 +89,19 @@ function lineChart() {
         });
 
     // add lines and nodes
-    graph.append("path")
+    var path = graph.append("path")
         .attr("d", line(values, years))
-        .attr("data-id", id);
+        .attr("data-id", id)
+        .attr("stroke", "steelblue");
+    var totalLength = path.node().getTotalLength();
+        path
+          .attr("stroke-dasharray", totalLength + " " + totalLength)
+          .attr("stroke-dashoffset", totalLength)
+          .transition()
+            .duration(250)
+            .ease("linear")
+            .attr("stroke-dashoffset", 0);
+
     _.each(values, function (d, i) {
         graph.append("circle")
             .attr("cx", x(years[i]))
