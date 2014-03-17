@@ -193,11 +193,11 @@ function barChart() {
         d3.select(container).selectAll("rect")
             .on("mouseover", function(d) {
                 var sel = d3.select(this);
-                d3.selectAll(".geom path[data-id='" + sel.attr("data-id") + "'], .trend-select path[data-id='" + sel.attr("data-id") + "']").classed("d3-highlight", true);
+                d3.selectAll(".geom path[data-id='" + sel.attr("data-id") + "'], .trend-select [data-id='" + sel.attr("data-id") + "']").classed("d3-highlight", true);
             })
             .on("mouseout", function(d) {
                 var sel = d3.select(this);
-                d3.selectAll(".geom path[data-id='" + sel.attr("data-id") + "'], .trend-select path[data-id='" + sel.attr("data-id") + "']").classed("d3-highlight", false);
+                d3.selectAll(".geom path[data-id='" + sel.attr("data-id") + "'], .trend-select [data-id='" + sel.attr("data-id") + "']").classed("d3-highlight", false);
             });
 
         return my;
@@ -219,6 +219,10 @@ function barChart() {
                 var item = d3.select(this);
                 if ($.isNumeric(item.attr("data-value"))) {
                     var theX = xScale(metricData[year].map.get(item.attr("data-id")));
+                    // add pointer if it doesn't exist
+                    if (d3.select(".value-select circle[data-id='" + item.attr("data-id") + "']")[0][0] === null) {
+                        my.pointerAdd(item.attr("data-id"), item.attr("data-value"), ".value-select");
+                    }
                     d3.select(".value-select circle[data-id='" + item.attr("data-id") + "']")
                         .transition()
                         .duration(1000)

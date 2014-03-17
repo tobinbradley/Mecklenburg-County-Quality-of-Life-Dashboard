@@ -31,10 +31,11 @@ function d3Select(msg, d) {
     }
     else {
         d.d3obj.classed("d3-select", true);
-
-        // trend line
-        trendChart.lineAdd(".trend-select", d.d3obj.attr("data-id"));
-        valueChart.pointerAdd(d.d3obj.attr("data-id"), d.d3obj.attr("data-value"), ".value-select");
+        if ($.isNumeric(d.d3obj.attr("data-value"))) {
+            // add to chart
+            trendChart.lineAdd(".trend-select", d.d3obj.attr("data-id"));
+            valueChart.pointerAdd(d.d3obj.attr("data-id"), d.d3obj.attr("data-value"), ".value-select");
+        }
     }
 }
 

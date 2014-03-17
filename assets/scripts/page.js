@@ -83,6 +83,13 @@ $(document).ready(function () {
         catch (err) {}
     });
 
+    // Track outbound resource links
+    $(".meta-resources").on("click", "a", function(){
+        if (window.ga) {
+            ga('send', 'event', 'resource', $("#metric option:selected").text().trim(), $(this).prop("href"));
+        }
+    });
+
     // time slider
     $(".slider").slider({
         value: 1,
@@ -92,13 +99,6 @@ $(document).ready(function () {
         animate: true,
         slide: function( event, ui ) {
             sliderChange(ui.value);
-        }
-    });
-
-    // Track outbound resource links
-    $(".meta-resources").on("click", "a", function(){
-        if (window.ga) {
-            ga('send', 'event', 'resource', $(this).text().trim(), $(this).prop("href"));
         }
     });
 
@@ -338,7 +338,8 @@ function processMetric(msg, data) {
             history.pushState({myTag: true}, null, "?m=" + $("#metric").val());
         }
         if (window.ga) {
-            ga('send', 'event', 'metric', $("#metric option:selected").text().trim());
+            theMetric = $("#metric option:selected");
+            ga('send', 'event', 'metric', theMetric.parent().prop("label"), theMetric.text().trim());
         }
     }
 }
