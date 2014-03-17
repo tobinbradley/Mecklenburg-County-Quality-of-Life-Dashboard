@@ -85,7 +85,7 @@ function drawMap(msg, data) {
             maptip.attr('class', 'd3-tip animate').show({"geomid": sel.attr("data-id"), "num": sel.attr("data-value")});
 
             // hack for movetofront because IE hates this
-            if (navigator.userAgent.match(/Trident/) === null) { sel.moveToFront(); }
+            //if (navigator.userAgent.match(/Trident/) === null) { console.log("hi"); sel.moveToFront(); }
 
             if ($.isNumeric(sel.attr("data-value"))) {
                 // chart highlight
