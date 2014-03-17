@@ -84,9 +84,9 @@ $(document).ready(function () {
     });
 
     // Track outbound resource links
-    $(".meta-resources").on("click", "a", function(){
-        if (window.ga) {
-            ga('send', 'event', 'resource', $("#metric option:selected").text().trim(), $(this).prop("href"));
+    $(".meta-resources").on("mousedown", "a", function(e){
+        if (window.ga && e.which !== 3) {
+            ga('send', 'event', 'resource', $(this).text().trim(), $("#metric option:selected").text().trim());
         }
     });
 
@@ -339,7 +339,7 @@ function processMetric(msg, data) {
         }
         if (window.ga) {
             theMetric = $("#metric option:selected");
-            ga('send', 'event', 'metric', theMetric.parent().prop("label"), theMetric.text().trim());
+            ga('send', 'event', 'metric', theMetric.text().trim(), theMetric.parent().prop("label"));
         }
     }
 }

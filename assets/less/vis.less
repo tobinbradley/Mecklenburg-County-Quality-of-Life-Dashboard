@@ -14,11 +14,6 @@
       transform: scale(1);
     }
 }
-@keyframes dash {
-    to {
-        stroke-dashoffset: 0;
-    }
-}
 
 // value range
 .qnull { fill: rgba(0,0,0,1); }
@@ -147,7 +142,6 @@ rect.bar {
         fill: none;
         stroke-width: 2px;
         opacity: 0.8;
-        // display: none;
     }
     circle {
         fill: @highlightColor;
@@ -159,10 +153,6 @@ rect.bar {
         stroke: @selectedColor;
         fill: none;
         stroke-width: 3px;
-        stroke-dasharray: 1000;
-        // This next line is causing an IE line rendering problem (no line)
-        stroke-dashoffset: 1000;
-        animation: dash 2s linear forwards;
     }
     circle {
         fill: @selectedColor;

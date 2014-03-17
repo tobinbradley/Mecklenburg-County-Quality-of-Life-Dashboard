@@ -146,4 +146,8 @@ function initTypeahead(msg, data) {
             });
         }
     });
+
+    // placeholder for $#!@#$! IE
+    $('input, textarea').placeholder();
+    $('input').focus().blur();
 }
