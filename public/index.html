@@ -23,7 +23,7 @@
     <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png" />
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/main.css?foo=7569">
+    <link rel="stylesheet" href="css/main.css?foo=74627">
 
 </head>
 
@@ -352,19 +352,11 @@
                 <div class="form mapsearch">
                     <input id="searchbox" type="text" class="typeahead form-control" placeholder="search map">
                 </div>
+                <span id="map-joyride"></span>
             </div>
             <div class="col-md-4 map-aside fill-height">
                 <div id="barChart">
                     <svg width="100%" height="300" class="chart barchart">
-                        <defs>
-                            <filter id="gblur" y="-0.25" height="1.5" color-interpolation-filters="sRGB">
-                                <feGaussianBlur id="feGaussianBlur4221" stdDeviation="5" result="result6"></feGaussianBlur>
-                                <feComposite id="feComposite4223" in2="result6" result="result8" in="SourceGraphic" operator="atop"></feComposite>
-                                <feComposite id="feComposite4225" in2="SourceAlpha" result="result9" operator="over" in="result8"></feComposite>
-                                <feColorMatrix id="feColorMatrix4227" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0 " result="result10"></feColorMatrix>
-                                <feBlend id="feBlend4229" in2="result6" in="result10" mode="normal"></feBlend>
-                            </filter>
-                        </defs>
                         <g class="barchart-container">
                             <g class="bar-container"></g>
                             <g class="value-mean">
@@ -447,15 +439,15 @@
             <p>The Quality of Life Dashboard is designed to help assess the health of neighborhoods in Charlotte and Mecklenburg County.</p>
             <p>Click <strong>Next</strong> to start the tour.</p>
         </li>
-        <li data-class="chosen-container" data-options="tipLocation:top;" class="joyride-push-right">
+        <li data-class="chosen-container" data-options="tipLocation:top;">
             <h4>Metrics</h4>
             <p>Use this control to select the <strong>Metric</strong> you're interested in. Metrics are divided into categories, and you can also search for Metrics using the search box.</p>
         </li>
-        <li data-id="map" data-options="tipLocation:top;">
+        <li data-id="map-joyride" data-options="tipLocation:bottom;">
             <h4>Map</h4>
             <p>The <strong>Map</strong> is fully interactive - you can pan, zoom, and select neighborhoods by mouse or touch. If you zoom in close, the neighborhoods become transparent so you can view roads and map features.</p>
         </li>
-        <li data-id="searchbox" data-options="tipLocation:bottom;tipAnimation:fade">
+        <li data-id="searchbox" data-options="tipLocation:bottom;">
             <h4>Search</h4>
             <p>The <strong>Search</strong> control lets you search for almost anything. Type in a neighborhood number, the first part of an address or a place name, and select a match using your mouse, keyboard, or by touch.</p>
         </li>
@@ -463,31 +455,31 @@
             <h4>Year</h4>
             <p>The <strong>Year</strong> controls let you control the year being shown on the map and in the <strong>Bar Chart</strong>. You can change the year by moving the slider and cycle the years available for the metric by using the Play/Pause button.</p>
         </li>
-        <li data-class="barchart" data-options="tipLocation:bottom;tipAnimation:fade">
+        <li data-class="barchart" data-options="tipLocation:bottom;">
             <h4>Bar Chart</h4>
             <p>The <strong>Bar Chart</strong> shows a lot of information about the <strong>Metric</strong>. First, it acts as a legend for the map - the map colors correspond to the the chart colors. It also shows you the density of the data - the taller the <em>quantile</em>, or bar, the more neighborhoods exist in that range. Clicking on a bar will select every neighborhood in that quantile.</p>
             <p>The dashed line represents the average value of the neighborhoods.</p>
         </li>
-        <li data-class="linechart" data-options="tipLocation:bottom;tipAnimation:fade">
+        <li data-class="linechart" data-options="tipLocation:bottom;">
             <h4>Line Chart</h4>
             <p>The <strong>Line Chart</strong> shows the trend of the <strong>Metric</strong> over time. The dashed line represents the average value of the neighborhoods.</p>
         </li>
-        <li data-class="select-clear" data-options="tipLocation:bottom;tipAnimation:fade">
+        <li data-class="select-clear" data-options="tipLocation:bottom;">
             <h4>Clear Selected</h4>
             <p>The <strong>Clear Selected</strong> button clears any selected neighborhoods from the map and charts.</p>
         </li>
-        <li data-class="meta-subtitle" data-options="tipLocation:top;tipAnimation:fade">
+        <li data-class="meta-subtitle" data-options="tipLocation:top;">
             <h4>Metric Information</h4>
             <p>The bottom of the page shows information about the <strong>Metric</strong>, including a brief description, why it is important, where the data came from, and additional resources related to the metric.</p>
         </li>
-        <li data-class="navbar-right" data-options="tipLocation:bottom;tipAnimation:fade" data-button="Finished!">
+        <li data-class="navbar-right" data-options="tipLocation:bottom;" data-button="Finished!">
             <h4>Nav Bar</h4>
             <p>The <strong>Nav Bar</strong> can show you more <em>About</em> the Quality of Life study, links to <em>Download</em> the data in a variety of formats, and <em>Help</em> you get started.</p>
         </li>
     </ol>
 
     <!-- scripts at the bottom yo -->
-    <script src="js/main.js?foo=7569"></script>
+    <script src="js/main.js?foo=74627"></script>
 
     <!--   Google Analytics -->
     <script>

@@ -34,6 +34,7 @@
 .d3-select {
     stroke: @selectedColor !important;
     stroke-width: 2.5px !important;
+    stroke-opacity: 1;
 }
 
 // map
@@ -43,6 +44,11 @@
     transition: all 0.5s ease-out;
     cursor: pointer;
     stroke-linecap: round;
+}
+#map-joyride {
+    display: block;
+    position: relative;
+    top: -20px;
 }
 
 // chart axes
@@ -78,8 +84,7 @@ rect.bar {
         text-anchor: middle;
         font-size: 0.9em;
         font-weight: bold;
-        filter: url(#gblur);
-        fill: white;
+        fill: black;
     }
 }
 .value-hover {
