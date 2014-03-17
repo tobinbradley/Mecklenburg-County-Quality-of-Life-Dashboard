@@ -129,5 +129,5 @@ gulp.task('dev', function() {
 
 // build task
 gulp.task('build', function() {
-    gulp.run('styles', 'replace', 'uglify', 'markdown', 'convert');
+    gulp.run('styles', 'replace', 'uglify', 'markdown', 'convert', 'imagemin');
 });

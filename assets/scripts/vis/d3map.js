@@ -13,7 +13,7 @@ function drawMap(msg, data) {
       d3Layer = L.geoJson(topojson.feature(data.geom, data.geom.objects.npa),
         {
             style:  {
-                "fillColor": "none",
+                "fillColor": "rgba(0,0,0,0)",
                 "color": "none",
                 "fillOpacity": 1
             }
@@ -38,7 +38,13 @@ function drawMap(msg, data) {
         .attr('class', 'd3-tip')
         .offset([-10, 0])
         .html(function(d) {
-            return "<strong><span>NPA " + d.geomid + "</span><br>" + dataPretty(d.num) + "</span>";
+            if (d.num === null) {
+                d.num = "";
+            }
+            else {
+                d.num = "<br>" + dataPretty(d.num);
+            }
+            return "<strong><span>NPA " + d.geomid + "</strong>" + d.num + "</span>";
         });
 
     var theGeom = d3.selectAll(".geom path");
@@ -74,22 +80,17 @@ function drawMap(msg, data) {
     theGeom
         .on("mouseover", function() {
             var sel = d3.select(this);
+
+            sel.classed("d3-highlight", true);
+            maptip.attr('class', 'd3-tip animate').show({"geomid": sel.attr("data-id"), "num": sel.attr("data-value")});
+
+            // hack for movetofront because IE hates this
+            if (navigator.userAgent.match(/Trident/) === null) { sel.moveToFront(); }
+
             if ($.isNumeric(sel.attr("data-value"))) {
-
-                maptip.show(sel.attr("data-original-title"));
-                // hack for movetofront because IE hates this
-                if (navigator.userAgent.match(/Trident/) === null) { sel.moveToFront(); }
-
                 // chart highlight
                 trendChart.lineAdd(".trend-highlight", sel.attr("data-id"));
                 valueChart.pointerAdd(sel.attr("data-id"), sel.attr("data-value"), ".value-hover");
-
-                //d3Highlight(".barchart", sel.attr("data-quantile"), true);
-                sel.classed("d3-highlight", true);
-
-                maptip.attr('class', 'd3-tip animate').show({"geomid": sel.attr("data-id"), "num": sel.attr("data-value")});
-
-                // highlight charts
                 d3.selectAll(".trend-select [data-id='" + sel.attr("data-id") + "'], .value-select rect[data-id='" + sel.attr("data-id") + "']").classed("d3-highlight", true);
 
             }
