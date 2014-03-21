@@ -19,8 +19,12 @@ function drawMap(msg, data) {
             }
         }).addTo(map);
 
+      d3.selectAll(".leaflet-overlay-pane svg path").classed("geom", true).attr("data-id",  function(d, i) { return data.geom.objects.npa.geometries[i].id; });
+
+
+
       d3Layer.on("click", function(d) {
-        var sel = d3.select(".geom [data-id='" + d.layer.feature.id + "']");
+        var sel = d3.select(".geom[data-id='" + d.layer.feature.id + "']");
         PubSub.publish('selectGeo', {
             "id": sel.attr("data-id"),
             "value": sel.attr("data-value"),
@@ -28,7 +32,17 @@ function drawMap(msg, data) {
         });
       });
 
-      d3.select(".leaflet-overlay-pane svg").classed("geom", true).selectAll(".geom path").attr("data-id",  function(d, i) { return data.geom.objects.npa.geometries[i].id; });
+      // Here's where you would load other crap in your topojson for display purposes
+      L.geoJson(topojson.feature(data.geom, data.geom.objects.istates),
+              {
+                  style:  {
+                      "fillColor": "rgba(0,0,0,0)",
+                      "color": "white",
+                      "fillOpacity": 1,
+                      "opacity": 0.6,
+                      "weight": 2.5
+                  }
+              }).addTo(map);
 
   }
 
@@ -37,6 +51,7 @@ function drawMap(msg, data) {
     var maptip = d3.tip()
         .attr('class', 'd3-tip')
         .offset([-10, 0])
+        .direction('n')
         .html(function(d) {
             if (d.num === null) {
                 d.num = "";
@@ -47,9 +62,8 @@ function drawMap(msg, data) {
             return "<strong><span>NPA " + d.geomid + "</strong>" + d.num + "</span>";
         });
 
-    var theGeom = d3.selectAll(".geom path");
+    var theGeom = d3.selectAll(".geom");
     theGeom.call(maptip);
-
 
     // clear out quantile classes
     var classlist = [];
@@ -76,7 +90,7 @@ function drawMap(msg, data) {
 
      var y = d3.scale.linear().range([260, 0]).domain([0, 260]);
 
-    d3.selectAll(".geom path").on("mouseover", null);
+    d3.selectAll(".geom").on("mouseover", null);
     theGeom
         .on("mouseover", function() {
             var sel = d3.select(this);

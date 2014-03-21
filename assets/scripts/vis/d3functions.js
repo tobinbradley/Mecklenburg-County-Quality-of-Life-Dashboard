@@ -40,7 +40,7 @@ function d3Select(msg, d) {
 }
 
 function d3Zoom(msg, d) {
-    if ($(".geom path.d3-select").length === 0 || msg === "geocode" || msg === "findNeighborhood") {
+    if ($(".geom.d3-select").length === 0 || msg === "geocode" || msg === "findNeighborhood") {
         var feature = _.filter(d3Layer.toGeoJSON().features, function(data) { return data.id === d.id; });
         map.fitBounds(L.geoJson(feature[0]).getBounds());
     }

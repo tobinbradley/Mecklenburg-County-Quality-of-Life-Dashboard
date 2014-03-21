@@ -114,11 +114,11 @@ function lineChart() {
     d3.select(container).selectAll("path, circle")
         .on("mouseover", function(d) {
             var sel = d3.select(this);
-            d3.selectAll(".geom path[data-id='" + sel.attr("data-id") + "'], .value-select rect[data-id='" + sel.attr("data-id") + "']").classed("d3-highlight", true);
+            d3.selectAll(".geom[data-id='" + sel.attr("data-id") + "'], .value-select rect[data-id='" + sel.attr("data-id") + "']").classed("d3-highlight", true);
         })
         .on("mouseout", function(d) {
             var sel = d3.select(this);
-            d3.selectAll(".geom path[data-id='" + sel.attr("data-id") + "'], .value-select rect[data-id='" + sel.attr("data-id") + "']").classed("d3-highlight", false);
+            d3.selectAll(".geom[data-id='" + sel.attr("data-id") + "'], .value-select rect[data-id='" + sel.attr("data-id") + "']").classed("d3-highlight", false);
         });
 
     return my;
