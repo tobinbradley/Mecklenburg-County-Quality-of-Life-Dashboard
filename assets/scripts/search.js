@@ -125,7 +125,7 @@ function initTypeahead(msg, data) {
                     'fields': 'id'
                 },
                 success: function (data) {
-                    var sel = d3.select(".geom [data-id='" + data[0].id + "']");
+                    var sel = d3.select(".geom[data-id='" + data[0].id + "']");
 
                     PubSub.publish('geocode', {
                         "id": data[0].id,
@@ -139,7 +139,7 @@ function initTypeahead(msg, data) {
         }
         else {
             // select neighborhood
-            var sel = d3.select(".geom path[data-id='" + datum.value + "']");
+            var sel = d3.select(".geom[data-id='" + datum.value + "']");
             PubSub.publish('findNeighborhood', {
                 "d3obj": sel,
                 "id": parseInt(datum.value)

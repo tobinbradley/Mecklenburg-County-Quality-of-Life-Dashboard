@@ -9,7 +9,7 @@ This sucker is still baking, but most things work. The topojson is linked to dat
 
 The meta is pretty sloppy - some markdown that is being hand parsed with henious lefts and rights. You'll probably need to screw with it. What can I tell you, I needed *normals* to edit that stuff.
 
-Docs on how to modify this project for your data coming soon.
+Docs on how to modify this project for your data coming soon. For shapefile to topojson I'm using `topojson -o npa.json -s 7e-11  --id-property=+id  npa.shp`
 
 How to set up:
 + Install nodejs

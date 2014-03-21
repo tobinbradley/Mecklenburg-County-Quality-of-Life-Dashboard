@@ -104,20 +104,20 @@ function barChart() {
         graph.selectAll(".bar")
             .on("mouseover", function(d) {
                 var sel = d3.select(this);
-                d3.selectAll(".geom path[data-quantile='" + sel.attr("data-quantile") + "']").classed("d3-highlight", true);
+                d3.selectAll(".geom[data-quantile='" + sel.attr("data-quantile") + "']").classed("d3-highlight", true);
                 sel.classed("d3-highlight", true);
                 tip.attr('class', 'd3-tip animate').show({"range": sel.attr("data-original-title"), "num": d.value});
             })
             .on("mouseout", function(d) {
                 var sel = d3.select(this);
-                d3.selectAll(".geom path[data-quantile='" + sel.attr("data-quantile") + "']").classed("d3-highlight", false);
+                d3.selectAll(".geom[data-quantile='" + sel.attr("data-quantile") + "']").classed("d3-highlight", false);
                 sel.classed("d3-highlight", false);
                 tip.attr('class', 'd3-tip').show({"range": sel.attr("data-original-title"), "num": d.value});
                 tip.hide();
             })
             .on("click", function(d) {
                 var sel = d3.select(this);
-                d3.selectAll(".geom path[data-quantile='" + sel.attr("data-quantile") + "'").each(function () {
+                d3.selectAll(".geom[data-quantile='" + sel.attr("data-quantile") + "'").each(function () {
                     //var mrk = d3.select(this);
                     // if marker doesn't exist
                     var sel = d3.select(this);
@@ -193,11 +193,11 @@ function barChart() {
         d3.select(container).selectAll("rect")
             .on("mouseover", function(d) {
                 var sel = d3.select(this);
-                d3.selectAll(".geom path[data-id='" + sel.attr("data-id") + "'], .trend-select [data-id='" + sel.attr("data-id") + "']").classed("d3-highlight", true);
+                d3.selectAll(".geom[data-id='" + sel.attr("data-id") + "'], .trend-select [data-id='" + sel.attr("data-id") + "']").classed("d3-highlight", true);
             })
             .on("mouseout", function(d) {
                 var sel = d3.select(this);
-                d3.selectAll(".geom path[data-id='" + sel.attr("data-id") + "'], .trend-select [data-id='" + sel.attr("data-id") + "']").classed("d3-highlight", false);
+                d3.selectAll(".geom[data-id='" + sel.attr("data-id") + "'], .trend-select [data-id='" + sel.attr("data-id") + "']").classed("d3-highlight", false);
             });
 
         return my;
@@ -214,7 +214,7 @@ function barChart() {
     };
 
     my.pointerMove = function() {
-        d3.selectAll(".geom path.d3-select")
+        d3.selectAll(".geom.d3-select")
             .each(function(d) {
                 var item = d3.select(this);
                 if ($.isNumeric(item.attr("data-value"))) {

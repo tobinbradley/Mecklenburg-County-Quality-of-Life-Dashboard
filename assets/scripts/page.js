@@ -76,7 +76,7 @@ $(document).ready(function () {
 
     // clear selection button
     $(".select-clear").on("click", function() {
-        d3.selectAll(".geom path").classed("d3-select", false);
+        d3.selectAll(".geom").classed("d3-select", false);
         d3.select(".value-select").selectAll("rect, line, text, circle").remove();
         d3.selectAll(".trend-select").selectAll("path, circle").remove();
         try { map.removeLayer(marker); }
@@ -174,10 +174,12 @@ $(document).ready(function () {
     // Only show map when zoomed in
     map.on("zoomend", function() {
         if (map.getZoom() >= 15) {
-            $(".geom path").css("fill-opacity", "0.5");
+            $(".geom").css("fill-opacity", "0.5");
+            $(".leaflet-overlay-pane svg path:not(.geom)").css("stroke-opacity", "0");
             map.addLayer(baseTiles);
         } else {
-            $(".geom path").css("fill-opacity", "0.8");
+            $(".geom").css("fill-opacity", "1");
+            $(".leaflet-overlay-pane svg path:not(.geom)").css("stroke-opacity", "0.6");
             map.removeLayer(baseTiles);
         }
     });
@@ -218,7 +220,7 @@ $(document).ready(function () {
 
     // jquery promise so we get geometry and data before anything goes
     $.when(
-        $.getJSON("data/npa.topo.json"),
+        $.getJSON("data/geograpy.topo.json"),
         $.getJSON("data/metric/" + $("#metric").val() + ".json")
     ).then(function(geom, data) {
         draw(geom[0], data[0]);

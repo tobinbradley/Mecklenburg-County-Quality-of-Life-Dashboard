@@ -20,8 +20,8 @@
     "jquery": "*",
     "lodash": "*",
     "jquery-joyride": "*",
-    "d3-tip": "*",
-    "jquery-placeholder": "*"
+    "jquery-placeholder": "*",
+    "d3-tip": "*"
   },
   "devDependencies": {
     "jquery-placeholder": "~2.0.7"
