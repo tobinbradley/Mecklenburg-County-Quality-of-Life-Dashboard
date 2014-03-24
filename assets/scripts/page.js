@@ -90,7 +90,17 @@ $(document).ready(function () {
         }
     });
 
-    // time slider
+    // contact form
+    $(".contact form").submit(function(e) {
+        e.preventDefault();
+        $(".contact").dropdown("toggle");
+        // send feedback
+    });
+    $('.dropdown .contact input').click(function(e) {
+        e.stopPropagation();
+    });
+
+    // time slider and looper
     $(".slider").slider({
         value: 1,
         min: 0,
@@ -101,8 +111,6 @@ $(document).ready(function () {
             sliderChange(ui.value);
         }
     });
-
-    // time looper
     $(".btn-looper").on("click", function () {
         var that = $(this).children("span");
         var theSlider = $('.slider');
