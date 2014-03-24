@@ -29,17 +29,8 @@ function barChart() {
             .orient("bottom")
             .ticks(4);
 
-        var tip = d3.tip()
-          .attr('class', 'd3-tip')
-          .offset([-10, 0])
-          .html(function(d) {
-            var theRange = _.map(d.range.split("-"), function(num){ return dataPretty(num); });
-            return "<span>" + theRange.join(" to ") + "</span><br><span>" + d.num + "</span> NPA(s)";
-          });
-
         // set up bar chart
         graph = d3.select(".barchart");
-        graph.call(tip);
         graph.select("g.barchart-container")
             .attr("transform", "translate(" + margins[3] + "," + margins[0] + ")");
         graph.select(".x.axis")
@@ -56,7 +47,8 @@ function barChart() {
                 })
                 .attr("data-quantile", function(d) {
                     return d.key;
-                });
+                })
+                .attr("data-toggle", "tooltip");
 
         // // set bar position, height, and tooltip info
         graph.selectAll("rect")
@@ -73,7 +65,7 @@ function barChart() {
             .attr("height", function(d) {
                 return h - y(d.value) + 6;
             })
-            .attr("data-original-title", function(d, i) {
+            .attr("data-span", function(d, i) {
                 if (i === 0) {
                     return d3.min(x_extent) + " - " + qtiles[i];
                 }
@@ -82,7 +74,20 @@ function barChart() {
                 } else {
                     return qtiles[i - 1] + " - " + qtiles[i];
                 }
-            });
+            })
+            .attr("data-value", function(d) { return d.value; });
+
+        $(".bar").tooltip({
+          html: true,
+          title: function() {
+              var sel = $(this);
+              var theRange = _.map(sel.attr("data-span").split("-"), function(num){ return dataPretty(num); });
+              return "<p class='tip'><span><strong>" + theRange.join(" to ") + "</strong></span><br><span>" + sel.attr("data-value") + "</span> NPA(s)</p>";
+
+          },
+          container: 'body'
+        });
+
 
         // // county mean indicator
         graph.select(".value-mean line")
@@ -106,19 +111,15 @@ function barChart() {
                 var sel = d3.select(this);
                 d3.selectAll(".geom[data-quantile='" + sel.attr("data-quantile") + "']").classed("d3-highlight", true);
                 sel.classed("d3-highlight", true);
-                tip.attr('class', 'd3-tip animate').show({"range": sel.attr("data-original-title"), "num": d.value});
             })
             .on("mouseout", function(d) {
                 var sel = d3.select(this);
                 d3.selectAll(".geom[data-quantile='" + sel.attr("data-quantile") + "']").classed("d3-highlight", false);
                 sel.classed("d3-highlight", false);
-                tip.attr('class', 'd3-tip').show({"range": sel.attr("data-original-title"), "num": d.value});
-                tip.hide();
             })
             .on("click", function(d) {
                 var sel = d3.select(this);
                 d3.selectAll(".geom[data-quantile='" + sel.attr("data-quantile") + "'").each(function () {
-                    //var mrk = d3.select(this);
                     // if marker doesn't exist
                     var sel = d3.select(this);
                     PubSub.publish('selectGeo', {
@@ -201,11 +202,6 @@ function barChart() {
             });
 
         return my;
-
-        // shit to do cross-hover-y stuff
-        // secret: tip.show({values, container})
-
-
     };
 
     my.pointerRemove = function (id, container) {

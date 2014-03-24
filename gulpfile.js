@@ -25,7 +25,6 @@ var jsFiles = [
     'assets/scripts/vendor/jquery-ui-1.10.3.custom.min.js',
     'assets/scripts/vendor/chosen.jquery.js',
     'bower_components/d3/d3.js',
-    'bower_components/d3-tip/index.js',
     'assets/scripts/vendor/pubsub.js',
     'bower_components/topojson/topojson.js',
     'assets/scripts/vendor/typeahead.js',

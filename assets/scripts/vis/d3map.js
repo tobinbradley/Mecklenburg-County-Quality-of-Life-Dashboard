@@ -32,6 +32,21 @@ function drawMap(msg, data) {
         });
       });
 
+      $(".geom").tooltip({
+        html: true,
+        title: function() {
+            var sel = $(this);
+            if ($.isNumeric(sel.attr("data-value"))) {
+                num = "<br>" + dataPretty(sel.attr("data-value"));
+            }
+            else {
+                num = "";
+            }
+            return "<p class='tip'><strong><span>NPA " + sel.attr("data-id") + "</strong>" + num + "</span></p>";
+        },
+        container: '#map'
+      });
+
       // Here's where you would load other crap in your topojson for display purposes
       L.geoJson(topojson.feature(data.geom, data.geom.objects.istates),
               {
@@ -47,23 +62,7 @@ function drawMap(msg, data) {
   }
 
     var theMetric = $("#metric").val();
-
-    var maptip = d3.tip()
-        .attr('class', 'd3-tip')
-        .offset([-10, 0])
-        .direction('n')
-        .html(function(d) {
-            if (d.num === null) {
-                d.num = "";
-            }
-            else {
-                d.num = "<br>" + dataPretty(d.num);
-            }
-            return "<strong><span>NPA " + d.geomid + "</strong>" + d.num + "</span>";
-        });
-
     var theGeom = d3.selectAll(".geom");
-    theGeom.call(maptip);
 
     // clear out quantile classes
     var classlist = [];
@@ -80,15 +79,15 @@ function drawMap(msg, data) {
         item.classed(styleClass, true)
             .attr("data-value", theData.get(item.attr('data-id')))
             .attr("data-quantile", quantize(theData.get(item.attr('data-id'))))
-            .attr("data-toggle", "tooltip")
-            .attr("data-original-title", function(d) {
-                return "Neighborhood " + item.attr('data-id') + "<br>" + dataPretty(theData.get(item.attr('data-id')));
-            });
+            .attr("data-toggle", "tooltip");
     });
 
     var xScale = d3.scale.linear().domain(x_extent).range([0, $("#barChart").parent().width() - 60]);
 
      var y = d3.scale.linear().range([260, 0]).domain([0, 260]);
+
+     //$('.geom').tooltip('destroy');
+
 
     d3.selectAll(".geom").on("mouseover", null);
     theGeom
@@ -96,7 +95,7 @@ function drawMap(msg, data) {
             var sel = d3.select(this);
 
             sel.classed("d3-highlight", true);
-            maptip.attr('class', 'd3-tip animate').show({"geomid": sel.attr("data-id"), "num": sel.attr("data-value")});
+            // maptip.attr('class', 'd3-tip animate').show({"geomid": sel.attr("data-id"), "num": sel.attr("data-value")});
 
             // hack for movetofront because IE hates this
             //if (navigator.userAgent.match(/Trident/) === null) { console.log("hi"); sel.moveToFront(); }
@@ -114,8 +113,8 @@ function drawMap(msg, data) {
             //d3Highlight(".barchart", sel.attr("data-quantile"), false);
             sel.classed("d3-highlight", false);
 
-            maptip.attr('class', 'd3-tip').show({"geomid": sel.attr("data-id"), "num": sel.attr("data-value") });
-            maptip.hide();
+            // maptip.attr('class', 'd3-tip').show({"geomid": sel.attr("data-id"), "num": sel.attr("data-value") });
+            // maptip.hide();
 
             // remove chart highlights
             valueChart.pointerRemove(sel.attr("data-id"), ".value-hover");

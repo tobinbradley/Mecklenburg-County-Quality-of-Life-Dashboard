@@ -40,7 +40,7 @@ function lineChart() {
 
     // add selected line(s)
     my.linesRemove(".trend-select");
-    d3.selectAll(".geom .d3-select").each(function() {
+    d3.selectAll(".geom.d3-select").each(function() {
         var item = d3.select(this);
         if ($.isNumeric(item.attr("data-value"))) {
             my.lineAdd(".trend-select", item.attr("data-id"));
