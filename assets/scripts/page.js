@@ -100,6 +100,48 @@ $(document).ready(function () {
         e.stopPropagation();
     });
 
+
+
+    // subscriptions
+    PubSub.subscribe('initialize', processMetric);
+    PubSub.subscribe('initialize', drawMap);
+    PubSub.subscribe('initialize', updateMeta);
+    PubSub.subscribe('initialize', drawBarChart);
+    PubSub.subscribe('initialize', drawLineChart);
+    PubSub.subscribe('initialize', initTypeahead);
+    PubSub.subscribe('changeYear', drawMap);
+    PubSub.subscribe('changeYear', drawBarChart);
+    PubSub.subscribe('changeMetric', processMetric);
+    PubSub.subscribe('changeMetric', drawMap);
+    PubSub.subscribe('changeMetric', drawBarChart);
+    PubSub.subscribe('changeMetric', drawLineChart);
+    PubSub.subscribe('changeMetric', updateMeta);
+    PubSub.subscribe('selectGeo', d3Select);
+    PubSub.subscribe('geocode', d3Zoom);
+    PubSub.subscribe('geocode', d3Select);
+    PubSub.subscribe('geocode', addMarker);
+    PubSub.subscribe('findNeighborhood', d3Select);
+    PubSub.subscribe('findNeighborhood', d3Zoom);
+
+    // set up map
+    L.Icon.Default.imagePath = './images';
+    map = L.map("map", {
+            attributionControl: false,
+            touchZoom: true,
+            minZoom: 9,
+            maxZoom: 17
+        }).setView([35.260, -80.827], 10);
+    var baseTiles = L.tileLayer("http://mcmap.org:3000/meckbase/{z}/{x}/{y}.png");
+
+    // Year control
+    var yearControl = L.control({position: 'bottomright'});
+    yearControl.onAdd = function(map) {
+        this._div = L.DomUtil.create('div', 'yearDisplay text-right');
+        this._div.innerHTML = '<h3 class="time-year">2012</h3><button type="button" class="btn btn-primary btn-looper"><span class="glyphicon glyphicon-play"></span></button><div class="slider"></div>';
+        return this._div;
+    };
+    yearControl.addTo(map);
+
     // time slider and looper
     $(".slider").slider({
         value: 1,
@@ -138,46 +180,6 @@ $(document).ready(function () {
             clearInterval(timer);
         }
     });
-
-    // subscriptions
-    PubSub.subscribe('initialize', processMetric);
-    PubSub.subscribe('initialize', drawMap);
-    PubSub.subscribe('initialize', updateMeta);
-    PubSub.subscribe('initialize', drawBarChart);
-    PubSub.subscribe('initialize', drawLineChart);
-    PubSub.subscribe('initialize', initTypeahead);
-    PubSub.subscribe('changeYear', drawMap);
-    PubSub.subscribe('changeYear', drawBarChart);
-    PubSub.subscribe('changeMetric', processMetric);
-    PubSub.subscribe('changeMetric', drawMap);
-    PubSub.subscribe('changeMetric', drawBarChart);
-    PubSub.subscribe('changeMetric', drawLineChart);
-    PubSub.subscribe('changeMetric', updateMeta);
-    PubSub.subscribe('selectGeo', d3Select);
-    PubSub.subscribe('geocode', d3Zoom);
-    PubSub.subscribe('geocode', d3Select);
-    PubSub.subscribe('geocode', addMarker);
-    PubSub.subscribe('findNeighborhood', d3Select);
-    PubSub.subscribe('findNeighborhood', d3Zoom);
-
-    // set up map
-    L.Icon.Default.imagePath = './images';
-    map = L.map("map", {
-            attributionControl: false,
-            touchZoom: true,
-            minZoom: 9,
-            maxZoom: 17
-        }).setView([35.260, -80.827], 10);
-    var baseTiles = L.tileLayer("http://mcmap.org:3000/meckbase/{z}/{x}/{y}.png");
-
-    // Year control
-    var yearControl = L.control({position: 'bottomright'});
-    yearControl.onAdd = function(map) {
-        this._div = L.DomUtil.create('div', 'yearDisplay');
-        this._div.innerHTML = '<h3 class="time-year">2012</h3>';
-        return this._div;
-    };
-    yearControl.addTo(map);
 
     // Only show map when zoomed in
     map.on("zoomend", function() {

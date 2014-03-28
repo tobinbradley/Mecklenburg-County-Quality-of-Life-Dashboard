@@ -77,10 +77,13 @@ body {
     }
 }
 
+.page-footer {
+    margin-top: 50px;
+}
 
 .meta-subtitle {
     font-size: 1.4em;
-    margin: 50px 0 30px;
+    margin: 60px 0 30px;
     text-shadow: 1px 1px 3px #ccc;
     color: #666;
 }
@@ -110,7 +113,7 @@ body {
     width: 30%;
     margin: 0 auto;
     input[type="text"] {
-        background: rgba(255,255,255,.5);
+        background: rgba(255,255,255,0.5);
     }
 }
 
@@ -126,31 +129,29 @@ body {
 
 // year control
 .yearDisplay {
-    margin-bottom: 2px !important;
-}
-.year-slider {
-     position: relative;
-     z-index: 5;
-     bottom: 43px;
-     left: 10px;
-     .slider {
-        width: 110px;
-        display: inline-block;
-        margin-left: 10px;
-        position: relative;
-        top: 3px;
-     }
-}
-.time-year {
-    font-weight: bold;
-    font-size: 3.5em;
-    color: #666;
-    text-shadow: 1px 1px 3px rgb(150,150,150);
-    margin-bottom: 0;
+    //background: rgba(255,255,255,0.5);
+    //border-radius: 5px;
+    //padding: 5px;
+    // border: 1px solid #ccc;
+    .slider {
+       width: 100px;
+       display: inline-block;
+       margin: 0 6px 0 10px;
+       position: relative;
+       top: 3px;
+    }
+    .time-year {
+        font-weight: bold;
+        font-size: 2.8em;
+        color: #666;
+        text-shadow: 1px 1px 3px rgb(150,150,150);
+        margin: 0 0 0 0;
+    }
 }
 
 
-// repsonsive design
+
+// repsonsive design adjustments
 @media (max-width: 979px) {
     // Header text
     .navbar-default .navbar-brand {
