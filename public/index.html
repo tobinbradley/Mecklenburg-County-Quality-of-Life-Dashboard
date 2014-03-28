@@ -23,7 +23,7 @@
     <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png" />
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/main.css?foo=58249">
+    <link rel="stylesheet" href="css/main.css?foo=2674">
 
 </head>
 
@@ -88,7 +88,7 @@
     <div class="container container-content">
         <div class="row row-vis">
             <div class="col-md-8 map-container">
-                <select id="metric" class="form-control input-lg form-metric chosen-select" style="display: none;">
+                <select id="metric" class="form-control input-lg form-metric chosen-select hide">
                     <optgroup label="Character">
                         <option value="m3">
                             Area (in acres)
@@ -353,12 +353,6 @@
                     </optgroup>
                 </select>
                 <div id="map"></div>
-                <div class="time year-slider">
-                    <button type="button" class="btn btn-primary btn-looper">
-                        <span class="glyphicon glyphicon-play"></span>
-                    </button>
-                    <div class='slider'></div>
-                </div>
                 <div class="form mapsearch">
                     <input id="searchbox" type="text" class="typeahead form-control" placeholder="search map">
                 </div>
@@ -429,15 +423,15 @@
 
         </div>
         <div class="row">
-            <hr>
-            <footer class="text-center">
+            <footer class="text-center page-footer">
+                <p>
+                    <img src="images/seals.png" width="177" height="36" alt="City and County Seals">
+                </p>
                 <p class="text-muted">
                     Created by the <a href="http://charmeck.org/city/charlotte/Pages/default.aspx">City of Charlotte</a>, <a href="http://charmeck.org/mecklenburg/county/Pages/Default.aspx">Mecklenburg County</a>, and <a href="http://www.uncc.edu/">UNCC</a>
                     &bull; Source code on <a href="https://github.com/tobinbradley/Mecklenburg-County-Quality-of-Life-Dashboard">Github</a>
                 </p>
-                <p>
-                    <img src="images/seals.png" width="177" height="36" alt="City and County Seals">
-                </p>
+
             </footer>
         </div>
     </div>
@@ -489,7 +483,7 @@
     </ol>
 
     <!-- scripts at the bottom yo -->
-    <script src="js/main.js?foo=58249"></script>
+    <script src="js/main.js?foo=2674"></script>
 
     <!--   Google Analytics -->
     <script>
