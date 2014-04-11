@@ -29,6 +29,11 @@ function barChart() {
             .orient("bottom")
             .ticks(4);
 
+        var yAxis = d3.svg.axis()
+            .scale(y)
+            .orient("left")
+            .ticks(4);
+
         // set up bar chart
         graph = d3.select(".barchart");
         graph.select("g.barchart-container")
@@ -36,6 +41,12 @@ function barChart() {
         graph.select(".x.axis")
             .attr("transform", "translate(0," + h + ")")
             .call(xAxis);
+
+        // graph.select(".y.axis")
+        //       .attr("transform", "translate(0,0)")
+        //       .call(yAxis)
+        //       .select("text")
+        //       .style("opacity", 1);
 
         // create original rects
             var barContainer = graph.select(".bar-container");
@@ -82,7 +93,7 @@ function barChart() {
           title: function() {
               var sel = $(this);
               var theRange = _.map(sel.attr("data-span").split("-"), function(num){ return dataPretty(num); });
-              return "<p class='tip'><span><strong>" + theRange.join(" to ") + "</strong></span><br><span>" + sel.attr("data-value") + "</span> NPA(s)</p>";
+              return "<p class='tip'><span><strong>" + theRange.join(" to ") + "</strong></span><br>" + sel.attr("data-value") + " NPA(s)</p>";
 
           },
           container: 'body'
@@ -116,19 +127,19 @@ function barChart() {
                 var sel = d3.select(this);
                 d3.selectAll(".geom[data-quantile='" + sel.attr("data-quantile") + "']").classed("d3-highlight", false);
                 sel.classed("d3-highlight", false);
-            })
-            .on("click", function(d) {
-                var sel = d3.select(this);
-                d3.selectAll(".geom[data-quantile='" + sel.attr("data-quantile") + "'").each(function () {
-                    // if marker doesn't exist
-                    var sel = d3.select(this);
-                    PubSub.publish('selectGeo', {
-                        "id": sel.attr("data-id"),
-                        "value": sel.attr("data-value"),
-                        "d3obj": sel
-                    });
-                });
             });
+            // .on("click", function(d) {
+            //     var sel = d3.select(this);
+            //     d3.selectAll(".geom[data-quantile='" + sel.attr("data-quantile") + "'").each(function () {
+            //         // if marker doesn't exist
+            //         var sel = d3.select(this);
+            //         PubSub.publish('selectGeo', {
+            //             "id": sel.attr("data-id"),
+            //             "value": sel.attr("data-value"),
+            //             "d3obj": sel
+            //         });
+            //     });
+            // });
 
         my.pointerMove();
 

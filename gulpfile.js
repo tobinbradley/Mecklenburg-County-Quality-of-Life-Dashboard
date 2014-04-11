@@ -29,7 +29,7 @@ var jsFiles = [
     'bower_components/topojson/topojson.js',
     'assets/scripts/vendor/typeahead.js',
     'bower_components/lodash/dist/lodash.underscore.js',
-    'bower_components/jquery-joyride/jquery.joyride-2.0.3.js',
+    'bower_components/jquery-joyride/jquery.joyride-2.1.js',
     'assets/scripts/vis/*.js',
     'assets/scripts/search.js',
     'assets/scripts/page.js'
