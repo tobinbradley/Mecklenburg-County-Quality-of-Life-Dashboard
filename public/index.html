@@ -23,7 +23,7 @@
     <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png" />
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/main.css?foo=2674">
+    <link rel="stylesheet" href="css/main.css?foo=56416">
 
 </head>
 
@@ -53,24 +53,14 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="http://qol.charmeck.org/">About</a>
                     </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Data <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">CSV (LibreOffice Calc, MS Office)</a>
-                            </li>
-                            <li><a href="#">Shapefile (QGIS, ArcGIS)</a>
-                            </li>
-                            <li><a href="#">Metadata</a>
-                            </li>
-                            <li><a href="#">Google Fusion Tables</a>
-                            </li>
-                        </ul>
+                    <li>
+                        <a href="#">Download Data</a>
                     </li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" href="#" data-toggle="dropdown">Contact <b class="caret"></b></a>
                         <div class="dropdown-menu contact">
                             <form action="" method="post" accept-charset="UTF-8">
-                                <input id="email" class="form-control" type="email" name="email" size="30" placeholder="Email Address" />
+                                <input id="email" class="form-control" type="email" name="email" size="30" placeholder="Email Address (optional)" />
                                 <textarea id="message" class="form-control" rows="3" placeholder="Message"></textarea>
                                 <input class="btn btn-primary" style="clear: left; width: 100%; height: 32px; font-size: 13px;" type="submit" name="commit" value="Send" />
                             </form>
@@ -356,7 +346,9 @@
                 <div class="form mapsearch">
                     <input id="searchbox" type="text" class="typeahead form-control" placeholder="search map">
                 </div>
-                <span id="map-joyride"></span>
+                <div class="text-center">
+                    <span id="map-joyride">&nbsp;</span>
+                </div>
             </div>
             <div class="col-md-4 map-aside fill-height">
                 <div id="barChart">
@@ -368,17 +360,20 @@
                                 <text class="mean-text"></text>
                                 <!--<text class="mean-label" transform="rotate(-90)" x="-155" >mean</text>-->
                             </g>
-                            <g class="value-hover"></g>
                             <g class="value-select"></g>
+                            <g class="value-hover"></g>
                             <g class="x axis"></g>
+                            <g class="y axis">
+                                <text transform="rotate(-90)" y="6" dy=".71em" style="text-anchor: end; opacity: 0;">Neighborhoods</text>
+                            </g>
                         </g>
                     </svg>
                 </div>
                 <div id="lineChart" class="text-center">
                     <svg width="100%" height="100%" class="chart linechart time">
                         <g class="linechart-container">
-                            <g class="trend-highlight"></g>
                             <g class="trend-select"></g>
+                            <g class="trend-highlight"></g>
                             <g class="trend-mean"></g>
                             <g class="x axis"></g>
                             <g class="y axis"></g>
@@ -389,16 +384,8 @@
                     <p class="text-center legend-mean">
                         <img src="images/legend-mean.png" alt="County NPA Mean" width="23" height="15"> County NPA Mean
                     </p>
-                    <p class="text-center">
-                        <button type="button" class="btn btn-primary select-clear">
-                            <span class="glyphicon glyphicon-unchecked"></span> Clear Selected</button>
-                    </p>
+                    <p class="meta-subtitle text-center"></p>
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-11 col-md-offset-1">
-                <p class="meta-subtitle text-center"></p>
             </div>
         </div>
         <div class="row meta-container">
@@ -408,7 +395,7 @@
                     <div class='meta-important'></div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 meta-joyride">
                 <div class="well">
                     <h4>About the Data</h4>
                     <div class='meta-about'></div>
@@ -455,9 +442,13 @@
             <h4>Search</h4>
             <p>The <strong>Search</strong> control lets you search for almost anything. Type in a neighborhood number, the first part of an address or a place name, and select a match using your mouse, keyboard, or by touch.</p>
         </li>
-        <li data-class="year-slider" data-options="tipLocation:bottom;tipAnimation:fade">
+        <li data-class="yearDisplay" data-options="tipLocation:left;">
             <h4>Year</h4>
             <p>The <strong>Year</strong> controls let you control the year being shown on the map and in the <strong>Bar Chart</strong>. You can change the year by moving the slider and cycle the years available for the metric by using the Play/Pause button.</p>
+        </li>
+        <li data-class="select-clear" data-options="tipLocation:right;">
+            <h4>Clear Selected</h4>
+            <p>The <strong>Clear Selected</strong> button clears any selected neighborhoods from the map and charts.</p>
         </li>
         <li data-class="barchart" data-options="tipLocation:bottom;">
             <h4>Bar Chart</h4>
@@ -468,11 +459,7 @@
             <h4>Line Chart</h4>
             <p>The <strong>Line Chart</strong> shows the trend of the <strong>Metric</strong> over time. The dashed line represents the average value of the neighborhoods.</p>
         </li>
-        <li data-class="select-clear" data-options="tipLocation:bottom;">
-            <h4>Clear Selected</h4>
-            <p>The <strong>Clear Selected</strong> button clears any selected neighborhoods from the map and charts.</p>
-        </li>
-        <li data-class="meta-subtitle" data-options="tipLocation:top;">
+        <li data-class="meta-joyride" data-options="tipLocation:bottom;">
             <h4>Metric Information</h4>
             <p>The bottom of the page shows information about the <strong>Metric</strong>, including a brief description, why it is important, where the data came from, and additional resources related to the metric.</p>
         </li>
@@ -483,7 +470,7 @@
     </ol>
 
     <!-- scripts at the bottom yo -->
-    <script src="js/main.js?foo=2674"></script>
+    <script src="js/main.js?foo=56416"></script>
 
     <!--   Google Analytics -->
     <script>

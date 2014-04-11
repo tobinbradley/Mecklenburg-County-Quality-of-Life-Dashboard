@@ -4,7 +4,7 @@
 @import (less) "leaflet.css";
 @import "typeahead.less";
 @import "bootstrap-chosen.less";
-@import (less) "../../bower_components/jquery-joyride/joyride-2.0.3.css";
+@import (less) "../../bower_components/jquery-joyride/joyride-2.1.css";
 @import "vis.less";
 
 // vars
@@ -18,8 +18,10 @@
 .oldie {
     width: 100%;
     margin: 0;
-    font-size: 0.9em;
-    padding: 1px;
+    font-size: 1em;
+    font-weight: bold;
+    padding: 10px;
+    background: yellow;
     a {
         text-decoration: underline;
     }
@@ -30,7 +32,7 @@ body {
 }
 
 .container-content {
-    margin-top: 30px;
+    margin-top: 40px;
 }
 
 /* chosen customizations */
@@ -81,11 +83,20 @@ body {
     margin-top: 50px;
 }
 
+
+.legend-mean {
+    margin-top: -15px;
+    font-size: 0.9em;
+}
+
 .meta-subtitle {
-    font-size: 1.4em;
-    margin: 60px 0 30px;
+    font-size: 1.1em;
+    margin: 15px 0 0px;
     text-shadow: 1px 1px 3px #ccc;
-    color: #666;
+}
+
+.meta-container {
+    margin-top: 75px;
 }
 
 .meta-resources ul {

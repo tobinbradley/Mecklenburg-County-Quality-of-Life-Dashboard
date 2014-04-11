@@ -6,7 +6,7 @@ var map,                // leaflet map
     year,               // the currently selected year as array index of metricData
     barchartWidth,      // for responsive charts
     marker,             // marker for geocode
-    colorbreaks = 7,     // the number of color breaks
+    colorbreaks = 6,     // the number of color breaks
     trendChart,
     valueChart,
     d3Layer;
@@ -74,14 +74,7 @@ $(document).ready(function () {
         });
     });
 
-    // clear selection button
-    $(".select-clear").on("click", function() {
-        d3.selectAll(".geom").classed("d3-select", false);
-        d3.select(".value-select").selectAll("rect, line, text, circle").remove();
-        d3.selectAll(".trend-select").selectAll("path, circle").remove();
-        try { map.removeLayer(marker); }
-        catch (err) {}
-    });
+
 
     // Track outbound resource links
     $(".meta-resources").on("mousedown", "a", function(e){
@@ -95,6 +88,20 @@ $(document).ready(function () {
         e.preventDefault();
         $(".contact").dropdown("toggle");
         // send feedback
+        if ($("#message").val().trim().length > 0) {
+            $.ajax({
+                type: "POST",
+                url: "/utilities/feedback.php",
+                data: {
+                    email: $("#email").val(),
+                    url: window.location.href,
+                    agent: navigator.userAgent,
+                    subject: "Quality of Life Dashboard Feedback",
+                    to: "tobin.bradley@gmail.com",
+                    message: $("#message").val()
+                }
+            });
+        }
     });
     $('.dropdown .contact input').click(function(e) {
         e.stopPropagation();
@@ -133,14 +140,32 @@ $(document).ready(function () {
         }).setView([35.260, -80.827], 10);
     var baseTiles = L.tileLayer("http://mcmap.org:3000/meckbase/{z}/{x}/{y}.png");
 
+    // Clear selected control
+    var clearSelected = L.control({position: 'bottomleft'});
+    clearSelected.onAdd = function(map) {
+        this._div = L.DomUtil.create('div', 'text-left');
+        this._div.innerHTML = '<button type="button" class="btn btn-primary select-clear"><span class="glyphicon glyphicon-remove-sign"></span> Clear Selected</button>';
+        return this._div;
+    };
+    clearSelected.addTo(map);
+    $(".select-clear").on("click", function() {
+        d3.selectAll(".geom").classed("d3-select", false);
+        d3.select(".value-select").selectAll("rect, line, text, circle").remove();
+        d3.selectAll(".trend-select").selectAll("path, circle").remove();
+        try { map.removeLayer(marker); }
+        catch (err) {}
+    });
+
+
     // Year control
     var yearControl = L.control({position: 'bottomright'});
     yearControl.onAdd = function(map) {
-        this._div = L.DomUtil.create('div', 'yearDisplay text-right');
+        this._div = L.DomUtil.create('div', 'yearDisplay time text-right');
         this._div.innerHTML = '<h3 class="time-year">2012</h3><button type="button" class="btn btn-primary btn-looper"><span class="glyphicon glyphicon-play"></span></button><div class="slider"></div>';
         return this._div;
     };
     yearControl.addTo(map);
+
 
     // time slider and looper
     $(".slider").slider({
@@ -315,12 +340,13 @@ function processMetric(msg, data) {
     }
 
     // set slider and time related stuff
-    if (!_.isNumber(year)) {
-        year = metricData.length -1;
-    } else {
-        var newYears = _.map(_.pluck(metricData, 'year'), function(d) { return parseInt(d.replace("y_", "")); });
-        year = getNearestNumber(newYears, prevYear);
-    }
+    // if (!_.isNumber(year)) {
+    //     year = metricData.length -1;
+    // } else {
+    //     var newYears = _.map(_.pluck(metricData, 'year'), function(d) { return parseInt(d.replace("y_", "")); });
+    //     year = getNearestNumber(newYears, prevYear);
+    // }
+    year = metricData.length -1;
     $(".slider").slider("option", "max", metricData.length - 1).slider("value", year);
     metricData.length > 1 ? $(".time").fadeIn() : $(".time").hide();
     $('.time-year').text(metricData[year].year.replace("y_", ""));
