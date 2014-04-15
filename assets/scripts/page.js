@@ -22,6 +22,12 @@ Number.prototype.commafy = function () {
     return String(this).commafy();
 };
 
+// Detect placeholder support for IE9
+jQuery.support.placeholder = (function(){
+    var i = document.createElement('input');
+    return 'placeholder' in i;
+})();
+
 function getNearestNumber(a, n){
     if((l = a.length) < 2) {
         return l - 1;
@@ -70,9 +76,12 @@ $(document).ready(function () {
     $('.btn-help').on("click", function() {
         $('.leaflet-control-zoom').hide();
         $("#tutorial").joyride({
+            autoStart : true,
             postRideCallback: function() { $('.leaflet-control-zoom').show(); }
         });
     });
+    $(".chosen-search input").prop("placeholder", "search metrics");
+
 
 
 
@@ -365,7 +374,7 @@ function processMetric(msg, data) {
     // set up quantile
     quantize = d3.scale.quantile()
         .domain(x_extent)
-        .range(d3.range(7).map(function (i) {
+        .range(d3.range(colorbreaks).map(function (i) {
             return "q" + i;
         }));
 
