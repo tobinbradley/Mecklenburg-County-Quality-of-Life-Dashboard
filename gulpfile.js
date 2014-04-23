@@ -118,7 +118,7 @@ gulp.task('livereload', function() {
 });
 
 // dev task
-gulp.task('dev', function() {
+gulp.task('default', function() {
     gulp.run('livereload');
     gulp.watch('assets/less/**/*.less', ['styles']);
     gulp.watch('assets/scripts/**/*.js', ['scripts']);

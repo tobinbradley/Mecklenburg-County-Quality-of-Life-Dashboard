@@ -6,7 +6,6 @@ var map,                // leaflet map
     year,               // the currently selected year as array index of metricData
     barchartWidth,      // for responsive charts
     marker,             // marker for geocode
-    colorbreaks = 6,     // the number of color breaks
     trendChart,
     valueChart,
     d3Layer;
@@ -144,10 +143,10 @@ $(document).ready(function () {
     map = L.map("map", {
             attributionControl: false,
             touchZoom: true,
-            minZoom: 9,
-            maxZoom: 17
-        }).setView([35.260, -80.827], 10);
-    var baseTiles = L.tileLayer("http://mcmap.org:3000/meckbase/{z}/{x}/{y}.png");
+            minZoom: mapGeography.minZoom,
+            maxZoom: mapGeography.maxZoom
+        }).setView(mapGeography.center, mapGeography.defaultZoom);
+    var baseTiles = L.tileLayer(baseTilesURL);
 
     // Clear selected control
     var clearSelected = L.control({position: 'bottomleft'});
