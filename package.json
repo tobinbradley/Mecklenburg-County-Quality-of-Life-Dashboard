@@ -3,21 +3,20 @@
   "version": "1.9.1",
   "description": "Node packages for gulp",
   "main": "gulpfile.js",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
-    "gulp": "~3.5.2",
-    "gulp-autoprefixer": "~0.0.6",
-    "gulp-concat": "~2.1.7",
-    "gulp-imagemin": "~0.1.5",
-    "gulp-less": "~1.2.1",
-    "gulp-livereload": "~1.1.1",
-    "gulp-minify-css": "~0.3.0",
-    "gulp-replace": "~0.2.0",
-    "gulp-uglify": "~0.2.1",
-    "gulp-markdown": "~0.1.2",
-    "tiny-lr": "~0.0.5",
-    "gulp-convert": "0.0.1"
+    "gulp": "*",
+    "gulp-autoprefixer": "*",
+    "gulp-concat": "*",
+    "gulp-imagemin": "*",
+    "gulp-less": "*",
+    "gulp-livereload": "*",
+    "gulp-minify-css": "*",
+    "gulp-replace": "*",
+    "gulp-uglify": "*",
+    "gulp-markdown": "*",
+    "tiny-lr": "*",
+    "gulp-convert": "*"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -55,6 +55,7 @@ function addMarker(msg, d) {
     // add new marker
     marker = L.marker([d.lat, d.lng]).addTo(map);
     //map.panTo([d.lat, d.lng]);
+
 }
 
 

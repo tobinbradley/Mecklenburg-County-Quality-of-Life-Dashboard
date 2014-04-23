@@ -5,6 +5,12 @@ function initTypeahead(msg, data) {
     $("#searchbox").click(function () { $(this).select(); }).focus();
     $('.typeahead').typeahead([
         {
+            name: 'npa',
+            //local: metricData[0].map.keys().toString().split(','),
+            local: polyid,
+            header: '<h4 class="typeahead-header"><span class="glyphicon glyphicon-home"></span> NPA</h4>'
+        },
+        {
             name: 'Address',
             remote: {
                 url: 'http://maps.co.mecklenburg.nc.us/rest/v4/ws_geo_ubersearch.php?searchtypes=address&query=%QUERY',
@@ -32,6 +38,31 @@ function initTypeahead(msg, data) {
             minLength: 4,
             limit: 10,
             header: '<h4 class="typeahead-header"><span class="glyphicon glyphicon-map-marker"></span> Address</h4>'
+        },
+        {
+            name: 'NSA',
+            remote: {
+                url: 'http://maps.co.mecklenburg.nc.us/rest/v4/ws_geo_ubersearch.php?searchtypes=nsa&query=%QUERY',
+                dataType: 'jsonp',
+                filter: function (data) {
+                    var dataset = [];
+                    _.each(data, function (item) {
+                        dataset.push({
+                            value: item.name,
+                            gid: item.gid,
+                            pid: item.name,
+                            layer: 'NSA'
+                        });
+                    });
+                    var query = $(".typeahead").val();
+                    if (dataset.length === 0 && query.length === 8 && query.indexOf(" ") === -1 && $.isNumeric(query.substring(0, 5))) {
+                        dataset.push({ value: "No records found." }); }
+                    return dataset;
+                }
+            },
+            minLength: 4,
+            limit: 5,
+            header: '<h4 class="typeahead-header"><span class="glyphicon glyphicon-home"></span> NSA Neighborhood</h4>'
         }, {
             name: 'PID',
             remote: {
@@ -105,11 +136,6 @@ function initTypeahead(msg, data) {
             minLength: 4,
             limit: 15,
             header: '<h4 class="typeahead-header"><span class="glyphicon glyphicon-briefcase"></span> Business</h4>'
-        }, {
-            name: 'npa',
-            //local: metricData[0].map.keys().toString().split(','),
-            local: polyid,
-            header: '<h4 class="typeahead-header"><span class="glyphicon glyphicon-home"></span> NPA</h4>'
         }
     ]).on('typeahead:selected', function (obj, datum) {
         if (datum.lat) {
@@ -138,12 +164,31 @@ function initTypeahead(msg, data) {
             });
         }
         else {
-            // select neighborhood
-            var sel = d3.select(".geom[data-id='" + datum.value + "']");
-            PubSub.publish('findNeighborhood', {
-                "d3obj": sel,
-                "id": parseInt(datum.value)
-            });
+            if (datum.layer === 'NSA') {
+                console.log('magic shit');
+                // ajax call to get NPA's that intersect selected NSA
+                $.ajax({
+                    type: "GET",
+                    dataType: 'jsonp',
+                    url: "http://maps.co.mecklenburg.nc.us/rest/v3/ws_geo_attributequery.php",
+                    data: {
+                        table: "neighborhoods npa, neighborhood_statistical_areas nsa",
+                        fields: "npa.id",
+                        parameters: "nsa.gid = " + datum.gid + " and ST_Intersects(ST_Buffer(nsa.the_geom, -50), npa.the_geom)"
+                    },
+                    success: function(data) {
+                        console.log(data);
+                    }
+                });
+            }
+            else {
+                // select neighborhood
+                var sel = d3.select(".geom[data-id='" + datum.value + "']");
+                PubSub.publish('findNeighborhood', {
+                    "d3obj": sel,
+                    "id": parseInt(datum.value)
+                });
+            }
         }
     });
 
