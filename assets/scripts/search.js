@@ -152,7 +152,6 @@ function initTypeahead(msg, data) {
                 },
                 success: function (data) {
                     var sel = d3.select(".geom[data-id='" + data[0].id + "']");
-
                     PubSub.publish('geocode', {
                         "id": data[0].id,
                         "value": sel.attr("data-value"),
@@ -165,7 +164,6 @@ function initTypeahead(msg, data) {
         }
         else {
             if (datum.layer === 'NSA') {
-                console.log('magic shit');
                 // ajax call to get NPA's that intersect selected NSA
                 $.ajax({
                     type: "GET",
@@ -177,7 +175,17 @@ function initTypeahead(msg, data) {
                         parameters: "nsa.gid = " + datum.gid + " and ST_Intersects(ST_Buffer(nsa.the_geom, -50), npa.the_geom)"
                     },
                     success: function(data) {
-                        console.log(data);
+                        var arr = [];
+                        _.each(data, function(d) {
+                            var sel = d3.select(".geom[data-id='" + d.id + "']");
+                            arr.push(d.id);
+                            PubSub.publish('selectGeo', {
+                                "id": sel.attr("data-id"),
+                                "value": sel.attr("data-value"),
+                                "d3obj": sel
+                            });
+                        });
+                        d3ZoomPolys("", {"ids": arr});
                     }
                 });
             }

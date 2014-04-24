@@ -46,6 +46,15 @@ function d3Zoom(msg, d) {
     }
 }
 
+function d3ZoomPolys(msg, d) {
+    var features = _.filter(d3Layer.toGeoJSON().features, function(data) { return _.contains(d.ids, data.id); });
+    var bounds = L.latLngBounds(L.geoJson(features[0]).getBounds());
+    _.each(features, function(feature) {
+        bounds.extend(L.geoJson(feature).getBounds());
+    });
+    map.fitBounds(bounds);
+}
+
 // Add marker
 function addMarker(msg, d) {
     // remove old markers

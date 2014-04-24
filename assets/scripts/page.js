@@ -115,8 +115,6 @@ $(document).ready(function () {
         e.stopPropagation();
     });
 
-
-
     // subscriptions
     PubSub.subscribe('initialize', processMetric);
     PubSub.subscribe('initialize', drawMap);
@@ -132,8 +130,8 @@ $(document).ready(function () {
     PubSub.subscribe('changeMetric', drawLineChart);
     PubSub.subscribe('changeMetric', updateMeta);
     PubSub.subscribe('selectGeo', d3Select);
-    PubSub.subscribe('geocode', d3Zoom);
     PubSub.subscribe('geocode', d3Select);
+    PubSub.subscribe('geocode', d3Zoom);
     PubSub.subscribe('geocode', addMarker);
     PubSub.subscribe('findNeighborhood', d3Select);
     PubSub.subscribe('findNeighborhood', d3Zoom);
