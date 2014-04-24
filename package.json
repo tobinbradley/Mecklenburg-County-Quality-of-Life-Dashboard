@@ -10,13 +10,13 @@
     "gulp-concat": "*",
     "gulp-imagemin": "*",
     "gulp-less": "*",
-    "gulp-livereload": "*",
     "gulp-minify-css": "*",
     "gulp-replace": "*",
     "gulp-uglify": "*",
     "gulp-markdown": "*",
-    "tiny-lr": "*",
-    "gulp-convert": "*"
+    "gulp-convert": "*",
+    "gulp-connect": "*",
+    "open": "*"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

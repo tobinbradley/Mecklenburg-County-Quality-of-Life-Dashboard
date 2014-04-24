@@ -10,7 +10,7 @@ function drawMap(msg, data) {
         // adds the polys in the topojson order to add a data-id and geom class to the
         // layer so I can handle it D3-ish rather than through the Leaflet API.
 
-        d3Layer = L.geoJson(topojson.feature(data.geom, data.geom.objects.npa), {
+        d3Layer = L.geoJson(topojson.feature(data.geom, data.geom.objects[neighborhoods]), {
             style: {
                 "fillColor": "rgba(0,0,0,0)",
                 "color": "none",
@@ -19,10 +19,8 @@ function drawMap(msg, data) {
         }).addTo(map);
 
         d3.selectAll(".leaflet-overlay-pane svg path").classed("geom", true).attr("data-id", function(d, i) {
-            return data.geom.objects.npa.geometries[i].id;
+            return data.geom.objects[neighborhoods].geometries[i].id;
         });
-
-
 
         d3Layer.on("click", function(d) {
             var sel = d3.select(".geom[data-id='" + d.layer.feature.id + "']");
@@ -47,16 +45,19 @@ function drawMap(msg, data) {
             container: '#map'
         });
 
-        // Here's where you would load other crap in your topojson for display purposes
-        L.geoJson(topojson.feature(data.geom, data.geom.objects.istates), {
-            style: {
-                "fillColor": "rgba(0,0,0,0)",
-                "color": "white",
-                "fillOpacity": 1,
-                "opacity": 0.8,
-                "weight": 3
-            }
-        }).addTo(map);
+        // Here's where you would load other crap in your topojson for display purposes.
+        // Change the styling here as desired.
+        if (typeof overlay !== 'undefined') {
+            L.geoJson(topojson.feature(data.geom, data.geom.objects[overlay]), {
+                style: {
+                    "fillColor": "rgba(0,0,0,0)",
+                    "color": "white",
+                    "fillOpacity": 1,
+                    "opacity": 0.8,
+                    "weight": 3
+                }
+            }).addTo(map);
+        }
 
         d3.selectAll(".geom")
             .on("mouseover", function() {

@@ -28471,10 +28471,18 @@ https://github.com/mroderick/PubSubJS
 
 }(jQuery, this));
 
+// General Info
+// * install node and start the project
+// * convert neighborhoods to topojson (id field)
+// *
 
 // Number of color breaks/quantiles in the map and bar chart.
 // Note the rule is 5 to 7 color breaks on a choropleth map. Don't be
 // that guy. Nobody likes that guy.
+//
+// You will also want to monkey about in assets/less/vis.less under
+// "chart and map colors". A good guide for color breaks is
+// http://colorbrewer2.org
 var colorbreaks = 6;
 
 // The URL for your base map tiles.
@@ -28491,6 +28499,17 @@ var mapGeography = {
         defaultZoom: 10,
         center: [35.260, -80.827]
     };
+
+// Neighborhoods name in your TopoJSON file.
+var neighborhoods = "npa";
+
+// If you have an additional data layer in your TopoJSON file, name it here.
+// Otherwise comment it out.
+var overlay = "istates";
+
+// Need something to customize search types
+
+// Need something to customize handling search returns
 
 
 function barChart() {
@@ -28816,6 +28835,15 @@ function d3Zoom(msg, d) {
     }
 }
 
+function d3ZoomPolys(msg, d) {
+    var features = _.filter(d3Layer.toGeoJSON().features, function(data) { return _.contains(d.ids, data.id); });
+    var bounds = L.latLngBounds(L.geoJson(features[0]).getBounds());
+    _.each(features, function(feature) {
+        bounds.extend(L.geoJson(feature).getBounds());
+    });
+    map.fitBounds(bounds);
+}
+
 // Add marker
 function addMarker(msg, d) {
     // remove old markers
@@ -28871,7 +28899,7 @@ function drawMap(msg, data) {
         // adds the polys in the topojson order to add a data-id and geom class to the
         // layer so I can handle it D3-ish rather than through the Leaflet API.
 
-        d3Layer = L.geoJson(topojson.feature(data.geom, data.geom.objects.npa), {
+        d3Layer = L.geoJson(topojson.feature(data.geom, data.geom.objects[neighborhoods]), {
             style: {
                 "fillColor": "rgba(0,0,0,0)",
                 "color": "none",
@@ -28880,10 +28908,8 @@ function drawMap(msg, data) {
         }).addTo(map);
 
         d3.selectAll(".leaflet-overlay-pane svg path").classed("geom", true).attr("data-id", function(d, i) {
-            return data.geom.objects.npa.geometries[i].id;
+            return data.geom.objects[neighborhoods].geometries[i].id;
         });
-
-
 
         d3Layer.on("click", function(d) {
             var sel = d3.select(".geom[data-id='" + d.layer.feature.id + "']");
@@ -28908,16 +28934,19 @@ function drawMap(msg, data) {
             container: '#map'
         });
 
-        // Here's where you would load other crap in your topojson for display purposes
-        L.geoJson(topojson.feature(data.geom, data.geom.objects.istates), {
-            style: {
-                "fillColor": "rgba(0,0,0,0)",
-                "color": "white",
-                "fillOpacity": 1,
-                "opacity": 0.8,
-                "weight": 3
-            }
-        }).addTo(map);
+        // Here's where you would load other crap in your topojson for display purposes.
+        // Change the styling here as desired.
+        if (typeof overlay !== 'undefined') {
+            L.geoJson(topojson.feature(data.geom, data.geom.objects[overlay]), {
+                style: {
+                    "fillColor": "rgba(0,0,0,0)",
+                    "color": "white",
+                    "fillOpacity": 1,
+                    "opacity": 0.8,
+                    "weight": 3
+                }
+            }).addTo(map);
+        }
 
         d3.selectAll(".geom")
             .on("mouseover", function() {
@@ -29284,7 +29313,6 @@ function initTypeahead(msg, data) {
                 },
                 success: function (data) {
                     var sel = d3.select(".geom[data-id='" + data[0].id + "']");
-
                     PubSub.publish('geocode', {
                         "id": data[0].id,
                         "value": sel.attr("data-value"),
@@ -29297,7 +29325,6 @@ function initTypeahead(msg, data) {
         }
         else {
             if (datum.layer === 'NSA') {
-                console.log('magic shit');
                 // ajax call to get NPA's that intersect selected NSA
                 $.ajax({
                     type: "GET",
@@ -29309,7 +29336,17 @@ function initTypeahead(msg, data) {
                         parameters: "nsa.gid = " + datum.gid + " and ST_Intersects(ST_Buffer(nsa.the_geom, -50), npa.the_geom)"
                     },
                     success: function(data) {
-                        console.log(data);
+                        var arr = [];
+                        _.each(data, function(d) {
+                            var sel = d3.select(".geom[data-id='" + d.id + "']");
+                            arr.push(d.id);
+                            PubSub.publish('selectGeo', {
+                                "id": sel.attr("data-id"),
+                                "value": sel.attr("data-value"),
+                                "d3obj": sel
+                            });
+                        });
+                        d3ZoomPolys("", {"ids": arr});
                     }
                 });
             }
@@ -29448,8 +29485,6 @@ $(document).ready(function () {
         e.stopPropagation();
     });
 
-
-
     // subscriptions
     PubSub.subscribe('initialize', processMetric);
     PubSub.subscribe('initialize', drawMap);
@@ -29465,8 +29500,8 @@ $(document).ready(function () {
     PubSub.subscribe('changeMetric', drawLineChart);
     PubSub.subscribe('changeMetric', updateMeta);
     PubSub.subscribe('selectGeo', d3Select);
-    PubSub.subscribe('geocode', d3Zoom);
     PubSub.subscribe('geocode', d3Select);
+    PubSub.subscribe('geocode', d3Zoom);
     PubSub.subscribe('geocode', addMarker);
     PubSub.subscribe('findNeighborhood', d3Select);
     PubSub.subscribe('findNeighborhood', d3Zoom);
