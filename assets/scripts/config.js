@@ -1,7 +1,7 @@
 // General Info
 // * install node and start the project
 // * convert neighborhoods to topojson (id field)
-// *
+// * format of data - naming conventions, csv, etc.
 
 // Number of color breaks/quantiles in the map and bar chart.
 // Note the rule is 5 to 7 color breaks on a choropleth map. Don't be
@@ -33,6 +33,13 @@ var neighborhoods = "npa";
 // If you have an additional data layer in your TopoJSON file, name it here.
 // Otherwise comment it out.
 var overlay = "istates";
+
+// If you have supplimental accuracy information for one of your metrics, you
+// can include that in a file with the data formatted m[*]-accuracy.csv and then
+// put the metric value in this array and it'll show in the tooltip below the
+// number. You will probably want to make this an empty array to disable it, but
+// we have crazy people here.
+var accuracyMetrics = ["m1"];
 
 // Need something to customize search types
 

@@ -34,13 +34,19 @@ function drawMap(msg, data) {
         $(".geom").tooltip({
             html: true,
             title: function() {
-                var sel = $(this);
+                var sel = $(this),
+                    num = "",
+                    acc = "";
                 if ($.isNumeric(sel.attr("data-value"))) {
                     num = "<br>" + dataPretty(sel.attr("data-value"));
-                } else {
-                    num = "";
                 }
-                return "<p class='tip'><strong><span>NPA " + sel.attr("data-id") + "</strong>" + num + "</span></p>";
+                if (accuracyData.length > 1) {
+                    var theAcc = _.find(accuracyData, function(d) { return d.id === sel.attr("data-id"); })[metricData[year].year];
+                    if ($.isNumeric(theAcc)) {
+                        acc = "<br><span class='metric-accuracy'>&#177; " + theAcc + "&#37;</span>";
+                    }
+                }
+                return "<p class='tip'><strong><span>NPA " + sel.attr("data-id") + "</strong>" + num + "</span>" + acc + "</p>";
             },
             container: '#map'
         });
