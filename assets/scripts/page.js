@@ -2,6 +2,7 @@ var map,                // leaflet map
     quantize,           // d3 quantizer for color breaks
     x_extent,           // extent of the metric, including all years
     metricData = [],    // each element is object {'year': the year, 'map': d3 map of data}
+    accuracyData = [],
     timer,              // timer for year slider
     year,               // the currently selected year as array index of metricData
     barchartWidth,      // for responsive charts
@@ -68,6 +69,12 @@ $(document).ready(function () {
     $(".chosen-select").chosen({width: '100%', no_results_text: "Not found - "}).change(function () {
         var theVal = $(this).val();
         d3.json("data/metric/" + theVal + ".json", changeMetric);
+        // $.ajax({
+        //     url: "data/metric/" + theVal + "-accuracy.json",
+        //     dataType: "json"
+        // }).done(function(data) {
+        //     accuracyData = data;
+        // });
         $(this).trigger("chosen:updated");
     });
 
@@ -275,6 +282,10 @@ $(document).ready(function () {
         }
     });
 
+    // fix for weird chrome glypicon bug - only shows on hover after reload
+    //var Offset = $('body').offset();
+    //$('body').offset(Offset);
+
 
 });
 
@@ -287,10 +298,11 @@ function draw(geom, data) {
 }
 
 function changeMetric(error, data) {
+    var theVal = $("#metric").val();
     $(".d3-tip").remove();
     PubSub.publish('changeMetric', {
         'metricdata': data,
-        'metric': $("#metric").val()
+        'metric': theVal
     });
 }
 
@@ -385,5 +397,17 @@ function processMetric(msg, data) {
             theMetric = $("#metric option:selected");
             ga('send', 'event', 'metric', theMetric.text().trim(), theMetric.parent().prop("label"));
         }
+    }
+
+    // load any accuracy supplimental information
+    var theVal = $("#metric").val();
+    accuracyData.length = 0;
+    if (accuracyMetrics.indexOf(theVal) > -1) {
+        $.ajax({
+            url: "data/metric/" + $("#metric").val() + "-accuracy.json",
+            dataType: "json"
+        }).done(function(data) {
+            accuracyData = data;
+        });
     }
 }
