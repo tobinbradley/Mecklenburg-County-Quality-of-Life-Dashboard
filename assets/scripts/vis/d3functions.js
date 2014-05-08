@@ -6,6 +6,44 @@ d3.selection.prototype.moveToFront = function () {
     });
 };
 
+
+// Hover events
+// Node there's some weirdness with the geometry doing it this way, so there is
+// another function like this specifically for after the geometry is added in
+// d3map.js.
+$(document).on({
+    mouseenter: function(){
+        addHighlight($(this));
+    },
+    mouseleave: function(){
+        removeHighlight($(this));
+    }
+}, '.metric-hover');
+
+
+function addHighlight(elem) {
+    if (elem.data('id')) {
+        d3.selectAll('[data-id="' + elem.data('id') + '"]').classed("d3-highlight", true);
+        if ($.isNumeric(elem.data("value"))) {
+            trendChart.lineAdd(".trend-highlight", elem.data('id'));
+            valueChart.pointerAdd(elem.data('id'), elem.data('value'), ".value-hover");
+        }
+    }
+    else {
+        d3.selectAll('[data-quantile="' + elem.data('quantile') + '"]').classed("d3-highlight", true);
+    }
+}
+function removeHighlight(elem) {
+    if (elem.data('id')) {
+        d3.selectAll('[data-id="' + elem.data('id') + '"]').classed("d3-highlight", false);
+        valueChart.pointerRemove(elem.data('id'), ".value-hover");
+        trendChart.linesRemove(".trend-highlight");
+    }
+    else {
+        d3.selectAll('[data-quantile="' + elem.data('quantile') + '"]').classed("d3-highlight", false);
+    }
+}
+
 function quantizeCount(data) {
     var q1 = _.countBy(data, function (d) {
         return quantize(d);
@@ -28,6 +66,9 @@ function d3Select(msg, d) {
         // remove chart shit
         trendChart.lineRemove(d.d3obj.attr("data-id"), ".trend-select");
         valueChart.pointerRemove(d.d3obj.attr("data-id"), ".value-select");
+
+        // remove table shit
+        $(".datatable-container tr[data-id='" + d.d3obj.attr("data-id") + "']").remove();
     }
     else {
         d.d3obj.classed("d3-select", true);
@@ -36,6 +77,42 @@ function d3Select(msg, d) {
             trendChart.lineAdd(".trend-select", d.d3obj.attr("data-id"));
             valueChart.pointerAdd(d.d3obj.attr("data-id"), d.d3obj.attr("data-value"), ".value-select");
         }
+        // add to table
+        drawTable(d.d3obj.attr("data-id"), d.d3obj.attr("data-value"));
+    }
+}
+
+// draw table
+function updateTable() {
+    _.each($(".datatable-container tbody tr"), function(el) {
+        var theId = $(el).data("id");
+        drawTable(theId, metricData[year].map.get(theId));
+    });
+}
+
+// update table rows
+function drawTable(id, val) {
+    var tableRec = {};
+    tableRec.id = id;
+    if ($.isNumeric(val)) {
+        tableRec.value = val;
+    }
+    if (accuracyData.length > 0) {
+        tableRec.accuracy = _.filter(accuracyData, function(r) { return r.id == id; })[0][metricData[year].year];
+    }
+    if (rawData.length > 0) {
+        tableRec.raw = _.filter(rawData, function(r) { return r.id == id; })[0][metricData[year].year];
+    }
+    if (rawAccuracy.length > 0) {
+        tableRec.rawaccuracy = _.filter(rawAccuracy, function(r) { return r.id == id; })[0][metricData[year].year];
+    }
+
+    var template = _.template($("script.template").html());
+    if ($(".datatable-container tr[data-id='" + id + "']").size() === 0) {
+        $(".datatable-container tbody").append(template(tableRec));
+    }
+    else {
+        $(".datatable-container tr[data-id='" + id + "']").replaceWith(template(tableRec));
     }
 }
 
@@ -69,27 +146,19 @@ function addMarker(msg, d) {
 
 
 // format data
-function dataPretty(theValue) {
-    var theMetric = $("#metric").val(),
-        fmat = d3.format("0,000.0"),
+function dataPretty(theValue, theMetric) {
+    var fmat = d3.format("0,000.0"),
         prefix = "",
         suffix = "",
-        pretty = "",
-        pct = [],
-        money = [],
-        year = [];
-
-    pct = ["m4", "m6", "m7", "m8", "m9", "m10", "m11", "m12", "m13", "m18", "m19", "m20", "m21", "m32", "m33", "m34", "m35", "m36", "m37", "m38", "m39", "m40", "m41", "m42", "m43", "m44", "m45", "m47", "m48", "m49", "m50", "m58", "m59", "m60", "m61", "m62", "m66", "m67", "m68", "m71", "m73", "m75", "m76", "m77", "m78", "m80"];
-    money = ["m17","m57","m63"];
-    year = ["m24", "m53"];
+        pretty = "";
 
     pretty = parseFloat(parseFloat(theValue).toFixed(1)).toString().commafy();
-    if (pct.indexOf(theMetric) !== -1) { suffix = "%"; }
-    if (money.indexOf(theMetric) !== -1) {
+    if (metricPct.indexOf(theMetric) !== -1) { suffix = "%"; }
+    if (metricMoney.indexOf(theMetric) !== -1) {
         prefix = "$";
         pretty = parseFloat(theValue).toFixed(0).commafy();
     }
-    if(year.indexOf(theMetric) !== -1) {
+    if(metricYear.indexOf(theMetric) !== -1) {
         pretty = parseFloat(pretty.replace(",", "")).toFixed(0);
     }
 

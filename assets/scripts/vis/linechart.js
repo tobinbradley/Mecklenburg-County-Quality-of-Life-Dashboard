@@ -30,7 +30,7 @@ function lineChart() {
           .call(xAxis);
 
     // create left yAxis
-    var yAxisLeft = d3.svg.axis().scale(y).ticks(4).orient("left").tickFormat(function(d) { return dataPretty(d); });
+    var yAxisLeft = d3.svg.axis().scale(y).ticks(4).orient("left").tickFormat(function(d) { return dataPretty(d, $("#metric").val()); });
     graph.select(".y.axis")
         .call(yAxisLeft);
 
@@ -92,6 +92,7 @@ function lineChart() {
     var path = graph.append("path")
         .attr("d", line(values, years))
         .attr("data-id", id)
+        .attr("class", "metric-hover")
         .attr("stroke", "steelblue");
     var totalLength = path.node().getTotalLength();
         path
@@ -110,16 +111,6 @@ function lineChart() {
             .attr("data-id", id)
             .attr("data-value", d);
     });
-
-    d3.select(container).selectAll("path, circle")
-        .on("mouseover", function(d) {
-            var sel = d3.select(this);
-            d3.selectAll(".geom[data-id='" + sel.attr("data-id") + "'], .value-select rect[data-id='" + sel.attr("data-id") + "']").classed("d3-highlight", true);
-        })
-        .on("mouseout", function(d) {
-            var sel = d3.select(this);
-            d3.selectAll(".geom[data-id='" + sel.attr("data-id") + "'], .value-select rect[data-id='" + sel.attr("data-id") + "']").classed("d3-highlight", false);
-        });
 
     return my;
   };
