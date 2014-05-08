@@ -3,6 +3,8 @@ var map,                // leaflet map
     x_extent,           // extent of the metric, including all years
     metricData = [],    // each element is object {'year': the year, 'map': d3 map of data}
     accuracyData = [],
+    rawData = [],
+    rawAccuracy = [],
     timer,              // timer for year slider
     year,               // the currently selected year as array index of metricData
     barchartWidth,      // for responsive charts
@@ -10,6 +12,8 @@ var map,                // leaflet map
     trendChart,
     valueChart,
     d3Layer;
+
+_.templateSettings.variable = "rc";
 
 PubSub.immediateExceptions = true; // set to false in production
 
@@ -53,6 +57,40 @@ function getURLParameter(name) {
     );
 }
 
+// This set of functions is to fetch data. We're checking here to see if there is
+// accuracy information or raw information for the metric.
+function fetchAccuracy(m) {
+    if (metricAccuracy.indexOf(m) !== -1) {
+        return $.get("data/metric/" + m + "-accuracy.json");
+    }
+    else return [[]];
+}
+function fetchRaw(m) {
+    if (metricRaw[m]) {
+        return $.get("data/metric/" + metricRaw[m] + ".json");
+    }
+    else return [[]];
+}
+function fetchRawAccuracy(m) {
+    if (metricRaw[m]) {
+        return $.get("data/metric/" + metricRaw[m] + "-accuracy.json");
+    }
+    else return [[]];
+}
+function fetchMetricData(m) {
+    $.when(
+        $.get("data/metric/" + m + ".json"),
+        fetchAccuracy(m),
+        fetchRaw(m),
+        fetchRawAccuracy(m)
+    ).then(function(metric, accuracy, raw, rawaccuracy) {
+        accuracyData = accuracy[0];
+        rawData = raw[0];
+        rawAccuracy = rawaccuracy[0];
+        changeMetric(metric[0]);
+    });
+}
+
 $(document).ready(function () {
 
     // Start with random metric if none passed
@@ -68,13 +106,7 @@ $(document).ready(function () {
     // chosen
     $(".chosen-select").chosen({width: '100%', no_results_text: "Not found - "}).change(function () {
         var theVal = $(this).val();
-        d3.json("data/metric/" + theVal + ".json", changeMetric);
-        // $.ajax({
-        //     url: "data/metric/" + theVal + "-accuracy.json",
-        //     dataType: "json"
-        // }).done(function(data) {
-        //     accuracyData = data;
-        // });
+        fetchMetricData(theVal);
         $(this).trigger("chosen:updated");
     });
 
@@ -89,7 +121,12 @@ $(document).ready(function () {
     $(".chosen-search input").prop("placeholder", "search metrics");
 
 
-
+    // Toggle table
+    $(".toggle-table").on("click", function() {
+        var txt = $(".datatable-container").is(':visible') ? 'Show Data' : 'Hide Data';
+        $(this).text(txt);
+        $(".datatable-container").toggle("slow");
+    });
 
     // Track outbound resource links
     $(".meta-resources").on("mousedown", "a", function(e){
@@ -123,19 +160,22 @@ $(document).ready(function () {
     });
 
     // subscriptions
-    PubSub.subscribe('initialize', processMetric);
-    PubSub.subscribe('initialize', drawMap);
-    PubSub.subscribe('initialize', updateMeta);
-    PubSub.subscribe('initialize', drawBarChart);
-    PubSub.subscribe('initialize', drawLineChart);
-    PubSub.subscribe('initialize', initTypeahead);
+    //PubSub.subscribe('initialize', processMetric);
+    PubSub.subscribe('initialize', initMap);
+    //PubSub.subscribe('initialize', drawMap);
+    //PubSub.subscribe('initialize', updateMeta);
+    //PubSub.subscribe('initialize', drawBarChart);
+    //PubSub.subscribe('initialize', drawLineChart);
+    //PubSub.subscribe('initialize', initTypeahead);
     PubSub.subscribe('changeYear', drawMap);
     PubSub.subscribe('changeYear', drawBarChart);
+    PubSub.subscribe('changeYear', updateTable);
     PubSub.subscribe('changeMetric', processMetric);
     PubSub.subscribe('changeMetric', drawMap);
     PubSub.subscribe('changeMetric', drawBarChart);
     PubSub.subscribe('changeMetric', drawLineChart);
     PubSub.subscribe('changeMetric', updateMeta);
+    PubSub.subscribe('changeMetric', updateTable);
     PubSub.subscribe('selectGeo', d3Select);
     PubSub.subscribe('geocode', d3Select);
     PubSub.subscribe('geocode', d3Zoom);
@@ -165,6 +205,7 @@ $(document).ready(function () {
         d3.selectAll(".geom").classed("d3-select", false);
         d3.select(".value-select").selectAll("rect, line, text, circle").remove();
         d3.selectAll(".trend-select").selectAll("path, circle").remove();
+        $(".datatable-container tbody tr").remove();
         try { map.removeLayer(marker); }
         catch (err) {}
     });
@@ -267,11 +308,9 @@ $(document).ready(function () {
     valueChart = barChart();
 
     // jquery promise so we get geometry and data before anything goes
-    $.when(
-        $.getJSON("data/geograpy.topo.json"),
-        $.getJSON("data/metric/" + $("#metric").val() + ".json")
-    ).then(function(geom, data) {
-        draw(geom[0], data[0]);
+    $.get("data/geograpy.topo.json").success(function(data) {
+        draw(data);
+        fetchMetricData($("#metric").val());
     });
 
     // window resize so charts change
@@ -282,22 +321,15 @@ $(document).ready(function () {
         }
     });
 
-    // fix for weird chrome glypicon bug - only shows on hover after reload
-    //var Offset = $('body').offset();
-    //$('body').offset(Offset);
-
-
 });
 
-function draw(geom, data) {
+function draw(geom) {
     PubSub.publish('initialize', {
-        "geom": geom,
-        "metricdata": data,
-        'metric': $("#metric").val()
+        "geom": geom
     });
 }
 
-function changeMetric(error, data) {
+function changeMetric(data) {
     var theVal = $("#metric").val();
     $(".d3-tip").remove();
     PubSub.publish('changeMetric', {
@@ -399,15 +431,4 @@ function processMetric(msg, data) {
         }
     }
 
-    // load any accuracy supplimental information
-    var theVal = $("#metric").val();
-    accuracyData.length = 0;
-    if (accuracyMetrics.indexOf(theVal) > -1) {
-        $.ajax({
-            url: "data/metric/" + $("#metric").val() + "-accuracy.json",
-            dataType: "json"
-        }).done(function(data) {
-            accuracyData = data;
-        });
-    }
 }

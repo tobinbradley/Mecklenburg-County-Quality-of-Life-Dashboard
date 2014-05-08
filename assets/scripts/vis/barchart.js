@@ -1,6 +1,6 @@
 function barChart() {
     var width = 720, // default width
-        height = 280, // default height
+        height = 250, // default height
         margins = [20, 20, 20, 40],
         x,
         y,
@@ -25,7 +25,7 @@ function barChart() {
         // axis labeling
         var xAxis = d3.svg.axis()
             .scale(xScale)
-            .tickFormat(function(d) { return dataPretty(d); })
+            .tickFormat(function(d) { return dataPretty(d, $("#metric").val()); })
             .orient("bottom")
             .ticks(4);
 
@@ -54,7 +54,7 @@ function barChart() {
                 .data(data)
                 .enter().append("rect")
                 .attr("class", function(d) {
-                    return "bar chart-tooltips " + d.key;
+                    return "bar chart-tooltips metric-hover " + d.key;
                 })
                 .attr("data-quantile", function(d) {
                     return d.key;
@@ -92,7 +92,7 @@ function barChart() {
           html: true,
           title: function() {
               var sel = $(this);
-              var theRange = _.map(sel.attr("data-span").split("-"), function(num){ return dataPretty(num); });
+              var theRange = _.map(sel.attr("data-span").split("-"), function(num){ return dataPretty(num, $("#metric").val()); });
               return "<p class='tip'><span><strong>" + theRange.join(" to ") + "</strong></span><br>" + sel.attr("data-value") + " NPA(s)</p>";
 
           },
@@ -107,39 +107,14 @@ function barChart() {
             .attr("y2", 100)
             .attr("x1", xScale(countyMean))
             .attr("x2", xScale(countyMean));
-        graph.select(".value-mean .mean-text")
-            .transition()
-            .attr("x", xScale(countyMean))
-            .attr("y", 95)
-            .text(dataPretty(countyMean));
+        // graph.select(".value-mean .mean-text")
+        //     .transition()
+        //     .attr("x", xScale(countyMean))
+        //     .attr("y", 95)
+        //     .text(dataPretty(countyMean), $("#metric").val());
         // graph.select(".value-mean .mean-label")
         //     .transition()
         //     .attr("y", xScale(countyMean) - 4);
-
-        // bar hover actions
-        graph.selectAll(".bar")
-            .on("mouseover", function(d) {
-                var sel = d3.select(this);
-                d3.selectAll(".geom[data-quantile='" + sel.attr("data-quantile") + "']").classed("d3-highlight", true);
-                sel.classed("d3-highlight", true);
-            })
-            .on("mouseout", function(d) {
-                var sel = d3.select(this);
-                d3.selectAll(".geom[data-quantile='" + sel.attr("data-quantile") + "']").classed("d3-highlight", false);
-                sel.classed("d3-highlight", false);
-            });
-            // .on("click", function(d) {
-            //     var sel = d3.select(this);
-            //     d3.selectAll(".geom[data-quantile='" + sel.attr("data-quantile") + "'").each(function () {
-            //         // if marker doesn't exist
-            //         var sel = d3.select(this);
-            //         PubSub.publish('selectGeo', {
-            //             "id": sel.attr("data-id"),
-            //             "value": sel.attr("data-value"),
-            //             "d3obj": sel
-            //         });
-            //     });
-            // });
 
         my.pointerMove();
 
@@ -194,7 +169,8 @@ function barChart() {
             .attr("ry", 3)
             .attr("width", 30)
             .attr("height", 21)
-            .attr("data-id", id);
+            .attr("data-id", id)
+            .attr("class", "metric-hover");
         d3.select(container)
             .append("text")
             .attr("x", xScale(value))

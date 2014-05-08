@@ -98,13 +98,13 @@ body {
 }
 
 .meta-subtitle {
-    font-size: 1.1em;
-    margin: 15px 0 0px;
+    font-size: 1.5em;
+    margin-top: 70px;
     text-shadow: 1px 1px 3px #ccc;
 }
 
 .meta-container {
-    margin-top: 75px;
+    margin-top: 20px;
 }
 
 .meta-resources ul {
@@ -138,7 +138,7 @@ body {
 
 
 #barChart {
-    height: 300px;
+    height: 250px;
 }
 #lineChart {
     margin: 20px 0;
@@ -168,7 +168,20 @@ body {
     }
 }
 
-
+// table
+.datatable-container {
+    display: none;
+    margin-top: 25px;
+}
+table {
+    td:empty {
+        background: rgba(200,200,200,0.5);
+    }
+    tr.d3-highlight {
+        background: @highlightColor;
+        transition: all 0.5s ease-out;
+    }
+}
 
 // repsonsive design adjustments
 @media (max-width: 979px) {
