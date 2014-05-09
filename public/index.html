@@ -23,7 +23,7 @@
     <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png" />
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/main.css?foo=22572">
+    <link rel="stylesheet" href="css/main.css?foo=6597">
 
 </head>
 
@@ -365,6 +365,20 @@
 
             </div>
             <div class="col-md-4 map-aside fill-height">
+                <div class="stats">
+                    <div class="row text-center">
+                        <div class="col-md-5 col-md-offset-1 well stats-npa-mean">
+                            <span class="header">County</span>
+                            <h3 class="stats-county-npa-mean">N/A</h3>
+                            <span class="footer" style="border-bottom: 2px dashed black;">NPA Average</span>
+                        </div>
+                        <div class="col-md-5 col-md-offset-1 well">
+                            <span class="header">Selected</span>
+                            <h3 class="stats-mean-selected">N/A</h3>
+                            <span class="footer">NPA Average</span>
+                        </div>
+                    </div>
+                </div>
                 <div id="barChart">
                     <svg width="100%" class="chart barchart">
                         <g class="barchart-container">
@@ -395,27 +409,60 @@
                     </svg>
                 </div>
                 <div>
-                    <p class="text-center legend-mean">
+                    <!-- <p class="text-center legend-mean">
                         <img src="images/legend-mean.png" alt="County NPA Mean" width="23" height="15"> County NPA Mean
-                    </p>
+                    </p> -->
                 </div>
-                <p class="text-right"><small><a href="javascript:void(0)" class="toggle-table">Show Data</a></small></p>
+                <p class="text-right datatoggle">
+                    <small>
+                        <a href="javascript:void(0)" class="select-clear">Clear Selected</a>
+                        <a href="javascript:void(0)" class="toggle-table">Show Data</a>
+                    </small>
+                </p>
             </div>
         </div>
         <div class="row datatable-container">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-8">
                 <table class="table table-condensed">
                   <thead>
                     <tr>
                       <th>NPA</th>
-                      <th>Value</th>
-                      <th>Accuracy</th>
-                      <th>Raw Data</th>
-                      <th>Accuracy</th>
+                      <th class="text-right">Value</th>
+                      <th class="text-right">Accuracy</th>
+                      <th class="text-right">Raw Data</th>
+                      <th class="text-right">Accuracy</th>
                     </tr>
                   </thead>
                   <tbody></tbody>
                 </table>
+            </div>
+            <div class="col-md-4">
+                <div class="stats">
+                    <div class="row text-center">
+                        <div class="col-md-5 col-md-offset-1 well">
+                            <span class="header">County</span>
+                            <h3 class="stats-weighted-mean-county">N/A</h3>
+                            <span class="footer">Weighted Average</span>
+                        </div>
+                        <div class="col-md-5 col-md-offset-1 well">
+                            <span class="header">Selected</span>
+                            <h3 class="stats-weighted-mean-selected">N/A</h3>
+                            <span class="footer">Weighted Average</span>
+                        </div>
+                    </div>
+                    <!-- <div class="row text-center">
+                        <div class="col-md-5 col-md-offset-1 well">
+                            <span class="header">County</span>
+                            <h3 class="stats-county-npa-total">N/A</h3>
+                            <span class="footer">Total</span>
+                        </div>
+                        <div class="col-md-5 col-md-offset-1 well">
+                            <span class="header">Selected</span>
+                            <h3 class="stats-mean-total">N/A</h3>
+                            <span class="footer">Total</span>
+                        </div>
+                    </div> -->
+                </div>
             </div>
         </div>
         <div class="row">
@@ -458,12 +505,15 @@
 
     <!-- BEGIN: Underscore Template Definition. -->
     <script type="text/template" class="template">
-        <tr data-id="<%- rc.id %>" class="metric-hover">
+        <tr data-id="<%- rc.id %>" <% if (rc.value) { %>data-value="<%- rc.value%>"<% } %> class="metric-hover">
+            <%
+                var m = $("#metric").val();
+            %>
             <td><%- rc.id %></td>
-            <td><% if (rc.value) { %><%= dataPretty(rc.value, $("#metric").val()) %><% } %></td>
-            <td><% if (rc.accuracy) { %>&plusmn;<%- dataPretty(rc.value, $("#metric").val()) %><% } %></td>
-            <td><%- rc.raw %></td>
-            <td><%- rc.rawaccuracy %></td>
+            <td class="text-right datatable-value"><% if (rc.value) { %><%= dataPretty(rc.value, m) %><% } %></td>
+            <td class="text-right"><% if (rc.accuracy) { %>&plusmn;<%- dataPretty(rc.accuracy, m) %><% } %></td>
+            <td class="text-right datatable-raw"><% if (rc.raw) { %><%= dataPretty(rc.raw, rc.rawM) %><% } %></td>
+            <td class="text-right"><% if (rc.rawaccuracy) { %>&plusmn;<%= dataPretty(rc.rawaccuracy, rc.rawM) %><% } %></td>
         </tr>
     </script>
     <!-- END: Underscore Template Definition. -->
@@ -487,13 +537,13 @@
             <h4>Search</h4>
             <p>The <strong>Search</strong> control lets you search for almost anything. Type in a neighborhood number, the first part of an address or a place name, and select a match using your mouse, keyboard, or by touch.</p>
         </li>
-        <li data-class="yearDisplay" data-options="tipLocation:left;">
+        <li data-class="yearDisplay" data-options="tipLocation:bottom;">
             <h4>Year</h4>
             <p>The <strong>Year</strong> controls let you control the year being shown on the map and in the <strong>Bar Chart</strong>. You can change the year by moving the slider and cycle the years available for the metric by using the Play/Pause button.</p>
         </li>
-        <li data-class="select-clear" data-options="tipLocation:right;">
-            <h4>Clear Selected</h4>
-            <p>The <strong>Clear Selected</strong> button clears any selected neighborhoods from the map and charts.</p>
+        <li data-class="stats-npa-mean" data-options="tipLocation:bottom;">
+            <h4>Average</h4>
+            <p>The <strong>Average</strong> for County NPA's and any selected NPA's is shown here. The County NPA Average is indicated by a dashed line on the charts.</p>
         </li>
         <li data-class="barchart" data-options="tipLocation:bottom;">
             <h4>Bar Chart</h4>
@@ -504,7 +554,15 @@
             <h4>Line Chart</h4>
             <p>The <strong>Line Chart</strong> shows the trend of the <strong>Metric</strong> over time. The dashed line represents the average value of the neighborhoods.</p>
         </li>
-        <li data-class="meta-joyride" data-options="tipLocation:bottom;">
+        <li data-class="select-clear" data-options="tipLocation:top;">
+            <h4>Clear Selected</h4>
+            <p>The <strong>Clear Selected</strong> button clears any selected neighborhoods from the map and charts.</p>
+        </li>
+        <li data-class="toggle-table" data-options="tipLocation:top;">
+            <h4>Show Data</h4>
+            <p>You can toggle off more information, including a table with NPA values, accuracy information, raw data, and weighted averages.</p>
+        </li>
+        <li data-class="meta-subtitle" data-options="tipLocation:bottom;">
             <h4>Metric Information</h4>
             <p>The bottom of the page shows information about the <strong>Metric</strong>, including a brief description, why it is important, where the data came from, and additional resources related to the metric.</p>
         </li>
@@ -515,7 +573,7 @@
     </ol>
 
     <!-- scripts at the bottom yo -->
-    <script src="js/main.js?foo=22572"></script>
+    <script src="js/main.js?foo=6597"></script>
 
     <!--   Google Analytics -->
     <script>

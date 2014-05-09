@@ -145,7 +145,6 @@ rect.bar {
     rect {
         stroke: @darkGray;
         fill: @selectedColor;
-
     }
 }
 
@@ -184,8 +183,6 @@ rect.bar {
     }
 }
 
-
-
 .tooltip-inner {
     background: rgba(0,0,0,0.85);
     animation: bounceIn 0.2s ease-out;
@@ -203,4 +200,31 @@ rect.bar {
     }
 }
 
-
+// statistical area in sidebar
+.stats {
+    .well {
+        margin-bottom: 10px;
+        padding: 10px;
+    }
+    span {
+        color: #B2B2B2;
+    }
+    .header {
+        font-weight: bold;
+        font-size: 1.3em;
+        text-transform: uppercase;
+    }
+    h3 {
+        font-size: 1.8em;
+        font-weight: bold;
+        margin: 3px 0;
+        white-space: nowrap;
+        width: 100%;
+    }
+    .footer {
+        font-weight: bold;
+        font-size: 0.9em;
+        text-transform: uppercase;
+        white-space: nowrap;
+    }
+}

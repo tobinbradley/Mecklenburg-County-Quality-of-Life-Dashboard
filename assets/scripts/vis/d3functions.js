@@ -69,6 +69,7 @@ function d3Select(msg, d) {
 
         // remove table shit
         $(".datatable-container tr[data-id='" + d.d3obj.attr("data-id") + "']").remove();
+        updateSelectedStats();
     }
     else {
         d.d3obj.classed("d3-select", true);
@@ -102,6 +103,7 @@ function drawTable(id, val) {
     }
     if (rawData.length > 0) {
         tableRec.raw = _.filter(rawData, function(r) { return r.id == id; })[0][metricData[year].year];
+        tableRec.rawM = metricRaw[id];
     }
     if (rawAccuracy.length > 0) {
         tableRec.rawaccuracy = _.filter(rawAccuracy, function(r) { return r.id == id; })[0][metricData[year].year];
@@ -114,6 +116,79 @@ function drawTable(id, val) {
     else {
         $(".datatable-container tr[data-id='" + id + "']").replaceWith(template(tableRec));
     }
+
+    updateSelectedStats();
+}
+
+// update stat boxes
+function updateSelectedStats() {
+    var m = $("#metric").val(),
+        selectedWeightedMean = "N/A",
+        selectedMean = "N/A",
+        values = [],
+        count = 0;
+
+    // County Total
+    // if (metricPct.indexOf(m) === -1 && metricYear.indexOf(m) === -1) {
+    //     $(".stats-county-npa-total").text(dataPretty(d3.sum(metricData[year].map.values()), m));
+    // }
+    // else {
+    //     $(".stats-county-npa-total").text("N/A");
+    // }
+
+    // Selected Mean
+    if ($(".datatable-container tbody tr").size() > 0) {
+        $(".datatable-value").each(function() {
+            if ($.isNumeric($(this).html().replace(/[A-Za-z$-\,]/g, ""))) {
+                values.push(parseFloat($(this).html().replace(/[A-Za-z$-\,]/g, "")));
+            }
+        });
+        selectedTotal = values.reduce(function(a, b) { return a + b;});
+        selectedMean = selectedTotal / values.length;
+    }
+    $(".stats-mean-selected").text(dataPretty(selectedMean, m));
+
+    // selected weighted mean
+    if (metricRaw[m]) {
+        // loop through table for selected weighted mean
+        if ($(".datatable-container tbody tr").size() > 0) {
+            $(".datatable-container tbody tr").each(function() {
+                var theValue = $(this).find(".datatable-value").html().replace(/[A-Za-z$-\,]/g, "");
+                var theRaw = $(this).find(".datatable-raw").html().replace(/[A-Za-z$-\,]/g, "");
+                if ($.isNumeric(theValue) && $.isNumeric(theRaw)) {
+                    values.push(parseFloat(theValue * theRaw));
+                    count += parseFloat(theRaw);
+                }
+            });
+            selectedWeightedMean = values.reduce(function(a, b) { return a + b;}) / count;
+        }
+    }
+    $(".stats-weighted-mean-selected").text(dataPretty(selectedWeightedMean, m));
+
+
+
+}
+
+function updateCountyStats() {
+    var m = $("#metric").val(),
+        countyWeightedMean = "N/A",
+        selectedWeightedMean = "N/A",
+        values = [],
+        count = 0;
+
+    // County npa mean
+    $(".stats-county-npa-mean").text(dataPretty(d3.mean(metricData[year].map.values()), m));
+
+    if (metricRaw[m]) {
+        _.each(rawData, function(d) {
+            if ($.isNumeric(d[metricData[year].year])) {
+                values.push(d[metricData[year].year] * metricData[year].map.get(d.id));
+                count += parseFloat(d[metricData[year].year]);
+            }
+        });
+        countyWeightedMean = values.reduce(function(a, b) { return a + b;}) / count;
+    }
+    $(".stats-weighted-mean-county").text(dataPretty(countyWeightedMean, m));
 }
 
 function d3Zoom(msg, d) {
@@ -150,18 +225,19 @@ function dataPretty(theValue, theMetric) {
     var fmat = d3.format("0,000.0"),
         prefix = "",
         suffix = "",
-        pretty = "";
+        pretty = theValue;
 
-    pretty = parseFloat(parseFloat(theValue).toFixed(1)).toString().commafy();
-    if (metricPct.indexOf(theMetric) !== -1) { suffix = "%"; }
-    if (metricMoney.indexOf(theMetric) !== -1) {
-        prefix = "$";
-        pretty = parseFloat(theValue).toFixed(0).commafy();
+    if ($.isNumeric(theValue)) {
+        pretty = parseFloat(parseFloat(theValue).toFixed(1)).toString().commafy();
+        if (metricPct.indexOf(theMetric) !== -1) { suffix = "%"; }
+        if (metricMoney.indexOf(theMetric) !== -1) {
+            prefix = "$";
+            pretty = parseFloat(theValue).toFixed(0).commafy();
+        }
+        if(metricYear.indexOf(theMetric) !== -1) {
+            pretty = parseFloat(pretty.replace(",", "")).toFixed(0);
+        }
     }
-    if(metricYear.indexOf(theMetric) !== -1) {
-        pretty = parseFloat(pretty.replace(",", "")).toFixed(0);
-    }
-
     return prefix + pretty + suffix;
 }
 

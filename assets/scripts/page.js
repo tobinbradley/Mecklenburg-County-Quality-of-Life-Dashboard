@@ -170,12 +170,14 @@ $(document).ready(function () {
     PubSub.subscribe('changeYear', drawMap);
     PubSub.subscribe('changeYear', drawBarChart);
     PubSub.subscribe('changeYear', updateTable);
+    PubSub.subscribe('changeYear', updateCountyStats);
     PubSub.subscribe('changeMetric', processMetric);
     PubSub.subscribe('changeMetric', drawMap);
     PubSub.subscribe('changeMetric', drawBarChart);
     PubSub.subscribe('changeMetric', drawLineChart);
     PubSub.subscribe('changeMetric', updateMeta);
     PubSub.subscribe('changeMetric', updateTable);
+    PubSub.subscribe('changeMetric', updateCountyStats);
     PubSub.subscribe('selectGeo', d3Select);
     PubSub.subscribe('geocode', d3Select);
     PubSub.subscribe('geocode', d3Zoom);
@@ -194,18 +196,19 @@ $(document).ready(function () {
     var baseTiles = L.tileLayer(baseTilesURL);
 
     // Clear selected control
-    var clearSelected = L.control({position: 'bottomleft'});
-    clearSelected.onAdd = function(map) {
-        this._div = L.DomUtil.create('div', 'text-left');
-        this._div.innerHTML = '<button type="button" class="btn btn-primary select-clear"><span class="glyphicon glyphicon-remove-sign"></span> Clear Selected</button>';
-        return this._div;
-    };
-    clearSelected.addTo(map);
+    // var clearSelected = L.control({position: 'bottomleft'});
+    // clearSelected.onAdd = function(map) {
+    //     this._div = L.DomUtil.create('div', 'text-left');
+    //     this._div.innerHTML = '<button type="button" class="btn btn-primary select-clear"><span class="glyphicon glyphicon-remove-sign"></span> Clear Selected</button>';
+    //     return this._div;
+    // };
+    // clearSelected.addTo(map);
     $(".select-clear").on("click", function() {
         d3.selectAll(".geom").classed("d3-select", false);
         d3.select(".value-select").selectAll("rect, line, text, circle").remove();
         d3.selectAll(".trend-select").selectAll("path, circle").remove();
         $(".datatable-container tbody tr").remove();
+        updateStats();
         try { map.removeLayer(marker); }
         catch (err) {}
     });
