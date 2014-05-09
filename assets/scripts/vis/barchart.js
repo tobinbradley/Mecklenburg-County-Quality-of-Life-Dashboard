@@ -104,7 +104,7 @@ function barChart() {
         graph.select(".value-mean line")
             .transition()
             .attr("y1", y(0))
-            .attr("y2", 100)
+            .attr("y2", 0)
             .attr("x1", xScale(countyMean))
             .attr("x2", xScale(countyMean));
         // graph.select(".value-mean .mean-text")
