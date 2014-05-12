@@ -14,15 +14,14 @@
     "tests"
   ],
   "dependencies": {
+  },
+  "devDependencies": {
+    "jquery.scrollTo": "*",
     "topojson": "*",
     "bootstrap": "*",
     "d3": "*",
     "jquery": "*",
     "lodash": "*",
-    "jquery-joyride": "*",
     "jquery-placeholder": "*"
-  },
-  "devDependencies": {
-    "jquery-placeholder": "~2.0.7"
   }
 }

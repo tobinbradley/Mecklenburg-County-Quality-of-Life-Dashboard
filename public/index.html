@@ -23,7 +23,7 @@
     <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png" />
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/main.css?foo=6597">
+    <link rel="stylesheet" href="css/main.css?foo=50954">
 
 </head>
 
@@ -359,10 +359,6 @@
                 <div class="form mapsearch">
                     <input id="searchbox" type="text" class="typeahead form-control" placeholder="search map">
                 </div>
-                <div class="text-center">
-                    <span id="map-joyride">&nbsp;</span>
-                </div>
-
             </div>
             <div class="col-md-4 map-aside fill-height">
                 <div class="stats">
@@ -374,7 +370,7 @@
                         </div>
                         <div class="col-md-5 col-md-offset-1 well">
                             <span class="header">Selected</span>
-                            <h3 class="stats-mean-selected">N/A</h3>
+                            <h3 class="stats-selected stats-mean-selected">N/A</h3>
                             <span class="footer">NPA Average</span>
                         </div>
                     </div>
@@ -442,12 +438,12 @@
                         <div class="col-md-5 col-md-offset-1 well">
                             <span class="header">County</span>
                             <h3 class="stats-weighted-mean-county">N/A</h3>
-                            <span class="footer">Weighted Average</span>
+                            <span class="footer">Metric Average</span>
                         </div>
                         <div class="col-md-5 col-md-offset-1 well">
                             <span class="header">Selected</span>
-                            <h3 class="stats-weighted-mean-selected">N/A</h3>
-                            <span class="footer">Weighted Average</span>
+                            <h3 class="stats-selected stats-weighted-mean-selected">N/A</h3>
+                            <span class="footer">Metric Average</span>
                         </div>
                     </div>
                     <!-- <div class="row text-center">
@@ -518,62 +514,111 @@
     </script>
     <!-- END: Underscore Template Definition. -->
 
-    <!-- Joyride -->
-    <ol id="tutorial" class="hide">
-        <li>
-            <h4>Welcome!</h4>
-            <p>The Quality of Life Dashboard is designed to help assess the health of neighborhoods in Charlotte and Mecklenburg County.</p>
-            <p>Click <strong>Next</strong> to start the tour.</p>
-        </li>
-        <li data-class="chosen-container" data-options="tipLocation:top;">
-            <h4>Metrics</h4>
-            <p>Use this control to select the <strong>Metric</strong> you're interested in. Metrics are divided into categories, and you can also search for Metrics using the search box.</p>
-        </li>
-        <li data-id="map-joyride" data-options="tipLocation:bottom;">
-            <h4>Map</h4>
-            <p>The <strong>Map</strong> is fully interactive - you can pan, zoom, and select neighborhoods by mouse or touch. If you zoom in close, the neighborhoods become transparent so you can view roads and map features.</p>
-        </li>
-        <li data-id="searchbox" data-options="tipLocation:bottom;">
-            <h4>Search</h4>
-            <p>The <strong>Search</strong> control lets you search for almost anything. Type in a neighborhood number, the first part of an address or a place name, and select a match using your mouse, keyboard, or by touch.</p>
-        </li>
-        <li data-class="yearDisplay" data-options="tipLocation:bottom;">
-            <h4>Year</h4>
-            <p>The <strong>Year</strong> controls let you control the year being shown on the map and in the <strong>Bar Chart</strong>. You can change the year by moving the slider and cycle the years available for the metric by using the Play/Pause button.</p>
-        </li>
-        <li data-class="stats-npa-mean" data-options="tipLocation:bottom;">
-            <h4>Average</h4>
-            <p>The <strong>Average</strong> for County NPA's and any selected NPA's is shown here. The County NPA Average is indicated by a dashed line on the charts.</p>
-        </li>
-        <li data-class="barchart" data-options="tipLocation:bottom;">
-            <h4>Bar Chart</h4>
-            <p>The <strong>Bar Chart</strong> shows a lot of information about the <strong>Metric</strong>. First, it acts as a legend for the map - the map colors correspond to the the chart colors. It also shows you the density of the data - the taller the <em>quantile</em>, or bar, the more neighborhoods exist in that range. Clicking on a bar will select every neighborhood in that quantile.</p>
-            <p>The dashed line represents the average value of the neighborhoods.</p>
-        </li>
-        <li data-class="linechart" data-options="tipLocation:bottom;">
-            <h4>Line Chart</h4>
-            <p>The <strong>Line Chart</strong> shows the trend of the <strong>Metric</strong> over time. The dashed line represents the average value of the neighborhoods.</p>
-        </li>
-        <li data-class="select-clear" data-options="tipLocation:top;">
-            <h4>Clear Selected</h4>
-            <p>The <strong>Clear Selected</strong> button clears any selected neighborhoods from the map and charts.</p>
-        </li>
-        <li data-class="toggle-table" data-options="tipLocation:top;">
-            <h4>Show Data</h4>
-            <p>You can toggle off more information, including a table with NPA values, accuracy information, raw data, and weighted averages.</p>
-        </li>
-        <li data-class="meta-subtitle" data-options="tipLocation:bottom;">
-            <h4>Metric Information</h4>
-            <p>The bottom of the page shows information about the <strong>Metric</strong>, including a brief description, why it is important, where the data came from, and additional resources related to the metric.</p>
-        </li>
-        <li data-class="navbar-right" data-options="tipLocation:bottom;" data-button="Finished!">
-            <h4>Nav Bar</h4>
-            <p>The <strong>Nav Bar</strong> can show you more <em>About</em> the Quality of Life study, links to <em>Download</em> the data in a variety of formats, and <em>Help</em> you get started.</p>
-        </li>
+    <!-- Begin jQuery Tourbus -->
+    <ol class='tourbus-legs' id='dashboard-tour'>
+      <li data-orientation='centered' data-width='300'>
+        <h2>Welcome!</h2>
+        <p>The Quality of Life Dashboard is designed to help assess the health of neighborhoods in Charlotte and Mecklenburg County.</p>
+        <div class="btn-group pull-right">
+          <button type="button" class="btn btn-default btn-sm tourbus-stop">Finished</button>
+          <button type="button" class="btn btn-default btn-sm tourbus-next">Next</button>
+        </div>
+      </li>
+      <li data-el='.chosen-container' data-orientation='bottom' data-width='300'>
+        <h2>Metrics</h2>
+        <p>Use this control to select the <strong>Metric</strong> you're interested in. Metrics are divided into categories, and you can also search for Metrics using the search box.</p>
+        <div class="btn-group pull-right">
+          <button type="button" class="btn btn-default btn-sm tourbus-prev">Previous</button>
+          <button type="button" class="btn btn-default btn-sm tourbus-stop">Finished</button>
+          <button type="button" class="btn btn-default btn-sm tourbus-next">Next</button>
+        </div>
+      </li>
+      <li data-el='#map' data-orientation='bottom' data-width='300'>
+        <h2>Map</h2>
+        <p>The <strong>Map</strong> is fully interactive - you can pan, zoom, and select neighborhoods by mouse or touch. If you zoom in close, the neighborhoods become transparent so you can view roads and map features.</p>
+        <div class="btn-group pull-right">
+          <button type="button" class="btn btn-default btn-sm tourbus-prev">Previous</button>
+          <button type="button" class="btn btn-default btn-sm tourbus-stop">Finished</button>
+          <button type="button" class="btn btn-default btn-sm tourbus-next">Next</button>
+        </div>
+      </li>
+      <li data-el='#searchbox' data-orientation='bottom' data-width='300'>
+        <h2>Search</h2>
+        <p>The <strong>Search</strong> control lets you search for almost anything. Type in a neighborhood number, the first part of an address or a place name, and select a match using your mouse, keyboard, or by touch.</p>
+        <div class="btn-group pull-right">
+          <button type="button" class="btn btn-default btn-sm tourbus-prev">Previous</button>
+          <button type="button" class="btn btn-default btn-sm tourbus-stop">Finished</button>
+          <button type="button" class="btn btn-default btn-sm tourbus-next">Next</button>
+        </div>
+      </li>
+      <li data-el='.yearDisplay' data-orientation='top' data-width='300'>
+        <h2>Year</h2>
+        <p>The <strong>Year</strong> controls let you control the year being shown on the map and in the <strong>Bar Chart</strong>. You can change the year by moving the slider and cycle the years available for the metric by using the Play/Pause button.</p>
+        <div class="btn-group pull-right">
+          <button type="button" class="btn btn-default btn-sm tourbus-prev">Previous</button>
+          <button type="button" class="btn btn-default btn-sm tourbus-stop">Finished</button>
+          <button type="button" class="btn btn-default btn-sm tourbus-next">Next</button>
+        </div>
+      </li>
+      <li data-el='.stats-npa-mean' data-orientation='bottom' data-width='300'>
+        <h2>Average</h2>
+        <p>The <strong>Average</strong> for County NPA's and any selected NPA's is shown here. The County NPA Average is indicated by a dashed line on the charts.</p>
+        <div class="btn-group pull-right">
+          <button type="button" class="btn btn-default btn-sm btn-sm tourbus-prev">Previous</button>
+          <button type="button" class="btn btn-default btn-sm btn-sm tourbus-stop">Finished</button>
+          <button type="button" class="btn btn-default btn-sm btn-sm tourbus-next">Next</button>
+        </div>
+      </li>
+      <li data-el='.barchart' data-orientation='bottom' data-width='300'>
+        <h2>Bar Chart</h2>
+        <p>The <strong>Bar Chart</strong> shows a lot of information about the <strong>Metric</strong>. First, it acts as a legend for the map - the map colors correspond to the the chart colors. It also shows you the density of the data - the taller the <em>quantile</em>, or bar, the more neighborhoods exist in that range. Clicking on a bar will select every neighborhood in that quantile.</p>
+        <p>The dashed line represents the average value of the neighborhoods.</p>
+        <div class="btn-group pull-right">
+          <button type="button" class="btn btn-default btn-sm btn-sm tourbus-prev">Previous</button>
+          <button type="button" class="btn btn-default btn-sm btn-sm tourbus-stop">Finished</button>
+          <button type="button" class="btn btn-default btn-sm btn-sm tourbus-next">Next</button>
+        </div>
+      </li>
+      <li data-el='.linechart' data-orientation='top' data-width='300'>
+        <h2>Line Chart</h2>
+        <p>The <strong>Line Chart</strong> shows the trend of the <strong>Metric</strong> over time. The dashed line represents the average value of the neighborhoods.</p>
+        <div class="btn-group pull-right">
+          <button type="button" class="btn btn-default btn-sm btn-sm tourbus-prev">Previous</button>
+          <button type="button" class="btn btn-default btn-sm btn-sm tourbus-stop">Finished</button>
+          <button type="button" class="btn btn-default btn-sm btn-sm tourbus-next">Next</button>
+        </div>
+      </li>
+      <li data-el='.datatoggle' data-orientation='bottom' data-width='300' data-arrow='80%'>
+        <h2>Data Controls</h2>
+        <p>Use these links to clear any selected neighborhoods or view additional information including a table with NPA values, accuracy information, raw data, and weighted averages.</p>
+        <div class="btn-group pull-right">
+          <button type="button" class="btn btn-default btn-sm tourbus-prev">Previous</button>
+          <button type="button" class="btn btn-default btn-sm tourbus-stop">Finished</button>
+          <button type="button" class="btn btn-default btn-sm tourbus-next">Next</button>
+        </div>
+      </li>
+      <li data-el='.meta-subtitle' data-orientation='top' data-width='300'>
+        <h2>Metric Information</h2>
+        <p>The bottom of the page shows information about the <strong>Metric</strong>, including a brief description, why it is important, where the data came from, and additional resources related to the metric.</p>
+        <div class="btn-group pull-right">
+          <button type="button" class="btn btn-default btn-sm tourbus-prev">Previous</button>
+          <button type="button" class="btn btn-default btn-sm tourbus-stop">Finished</button>
+          <button type="button" class="btn btn-default btn-sm tourbus-next">Next</button>
+        </div>
+      </li>
+      <li data-el='.navbar-right' data-orientation='bottom' data-width='300'>
+        <h2>Nav Bar</h2>
+        <p>The <strong>Nav Bar</strong> can show you more <em>About</em> the Quality of Life study, links to <em>Download</em> the data in a variety of formats, and <em>Help</em> you get started.</p>
+        <div class="btn-group pull-right">
+          <button type="button" class="btn btn-default btn-sm tourbus-prev">Previous</button>
+          <button type="button" class="btn btn-default btn-sm tourbus-stop">Finished</button>
+        </div>
+      </li>
     </ol>
+    <!-- End jQuery Tourbus -->
 
     <!-- scripts at the bottom yo -->
-    <script src="js/main.js?foo=6597"></script>
+    <script src="js/main.js?foo=50954"></script>
 
     <!--   Google Analytics -->
     <script>

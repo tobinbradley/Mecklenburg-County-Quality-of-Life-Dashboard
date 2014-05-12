@@ -11,7 +11,8 @@ var map,                // leaflet map
     marker,             // marker for geocode
     trendChart,
     valueChart,
-    d3Layer;
+    d3Layer,
+    tour;
 
 _.templateSettings.variable = "rc";
 
@@ -109,16 +110,18 @@ $(document).ready(function () {
         fetchMetricData(theVal);
         $(this).trigger("chosen:updated");
     });
+    $(".chosen-search input").prop("placeholder", "search metrics");
 
     // joyride
+    var tour = $('#dashboard-tour').tourbus({});
     $('.btn-help').on("click", function() {
-        $('.leaflet-control-zoom').hide();
-        $("#tutorial").joyride({
-            autoStart : true,
-            postRideCallback: function() { $('.leaflet-control-zoom').show(); }
-        });
+        // $('.leaflet-control-zoom').hide();
+        // $("#tutorial").joyride({
+        //     autoStart : true,
+        //     postRideCallback: function() { $('.leaflet-control-zoom').show(); }
+        // });
+        tour.trigger('depart.tourbus');
     });
-    $(".chosen-search input").prop("placeholder", "search metrics");
 
 
     // Toggle table
@@ -208,6 +211,7 @@ $(document).ready(function () {
         d3.select(".value-select").selectAll("rect, line, text, circle").remove();
         d3.selectAll(".trend-select").selectAll("path, circle").remove();
         $(".datatable-container tbody tr").remove();
+        $(".stats-selected").text("N/A");
         updateStats();
         try { map.removeLayer(marker); }
         catch (err) {}
