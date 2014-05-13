@@ -91,9 +91,8 @@ function lineChart() {
     // add lines and nodes
     var path = graph.append("path")
         .attr("d", line(values, years))
-        .attr("data-id", id)
-        .attr("class", "metric-hover")
-        .attr("stroke", "steelblue");
+        .attr("data-id", id);
+        //.attr("class", "metric-hover");
     var totalLength = path.node().getTotalLength();
         path
           .attr("stroke-dasharray", totalLength + " " + totalLength)
