@@ -163,13 +163,8 @@ $(document).ready(function () {
     });
 
     // subscriptions
-    //PubSub.subscribe('initialize', processMetric);
     PubSub.subscribe('initialize', initMap);
-    //PubSub.subscribe('initialize', drawMap);
-    //PubSub.subscribe('initialize', updateMeta);
-    //PubSub.subscribe('initialize', drawBarChart);
-    //PubSub.subscribe('initialize', drawLineChart);
-    //PubSub.subscribe('initialize', initTypeahead);
+    PubSub.subscribe('initialize', initTypeahead);
     PubSub.subscribe('changeYear', drawMap);
     PubSub.subscribe('changeYear', drawBarChart);
     PubSub.subscribe('changeYear', updateTable);

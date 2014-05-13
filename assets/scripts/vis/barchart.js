@@ -169,8 +169,8 @@ function barChart() {
             .attr("ry", 3)
             .attr("width", 30)
             .attr("height", 21)
-            .attr("data-id", id)
-            .attr("class", "metric-hover");
+            .attr("data-id", id);
+            //.attr("class", "metric-hover");
         d3.select(container)
             .append("text")
             .attr("x", xScale(value))
@@ -244,7 +244,3 @@ function drawBarChart() {
     valueChart.container("barChart");
     valueChart();
 }
-
-
-
-

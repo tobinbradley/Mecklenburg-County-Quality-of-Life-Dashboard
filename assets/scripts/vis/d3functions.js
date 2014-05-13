@@ -240,5 +240,3 @@ function dataPretty(theValue, theMetric) {
     }
     return prefix + pretty + suffix;
 }
-
-
