@@ -33,18 +33,6 @@ jQuery.support.placeholder = (function(){
     return 'placeholder' in i;
 })();
 
-function getNearestNumber(a, n){
-    if((l = a.length) < 2) {
-        return l - 1;
-    }
-    for(var l, p = Math.abs(a[--l] - n); l--;) {
-        if(p < (p = Math.abs(a[l] - n))) {
-            break;
-        }
-    }
-    return l + 1;
-}
-
 // Slider change event
 function sliderChange(value) {
     $('.time-year').text(metricData[value].year.replace("y_", ""));
@@ -112,24 +100,31 @@ $(document).ready(function () {
     });
     $(".chosen-search input").prop("placeholder", "search metrics");
 
-    // joyride
-    var tour = $('#dashboard-tour').tourbus({});
-    $('.btn-help').on("click", function() {
-        // $('.leaflet-control-zoom').hide();
-        // $("#tutorial").joyride({
-        //     autoStart : true,
-        //     postRideCallback: function() { $('.leaflet-control-zoom').show(); }
-        // });
-        tour.trigger('depart.tourbus');
+    // Clear selected button
+    $(".select-clear").on("click", function() {
+        d3.selectAll(".geom").classed("d3-select", false);
+        d3.select(".value-select").selectAll("rect, line, text, circle").remove();
+        d3.selectAll(".trend-select").selectAll("path, circle").remove();
+        $(".datatable-container tbody tr").remove();
+        $(".stats-selected").text("N/A");
+        updateStats();
+        try { map.removeLayer(marker); }
+        catch (err) {}
     });
 
-
-    // Toggle table
+    // Toggle table button
     $(".toggle-table").on("click", function() {
         var txt = $(".datatable-container").is(':visible') ? 'Show Data' : 'Hide Data';
         $(this).text(txt);
         $(".datatable-container").toggle("slow");
     });
+
+    // joyride
+    var tour = $('#dashboard-tour').tourbus({});
+    $('.btn-help').on("click", function() {
+        tour.trigger('depart.tourbus');
+    });
+
 
     // Track outbound resource links
     $(".meta-resources").on("mousedown", "a", function(e){
@@ -192,26 +187,6 @@ $(document).ready(function () {
             maxZoom: mapGeography.maxZoom
         }).setView(mapGeography.center, mapGeography.defaultZoom);
     var baseTiles = L.tileLayer(baseTilesURL);
-
-    // Clear selected control
-    // var clearSelected = L.control({position: 'bottomleft'});
-    // clearSelected.onAdd = function(map) {
-    //     this._div = L.DomUtil.create('div', 'text-left');
-    //     this._div.innerHTML = '<button type="button" class="btn btn-primary select-clear"><span class="glyphicon glyphicon-remove-sign"></span> Clear Selected</button>';
-    //     return this._div;
-    // };
-    // clearSelected.addTo(map);
-    $(".select-clear").on("click", function() {
-        d3.selectAll(".geom").classed("d3-select", false);
-        d3.select(".value-select").selectAll("rect, line, text, circle").remove();
-        d3.selectAll(".trend-select").selectAll("path, circle").remove();
-        $(".datatable-container tbody tr").remove();
-        $(".stats-selected").text("N/A");
-        updateStats();
-        try { map.removeLayer(marker); }
-        catch (err) {}
-    });
-
 
     // Year control
     var yearControl = L.control({position: 'bottomright'});
@@ -340,43 +315,6 @@ function changeMetric(data) {
     });
 }
 
-function GetSubstringIndex(str, substring, n) {
-    var times = 0, index = null;
-    while (times < n && index !== -1) {
-        index = str.indexOf(substring, index+1);
-        times++;
-    }
-    return index;
-}
-
-// Eyes wide open for this giant hack. I'm reading the metric HTML (converted from
-// markdown in build process) and pulling substrings out to place on the page. If your
-// metric meta is different *at all*, and it will be, you will need to edit here.
-function updateMeta(msg, d) {
-    $.ajax({
-        url: 'data/meta/' + d.metric + '.html',
-        type: 'GET',
-        dataType: 'text',
-        success: function (data) {
-            $('.meta-subtitle').html(
-                data.substring(GetSubstringIndex(data, '</h2>', 1) + 5, GetSubstringIndex(data, '<h3', 1))
-            );
-            $('.meta-important').html(
-                data.substring(GetSubstringIndex(data, '</h3>', 1) + 5, GetSubstringIndex(data, '<h3', 2))
-            );
-            $('.meta-about').html(
-                data.substring(GetSubstringIndex(data, '</h3>', 2) + 5, GetSubstringIndex(data, '<h3', 3))
-            );
-            $('.meta-resources').html(
-                data.substring(GetSubstringIndex(data, '</h3>', 3) + 5, data.length)
-            );
-        },
-        error: function (error, status, desc) {
-            console.log(status, desc);
-        }
-    });
-}
-
 function processMetric(msg, data) {
     // get current year if available so slider can find nearest
     if (_.isNumber(year)) {
@@ -392,12 +330,6 @@ function processMetric(msg, data) {
     }
 
     // set slider and time related stuff
-    // if (!_.isNumber(year)) {
-    //     year = metricData.length -1;
-    // } else {
-    //     var newYears = _.map(_.pluck(metricData, 'year'), function(d) { return parseInt(d.replace("y_", "")); });
-    //     year = getNearestNumber(newYears, prevYear);
-    // }
     year = metricData.length -1;
     $(".slider").slider("option", "max", metricData.length - 1).slider("value", year);
     metricData.length > 1 ? $(".time").fadeIn() : $(".time").hide();

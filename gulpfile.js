@@ -9,7 +9,8 @@ var gulp = require('gulp'),
     convert = require('gulp-convert'),
     imagemin = require('gulp-imagemin'),
     replace = require('gulp-replace'),
-    open = require('open');
+    open = require('open'),
+    fs = require('fs');
 
 var jsFiles = [
     'bower_components/jquery/dist/jquery.js',
@@ -29,10 +30,9 @@ var jsFiles = [
     'assets/scripts/vendor/jquery-tourbus.js',
     'bower_components/lodash/dist/lodash.underscore.js',
     'bower_components/jquery.scrollTo/jquery.scrollTo.js',
+    'assets/scripts/functions/*.js',
     'assets/scripts/config.js',
-    'assets/scripts/vis/*.js',
-    'assets/scripts/search.js',
-    'assets/scripts/page.js'
+    'assets/scripts/main.js'
 ];
 
 // livereload server
@@ -125,6 +125,18 @@ gulp.task('watch', function () {
     gulp.watch(['./public/**/*.html'], ['html']);
     gulp.watch(['./assets/less/**/*.less'], ['less']);
     gulp.watch('assets/scripts/**/*.js', ['js']);
+});
+
+// rename files for basic setup
+gulp.task('init', function() {
+    // rename mecklenburg search file to search.js.meck
+    fs.rename('assets/scripts/functions/search.js', 'assets/scripts/functions/search.js.advanced', function(err) {
+        if ( err ) console.log('ERROR: ' + err);
+    });
+    // rename default search file to search.js
+    fs.rename('assets/scripts/functions/search.js.basic', 'assets/scripts/functions/search.js', function(err) {
+        if ( err ) console.log('ERROR: ' + err);
+    });
 });
 
 // controller tasks

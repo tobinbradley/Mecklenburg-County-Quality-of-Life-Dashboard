@@ -4,10 +4,12 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Quality of Life Dashboard</title>
     <meta name="description" content="Quality of Life Dashboard.">
     <meta name="keywords" content="GIS,Mecklenburg County,parks,libraries,schools,environment,impervious surface,floodplain,zoning,assessment,tax,photos,government">
     <meta name="author" content="Tobin Bradley">
+
+    <!-- Set the title here -->
+    <title>Quality of Life Dashboard</title>
 
     <!-- turn off robots during dev -->
     <meta name="robots" value="none">
@@ -19,11 +21,11 @@
     <meta name="mobile-web-app-capable" content="yes">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/png" href="favicon.png" />
-    <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png" />
+    <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
+    <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon-precomposed.png" />
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/main.css?foo=31043">
+    <link rel="stylesheet" href="css/main.css?foo=11391">
 
 </head>
 
@@ -44,7 +46,7 @@
 
                 <a class="navbar-brand" href="./">
                     <strong>Quality of Life Dashboard
-                        <span class="text-primary">Alpha</span>
+                        <span class="text-primary">Beta</span>
                     </strong>
                 </a>
             </div>
@@ -363,12 +365,12 @@
             <div class="col-md-4 map-aside fill-height">
                 <div class="stats">
                     <div class="row text-center">
-                        <div class="col-md-5 col-md-offset-1 well stats-npa-mean">
+                        <div class="col-md-5 col-md-offset-1 col-xs-4 col-xs-offset-1 well stats-npa-mean">
                             <span class="header">County</span>
                             <h3 class="stats-county-npa-mean">N/A</h3>
                             <span class="footer" style="border-bottom: 2px dashed black;">NPA Average</span>
                         </div>
-                        <div class="col-md-5 col-md-offset-1 well">
+                        <div class="col-md-5 col-md-offset-1 col-xs-4 col-xs-offset-2 well">
                             <span class="header">Selected</span>
                             <h3 class="stats-selected stats-mean-selected">N/A</h3>
                             <span class="footer">NPA Average</span>
@@ -382,7 +384,6 @@
                             <g class="value-mean">
                                 <line></line>
                                 <text class="mean-text"></text>
-                                <!--<text class="mean-label" transform="rotate(-90)" x="-155" >mean</text>-->
                             </g>
                             <g class="value-select"></g>
                             <g class="value-hover"></g>
@@ -403,11 +404,6 @@
                             <g class="y axis"></g>
                         </g>
                     </svg>
-                </div>
-                <div>
-                    <!-- <p class="text-center legend-mean">
-                        <img src="images/legend-mean.png" alt="County NPA Mean" width="23" height="15"> County NPA Mean
-                    </p> -->
                 </div>
                 <div class="btn-group pull-right datatoggle">
                   <button type="button" class="btn btn-default btn-sm select-clear">Clear Selected</button>
@@ -433,29 +429,17 @@
             <div class="col-md-4">
                 <div class="stats">
                     <div class="row text-center">
-                        <div class="col-md-5 col-md-offset-1 well">
+                        <div class="col-md-5 col-md-offset-1 col-xs-4 col-xs-offset-1 well">
                             <span class="header">County</span>
                             <h3 class="stats-weighted-mean-county">N/A</h3>
                             <span class="footer">Metric Average</span>
                         </div>
-                        <div class="col-md-5 col-md-offset-1 well">
+                        <div class="col-md-5 col-md-offset-1 col-xs-4 col-xs-offset-2 well">
                             <span class="header">Selected</span>
                             <h3 class="stats-selected stats-weighted-mean-selected">N/A</h3>
                             <span class="footer">Metric Average</span>
                         </div>
                     </div>
-                    <!-- <div class="row text-center">
-                        <div class="col-md-5 col-md-offset-1 well">
-                            <span class="header">County</span>
-                            <h3 class="stats-county-npa-total">N/A</h3>
-                            <span class="footer">Total</span>
-                        </div>
-                        <div class="col-md-5 col-md-offset-1 well">
-                            <span class="header">Selected</span>
-                            <h3 class="stats-mean-total">N/A</h3>
-                            <span class="footer">Total</span>
-                        </div>
-                    </div> -->
                 </div>
             </div>
         </div>
@@ -481,7 +465,6 @@
                     <div class='meta-resources'></div>
                 </div>
             </div>
-
         </div>
         <div class="row">
             <footer class="text-center page-footer">
@@ -515,7 +498,7 @@
     <!-- Begin jQuery Tourbus -->
     <ol class='tourbus-legs' id='dashboard-tour'>
       <li data-orientation='centered' data-width='300'>
-        <h2>Welcome!</h2>
+        <h3>Welcome!</h3>
         <p>The Quality of Life Dashboard is designed to help assess the health of neighborhoods in Charlotte and Mecklenburg County.</p>
         <div class="btn-group pull-right">
           <button type="button" class="btn btn-default btn-sm tourbus-stop">Finished</button>
@@ -523,7 +506,7 @@
         </div>
       </li>
       <li data-el='.chosen-container' data-orientation='bottom' data-width='300'>
-        <h2>Metrics</h2>
+        <h3>Metrics</h3>
         <p>Use this control to select the <strong>Metric</strong> you're interested in. Metrics are divided into categories, and you can also search for Metrics using the search box.</p>
         <div class="btn-group pull-right">
           <button type="button" class="btn btn-default btn-sm tourbus-prev">Previous</button>
@@ -532,7 +515,7 @@
         </div>
       </li>
       <li data-el='#map' data-orientation='bottom' data-width='300'>
-        <h2>Map</h2>
+        <h3>Map</h3>
         <p>The <strong>Map</strong> is fully interactive - you can pan, zoom, and select neighborhoods by mouse or touch. If you zoom in close, the neighborhoods become transparent so you can view roads and map features.</p>
         <div class="btn-group pull-right">
           <button type="button" class="btn btn-default btn-sm tourbus-prev">Previous</button>
@@ -541,7 +524,7 @@
         </div>
       </li>
       <li data-el='#searchbox' data-orientation='bottom' data-width='300'>
-        <h2>Search</h2>
+        <h3>Search</h3>
         <p>The <strong>Search</strong> control lets you search for almost anything. Type in a neighborhood number, the first part of an address or a place name, and select a match using your mouse, keyboard, or by touch.</p>
         <div class="btn-group pull-right">
           <button type="button" class="btn btn-default btn-sm tourbus-prev">Previous</button>
@@ -550,7 +533,7 @@
         </div>
       </li>
       <li data-el='.yearDisplay' data-orientation='top' data-width='300'>
-        <h2>Year</h2>
+        <h3>Year</h3>
         <p>The <strong>Year</strong> controls let you control the year being shown on the map and in the <strong>Bar Chart</strong>. You can change the year by moving the slider and cycle the years available for the metric by using the Play/Pause button.</p>
         <div class="btn-group pull-right">
           <button type="button" class="btn btn-default btn-sm tourbus-prev">Previous</button>
@@ -559,7 +542,7 @@
         </div>
       </li>
       <li data-el='.stats-npa-mean' data-orientation='bottom' data-width='300'>
-        <h2>Average</h2>
+        <h3>Average</h3>
         <p>The <strong>Average</strong> for County NPA's and any selected NPA's is shown here. The County NPA Average is indicated by a dashed line on the charts.</p>
         <div class="btn-group pull-right">
           <button type="button" class="btn btn-default btn-sm btn-sm tourbus-prev">Previous</button>
@@ -568,7 +551,7 @@
         </div>
       </li>
       <li data-el='.barchart' data-orientation='bottom' data-width='300'>
-        <h2>Bar Chart</h2>
+        <h3>Bar Chart</h3>
         <p>The <strong>Bar Chart</strong> shows a lot of information about the <strong>Metric</strong>. First, it acts as a legend for the map - the map colors correspond to the the chart colors. It also shows you the density of the data - the taller the <em>quantile</em>, or bar, the more neighborhoods exist in that range. Clicking on a bar will select every neighborhood in that quantile.</p>
         <p>The dashed line represents the average value of the neighborhoods.</p>
         <div class="btn-group pull-right">
@@ -578,7 +561,7 @@
         </div>
       </li>
       <li data-el='.linechart' data-orientation='top' data-width='300'>
-        <h2>Line Chart</h2>
+        <h3>Line Chart</h3>
         <p>The <strong>Line Chart</strong> shows the trend of the <strong>Metric</strong> over time. The dashed line represents the average value of the neighborhoods.</p>
         <div class="btn-group pull-right">
           <button type="button" class="btn btn-default btn-sm btn-sm tourbus-prev">Previous</button>
@@ -587,7 +570,7 @@
         </div>
       </li>
       <li data-el='.datatoggle' data-orientation='bottom' data-width='300'>
-        <h2>Data Controls</h2>
+        <h3>Data Controls</h3>
         <p>Use these links to clear any selected neighborhoods or view additional information including a table with NPA values, accuracy information, raw data, and weighted averages.</p>
         <div class="btn-group pull-right">
           <button type="button" class="btn btn-default btn-sm tourbus-prev">Previous</button>
@@ -596,7 +579,7 @@
         </div>
       </li>
       <li data-el='.meta-subtitle' data-orientation='top' data-width='300'>
-        <h2>Metric Information</h2>
+        <h3>Metric Information</h3>
         <p>The bottom of the page shows information about the <strong>Metric</strong>, including a brief description, why it is important, where the data came from, and additional resources related to the metric.</p>
         <div class="btn-group pull-right">
           <button type="button" class="btn btn-default btn-sm tourbus-prev">Previous</button>
@@ -605,7 +588,7 @@
         </div>
       </li>
       <li data-el='.navbar-right' data-orientation='bottom' data-width='300'>
-        <h2>Nav Bar</h2>
+        <h3>Nav Bar</h3>
         <p>The <strong>Nav Bar</strong> can show you more <em>About</em> the Quality of Life study, links to <em>Download</em> the data in a variety of formats, and <em>Help</em> you get started.</p>
         <div class="btn-group pull-right">
           <button type="button" class="btn btn-default btn-sm tourbus-prev">Previous</button>
@@ -616,7 +599,7 @@
     <!-- End jQuery Tourbus -->
 
     <!-- scripts at the bottom yo -->
-    <script src="js/main.js?foo=31043"></script>
+    <script src="js/main.js?foo=11391"></script>
 
     <!--   Google Analytics -->
     <script>

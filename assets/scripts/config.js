@@ -1,15 +1,12 @@
-// General Info
-// * install node and start the project
-// * convert neighborhoods to topojson (id field)
-// * format of data - naming conventions, csv, etc.
+// Here we have a bunch of configuration nobs.
 
 // Number of color breaks/quantiles in the map and bar chart.
 // Note the rule is 5 to 7 color breaks on a choropleth map. Don't be
 // that guy. Nobody likes that guy.
 //
-// You will also want to monkey about in assets/less/vis.less under
-// "chart and map colors". A good guide for color breaks is
-// http://colorbrewer2.org
+// You will need to monkey about in assets/less/vis.less under
+// "chart and map colors" if you change this number. A good guide for color
+// breaks is http://colorbrewer2.org
 var colorbreaks = 6;
 
 // The URL for your base map tiles.
@@ -45,17 +42,17 @@ var metricPct = ["m4", "m6", "m7", "m8", "m9", "m10", "m11", "m12", "m13", "m18"
 // The following things are for crazy people.
 //
 // If you have supplimental accuracy information for one of your metrics, you
-// can include that in a file with the data formatted m[*]-accuracy.csv and then
+// can include that in a file with the data formatted [*]-accuracy.csv and then
 // put the metric value in this array and it'll show in the tooltip below the
 // number. You will probably want to make this an empty array to disable it, but
-// we have crazy people here.
+// we have crazy people here. It will appear in the Show Data table.
+//
+// You can also have a raw number associated with a metric. Associate the raw
+// number with the metric via "<metrics>": "<raw metric>". This will appear in the
+// Show Data table along with weighted averages that'll generally be almost the
+// same as the non-weighted averages but CRAZY PEOPLE.
+//
+// var metricAccuracy = [];
+// var metricRaw = {};
 var metricAccuracy = ["m1", "m8"];
-
-// If you have raw data to go along with say percentage data, you can associate the
-// raw metric with the
 var metricRaw = {"m8": "m1"};
-
-// Need something to customize search types
-
-// Need something to customize handling search returns
-
