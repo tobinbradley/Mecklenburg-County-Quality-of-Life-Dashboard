@@ -42,12 +42,6 @@ function barChart() {
             .attr("transform", "translate(0," + h + ")")
             .call(xAxis);
 
-        // graph.select(".y.axis")
-        //       .attr("transform", "translate(0,0)")
-        //       .call(yAxis)
-        //       .select("text")
-        //       .style("opacity", 1);
-
         // create original rects
             var barContainer = graph.select(".bar-container");
             barContainer.selectAll(".bar")
@@ -107,14 +101,6 @@ function barChart() {
             .attr("y2", 0)
             .attr("x1", xScale(countyMean))
             .attr("x2", xScale(countyMean));
-        // graph.select(".value-mean .mean-text")
-        //     .transition()
-        //     .attr("x", xScale(countyMean))
-        //     .attr("y", 95)
-        //     .text(dataPretty(countyMean), $("#metric").val());
-        // graph.select(".value-mean .mean-label")
-        //     .transition()
-        //     .attr("y", xScale(countyMean) - 4);
 
         my.pointerMove();
 

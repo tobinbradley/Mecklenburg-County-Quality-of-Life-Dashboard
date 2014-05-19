@@ -11,6 +11,7 @@ d3.selection.prototype.moveToFront = function () {
 // Node there's some weirdness with the geometry doing it this way, so there is
 // another function like this specifically for after the geometry is added in
 // d3map.js.
+
 $(document).on({
     mouseenter: function(){
         addHighlight($(this));
@@ -22,15 +23,15 @@ $(document).on({
 
 
 function addHighlight(elem) {
-    if (elem.data('id')) {
-        d3.selectAll('[data-id="' + elem.data('id') + '"]').classed("d3-highlight", true);
-        if ($.isNumeric(elem.data("value"))) {
-            trendChart.lineAdd(".trend-highlight", elem.data('id'));
-            valueChart.pointerAdd(elem.data('id'), elem.data('value'), ".value-hover");
+    if (elem.attr('data-id')) {
+        d3.selectAll('[data-id="' + elem.attr('data-id') + '"]').classed("d3-highlight", true);
+        if ($.isNumeric(elem.attr("data-value"))) {
+            trendChart.lineAdd(".trend-highlight", elem.attr('data-id'));
+            valueChart.pointerAdd(elem.attr('data-id'), elem.attr('data-value'), ".value-hover");
         }
     }
     else {
-        d3.selectAll('[data-quantile="' + elem.data('quantile') + '"]').classed("d3-highlight", true);
+        d3.selectAll('[data-quantile="' + elem.attr('data-quantile') + '"]').classed("d3-highlight", true);
     }
 }
 function removeHighlight(elem) {
@@ -128,14 +129,6 @@ function updateSelectedStats() {
         values = [],
         count = 0;
 
-    // County Total
-    // if (metricPct.indexOf(m) === -1 && metricYear.indexOf(m) === -1) {
-    //     $(".stats-county-npa-total").text(dataPretty(d3.sum(metricData[year].map.values()), m));
-    // }
-    // else {
-    //     $(".stats-county-npa-total").text("N/A");
-    // }
-
     // Selected Mean
     if ($(".datatable-container tbody tr").size() > 0) {
         $(".datatable-value").each(function() {
@@ -143,8 +136,10 @@ function updateSelectedStats() {
                 values.push(parseFloat($(this).html().replace(/[A-Za-z$-\,]/g, "")));
             }
         });
-        selectedTotal = values.reduce(function(a, b) { return a + b;});
-        selectedMean = selectedTotal / values.length;
+        if (values.length > 0) {
+            selectedTotal = values.reduce(function(a, b) { return a + b;});
+            selectedMean = selectedTotal / values.length;
+        }
     }
     $(".stats-mean-selected").text(dataPretty(selectedMean, m));
 

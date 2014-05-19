@@ -1,12 +1,16 @@
 // set up typeahead.js
+// This is Mecklenburg's, which has a lot of calls to our spiffy web services that
+// will not help you at all other than as an example of what you could do.
+//
+// Most of our calls are going to our REST-ish HTTP API which you can find on
+// github at https://github.com/tobinbradley/dirt-simple-postgis-http-api
 
 function initTypeahead(msg, data) {
-    var polyid = _.map(data.geom.objects.npa.geometries, function(d){ return d.id.toString(); });
+    var polyid = _.map(data.geom.objects[neighborhoods].geometries, function(d){ return d.id.toString(); });
     $("#searchbox").click(function () { $(this).select(); }).focus();
     $('.typeahead').typeahead([
         {
             name: 'npa',
-            //local: metricData[0].map.keys().toString().split(','),
             local: polyid,
             header: '<h4 class="typeahead-header"><span class="glyphicon glyphicon-home"></span> NPA</h4>'
         },
