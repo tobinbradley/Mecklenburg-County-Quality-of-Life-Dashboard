@@ -1,14 +1,5 @@
 // Here we have a bunch of configuration nobs.
 
-// Number of color breaks/quantiles in the map and bar chart.
-// Note the rule is 5 to 7 color breaks on a choropleth map. Don't be
-// that guy. Nobody likes that guy.
-//
-// You will need to monkey about in assets/less/vis.less under
-// "chart and map colors" if you change this number. A good guide for color
-// breaks is http://colorbrewer2.org
-var colorbreaks = 6;
-
 // The URL for your base map tiles.
 // Here's a good place to find some:
 // http://leaflet-extras.github.io/leaflet-providers/preview/
@@ -26,6 +17,15 @@ var mapGeography = {
 
 // Neighborhoods name in your TopoJSON file.
 var neighborhoods = "npa";
+
+// Number of color breaks/quantiles in the map and bar chart.
+// Note the rule is 5 to 7 color breaks on a choropleth map. Don't be
+// that guy. Nobody likes that guy.
+//
+// You will need to monkey about in assets/less/vis.less under
+// "chart and map colors" if you change this number. A good guide for color
+// breaks is http://colorbrewer2.org
+var colorbreaks = 6;
 
 // If you have an additional data layer in your TopoJSON file, name it here.
 // Otherwise comment it out.

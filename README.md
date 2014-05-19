@@ -92,7 +92,7 @@ From there the process of making the topojson file is easy. You can look through
 
     topojson -o geography.topo.json -s 7e-11 --id-property=+id your_shapefile.shp
 
-With `id` being the field in the shapefile you want to use for your neighborhood identifier. Copy that file into `public/data`
+With `id` being the field in the shapefile you want to use for your neighborhood identifier. Copy that file into `public/data`. Make note of what your shapefile was named - you'll need that information when you update `config.js` as explained under *Final Touches*.
 
 ### Metrics
 Now for a metric. You can name the metric file whatever you want; I'm doing them as `m1, m2`, but it isn't very important. Each metric file is described as above, and if that isn't clear check one out in `assets/data/metric`.
@@ -117,6 +117,6 @@ Once you have your topojson, a metric, and metadata, head into `public/index.htm
         Whatever you're calling this sucker
     </option>
 
-You can put metrics in optgroups as well - they'll appear as headings in the dropdown and are searchable. You can also monkey about with the links, title, etc. while you're in there.
+You can put metrics in optgroups as well - they'll appear as headings in the dropdown and are searchable. You'll eventually want to monkey with titles, links, meta, etc. in index.html before you go into production.
 
-!
+Next, head to `assets/scripts/config.js`. In this file you can set a lot of parameters that relate to your data. At a minimum, change `baseTilesURL`, `mapGeography`, and `neighborhoods` to relect your base tiles, your area of interest location and zoom levels, and your shapefile name under neighborhoods. The other stuff are useful knobs and are well documented in config.js.
