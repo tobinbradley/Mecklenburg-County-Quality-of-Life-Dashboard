@@ -107,7 +107,6 @@ $(document).ready(function () {
         d3.selectAll(".trend-select").selectAll("path, circle").remove();
         $(".datatable-container tbody tr").remove();
         $(".stats-selected").text("N/A");
-        updateStats();
         try { map.removeLayer(marker); }
         catch (err) {}
     });
@@ -239,7 +238,7 @@ $(document).ready(function () {
 
     // Only show map when zoomed in
     map.on("zoomend", function() {
-        if (map.getZoom() >= 15) {
+        if (map.getZoom() >= mapGeography.baseTileVisible) {
             $(".geom").css("fill-opacity", "0.5");
             $(".leaflet-overlay-pane svg path:not(.geom)").css("stroke-opacity", "0");
             map.addLayer(baseTiles);
@@ -285,7 +284,7 @@ $(document).ready(function () {
     valueChart = barChart();
 
     // jquery promise so we get geometry and data before anything goes
-    $.get("data/geograpy.topo.json").success(function(data) {
+    $.get("data/geography.topo.json").success(function(data) {
         draw(data);
         fetchMetricData($("#metric").val());
     });

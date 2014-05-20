@@ -5,7 +5,9 @@ A joint project between the City of Charlotte, Mecklenburg County, and UNCC. A r
 
 The new project uses D3 for visualizations. The good news is besides all the cool features in the new version has it is less than half the size over the wire and loads over twice as fast. The bad news is IE8 absolutely will not work. I'm sorry/you're welcome.
 
-We hope you find this project useful. Patches are always welcome
+We hope you find this project useful. Patches are always welcome!
+
+YouTube tutorial coming soon...
 
 ## Project Layout
 The good news about the new Dashboard release is setting up a site for you locality is much easier. The backend has been totally redesigned to easily handle adding data and customizing the app.
@@ -74,7 +76,7 @@ Building for deployment does all of the niceties for you - JavaScript concatenat
 
 Copy the contents of your public folder to your production web server and you're good to go.
 
-## Customize the project with your data
+## Customize the Dashboard for your area
 Data in the dashboard comes in three pieces:
 
 <div style="text-align: center">
@@ -90,9 +92,9 @@ The first thing you'll need to do is convert your neighborhood layer to topojson
 
 From there the process of making the topojson file is easy. You can look through all of the options if you wish, but here's what I did:
 
-    topojson -o geography.topo.json -s 7e-11 --id-property=+id your_shapefile.shp
+    topojson -o geography.topo.json -s 7e-11 --id-property=id_field your_shapefile.shp
 
-With `id` being the field in the shapefile you want to use for your neighborhood identifier. Copy that file into `public/data`. Make note of what your shapefile was named - you'll need that information when you update `config.js` as explained under *Final Touches*.
+With `id_field` being the field in the shapefile you want to use for your neighborhood identifier. Copy that file into `public/data`. Make note of what your shapefile was named - you'll need that information when you update `config.js` as explained under *Final Touches*.
 
 ### Metrics
 Now for a metric. You can name the metric file whatever you want; I'm doing them as `m1, m2`, but it isn't very important. Each metric file is described as above, and if that isn't clear check one out in `assets/data/metric`.
@@ -101,7 +103,7 @@ Having the metrics as CSV files gives us some of benefits. First, I'm working wi
 
 After you add a metric, run `gulp build` to process it into the public folder.
 
-#### Metadata
+### Metadata
 Metadata files are named *with the same name* as the metric files they correspond with. So if my metric file is `m1.csv`, my metadata file is `m1.md`. They are written in Markdown syntax and are preprocessed into HTML on build.
 
 The easiest thing to do is take a look at the markdown files in `assets/data/meta` and take a look at what they look like. Editing markdown is a piece of cake for non-technical users, and our folks like to monkey with the metadata *almost daily*.
@@ -110,13 +112,15 @@ Now here comes the bummer. Because I'm splitting the metadata into three buckets
 
 After you add metadata, run `gulp build` to process it into the public folder.
 
-### Final Touches
+### Customize config.js
+`assets/scripts/config.js` has a number of knobs you will need to turn to set up the dashboard for your area. These are things like the geographic starting point and zoom level, the name of the neighborhoods in your topojson file, unit types for metrics, metrics that may have raw data or accuracy data associated with them, and a few other odds and ends.
+
+### Edit index.html
 Once you have your topojson, a metric, and metadata, head into `public/index.html`. You'll see an enormous select control with an id of `metric` at line ~95. Here you'll put in your metric as an option. So if your metric was named `m1.csv`, your option would look like:
 
     <option value="m1">
         Whatever you're calling this sucker
     </option>
 
-You can put metrics in optgroups as well - they'll appear as headings in the dropdown and are searchable. You'll eventually want to monkey with titles, links, meta, etc. in index.html before you go into production.
+You can put metrics in optgroups as well - they'll appear as headings in the dropdown and are searchable. You'll eventually want to change the title, links, etc. here before you go into production.
 
-Next, head to `assets/scripts/config.js`. In this file you can set a lot of parameters that relate to your data. At a minimum, change `baseTilesURL`, `mapGeography`, and `neighborhoods` to relect your base tiles, your area of interest location and zoom levels, and your shapefile name under neighborhoods. The other stuff are useful knobs and are well documented in config.js.
