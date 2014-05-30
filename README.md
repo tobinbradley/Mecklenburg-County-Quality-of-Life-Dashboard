@@ -47,9 +47,9 @@ On Linux you'll need to sudo/run as root. Done.
 ### Clone or download/unzip the project
 If you have git installed, just:
 
-   git clone https://github.com/tobinbradley/Mecklenburg-County-Quality-of-Life-Dashboard.git whatever-you-want-to-call-it
-   cd whatever-you-called-it
- git checkout dev
+    git clone https://github.com/tobinbradley/Mecklenburg-County-Quality-of-Life-Dashboard.git whatever-you-want-to-call-it
+    cd whatever-you-called-it
+    git checkout dev
 
 If you don't have git installed, grab [the zip file](https://github.com/tobinbradley/Mecklenburg-County-Quality-of-Life-Dashboard/archive/dev.zip) and unzip it someplace.
 
@@ -123,4 +123,3 @@ Once you have your topojson, a metric, and metadata, head into `public/index.htm
     </option>
 
 You can put metrics in optgroups as well - they'll appear as headings in the dropdown and are searchable. You'll eventually want to change the title, links, etc. here before you go into production.
-
