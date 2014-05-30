@@ -40,7 +40,7 @@ var colorbreaks = 6;
 // puts a $ before the value, and year won't stick commas in the number.
 //
 // If you want to add new data types or change how things are handled, check out
-// the dataPretty in assets/scripts/functions/d3functions.js
+// the dataPretty in assets/scripts/functions/functions.js
 var metricPct = ["m4", "m6", "m7", "m8", "m9", "m10", "m11", "m12", "m13", "m18", "m19", "m20", "m21", "m32", "m33", "m34", "m35", "m36", "m37", "m38", "m39", "m40", "m41", "m42", "m43", "m44", "m45", "m47", "m48", "m49", "m50", "m58", "m59", "m60", "m61", "m62", "m66", "m67", "m68", "m71", "m73", "m75", "m76", "m77", "m78", "m80"],
     metricMoney = ["m17","m57","m63"],
     metricYear = ["m24", "m53"];
