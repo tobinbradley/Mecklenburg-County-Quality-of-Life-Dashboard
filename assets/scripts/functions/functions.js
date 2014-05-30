@@ -11,12 +11,13 @@ d3.selection.prototype.moveToFront = function () {
 // Node there's some weirdness with the geometry doing it this way, so there is
 // another function like this specifically for after the geometry is added in
 // d3map.js.
-
 $(document).on({
-    mouseenter: function(){
+    mouseenter: function(event){
+        event.stopPropagation();
         addHighlight($(this));
     },
-    mouseleave: function(){
+    mouseleave: function(event){
+    event.stopPropagation();
         removeHighlight($(this));
     }
 }, '.metric-hover');
@@ -24,10 +25,14 @@ $(document).on({
 
 function addHighlight(elem) {
     if (elem.attr('data-id')) {
-        d3.selectAll('[data-id="' + elem.attr('data-id') + '"]').classed("d3-highlight", true);
-        if ($.isNumeric(elem.attr("data-value"))) {
-            trendChart.lineAdd(".trend-highlight", elem.attr('data-id'));
-            valueChart.pointerAdd(elem.attr('data-id'), elem.attr('data-value'), ".value-hover");
+        var theId = elem.attr('data-id');
+        var theValue = $('.geom[data-id="' + theId + '"]').attr("data-value");
+        console.log(theId);
+        d3.selectAll('[data-id="' + theId + '"]').classed("d3-highlight", true);
+        //$('[data-id="' + theId + '"]').addClass('d3-highlight');
+        if ($.isNumeric(theValue)) {
+            trendChart.lineAdd(".trend-highlight", theId);
+            valueChart.pointerAdd(theId, theValue, ".value-hover");
         }
     }
     else {
@@ -36,8 +41,9 @@ function addHighlight(elem) {
 }
 function removeHighlight(elem) {
     if (elem.data('id')) {
-        d3.selectAll('[data-id="' + elem.data('id') + '"]').classed("d3-highlight", false);
-        valueChart.pointerRemove(elem.data('id'), ".value-hover");
+        var theId = elem.attr('data-id');
+        d3.selectAll('[data-id="' + theId + '"]').classed("d3-highlight", false);
+        valueChart.pointerRemove(theId, ".value-hover");
         trendChart.linesRemove(".trend-highlight");
     }
     else {

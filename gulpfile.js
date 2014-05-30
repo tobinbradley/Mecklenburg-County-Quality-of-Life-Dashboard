@@ -20,7 +20,7 @@ var jsFiles = [
     'bower_components/bootstrap/js/dropdown.js',
     'bower_components/bootstrap/js/tooltip.js',
     'bower_components/jquery-placeholder/jquery.placeholder.js',
-    'assets/scripts/vendor/leaflet.js',
+    'bower_components/leaflet/dist/leaflet.js',
     'assets/scripts/vendor/jquery-ui-1.10.3.custom.min.js',
     'assets/scripts/vendor/chosen.jquery.js',
     'bower_components/d3/d3.js',

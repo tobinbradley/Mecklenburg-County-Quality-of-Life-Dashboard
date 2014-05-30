@@ -46,41 +46,28 @@ function getURLParameter(name) {
     );
 }
 
-// This set of functions is to fetch data. We're checking here to see if there is
-// accuracy information or raw information for the metric.
-function fetchAccuracy(m) {
-    if (metricAccuracy.indexOf(m) !== -1) {
-        return $.get("data/metric/" + m + "-accuracy.json");
-    }
-    else return [[]];
-}
-function fetchRaw(m) {
-    if (metricRaw[m]) {
-        return $.get("data/metric/" + metricRaw[m] + ".json");
-    }
-    else return [[]];
-}
-function fetchRawAccuracy(m) {
-    if (metricRaw[m]) {
-        return $.get("data/metric/" + metricRaw[m] + "-accuracy.json");
-    }
-    else return [[]];
-}
-function fetchMetricData(m) {
-    $.when(
-        $.get("data/metric/" + m + ".json"),
-        fetchAccuracy(m),
-        fetchRaw(m),
-        fetchRawAccuracy(m)
-    ).then(function(metric, accuracy, raw, rawaccuracy) {
-        accuracyData = accuracy[0];
-        rawData = raw[0];
-        rawAccuracy = rawaccuracy[0];
-        changeMetric(metric[0]);
-    });
-}
-
 $(document).ready(function () {
+
+    // pubsub subscriptions
+    PubSub.subscribe('initialize', initMap);
+    PubSub.subscribe('initialize', initTypeahead);
+    PubSub.subscribe('changeYear', drawMap);
+    PubSub.subscribe('changeYear', drawBarChart);
+    PubSub.subscribe('changeYear', updateTable);
+    PubSub.subscribe('changeYear', updateCountyStats);
+    PubSub.subscribe('changeMetric', processMetric);
+    PubSub.subscribe('changeMetric', drawMap);
+    PubSub.subscribe('changeMetric', drawBarChart);
+    PubSub.subscribe('changeMetric', drawLineChart);
+    PubSub.subscribe('changeMetric', updateMeta);
+    PubSub.subscribe('changeMetric', updateTable);
+    PubSub.subscribe('changeMetric', updateCountyStats);
+    PubSub.subscribe('selectGeo', d3Select);
+    PubSub.subscribe('geocode', d3Select);
+    PubSub.subscribe('geocode', d3Zoom);
+    PubSub.subscribe('geocode', addMarker);
+    PubSub.subscribe('findNeighborhood', d3Select);
+    PubSub.subscribe('findNeighborhood', d3Zoom);
 
     // Start with random metric if none passed
     if (getURLParameter("m") !== "null") {
@@ -156,26 +143,7 @@ $(document).ready(function () {
         e.stopPropagation();
     });
 
-    // subscriptions
-    PubSub.subscribe('initialize', initMap);
-    PubSub.subscribe('initialize', initTypeahead);
-    PubSub.subscribe('changeYear', drawMap);
-    PubSub.subscribe('changeYear', drawBarChart);
-    PubSub.subscribe('changeYear', updateTable);
-    PubSub.subscribe('changeYear', updateCountyStats);
-    PubSub.subscribe('changeMetric', processMetric);
-    PubSub.subscribe('changeMetric', drawMap);
-    PubSub.subscribe('changeMetric', drawBarChart);
-    PubSub.subscribe('changeMetric', drawLineChart);
-    PubSub.subscribe('changeMetric', updateMeta);
-    PubSub.subscribe('changeMetric', updateTable);
-    PubSub.subscribe('changeMetric', updateCountyStats);
-    PubSub.subscribe('selectGeo', d3Select);
-    PubSub.subscribe('geocode', d3Select);
-    PubSub.subscribe('geocode', d3Zoom);
-    PubSub.subscribe('geocode', addMarker);
-    PubSub.subscribe('findNeighborhood', d3Select);
-    PubSub.subscribe('findNeighborhood', d3Zoom);
+
 
     // set up map
     L.Icon.Default.imagePath = './images';
@@ -283,12 +251,6 @@ $(document).ready(function () {
     trendChart = lineChart();
     valueChart = barChart();
 
-    // jquery promise so we get geometry and data before anything goes
-    $.get("data/geography.topo.json").success(function(data) {
-        draw(data);
-        fetchMetricData($("#metric").val());
-    });
-
     // window resize so charts change
     d3.select(window).on("resize", function () {
         if ($(".barchart").parent().width() !== barchartWidth) {
@@ -296,6 +258,10 @@ $(document).ready(function () {
             drawLineChart();
         }
     });
+
+
+    fetchMetricData($("#metric").val());
+
 
 });
 

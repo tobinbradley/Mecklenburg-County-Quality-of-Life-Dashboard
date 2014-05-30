@@ -127,13 +127,11 @@ rect.bar {
     line {
         stroke: @selectedColor;
     }
-
     text {
         font-weight: bold;
         text-anchor: middle;
         font-size: 0.9em;
         fill:  @darkGray;
-        pointer-events: none;
     }
     circle {
         fill: @selectedColor;
@@ -143,6 +141,9 @@ rect.bar {
         stroke: @darkGray;
         fill: @selectedColor;
     }
+}
+.value-select text, .value-mean text, .value-hover text {
+    pointer-events: none;
 }
 
 // line chart
