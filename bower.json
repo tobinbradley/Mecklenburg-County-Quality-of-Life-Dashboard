@@ -22,6 +22,7 @@
     "d3": "*",
     "jquery": "*",
     "lodash": "*",
-    "jquery-placeholder": "*"
+    "jquery-placeholder": "*",
+    "leaflet": "*"
   }
 }

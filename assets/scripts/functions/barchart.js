@@ -155,24 +155,14 @@ function barChart() {
             .attr("ry", 3)
             .attr("width", 30)
             .attr("height", 21)
-            .attr("data-id", id);
-            //.attr("class", "metric-hover");
+            .attr("data-id", id)
+            .attr("class", "metric-hover");
         d3.select(container)
             .append("text")
             .attr("x", xScale(value))
             .attr("y", 180)
             .text(id)
             .attr("data-id", id);
-
-        d3.select(container).selectAll("rect")
-            .on("mouseover", function(d) {
-                var sel = d3.select(this);
-                d3.selectAll(".geom[data-id='" + sel.attr("data-id") + "'], .trend-select [data-id='" + sel.attr("data-id") + "']").classed("d3-highlight", true);
-            })
-            .on("mouseout", function(d) {
-                var sel = d3.select(this);
-                d3.selectAll(".geom[data-id='" + sel.attr("data-id") + "'], .trend-select [data-id='" + sel.attr("data-id") + "']").classed("d3-highlight", false);
-            });
 
         return my;
     };
