@@ -130,16 +130,22 @@ gulp.task('watch', function () {
 // rename files for basic setup
 gulp.task('init', function() {
     // make sure people don't run this twice and end up with no search.js
-    if (fs.exists('assets/scripts/functions/search.js.basic')) {
-        // rename mecklenburg search file to search.js.meck
-        fs.rename('assets/scripts/functions/search.js', 'assets/scripts/functions/search.js.advanced', function(err) {
-            if ( err ) { console.log('ERROR: ' + err); }
-        });
-        // rename default search file to search.js
-        fs.rename('assets/scripts/functions/search.js.basic', 'assets/scripts/functions/search.js', function(err) {
-            if ( err ) { console.log('ERROR: ' + err); }
-        });
-    }
+    fs.exists('assets/scripts/functions/search.js.basic', function(exists) {
+        if (exists) {
+            console.log("renaming search files...");
+            // rename mecklenburg search file to search.js.meck
+            fs.rename('assets/scripts/functions/search.js', 'assets/scripts/functions/search.js.advanced', function(err) {
+                if ( err ) { console.log('ERROR: ' + err); }
+            });
+            // rename default search file to search.js
+            fs.rename('assets/scripts/functions/search.js.basic', 'assets/scripts/functions/search.js', function(err) {
+                if ( err ) { console.log('ERROR: ' + err); }
+            });
+        }
+
+  });
+
+
 });
 
 // controller tasks
