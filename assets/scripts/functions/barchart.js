@@ -1,7 +1,7 @@
 function barChart() {
     var width = 720, // default width
         height = 250, // default height
-        margins = [20, 20, 20, 40],
+        margins = [20, 20, 20, 30],
         x,
         y,
         xScale;
