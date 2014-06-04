@@ -85,28 +85,23 @@ body {
     margin-top: 50px;
 }
 
-
-
 .legend-mean {
     margin-top: -15px;
     font-size: 0.9em;
 }
 
 .datatoggle {
-    .btn-default:focus, .btn-default:hover {
-      background-color: #ffffff;
-      border-color: #cccccc;
-    }
+    margin-top: 7px;
 }
 
 .meta-subtitle {
-    font-size: 1.5em;
-    margin-top: 70px;
-    text-shadow: 1px 1px 3px #ccc;
+    font-size: 1em;
+    margin-top: 10px;
+    padding-left: 20px;
 }
 
 .meta-container {
-    margin-top: 20px;
+    margin-top: 70px;
 }
 
 .meta-resources ul {
@@ -116,9 +111,6 @@ body {
 
 
 // Map
-.map-container {
-    height: 600px;
-}
 #map {
     height: 550px;
     background: url(../images/wet-graph-paper-seamless-background.jpg);
@@ -134,7 +126,7 @@ body {
     width: 40%;
     margin: 0 auto;
     input[type="text"] {
-        background: rgba(255,255,255,0.5);
+        background: rgba(255,255,255,0.7);
     }
 }
 
@@ -173,7 +165,18 @@ body {
 // table
 .datatable-container {
     display: none;
-    margin-top: 25px;
+    margin-top: 10px;
+    .text-accuracy {
+        font-size: 0.8em;
+        padding-left: 15px;
+        font-style: italic;
+    }
+    .datatable-raw, .datatable-value {
+        font-weight: bold;
+    }
+    th {
+        width: 20%;
+    }
 }
 table {
     td:empty {
@@ -197,6 +200,13 @@ table {
         height: 380px;
     }
     #map { height: 320px; }
+}
+@media (max-width: 767px) {
+    .stats {
+        div {
+            padding-top: 15px;
+        }
+    }
 }
 
 //  printing

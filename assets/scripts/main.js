@@ -87,6 +87,9 @@ $(document).ready(function () {
     });
     $(".chosen-search input").prop("placeholder", "search metrics");
 
+    // Don't let clicked toggle buttons remain colored
+    $(".datatoggle").on("focus", "button", function() { $(this).blur(); });
+
     // Clear selected button
     $(".select-clear").on("click", function() {
         d3.selectAll(".geom").classed("d3-select", false);
@@ -103,6 +106,21 @@ $(document).ready(function () {
         var txt = $(".datatable-container").is(':visible') ? 'Show Data' : 'Hide Data';
         $(this).text(txt);
         $(".datatable-container").toggle("slow");
+    });
+
+    // Toggle map button
+    $(".toggle-map").on("click", function() {
+        var txt = $(this).text() === "Hide Map" ? 'Show Map' : 'Hide Map';
+        if (txt !== "Show Map") {
+            $(".geom").css("fill-opacity", "0.4");
+            $(".leaflet-overlay-pane svg path:not(.geom)").css("stroke-opacity", "0");
+            map.addLayer(baseTiles);
+        } else {
+            $(".geom").css("fill-opacity", "1");
+            $(".leaflet-overlay-pane svg path:not(.geom)").css("stroke-opacity", "0.6");
+            map.removeLayer(baseTiles);
+        }
+        $(this).text(txt);
     });
 
     // joyride
@@ -204,18 +222,18 @@ $(document).ready(function () {
         }
     });
 
-    // Only show map when zoomed in
-    map.on("zoomend", function() {
-        if (map.getZoom() >= mapGeography.baseTileVisible) {
-            $(".geom").css("fill-opacity", "0.5");
-            $(".leaflet-overlay-pane svg path:not(.geom)").css("stroke-opacity", "0");
-            map.addLayer(baseTiles);
-        } else {
-            $(".geom").css("fill-opacity", "1");
-            $(".leaflet-overlay-pane svg path:not(.geom)").css("stroke-opacity", "0.6");
-            map.removeLayer(baseTiles);
-        }
-    });
+    // // Only show map when zoomed in
+    // map.on("zoomend", function() {
+    //     if (map.getZoom() >= mapGeography.baseTileVisible) {
+    //         $(".geom").css("fill-opacity", "0.5");
+    //         $(".leaflet-overlay-pane svg path:not(.geom)").css("stroke-opacity", "0");
+    //         map.addLayer(baseTiles);
+    //     } else {
+    //         $(".geom").css("fill-opacity", "1");
+    //         $(".leaflet-overlay-pane svg path:not(.geom)").css("stroke-opacity", "0.6");
+    //         map.removeLayer(baseTiles);
+    //     }
+    // });
 
     // geolocate if on a mobile device
     // bit hacky here on detection, but should cover most things

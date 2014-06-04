@@ -7,7 +7,7 @@ The new project uses D3 for visualizations. The good news is besides all the coo
 
 We hope you find this project useful. Patches are always welcome!
 
-YouTube tutorial coming soon...
+Here's a handy [YouTube Tutorial] on customizing the Dashboard for your area of interest if reading isn't your bag.
 
 ## Project Layout
 The good news about the new Dashboard release is setting up a site for you locality is much easier. The backend has been totally redesigned to easily handle adding data and customizing the app.
@@ -67,15 +67,6 @@ Gulp is configured with its own web server complete with livereload for developm
 
 *Note you need to run this command in the root of the project folder.*
 
-## Build for deployment
-Building for deployment does all of the niceties for you - JavaScript concatenation and minification, LESS preprocessing/auto-prefixing/minification, Markdown conversion, CSV to JSON conversion, image optimzation, and cache busting. From the root folder run:
-
-    gulp build
-
-*Note you need to run this command in the root of the project folder.*
-
-Copy the contents of your public folder to your production web server and you're good to go.
-
 ## Customize the Dashboard for your area
 Data in the dashboard comes in three pieces:
 
@@ -123,3 +114,12 @@ Once you have your topojson, a metric, and metadata, head into `public/index.htm
     </option>
 
 You can put metrics in optgroups as well - they'll appear as headings in the dropdown and are searchable. You'll eventually want to change the title, links, etc. here before you go into production.
+
+## Build for deployment
+Building for deployment does all of the niceties for you - JavaScript concatenation and minification, LESS preprocessing/auto-prefixing/minification, Markdown conversion, CSV to JSON conversion, image optimzation, and cache busting. From the root folder run:
+
+    gulp build
+
+*Note you need to run this command in the root of the project folder.*
+
+Copy the contents of your public folder to your production web server and you're good to go.

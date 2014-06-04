@@ -27,7 +27,6 @@ function addHighlight(elem) {
     if (elem.attr('data-id')) {
         var theId = elem.attr('data-id');
         var theValue = $('.geom[data-id="' + theId + '"]').attr("data-value");
-        console.log(theId);
         d3.selectAll('[data-id="' + theId + '"]').classed("d3-highlight", true);
         //$('[data-id="' + theId + '"]').addClass('d3-highlight');
         if ($.isNumeric(theValue)) {
@@ -161,12 +160,14 @@ function updateSelectedStats() {
                     count += parseFloat(theRaw);
                 }
             });
-            selectedWeightedMean = values.reduce(function(a, b) { return a + b;}) / count;
+            console.log(values);
+            //if (values.length > 0) {
+                selectedWeightedMean = values.reduce(function(a, b) { return a + b;}) / count;
+            //}
         }
     }
+
     $(".stats-weighted-mean-selected").text(dataPretty(selectedWeightedMean, m));
-
-
 
 }
 
@@ -177,8 +178,9 @@ function updateCountyStats() {
         values = [],
         count = 0;
 
-    // County npa mean
+    // County npa mean and median
     $(".stats-county-npa-mean").text(dataPretty(d3.mean(metricData[year].map.values()), m));
+    $(".stats-county-npa-median").text("Median: " + dataPretty(d3.median(metricData[year].map.values()), m));
 
     if (metricRaw[m]) {
         _.each(rawData, function(d) {
