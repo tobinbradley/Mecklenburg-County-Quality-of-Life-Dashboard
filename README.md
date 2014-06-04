@@ -7,7 +7,7 @@ The new project uses D3 for visualizations. The good news is besides all the coo
 
 We hope you find this project useful. Patches are always welcome!
 
-Here's a handy [YouTube Tutorial] on customizing the Dashboard for your area of interest if reading isn't your bag.
+Here's a handy [YouTube Tutorial](https://www.youtube.com/watch?v=qmx2mZXeHZQ) on customizing the Dashboard for your area of interest if reading isn't your bag.
 
 ## Project Layout
 The good news about the new Dashboard release is setting up a site for you locality is much easier. The backend has been totally redesigned to easily handle adding data and customizing the app.
