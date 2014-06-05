@@ -25,6 +25,7 @@
 // .q4{fill:rgb(33,113,181)}
 // .q5{fill:rgb(8,81,156)}
 // .q6{fill:rgb(8,48,107)}
+//
 // six blue color breaks
 .q0{fill:rgb(198,219,239)}
 .q1{fill:rgb(158,202,225)}
@@ -32,6 +33,7 @@
 .q3{fill:rgb(66,146,198)}
 .q4{fill:rgb(33,113,181)}
 .q5{fill:rgb(8,69,148)}
+//
 // five blue color breaks
 // .q0{fill:rgb(198,219,239)}
 // .q1{fill:rgb(158,202,225)}
@@ -42,9 +44,13 @@
 
 // generics
 .d3-highlight {
-    stroke: @highlightColor !important;
+    //stroke: @highlightColor !important;
     // stroke-width: 2.5px !important;
     fill: @highlightColor !important;
+}
+text.d3-highlight {
+    font-weight: bold !important;
+    fill:  @darkGray !important;
 }
 .d3-select {
     stroke: @selectedColor !important;
@@ -161,8 +167,8 @@ rect.bar {
     path {
         stroke: @highlightColor;
         fill: none;
-        stroke-width: 2px;
-        opacity: 0.8;
+        stroke-width: 3px;
+        opacity: 1;
     }
     circle {
         fill: @highlightColor;

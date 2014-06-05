@@ -25,7 +25,7 @@
     <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon-precomposed.png" />
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/main.css?foo=91">
+    <link rel="stylesheet" href="css/main.css?foo=50689">
 
 </head>
 
@@ -56,10 +56,10 @@
                     <li><a href="http://qol.charmeck.org/">About</a>
                     </li>
                     <li>
-                        <a href="#">Download Data</a>
+                        <a href="javascript:void(0)">Download Data</a>
                     </li>
                     <li class="dropdown">
-                        <a class="dropdown-toggle" href="#" data-toggle="dropdown">Contact <b class="caret"></b></a>
+                        <a class="dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">Contact <b class="caret"></b></a>
                         <div class="dropdown-menu contact">
                             <form action="" method="post" accept-charset="UTF-8">
                                 <input id="email" class="form-control" type="email" name="email" size="30" placeholder="Email Address (optional)" />
@@ -69,7 +69,7 @@
                         </div>
                     </li>
                     <li>
-                        <a href="#" class="btn-help">Help</a>
+                        <a href="javascript:void(0)" class="btn-help">Help</a>
                     </li>
                 </ul>
             </div>
@@ -359,9 +359,9 @@
                 </div>
                 <div id="map"></div>
                 <div class="btn-group pull-right datatoggle">
-                    <button type="button" class="btn btn-primary btn-sm toggle-map">Show Map</button>
-                    <button type="button" class="btn btn-primary btn-sm toggle-table">Show Data</button>
-                    <button type="button" class="btn btn-primary btn-sm select-clear">Clear Selected</button>
+                    <button type="button" class="btn btn-default btn-sm toggle-map">Show Map</button>
+                    <button type="button" class="btn btn-default btn-sm toggle-table">Show Data</button>
+                    <button type="button" class="btn btn-default btn-sm select-clear">Clear Selected</button>
                 </div>
                 <div class="form mapsearch">
                     <input id="searchbox" type="text" class="typeahead form-control" placeholder="search map">
@@ -375,7 +375,7 @@
                             <span class="header">County</span>
                             <span class="footer" style="border-bottom: 2px dashed black;">NPA Average</span>
                             <br>
-                            <span class="stats-county-npa-median"></span>
+                            <span class="stats-county-npa-median">&nbsp;</span>
                         </div>
                         <div class="col-md-6 col-md-offset-0 col-xs-4 col-xs-offset-2">
                             <h3 class="stats-selected stats-mean-selected">N/A</h3>
@@ -449,12 +449,12 @@
         </div>
         <div class="row meta-container">
             <div class="col-md-5">
-                <div class="well">
+                <div class="well meta-joyride">
                     <h4>Why This is Important</h4>
                     <div class='meta-important'></div>
                 </div>
             </div>
-            <div class="col-md-4 meta-joyride">
+            <div class="col-md-4">
                 <div class="well">
                     <h4>About the Data</h4>
                     <div class='meta-about'></div>
@@ -558,6 +558,15 @@
           <button type="button" class="btn btn-default btn-sm tourbus-next">Next</button>
         </div>
       </li>
+      <li data-el='.datatoggle' data-orientation='bottom' data-width='300'>
+        <h3>Data Controls</h3>
+        <p>Use these links to clear any selected neighborhoods or view additional information including a table with NPA values, accuracy information, raw data, and weighted averages.</p>
+        <div class="btn-group pull-right">
+          <button type="button" class="btn btn-default btn-sm tourbus-prev">Previous</button>
+          <button type="button" class="btn btn-default btn-sm tourbus-stop">Finished</button>
+          <button type="button" class="btn btn-default btn-sm tourbus-next">Next</button>
+        </div>
+      </li>
       <li data-el='.stats-npa-mean' data-orientation='bottom' data-width='300'>
         <h3>Average</h3>
         <p>The <strong>Average</strong> for County NPA's and any selected NPA's is shown here. The County NPA Average is indicated by a dashed line on the charts.</p>
@@ -586,16 +595,7 @@
           <button type="button" class="btn btn-default btn-sm btn-sm tourbus-next">Next</button>
         </div>
       </li>
-      <li data-el='.datatoggle' data-orientation='bottom' data-width='300'>
-        <h3>Data Controls</h3>
-        <p>Use these links to clear any selected neighborhoods or view additional information including a table with NPA values, accuracy information, raw data, and weighted averages.</p>
-        <div class="btn-group pull-right">
-          <button type="button" class="btn btn-default btn-sm tourbus-prev">Previous</button>
-          <button type="button" class="btn btn-default btn-sm tourbus-stop">Finished</button>
-          <button type="button" class="btn btn-default btn-sm tourbus-next">Next</button>
-        </div>
-      </li>
-      <li data-el='.meta-subtitle' data-orientation='top' data-width='300'>
+      <li data-el='.meta-joyride' data-orientation='top' data-width='300'>
         <h3>Metric Information</h3>
         <p>The bottom of the page shows information about the <strong>Metric</strong>, including a brief description, why it is important, where the data came from, and additional resources related to the metric.</p>
         <div class="btn-group pull-right">
@@ -616,7 +616,7 @@
     <!-- End jQuery Tourbus -->
 
     <!-- scripts at the bottom yo -->
-    <script src="js/main.js?foo=91"></script>
+    <script src="js/main.js?foo=50689"></script>
 
     <!--   Google Analytics -->
     <script>
