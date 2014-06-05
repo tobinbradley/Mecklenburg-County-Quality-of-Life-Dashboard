@@ -31,7 +31,7 @@ function addHighlight(elem) {
         //$('[data-id="' + theId + '"]').addClass('d3-highlight');
         if ($.isNumeric(theValue)) {
             trendChart.lineAdd(".trend-highlight", theId);
-            valueChart.pointerAdd(theId, theValue, ".value-hover");
+            if(! elem.closest(".barchart-container").length ) { valueChart.pointerAdd(theId, theValue, ".value-hover"); }
         }
     }
     else {

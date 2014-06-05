@@ -42,5 +42,7 @@ function fetchMetricData(m) {
             draw(geom[0]);
         }
         changeMetric(metric[0]);
+
+
     });
 }

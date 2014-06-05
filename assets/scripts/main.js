@@ -62,6 +62,7 @@ $(document).ready(function () {
     PubSub.subscribe('changeMetric', updateMeta);
     PubSub.subscribe('changeMetric', updateTable);
     PubSub.subscribe('changeMetric', updateCountyStats);
+    PubSub.subscribe('recordHistory', recordMetricHistory);
     PubSub.subscribe('selectGeo', d3Select);
     PubSub.subscribe('geocode', d3Select);
     PubSub.subscribe('geocode', d3Zoom);
@@ -79,11 +80,24 @@ $(document).ready(function () {
         $options.eq(random).prop('selected', true);
     }
 
+    // set window popstate event
+    if (history.pushState) {
+        window.addEventListener("popstate", function(e) {
+            if (getURLParameter("m") !== "null") {
+                PubSub.unsubscribe(recordMetricHistory);
+                $("#metric option[value='" + getURLParameter('m') + "']").prop('selected', true);
+                $('#metric').chosen().change();
+                PubSub.subscribe("recordHistory", recordMetricHistory);
+            }
+        });
+    }
+
     // chosen
     $(".chosen-select").chosen({width: '100%', no_results_text: "Not found - "}).change(function () {
         var theVal = $(this).val();
         fetchMetricData(theVal);
         $(this).trigger("chosen:updated");
+        PubSub.publish("recordHistory", {});
     });
     $(".chosen-search input").prop("placeholder", "search metrics");
 
@@ -278,8 +292,8 @@ $(document).ready(function () {
     });
 
 
+    // kick everything off
     fetchMetricData($("#metric").val());
-
 
 });
 
@@ -335,7 +349,9 @@ function processMetric(msg, data) {
         .range(d3.range(colorbreaks).map(function (i) {
             return "q" + i;
         }));
+}
 
+function recordMetricHistory(msg, data) {
     // push metric to GA and state
     // Note I'm doing the text descript, not the little name, for clarity in analytics
     if (msg !== 'initialize') {
@@ -347,5 +363,4 @@ function processMetric(msg, data) {
             ga('send', 'event', 'metric', theMetric.text().trim(), theMetric.parent().prop("label"));
         }
     }
-
 }
