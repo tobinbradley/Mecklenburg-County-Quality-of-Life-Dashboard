@@ -176,7 +176,6 @@ $(document).ready(function () {
     });
 
 
-
     // set up map
     L.Icon.Default.imagePath = './images';
     map = L.map("map", {
