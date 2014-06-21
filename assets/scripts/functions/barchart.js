@@ -184,16 +184,17 @@ function barChart() {
                     if (d3.select(".value-select circle[data-id='" + item.attr("data-id") + "']")[0][0] === null) {
                         my.pointerAdd(item.attr("data-id"), item.attr("data-value"), ".value-select");
                     }
+                    var rect = d3.select(".value-select rect[data-id='" + item.attr("data-id") + "']");
                     d3.select(".value-select circle[data-id='" + item.attr("data-id") + "']")
                         .transition()
                         .duration(1000)
                         .attr("cx", theX)
                         .attr("opacity", "1");
-                    d3.select(".value-select rect[data-id='" + item.attr("data-id") + "']")
+                    rect
                         .transition()
                         .duration(1000)
                         .attr("opacity", "1")
-                        .attr("x", theX - 15);
+                        .attr("x", theX - (rect.node().getBBox().width / 2));
                     d3.select(".value-select text[data-id='" + item.attr("data-id") + "']")
                         .transition()
                         .duration(1000)
