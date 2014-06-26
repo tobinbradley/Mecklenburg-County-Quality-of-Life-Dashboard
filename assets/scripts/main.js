@@ -145,11 +145,11 @@ $(document).ready(function () {
 
 
     // Track outbound resource links
-    $(".meta-resources").on("mousedown", "a", function(e){
-        if (window.ga && e.which !== 3) {
-            ga('send', 'event', 'resource', $(this).text().trim(), $("#metric option:selected").text().trim());
-        }
-    });
+    // $(".meta-resources").on("mousedown", "a", function(e){
+    //     if (window.ga && e.which !== 3) {
+    //         ga('send', 'event', 'resource', $(this).text().trim(), $("#metric option:selected").text().trim());
+    //     }
+    // });
 
     // contact form
     $(".contact form").submit(function(e) {
