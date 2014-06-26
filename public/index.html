@@ -25,7 +25,7 @@
     <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon-precomposed.png" />
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/main.css?foo=50689">
+    <link rel="stylesheet" href="css/main.css?foo=39885">
 
 </head>
 
@@ -93,7 +93,14 @@
                     off.
                  -->
                     <select id="metric" data-placeholder="SEARCH VARIABLES" class="form-control input-lg form-metric chosen-select hide">
-                        <optgroup label="Character">
+                        <optgroup label="Code Enforcement">
+                            <option value="a1">
+                                Code Enforcement Cases - Housing
+                            </option>
+                            <option value="a2">
+                                Code Enforcement Cases - Nuisance
+                            </option>
+                            <!--
                             <option value="m3">
                                 Area (in acres)
                             </option>
@@ -354,7 +361,9 @@
                             <option value="m25">
                                 Violent Crime Rate
                             </option>
+                            -->
                         </optgroup>
+                    
                     </select>
                 </div>
                 <div id="map"></div>
@@ -373,14 +382,14 @@
                         <div class="col-md-6 col-md-offset-0 col-xs-4 col-xs-offset-1 stats-npa-mean">
                             <h3 class="stats-county-npa-mean">&nbsp;</h3>
                             <span class="header">County</span>
-                            <span class="footer" style="border-bottom: 2px dashed black;">NPA Average</span>
+                            <span class="footer" style="border-bottom: 2px dashed black;">District Average</span>
                             <br>
                             <span class="stats-county-npa-median">&nbsp;</span>
                         </div>
                         <div class="col-md-6 col-md-offset-0 col-xs-4 col-xs-offset-2">
                             <h3 class="stats-selected stats-mean-selected">N/A</h3>
                             <span class="header">Selected</span>
-                            <span class="footer">NPA Average</span>
+                            <span class="footer">District Average</span>
                         </div>
                     </div>
                 </div>
@@ -470,12 +479,17 @@
         <div class="row">
             <footer class="text-center page-footer">
                 <p>
+                    Code for America Lexington
+                </p>
+                <!--
+                <p>
                     <img src="images/seals.png" width="177" height="36" alt="City and County Seals">
                 </p>
                 <p class="text-muted">
                     Created by the <a href="http://charmeck.org/city/charlotte/Pages/default.aspx">City of Charlotte</a>, <a href="http://charmeck.org/mecklenburg/county/Pages/Default.aspx">Mecklenburg County</a>, and <a href="http://www.uncc.edu/">UNCC</a>
                     &bull; Source code on <a href="https://github.com/tobinbradley/Mecklenburg-County-Quality-of-Life-Dashboard">Github</a>
                 </p>
+            -->
 
             </footer>
         </div>
@@ -516,7 +530,7 @@
     <ol class='tourbus-legs' id='dashboard-tour'>
       <li data-orientation='centered' data-width='300'>
         <h3>Welcome!</h3>
-        <p>The Quality of Life Dashboard is designed to help assess the health of neighborhoods in Charlotte and Mecklenburg County.</p>
+        <p>The Quality of Life Dashboard is designed to help assess the health of neighborhoods.</p>
         <div class="btn-group pull-right">
           <button type="button" class="btn btn-default btn-sm tourbus-stop">Finished</button>
           <button type="button" class="btn btn-default btn-sm tourbus-next">Next</button>
@@ -560,7 +574,7 @@
       </li>
       <li data-el='.datatoggle' data-orientation='bottom' data-width='300'>
         <h3>Data Controls</h3>
-        <p>Use these links to clear any selected neighborhoods or view additional information including a table with NPA values, accuracy information, raw data, and weighted averages.</p>
+        <p>Use these links to clear any selected neighborhoods or view additional information including a table with District values, accuracy information, raw data, and weighted averages.</p>
         <div class="btn-group pull-right">
           <button type="button" class="btn btn-default btn-sm tourbus-prev">Previous</button>
           <button type="button" class="btn btn-default btn-sm tourbus-stop">Finished</button>
@@ -569,7 +583,7 @@
       </li>
       <li data-el='.stats-npa-mean' data-orientation='bottom' data-width='300'>
         <h3>Average</h3>
-        <p>The <strong>Average</strong> for County NPA's and any selected NPA's is shown here. The County NPA Average is indicated by a dashed line on the charts.</p>
+        <p>The <strong>Average</strong> for Council Districts and any selected Districts is shown here. The Council District Average is indicated by a dashed line on the charts.</p>
         <div class="btn-group pull-right">
           <button type="button" class="btn btn-default btn-sm btn-sm tourbus-prev">Previous</button>
           <button type="button" class="btn btn-default btn-sm btn-sm tourbus-stop">Finished</button>
@@ -616,7 +630,7 @@
     <!-- End jQuery Tourbus -->
 
     <!-- scripts at the bottom yo -->
-    <script src="js/main.js?foo=50689"></script>
+    <script src="js/main.js?foo=39885"></script>
 
     <!--   Google Analytics -->
     <script>
