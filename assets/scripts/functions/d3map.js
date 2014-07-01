@@ -56,12 +56,13 @@ function initMap(msg, data) {
         L.geoJson(topojson.feature(data.geom, data.geom.objects[overlay]), {
             style: {
                 "fillColor": "rgba(0,0,0,0)",
-                "color": "white",
+                "color": "black",
                 "fillOpacity": 1,
-                "opacity": 0.8,
+                "opacity": 1,
                 "weight": 3
             }
         }).addTo(map);
+        console.log('added');
     }
 }
 

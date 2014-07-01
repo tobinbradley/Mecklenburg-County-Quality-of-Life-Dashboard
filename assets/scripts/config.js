@@ -20,11 +20,11 @@ var mapGeography = {
 
 // Neighborhoods name in your TopoJSON file. This is usually the name of the shapefile
 // or geojson file you converted from.
-var neighborhoods = "council";
+var neighborhoods = "precincts";
 
 // If you have an additional data layer in your TopoJSON file, name it here.
 // Otherwise comment it out.
-//var overlay = "istates";
+//var overlay = "districts";
 
 // Number of color breaks/quantiles in the map and bar chart.
 // Note the rule is 5 to 7 color breaks on a choropleth map. Don't be
