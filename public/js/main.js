@@ -28518,7 +28518,11 @@ function initMap(msg, data) {
     }).addTo(map);
 
     d3.selectAll(".leaflet-overlay-pane svg path").attr("class", "geom metric-hover").attr("data-id", function(d, i) {
+      try {
         return data.geom.objects[neighborhoods].geometries[i].id;
+      } catch (e) {
+        console.log("i " + i + " " + e);
+      }
     });
 
     d3Layer.on("click", function(d) {
