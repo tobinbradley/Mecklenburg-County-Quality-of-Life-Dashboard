@@ -63,7 +63,7 @@ function initMap(msg, data) {
                 "color": "black",
                 "fillOpacity": 1,
                 "opacity": 1,
-                "weight": 3
+                "weight": 1
             }
         }).addTo(map);
         console.log('added');
