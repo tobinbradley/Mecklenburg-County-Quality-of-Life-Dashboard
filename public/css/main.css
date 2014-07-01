@@ -5883,11 +5883,12 @@ body {
   background-color: rgba(255, 255, 255, 0.3);
 }
 .navbar-main {
-  background: rgba(0, 0, 0, 0.03);
+  background: #1fa67a;
 }
 .navbar-default .navbar-brand {
   font-size: 1.8em;
   text-shadow: #777 0 1px 1px;
+  color: white;
 }
 .contact {
   min-width: 300px;
