@@ -28518,7 +28518,11 @@ function initMap(msg, data) {
     }).addTo(map);
 
     d3.selectAll(".leaflet-overlay-pane svg path").attr("class", "geom metric-hover").attr("data-id", function(d, i) {
+      try {
         return data.geom.objects[neighborhoods].geometries[i].id;
+      } catch (e) {
+        console.log("i " + i + " " + e);
+      }
     });
 
     d3Layer.on("click", function(d) {
@@ -28558,12 +28562,13 @@ function initMap(msg, data) {
         L.geoJson(topojson.feature(data.geom, data.geom.objects[overlay]), {
             style: {
                 "fillColor": "rgba(0,0,0,0)",
-                "color": "white",
+                "color": "black",
                 "fillOpacity": 1,
-                "opacity": 0.8,
-                "weight": 3
+                "opacity": 1,
+                "weight": 1
             }
         }).addTo(map);
+        console.log('added');
     }
 }
 
@@ -29118,11 +29123,11 @@ var mapGeography = {
 
 // Neighborhoods name in your TopoJSON file. This is usually the name of the shapefile
 // or geojson file you converted from.
-var neighborhoods = "council";
+var neighborhoods = "precincts";
 
 // If you have an additional data layer in your TopoJSON file, name it here.
 // Otherwise comment it out.
-//var overlay = "istates";
+var overlay = "districts";
 
 // Number of color breaks/quantiles in the map and bar chart.
 // Note the rule is 5 to 7 color breaks on a choropleth map. Don't be
