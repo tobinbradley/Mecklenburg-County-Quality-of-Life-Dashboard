@@ -5922,6 +5922,9 @@ body {
 .contact textarea {
   margin: 0 0 10px;
 }
+.row-vis {
+  min-height: 651px;
+}
 .page-footer {
   margin-top: 50px;
 }
@@ -5944,7 +5947,7 @@ body {
   padding-left: 20px;
 }
 .meta-container {
-  margin-top: 70px;
+  margin-top: 55px;
 }
 .meta-resources ul {
   list-style: none;
@@ -5952,11 +5955,8 @@ body {
 }
 #map {
   height: 550px;
-  background: url(../images/wet-graph-paper-seamless-background.jpg);
-  border: 1px solid #d3d4d8;
+  background: rgba(0, 0, 0, 0);
   border-top: none;
-  -webkit-box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.12);
-  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.12);
 }
 .mapsearch {
   position: absolute;
@@ -6024,6 +6024,7 @@ table tr.d3-highlight {
   }
   #map {
     height: 320px;
+    border: 1px dashed #d3d4d8;
   }
   .stats div {
     padding-top: 15px;
