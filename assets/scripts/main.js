@@ -18,15 +18,6 @@ _.templateSettings.variable = "rc";
 
 PubSub.immediateExceptions = true; // set to false in production
 
-String.prototype.commafy = function () {
-    return this.replace(/(^|[^\w.])(\d{4,})/g, function($0, $1, $2) {
-        return $1 + $2.replace(/\d(?=(?:\d\d\d)+(?!\d))/g, "$&,");
-    });
-};
-Number.prototype.commafy = function () {
-    return String(this).commafy();
-};
-
 // Detect placeholder support for IE9
 jQuery.support.placeholder = (function(){
     var i = document.createElement('input');
@@ -38,12 +29,6 @@ function sliderChange(value) {
     $('.time-year').text(metricData[value].year.replace("y_", ""));
     year = value;
     PubSub.publish('changeYear');
-}
-
-function getURLParameter(name) {
-    return decodeURI(
-        (new RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
-    );
 }
 
 $(document).ready(function () {

@@ -13,7 +13,7 @@ var gulp = require('gulp'),
     open = require('open'),
     fs = require('fs');
 
-var jsFiles = [
+var jsMain = [
     'bower_components/jquery/dist/jquery.js',
     'bower_components/bootstrap/js/transition.js',
     'bower_components/bootstrap/js/button.js',
@@ -36,6 +36,22 @@ var jsFiles = [
     'assets/scripts/main.js'
 ];
 
+var jsReport = [
+    'bower_components/jquery/dist/jquery.js',
+    'bower_components/bootstrap/js/button.js',
+    'bower_components/leaflet/dist/leaflet.js',
+    'bower_components/topojson/topojson.js',
+    'bower_components/lodash/dist/lodash.underscore.js',
+    'bower_components/d3/d3.js',
+    'bower_components/Chart.js/Chart.js',
+    'assets/scripts/functions/prototypes.js',
+    'assets/scripts/functions/geturlparams.js',
+    'assets/scripts/functions/data-formatting.js',
+    'assets/scripts/config.js',
+    'assets/scripts/report.js'
+];
+
+
 // livereload server
 gulp.task('connect', function() {
     connect.server({
@@ -53,14 +69,14 @@ gulp.task('html', function () {
 
 // Less processing
 gulp.task('less', function() {
-    return gulp.src('assets/less/main.less')
+    return gulp.src(['assets/less/main.less', 'assets/less/report.less'])
         .pipe(less())
         .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
         .pipe(gulp.dest('public/css'))
         .pipe(connect.reload());
 });
 gulp.task('less-build', function() {
-    return gulp.src('assets/less/main.less')
+    return gulp.src(['assets/less/main.less', 'assets/less/report.less'])
         .pipe(less())
         .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
         .pipe(minifycss())
@@ -69,13 +85,17 @@ gulp.task('less-build', function() {
 
 // JavaScript
 gulp.task('js', function() {
-    return gulp.src(jsFiles)
+    gulp.src(jsMain)
         .pipe(concat('main.js'))
+        .pipe(gulp.dest('public/js'))
+        .pipe(connect.reload());
+    return gulp.src(jsReport)
+        .pipe(concat('report.js'))
         .pipe(gulp.dest('public/js'))
         .pipe(connect.reload());
 });
 gulp.task('js-build', function() {
-    return gulp.src(jsFiles)
+    return gulp.src(jsMain)
         .pipe(concat('main.js'))
         .pipe(uglify())
         .pipe(gulp.dest('public/js'));

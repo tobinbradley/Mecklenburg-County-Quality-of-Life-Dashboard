@@ -42,7 +42,11 @@ I'm using [gulp](http://gulpjs.com/) as the build/dev system, because awesome. W
 
     npm install -g gulp topojson bower
 
-On Linux you'll need to sudo/run as root. Done.
+On Linux you'll need to sudo/run as root. On Windows, you'll need to have a compilation environment to install topojson. That means Visual Studio C++ for Windows Desktop (the free [Express](http://www.microsoft.com/en-us/download/details.aspx?id=40787) version works fine). And then you'll need to tell node what VS C++ version to use.
+
+    npm install -g topojson --msvs_version=2013
+
+With the version being whatever you have installed. You can get more info on the kind of stuff you'll need to compile on Windows [here](https://github.com/TooTallNate/node-gyp). Yay Windows.
 
 ### Clone or download/unzip the project
 If you have git installed, just:

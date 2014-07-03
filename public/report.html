@@ -25,7 +25,7 @@
     <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon-precomposed.png" />
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/main.css?foo=51295">
+    <link rel="stylesheet" href="css/report.css?foo=99668">
 
 </head>
 
@@ -34,124 +34,198 @@
         <p class="oldie alert-info text-center">You are using an outdated browser. <a href="http://whatbrowser.org/">Upgrade your browser today</a> to better experience this site.</p>
     <![endif]-->
 
-    <div class="container">
+    <div class="container-non-responsive">
 
         <!-- Front page -->
-        <div class="row">
-            <div class="col-md-3">
-                <img src="http://placehold.it/150x150" alt="" />
+        <div class="page page-front">
+            <div class="row">
+                <div class='col-xs-2'>
+                    <img class="logo-image" src="images/report-logo.png" width="115" height="115">
+                </div>
+                <div class="col-xs-9 text-left">
+                    <h1>Quality of Life Study</h1>
+                    <input type="text" class="form-control input-lg subtitle" placeholder="optional subtitle - type here" value="Summary Report" maxlength=40>
+                    <h4 class="neighborhoods">&nbsp;</h4>
+                </div>
             </div>
-            <div class="col-md-6 text-center">
-                <h1>Quality of Life Study</h1>
-                <h2>Summary Report</h2>
+            <div class="row">
+                <div class="col-xs-6">
+                    <p>
+                        Vivamus pulvinar augue in velit vehicula imperdiet. Quisque convallis dignissim nisl, ut consectetur erat adipiscing et. Donec a quam a elit fermentum semper. Donec ultricies enim non justo interdum dictum. Nulla aliquam suscipit tincidunt. Cras cursus mi sed massa pulvinar, et dictum tortor ornare. Etiam urna ante, iaculis quis tellus eget, mattis rhoncus metus.
+                    </p>
+                    <p>
+                        Vivamus pulvinar augue in velit vehicula imperdiet. Quisque convallis dignissim nisl, ut consectetur erat adipiscing et. Donec a quam a elit fermentum semper. Donec ultricies enim non justo interdum dictum. Nulla aliquam suscipit tincidunt. Cras cursus mi sed massa pulvinar, et dictum tortor ornare. Etiam urna ante, iaculis quis tellus eget, mattis rhoncus metus.
+                    </p>
+                </div>
+                <div class="col-xs-6 text-right">
+                    <div id="map" class="pull-right"></div>
+                    <!-- <img src="http://placehold.it/400x275&text=map" alt="" /> -->
+                </div>
             </div>
-            <div class="col-md-3 text-right">
-                <img src="http://placehold.it/150x150" alt="" />
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                Vivamus pulvinar augue in velit vehicula imperdiet. Quisque convallis dignissim nisl, ut consectetur erat adipiscing et. Donec a quam a elit fermentum semper. Donec ultricies enim non justo interdum dictum. Nulla aliquam suscipit tincidunt. Cras cursus mi sed massa pulvinar, et dictum tortor ornare. Etiam urna ante, iaculis quis tellus eget, mattis rhoncus metus.
-            </div>
-            <div class="col-md-6 text-right">
-                <img src="http://placehold.it/450x300&text=map" alt="" />
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4 text-center">
-                Metric 1
-            </div>
-            <div class="col-md-4 text-center">
-                Metric 1
-            </div>
-            <div class="col-md-4 text-center">
-                Metric 1
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4 text-center">
-                Metric 1
-            </div>
-            <div class="col-md-4 text-center">
-                Metric 1
-            </div>
-            <div class="col-md-4 text-center">
-                Metric 1
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4 text-center">
-                Metric 1
-            </div>
-            <div class="col-md-4 text-center">
-                Metric 1
-            </div>
-            <div class="col-md-4 text-center">
-                Metric 1
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    <table class="metric-box">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <h2>Character</h2>
+                                    <h3 data-metric="m1">&nbsp;</h3>
+                                    <h4>people</h4>
+                                </td>
+                                <td>
+                                    <h2>Economy</h2>
+                                    <h3 data-metric="m17">&nbsp;</h3>
+                                    <h4>median household income</h4>
+                                </td>
+                                <td>
+                                    <h2>Education</h2>
+                                    <h3 data-metric="m31">&nbsp;</h3>
+                                    <h4>school age programs</h4>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h2>Engagement</h2>
+                                    <h3 data-metric="m15">&nbsp;</h3>
+                                    <h4>neighborhood organizations</h4>
+                                </td>
+                                <td>
+                                    <h2>Environment</h2>
+                                    <h3 data-metric="m81">&nbsp;</h3>
+                                    <h4>electricity consumption</h4>
+                                </td>
+                                <td>
+                                    <h2>Health</h2>
+                                    <h3 data-metric="m48">&nbsp;</h3>
+                                    <h4>proximity to grocery store</h4>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h2>Housing</h2>
+                                    <h3 data-metric="m57">&nbsp;</h3>
+                                    <h4>average property value</h4>
+                                </td>
+                                <td>
+                                    <h2>Safety</h2>
+                                    <h3 data-metric="m26">&nbsp;</h3>
+                                    <h4>property crime rate</h4>
+                                </td>
+                                <td>
+                                    <h2>Transportation</h2>
+                                    <h3 data-metric="m70">&nbsp;</h3>
+                                    <h4>bicycle friendliness</h4>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
+
         <!-- Character -->
-        <div class="row">
-            <div class="col-md-3">
-                <img src="http://placehold.it/150x150" alt="" />
+        <div class="page">
+            <div class="row">
+                <div class="col-xs-3"></div>
+                <div class="col-xs-6 text-center">
+                    <h1>Character</h1>
+                </div>
+                <div class="col-xs-3 text-right"></div>
             </div>
-            <div class="col-md-6 text-center">
-                <h1>Character</h1>
+            <div class="row">
+                <div class="col-xs-6">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus urna id mi feugiat placerat. Ut in massa id massa elementum hendrerit. Maecenas a erat justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam eleifend lorem in tortor facilisis, vel ultricies purus molestie. Sed pharetra, magna vitae posuere sodales, orci dolor iaculis justo, id dignissim purus magna nec nunc. Integer posuere facilisis metus, hendrerit tincidunt lacus lobortis eget
+                </div>
+                <div class="col-xs-6">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus urna id mi feugiat placerat. Ut in massa id massa elementum hendrerit. Maecenas a erat justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam eleifend lorem in tortor facilisis, vel ultricies purus molestie. Sed pharetra, magna vitae posuere sodales, orci dolor iaculis justo, id dignissim purus magna nec nunc. Integer posuere facilisis metus, hendrerit tincidunt lacus lobortis eget
+                </div>
             </div>
-            <div class="col-md-3 text-right">
-                <img src="http://placehold.it/150x150" alt="" />
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus urna id mi feugiat placerat. Ut in massa id massa elementum hendrerit. Maecenas a erat justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam eleifend lorem in tortor facilisis, vel ultricies purus molestie. Sed pharetra, magna vitae posuere sodales, orci dolor iaculis justo, id dignissim purus magna nec nunc. Integer posuere facilisis metus, hendrerit tincidunt lacus lobortis eget
-            </div>
-            <div class="col-md-6">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus urna id mi feugiat placerat. Ut in massa id massa elementum hendrerit. Maecenas a erat justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam eleifend lorem in tortor facilisis, vel ultricies purus molestie. Sed pharetra, magna vitae posuere sodales, orci dolor iaculis justo, id dignissim purus magna nec nunc. Integer posuere facilisis metus, hendrerit tincidunt lacus lobortis eget
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4">
-                <img src="http://placehold.it/300x300?text=vis" alt="" />
-                <img src="http://placehold.it/300x300?text=vis" alt="" />
-                <img src="http://placehold.it/300x300?text=vis" alt="" />
-            </div>
-            <div class="col-md-8">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>
-                                Table Header
-                            </th>
-                            <th>
-                                Table Header
-                            </th>
-                            <th>
-                                Table Header
-                            </th>
-                            <th>
-                                Table Header
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                Val
-                            </td>
-                            <td>
-                                Val
-                            </td>
-                            <td>
-                                Val
-                            </td>
-                            <td>
-                                Val
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="row">
+                <div class="col-xs-4">
+                    <canvas id="chart-character-1" class="chart-doughnut" data-chart="m1,m3" width="200" height="200"></canvas>
+                    <div id="chart-character-1-legend"></div>
+                </div>
+                <div class="col-xs-8">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th class='text-right'></th>
+                                <th class='text-right'></th>
+                                <th class='text-right'>NPA Average</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                              <td>Area (in acres)</td>
+                              <td class='text-right' data-metric='m3'></td>
+                              <td class='text-right' data-change='m3'></td>
+                              <td class='text-right' data-average='m3'></td>
+                            </tr>
+                            <tr>
+                              <td>Developed Tax Parcels</td>
+                              <td class='text-right' data-metric='m4'></td>
+                              <td class='text-right' data-change='m4'></td>
+                              <td class='text-right' data-average='m4'></td>
+                            </tr>
+                            <tr>
+                              <td>Ethnicity- Hispanic/Latino</td>
+                              <td class='text-right' data-metric='m12'></td>
+                              <td class='text-right' data-change='m12'></td>
+                              <td class='text-right' data-average='m12'></td>
+                            </tr>
+                            <tr>
+                              <td>Median Age of Residents</td>
+                              <td class='text-right' data-metric='m2'></td>
+                              <td class='text-right' data-change='m2'></td>
+                              <td class='text-right' data-average='m2'></td>
+                            </tr>
+                            <tr>
+                              <td>Population</td>
+                              <td class='text-right' data-metric='m1'></td>
+                              <td class='text-right' data-change='m1'></td>
+                              <td class='text-right' data-average='m1'></td>
+                            </tr>
+                            <tr>
+                              <td>Population in Group Quarters</td>
+                              <td class='text-right' data-metric='m11'></td>
+                              <td class='text-right' data-change='m11'></td>
+                              <td class='text-right' data-average='m11'></td>
+                            </tr>
+                            <tr>
+                              <td>Public Transit Proximity</td>
+                              <td class='text-right' data-metric='m6'></td>
+                              <td class='text-right' data-change='m6'></td>
+                              <td class='text-right' data-average='m6'></td>
+                            </tr>
+                            <tr>
+                              <td>Race - Asian</td>
+                              <td class='text-right' data-metric='m9'></td>
+                              <td class='text-right' data-change='m9'></td>
+                              <td class='text-right' data-average='m9'></td>
+                            </tr>
+                            <tr>
+                              <td>Race - Black or African American</td>
+                              <td class='text-right' data-metric='m8'></td>
+                              <td class='text-right' data-change='m8'></td>
+                              <td class='text-right' data-average='m8'></td>
+                            </tr>
+                            <tr>
+                              <td>Race - Some Other Race</td>
+                              <td class='text-right' data-metric='m10'></td>
+                              <td class='text-right' data-change='m10'></td>
+                              <td class='text-right' data-average='m10'></td>
+                            </tr>
+                            <tr>
+                              <td>Race - White or Caucasian</td>
+                              <td class='text-right' data-metric='m7'></td>
+                              <td class='text-right' data-change='m7'></td>
+                              <td class='text-right' data-average='m7'></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
@@ -175,9 +249,9 @@
 
     <!-- scripts at the bottom yo -->
     <script>
-        var cacheBuster = "?foo=51295";
+        var cacheBuster = "?foo=99668";
     </script>
-    <script src="js/main.js?foo=51295"></script>
+    <script src="js/report.js?foo=99668"></script>
 
     <!--   Google Analytics -->
     <script>

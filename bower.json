@@ -13,8 +13,7 @@
     "test",
     "tests"
   ],
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "jquery.scrollTo": "*",
     "topojson": "*",
@@ -23,6 +22,7 @@
     "jquery": "*",
     "lodash": "*",
     "jquery-placeholder": "*",
-    "leaflet": "*"
+    "leaflet": "*",
+    "Chart.js": "*"
   }
 }
