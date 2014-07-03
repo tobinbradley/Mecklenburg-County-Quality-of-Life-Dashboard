@@ -59,16 +59,15 @@ body {
 }
 
 .category-banner {
-    padding-top: 10px;
+    margin-top: 1em;
     .category-title {
         text-align: center;
-        padding: 5px 15px 0 15px;
+        padding: 0 1em 0.8em 1em;
+        border: 6px solid rgb(0,82,64);
     }  
     h1 {
         font-size: 5em;
         text-shadow: #6a6d41 0 1px 1px;
-        padding: 10px;
-        border: 6px solid rgb(0,82,64);
         color: rgb(233,251,164);
         font-family: "Arvo", "Helvetica Neue", Helvetica, Arial, sans-serif;
     }
@@ -196,7 +195,7 @@ body {
     .time-year {
         font-weight: bold;
         font-size: 2.8em;
-        color: #666;
+        color: @darkGray;
         text-shadow: 1px 1px 3px rgb(150,150,150);
         margin: 0 0 0 0;
     }
@@ -232,7 +231,7 @@ table {
 @media (max-width: 990px) {
     // Header text
     .navbar-default .navbar-brand {
-        color: #666;
+        color: white;
         font-size: 18px;
     }
     // map
