@@ -1,0 +1,115 @@
+// imports
+@import "vendor/bootstrap/bootstrap.less";
+@import (less) "../../bower_components/leaflet/dist/leaflet.css";
+@import url("//fonts.googleapis.com/css?family=News+Cycle:400,700");
+
+// vars
+@body-color: rgb(249, 249, 249);
+@fancyshadow: inset 0 0 40px rgba(0, 0, 0, 0.12); //0 8px 6px -6px #666,
+@highlightColor: #F6DC62;
+@selectedColor: #FFA400;
+@darkGray: #666;
+
+@font-family-sans-serif:  "News Cycle", "Arial Narrow Bold", sans-serif;
+@font-family-serif:       Georgia, "Times New Roman", Times, serif;
+@font-family-base:        @font-family-serif;
+
+h1, h2, h3 {
+    font-weight: bold;
+}
+
+.subtitle {
+    font-size: 1.8em;
+    font-weight: bold;
+    border: none;
+    border-bottom: 1px dashed #ccc;
+    box-shadow: none;
+    padding: 2px;
+    text-shadow: 1px 1px 1px #ccc;
+}
+
+body { background: #ccc; }
+
+.page {
+    width: 768px;
+    margin: 20px auto;
+    padding: 10px;
+    min-height: 842px;
+    background: white;
+    box-shadow: 0 15px 12px -10px #666;
+    page-break-after: always;
+    .row {
+        padding-top: 25px;
+        &:first-of-type {
+            padding-top: 0;
+        }
+    }
+}
+
+.page-front {
+    h1 {
+        font-size: 2.8em;
+        text-shadow: 1px 1px 1px #ccc;
+        margin: 10px 0 0;
+    }
+    h4 {
+        margin-top: 5px;
+    }
+}
+
+#map {
+    width: 320px;
+    height: 300px;
+    //border: 2px dashed #ccc;
+    background: rgba(0,0,0,0);
+}
+
+.metric-box {
+    width: 100%;
+    td {
+        border: 1px solid #666;
+        h2 {
+            font-size: 1.2em;
+            text-transform: uppercase;
+        }
+        h3 {
+            font-size: 2.5em;
+            text-shadow: 1px 1px 1px #ccc;
+        }
+        h4 {
+            font-size: 0.9em;
+        }
+    }
+}
+
+.table {
+    td {
+        white-space: nowrap;
+    }
+}
+
+
+.legend {
+    padding-left: 20px;
+}
+
+.legend .title {
+    display: block;
+    margin: 0.5em;
+    border-style: solid;
+    border-width: 0 0 0 1em;
+    padding: 0 0.3em;
+}
+
+//  printing
+@media print {
+    .page {
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+    }
+    .subtitle {
+        outline: 0 !important;
+        border: 0px solid !important;
+    }
+}
