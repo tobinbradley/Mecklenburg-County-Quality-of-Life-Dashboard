@@ -164,5 +164,5 @@ gulp.task('psi-desktop', function (cb) {
   });
 
 // controller tasks
-gulp.task('default', ['less', 'js', 'watch', 'connect', 'browser']);
+gulp.task('default', ['less', 'js', 'watch', 'connect']);
 gulp.task('build', ['less-build', 'js-build', 'markdown', 'convert', 'cachebuster', 'imagemin']);

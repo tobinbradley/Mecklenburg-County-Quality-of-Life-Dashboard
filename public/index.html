@@ -72,13 +72,13 @@
             </div>
             <!-- /.navbar-collapse -->
         </div>
-        <div class="category-banner">
+        <div class="hidden-xs category-banner">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-xs-12 col-md-8">
                         <img src="images/housing-banner.png" width="95%" class="pull-left">
                     </div>
-                    <div class="col-md-4 category-title">
+                    <div class="hidden-sm col-md-4 category-title visible-md-*">
                         <h1>Housing</h1>
                     </div>
                 </div>
@@ -104,12 +104,18 @@
                  -->
                     <select id="metric" data-placeholder="SEARCH VARIABLES" class="form-control input-lg form-metric chosen-select hide">
                         <optgroup label="Code Enforcement">
-                            <option value="a1">
-                                Code Enforcement Cases - Housing
-                            </option>
-                            <option value="a2">
+                            <option value="ce-nuisance">
                                 Code Enforcement Cases - Nuisance
                             </option>
+                            <option value="ce-housing">
+                                Code Enforcement Cases - Housing
+                            </option>
+                        </optgroup>
+                        <optgroup label="Permits">
+                            <option value="buildingpermits">
+                                Building Permits
+                            </option>
+                        </optgroup>
                     </select>
                 </div>
                 <div id="map"></div>

@@ -16,7 +16,11 @@ function initMap(msg, data) {
     }).addTo(map);
 
     d3.selectAll(".leaflet-overlay-pane svg path").attr("class", "geom metric-hover").attr("data-id", function(d, i) {
+      try {
         return data.geom.objects[neighborhoods].geometries[i].id;
+      } catch (e) {
+        console.log("i " + i + " " + e);
+      }
     });
 
     d3Layer.on("click", function(d) {
@@ -56,12 +60,13 @@ function initMap(msg, data) {
         L.geoJson(topojson.feature(data.geom, data.geom.objects[overlay]), {
             style: {
                 "fillColor": "rgba(0,0,0,0)",
-                "color": "white",
+                "color": "black",
                 "fillOpacity": 1,
-                "opacity": 0.8,
-                "weight": 3
+                "opacity": 1,
+                "weight": 1
             }
         }).addTo(map);
+        console.log('added');
     }
 }
 
