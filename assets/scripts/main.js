@@ -77,6 +77,36 @@ $(document).ready(function () {
         });
     }
 
+    // launch report window with selected neighborhoods
+    $(".report-launch a").on("click", function() {
+        if (!$(this).parent().hasClass("disabled")) {
+            var arr = [];
+            $(".d3-select").each(function() {
+                arr.push($(this).data("id"));
+            });
+
+            window.open("report.html?n=" + arr.join());
+        }
+    });
+
+    // download table to csv
+    // Because IE doesn't do DATA URI's for cool stuff, I'm using a little utility PHP file
+    // on one of my servers. Feel free to use it, but if you want to host your own, the PHP
+    // code is:
+    // <?php
+    // header("Content-type: application/octet-stream");
+    // header("Content-Disposition: attachment; filename=\"my-data.csv\"");
+    // $data=stripcslashes($_REQUEST['csv_text']);
+    // echo $data;
+    // ?>
+    $('.table2CSV').on('click', function() {
+        var csv = $(".datatable-container table").table2CSV({
+                delivery: 'value',
+                header: ['NPA','Value','Accuracy', 'Raw Data', 'Raw Accuracy']
+            });
+        window.location.href = 'http://mcmap.org/utilities/table2csv.php?csv_text=' + encodeURIComponent(csv);
+    });
+
     // chosen
     $(".chosen-select").chosen({width: '100%', no_results_text: "Not found - "}).change(function () {
         var theVal = $(this).val();
@@ -96,6 +126,7 @@ $(document).ready(function () {
         d3.selectAll(".trend-select").selectAll("path, circle").remove();
         $(".datatable-container tbody tr").remove();
         $(".stats-selected").text("N/A");
+        $(".report-launch").addClass("disabled");
         try { map.removeLayer(marker); }
         catch (err) {}
     });

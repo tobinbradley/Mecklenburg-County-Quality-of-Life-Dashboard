@@ -69,11 +69,11 @@ function d3Select(msg, d) {
     if (d.d3obj.classed("d3-select") && msg !== "geocode") {
         d.d3obj.classed("d3-select", false);
 
-        // remove chart shit
+        // remove chart stuff
         trendChart.lineRemove(d.d3obj.attr("data-id"), ".trend-select");
         valueChart.pointerRemove(d.d3obj.attr("data-id"), ".value-select");
 
-        // remove table shit
+        // remove table stuff
         $(".datatable-container tr[data-id='" + d.d3obj.attr("data-id") + "']").remove();
         updateSelectedStats();
     }
@@ -86,6 +86,13 @@ function d3Select(msg, d) {
         }
         // add to table
         drawTable(d.d3obj.attr("data-id"), d.d3obj.attr("data-value"));
+    }
+
+    // toggle report if nothing selected
+    if ($('.d3-select').length === 0) {
+        $(".report-launch").addClass("disabled");
+    } else {
+        $(".report-launch").removeClass("disabled");
     }
 }
 
@@ -150,6 +157,7 @@ function updateSelectedStats() {
 
     // selected weighted mean
     if (metricRaw[m]) {
+        $(".stats-weighted").removeClass('hide');
         // loop through table for selected weighted mean
         if ($(".datatable-container tbody tr").size() > 0) {
             $(".datatable-container tbody tr").each(function() {
@@ -165,6 +173,8 @@ function updateSelectedStats() {
                 selectedWeightedMean = values.reduce(function(a, b) { return a + b;}) / count;
             //}
         }
+    } else {
+        $(".stats-weighted").addClass('hide');
     }
 
     $(".stats-weighted-mean-selected").text(dataPretty(selectedWeightedMean, m));

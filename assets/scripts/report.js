@@ -16,12 +16,13 @@
 
 // script for getting crap out of the select box
 // var text = "";
-// $("optgroup[label='Character'] option").each(function() {
+// $("optgroup[label='Economics'] option").each(function() {
 //     var label = $(this).prop("label");
 // 	var m = $(this).val();
-// 	text += "<tr><td>" + label + "</td><td data-metric='" + m + "'></td><td data-change='" + m + "'></td><td data-average='" + m + "'></td></tr>";
+// 	text += "<tr><td class='" + m + "-label'>" + label + "</td><td class='text-right' data-metric='" + m + "'></td><td class='text-right' data-change='" + m + "'></td><td class='text-right' data-average='" + m + "'></td></tr>";
 // });
 // console.log(text);
+
 
 var theFilter = ["434","372","232"],
     theData,
@@ -100,33 +101,44 @@ function calcData(metric) {
 
 
 
-function createCharts(data) {
-    data = [
-        {
-            value: 30,
-            color:"#F7464A",
-            title: 'Lions'
-        },
-        {
-            value : 50,
-            color : "#E2EAE9",
-            title: 'Tigers'
-        },
-        {
-            value : 100,
-            color : "#D4CCC5",
-            title: 'Bears'
-        },
-        {
-            value : 40,
-            color : "#949FB1",
-            title: 'Flying Monkees'
-        }
-    ];
+function createCharts() {
+    // data = [
+    //     {
+    //         value: 30,
+    //         color:"#F7464A",
+    //         title: 'Lions'
+    //     },
+    //     {
+    //         value : 50,
+    //         color : "#E2EAE9",
+    //         title: 'Tigers'
+    //     },
+    //     {
+    //         value : 100,
+    //         color : "#D4CCC5",
+    //         title: 'Bears'
+    //     },
+    //     {
+    //         value : 40,
+    //         color : "#949FB1",
+    //         title: 'Flying Monkees'
+    //     }
+    // ];
+
+    var colors = ["#F7464A", "#E2EAE9", "#D4CCC5", "#949FB1"];
 
     // doughnut charts
     $(".chart-doughnut").each(function() {
         // prep the data
+        var data = [];
+        _.each($(this).data('chart').split(','), function(el, i) {
+            data.push({
+                value: Number(computedData[el].mean.replace(/[A-Za-z$-\,]/g, "")),
+                color: colors[i],
+                title: $("." + el + "-label").html()
+            });
+        });
+
         ctx = document.getElementById($(this).prop("id")).getContext("2d");
         new Chart(ctx).Doughnut(data);
         legend(document.getElementById($(this).prop("id") + "-legend"), data);
@@ -164,7 +176,7 @@ function createMap(data){
     var map = L.map("map", {
             attributionControl: false,
             zoomControl: false,
-            touchZoom: true,
+            touchZoom: false,
             minZoom: mapGeography.minZoom,
             maxZoom: mapGeography.maxZoom
         });
@@ -185,6 +197,13 @@ function createMap(data){
         },
         filter: function(feature, layer) {
             return theFilter.indexOf(feature.id.toString()) != -1;
+        },
+        onEachFeature: function(feature, layer) {
+            var pt = L.geoJson(feature).getBounds().getCenter();
+            label = new L.Label()
+            label.setContent(feature.id.toString());
+            label.setLatLng(pt);
+            map.showLabel(label);
         }
     }).addTo(map);
 
@@ -219,7 +238,7 @@ $(document).ready(function() {
     $.get("data/merge.json", function(data) {
         theData = data;
         createData();
-        createCharts(data);
+        createCharts();
     });
 
 });

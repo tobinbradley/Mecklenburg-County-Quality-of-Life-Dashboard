@@ -24,6 +24,7 @@ var jsMain = [
     'bower_components/leaflet/dist/leaflet.js',
     'assets/scripts/vendor/jquery-ui-1.10.3.custom.min.js',
     'assets/scripts/vendor/chosen.jquery.js',
+    'assets/scripts/vendor/table2CSV.js',
     'bower_components/d3/d3.js',
     'assets/scripts/vendor/pubsub.js',
     'bower_components/topojson/topojson.js',
@@ -40,6 +41,7 @@ var jsReport = [
     'bower_components/jquery/dist/jquery.js',
     'bower_components/bootstrap/js/button.js',
     'bower_components/leaflet/dist/leaflet.js',
+    'bower_components/Leaflet.label/dist/leaflet.label.js',
     'bower_components/topojson/topojson.js',
     'bower_components/lodash/dist/lodash.underscore.js',
     'bower_components/d3/d3.js',
@@ -95,6 +97,10 @@ gulp.task('js', function() {
         .pipe(connect.reload());
 });
 gulp.task('js-build', function() {
+    gulp.src(jsReport)
+        .pipe(concat('report.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest('public/js'));
     return gulp.src(jsMain)
         .pipe(concat('main.js'))
         .pipe(uglify())
