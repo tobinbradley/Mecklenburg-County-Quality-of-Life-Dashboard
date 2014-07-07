@@ -23,6 +23,7 @@
     "lodash": "*",
     "jquery-placeholder": "*",
     "leaflet": "*",
-    "Chart.js": "*"
+    "Chart.js": "*",
+    "Leaflet.label": "*"
   }
 }

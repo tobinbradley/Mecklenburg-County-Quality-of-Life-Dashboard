@@ -25,7 +25,7 @@
     <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon-precomposed.png" />
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/main.css?foo=99668">
+    <link rel="stylesheet" href="css/main.css?foo=83768">
 
 </head>
 
@@ -53,7 +53,11 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="http://qol.charmeck.org/">About</a>
+                    <li>
+                        <a href="http://qol.charmeck.org/">About</a>
+                    </li>
+                    <li class="report-launch disabled">
+                        <a href="javascript:void(0)">Report</a>
                     </li>
                     <li>
                         <a href="javascript:void(0)">Download Data</a>
@@ -431,9 +435,12 @@
                   </thead>
                   <tbody></tbody>
                 </table>
+                <p class="text-right">
+                    <button type="button" class="btn btn-default btn-sm table2CSV">Download as CSV</button>
+                </p>
             </div>
             <div class="col-md-4">
-                <div class="stats stats-weighted">
+                <div class="stats stats-weighted hide">
                     <div class="row text-center">
                         <div class="col-md-5 col-md-offset-0 col-xs-4 col-xs-offset-1">
                             <h3 class="stats-weighted-mean-county">N/A</h3>
@@ -492,26 +499,10 @@
                 var m = $("#metric").val();
             %>
             <td class="text-center"><%- rc.id %></td>
-            <td class="text-right datatable-value">
-                <% if (rc.value) { %>
-                    <%= dataPretty(rc.value, m) %>
-                <% } %>
-            </td>
-            <td class="text-left">
-                <% if (rc.accuracy) { %>
-                    <span class="text-accuracy">&plusmn;<%- dataPretty(rc.accuracy, m) %></span>
-                <% } %>
-            </td>
-            <td class="text-right datatable-raw">
-                <% if (rc.raw) { %>
-                    <%= dataPretty(rc.raw, rc.rawM) %>
-                <% } %>
-            </td>
-            <td class="text-left">
-                <% if (rc.rawaccuracy) { %>
-                    <span class="text-accuracy">&plusmn;<%= dataPretty(rc.rawaccuracy, rc.rawM) %></span>
-                <% } %>
-            </td>
+            <td class="text-right datatable-value"><% if (rc.value) { %><%= dataPretty(rc.value, m) %><% } %></td>
+            <td class="text-left"><% if (rc.accuracy) { %><span class="text-accuracy">&plusmn;<%- dataPretty(rc.accuracy, m) %></span><% } %></td>
+            <td class="text-right datatable-raw"><% if (rc.raw) { %><%= dataPretty(rc.raw, rc.rawM) %><% } %></td>
+            <td class="text-left"><% if (rc.rawaccuracy) { %><span class="text-accuracy">&plusmn;<%= dataPretty(rc.rawaccuracy, rc.rawM) %></span><% } %></td>
         </tr>
     </script>
     <!-- END: Underscore Template Definition. -->
@@ -621,9 +612,9 @@
 
     <!-- scripts at the bottom yo -->
     <script>
-        var cacheBuster = "?foo=99668";
+        var cacheBuster = "?foo=83768";
     </script>
-    <script src="js/main.js?foo=99668"></script>
+    <script src="js/main.js?foo=83768"></script>
 
     <!--   Google Analytics -->
     <script>
