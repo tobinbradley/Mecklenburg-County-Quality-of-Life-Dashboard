@@ -16,7 +16,8 @@
     "gulp-markdown": "*",
     "gulp-convert": "*",
     "gulp-connect": "*",
-    "open": "*"
+    "open": "*",
+    "psi": "*"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

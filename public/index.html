@@ -27,7 +27,7 @@
     <!-- Stylesheets -->
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700|Arvo:400,700' rel='stylesheet' type='text/css'>
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/main.css?foo=30245">
+    <link rel="stylesheet" href="css/main.css?foo=88">
 </head>
 
 <body>
@@ -136,7 +136,7 @@
                             <span class="header">County</span>
                             <span class="footer" style="border-bottom: 2px dashed black;">District Average</span>
                             <br>
-                            <span class="stats-county-npa-median">&nbsp;</span>
+                            <span class="stats-median stats-county-npa-median">&nbsp;</span>
                         </div>
                         <div class="col-md-6 col-md-offset-0 col-xs-4 col-xs-offset-2">
                             <h3 class="stats-selected stats-mean-selected">N/A</h3>
@@ -197,11 +197,13 @@
                         <div class="col-md-5 col-md-offset-0 col-xs-4 col-xs-offset-1">
                             <h3 class="stats-weighted-mean-county">N/A</h3>
                             <span class="header">County</span>
+                            <br>
                             <span class="footer">Weighted Avg</span>
                         </div>
                         <div class="col-md-5 col-md-offset-0 col-xs-4 col-xs-offset-2">
                             <h3 class="stats-selected stats-weighted-mean-selected">N/A</h3>
                             <span class="header">Selected</span>
+                            <br>
                             <span class="footer">Weighted Avg</span>
                         </div>
                     </div>
@@ -376,7 +378,10 @@
     <!-- End jQuery Tourbus -->
 
     <!-- scripts at the bottom yo -->
-    <script src="js/main.js?foo=30245"></script>
+    <script>
+        var cacheBuster = "?foo=88";
+    </script>
+    <script src="js/main.js?foo=88"></script>
 
     <!--   Google Analytics -->
     <script>
