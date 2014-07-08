@@ -5,7 +5,7 @@
 // http://leaflet-extras.github.io/leaflet-providers/preview/
 // Ex: http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
 // You want to change this - our base tiles only cover Mecklenburg County NC.
-var baseTilesURL = "http://{s}.tiles.mapbox.com/v3/codeforamerica.ijj7831e/{z}/{x}/{y}.png" + cacheBuster;
+var baseTilesURL = "http://{s}.tiles.mapbox.com/v3/codeforamerica.ijj7831e/{z}/{x}/{y}.png";
 
 // The basic geographic setup for your map: the minimum zoom level,
 // maximum zoom level, and the starting zoom level, the map center point, and when
