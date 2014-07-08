@@ -1,12 +1,11 @@
 function initMap(msg, data) {
-    // Eyes wide open for this narly hack.
+    // Eyes wide open for this gnarly hack.
     // There are lots of different ways to put a D3 layer on Leaflet, and I found
     // them all to be annoying and/or weird. So, here I'm adding the topojson as a
     // regular leaflet layer so Leaflet can manage zooming/redrawing/events/etc. However,
     // I want D3 to manage symbolization et al, so I rely on the fact that Leaflet
     // adds the polys in the topojson order to add a data-id and geom class to the
     // layer so I can handle it D3-ish rather than through the Leaflet API.
-
     d3Layer = L.geoJson(topojson.feature(data.geom, data.geom.objects[neighborhoods]), {
         style: {
             "fillColor": "rgba(0,0,0,0)",
@@ -37,6 +36,7 @@ function initMap(msg, data) {
         }
     });
 
+    // Using D3 tooltips because I like them better. YMMV.
     $(".geom").tooltip({
         html: true,
         title: function() {
@@ -65,6 +65,7 @@ function initMap(msg, data) {
     }
 }
 
+// update the map colors and values
 function drawMap(msg, data) {
     var theMetric = $("#metric").val();
     var theGeom = d3.selectAll(".geom");

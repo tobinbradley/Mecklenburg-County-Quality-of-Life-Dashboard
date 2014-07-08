@@ -2,35 +2,38 @@ var map,                // leaflet map
     quantize,           // d3 quantizer for color breaks
     x_extent,           // extent of the metric, including all years
     metricData = [],    // each element is object {'year': the year, 'map': d3 map of data}
-    accuracyData = [],
-    rawData = [],
-    rawAccuracy = [],
+    accuracyData = [],  // hold accuracy data if available
+    rawData = [],       // hold raw data if available
+    rawAccuracy = [],   // hold raw data accuracy data (sigh) if available
     timer,              // timer for year slider
     year,               // the currently selected year as array index of metricData
     barchartWidth,      // for responsive charts
     marker,             // marker for geocode
-    trendChart,
-    valueChart,
-    d3Layer,
-    tour;
+    trendChart,         // ye line chart
+    valueChart,         // ye bar chart
+    d3Layer,            // the d3Layer on leaflet
+    tour;               // I-don't-want-to-do-real-help thing
 
+// obligitory lodash/underscore template variable setting
 _.templateSettings.variable = "rc";
 
-PubSub.immediateExceptions = true; // set to false in production
+// Pubsub will halt and scream at you on error. Set to false in production or for fun.
+PubSub.immediateExceptions = true;
 
-// Detect placeholder support for IE9
+// Detect placeholder support for IE9. I hate you IE9.
 jQuery.support.placeholder = (function(){
     var i = document.createElement('input');
     return 'placeholder' in i;
 })();
 
-// Slider change event
+// Slider change event handler for the year slider
 function sliderChange(value) {
     $('.time-year').text(metricData[value].year.replace("y_", ""));
     year = value;
     PubSub.publish('changeYear');
 }
 
+// Let's do stuff
 $(document).ready(function () {
 
     // pubsub subscriptions
@@ -65,7 +68,7 @@ $(document).ready(function () {
         $options.eq(random).prop('selected', true);
     }
 
-    // set window popstate event
+    // set window popstate handler
     if (history.pushState) {
         window.addEventListener("popstate", function(e) {
             if (getURLParameter("m") !== "null") {
@@ -84,7 +87,6 @@ $(document).ready(function () {
             $(".d3-select").each(function() {
                 arr.push($(this).data("id"));
             });
-
             window.open("report.html?n=" + arr.join());
         }
     });
@@ -107,7 +109,7 @@ $(document).ready(function () {
         window.location.href = 'http://mcmap.org/utilities/table2csv.php?csv_text=' + encodeURIComponent(csv);
     });
 
-    // chosen
+    // chosen - the uber select list
     $(".chosen-select").chosen({width: '100%', no_results_text: "Not found - "}).change(function () {
         var theVal = $(this).val();
         fetchMetricData(theVal);
@@ -116,104 +118,7 @@ $(document).ready(function () {
     });
     $(".chosen-search input").prop("placeholder", "search metrics");
 
-    // Don't let clicked toggle buttons remain colored
-    $(".datatoggle").on("focus", "button", function() { $(this).blur(); });
-
-    // Clear selected button
-    $(".select-clear").on("click", function() {
-        d3.selectAll(".geom").classed("d3-select", false);
-        d3.select(".value-select").selectAll("rect, line, text, circle").remove();
-        d3.selectAll(".trend-select").selectAll("path, circle").remove();
-        $(".datatable-container tbody tr").remove();
-        $(".stats-selected").text("N/A");
-        $(".report-launch").addClass("disabled");
-        try { map.removeLayer(marker); }
-        catch (err) {}
-    });
-
-    // Toggle table button
-    $(".toggle-table").on("click", function() {
-        var txt = $(".datatable-container").is(':visible') ? 'Show Data' : 'Hide Data';
-        $(this).text(txt);
-        $(".datatable-container").toggle("slow");
-    });
-
-    // Toggle map button
-    $(".toggle-map").on("click", function() {
-        var txt = $(this).text() === "Hide Map" ? 'Show Map' : 'Hide Map';
-        if (txt !== "Show Map") {
-            $(".geom").css("fill-opacity", "0.4");
-            $(".leaflet-overlay-pane svg path:not(.geom)").css("stroke-opacity", "0");
-            map.addLayer(baseTiles);
-        } else {
-            $(".geom").css("fill-opacity", "1");
-            $(".leaflet-overlay-pane svg path:not(.geom)").css("stroke-opacity", "0.6");
-            map.removeLayer(baseTiles);
-        }
-        $(this).text(txt);
-    });
-
-    // joyride
-    var tour = $('#dashboard-tour').tourbus({});
-    $('.btn-help').on("click", function() {
-        tour.trigger('depart.tourbus');
-    });
-
-
-    // Track outbound resource links
-    $(".meta-resources").on("mousedown", "a", function(e){
-        if (window.ga && e.which !== 3) {
-            ga('send', 'event', 'resource', $(this).text().trim(), $("#metric option:selected").text().trim());
-        }
-    });
-
-    // contact form
-    $(".contact form").submit(function(e) {
-        e.preventDefault();
-        $(".contact").dropdown("toggle");
-        // send feedback
-        if ($("#message").val().trim().length > 0) {
-            $.ajax({
-                type: "POST",
-                url: "/utilities/feedback.php",
-                data: {
-                    email: $("#email").val(),
-                    url: window.location.href,
-                    agent: navigator.userAgent,
-                    subject: "Quality of Life Dashboard Feedback",
-                    to: "tobin.bradley@gmail.com",
-                    message: $("#message").val()
-                }
-            });
-        }
-    });
-    $('.dropdown .contact input').click(function(e) {
-        e.stopPropagation();
-    });
-
-
-    // set up map
-    L.Icon.Default.imagePath = './images';
-    map = L.map("map", {
-            attributionControl: false,
-            touchZoom: true,
-            minZoom: mapGeography.minZoom,
-            maxZoom: mapGeography.maxZoom
-        }).setView(mapGeography.center, mapGeography.defaultZoom);
-
-    var baseTiles = L.tileLayer(baseTilesURL);
-
-    // Year control
-    var yearControl = L.control({position: 'bottomright'});
-    yearControl.onAdd = function(map) {
-        this._div = L.DomUtil.create('div', 'yearDisplay time text-right');
-        this._div.innerHTML = '<h3 class="time-year">2012</h3>';
-        return this._div;
-    };
-    yearControl.addTo(map);
-
-
-    // time slider and looper
+    // Time slider and looper. Shouldn't require this much code. Curse my stupid brains.
     $(".slider").slider({
         value: 1,
         min: 0,
@@ -252,6 +157,100 @@ $(document).ready(function () {
         }
     });
 
+    // Don't let clicked toggle buttons remain colored because ugly
+    $(".datatoggle").on("focus", "button", function() { $(this).blur(); });
+
+    // Clear selected button. TODO: make this suck less
+    $(".select-clear").on("click", function() {
+        d3.selectAll(".geom").classed("d3-select", false);
+        d3.select(".value-select").selectAll("rect, line, text, circle").remove();
+        d3.selectAll(".trend-select").selectAll("path, circle").remove();
+        $(".datatable-container tbody tr").remove();
+        $(".stats-selected").text("N/A");
+        $(".report-launch").addClass("disabled");
+        try { map.removeLayer(marker); }
+        catch (err) {}
+    });
+
+    // Toggle the nerd table
+    $(".toggle-table").on("click", function() {
+        var txt = $(".datatable-container").is(':visible') ? 'Show Data' : 'Hide Data';
+        $(this).text(txt);
+        $(".datatable-container").toggle("slow");
+    });
+
+    // Toggle the map, making polys less opaque and activating a base layer.
+    $(".toggle-map").on("click", function() {
+        var txt = $(this).text() === "Hide Map" ? 'Show Map' : 'Hide Map';
+        if (txt !== "Show Map") {
+            $(".geom").css("fill-opacity", "0.4");
+            $(".leaflet-overlay-pane svg path:not(.geom)").css("stroke-opacity", "0");
+            map.addLayer(baseTiles);
+        } else {
+            $(".geom").css("fill-opacity", "1");
+            $(".leaflet-overlay-pane svg path:not(.geom)").css("stroke-opacity", "0.6");
+            map.removeLayer(baseTiles);
+        }
+        $(this).text(txt);
+    });
+
+    // Set up Tourbus to give noobs a tour.
+    var tour = $('#dashboard-tour').tourbus({});
+    $('.btn-help').on("click", function() {
+        tour.trigger('depart.tourbus');
+    });
+
+    // Use Google Analytics to track outbound resource links. Pretty sure nobody needs this,
+    // but too scared to touch it.
+    $(".meta-resources").on("mousedown", "a", function(e){
+        if (window.ga && e.which !== 3) {
+            ga('send', 'event', 'resource', $(this).text().trim(), $("#metric option:selected").text().trim());
+        }
+    });
+
+    // Contact form. You'll want to send this someplace else.
+    $(".contact form").submit(function(e) {
+        e.preventDefault();
+        $(".contact").dropdown("toggle");
+        // send feedback
+        if ($("#message").val().trim().length > 0) {
+            $.ajax({
+                type: "POST",
+                url: "/utilities/feedback.php",
+                data: {
+                    email: $("#email").val(),
+                    url: window.location.href,
+                    agent: navigator.userAgent,
+                    subject: "Quality of Life Dashboard Feedback",
+                    to: "tobin.bradley@gmail.com",
+                    message: $("#message").val()
+                }
+            });
+        }
+    });
+    $('.dropdown .contact input').click(function(e) {
+        e.stopPropagation();
+    });
+
+    // Set up the map
+    L.Icon.Default.imagePath = './images';
+    map = L.map("map", {
+            attributionControl: false,
+            touchZoom: true,
+            minZoom: mapGeography.minZoom,
+            maxZoom: mapGeography.maxZoom
+        }).setView(mapGeography.center, mapGeography.defaultZoom);
+    var baseTiles = L.tileLayer(baseTilesURL);
+
+    // Year display
+    var yearControl = L.control({position: 'bottomright'});
+    yearControl.onAdd = function(map) {
+        this._div = L.DomUtil.create('div');
+        this._div.innerHTML = '<h3 class="time-year">2012</h3>';
+        return this._div;
+    };
+    yearControl.addTo(map);
+
     // geolocate if on a mobile device
     // bit hacky here on detection, but should cover most things
     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
@@ -286,7 +285,7 @@ $(document).ready(function () {
     trendChart = lineChart();
     valueChart = barChart();
 
-    // window resize so charts change
+    // Window resize listener so charts can adjust
     d3.select(window).on("resize", function () {
         if ($(".barchart").parent().width() !== barchartWidth) {
             drawBarChart();
@@ -294,18 +293,20 @@ $(document).ready(function () {
         }
     });
 
-
-    // kick everything off
+    // Go get the data and kick everything off
     fetchMetricData($("#metric").val());
 
 });
 
+
+// Draw the map
 function draw(geom) {
     PubSub.publish('initialize', {
         "geom": geom
     });
 }
 
+// Fire off the metric change event
 function changeMetric(data) {
     var theVal = $("#metric").val();
     $(".d3-tip").remove();
@@ -315,15 +316,12 @@ function changeMetric(data) {
     });
 }
 
+// Process the metric into useful stuff
 function processMetric(msg, data) {
-    // get current year if available so slider can find nearest
-    if (_.isNumber(year)) {
-        var prevYear = parseInt(metricData[year].year.replace("y_", ""));
-    }
-
     // clear metric data
     metricData.length = 0;
 
+    // get the years available
     var keys = Object.keys(data.metricdata[0]);
     for (var i = 1; i < keys.length; i++) {
         metricData.push({"year": keys[i], "map": d3.map()});
@@ -335,18 +333,19 @@ function processMetric(msg, data) {
     metricData.length > 1 ? $(".time").fadeIn() : $(".time").hide();
     $('.time-year').text(metricData[year].year.replace("y_", ""));
 
+    // set the data into d3 maps
     _.each(data.metricdata, function (d) {
         for (var i = 0; i < metricData.length; i++) {
             if ($.isNumeric(d[metricData[i].year])) { metricData[i].map.set(d.id, parseFloat(d[metricData[i].year])); }
         }
     });
 
-    // Set up extent
+    // Set up data extent
     var extentArray = [];
     _.each(metricData, function(d) { extentArray = extentArray.concat(d.map.values()); });
     x_extent = d3.extent(extentArray);
 
-    // set up quantile
+    // set up data quantile from extent
     quantize = d3.scale.quantile()
         .domain(x_extent)
         .range(d3.range(colorbreaks).map(function (i) {
@@ -354,9 +353,8 @@ function processMetric(msg, data) {
         }));
 }
 
+// push metric to GA and state
 function recordMetricHistory(msg, data) {
-    // push metric to GA and state
-    // Note I'm doing the text descript, not the little name, for clarity in analytics
     if (msg !== 'initialize') {
         if (history.pushState) {
             history.pushState({myTag: true}, null, "?m=" + $("#metric").val());

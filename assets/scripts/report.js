@@ -14,7 +14,8 @@
 //
 // Imagine my face while coding up a print page.
 
-// script for getting crap out of the select box
+// script for getting crap out of the select box for the page tables
+// run this in your browser's JS console
 // var text = "";
 // $("optgroup[label='Economics'] option").each(function() {
 //     var label = $(this).prop("label");
@@ -76,7 +77,6 @@ function calcData(metric) {
             }
         });
 
-
     if (count === 0) {
         result.mean = "N/A";
         result.diff = "N/A";
@@ -127,7 +127,7 @@ function createCharts() {
     });
 }
 
-// Here we dump numbers in charts and on the first page.
+// Here we dump numbers in tables and the blocks on the first page.
 function createData() {
     // metrics
     $("[data-metric]").each(function() {
@@ -198,26 +198,29 @@ function createMap(data){
 }
 
 
-// Get the data and do all of the things
+// Do all the things
 $(document).ready(function() {
 
+    // ye customizable subtitle
     $(".subtitle").on("click", function() { $(this).select(); });
 
-    // grab the neighborhood list from the URL
+    // grab the neighborhood list from the URL to set the filter
     if (getURLParameter("n") !== "null") {
         theFilter.length = 0;
         _.each(getURLParameter("n").split(","), function (n) {
             theFilter.push(n);
         });
     }
+
+    // populate the neighborhoods list on the first page
     $(".neighborhoods").text("NPA " + theFilter.join(", "));
 
-    // fetch map data
+    // fetch map data and make map
     $.get("data/geography.topo.json", function(data) {
         createMap(data);
     });
 
-    // fetch the metrics
+    // fetch the metrics and make numbers and charts
     $.get("data/merge.json", function(data) {
         theData = data;
         createData();

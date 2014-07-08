@@ -1,3 +1,6 @@
+// This is my general dumping ground for odds and ends that don't deservie their
+// own JS file.
+
 // Prototype for moving svg element to the front
 // Useful so highlighted or selected element border goes on top
 d3.selection.prototype.moveToFront = function () {
@@ -7,7 +10,7 @@ d3.selection.prototype.moveToFront = function () {
 };
 
 
-// Hover events
+// Hover highlights
 // Node there's some weirdness with the geometry doing it this way, so there is
 // another function like this specifically for after the geometry is added in
 // d3map.js.
@@ -21,8 +24,6 @@ $(document).on({
         removeHighlight($(this));
     }
 }, '.metric-hover');
-
-
 function addHighlight(elem) {
     if (elem.attr('data-id')) {
         var theId = elem.attr('data-id');
@@ -50,6 +51,7 @@ function removeHighlight(elem) {
     }
 }
 
+// Get a count in each quantile
 function quantizeCount(data) {
     var q1 = _.countBy(data, function (d) {
         return quantize(d);
@@ -65,6 +67,7 @@ function quantizeCount(data) {
     return q2;
 }
 
+// Select or unselect a neighborhood
 function d3Select(msg, d) {
     if (d.d3obj.classed("d3-select") && msg !== "geocode") {
         d.d3obj.classed("d3-select", false);
@@ -96,7 +99,7 @@ function d3Select(msg, d) {
     }
 }
 
-// draw table
+// draw the nerd table
 function updateTable() {
     _.each($(".datatable-container tbody tr"), function(el) {
         var theId = $(el).data("id");
@@ -104,7 +107,7 @@ function updateTable() {
     });
 }
 
-// update table rows
+// update nerd table rows
 function drawTable(id, val) {
     var tableRec = {};
     tableRec.id = id;
@@ -133,7 +136,7 @@ function drawTable(id, val) {
     updateSelectedStats();
 }
 
-// update stat boxes
+// update stat boxes for selected stuff
 function updateSelectedStats() {
     var m = $("#metric").val(),
         selectedWeightedMean = "N/A",
@@ -181,6 +184,7 @@ function updateSelectedStats() {
 
 }
 
+// update stat boxes for global stuff
 function updateCountyStats() {
     var m = $("#metric").val(),
         countyWeightedMean = "N/A",
@@ -204,6 +208,7 @@ function updateCountyStats() {
     $(".stats-weighted-mean-county").text(dataPretty(countyWeightedMean, m));
 }
 
+// Zoom to a particular feature
 function d3Zoom(msg, d) {
     if ($(".geom.d3-select").length === 0 || msg === "geocode" || msg === "findNeighborhood") {
         var feature = _.filter(d3Layer.toGeoJSON().features, function(data) { return data.id === d.id; });
@@ -211,6 +216,7 @@ function d3Zoom(msg, d) {
     }
 }
 
+// Zoom to polygons. I think I'm only using this to get to old neighborhoods.
 function d3ZoomPolys(msg, d) {
     var features = _.filter(d3Layer.toGeoJSON().features, function(data) { return _.contains(d.ids, data.id); });
     var bounds = L.latLngBounds(L.geoJson(features[0]).getBounds());
@@ -220,7 +226,7 @@ function d3ZoomPolys(msg, d) {
     map.fitBounds(bounds);
 }
 
-// Add marker
+// Add marker for geocoding
 function addMarker(msg, d) {
     // remove old markers
     try { map.removeLayer(marker); }
@@ -228,6 +234,8 @@ function addMarker(msg, d) {
 
     // add new marker
     marker = L.marker([d.lat, d.lng]).addTo(map);
+
+    // if you want to zoom to the marker uncomment the next line
     //map.panTo([d.lat, d.lng]);
 
 }
