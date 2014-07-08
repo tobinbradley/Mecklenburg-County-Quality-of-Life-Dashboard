@@ -1,4 +1,5 @@
 // format data
+// see config.js to check out the various types/filters I have set up
 function dataPretty(theValue, theMetric) {
     var fmat = d3.format("0,000.0"),
         prefix = "",

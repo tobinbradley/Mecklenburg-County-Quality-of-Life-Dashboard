@@ -1,3 +1,4 @@
+// A bold attempt at a javascript closure for the line chart.
 function lineChart() {
   var width = 720, // default width
       height = 280, // default height

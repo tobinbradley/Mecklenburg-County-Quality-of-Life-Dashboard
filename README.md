@@ -119,6 +119,59 @@ Once you have your topojson, a metric, and metadata, head into `public/index.htm
 
 You can put metrics in optgroups as well - they'll appear as headings in the dropdown and are searchable. You'll eventually want to change the title, links, etc. here before you go into production.
 
+### Edit report.html
+Bad news: the report is so customized that it isn't practical to make one that'll automatically work with anything. Good news: customizing it won't be too hard. You can do it all in HTML (*probably*).
+
+Take a gander at report.html. Each report page is a div with a page class.
+
+    <div class="page">
+      ...
+    </div>
+
+It's set up for screen to show a nice report-like layout, but the margins and whatnot will disappear for printing. Neat.
+
+Table rows are set up with classes to tell the JavaScript what it wants. Like so:
+
+    <tr>
+        <td class="m1-label">Population</td>
+        <td class='text-right' data-metric='m1'></td>
+        <td class='text-right' data-change='m1'></td>
+        <td class='text-right' data-average='m1'></td>
+    </tr>
+
+* `data-metric` property will will be populated with the metric value, averaging if more than one neighborhood is selected.
+* `data-change` property will be populated with change from the first recorded year to the last for that metric.
+* `data-average` holds the global neighborhood average for that metric.
+* Your metric label will be held by the `td` with the class `<metric>-label`. It'll pull from there to populate chart legends.
+
+I made a little JavaScript helper function you can see in report.js that pulls out options from index.html and makes a table based on the optgroup. So if you have an optgroup for "Character", you can pull out the table contents in your browser console via:
+
+    var text = "";
+    $("optgroup[label='Economics'] option").each(function() {
+        var label = $(this).prop("label");
+        var m = $(this).val();
+        text += "<tr><td class='" + m + "-label'>" + label + "</td><td class='text-right' data-metric='" + m + "'></td><td class='text-right' data-change='" + m + "'></td><td class='text-right' data-average='" + m + "'></td></tr>";
+    });
+    console.log(text);
+
+You'll want to pretty that HTML. If your editor doesn't have a HTML pretty plugin, you need a new editor.
+
+Charts are marked up like so:
+
+    <canvas id="chart-character-1" class="chart-doughnut" data-chart="m7,m8,m9,m10" width="150" height="150"></canvas>
+    <div id="chart-character-1-legend"></div>
+
+I'm using [Chart.js](http://www.chartjs.org/) for charts. Because there'll be a number of them and they don't need any interactivity/updating, drawing charts via bitmap (canvas) is a much more efficient way to go.
+
+Each chart (`canvas` tag) will need a unique ID (anything will do). The properties are:
+
+* `class` contains the type of chart to draw.
+* `data-chart` has a comma delimited list of metrics to draw.
+
+The `div` below it will contain the legend. Give it *the same id as the chart* with `-legend`, like `<what-you-called-the-chart>-legend`.
+
+Bob's your uncle, you have a report. Note the report is stand-alone, taking neighborhood arguments in the URL. You can statically link neighborhood(s) to the report and bypass the dashboard entirely. You should print preview in a few browsers to make sure you're not over-running pages or otherwise embarrassed yourself.
+
 ## Build for deployment
 Building for deployment does all of the niceties for you - JavaScript concatenation and minification, LESS preprocessing/auto-prefixing/minification, Markdown conversion, CSV to JSON conversion, image optimzation, and cache busting. From the root folder run:
 

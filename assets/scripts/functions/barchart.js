@@ -1,3 +1,4 @@
+// Tried to go javascript closure here, was mostly successful.
 function barChart() {
     var width = 720, // default width
         height = 250, // default height
@@ -219,6 +220,7 @@ function barChart() {
     return my;
 }
 
+// draw the bar chart
 function drawBarChart() {
     valueChart.container("barChart");
     valueChart();
