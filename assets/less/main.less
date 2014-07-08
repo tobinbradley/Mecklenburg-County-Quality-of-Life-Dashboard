@@ -1,5 +1,5 @@
 // imports
-@import "vendor/bootstrap/bootstrap.less";
+@import "../../bower_components/bootstrap/less/bootstrap.less";
 @import (less) "vendor/jquery-ui-1.10.3.custom.css";
 @import (less) "../../bower_components/leaflet/dist/leaflet.css";
 @import "vendor/typeahead.less";
@@ -95,16 +95,10 @@ body {
 
 .datatoggle {
     margin-top: 7px;
-    .btn-default {
-        background-color: rgba(255,255,255,0.2);
-        &:hover {
-            background-color: rgba(200,200,200,0.4);
-        }
-    }
 }
 
-.table2CSV.btn-default {
-        background-color: rgba(255,255,255,0.2);
+.btn-default {
+    background-color: rgba(255,255,255,0.2);
     &:hover {
         background-color: rgba(200,200,200,0.4);
     }
@@ -128,7 +122,7 @@ body {
 
 // Map
 #map {
-    height: 550px;
+    height: 530px;
     //background: url(../images/wet-graph-paper-seamless-background.jpg);
     background: rgba(0,0,0,0);
     //border: 1px dashed #d3d4d8;
@@ -159,10 +153,7 @@ body {
 
 // year control
 .yearDisplay {
-    //background: rgba(255,255,255,0.5);
-    //border-radius: 5px;
-    //padding: 5px;
-    // border: 1px solid #ccc;
+    margin-top: 5px;
     .slider {
        width: 100px;
        display: inline-block;

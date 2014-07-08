@@ -25,7 +25,7 @@
     <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon-precomposed.png" />
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/main.css?foo=83768">
+    <link rel="stylesheet" href="css/main.css?foo=70859">
 
 </head>
 
@@ -362,9 +362,16 @@
                     </select>
                 </div>
                 <div id="map"></div>
+                <div class="yearDisplay time text-right">
+                    <button type="button" class="btn btn-primary btn-looper">
+                        <span class="glyphicon glyphicon-play"></span>
+                    </button>
+                    <div class="slider"></div>
+                </div>
                 <div class="btn-group pull-right datatoggle">
                     <button type="button" class="btn btn-default btn-sm toggle-map">Show Map</button>
                     <button type="button" class="btn btn-default btn-sm toggle-table">Show Data</button>
+                    <button type="button" class="btn btn-default btn-sm report-launch disabled">Report</button>
                     <button type="button" class="btn btn-default btn-sm select-clear">Clear Selected</button>
                 </div>
                 <div class="form mapsearch">
@@ -519,7 +526,7 @@
       </li>
       <li data-el='.chosen-container' data-orientation='bottom' data-width='300'>
         <h3>Metrics</h3>
-        <p>Use this control to select the <strong>Metric</strong> you're interested in. Metrics are divided into categories, and you can also search for Metrics using the search box.</p>
+        <p>Use this control to select the <strong>Metric</strong> you're interested in.</p>
         <div class="btn-group pull-right">
           <button type="button" class="btn btn-default btn-sm tourbus-prev">Previous</button>
           <button type="button" class="btn btn-default btn-sm tourbus-stop">Finished</button>
@@ -528,7 +535,7 @@
       </li>
       <li data-el='#map' data-orientation='bottom' data-width='300'>
         <h3>Map</h3>
-        <p>The <strong>Map</strong> is fully interactive - you can pan, zoom, and select neighborhoods by mouse or touch. If you zoom in close, the neighborhoods become transparent so you can view roads and map features.</p>
+        <p>The <strong>Map</strong> is fully interactive - you can pan, zoom, and select neighborhoods by mouse or touch.</p>
         <div class="btn-group pull-right">
           <button type="button" class="btn btn-default btn-sm tourbus-prev">Previous</button>
           <button type="button" class="btn btn-default btn-sm tourbus-stop">Finished</button>
@@ -537,7 +544,8 @@
       </li>
       <li data-el='#searchbox' data-orientation='bottom' data-width='300'>
         <h3>Search</h3>
-        <p>The <strong>Search</strong> control lets you search for almost anything. Type in a neighborhood number, the first part of an address or a place name, and select a match using your mouse, keyboard, or by touch.</p>
+        <p>The <strong>Search</strong> control lets you search for almost anything. Type in a neighborhood number, the first part of an address, or a place name, and select a match using your mouse, keyboard, or by touch.</p>
+        <p>Ex: Try typing <strong>700 n</strong></p>
         <div class="btn-group pull-right">
           <button type="button" class="btn btn-default btn-sm tourbus-prev">Previous</button>
           <button type="button" class="btn btn-default btn-sm tourbus-stop">Finished</button>
@@ -546,7 +554,7 @@
       </li>
       <li data-el='.yearDisplay' data-orientation='top' data-width='300'>
         <h3>Year</h3>
-        <p>The <strong>Year</strong> controls let you control the year being shown on the map and in the <strong>Bar Chart</strong>. You can change the year by moving the slider and cycle the years available for the metric by using the Play/Pause button.</p>
+        <p>The <strong>Year</strong> controls let you control the year being shown on the map and in the <strong>Bar Chart</strong>.</p>
         <div class="btn-group pull-right">
           <button type="button" class="btn btn-default btn-sm tourbus-prev">Previous</button>
           <button type="button" class="btn btn-default btn-sm tourbus-stop">Finished</button>
@@ -555,7 +563,7 @@
       </li>
       <li data-el='.datatoggle' data-orientation='bottom' data-width='300'>
         <h3>Data Controls</h3>
-        <p>Use these links to clear any selected neighborhoods or view additional information including a table with NPA values, accuracy information, raw data, and weighted averages.</p>
+        <p>Use these buttons to toggle the base map, show the data table, clear any selected neighborhoods, or create a report if you have one or more neighborhoods selected.</p>
         <div class="btn-group pull-right">
           <button type="button" class="btn btn-default btn-sm tourbus-prev">Previous</button>
           <button type="button" class="btn btn-default btn-sm tourbus-stop">Finished</button>
@@ -573,7 +581,7 @@
       </li>
       <li data-el='.barchart' data-orientation='bottom' data-width='300'>
         <h3>Bar Chart</h3>
-        <p>The <strong>Bar Chart</strong> shows a lot of information about the <strong>Metric</strong>. First, it acts as a legend for the map - the map colors correspond to the the chart colors. It also shows you the density of the data - the taller the <em>quantile</em>, or bar, the more neighborhoods exist in that range. Clicking on a bar will select every neighborhood in that quantile.</p>
+        <p>The <strong>Bar Chart</strong> shows a lot of information about the <strong>Metric</strong>. First, it acts as a legend for the map - the map colors correspond to the the chart colors. It also shows you the density of the data - the taller the <em>quantile</em>, or bar, the more neighborhoods exist in that range.</p>
         <p>The dashed line represents the average value of the neighborhoods.</p>
         <div class="btn-group pull-right">
           <button type="button" class="btn btn-default btn-sm btn-sm tourbus-prev">Previous</button>
@@ -583,7 +591,7 @@
       </li>
       <li data-el='.linechart' data-orientation='top' data-width='300'>
         <h3>Line Chart</h3>
-        <p>The <strong>Line Chart</strong> shows the trend of the <strong>Metric</strong> over time. The dashed line represents the average value of the neighborhoods.</p>
+        <p>The <strong>Line Chart</strong> shows the trend of the metric over time. The dashed line represents the average value of the neighborhoods.</p>
         <div class="btn-group pull-right">
           <button type="button" class="btn btn-default btn-sm btn-sm tourbus-prev">Previous</button>
           <button type="button" class="btn btn-default btn-sm btn-sm tourbus-stop">Finished</button>
@@ -592,16 +600,7 @@
       </li>
       <li data-el='.meta-joyride' data-orientation='top' data-width='300'>
         <h3>Metric Information</h3>
-        <p>The bottom of the page shows information about the <strong>Metric</strong>, including a brief description, why it is important, where the data came from, and additional resources related to the metric.</p>
-        <div class="btn-group pull-right">
-          <button type="button" class="btn btn-default btn-sm tourbus-prev">Previous</button>
-          <button type="button" class="btn btn-default btn-sm tourbus-stop">Finished</button>
-          <button type="button" class="btn btn-default btn-sm tourbus-next">Next</button>
-        </div>
-      </li>
-      <li data-el='.navbar-right' data-orientation='bottom' data-width='300'>
-        <h3>Nav Bar</h3>
-        <p>The <strong>Nav Bar</strong> can show you more <em>About</em> the Quality of Life study, links to <em>Download</em> the data in a variety of formats, and <em>Help</em> you get started.</p>
+        <p>The bottom of the page shows more information about the metric, including a brief description, why it is important, where the data came from, and additional resources.</p>
         <div class="btn-group pull-right">
           <button type="button" class="btn btn-default btn-sm tourbus-prev">Previous</button>
           <button type="button" class="btn btn-default btn-sm tourbus-stop">Finished</button>
@@ -612,9 +611,9 @@
 
     <!-- scripts at the bottom yo -->
     <script>
-        var cacheBuster = "?foo=83768";
+        var cacheBuster = "?foo=70859";
     </script>
-    <script src="js/main.js?foo=83768"></script>
+    <script src="js/main.js?foo=70859"></script>
 
     <!--   Google Analytics -->
     <script>
