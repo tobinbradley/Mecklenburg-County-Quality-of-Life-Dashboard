@@ -9,6 +9,7 @@ var gulp = require('gulp'),
     convert = require('gulp-convert'),
     imagemin = require('gulp-imagemin'),
     replace = require('gulp-replace'),
+    psi = require('psi'),
     open = require('open'),
     fs = require('fs');
 
@@ -142,11 +143,25 @@ gulp.task('init', function() {
                 if ( err ) { console.log('ERROR: ' + err); }
             });
         }
-
   });
-
-
 });
+
+// performace tests
+gulp.task('psi-mobile', function (cb) {
+       psi({
+           nokey: 'true', // or use key: ‘YOUR_API_KEY’
+           url: 'http://mcmap.org/qol',
+           strategy: 'mobile'
+       }, cb);
+  });
+// performace test
+gulp.task('psi-desktop', function (cb) {
+       psi({
+           nokey: 'true', // or use key: ‘YOUR_API_KEY’
+           url: 'http://mcmap.org/qol',
+           strategy: 'desktop'
+       }, cb);
+  });
 
 // controller tasks
 gulp.task('default', ['less', 'js', 'watch', 'connect']);

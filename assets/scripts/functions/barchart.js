@@ -147,22 +147,24 @@ function barChart() {
             .attr("cy", y(0))
             .attr("r", 4)
             .attr("data-id", id);
-        d3.select(container)
+        var rect = d3.select(container)
             .append("rect")
-            .attr("x", xScale(value) - 15)
             .attr("y", 165)
             .attr("rx", 3)
             .attr("ry", 3)
-            .attr("width", 30)
-            .attr("height", 21)
             .attr("data-id", id)
             .attr("class", "metric-hover");
-        d3.select(container)
+        var text = d3.select(container)
             .append("text")
             .attr("x", xScale(value))
             .attr("y", 180)
             .text(id)
             .attr("data-id", id);
+
+        var textSize = text.node().getBBox();
+        rect.attr("width", textSize.width + 6)
+            .attr("height", textSize.height + 6)
+            .attr("x", xScale(value) - ((textSize.width + 6) / 2));
 
         return my;
     };
@@ -182,16 +184,17 @@ function barChart() {
                     if (d3.select(".value-select circle[data-id='" + item.attr("data-id") + "']")[0][0] === null) {
                         my.pointerAdd(item.attr("data-id"), item.attr("data-value"), ".value-select");
                     }
+                    var rect = d3.select(".value-select rect[data-id='" + item.attr("data-id") + "']");
                     d3.select(".value-select circle[data-id='" + item.attr("data-id") + "']")
                         .transition()
                         .duration(1000)
                         .attr("cx", theX)
                         .attr("opacity", "1");
-                    d3.select(".value-select rect[data-id='" + item.attr("data-id") + "']")
+                    rect
                         .transition()
                         .duration(1000)
                         .attr("opacity", "1")
-                        .attr("x", theX - 15);
+                        .attr("x", theX - (rect.node().getBBox().width / 2));
                     d3.select(".value-select text[data-id='" + item.attr("data-id") + "']")
                         .transition()
                         .duration(1000)
