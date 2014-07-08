@@ -78,7 +78,7 @@ $(document).ready(function () {
     }
 
     // launch report window with selected neighborhoods
-    $(".report-launch a").on("click", function() {
+    $(".report-launch a, button.report-launch").on("click", function() {
         if (!$(this).parent().hasClass("disabled")) {
             var arr = [];
             $(".d3-select").each(function() {
@@ -200,13 +200,14 @@ $(document).ready(function () {
             minZoom: mapGeography.minZoom,
             maxZoom: mapGeography.maxZoom
         }).setView(mapGeography.center, mapGeography.defaultZoom);
+
     var baseTiles = L.tileLayer(baseTilesURL);
 
     // Year control
     var yearControl = L.control({position: 'bottomright'});
     yearControl.onAdd = function(map) {
         this._div = L.DomUtil.create('div', 'yearDisplay time text-right');
-        this._div.innerHTML = '<h3 class="time-year">2012</h3><button type="button" class="btn btn-primary btn-looper"><span class="glyphicon glyphicon-play"></span></button><div class="slider"></div>';
+        this._div.innerHTML = '<h3 class="time-year">2012</h3>';
         return this._div;
     };
     yearControl.addTo(map);
@@ -250,19 +251,6 @@ $(document).ready(function () {
             clearInterval(timer);
         }
     });
-
-    // // Only show map when zoomed in
-    // map.on("zoomend", function() {
-    //     if (map.getZoom() >= mapGeography.baseTileVisible) {
-    //         $(".geom").css("fill-opacity", "0.5");
-    //         $(".leaflet-overlay-pane svg path:not(.geom)").css("stroke-opacity", "0");
-    //         map.addLayer(baseTiles);
-    //     } else {
-    //         $(".geom").css("fill-opacity", "1");
-    //         $(".leaflet-overlay-pane svg path:not(.geom)").css("stroke-opacity", "0.6");
-    //         map.removeLayer(baseTiles);
-    //     }
-    // });
 
     // geolocate if on a mobile device
     // bit hacky here on detection, but should cover most things

@@ -1,5 +1,5 @@
 // imports
-@import "vendor/bootstrap/bootstrap.less";
+@import "../../bower_components/bootstrap/less/bootstrap.less";
 @import (less) "../../bower_components/leaflet/dist/leaflet.css";
 @import (less) "../../bower_components/Leaflet.label/dist/leaflet.label.css";
 @import url("//fonts.googleapis.com/css?family=News+Cycle:400,700");
@@ -51,8 +51,11 @@ body { background: #ccc; }
     padding: 10px;
     min-height: 842px;
     background: white;
-    box-shadow: 0 15px 12px -10px #666;
+    box-shadow: 0 0 3px #666, 0 15px 12px -10px #666;
     page-break-after: always;
+    &:last-of-type {
+        page-break-after: avoid;
+    }
     .row {
         padding-top: 15px;
         &:first-of-type {

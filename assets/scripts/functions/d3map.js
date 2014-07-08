@@ -53,7 +53,7 @@ function initMap(msg, data) {
     // Here's where you would load other crap in your topojson for display purposes.
     // Change the styling here as desired.
     if (typeof overlay !== 'undefined') {
-        L.geoJson(topojson.feature(data.geom, data.geom.objects[overlay]), {
+        geojson = L.geoJson(topojson.feature(data.geom, data.geom.objects[overlay]), {
             style: {
                 "fillColor": "rgba(0,0,0,0)",
                 "color": "white",

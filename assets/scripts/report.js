@@ -12,7 +12,7 @@
 // Sorry - I can't figure out a generic way to do what we wanted. Still, it isn't
 // hard. Directions to come here.
 //
-// Still, imagine my face while coding up a print page.
+// Imagine my face while coding up a print page.
 
 // script for getting crap out of the select box
 // var text = "";
@@ -24,9 +24,9 @@
 // console.log(text);
 
 
-var theFilter = ["434","372","232"],
-    theData,
-    computedData = {};
+var theFilter = ["434","372","232"],    // default list of neighborhoods if none passed
+    theData,                            // global for fetched raw data
+    computedData = {};                  // global for computed data
 
 // via http://bebraw.github.io/Chart.js.legend/
 function legend(parent, data) {
@@ -51,6 +51,9 @@ function legend(parent, data) {
 }
 
 
+// Here we're calculating stuff for our metrics.
+// It gets stored in the computedData array for use in tables and charts.
+// Note all of the if/thens. Ick.
 function calcData(metric) {
     var result = {},
         vals = [],
@@ -101,30 +104,9 @@ function calcData(metric) {
 
 
 
+// Here we make our snazzy chartjs charts. Each chart type has it's own code
+// block. The chart's data-chart property stores the metrics each chart needs.
 function createCharts() {
-    // data = [
-    //     {
-    //         value: 30,
-    //         color:"#F7464A",
-    //         title: 'Lions'
-    //     },
-    //     {
-    //         value : 50,
-    //         color : "#E2EAE9",
-    //         title: 'Tigers'
-    //     },
-    //     {
-    //         value : 100,
-    //         color : "#D4CCC5",
-    //         title: 'Bears'
-    //     },
-    //     {
-    //         value : 40,
-    //         color : "#949FB1",
-    //         title: 'Flying Monkees'
-    //     }
-    // ];
-
     var colors = ["#F7464A", "#E2EAE9", "#D4CCC5", "#949FB1"];
 
     // doughnut charts
@@ -145,7 +127,7 @@ function createCharts() {
     });
 }
 
-
+// Here we dump numbers in charts and on the first page.
 function createData() {
     // metrics
     $("[data-metric]").each(function() {
@@ -169,7 +151,8 @@ function createData() {
 
 
 // Nothing fancy here. We're making a small Leaflet map, adding just the neighborhoods
-// that we're reporting on, and zooming to them.
+// that we're reporting on, and zooming to them. I'm adding labels to the neighborhoods
+// via leaflet.label.
 function createMap(data){
     // set up map
     L.Icon.Default.imagePath = './images';
@@ -200,7 +183,7 @@ function createMap(data){
         },
         onEachFeature: function(feature, layer) {
             var pt = L.geoJson(feature).getBounds().getCenter();
-            label = new L.Label()
+            label = new L.Label();
             label.setContent(feature.id.toString());
             label.setLatLng(pt);
             map.showLabel(label);
@@ -215,6 +198,7 @@ function createMap(data){
 }
 
 
+// Get the data and do all of the things
 $(document).ready(function() {
 
     $(".subtitle").on("click", function() { $(this).select(); });
@@ -232,7 +216,6 @@ $(document).ready(function() {
     $.get("data/geography.topo.json", function(data) {
         createMap(data);
     });
-
 
     // fetch the metrics
     $.get("data/merge.json", function(data) {
