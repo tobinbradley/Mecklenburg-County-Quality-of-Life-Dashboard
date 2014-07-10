@@ -49,7 +49,7 @@ function initMap(msg, data) {
             if ($.isNumeric(sel.attr("data-value"))) {
                 num = "<br>" + dataPretty(sel.attr("data-value"), $("#metric").val());
             }
-            return "<p class='tip'><strong><span>District " + sel.attr("data-id") + "</strong>" + num + "</span></p>";
+            return "<p class='tip'><strong><span>Precinct " + sel.attr("data-id") + "</strong>" + num + "</span></p>";
         },
         container: '#map'
     });
