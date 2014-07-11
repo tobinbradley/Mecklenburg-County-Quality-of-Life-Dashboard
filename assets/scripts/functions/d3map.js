@@ -61,8 +61,8 @@ function initMap(msg, data) {
             style: {
                 "fillColor": "rgba(0,0,0,0)",
                 "color": "black",
-                "fillOpacity": 1,
-                "opacity": 1,
+                "fillOpacity": 0.5,
+                "opacity": 0.5,
                 "weight": 1
             }
         }).addTo(map);
