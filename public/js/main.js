@@ -28366,7 +28366,7 @@ function barChart() {
           title: function() {
               var sel = $(this);
               var theRange = _.map(sel.attr("data-span").split("-"), function(num){ return dataPretty(num, $("#metric").val()); });
-              return "<p class='tip'><span><strong>" + theRange.join(" to ") + "</strong></span><br>" + sel.attr("data-value") + " District(s)</p>";
+              return "<p class='tip'><span><strong>" + theRange.join(" to ") + "</strong></span><br>" + sel.attr("data-value") + " Precinct(s)</p>";
 
           },
           container: 'body'
@@ -28554,7 +28554,7 @@ function initMap(msg, data) {
             if ($.isNumeric(sel.attr("data-value"))) {
                 num = "<br>" + dataPretty(sel.attr("data-value"), $("#metric").val());
             }
-            return "<p class='tip'><strong><span>District " + sel.attr("data-id") + "</strong>" + num + "</span></p>";
+            return "<p class='tip'><strong><span>Precinct " + sel.attr("data-id") + "</strong>" + num + "</span></p>";
         },
         container: '#map'
     });
@@ -28566,8 +28566,8 @@ function initMap(msg, data) {
             style: {
                 "fillColor": "rgba(0,0,0,0)",
                 "color": "black",
-                "fillOpacity": 1,
-                "opacity": 1,
+                "fillOpacity": 0.5,
+                "opacity": 0.5,
                 "weight": 1
             }
         }).addTo(map);
@@ -29111,7 +29111,7 @@ function initTypeahead(msg, data) {
 // http://leaflet-extras.github.io/leaflet-providers/preview/
 // Ex: http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
 // You want to change this - our base tiles only cover Mecklenburg County NC.
-var baseTilesURL = "http://{s}.tiles.mapbox.com/v3/codeforamerica.ijj7831e/{z}/{x}/{y}.png" + cacheBuster;
+var baseTilesURL = "http://{s}.tiles.mapbox.com/v3/codeforamerica.ijj7831e/{z}/{x}/{y}.png";
 
 // The basic geographic setup for your map: the minimum zoom level,
 // maximum zoom level, and the starting zoom level, the map center point, and when
@@ -29297,15 +29297,15 @@ $(document).ready(function () {
 
     // Toggle map button
     $(".toggle-map").on("click", function() {
-        var txt = $(this).text() === "Hide Map" ? 'Show Map' : 'Hide Map';
-        if (txt !== "Show Map") {
-            $(".geom").css("fill-opacity", "0.4");
-            $(".leaflet-overlay-pane svg path:not(.geom)").css("stroke-opacity", "0");
-            map.addLayer(baseTiles);
-        } else {
+        var txt = $(this).text() === "Show Map" ? 'Hide Map' : 'Show Map';
+        if (txt !== "Hide Map") {
             $(".geom").css("fill-opacity", "1");
-            $(".leaflet-overlay-pane svg path:not(.geom)").css("stroke-opacity", "0.6");
+            $(".leaflet-overlay-pane svg path:not(.geom)").css("stroke-opacity", "1");
             map.removeLayer(baseTiles);
+        } else {
+            $(".geom").css("fill-opacity", "0.7");
+            $(".leaflet-overlay-pane svg path:not(.geom)").css("stroke-opacity", "0.6");
+            map.addLayer(baseTiles);
         }
         $(this).text(txt);
     });
@@ -29357,7 +29357,7 @@ $(document).ready(function () {
             minZoom: mapGeography.minZoom,
             maxZoom: mapGeography.maxZoom
         }).setView(mapGeography.center, mapGeography.defaultZoom);
-    var baseTiles = L.tileLayer(baseTilesURL);
+    var baseTiles = L.tileLayer(baseTilesURL).addTo(map);
 
     // Year control
     var yearControl = L.control({position: 'bottomright'});
