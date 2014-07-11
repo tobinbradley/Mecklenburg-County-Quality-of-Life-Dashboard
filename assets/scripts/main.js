@@ -184,7 +184,7 @@ $(document).ready(function () {
             minZoom: mapGeography.minZoom,
             maxZoom: mapGeography.maxZoom
         }).setView(mapGeography.center, mapGeography.defaultZoom);
-    var baseTiles = L.tileLayer(baseTilesURL);
+    var baseTiles = L.tileLayer(baseTilesURL).addTo(map);
 
     // Year control
     var yearControl = L.control({position: 'bottomright'});
