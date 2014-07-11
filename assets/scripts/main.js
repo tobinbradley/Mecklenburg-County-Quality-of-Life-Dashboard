@@ -127,7 +127,7 @@ $(document).ready(function () {
         var txt = $(this).text() === "Show Map" ? 'Hide Map' : 'Show Map';
         if (txt !== "Hide Map") {
             $(".geom").css("fill-opacity", "1");
-            $(".leaflet-overlay-pane svg path:not(.geom)").css("stroke-opacity", "0");
+            $(".leaflet-overlay-pane svg path:not(.geom)").css("stroke-opacity", "1");
             map.removeLayer(baseTiles);
         } else {
             $(".geom").css("fill-opacity", "0.7");
