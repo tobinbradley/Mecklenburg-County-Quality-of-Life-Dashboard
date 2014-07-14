@@ -28565,7 +28565,7 @@ function initMap(msg, data) {
         L.geoJson(topojson.feature(data.geom, data.geom.objects[overlay]), {
             style: {
                 "fillColor": "rgba(0,0,0,0)",
-                "color": "black",
+                "color": "#4a4a4a",
                 "fillOpacity": 0.5,
                 "opacity": 0.5,
                 "weight": 1
