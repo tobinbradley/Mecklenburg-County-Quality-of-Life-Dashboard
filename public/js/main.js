@@ -29119,8 +29119,8 @@ var baseTilesURL = "http://{s}.tiles.mapbox.com/v3/codeforamerica.ijj7831e/{z}/{
 var mapGeography = {
         minZoom: 9,
         maxZoom: 17,
-        defaultZoom: 10,
-        center: [38.042,-84.515],
+        defaultZoom: 11,
+        center: [38.03,-84.475],
         baseTileVisible: 15
     };
 
