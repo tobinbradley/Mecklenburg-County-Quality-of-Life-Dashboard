@@ -25520,8 +25520,7 @@ function getURLParameter(name) {
 // format data
 // see config.js to check out the various types/filters I have set up
 function dataPretty(theValue, theMetric) {
-    var fmat = d3.format("0,000.0"),
-        prefix = "",
+    var prefix = "",
         suffix = "",
         pretty = theValue;
 
@@ -25535,6 +25534,9 @@ function dataPretty(theValue, theMetric) {
         if(metricYear.indexOf(theMetric) !== -1) {
             pretty = parseFloat(pretty.replace(",", "")).toFixed(0);
         }
+    }
+    else {
+        pretty = "N/A"
     }
     return prefix + pretty + suffix;
 }
@@ -25634,9 +25636,9 @@ var metricRaw = {"m8": "m1"};
 
 
 var theFilter = ["434","372","232"],    // default list of neighborhoods if none passed
-    theData,                            // global for fetched raw data
-    computedData = {};                  // global for computed data
+    theData;                            // global for fetched raw data
 
+// Make a Chart.js legend
 // via http://bebraw.github.io/Chart.js.legend/
 function legend(parent, data) {
     parent.className = 'legend';
@@ -25659,57 +25661,19 @@ function legend(parent, data) {
     });
 }
 
+// Get the mean for stuff. NPA's passed for the report are filtered before they get here.
+function mean(metric) {
+    var mean = {},
+        keys = Object.keys(metric[0]);
 
-// Here we're calculating stuff for our metrics.
-// It gets stored in the computedData array for use in tables and charts.
-// Note all of the if/thens. Ick.
-function calcData(metric) {
-    var result = {},
-        vals = [],
-        keys = Object.keys(theData[metric][0]),
-        currentKey = keys[keys.length - 1],
-        oldestKey = keys[1],
-        count = 0,
-        sum = 0,
-        diff = 0;
-
-    _.chain(theData[metric])
-        .filter(function(el) {
-            return theFilter.indexOf(el.id.toString()) !== -1;
-        })
-        .each(function(el){
-            if ($.isNumeric(el[currentKey])) {
-                count++;
-                sum = sum + Number(el[currentKey]);
-                diff = diff + Number(el[oldestKey]);
-            }
-        });
-
-    if (count === 0) {
-        result.mean = "N/A";
-        result.diff = "N/A";
-    }
-    else {
-        result.mean = dataPretty(sum / count, metric);
-        if (diff === 0)  {
-            result.diff = 0;
-        } else {
-            result.diff = (((sum / count) - (diff / count)) / (diff / count) * 100);
+    _.each(keys, function(el, i) {
+        if (i > 0) {
+            mean[el] = d3.mean(metric, function(d) { if ($.isNumeric(d[el])) return Number(d[el]); });
         }
-        if (result.diff > 0) {
-            result.diff = "<span class='glyphicon glyphicon-arrow-up'></span> " + result.diff.toFixed(1) + "%";
-        } else if (result.diff < 0){
-            result.diff = "<span class='glyphicon glyphicon-arrow-down'></span> " + result.diff.toFixed(1) + "%";
-        } else {
-            result.diff = "--";
-        }
-    }
-    result.nmean = dataPretty(d3.mean(theData[metric], function(d) { return Number(d[currentKey]); }), metric);
+    });
 
-    computedData[metric] = result;
-
+    return mean;
 }
-
 
 
 // Here we make our snazzy chartjs charts. Each chart type has it's own code
@@ -25720,12 +25684,17 @@ function createCharts() {
     // doughnut charts
     $(".chart-doughnut").each(function() {
         // prep the data
-        var data = [];
+        var data = [],
+            title = $(this).data('labels').split(',');
+
         _.each($(this).data('chart').split(','), function(el, i) {
+            var theMean = mean(_.filter(theData[el], function(d) { return theFilter.indexOf(d.id.toString()) !== -1; })),
+                keys = Object.keys(theMean);
+
             data.push({
-                value: Number(computedData[el].mean.replace(/[A-Za-z$-\,]/g, "")),
+                value: theMean[keys[keys.length - 1]],
                 color: colors[i],
-                title: $("." + el + "-label").html()
+                title: title[i]
             });
         });
 
@@ -25733,27 +25702,122 @@ function createCharts() {
         new Chart(ctx).Doughnut(data);
         legend(document.getElementById($(this).prop("id") + "-legend"), data);
     });
+
+    // bar charts
+    $(".chart-bar").each(function() {
+        // prep the data
+        var data = {};
+
+        datasets = [
+            {
+                fillColor: "rgba(151,187,205,0.5)",
+                strokeColor: "rgba(151,187,205,0.8)",
+                data: [],
+                title: "NPA"
+            },
+            {
+                fillColor: "rgba(220,220,220,0.5)",
+                strokeColor: "rgba(220,220,220,0.8)",
+                data: [],
+                title: "County"
+            }
+        ];
+
+        data.labels = $(this).data('labels').split(",");
+
+        _.each($(this).data('chart').split(','), function(el) {
+            var npaMean = mean(_.filter(theData[el], function(d) { return theFilter.indexOf(d.id.toString()) !== -1; })),
+                countyMean = mean(theData[el]),
+                keys = Object.keys(npaMean);
+            datasets[0].data.push(npaMean[keys[keys.length - 1]]);
+            datasets[1].data.push(countyMean[keys[keys.length - 1]]);
+        });
+
+        data.datasets = datasets;
+
+        ctx = document.getElementById($(this).prop("id")).getContext("2d");
+        new Chart(ctx).Bar(data);
+        legend(document.getElementById($(this).prop("id") + "-legend"), data, $(this).data('title'));
+    });
+
+    // line charts
+    $(".chart-line").each(function() {
+        var metric = $(this).data("chart"),
+            npaMean = mean(_.filter(theData[metric], function(el) { return theFilter.indexOf(el.id.toString()) !== -1; })),
+            countyMean = mean(theData[metric]),
+            keys = Object.keys(theData[metric][0]);
+
+        var data = {
+            labels: [],
+            datasets: [
+                {
+                    fillColor: "rgba(151,187,205,0.2)",
+                    strokeColor: "rgba(151,187,205,1)",
+                    pointColor: "rgba(151,187,205,1)",
+                    pointStrokeColor: "#fff",
+                    data: [],
+                    title: "NPA"
+                },
+                {
+                    fillColor: "rgba(220,220,220,0.2)",
+                    strokeColor: "rgba(220,220,220,1)",
+                    pointColor: "rgba(220,220,220,1)",
+                    pointStrokeColor: "#fff",
+                    data: [],
+                    title: "County"
+                }
+            ]
+        };
+
+        _.each(keys, function(el, i) {
+            if (i > 0) {
+                data.labels.push(el.replace("y_", ""));
+                data.datasets[1].data.push(countyMean[el]);
+                data.datasets[0].data.push(npaMean[el]);
+            }
+        });
+
+        ctx = document.getElementById($(this).prop("id")).getContext("2d");
+        new Chart(ctx).Line(data);
+        legend(document.getElementById($(this).prop("id") + "-legend"), data, $(this).data('title'));
+    });
 }
 
 // Here we dump numbers in tables and the blocks on the first page.
 function createData() {
     // metrics
     $("[data-metric]").each(function() {
-        var el = $(this);
-        if (!computedData[el.data["metric"]]) { calcData(el.data("metric")); }
-        el.html(computedData[el.data("metric")].mean);
+        var el = $(this),
+            theMean = mean(_.filter(theData[el.data("metric")], function(d) { return theFilter.indexOf(d.id.toString()) !== -1; })),
+            keys = Object.keys(theMean);
+
+        el.html(dataPretty(theMean[keys[keys.length -1]], el.data("metric")));
     });
 
     // diffs
     $("[data-change]").each(function() {
-        var el = $(this);
-        el.html(computedData[el.data("change")].diff);
+        var el = $(this),
+            theMean = mean(_.filter(theData[el.data("change")], function(d) { return theFilter.indexOf(d.id.toString()) !== -1; })),
+            keys = Object.keys(theMean),
+            theDiff = ((theMean[keys[keys.length - 1]] - theMean[keys[0]]) / theMean[keys[0]]) * 100;
+
+        if (theDiff === 0 || !$.isNumeric(theDiff)) {
+            theDiff = "--";
+        } else if (theDiff > 0)
+            theDiff = "<span class='glyphicon glyphicon-arrow-up'></span> " + theDiff.toFixed(1) + "%";
+        else {
+            theDiff = "<span class='glyphicon glyphicon-arrow-down'></span> " + (theDiff * -1).toFixed(1) + "%";
+        }
+
+        el.html(theDiff);
     });
 
-    // averages
+    // county averages
     $("[data-average]").each(function() {
-        var el = $(this);
-        el.html(computedData[el.data("average")].nmean);
+        var el = $(this),
+            theMean = mean(theData[el.data("average")]),
+            keys = Object.keys(theMean);
+        el.html(dataPretty(theMean[keys[keys.length - 1]], el.data("average")));
     });
 }
 
