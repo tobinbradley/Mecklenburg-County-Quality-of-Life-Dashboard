@@ -28553,7 +28553,6 @@ function initMap(msg, data) {
                 num = "";
             if ($.isNumeric(sel.attr("data-value"))) {
                 num = dataPretty(sel.attr("data-value"), $("#metric").val());
-                console.log("num is " + num);
             }
             return "<p class='tip'>Precinct " + sel.attr("data-id") + "<span>" + num + "</span></p>";
         },
