@@ -12,9 +12,9 @@ var baseTilesURL = "http://{s}.tiles.mapbox.com/v3/codeforamerica.ijj7831e/{z}/{
 // the base tiles should become visible.
 var mapGeography = {
         minZoom: 9,
-        maxZoom: 12,
-        defaultZoom: 10,
-        center: [38.042,-84.515],
+        maxZoom: 17,
+        defaultZoom: 11,
+        center: [38.03,-84.475],
         baseTileVisible: 15
     };
 

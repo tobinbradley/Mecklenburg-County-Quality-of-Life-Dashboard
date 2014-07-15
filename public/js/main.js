@@ -28552,9 +28552,9 @@ function initMap(msg, data) {
             var sel = $(this),
                 num = "";
             if ($.isNumeric(sel.attr("data-value"))) {
-                num = "<br>" + dataPretty(sel.attr("data-value"), $("#metric").val());
+                num = dataPretty(sel.attr("data-value"), $("#metric").val());
             }
-            return "<p class='tip'><strong><span>Precinct " + sel.attr("data-id") + "</strong>" + num + "</span></p>";
+            return "<p class='tip'>Precinct " + sel.attr("data-id") + "<span>" + num + "</span></p>";
         },
         container: '#map'
     });
@@ -28565,7 +28565,7 @@ function initMap(msg, data) {
         L.geoJson(topojson.feature(data.geom, data.geom.objects[overlay]), {
             style: {
                 "fillColor": "rgba(0,0,0,0)",
-                "color": "black",
+                "color": "#4a4a4a",
                 "fillOpacity": 0.5,
                 "opacity": 0.5,
                 "weight": 1
@@ -29118,9 +29118,9 @@ var baseTilesURL = "http://{s}.tiles.mapbox.com/v3/codeforamerica.ijj7831e/{z}/{
 // the base tiles should become visible.
 var mapGeography = {
         minZoom: 9,
-        maxZoom: 12,
-        defaultZoom: 10,
-        center: [38.042,-84.515],
+        maxZoom: 17,
+        defaultZoom: 11,
+        center: [38.03,-84.475],
         baseTileVisible: 15
     };
 
