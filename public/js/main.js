@@ -28552,9 +28552,10 @@ function initMap(msg, data) {
             var sel = $(this),
                 num = "";
             if ($.isNumeric(sel.attr("data-value"))) {
-                num = "<br>" + dataPretty(sel.attr("data-value"), $("#metric").val());
+                num = dataPretty(sel.attr("data-value"), $("#metric").val());
+                console.log("num is " + num);
             }
-            return "<p class='tip'><strong><span>Precinct " + sel.attr("data-id") + "</strong>" + num + "</span></p>";
+            return "<p class='tip'>Precinct " + sel.attr("data-id") + "<span>" + num + "</span></p>";
         },
         container: '#map'
     });

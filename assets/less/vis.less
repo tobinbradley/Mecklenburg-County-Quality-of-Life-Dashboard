@@ -199,13 +199,15 @@ rect.bar {
 }
 
 .tooltip-inner {
-    background: rgba(0,0,0,0.85);
+    background: rgba(0,0,0,0.9);
     animation: bounceIn 0.2s ease-out;
+    font-family: @font-family-sans-serif;
     .tip {
-        font-size: 1.3em;
+        font-size: 1.2em;
         margin: 5px;
         span {
-            color: #ff00c7;
+            display: block;
+            font-size: 2em;
         }
         .metric-accuracy {
             color: #ccc;

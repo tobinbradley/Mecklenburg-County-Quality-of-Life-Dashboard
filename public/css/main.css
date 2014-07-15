@@ -5798,16 +5798,18 @@ rect.bar {
   stroke: #664200;
 }
 .tooltip-inner {
-  background: rgba(0, 0, 0, 0.85);
+  background: rgba(0, 0, 0, 0.9);
   -webkit-animation: bounceIn 0.2s ease-out;
   animation: bounceIn 0.2s ease-out;
+  font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .tooltip-inner .tip {
-  font-size: 1.3em;
+  font-size: 1.2em;
   margin: 5px;
 }
 .tooltip-inner .tip span {
-  color: #ff00c7;
+  display: block;
+  font-size: 2em;
 }
 .tooltip-inner .tip .metric-accuracy {
   color: #ccc;
@@ -5995,6 +5997,7 @@ body {
   top: 3px;
 }
 .yearDisplay .time-year {
+  font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: bold;
   font-size: 2.8em;
   color: #666666;
