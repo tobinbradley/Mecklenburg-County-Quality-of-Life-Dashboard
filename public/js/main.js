@@ -28667,8 +28667,7 @@ function drawMap(msg, data) {
 // format data
 // see config.js to check out the various types/filters I have set up
 function dataPretty(theValue, theMetric) {
-    var fmat = d3.format("0,000.0"),
-        prefix = "",
+    var prefix = "",
         suffix = "",
         pretty = theValue;
 
@@ -28682,6 +28681,9 @@ function dataPretty(theValue, theMetric) {
         if(metricYear.indexOf(theMetric) !== -1) {
             pretty = parseFloat(pretty.replace(",", "")).toFixed(0);
         }
+    }
+    else {
+        pretty = "N/A"
     }
     return prefix + pretty + suffix;
 }

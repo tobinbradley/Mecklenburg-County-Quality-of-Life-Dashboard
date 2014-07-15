@@ -5,12 +5,6 @@
 @import url("//fonts.googleapis.com/css?family=News+Cycle:400,700");
 
 // vars
-@body-color: rgb(249, 249, 249);
-@fancyshadow: inset 0 0 40px rgba(0, 0, 0, 0.12); //0 8px 6px -6px #666,
-@highlightColor: #F6DC62;
-@selectedColor: #FFA400;
-@darkGray: #666;
-
 @font-family-sans-serif:  "News Cycle", "Arial Narrow Bold", sans-serif;
 @font-family-serif:       Georgia, "Times New Roman", Times, serif;
 @font-family-base:        @font-family-serif;
@@ -117,17 +111,36 @@ body { background: #ccc; }
 }
 
 
-.legend {
-    padding-left: 20px;
+// chart legend
+.vis {
+    h4 {
+        font-size: 1.1em;
+        font-weight: normal;
+        //margin: 0;
+        text-align: center;
+    }
+    .legend {
+        padding-left: 20px;
+        text-align: left;
+    }
+    .legend .title {
+        display: block;
+        margin: 0.5em;
+        border-style: solid;
+        border-width: 0 0 0 1em;
+        padding: 0 0.3em;
+        font-size: 0.8em;
+    }
+    &.vis-horizontal {
+        .legend {
+            text-align: center;
+        }
+        .legend .title {
+            display: inline-block;
+        }
+    }
 }
 
-.legend .title {
-    display: block;
-    margin: 0.5em;
-    border-style: solid;
-    border-width: 0 0 0 1em;
-    padding: 0 0.3em;
-}
 
 //  printing
 @media print {

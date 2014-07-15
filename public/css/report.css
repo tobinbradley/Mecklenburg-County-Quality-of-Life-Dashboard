@@ -6360,15 +6360,28 @@ body {
 .table td:first-of-type {
   white-space: normal;
 }
-.legend {
-  padding-left: 20px;
+.vis h4 {
+  font-size: 1.1em;
+  font-weight: normal;
+  text-align: center;
 }
-.legend .title {
+.vis .legend {
+  padding-left: 20px;
+  text-align: left;
+}
+.vis .legend .title {
   display: block;
   margin: 0.5em;
   border-style: solid;
   border-width: 0 0 0 1em;
   padding: 0 0.3em;
+  font-size: 0.8em;
+}
+.vis.vis-horizontal .legend {
+  text-align: center;
+}
+.vis.vis-horizontal .legend .title {
+  display: inline-block;
 }
 @media print {
   .page {
