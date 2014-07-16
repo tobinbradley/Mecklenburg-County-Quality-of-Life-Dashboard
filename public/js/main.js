@@ -28366,7 +28366,7 @@ function barChart() {
           title: function() {
               var sel = $(this);
               var theRange = _.map(sel.attr("data-span").split("-"), function(num){ return dataPretty(num, $("#metric").val()); });
-              return "<p class='tip'><span><strong>" + theRange.join(" to ") + "</strong></span><br>" + sel.attr("data-value") + " Precinct(s)</p>";
+              return "<p class='tip'><span>" + theRange.join(" to ") + "</span><br>" + sel.attr("data-value") + " Precinct(s)</p>";
 
           },
           container: 'body'
@@ -28554,7 +28554,7 @@ function initMap(msg, data) {
             if ($.isNumeric(sel.attr("data-value"))) {
                 num = dataPretty(sel.attr("data-value"), $("#metric").val());
             }
-            return "<p class='tip'>" + precinctName(sel.attr("data-id")) + "<span>" + num + "</span></p>";
+            return "<p class='tip'>Precinct: " + precinctName(sel.attr("data-id")) + "<span>" + num + "</span></p>";
         },
         container: '#map'
     });
