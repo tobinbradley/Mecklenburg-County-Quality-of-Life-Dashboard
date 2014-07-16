@@ -28366,7 +28366,7 @@ function barChart() {
           title: function() {
               var sel = $(this);
               var theRange = _.map(sel.attr("data-span").split("-"), function(num){ return dataPretty(num, $("#metric").val()); });
-              return "<p class='tip'><span><strong>" + theRange.join(" to ") + "</strong></span><br>" + sel.attr("data-value") + " Precinct(s)</p>";
+              return "<p class='tip'><span>" + theRange.join(" to ") + "</span><br>" + sel.attr("data-value") + " Precinct(s)</p>";
 
           },
           container: 'body'
@@ -28437,7 +28437,7 @@ function barChart() {
             .append("text")
             .attr("x", xScale(value))
             .attr("y", 180)
-            .text(id)
+            .text(precinctName(id))
             .attr("data-id", id);
 
         var textSize = text.node().getBBox();
@@ -28554,7 +28554,7 @@ function initMap(msg, data) {
             if ($.isNumeric(sel.attr("data-value"))) {
                 num = dataPretty(sel.attr("data-value"), $("#metric").val());
             }
-            return "<p class='tip'>Precinct " + sel.attr("data-id") + "<span>" + num + "</span></p>";
+            return "<p class='tip'>Precinct: " + precinctName(sel.attr("data-id")) + "<span>" + num + "</span></p>";
         },
         container: '#map'
     });
@@ -29185,7 +29185,20 @@ var map,                // leaflet map
     trendChart,
     valueChart,
     d3Layer,
-    tour;
+    tour,
+    precincts = {};
+
+function loadPrecincts() {
+  $.get('/data/precincts.geojson', function(precinctString) {
+    var precinctJson = JSON.parse(precinctString);
+    _.each(precinctJson.features, function(feature) {
+      precincts[feature.properties.OBJECTID] = feature.properties.NAME;
+    });
+  });
+}
+function precinctName(id) {
+  return precincts[id];
+}
 
 _.templateSettings.variable = "rc";
 
@@ -29220,6 +29233,8 @@ function getURLParameter(name) {
 }
 
 $(document).ready(function () {
+
+  loadPrecincts();
 
     // pubsub subscriptions
     PubSub.subscribe('initialize', initMap);

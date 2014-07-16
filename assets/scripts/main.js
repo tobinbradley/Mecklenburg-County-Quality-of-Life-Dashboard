@@ -12,7 +12,20 @@ var map,                // leaflet map
     trendChart,
     valueChart,
     d3Layer,
-    tour;
+    tour,
+    precincts = {};
+
+function loadPrecincts() {
+  $.get('/data/precincts.geojson', function(precinctString) {
+    var precinctJson = JSON.parse(precinctString);
+    _.each(precinctJson.features, function(feature) {
+      precincts[feature.properties.OBJECTID] = feature.properties.NAME;
+    });
+  });
+}
+function precinctName(id) {
+  return precincts[id];
+}
 
 _.templateSettings.variable = "rc";
 
@@ -47,6 +60,8 @@ function getURLParameter(name) {
 }
 
 $(document).ready(function () {
+
+  loadPrecincts();
 
     // pubsub subscriptions
     PubSub.subscribe('initialize', initMap);
