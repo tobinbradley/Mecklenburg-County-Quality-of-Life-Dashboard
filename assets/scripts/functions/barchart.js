@@ -158,7 +158,7 @@ function barChart() {
             .append("text")
             .attr("x", xScale(value))
             .attr("y", 180)
-            .text(id)
+            .text(precinctName(id))
             .attr("data-id", id);
 
         var textSize = text.node().getBBox();
