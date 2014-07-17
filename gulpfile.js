@@ -44,7 +44,6 @@ var jsReport = [
     'bower_components/Leaflet.label/dist/leaflet.label.js',
     'bower_components/topojson/topojson.js',
     'bower_components/lodash/dist/lodash.underscore.js',
-    'bower_components/d3/d3.js',
     'bower_components/Chart.js/Chart.js',
     'assets/scripts/functions/prototypes.js',
     'assets/scripts/functions/geturlparams.js',

@@ -58,7 +58,17 @@ function mean(metric) {
 
     _.each(keys, function(el, i) {
         if (i > 0) {
-            mean[el] = d3.mean(metric, function(d) { if ($.isNumeric(d[el])) return Number(d[el]); });
+            var sum = 0,
+                counter = 0;
+
+            _.each(metric, function(d) {
+                if ($.isNumeric(d[el])) {
+                    sum += Number(d[el]);
+                    counter++;
+                }
+            });
+
+            mean[el] = sum/counter;
         }
     });
 
@@ -169,7 +179,9 @@ function createCharts() {
 
         ctx = document.getElementById($(this).prop("id")).getContext("2d");
         new Chart(ctx).Line(data);
-        legend(document.getElementById($(this).prop("id") + "-legend"), data, $(this).data('title'));
+        if ($("#" + $(this).prop("id") + "-legend").length > 0) {
+            legend(document.getElementById($(this).prop("id") + "-legend"), data, $(this).data('title'));
+        }
     });
 }
 
@@ -233,7 +245,7 @@ function createMap(data){
     map.scrollWheelZoom.disable();
 
     // add data filtering by passed neighborhood id's
-    var d3Layer = L.geoJson(topojson.feature(data, data.objects[neighborhoods]), {
+    var geom = L.geoJson(topojson.feature(data, data.objects[neighborhoods]), {
         style: {
             "color": "#FFA400",
             "fillColor": "rgba(0,0,0,0)",
@@ -253,7 +265,7 @@ function createMap(data){
     }).addTo(map);
 
     // zoom to data
-    map.fitBounds(d3Layer.getBounds());
+    map.fitBounds(geom.getBounds());
 
     // add base tiles at the end so no extra image grabs
     L.tileLayer(baseTilesURL).addTo(map);
