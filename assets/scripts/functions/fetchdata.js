@@ -1,5 +1,5 @@
 // This set of functions is to fetch data. We're using jQuery promises to make
-// sure everything we need is fetched and we don't get synchronously boned. 
+// sure everything we need is fetched and we don't get synchronously boned.
 function fetchAccuracy(m) {
     if (metricAccuracy.indexOf(m) !== -1) {
         return $.get("data/metric/" + m + "-accuracy.json");
@@ -41,5 +41,7 @@ function fetchMetricData(m) {
             draw(geom[0]);
         }
         changeMetric(metric[0]);
+
+        
     });
 }
