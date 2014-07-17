@@ -29189,7 +29189,7 @@ var map,                // leaflet map
     precincts = {};
 
 function loadPrecincts() {
-  $.get('/data/precincts.geojson', function(precinctString) {
+  $.get('data/precincts.geojson', function(precinctString) {
     var precinctJson = JSON.parse(precinctString);
     _.each(precinctJson.features, function(feature) {
       precincts[feature.properties.OBJECTID] = feature.properties.NAME;
