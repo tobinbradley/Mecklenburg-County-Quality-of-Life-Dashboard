@@ -25,7 +25,7 @@
     <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon-precomposed.png" />
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/report.css?foo=70859">
+    <link rel="stylesheet" href="css/report.css?foo=11569">
 
 </head>
 
@@ -238,19 +238,21 @@
             </div>
             <div class="row">
                 <div class="col-xs-6">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus urna id mi feugiat placerat. Ut in massa id massa elementum hendrerit. Maecenas a erat justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam eleifend lorem in tortor facilisis, vel ultricies purus molestie. Sed pharetra, magna vitae posuere sodales, orci dolor iaculis justo, id dignissim purus magna nec nunc. Integer posuere facilisis metus, hendrerit tincidunt lacus lobortis eget
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus urna id mi feugiat placerat. Ut in massa id massa elementum hendrerit. Maecenas a erat justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam eleifend lorem in tortor facilisis, vel ultricies purus molestie.
                 </div>
                 <div class="col-xs-6">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus urna id mi feugiat placerat. Ut in massa id massa elementum hendrerit. Maecenas a erat justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam eleifend lorem in tortor facilisis, vel ultricies purus molestie. Sed pharetra, magna vitae posuere sodales, orci dolor iaculis justo, id dignissim purus magna nec nunc. Integer posuere facilisis metus, hendrerit tincidunt lacus lobortis eget
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus urna id mi feugiat placerat. Ut in massa id massa elementum hendrerit. Maecenas a erat justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam eleifend lorem in tortor facilisis, vel ultricies purus molestie.
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-3 vis vis-vertical">
-                    <h4>Race</h4>
-                    <canvas id="chart-economics-1" class="chart-doughnut" data-chart="m7,m8,m9,m10" data-labels="White or Caucasian,Black or African American,Asian,Some Other Race" width="150" height="150"></canvas>
-                    <div id="chart-economics-1-legend"></div>
+                <div class="col-xs-12 text-center vis vis-horizontal">
+                    <h4>Median Household Income in Dollars</h4>
+                    <canvas id="chart-economics-1" class="chart-line" data-chart="m17" width="550" height="200"></canvas>
+                    <div id="chart-economics-1-legend" class="text-left"></div>
                 </div>
-                <div class="col-xs-9">
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
                     <table class="table">
                         <thead>
                             <tr>
@@ -457,7 +459,7 @@
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                    <table class="table table-condensed">
+                    <table class="table">
                         <thead>
                             <tr>
                                 <th></th>
@@ -508,9 +510,12 @@
             </div>
             <div class="row">
                 <div class="col-xs-3 vis vis-vertical">
-                    <h4>Race</h4>
-                    <canvas id="chart-environment-1" class="chart-doughnut" data-chart="m7,m8,m9,m10" data-labels="White or Caucasian,Black or African American,Asian,Some Other Race" width="150" height="150"></canvas>
-                    <div id="chart-environment-1-legend"></div>
+                    <h4>Residential Electricity Consumption (kilowatts)</h4>
+                    <canvas id="chart-environment-1" class="chart-line" data-chart="m81" width="150" height="150"></canvas>
+
+                    <h4>Residential Recycling Participation Rate</h4>
+                    <canvas id="chart-environment-2" class="chart-line" data-chart="m78" width="150" height="150"></canvas>
+                    <div id="chart-environment-2-legend"></div>
                 </div>
                 <div class="col-xs-9">
                     <table class="table table-condensed">
@@ -647,12 +652,14 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-3 vis vis-vertical">
-                    <h4>Race</h4>
-                    <canvas id="chart-health-1" class="chart-doughnut" data-chart="m7,m8,m9,m10" data-labels="White or Caucasian,Black or African American,Asian,Some Other Race" width="150" height="150"></canvas>
-                    <div id="chart-health-1-legend"></div>
+                <div class="col-xs-12 text-center vis vis-horizontal">
+                    <h4>Residents within &#189; Mile of Health Related Places</h4>
+                    <canvas id="chart-health-1" class="chart-bar" data-chart="m48,m50,m47,m49" data-labels="Grocery,Pharmacy,Mecicaid/Free Clinic,Outdoor Recreation" width="650" height="180"></canvas>
+                    <div id="chart-health-1-legend" class="text-left"></div>
                 </div>
-                <div class="col-xs-9">
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
                     <table class="table table-condensed">
                         <thead>
                             <tr>
@@ -734,9 +741,12 @@
             </div>
             <div class="row">
                 <div class="col-xs-3 vis vis-vertical">
-                    <h4>Race</h4>
-                    <canvas id="chart-housing-1" class="chart-doughnut" data-chart="m7,m8,m9,m10" data-labels="White or Caucasian,Black or African American,Asian,Some Other Race" width="150" height="150"></canvas>
-                    <div id="chart-housing-1-legend"></div>
+                    <h4>Median Gross Rent (Dollars)</h4>
+                    <canvas id="chart-housing-1" class="chart-line" data-chart="m63" width="150" height="150"></canvas>
+
+                    <h4>New Residential Building Permits</h4>
+                    <canvas id="chart-housing-2" class="chart-line" data-chart="m55" width="150" height="150"></canvas>
+                    <div id="chart-housing-2-legend"></div>
                 </div>
                 <div class="col-xs-9">
                     <table class="table table-condensed">
@@ -873,13 +883,15 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-3 vis vis-vertical">
-                    <h4>Race</h4>
-                    <canvas id="chart-safety-1" class="chart-doughnut" data-chart="m7,m8,m9,m10" data-labels="White or Caucasian,Black or African American,Asian,Some Other Race" width="150" height="150"></canvas>
-                    <div id="chart-safety-1-legend"></div>
+                <div class="col-xs-12 text-center vis vis-horizontal">
+                    <h4>Crime/Incident Rate per 100,000</h4>
+                    <canvas id="chart-safety-1" class="chart-bar" data-chart="m27,m26,m25" data-labels="Juvenile,Property,Violent" width="600" height="250"></canvas>
+                    <div id="chart-safety-1-legend" class="text-left"></div>
                 </div>
-                <div class="col-xs-9">
-                    <table class="table table-condensed">
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <table class="table">
                         <thead>
                             <tr>
                                 <th></th>
@@ -930,9 +942,9 @@
 
     <!-- scripts at the bottom yo -->
     <script>
-        var cacheBuster = "?foo=70859";
+        var cacheBuster = "?foo=11569";
     </script>
-    <script src="js/report.js?foo=70859"></script>
+    <script src="js/report.js?foo=11569"></script>
 
     <!--   Google Analytics -->
     <script>
