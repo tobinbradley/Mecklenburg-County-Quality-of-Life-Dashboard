@@ -11,6 +11,7 @@ var gulp = require('gulp'),
     replace = require('gulp-replace'),
     psi = require('psi'),
     open = require('open'),
+    jsoncombine = require("gulp-jsoncombine"),
     fs = require('fs');
 
 var jsMain = [
@@ -123,6 +124,13 @@ gulp.task('convert', function() {
         .pipe(gulp.dest('public/data/metric/'));
 });
 
+// merge json
+gulp.task('merge-json', function() {
+    return gulp.src("public/data/metric/*.json")
+        .pipe(jsoncombine("merge.json", function(data){ return new Buffer(JSON.stringify(data)); }))
+        .pipe(gulp.dest("public/data"));
+});
+
 // image processing
 gulp.task('imagemin', function() {
     return gulp.src('assets/images/build/*')
@@ -190,4 +198,4 @@ gulp.task('psi-desktop', function (cb) {
 
 // controller tasks
 gulp.task('default', ['less', 'js', 'watch', 'connect', 'browser']);
-gulp.task('build', ['less-build', 'js-build', 'markdown', 'convert', 'cachebuster', 'imagemin']);
+gulp.task('build', ['less-build', 'js-build', 'markdown', 'convert', 'cachebuster', 'imagemin', 'merge-json']);
