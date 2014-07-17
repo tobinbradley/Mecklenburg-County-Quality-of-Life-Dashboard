@@ -50,6 +50,22 @@ function initMap(msg, data) {
         container: '#map'
     });
 
+    // if neihborhoods are being passed from page load
+    if (getURLParameter("n") !== "null") {
+        var arr = [];
+        _.each(getURLParameter("n").split(","), function(d) {
+            var sel = d3.select(".geom[data-id='" + d + "']");
+            $.isNumeric(d) ? theVal = Number(d) : theVal = d;
+            arr.push(theVal);
+            PubSub.publish('selectGeo', {
+                "id": sel.attr("data-id"),
+                "value": sel.attr("data-value"),
+                "d3obj": sel
+            });
+        });
+        d3ZoomPolys("", {"ids": arr});
+    }
+
     // Here's where you would load other crap in your topojson for display purposes.
     // Change the styling here as desired.
     if (typeof overlay !== 'undefined') {
