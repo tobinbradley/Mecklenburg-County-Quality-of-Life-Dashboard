@@ -16,8 +16,7 @@ var map,                // leaflet map
     precincts = {};
 
 function loadPrecincts() {
-  $.get('data/precincts.geojson', function(precinctString) {
-    var precinctJson = JSON.parse(precinctString);
+  $.getJSON('data/precincts.geojson', function(precinctJson) {
     _.each(precinctJson.features, function(feature) {
       precincts[feature.properties.OBJECTID] = feature.properties.NAME;
     });
