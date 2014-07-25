@@ -1,11 +1,11 @@
 function setPanBounds(padding) {
     // Creates pan bounds with custom padding around data extent.
 
-    maxBounds = d3Layer.getBounds();
-    southWest = maxBounds.getSouthWest();
-    northEast = maxBounds.getNorthEast();
-    newSouthWest = L.latLng(southWest.lat - padding, southWest.lng - padding);
-    newNorthEast = L.latLng(northEast.lat + padding, northEast.lng + padding);
+    var maxBounds = d3Layer.getBounds();
+    var southWest = maxBounds.getSouthWest();
+    var northEast = maxBounds.getNorthEast();
+    var newSouthWest = L.latLng(southWest.lat - padding, southWest.lng - padding);
+    var newNorthEast = L.latLng(northEast.lat + padding, northEast.lng + padding);
     return L.latLngBounds(newSouthWest, newNorthEast);
 
 };
