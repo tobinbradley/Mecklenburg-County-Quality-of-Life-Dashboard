@@ -28366,7 +28366,7 @@ function barChart() {
           title: function() {
               var sel = $(this);
               var theRange = _.map(sel.attr("data-span").split("-"), function(num){ return dataPretty(num, $("#metric").val()); });
-              return "<p class='tip'><span><strong>" + theRange.join(" to ") + "</strong></span><br>" + sel.attr("data-value") + " District(s)</p>";
+              return "<p class='tip'><span>" + theRange.join(" to ") + "</span><br>" + sel.attr("data-value") + " Precinct(s)</p>";
 
           },
           container: 'body'
@@ -28437,7 +28437,11 @@ function barChart() {
             .append("text")
             .attr("x", xScale(value))
             .attr("y", 180)
+<<<<<<< Updated upstream
             .text(id)
+=======
+            .text(precinctName(id))
+>>>>>>> Stashed changes
             .attr("data-id", id);
 
         var textSize = text.node().getBBox();
@@ -28552,9 +28556,15 @@ function initMap(msg, data) {
             var sel = $(this),
                 num = "";
             if ($.isNumeric(sel.attr("data-value"))) {
+<<<<<<< Updated upstream
                 num = "<br>" + dataPretty(sel.attr("data-value"), $("#metric").val());
             }
             return "<p class='tip'><strong><span>District " + sel.attr("data-id") + "</strong>" + num + "</span></p>";
+=======
+                num = dataPretty(sel.attr("data-value"), $("#metric").val());
+            }
+            return "<p class='tip'>Precinct: " + precinctName(sel.attr("data-id")) + "<span>" + num + "</span></p>";
+>>>>>>> Stashed changes
         },
         container: '#map'
     });
@@ -28565,9 +28575,15 @@ function initMap(msg, data) {
         L.geoJson(topojson.feature(data.geom, data.geom.objects[overlay]), {
             style: {
                 "fillColor": "rgba(0,0,0,0)",
+<<<<<<< Updated upstream
                 "color": "black",
                 "fillOpacity": 1,
                 "opacity": 1,
+=======
+                "color": "#4a4a4a",
+                "fillOpacity": 0.5,
+                "opacity": 0.5,
+>>>>>>> Stashed changes
                 "weight": 1
             }
         }).addTo(map);
@@ -29111,16 +29127,26 @@ function initTypeahead(msg, data) {
 // http://leaflet-extras.github.io/leaflet-providers/preview/
 // Ex: http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
 // You want to change this - our base tiles only cover Mecklenburg County NC.
+<<<<<<< Updated upstream
 var baseTilesURL = "http://{s}.tiles.mapbox.com/v3/codeforamerica.ijj7831e/{z}/{x}/{y}.png" + cacheBuster;
+=======
+var baseTilesURL = "http://{s}.tiles.mapbox.com/v3/codeforamerica.ijj7831e/{z}/{x}/{y}.png";
+>>>>>>> Stashed changes
 
 // The basic geographic setup for your map: the minimum zoom level,
 // maximum zoom level, and the starting zoom level, the map center point, and when
 // the base tiles should become visible.
 var mapGeography = {
         minZoom: 9,
+<<<<<<< Updated upstream
         maxZoom: 12,
         defaultZoom: 10,
         center: [38.042,-84.515],
+=======
+        maxZoom: 17,
+        defaultZoom: 11,
+        center: [38.03,-84.475],
+>>>>>>> Stashed changes
         baseTileVisible: 15
     };
 
@@ -29185,7 +29211,23 @@ var map,                // leaflet map
     trendChart,
     valueChart,
     d3Layer,
+<<<<<<< Updated upstream
     tour;
+=======
+    tour,
+    precincts = {};
+
+function loadPrecincts() {
+  $.getJSON('data/precincts.geojson', function(precinctJson) {
+    _.each(precinctJson.features, function(feature) {
+      precincts[feature.properties.OBJECTID] = feature.properties.NAME;
+    });
+  });
+}
+function precinctName(id) {
+  return precincts[id];
+}
+>>>>>>> Stashed changes
 
 _.templateSettings.variable = "rc";
 
@@ -29221,6 +29263,11 @@ function getURLParameter(name) {
 
 $(document).ready(function () {
 
+<<<<<<< Updated upstream
+=======
+  loadPrecincts();
+
+>>>>>>> Stashed changes
     // pubsub subscriptions
     PubSub.subscribe('initialize', initMap);
     PubSub.subscribe('initialize', initTypeahead);
@@ -29297,6 +29344,7 @@ $(document).ready(function () {
 
     // Toggle map button
     $(".toggle-map").on("click", function() {
+<<<<<<< Updated upstream
         var txt = $(this).text() === "Hide Map" ? 'Show Map' : 'Hide Map';
         if (txt !== "Show Map") {
             $(".geom").css("fill-opacity", "0.4");
@@ -29306,6 +29354,17 @@ $(document).ready(function () {
             $(".geom").css("fill-opacity", "1");
             $(".leaflet-overlay-pane svg path:not(.geom)").css("stroke-opacity", "0.6");
             map.removeLayer(baseTiles);
+=======
+        var txt = $(this).text() === "Show Map" ? 'Hide Map' : 'Show Map';
+        if (txt !== "Hide Map") {
+            $(".geom").css("fill-opacity", "1");
+            $(".leaflet-overlay-pane svg path:not(.geom)").css("stroke-opacity", "1");
+            map.removeLayer(baseTiles);
+        } else {
+            $(".geom").css("fill-opacity", "0.7");
+            $(".leaflet-overlay-pane svg path:not(.geom)").css("stroke-opacity", "0.6");
+            map.addLayer(baseTiles);
+>>>>>>> Stashed changes
         }
         $(this).text(txt);
     });
@@ -29357,7 +29416,11 @@ $(document).ready(function () {
             minZoom: mapGeography.minZoom,
             maxZoom: mapGeography.maxZoom
         }).setView(mapGeography.center, mapGeography.defaultZoom);
+<<<<<<< Updated upstream
     var baseTiles = L.tileLayer(baseTilesURL);
+=======
+    var baseTiles = L.tileLayer(baseTilesURL).addTo(map);
+>>>>>>> Stashed changes
 
     // Year control
     var yearControl = L.control({position: 'bottomright'});
