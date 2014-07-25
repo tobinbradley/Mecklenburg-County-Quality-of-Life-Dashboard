@@ -21,7 +21,6 @@
     "d3": "*",
     "jquery": "*",
     "lodash": "*",
-    "jquery-placeholder": "*",
     "leaflet": "*",
     "Chart.js": "*",
     "Leaflet.label": "*"

@@ -1,4 +1,4 @@
-function initMap(msg, data) {
+function initMap() {
     // Eyes wide open for this gnarly hack.
     // There are lots of different ways to put a D3 layer on Leaflet, and I found
     // them all to be annoying and/or weird. So, here I'm adding the topojson as a
@@ -6,7 +6,7 @@ function initMap(msg, data) {
     // I want D3 to manage symbolization et al, so I rely on the fact that Leaflet
     // adds the polys in the topojson order to add a data-id and geom class to the
     // layer so I can handle it D3-ish rather than through the Leaflet API.
-    d3Layer = L.geoJson(topojson.feature(data.geom, data.geom.objects[neighborhoods]), {
+    d3Layer = L.geoJson(topojson.feature(model.geom, model.geom.objects[neighborhoods]), {
         style: {
             "fillColor": "rgba(0,0,0,0)",
             "color": "none",
@@ -15,16 +15,12 @@ function initMap(msg, data) {
     }).addTo(map);
 
     d3.selectAll(".leaflet-overlay-pane svg path").attr("class", "geom metric-hover").attr("data-id", function(d, i) {
-        return data.geom.objects[neighborhoods].geometries[i].id;
+        return model.geom.objects[neighborhoods].geometries[i].id;
     });
 
     d3Layer.on("click", function(d) {
         var sel = d3.select(".geom[data-id='" + d.layer.feature.id + "']");
-        PubSub.publish('selectGeo', {
-            "id": sel.attr("data-id"),
-            "value": sel.attr("data-value"),
-            "d3obj": sel
-        });
+        d3Select(d.layer.feature.id);
     });
 
     $(".geom").on({
@@ -69,7 +65,7 @@ function initMap(msg, data) {
     // Here's where you would load other crap in your topojson for display purposes.
     // Change the styling here as desired.
     if (typeof overlay !== 'undefined') {
-        geojson = L.geoJson(topojson.feature(data.geom, data.geom.objects[overlay]), {
+        geojson = L.geoJson(topojson.feature(model.geom, model.geom.objects[overlay]), {
             style: {
                 "fillColor": "rgba(0,0,0,0)",
                 "color": "white",
@@ -79,10 +75,14 @@ function initMap(msg, data) {
             }
         }).addTo(map);
     }
+
+    //  initialize neighborhood id's in typeahead
+    polyid = _.map(model.geom.objects[neighborhoods].geometries, function(d){ return d.id.toString(); });
 }
 
 // update the map colors and values
-function drawMap(msg, data) {
+function drawMap() {
+
     var theMetric = $("#metric").val();
     var theGeom = d3.selectAll(".geom");
 

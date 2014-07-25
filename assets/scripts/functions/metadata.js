@@ -15,9 +15,9 @@ function GetSubstringIndex(str, substring, n) {
     return index;
 }
 
-function updateMeta(msg, d) {
+function updateMeta() {
     $.ajax({
-        url: 'data/meta/' + d.metric + '.html',
+        url: 'data/meta/' + $("#metric").val() + '.html',
         type: 'GET',
         dataType: 'text',
         success: function (data) {

@@ -5,9 +5,11 @@
 // Most of our calls are going to our REST-ish HTTP API which you can find on
 // github at https://github.com/tobinbradley/dirt-simple-postgis-http-api
 
-function initTypeahead(msg, data) {
-    var polyid = _.map(data.geom.objects[neighborhoods].geometries, function(d){ return d.id.toString(); });
+function initTypeahead() {
+    var polyid = _.map(model.geom.objects[neighborhoods].geometries, function(d){ return d.id.toString(); });
+
     $("#searchbox").click(function () { $(this).select(); }).focus();
+
     $('.typeahead').typeahead([
         {
             name: 'npa',
@@ -156,13 +158,8 @@ function initTypeahead(msg, data) {
                 },
                 success: function (data) {
                     var sel = d3.select(".geom[data-id='" + data[0].id + "']");
-                    PubSub.publish('geocode', {
-                        "id": data[0].id,
-                        "value": sel.attr("data-value"),
-                        "d3obj": sel,
-                        "lat": datum.lat,
-                        "lng": datum.lng
-                    });
+                    geocode({"id": data[0].id, "lat": datum.lat, "lng": datum.lng});
+                    d3Select(data[0].id);
                 }
             });
         }
@@ -183,11 +180,7 @@ function initTypeahead(msg, data) {
                         _.each(data, function(d) {
                             var sel = d3.select(".geom[data-id='" + d.id + "']");
                             arr.push(d.id);
-                            PubSub.publish('selectGeo', {
-                                "id": sel.attr("data-id"),
-                                "value": sel.attr("data-value"),
-                                "d3obj": sel
-                            });
+                            d3Select(d.id);
                         });
                         d3ZoomPolys("", {"ids": arr});
                     }
@@ -195,18 +188,10 @@ function initTypeahead(msg, data) {
             }
             else {
                 // select neighborhood
-                var sel = d3.select(".geom[data-id='" + datum.value + "']");
-                PubSub.publish('findNeighborhood', {
-                    "d3obj": sel,
-                    "id": parseInt(datum.value)
-                });
+                geocode({"id": parseInt(datum.value)});
+                d3Select(parseInt(datum.value));
             }
         }
     });
 
-    // placeholder for $#!@#$! IE
-    if ($.support.placeholder) {
-        $('input, textarea').placeholder();
-        $('input').focus().blur();
-    }
 }

@@ -12,17 +12,7 @@ function initTypeahead(msg, data) {
         }
     ]).on('typeahead:selected', function (obj, datum) {
         // select neighborhood
-        var sel = d3.select(".geom[data-id='" + datum.value + "']");
-        PubSub.publish('findNeighborhood', {
-            "d3obj": sel,
-            "id": parseInt(datum.value)
-        });
-
+        geocode({"id": parseInt(datum.value)});
+        d3Select(parseInt(datum.value));
     });
-
-    // placeholder for $#!@#$! IE
-    if ($.support.placeholder) {
-        $('input, textarea').placeholder();
-        $('input').focus().blur();
-    }
 }

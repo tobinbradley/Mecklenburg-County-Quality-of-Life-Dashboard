@@ -68,27 +68,28 @@ function quantizeCount(data) {
 }
 
 // Select or unselect a neighborhood
-function d3Select(msg, d) {
-    if (d.d3obj.classed("d3-select") && msg !== "geocode") {
-        d.d3obj.classed("d3-select", false);
+function d3Select(id) {
+    var d3obj = d3.select(".geom[data-id='" + id + "']");
+    if (d3obj.classed("d3-select")) {
+        d3obj.classed("d3-select", false);
 
         // remove chart stuff
-        trendChart.lineRemove(d.d3obj.attr("data-id"), ".trend-select");
-        valueChart.pointerRemove(d.d3obj.attr("data-id"), ".value-select");
+        trendChart.lineRemove(id, ".trend-select");
+        valueChart.pointerRemove(id, ".value-select");
 
         // remove table stuff
-        $(".datatable-container tr[data-id='" + d.d3obj.attr("data-id") + "']").remove();
+        $(".datatable-container tr[data-id='" + id + "']").remove();
         updateSelectedStats();
     }
     else {
-        d.d3obj.classed("d3-select", true);
-        if ($.isNumeric(d.d3obj.attr("data-value"))) {
+        d3obj.classed("d3-select", true);
+        if ($.isNumeric(d3obj.attr("data-value"))) {
             // add to chart
-            trendChart.lineAdd(".trend-select", d.d3obj.attr("data-id"));
-            valueChart.pointerAdd(d.d3obj.attr("data-id"), d.d3obj.attr("data-value"), ".value-select");
+            trendChart.lineAdd(".trend-select", id);
+            valueChart.pointerAdd(id, d3obj.attr("data-value"), ".value-select");
         }
         // add to table
-        drawTable(d.d3obj.attr("data-id"), d.d3obj.attr("data-value"));
+        drawTable(id, d3obj.attr("data-value"));
     }
 
     // toggle report if nothing selected
@@ -171,7 +172,6 @@ function updateSelectedStats() {
                     count += parseFloat(theRaw);
                 }
             });
-            console.log(values);
             //if (values.length > 0) {
                 selectedWeightedMean = values.reduce(function(a, b) { return a + b;}) / count;
             //}
@@ -208,13 +208,13 @@ function updateCountyStats() {
     $(".stats-weighted-mean-county").text(dataPretty(countyWeightedMean, m));
 }
 
-// Zoom to a particular feature
-function d3Zoom(msg, d) {
-    if ($(".geom.d3-select").length === 0 || msg === "geocode" || msg === "findNeighborhood") {
-        var feature = _.filter(d3Layer.toGeoJSON().features, function(data) { return data.id === d.id; });
-        map.fitBounds(L.geoJson(feature[0]).getBounds());
-    }
-}
+// // Zoom to a particular feature
+// function d3Zoom(msg, d) {
+//     if ($(".geom.d3-select").length === 0 || msg === "geocode" || msg === "findNeighborhood") {
+//         var feature = _.filter(d3Layer.toGeoJSON().features, function(data) { return data.id === d.id; });
+//         map.fitBounds(L.geoJson(feature[0]).getBounds());
+//     }
+// }
 
 // Zoom to polygons. I think I'm only using this to get to old neighborhoods.
 function d3ZoomPolys(msg, d) {
@@ -227,15 +227,25 @@ function d3ZoomPolys(msg, d) {
 }
 
 // Add marker for geocoding
-function addMarker(msg, d) {
-    // remove old markers
-    try { map.removeLayer(marker); }
-    catch (err) {}
+// function addMarker(msg, d) {
+//     // remove old markers
+//     try { map.removeLayer(marker); }
+//     catch (err) {}
+//
+//     // add new marker
+//     marker = L.marker([d.lat, d.lng]).addTo(map);
+// }
 
-    // add new marker
-    marker = L.marker([d.lat, d.lng]).addTo(map);
+function geocode(d) {
+    // add a marker if a point location is passed
+    if (d.lat) {
+        try { map.removeLayer(marker); }
+        catch (err) {}
+        marker = L.marker([d.lat, d.lng]).addTo(map);
+    }
 
-    // if you want to zoom to the marker uncomment the next line
-    //map.panTo([d.lat, d.lng]);
+    // zoom to neighborhood
+    var feature = _.filter(d3Layer.toGeoJSON().features, function(data) { return data.id === d.id; });
+    map.fitBounds(L.geoJson(feature[0]).getBounds());
 
 }
