@@ -196,7 +196,8 @@ $(document).ready(function () {
             attributionControl: false,
             touchZoom: true,
             minZoom: mapGeography.minZoom,
-            maxZoom: mapGeography.maxZoom
+            maxZoom: mapGeography.maxZoom,
+            scrollWheelZoom: false
         }).setView(mapGeography.center, mapGeography.defaultZoom);
     var baseTiles = L.tileLayer(baseTilesURL).addTo(map);
 

@@ -1,3 +1,15 @@
+function setPanBounds(padding) {
+    // Creates pan bounds with custom padding around data extent.
+
+    maxBounds = d3Layer.getBounds();
+    southWest = maxBounds.getSouthWest();
+    northEast = maxBounds.getNorthEast();
+    newSouthWest = L.latLng(southWest.lat - padding, southWest.lng - padding);
+    newNorthEast = L.latLng(northEast.lat + padding, northEast.lng + padding);
+    return L.latLngBounds(newSouthWest, newNorthEast);
+
+};
+
 function initMap(msg, data) {
     // Eyes wide open for this narly hack.
     // There are lots of different ways to put a D3 layer on Leaflet, and I found
@@ -14,6 +26,8 @@ function initMap(msg, data) {
             "fillOpacity": 1
         }
     }).addTo(map);
+
+    map.setMaxBounds(setPanBounds(0.25));
 
     d3.selectAll(".leaflet-overlay-pane svg path").attr("class", "geom metric-hover").attr("data-id", function(d, i) {
       try {
