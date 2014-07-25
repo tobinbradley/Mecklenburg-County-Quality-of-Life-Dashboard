@@ -8,7 +8,7 @@ function setPanBounds(padding) {
     newNorthEast = L.latLng(northEast.lat + padding, northEast.lng + padding);
     return L.latLngBounds(newSouthWest, newNorthEast);
 
-}
+};
 
 function initMap(msg, data) {
     // Eyes wide open for this narly hack.
