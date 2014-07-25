@@ -47,9 +47,9 @@ function initMap(msg, data) {
             var sel = $(this),
                 num = "";
             if ($.isNumeric(sel.attr("data-value"))) {
-                num = "<br>" + dataPretty(sel.attr("data-value"), $("#metric").val());
+                num = dataPretty(sel.attr("data-value"), $("#metric").val());
             }
-            return "<p class='tip'><strong><span>District " + sel.attr("data-id") + "</strong>" + num + "</span></p>";
+            return "<p class='tip'>Precinct: " + precinctName(sel.attr("data-id")) + "<span>" + num + "</span></p>";
         },
         container: '#map'
     });
@@ -60,9 +60,9 @@ function initMap(msg, data) {
         L.geoJson(topojson.feature(data.geom, data.geom.objects[overlay]), {
             style: {
                 "fillColor": "rgba(0,0,0,0)",
-                "color": "black",
-                "fillOpacity": 1,
-                "opacity": 1,
+                "color": "#4a4a4a",
+                "fillOpacity": 0.5,
+                "opacity": 0.5,
                 "weight": 1
             }
         }).addTo(map);

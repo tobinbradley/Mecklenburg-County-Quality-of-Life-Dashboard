@@ -12,7 +12,19 @@ var map,                // leaflet map
     trendChart,
     valueChart,
     d3Layer,
-    tour;
+    tour,
+    precincts = {};
+
+function loadPrecincts() {
+  $.getJSON('data/precincts.geojson', function(precinctJson) {
+    _.each(precinctJson.features, function(feature) {
+      precincts[feature.properties.OBJECTID] = feature.properties.NAME;
+    });
+  });
+}
+function precinctName(id) {
+  return precincts[id];
+}
 
 _.templateSettings.variable = "rc";
 
@@ -47,6 +59,8 @@ function getURLParameter(name) {
 }
 
 $(document).ready(function () {
+
+  loadPrecincts();
 
     // pubsub subscriptions
     PubSub.subscribe('initialize', initMap);
@@ -124,15 +138,15 @@ $(document).ready(function () {
 
     // Toggle map button
     $(".toggle-map").on("click", function() {
-        var txt = $(this).text() === "Hide Map" ? 'Show Map' : 'Hide Map';
-        if (txt !== "Show Map") {
-            $(".geom").css("fill-opacity", "0.4");
-            $(".leaflet-overlay-pane svg path:not(.geom)").css("stroke-opacity", "0");
-            map.addLayer(baseTiles);
-        } else {
+        var txt = $(this).text() === "Show Map" ? 'Hide Map' : 'Show Map';
+        if (txt !== "Hide Map") {
             $(".geom").css("fill-opacity", "1");
-            $(".leaflet-overlay-pane svg path:not(.geom)").css("stroke-opacity", "0.6");
+            $(".leaflet-overlay-pane svg path:not(.geom)").css("stroke-opacity", "1");
             map.removeLayer(baseTiles);
+        } else {
+            $(".geom").css("fill-opacity", "0.7");
+            $(".leaflet-overlay-pane svg path:not(.geom)").css("stroke-opacity", "0.6");
+            map.addLayer(baseTiles);
         }
         $(this).text(txt);
     });
@@ -184,7 +198,7 @@ $(document).ready(function () {
             minZoom: mapGeography.minZoom,
             maxZoom: mapGeography.maxZoom
         }).setView(mapGeography.center, mapGeography.defaultZoom);
-    var baseTiles = L.tileLayer(baseTilesURL);
+    var baseTiles = L.tileLayer(baseTilesURL).addTo(map);
 
     // Year control
     var yearControl = L.control({position: 'bottomright'});

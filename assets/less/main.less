@@ -68,7 +68,7 @@ body {
     h1 {
         font-size: 5em;
         text-shadow: #6a6d41 0 1px 1px;
-        color: rgb(233,251,164);
+        color: white;
         font-family: "Arvo", "Helvetica Neue", Helvetica, Arial, sans-serif;
     }
 }
@@ -76,7 +76,10 @@ body {
 // Leaflet customizations
 .leaflet-control-layers, .leaflet-control-zoom, .leaflet-bar a {
     box-shadow: none;
-    background: @body-color;
+}
+
+.leaflet-control-zoom {
+    border: 1px solid #d3d4d8;
 }
 
 // Bootstrap customizations
@@ -154,10 +157,11 @@ body {
 
 // Map
 #map {
-    height: 550px;
+    // height: 550px; Increased height, below, to increase zoom default without cropping Lexington
+    height: 660px;
     //background: url(../images/wet-graph-paper-seamless-background.jpg);
     background: rgba(0,0,0,0);
-    //border: 1px dashed #d3d4d8;
+    border: 1px solid #d3d4d8;
     border-top: none;
     //box-shadow: @fancyshadow;
 }
@@ -169,7 +173,7 @@ body {
     width: 40%;
     margin: 0 auto;
     input[type="text"] {
-        background: rgba(255,255,255,0.7);
+        background: rgba(255,255,255,0.9);
     }
 }
 
@@ -197,6 +201,7 @@ body {
        top: 3px;
     }
     .time-year {
+        font-family: @font-family-sans-serif;
         font-weight: bold;
         font-size: 2.8em;
         color: @darkGray;

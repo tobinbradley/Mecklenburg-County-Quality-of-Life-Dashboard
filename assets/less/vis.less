@@ -15,15 +15,17 @@
     }
 }
 
+
 // chart and map colors
-.qnull { fill: rgba(0,0,0,1); }
+.qnull { fill: rgba(0,0,0,0.5); }
 // six green color breaks
-.q0{fill:rgb(219,255,177)}
-.q1{fill:rgb(199,247,116)}
-.q2{fill:rgb(155,218,106)}
-.q3{fill:rgb(96,168,89)}
-.q4{fill:rgb(0,107,84)}
-.q5{fill:rgb(0,82,64)}
+.q0, .q1, .q2, .q3, .q4, .q5 { fill-opacity: 0.8; }
+.q0{fill:rgb(186,255,204);}
+.q1{fill:rgb(123,255,169);}
+.q2{fill:rgb(31,232,134);}
+.q3{fill:rgb(31,166,122);}
+.q4{fill:rgb(22,125,111);}
+.q5{fill:rgb(17,93,96);}
 
 // seven blue color breaks
 // .q0{fill:rgb(198,219,239)}
@@ -76,6 +78,7 @@ text.d3-highlight {
 }
 .leaflet-overlay-pane svg path:not(.geom) {
     pointer-events: none;
+    stroke-opacity: 0.6;
 }
 
 // chart axes
@@ -196,13 +199,15 @@ rect.bar {
 }
 
 .tooltip-inner {
-    background: rgba(0,0,0,0.85);
+    background: rgba(0,0,0,0.9);
     animation: bounceIn 0.2s ease-out;
+    font-family: @font-family-sans-serif;
     .tip {
-        font-size: 1.3em;
+        font-size: 1.2em;
         margin: 5px;
         span {
-            color: #ff00c7;
+            display: block;
+            font-size: 2em;
         }
         .metric-accuracy {
             color: #ccc;
