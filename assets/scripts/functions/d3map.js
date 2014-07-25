@@ -15,6 +15,8 @@ function initMap(msg, data) {
         }
     }).addTo(map);
 
+    map.setMaxBounds(d3Layer.getBounds());
+
     d3.selectAll(".leaflet-overlay-pane svg path").attr("class", "geom metric-hover").attr("data-id", function(d, i) {
       try {
         return data.geom.objects[neighborhoods].geometries[i].id;
