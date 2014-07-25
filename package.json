@@ -11,14 +11,13 @@
     "gulp-connect": "*",
     "gulp-convert": "*",
     "gulp-imagemin": "*",
-    "gulp-jsoncombine": "^1.0.0",
+    "gulp-jsoncombine": "*",
     "gulp-less": "*",
     "gulp-markdown": "*",
     "gulp-minify-css": "*",
     "gulp-replace": "*",
     "gulp-uglify": "*",
-    "open": "*",
-    "psi": "*"
+    "open": "*"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

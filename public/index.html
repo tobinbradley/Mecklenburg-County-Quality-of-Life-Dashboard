@@ -25,7 +25,7 @@
     <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon-precomposed.png" />
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/main.css?foo=65223">
+    <link rel="stylesheet" href="css/main.css?foo=50263">
 
 </head>
 
@@ -66,8 +66,10 @@
                         <a class="dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">Contact <b class="caret"></b></a>
                         <div class="dropdown-menu contact">
                             <form action="" method="post" accept-charset="UTF-8">
+                                <label for="email" class="sr-only">input email address</label>
                                 <input id="email" class="form-control" type="email" name="email" size="30" placeholder="Email Address (optional)" />
-                                <textarea id="message" class="form-control" rows="3" placeholder="Message"></textarea>
+                                <label for="message" class="sr-only">your message</label>
+                                <textarea id="message" name="message" class="form-control" rows="3" placeholder="Message"></textarea>
                                 <input class="btn btn-primary" style="clear: left; width: 100%; height: 32px; font-size: 13px;" type="submit" name="commit" value="Send" />
                             </form>
                         </div>
@@ -96,7 +98,7 @@
                     chosen control shows up on page load, consequently pissing me
                     off.
                  -->
-                    <select id="metric" data-placeholder="SEARCH VARIABLES" class="form-control input-lg form-metric chosen-select hide">
+                    <select id="metric" name="metric" data-placeholder="SEARCH VARIABLES" class="form-control input-lg form-metric chosen-select hide">
                         <optgroup label="Character">
                             <option value="m3">
                                 Area (in acres)
@@ -375,7 +377,8 @@
                     <button type="button" class="btn btn-default btn-sm select-clear">Clear Selected</button>
                 </div>
                 <div class="form mapsearch">
-                    <input id="searchbox" type="text" class="typeahead form-control" placeholder="search map">
+                    <label for="searchbox" class="sr-only">search the map</label>
+                    <input id="searchbox" name="searchbox" type="text" class="typeahead form-control" placeholder="search map">
                 </div>
             </div>
             <div class="col-md-4 map-aside">
@@ -610,10 +613,7 @@
     <!-- End jQuery Tourbus -->
 
     <!-- scripts at the bottom yo -->
-    <script>
-        var cacheBuster = "?foo=65223";
-    </script>
-    <script src="js/main.js?foo=65223"></script>
+    <script src="js/main.js?foo=50263"></script>
 
     <!--   Google Analytics -->
     <script>

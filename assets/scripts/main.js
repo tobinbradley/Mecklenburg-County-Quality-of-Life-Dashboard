@@ -12,51 +12,21 @@ var map,                // leaflet map
     trendChart,         // ye line chart
     valueChart,         // ye bar chart
     d3Layer,            // the d3Layer on leaflet
-    tour;               // I-don't-want-to-do-real-help thing
+    tour,               // I-don't-want-to-do-real-help thing
+    recordHistory = false;
 
 // obligitory lodash/underscore template variable setting
 _.templateSettings.variable = "rc";
-
-// Pubsub will halt and scream at you on error. Set to false in production or for fun.
-PubSub.immediateExceptions = true;
-
-// Detect placeholder support for IE9. I hate you IE9.
-jQuery.support.placeholder = (function(){
-    var i = document.createElement('input');
-    return 'placeholder' in i;
-})();
 
 // Slider change event handler for the year slider
 function sliderChange(value) {
     $('.time-year').text(metricData[value].year.replace("y_", ""));
     year = value;
-    PubSub.publish('changeYear');
+    model.year = value;
 }
 
 // Let's do stuff
 $(document).ready(function () {
-
-    // pubsub subscriptions
-    PubSub.subscribe('initialize', initMap);
-    PubSub.subscribe('initialize', initTypeahead);
-    PubSub.subscribe('changeYear', drawMap);
-    PubSub.subscribe('changeYear', drawBarChart);
-    PubSub.subscribe('changeYear', updateTable);
-    PubSub.subscribe('changeYear', updateCountyStats);
-    PubSub.subscribe('changeMetric', processMetric);
-    PubSub.subscribe('changeMetric', drawMap);
-    PubSub.subscribe('changeMetric', drawBarChart);
-    PubSub.subscribe('changeMetric', drawLineChart);
-    PubSub.subscribe('changeMetric', updateMeta);
-    PubSub.subscribe('changeMetric', updateTable);
-    PubSub.subscribe('changeMetric', updateCountyStats);
-    PubSub.subscribe('recordHistory', recordMetricHistory);
-    PubSub.subscribe('selectGeo', d3Select);
-    PubSub.subscribe('geocode', d3Select);
-    PubSub.subscribe('geocode', d3Zoom);
-    PubSub.subscribe('geocode', addMarker);
-    PubSub.subscribe('findNeighborhood', d3Select);
-    PubSub.subscribe('findNeighborhood', d3Zoom);
 
     // Start with random metric if none passed
     if (getURLParameter("m") !== "null") {
@@ -72,10 +42,9 @@ $(document).ready(function () {
     if (history.pushState) {
         window.addEventListener("popstate", function(e) {
             if (getURLParameter("m") !== "null") {
-                PubSub.unsubscribe(recordMetricHistory);
+                recordHistory = false;
                 $("#metric option[value='" + getURLParameter('m') + "']").prop('selected', true);
                 $('#metric').chosen().change();
-                PubSub.subscribe("recordHistory", recordMetricHistory);
             }
         });
     }
@@ -111,10 +80,8 @@ $(document).ready(function () {
 
     // chosen - the uber select list
     $(".chosen-select").chosen({width: '100%', no_results_text: "Not found - "}).change(function () {
-        var theVal = $(this).val();
-        fetchMetricData(theVal);
+        model.metricId = $(this).val();
         $(this).trigger("chosen:updated");
-        PubSub.publish("recordHistory", {});
     });
     $(".chosen-search input").prop("placeholder", "search metrics");
 
@@ -162,14 +129,7 @@ $(document).ready(function () {
 
     // Clear selected button. TODO: make this suck less
     $(".select-clear").on("click", function() {
-        d3.selectAll(".geom").classed("d3-select", false);
-        d3.select(".value-select").selectAll("rect, line, text, circle").remove();
-        d3.selectAll(".trend-select").selectAll("path, circle").remove();
-        $(".datatable-container tbody tr").remove();
-        $(".stats-selected").text("N/A");
-        $(".report-launch").addClass("disabled");
-        try { map.removeLayer(marker); }
-        catch (err) {}
+        model.selected = [];
     });
 
     // Toggle the nerd table
@@ -251,6 +211,12 @@ $(document).ready(function () {
     };
     yearControl.addTo(map);
 
+    // make it so if scrolling on the page it disabled map zoom for a second
+    $(window).on('scroll', function() {
+        map.scrollWheelZoom.disable();
+        setTimeout(function() { map.scrollWheelZoom.enable(); }, 1000);
+    });
+
     // geolocate if on a mobile device
     // bit hacky here on detection, but should cover most things
     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
@@ -269,6 +235,7 @@ $(document).ready(function () {
                 },
                 success: function (data) {
                     var sel = d3.select(".geom [data-id='" + data[0].id + "']");
+                    geocode({"id": data[0].id, "lat": e.latlng.lat, "lng": e.latlng.lng});
                     PubSub.publish('geocode', {
                         "id": data[0].id,
                         "value": sel.attr("data-value"),
@@ -317,12 +284,12 @@ function changeMetric(data) {
 }
 
 // Process the metric into useful stuff
-function processMetric(msg, data) {
+function processMetric() {
     // clear metric data
     metricData.length = 0;
 
     // get the years available
-    var keys = Object.keys(data.metricdata[0]);
+    var keys = Object.keys(model.metric[0]);
     for (var i = 1; i < keys.length; i++) {
         metricData.push({"year": keys[i], "map": d3.map()});
     }
@@ -334,7 +301,7 @@ function processMetric(msg, data) {
     $('.time-year').text(metricData[year].year.replace("y_", ""));
 
     // set the data into d3 maps
-    _.each(data.metricdata, function (d) {
+    _.each(model.metric, function (d) {
         for (var i = 0; i < metricData.length; i++) {
             if ($.isNumeric(d[metricData[i].year])) { metricData[i].map.set(d.id, parseFloat(d[metricData[i].year])); }
         }
@@ -354,14 +321,13 @@ function processMetric(msg, data) {
 }
 
 // push metric to GA and state
-function recordMetricHistory(msg, data) {
-    if (msg !== 'initialize') {
-        if (history.pushState) {
-            history.pushState({myTag: true}, null, "?m=" + $("#metric").val());
-        }
-        if (window.ga) {
-            theMetric = $("#metric option:selected");
-            ga('send', 'event', 'metric', theMetric.text().trim(), theMetric.parent().prop("label"));
-        }
+function recordMetricHistory() {
+    // write metric viewed out to GA
+    if (window.ga) {
+        theMetric = $("#metric option:selected");
+        ga('send', 'event', 'metric', theMetric.text().trim(), theMetric.parent().prop("label"));
+    }
+    if (history.pushState) {
+        history.pushState({myTag: true}, null, "?m=" + $("#metric").val());
     }
 }
