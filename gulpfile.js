@@ -9,9 +9,11 @@ var gulp = require('gulp'),
     convert = require('gulp-convert'),
     imagemin = require('gulp-imagemin'),
     replace = require('gulp-replace'),
-    open = require('open'),
+    fsopen = require('open'),
     jsoncombine = require("gulp-jsoncombine"),
-    fs = require('fs');
+    fs = require('fs'),
+    config = require('./assets/scripts/config.js');
+
 
 var jsMain = [
     'bower_components/jquery/dist/jquery.js',
@@ -141,19 +143,22 @@ gulp.task('imagemin', function() {
 });
 
 // cache busting
-gulp.task('cachebuster', function() {
-    return gulp.src('public/**/*.html')
-        .pipe(replace(/foo=[0-9]*/g, 'foo=' + Math.floor((Math.random() * 100000) + 1)))
+gulp.task('replace', function() {
+    return gulp.src('assets/*.html')
+        .pipe(replace("{{cachebuster}}", Math.floor((Math.random() * 100000) + 1)))
+        .pipe(replace("{{neighborhoodDescriptor}}", config.neighborhoodDescriptor))
+        .pipe(replace("{{gaKey}}", config.gaKey))
         .pipe(gulp.dest('public/'));
 });
 
 // open broser
 gulp.task("browser", function(){
-    return open('http://localhost:8000');
+    return fsopen('http://localhost:8000');
 });
 
 // watch
 gulp.task('watch', function () {
+    gulp.watch(['./assets/*.html'], ['replace']);
     gulp.watch(['./public/**/*.html'], ['html']);
     gulp.watch(['./assets/less/**/*.less'], ['less']);
     gulp.watch('assets/scripts/**/*.js', ['js']);
@@ -179,5 +184,5 @@ gulp.task('init', function() {
 
 
 // controller tasks
-gulp.task('default', ['less', 'js', 'watch', 'connect', 'browser']);
-gulp.task('build', ['less-build', 'js-build', 'markdown', 'convert', 'cachebuster', 'imagemin', 'merge-json']);
+gulp.task('default', ['less', 'js', 'replace', 'watch', 'connect', 'browser']);
+gulp.task('build', ['less-build', 'js-build', 'markdown', 'convert', 'replace', 'imagemin', 'merge-json']);

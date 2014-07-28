@@ -25,7 +25,7 @@
     <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon-precomposed.png" />
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/main.css?foo=11341">
+    <link rel="stylesheet" href="css/main.css?foo={{cachebuster}}">
 
 </head>
 
@@ -388,7 +388,7 @@
                             <h3 class="stats-county-npa-mean">&nbsp;</h3>
                             <span class="header">County</span>
                             <br>
-                            <span class="footer" style="border-bottom: 2px dashed black;">NPA Average</span>
+                            <span class="footer" style="border-bottom: 2px dashed black;">{{neighborhoodDescriptor}} Average</span>
                             <br>
                             <span class="stats-median stats-county-npa-median">&nbsp;</span>
                         </div>
@@ -396,7 +396,7 @@
                             <h3 class="stats-selected stats-mean-selected">N/A</h3>
                             <span class="header">Selected</span>
                             <br>
-                            <span class="footer">NPA Average</span>
+                            <span class="footer">{{neighborhoodDescriptor}} Average</span>
                         </div>
                     </div>
                 </div>
@@ -436,7 +436,7 @@
                 <table class="table table-condensed">
                   <thead>
                     <tr>
-                      <th class="text-center">NPA</th>
+                      <th class="text-center">{{neighborhoodDescriptor}}</th>
                       <th class="text-right"></th>
                       <th class="text-right"></th>
                       <th class="text-right"></th>
@@ -613,7 +613,7 @@
     <!-- End jQuery Tourbus -->
 
     <!-- scripts at the bottom yo -->
-    <script src="js/main.js?foo=11341"></script>
+    <script src="js/main.js?foo={{cachebuster}}"></script>
 
     <!--   Google Analytics -->
     <script>
@@ -621,7 +621,7 @@
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-      ga('create', 'UA-48797957-1', 'mcmap.org');
+      ga('create', '{{gaKey}}', 'mcmap.org');
       ga('send', 'pageview');
     </script>
 

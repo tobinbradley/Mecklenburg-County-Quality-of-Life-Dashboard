@@ -73,7 +73,7 @@ $(document).ready(function () {
     $('.table2CSV').on('click', function() {
         var csv = $(".datatable-container table").table2CSV({
                 delivery: 'value',
-                header: ['NPA','Value','Accuracy', 'Raw Data', 'Raw Accuracy']
+                header: [neighborhoodDescriptor,'Value','Accuracy', 'Raw Data', 'Raw Accuracy']
             });
         window.location.href = 'http://mcmap.org/utilities/table2csv.php?csv_text=' + encodeURIComponent(csv);
     });

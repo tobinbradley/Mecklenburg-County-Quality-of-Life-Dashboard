@@ -41,7 +41,7 @@ function initMap() {
             if ($.isNumeric(sel.attr("data-value"))) {
                 num = "<br>" + dataPretty(sel.attr("data-value"), $("#metric").val());
             }
-            return "<p class='tip'><strong><span>NPA " + sel.attr("data-id") + "</strong>" + num + "</span></p>";
+            return "<p class='tip'><strong><span>" + neighborhoodDescriptor + " " + sel.attr("data-id") + "</strong>" + num + "</span></p>";
         },
         container: '#map'
     });
@@ -53,11 +53,7 @@ function initMap() {
             var sel = d3.select(".geom[data-id='" + d + "']");
             $.isNumeric(d) ? theVal = Number(d) : theVal = d;
             arr.push(theVal);
-            PubSub.publish('selectGeo', {
-                "id": sel.attr("data-id"),
-                "value": sel.attr("data-value"),
-                "d3obj": sel
-            });
+            d3Select(theVal);
         });
         d3ZoomPolys("", {"ids": arr});
     }
