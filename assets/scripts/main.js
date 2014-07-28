@@ -18,13 +18,6 @@ var map,                // leaflet map
 // obligitory lodash/underscore template variable setting
 _.templateSettings.variable = "rc";
 
-// Slider change event handler for the year slider
-function sliderChange(value) {
-    $('.time-year').text(metricData[value].year.replace("y_", ""));
-    year = value;
-    model.year = value;
-}
-
 // Let's do stuff
 $(document).ready(function () {
 
@@ -93,7 +86,7 @@ $(document).ready(function () {
         step: 1,
         animate: true,
         slide: function( event, ui ) {
-            sliderChange(ui.value);
+            model.year = ui.value;
         }
     });
     $(".btn-looper").on("click", function () {

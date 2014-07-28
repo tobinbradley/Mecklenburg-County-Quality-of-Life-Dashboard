@@ -12,6 +12,11 @@ function modelChanges(changes) {
 
     // the metric id changed, get some data
     if(_.contains(tasklist, "metricId")) {
+        // change chosen if not samsies
+        if (model.metricId !== undefined && $(".chosen-select").chosen().val() !== model.metricId) {
+            $('.chosen-select').val(model.metricId);
+            $('.chosen-select').trigger("chosen:updated");
+        }
         fetchMetricData(model.metricId);
     }
 
@@ -30,6 +35,12 @@ function modelChanges(changes) {
 
     // Hopping in the DeLorean
     if (_.contains(tasklist, "year")) {
+        // change year slider if not samsies
+        if ($('.slider').slider('value') !== model.year) {
+            $('.slider').slider('value', model.year);
+        }
+        year = model.year;
+        $('.time-year').text(metricData[model.year].year.replace("y_", ""));
         drawMap();
         drawBarChart();
         updateTable();
