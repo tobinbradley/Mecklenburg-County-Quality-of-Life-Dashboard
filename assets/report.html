@@ -20,7 +20,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/report.css?foo=11341">
+    <link rel="stylesheet" href="css/report.css?foo={{cachebuster}}">
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
@@ -155,7 +155,7 @@
                                 <th></th>
                                 <th class='text-right'></th>
                                 <th class='text-right'></th>
-                                <th class='text-right'>NPA Avg.</th>
+                                <th class='text-right'>{{neighborhoodDescriptor}} Avg.</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -262,7 +262,7 @@
                                 <th></th>
                                 <th class='text-right'></th>
                                 <th class='text-right'></th>
-                                <th class='text-right'>NPA Avg.</th>
+                                <th class='text-right'>{{neighborhoodDescriptor}} Avg.</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -350,7 +350,7 @@
                                 <th></th>
                                 <th class='text-right'></th>
                                 <th class='text-right'></th>
-                                <th class='text-right'>NPA Avg.</th>
+                                <th class='text-right'>{{neighborhoodDescriptor}} Avg.</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -468,7 +468,7 @@
                                 <th></th>
                                 <th class='text-right'></th>
                                 <th class='text-right'></th>
-                                <th class='text-right'>NPA Avg.</th>
+                                <th class='text-right'>{{neighborhoodDescriptor}} Avg.</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -527,7 +527,7 @@
                                 <th></th>
                                 <th class='text-right'></th>
                                 <th class='text-right'></th>
-                                <th class='text-right'>NPA Avg.</th>
+                                <th class='text-right'>{{neighborhoodDescriptor}} Avg.</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -669,7 +669,7 @@
                                 <th></th>
                                 <th class='text-right'></th>
                                 <th class='text-right'></th>
-                                <th class='text-right'>NPA Avg.</th>
+                                <th class='text-right'>{{neighborhoodDescriptor}} Avg.</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -758,7 +758,7 @@
                                 <th></th>
                                 <th class='text-right'></th>
                                 <th class='text-right'></th>
-                                <th class='text-right'>NPA Avg.</th>
+                                <th class='text-right'>{{neighborhoodDescriptor}} Avg.</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -900,7 +900,7 @@
                                 <th></th>
                                 <th class='text-right'></th>
                                 <th class='text-right'></th>
-                                <th class='text-right'>NPA Avg.</th>
+                                <th class='text-right'>{{neighborhoodDescriptor}} Avg.</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -944,7 +944,7 @@
 
 
     <!-- scripts at the bottom yo -->
-    <script src="js/report.js?foo=11341"></script>
+    <script src="js/report.js?foo={{cachebuster}}"></script>
 
     <!--   Google Analytics -->
     <script>
@@ -952,7 +952,7 @@
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-      ga('create', 'UA-48797957-1', 'mcmap.org');
+      ga('create', '{{gaKey}}', 'mcmap.org');
       ga('send', 'pageview');
     </script>
 

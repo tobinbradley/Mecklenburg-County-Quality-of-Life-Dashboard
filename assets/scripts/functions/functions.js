@@ -208,13 +208,6 @@ function updateCountyStats() {
     $(".stats-weighted-mean-county").text(dataPretty(countyWeightedMean, m));
 }
 
-// // Zoom to a particular feature
-// function d3Zoom(msg, d) {
-//     if ($(".geom.d3-select").length === 0 || msg === "geocode" || msg === "findNeighborhood") {
-//         var feature = _.filter(d3Layer.toGeoJSON().features, function(data) { return data.id === d.id; });
-//         map.fitBounds(L.geoJson(feature[0]).getBounds());
-//     }
-// }
 
 // Zoom to polygons. I think I'm only using this to get to old neighborhoods.
 function d3ZoomPolys(msg, d) {
@@ -226,16 +219,8 @@ function d3ZoomPolys(msg, d) {
     map.fitBounds(bounds);
 }
 
-// Add marker for geocoding
-// function addMarker(msg, d) {
-//     // remove old markers
-//     try { map.removeLayer(marker); }
-//     catch (err) {}
-//
-//     // add new marker
-//     marker = L.marker([d.lat, d.lng]).addTo(map);
-// }
 
+// zoom to neighborhood, adding a marker if it's a lnglat
 function geocode(d) {
     // add a marker if a point location is passed
     if (d.lat) {
