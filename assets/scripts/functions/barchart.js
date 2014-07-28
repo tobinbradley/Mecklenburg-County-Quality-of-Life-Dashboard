@@ -8,8 +8,8 @@ function barChart() {
         xScale;
 
     function my() {
-        var data = quantizeCount(metricData[year].map.values());
-        var countyMean = Math.round(d3.mean(metricData[year].map.values()) * 10) / 10;
+        var data = quantizeCount(metricData[model.year].map.values());
+        var countyMean = Math.round(d3.mean(metricData[model.year].map.values()) * 10) / 10;
         var qtiles = quantize.quantiles();
         var theMetric = $("#metric").val();
 
@@ -180,7 +180,7 @@ function barChart() {
             .each(function(d) {
                 var item = d3.select(this);
                 if ($.isNumeric(item.attr("data-value"))) {
-                    var theX = xScale(metricData[year].map.get(item.attr("data-id")));
+                    var theX = xScale(metricData[model.year].map.get(item.attr("data-id")));
                     // add pointer if it doesn't exist
                     if (d3.select(".value-select circle[data-id='" + item.attr("data-id") + "']")[0][0] === null) {
                         my.pointerAdd(item.attr("data-id"), item.attr("data-value"), ".value-select");

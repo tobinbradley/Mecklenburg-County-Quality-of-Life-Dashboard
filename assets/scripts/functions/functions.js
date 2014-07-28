@@ -104,7 +104,7 @@ function d3Select(id) {
 function updateTable() {
     _.each($(".datatable-container tbody tr"), function(el) {
         var theId = $(el).data("id");
-        drawTable(theId, metricData[year].map.get(theId));
+        drawTable(theId, metricData[model.year].map.get(theId));
     });
 }
 
@@ -116,14 +116,14 @@ function drawTable(id, val) {
         tableRec.value = val;
     }
     if (accuracyData.length > 0) {
-        tableRec.accuracy = _.filter(accuracyData, function(r) { return r.id == id; })[0][metricData[year].year];
+        tableRec.accuracy = _.filter(accuracyData, function(r) { return r.id == id; })[0][metricData[model.year].year];
     }
     if (rawData.length > 0) {
-        tableRec.raw = _.filter(rawData, function(r) { return r.id == id; })[0][metricData[year].year];
+        tableRec.raw = _.filter(rawData, function(r) { return r.id == id; })[0][metricData[model.year].year];
         tableRec.rawM = metricRaw[id];
     }
     if (rawAccuracy.length > 0) {
-        tableRec.rawaccuracy = _.filter(rawAccuracy, function(r) { return r.id == id; })[0][metricData[year].year];
+        tableRec.rawaccuracy = _.filter(rawAccuracy, function(r) { return r.id == id; })[0][metricData[model.year].year];
     }
 
     var template = _.template($("script.template").html());
@@ -193,14 +193,14 @@ function updateCountyStats() {
         count = 0;
 
     // County npa mean and median
-    $(".stats-county-npa-mean").text(dataPretty(d3.mean(metricData[year].map.values()), m));
-    $(".stats-county-npa-median").text("Median: " + dataPretty(d3.median(metricData[year].map.values()), m));
+    $(".stats-county-npa-mean").text(dataPretty(d3.mean(metricData[model.year].map.values()), m));
+    $(".stats-county-npa-median").text("Median: " + dataPretty(d3.median(metricData[model.year].map.values()), m));
 
     if (metricRaw[m]) {
         _.each(rawData, function(d) {
-            if ($.isNumeric(d[metricData[year].year])) {
-                values.push(d[metricData[year].year] * metricData[year].map.get(d.id));
-                count += parseFloat(d[metricData[year].year]);
+            if ($.isNumeric(d[metricData[model.year].year])) {
+                values.push(d[metricData[model.year].year] * metricData[model.year].map.get(d.id));
+                count += parseFloat(d[metricData[model.year].year]);
             }
         });
         countyWeightedMean = values.reduce(function(a, b) { return a + b;}) / count;
