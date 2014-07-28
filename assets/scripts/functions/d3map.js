@@ -89,7 +89,7 @@ function drawMap() {
     }
     theGeom.classed(classlist.join(" "), false);
 
-    var theData = metricData[year].map;
+    var theData = metricData[model.year].map;
     theGeom.each(function() {
         var item = d3.select(this);
         var styleClass = quantize(theData.get(item.attr('data-id')));
