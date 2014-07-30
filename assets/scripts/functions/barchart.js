@@ -1,3 +1,4 @@
+// Tried to go javascript closure here, was mostly successful.
 function barChart() {
     var width = 720, // default width
         height = 250, // default height
@@ -7,8 +8,8 @@ function barChart() {
         xScale;
 
     function my() {
-        var data = quantizeCount(metricData[year].map.values());
-        var countyMean = Math.round(d3.mean(metricData[year].map.values()) * 10) / 10;
+        var data = quantizeCount(metricData[model.year].map.values());
+        var countyMean = Math.round(d3.mean(metricData[model.year].map.values()) * 10) / 10;
         var qtiles = quantize.quantiles();
         var theMetric = $("#metric").val();
 
@@ -87,7 +88,7 @@ function barChart() {
           title: function() {
               var sel = $(this);
               var theRange = _.map(sel.attr("data-span").split("-"), function(num){ return dataPretty(num, $("#metric").val()); });
-              return "<p class='tip'><span>" + theRange.join(" to ") + "</span><br>" + sel.attr("data-value") + " Precinct(s)</p>";
+              return "<p class='tip'><span><strong>" + theRange.join(" to ") + "</strong></span><br>" + sel.attr("data-value") + " " + neighborhoodDescriptor + "(s)</p>";
 
           },
           container: 'body'
@@ -179,7 +180,7 @@ function barChart() {
             .each(function(d) {
                 var item = d3.select(this);
                 if ($.isNumeric(item.attr("data-value"))) {
-                    var theX = xScale(metricData[year].map.get(item.attr("data-id")));
+                    var theX = xScale(metricData[model.year].map.get(item.attr("data-id")));
                     // add pointer if it doesn't exist
                     if (d3.select(".value-select circle[data-id='" + item.attr("data-id") + "']")[0][0] === null) {
                         my.pointerAdd(item.attr("data-id"), item.attr("data-value"), ".value-select");
@@ -219,6 +220,7 @@ function barChart() {
     return my;
 }
 
+// draw the bar chart
 function drawBarChart() {
     valueChart.container("barChart");
     valueChart();

@@ -1,5 +1,5 @@
 // imports
-@import "vendor/bootstrap/bootstrap.less";
+@import "../../bower_components/bootstrap/less/bootstrap.less";
 @import (less) "vendor/jquery-ui-1.10.3.custom.css";
 @import (less) "../../bower_components/leaflet/dist/leaflet.css";
 @import "vendor/typeahead.less";
@@ -64,7 +64,7 @@ body {
         text-align: center;
         padding: 0 1em 0.8em 1em;
         border: 6px solid rgb(0,82,64);
-    }  
+    }
     h1 {
         font-size: 5em;
         text-shadow: #6a6d41 0 1px 1px;
@@ -130,14 +130,14 @@ body {
 
 .datatoggle {
     margin-top: 7px;
-    .btn-default {
-        background-color: rgba(255,255,255,0.2);
-        &:hover {
-            background-color: rgba(200,200,200,0.4);
-        }
-    }
 }
 
+.btn-default {
+    background-color: rgba(255,255,255,0.2);
+    &:hover {
+        background-color: rgba(200,200,200,0.4);
+    }
+}
 
 .meta-subtitle {
     font-size: 1em;
@@ -189,10 +189,7 @@ body {
 
 // year control
 .yearDisplay {
-    //background: rgba(255,255,255,0.5);
-    //border-radius: 5px;
-    //padding: 5px;
-    // border: 1px solid #ccc;
+    margin-top: 5px;
     .slider {
        width: 100px;
        display: inline-block;

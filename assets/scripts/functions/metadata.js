@@ -5,6 +5,7 @@
 // continuously for years markdown made the most sense, and to process the result
 // into my various buckets requires this kind of hacky stuff. Needless to say you'll
 // need to update updateMeta if you screw with the metadata markdown layout at all.
+
 function GetSubstringIndex(str, substring, n) {
     var times = 0, index = null;
     while (times < n && index !== -1) {
@@ -14,10 +15,9 @@ function GetSubstringIndex(str, substring, n) {
     return index;
 }
 
-
-function updateMeta(msg, d) {
+function updateMeta() {
     $.ajax({
-        url: 'data/meta/' + d.metric + '.html',
+        url: 'data/meta/' + $("#metric").val() + '.html',
         type: 'GET',
         dataType: 'text',
         success: function (data) {
