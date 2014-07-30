@@ -1,5 +1,13 @@
 // Here we have a bunch of configuration nobs.
 
+// Stick your Google Analytics key here
+var gaKey = "UA-48797957-1";
+
+// Here's where to put what you are calling your neighborhoods. We call them NPA,
+// you might call them NSA or precinct or even something crazy like "neighborhood".
+// Shorter is better lest you run into some unintended wrapping text issues.
+var neighborhoodDescriptor = "Precinct";
+
 // The URL for your base map tiles.
 // Here's a good place to find some:
 // http://leaflet-extras.github.io/leaflet-providers/preview/
@@ -64,3 +72,12 @@ var metricPct = ["m4", "m6", "m7", "m8", "m9", "m10", "m11", "m12", "m13", "m18"
 // var metricRaw = {};
 var metricAccuracy = ["m1", "m8"];
 var metricRaw = {"m8": "m1"};
+
+
+// we're going to export a few of our vars for the node build/watch process. Done in a try/catch
+// so a browser reading this will barf quietly to itself.
+try {
+    exports.neighborhoodDescriptor = neighborhoodDescriptor;
+    exports.gaKey = gaKey;
+}
+catch(err) {}
