@@ -2,33 +2,30 @@
 <html lang="en">
 
 <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
-
-    <!-- Set the title here -->
-    <title>Quality of Life Dashboard</title>
-
-    <!-- metadata -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="description" content="Quality of Life Dashboard.">
     <meta name="keywords" content="GIS,Mecklenburg County,parks,libraries,schools,environment,impervious surface,floodplain,zoning,assessment,tax,photos,government">
     <meta name="author" content="Tobin Bradley">
+
+    <!-- Set the title here -->
+    <title>Quality of Life Dashboard</title>
 
     <!-- turn off robots during dev -->
     <meta name="robots" value="none">
 
     <!-- Mobile viewport optimized: j.mp/bplateviewport -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/report.css?foo=49308">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="mobile-web-app-capable" content="yes">
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
+    <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon-precomposed.png" />
 
-    <!-- iOS/Android icons -->
-    <meta name="mobile-web-app-capable" content="yes">
-    <link rel="icon" sizes="144x144" href="images/apple-touch-icon-precomposed.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="images/apple-touch-icon-precomposed.png">
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/main.css?foo=54748">
 
 </head>
 
@@ -40,911 +37,147 @@
     <div class="container">
 
         <!-- Front page -->
-        <div class="page page-front">
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="hero">
-                        <h1>Quality of Life Study</h1>
-                        <input type="text" class="form-control input-lg subtitle" placeholder="optional subtitle - type here" value="Summary Report" maxlength=40>
-                        <h4 class="neighborhoods">&nbsp;</h4>
-                    </div>
-                    <img class="logo-image" src="images/report-logo.svg">
-                </div>
+        <div class="row">
+            <div class="col-md-3">
+                <img src="http://placehold.it/150x150" alt="" />
             </div>
-            <div class="row">
-                <div class="col-xs-6">
-                    <p>
-                        Vivamus pulvinar augue in velit vehicula imperdiet. Quisque convallis dignissim nisl, ut consectetur erat adipiscing et. Donec a quam a elit fermentum semper. Donec ultricies enim non justo interdum dictum. Nulla aliquam suscipit tincidunt. Cras cursus mi sed massa pulvinar, et dictum tortor ornare. Etiam urna ante, iaculis quis tellus eget, mattis rhoncus metus.
-                    </p>
-                    <p>
-                        Vivamus pulvinar augue in velit vehicula imperdiet. Quisque convallis dignissim nisl, ut consectetur erat adipiscing et. Donec a quam a elit fermentum semper. Donec ultricies enim non justo interdum dictum. Nulla aliquam suscipit tincidunt. Cras cursus mi sed massa pulvinar, et dictum tortor ornare. Etiam urna ante, iaculis quis tellus eget, mattis rhoncus metus.
-                    </p>
-                </div>
-                <div class="col-xs-6 text-right">
-                    <div id="map" class="pull-right"></div>
-                    <!-- <img src="http://placehold.it/400x275&text=map" alt="" /> -->
-                </div>
+            <div class="col-md-6 text-center">
+                <h1>Quality of Life Study</h1>
+                <h2>Summary Report</h2>
             </div>
-            <div class="row">
-                <div class="col-xs-12 text-center">
-                    <table class="metric-box">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <h2>Character</h2>
-                                    <h3 data-metric="m1">&nbsp;</h3>
-                                    <h4>people</h4>
-                                </td>
-                                <td>
-                                    <h2>Economy</h2>
-                                    <h3 data-metric="m17">&nbsp;</h3>
-                                    <h4>median household income</h4>
-                                </td>
-                                <td>
-                                    <h2>Education</h2>
-                                    <h3 data-metric="m31">&nbsp;</h3>
-                                    <h4>school age programs</h4>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h2>Engagement</h2>
-                                    <h3 data-metric="m15">&nbsp;</h3>
-                                    <h4>neighborhood organizations</h4>
-                                </td>
-                                <td>
-                                    <h2>Environment</h2>
-                                    <h3 data-metric="m81">&nbsp;</h3>
-                                    <h4>electricity consumption</h4>
-                                </td>
-                                <td>
-                                    <h2>Health</h2>
-                                    <h3 data-metric="m48">&nbsp;</h3>
-                                    <h4>proximity to grocery store</h4>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h2>Housing</h2>
-                                    <h3 data-metric="m57">&nbsp;</h3>
-                                    <h4>average property value</h4>
-                                </td>
-                                <td>
-                                    <h2>Safety</h2>
-                                    <h3 data-metric="m26">&nbsp;</h3>
-                                    <h4>property crime rate</h4>
-                                </td>
-                                <td>
-                                    <h2>Transportation</h2>
-                                    <h3 data-metric="m70">&nbsp;</h3>
-                                    <h4>bicycle friendliness</h4>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+            <div class="col-md-3 text-right">
+                <img src="http://placehold.it/150x150" alt="" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                Vivamus pulvinar augue in velit vehicula imperdiet. Quisque convallis dignissim nisl, ut consectetur erat adipiscing et. Donec a quam a elit fermentum semper. Donec ultricies enim non justo interdum dictum. Nulla aliquam suscipit tincidunt. Cras cursus mi sed massa pulvinar, et dictum tortor ornare. Etiam urna ante, iaculis quis tellus eget, mattis rhoncus metus.
+            </div>
+            <div class="col-md-6 text-right">
+                <img src="http://placehold.it/450x300&text=map" alt="" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 text-center">
+                Metric 1
+            </div>
+            <div class="col-md-4 text-center">
+                Metric 1
+            </div>
+            <div class="col-md-4 text-center">
+                Metric 1
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 text-center">
+                Metric 1
+            </div>
+            <div class="col-md-4 text-center">
+                Metric 1
+            </div>
+            <div class="col-md-4 text-center">
+                Metric 1
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 text-center">
+                Metric 1
+            </div>
+            <div class="col-md-4 text-center">
+                Metric 1
+            </div>
+            <div class="col-md-4 text-center">
+                Metric 1
             </div>
         </div>
 
-
         <!-- Character -->
-        <div class="page page-category">
-            <div class="row">
-                <div class="col-xs-6 text-left">
-                    <h1>Character</h1>
-                </div>
+        <div class="row">
+            <div class="col-md-3">
+                <img src="http://placehold.it/150x150" alt="" />
             </div>
-            <div class="row">
-                <div class="col-xs-6">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus urna id mi feugiat placerat. Ut in massa id massa elementum hendrerit. Maecenas a erat justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam eleifend lorem in tortor facilisis, vel ultricies purus molestie. Sed pharetra, magna vitae posuere sodales, orci dolor iaculis justo, id dignissim purus magna nec nunc. Integer posuere facilisis metus, hendrerit tincidunt lacus lobortis eget
-                </div>
-                <div class="col-xs-6">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus urna id mi feugiat placerat. Ut in massa id massa elementum hendrerit. Maecenas a erat justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam eleifend lorem in tortor facilisis, vel ultricies purus molestie. Sed pharetra, magna vitae posuere sodales, orci dolor iaculis justo, id dignissim purus magna nec nunc. Integer posuere facilisis metus, hendrerit tincidunt lacus lobortis eget
-                </div>
+            <div class="col-md-6 text-center">
+                <h1>Character</h1>
             </div>
-            <div class="row">
-                <div class="col-xs-3 vis vis-vertical">
-                    <h4>Race</h4>
-                    <canvas id="chart-character-1" class="chart-doughnut" data-chart="m7,m8,m9,m10" data-labels="White or Caucasian,Black or African American,Asian,Some Other Race" width="150" height="150"></canvas>
-                    <div id="chart-character-1-legend"></div>
-                </div>
-                <div class="col-xs-9">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th class='text-right'></th>
-                                <th class='text-right'></th>
-                                <th class='text-right'>Precinct Avg.</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                              <td class="m3-label">Area (in acres)</td>
-                              <td class='text-right' data-metric='m3'></td>
-                              <td class='text-right' data-change='m3'></td>
-                              <td class='text-right' data-average='m3'></td>
-                            </tr>
-                            <tr>
-                              <td class="m4-label">Developed Tax Parcels</td>
-                              <td class='text-right' data-metric='m4'></td>
-                              <td class='text-right' data-change='m4'></td>
-                              <td class='text-right' data-average='m4'></td>
-                            </tr>
-                            <tr>
-                              <td class="m12-label">Ethnicity- Hispanic/Latino</td>
-                              <td class='text-right' data-metric='m12'></td>
-                              <td class='text-right' data-change='m12'></td>
-                              <td class='text-right' data-average='m12'></td>
-                            </tr>
-                            <tr>
-                              <td class="m2-label">Median Age of Residents</td>
-                              <td class='text-right' data-metric='m2'></td>
-                              <td class='text-right' data-change='m2'></td>
-                              <td class='text-right' data-average='m2'></td>
-                            </tr>
-                            <tr>
-                              <td class="m1-label">Population</td>
-                              <td class='text-right' data-metric='m1'></td>
-                              <td class='text-right' data-change='m1'></td>
-                              <td class='text-right' data-average='m1'></td>
-                            </tr>
-                            <tr>
-                              <td class="m11-label">Population in Group Quarters</td>
-                              <td class='text-right' data-metric='m11'></td>
-                              <td class='text-right' data-change='m11'></td>
-                              <td class='text-right' data-average='m11'></td>
-                            </tr>
-                            <tr>
-                              <td class="m6-label">Public Transit Proximity</td>
-                              <td class='text-right' data-metric='m6'></td>
-                              <td class='text-right' data-change='m6'></td>
-                              <td class='text-right' data-average='m6'></td>
-                            </tr>
-                            <tr>
-                              <td class="m9-label">Race - Asian</td>
-                              <td class='text-right' data-metric='m9'></td>
-                              <td class='text-right' data-change='m9'></td>
-                              <td class='text-right' data-average='m9'></td>
-                            </tr>
-                            <tr>
-                              <td class="m8-label">Race - Black or African American</td>
-                              <td class='text-right' data-metric='m8'></td>
-                              <td class='text-right' data-change='m8'></td>
-                              <td class='text-right' data-average='m8'></td>
-                            </tr>
-                            <tr>
-                              <td class="m10-label">Race - Some Other Race</td>
-                              <td class='text-right' data-metric='m10'></td>
-                              <td class='text-right' data-change='m10'></td>
-                              <td class='text-right' data-average='m10'></td>
-                            </tr>
-                            <tr>
-                              <td class="m7-label">Race - White or Caucasian</td>
-                              <td class='text-right' data-metric='m7'></td>
-                              <td class='text-right' data-change='m7'></td>
-                              <td class='text-right' data-average='m7'></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+            <div class="col-md-3 text-right">
+                <img src="http://placehold.it/150x150" alt="" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus urna id mi feugiat placerat. Ut in massa id massa elementum hendrerit. Maecenas a erat justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam eleifend lorem in tortor facilisis, vel ultricies purus molestie. Sed pharetra, magna vitae posuere sodales, orci dolor iaculis justo, id dignissim purus magna nec nunc. Integer posuere facilisis metus, hendrerit tincidunt lacus lobortis eget
+            </div>
+            <div class="col-md-6">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus urna id mi feugiat placerat. Ut in massa id massa elementum hendrerit. Maecenas a erat justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam eleifend lorem in tortor facilisis, vel ultricies purus molestie. Sed pharetra, magna vitae posuere sodales, orci dolor iaculis justo, id dignissim purus magna nec nunc. Integer posuere facilisis metus, hendrerit tincidunt lacus lobortis eget
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <img src="http://placehold.it/300x300?text=vis" alt="" />
+                <img src="http://placehold.it/300x300?text=vis" alt="" />
+                <img src="http://placehold.it/300x300?text=vis" alt="" />
+            </div>
+            <div class="col-md-8">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                Table Header
+                            </th>
+                            <th>
+                                Table Header
+                            </th>
+                            <th>
+                                Table Header
+                            </th>
+                            <th>
+                                Table Header
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                Val
+                            </td>
+                            <td>
+                                Val
+                            </td>
+                            <td>
+                                Val
+                            </td>
+                            <td>
+                                Val
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 
 
         <!-- Economics -->
-        <div class="page page-category">
-            <div class="row">
-                <div class="col-xs-6 text-left">
-                    <h1>Economics</h1>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-6">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus urna id mi feugiat placerat. Ut in massa id massa elementum hendrerit. Maecenas a erat justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam eleifend lorem in tortor facilisis, vel ultricies purus molestie.
-                </div>
-                <div class="col-xs-6">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus urna id mi feugiat placerat. Ut in massa id massa elementum hendrerit. Maecenas a erat justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam eleifend lorem in tortor facilisis, vel ultricies purus molestie.
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 text-center vis vis-horizontal">
-                    <h4>Median Household Income in Dollars</h4>
-                    <canvas id="chart-economics-1" class="chart-line" data-chart="m17" width="550" height="200"></canvas>
-                    <div id="chart-economics-1-legend" class="text-left"></div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th class='text-right'></th>
-                                <th class='text-right'></th>
-                                <th class='text-right'>Precinct Avg.</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                              <td class='m21-label'>Change in Residential Property Value</td>
-                              <td class='text-right' data-metric='m21'></td>
-                              <td class='text-right' data-change='m21'></td>
-                              <td class='text-right' data-average='m21'></td>
-                            </tr>
-                            <tr>
-                              <td class='m17-label'>Median Household Income</td>
-                              <td class='text-right' data-metric='m17'></td>
-                              <td class='text-right' data-change='m17'></td>
-                              <td class='text-right' data-average='m17'></td>
-                            </tr>
-                            <tr>
-                              <td class='m18-label'>Persons Employed 6 Months or Less</td>
-                              <td class='text-right' data-metric='m18'></td>
-                              <td class='text-right' data-change='m18'></td>
-                              <td class='text-right' data-average='m18'></td>
-                            </tr>
-                            <tr>
-                              <td class='m19-label'>Persons Working 35 Hours or Less</td>
-                              <td class='text-right' data-metric='m19'></td>
-                              <td class='text-right' data-change='m19'></td>
-                              <td class='text-right' data-average='m19'></td>
-                            </tr>
-                            <tr>
-                              <td class='m20-label'>Population Receiving Food & Nutrition Services (FNS)</td>
-                              <td class='text-right' data-metric='m20'></td>
-                              <td class='text-right' data-change='m20'></td>
-                              <td class='text-right' data-average='m20'></td>
-                            </tr>
-                            <tr>
-                              <td class='m22-label'>Square Feet of Commercial Buildings</td>
-                              <td class='text-right' data-metric='m22'></td>
-                              <td class='text-right' data-change='m22'></td>
-                              <td class='text-right' data-average='m22'></td>
-                            </tr>
-                            <tr>
-                              <td class='m23-label'>Square Feet of Permitted New and Renovated Commercial Buildings</td>
-                              <td class='text-right' data-metric='m23'></td>
-                              <td class='text-right' data-change='m23'></td>
-                              <td class='text-right' data-average='m23'></td>
-                            </tr>
-                            <tr>
-                              <td class='m24-label'>Year Commercial Buildings Constructed</td>
-                              <td class='text-right' data-metric='m24'></td>
-                              <td class='text-right' data-change='m24'></td>
-                              <td class='text-right' data-average='m24'></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
 
         <!-- Education -->
-        <div class="page page-category">
-            <div class="row">
-                <div class="col-xs-6 text-left">
-                    <h1>Education</h1>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-6">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus urna id mi feugiat placerat. Ut in massa id massa elementum hendrerit. Maecenas a erat justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae
-                </div>
-                <div class="col-xs-6">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus urna id mi feugiat placerat. Ut in massa id massa elementum hendrerit. Maecenas a erat justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 text-center vis vis-horizontal">
-                    <h4>Percentage of CMS Students Proficient in EOG Tests</h4>
-                    <canvas id="chart-education-1" class="chart-bar" data-chart="m32,m33,m34" data-labels="3-5 Grade,6-8 Grade,9-12 Grade" width="550" height="180"></canvas>
-                    <div id="chart-education-1-legend" class="text-left"></div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <table class="table table-condensed">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th class='text-right'></th>
-                                <th class='text-right'></th>
-                                <th class='text-right'>Precinct Avg.</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                              <td class='m40-label'>Adults without High School Diploma</td>
-                              <td class='text-right' data-metric='m40'></td>
-                              <td class='text-right' data-change='m40'></td>
-                              <td class='text-right' data-average='m40'></td>
-                            </tr>
-                            <tr>
-                              <td class='m41-label'>Children Attending Private Schools</td>
-                              <td class='text-right' data-metric='m41'></td>
-                              <td class='text-right' data-change='m41'></td>
-                              <td class='text-right' data-average='m41'></td>
-                            </tr>
-                            <tr>
-                              <td class='m35-label'>CMS 3-5 Graders EOG Test Score Growth</td>
-                              <td class='text-right' data-metric='m35'></td>
-                              <td class='text-right' data-change='m35'></td>
-                              <td class='text-right' data-average='m35'></td>
-                            </tr>
-                            <tr>
-                              <td class='m32-label'>CMS 3-5 Graders Proficient in EOG Tests</td>
-                              <td class='text-right' data-metric='m32'></td>
-                              <td class='text-right' data-change='m32'></td>
-                              <td class='text-right' data-average='m32'></td>
-                            </tr>
-                            <tr>
-                              <td class='m36-label'>CMS 6-8 Graders EOG Test Score Growth</td>
-                              <td class='text-right' data-metric='m36'></td>
-                              <td class='text-right' data-change='m36'></td>
-                              <td class='text-right' data-average='m36'></td>
-                            </tr>
-                            <tr>
-                              <td class='m33-label'>CMS 6-8 Graders Proficient in EOG Tests</td>
-                              <td class='text-right' data-metric='m33'></td>
-                              <td class='text-right' data-change='m33'></td>
-                              <td class='text-right' data-average='m33'></td>
-                            </tr>
-                            <tr>
-                              <td class='m37-label'>CMS 9-12 Graders EOC Test Score Growth</td>
-                              <td class='text-right' data-metric='m37'></td>
-                              <td class='text-right' data-change='m37'></td>
-                              <td class='text-right' data-average='m37'></td>
-                            </tr>
-                            <tr>
-                              <td class='m34-label'>CMS 9-12 Graders Proficient in EOC Tests</td>
-                              <td class='text-right' data-metric='m34'></td>
-                              <td class='text-right' data-change='m34'></td>
-                              <td class='text-right' data-average='m34'></td>
-                            </tr>
-                            <tr>
-                              <td class='m39-label'>CMS Dropout Rate</td>
-                              <td class='text-right' data-metric='m39'></td>
-                              <td class='text-right' data-change='m39'></td>
-                              <td class='text-right' data-average='m39'></td>
-                            </tr>
-                            <tr>
-                              <td class='m42-label'>CMS Students Attending Neighborhood Schools</td>
-                              <td class='text-right' data-metric='m42'></td>
-                              <td class='text-right' data-change='m42'></td>
-                              <td class='text-right' data-average='m42'></td>
-                            </tr>
-                            <tr>
-                              <td class='m38-label'>CMS Students with 10 or more Unexcused Absences</td>
-                              <td class='text-right' data-metric='m38'></td>
-                              <td class='text-right' data-change='m38'></td>
-                              <td class='text-right' data-average='m38'></td>
-                            </tr>
-                            <tr>
-                              <td class='m30-label'>Number of Pre-School Programs</td>
-                              <td class='text-right' data-metric='m30'></td>
-                              <td class='text-right' data-change='m30'></td>
-                              <td class='text-right' data-average='m30'></td>
-                            </tr>
-                            <tr>
-                              <td class='m31-label'>Number of School-Age Programs</td>
-                              <td class='text-right' data-metric='m31'></td>
-                              <td class='text-right' data-change='m31'></td>
-                              <td class='text-right' data-average='m31'></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
 
         <!-- Engagement -->
-        <div class="page page-category">
-            <div class="row">
-                <div class="col-xs-6 text-left">
-                    <h1>Engagement</h1>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-6">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus urna id mi feugiat placerat. Ut in massa id massa elementum hendrerit. Maecenas a erat justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam eleifend lorem in tortor facilisis, vel ultricies purus molestie. Sed pharetra, magna vitae posuere sodales, orci dolor iaculis justo, id dignissim purus magna nec nunc. Integer posuere facilisis metus, hendrerit tincidunt lacus lobortis eget
-                </div>
-                <div class="col-xs-6">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus urna id mi feugiat placerat. Ut in massa id massa elementum hendrerit. Maecenas a erat justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam eleifend lorem in tortor facilisis, vel ultricies purus molestie. Sed pharetra, magna vitae posuere sodales, orci dolor iaculis justo, id dignissim purus magna nec nunc. Integer posuere facilisis metus, hendrerit tincidunt lacus lobortis eget
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 text-center vis vis-horizontal">
-                    <h4>Percentage Registered Voters</h4>
-                    <canvas id="chart-engagement-1" class="chart-line" data-chart="m13" width="550" height="220"></canvas>
-                    <div id="chart-engagement-1-legend" class="text-left"></div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th class='text-right'></th>
-                                <th class='text-right'></th>
-                                <th class='text-right'>Precinct Avg.</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                              <td class='m15-label'>Registered Neighborhood Organizations</td>
-                              <td class='text-right' data-metric='m15'></td>
-                              <td class='text-right' data-change='m15'></td>
-                              <td class='text-right' data-average='m15'></td>
-                            </tr>
-                            <tr>
-                              <td class='m13-label'>Registered Voters</td>
-                              <td class='text-right' data-metric='m13'></td>
-                              <td class='text-right' data-change='m13'></td>
-                              <td class='text-right' data-average='m13'></td>
-                            </tr>
-                            <tr>
-                              <td class='m14-label'>Residents Serving on Municipal Boards and Committees</td>
-                              <td class='text-right' data-metric='m14'></td>
-                              <td class='text-right' data-change='m14'></td>
-                              <td class='text-right' data-average='m14'></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
 
         <!-- Environment -->
-        <div class="page page-category">
-            <div class="row">
-                <div class="col-xs-6 text-left">
-                    <h1>Environment</h1>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-6">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus urna id mi feugiat placerat. Ut in massa id massa elementum hendrerit. Maecenas a erat justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam eleifend lorem in tortor facilisis, vel ultricies purus molestie. Sed pharetra, magna vitae posuere sodales, orci dolor iaculis justo, id dignissim purus magna nec nunc. Integer posuere facilisis metus, hendrerit tincidunt lacus lobortis eget
-                </div>
-                <div class="col-xs-6">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus urna id mi feugiat placerat. Ut in massa id massa elementum hendrerit. Maecenas a erat justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam eleifend lorem in tortor facilisis, vel ultricies purus molestie. Sed pharetra, magna vitae posuere sodales, orci dolor iaculis justo, id dignissim purus magna nec nunc. Integer posuere facilisis metus, hendrerit tincidunt lacus lobortis eget
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-3 vis vis-vertical">
-                    <h4>Residential Electricity Consumption (kilowatts)</h4>
-                    <canvas id="chart-environment-1" class="chart-line" data-chart="m81" width="150" height="150"></canvas>
-
-                    <h4>Residential Recycling Participation Rate</h4>
-                    <canvas id="chart-environment-2" class="chart-line" data-chart="m78" width="150" height="150"></canvas>
-                    <div id="chart-environment-2-legend"></div>
-                </div>
-                <div class="col-xs-9">
-                    <table class="table table-condensed">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th class='text-right'></th>
-                                <th class='text-right'></th>
-                                <th class='text-right'>Precinct Avg.</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                              <td class='m80-label'>Adopt-a-Stream Participation</td>
-                              <td class='text-right' data-metric='m80'></td>
-                              <td class='text-right' data-change='m80'></td>
-                              <td class='text-right' data-average='m80'></td>
-                            </tr>
-                            <tr>
-                              <td class='m16-label'>Adopt-a-Street Participation</td>
-                              <td class='text-right' data-metric='m16'></td>
-                              <td class='text-right' data-change='m16'></td>
-                              <td class='text-right' data-average='m16'></td>
-                            </tr>
-                            <tr>
-                              <td class='m70-label'>Bicycle Friendliness Index</td>
-                              <td class='text-right' data-metric='m70'></td>
-                              <td class='text-right' data-change='m70'></td>
-                              <td class='text-right' data-average='m70'></td>
-                            </tr>
-                            <tr>
-                              <td class='m67-label'>Commuters Driving Alone</td>
-                              <td class='text-right' data-metric='m67'></td>
-                              <td class='text-right' data-change='m67'></td>
-                              <td class='text-right' data-average='m67'></td>
-                            </tr>
-                            <tr>
-                              <td class='m69-label'>Daily Transit Boardings</td>
-                              <td class='text-right' data-metric='m69'></td>
-                              <td class='text-right' data-change='m69'></td>
-                              <td class='text-right' data-average='m69'></td>
-                            </tr>
-                            <tr>
-                              <td class='m73-label'>Impervious Surface</td>
-                              <td class='text-right' data-metric='m73'></td>
-                              <td class='text-right' data-change='m73'></td>
-                              <td class='text-right' data-average='m73'></td>
-                            </tr>
-                            <tr>
-                              <td class='m68-label'>Length of Commute</td>
-                              <td class='text-right' data-metric='m68'></td>
-                              <td class='text-right' data-change='m68'></td>
-                              <td class='text-right' data-average='m68'></td>
-                            </tr>
-                            <tr>
-                              <td class='m71-label'>Paved Streets with Sidewalks</td>
-                              <td class='text-right' data-metric='m71'></td>
-                              <td class='text-right' data-change='m71'></td>
-                              <td class='text-right' data-average='m71'></td>
-                            </tr>
-                            <tr>
-                              <td class='m81-label'>Residential Electricity Consumption</td>
-                              <td class='text-right' data-metric='m81'></td>
-                              <td class='text-right' data-change='m81'></td>
-                              <td class='text-right' data-average='m81'></td>
-                            </tr>
-                            <tr>
-                              <td class='m82-label'>Residential Natural Gas Consumption</td>
-                              <td class='text-right' data-metric='m82'></td>
-                              <td class='text-right' data-change='m82'></td>
-                              <td class='text-right' data-average='m82'></td>
-                            </tr>
-                            <tr>
-                              <td class='m78-label'>Residential Recycling Participation Rate</td>
-                              <td class='text-right' data-metric='m78'></td>
-                              <td class='text-right' data-change='m78'></td>
-                              <td class='text-right' data-average='m78'></td>
-                            </tr>
-                            <tr>
-                              <td class='m77-label'>Residential Solid Waste Diversion Rate</td>
-                              <td class='text-right' data-metric='m77'></td>
-                              <td class='text-right' data-change='m77'></td>
-                              <td class='text-right' data-average='m77'></td>
-                            </tr>
-                            <tr>
-                              <td class='m76-label'>Residential Tree Canopy</td>
-                              <td class='text-right' data-metric='m76'></td>
-                              <td class='text-right' data-change='m76'></td>
-                              <td class='text-right' data-average='m76'></td>
-                            </tr>
-                            <tr>
-                              <td class='m72-label'>Street Connectivity Index</td>
-                              <td class='text-right' data-metric='m72'></td>
-                              <td class='text-right' data-change='m72'></td>
-                              <td class='text-right' data-average='m72'></td>
-                            </tr>
-                            <tr>
-                              <td class='m74-label'>Structures in Floodplain</td>
-                              <td class='text-right' data-metric='m74'></td>
-                              <td class='text-right' data-change='m74'></td>
-                              <td class='text-right' data-average='m74'></td>
-                            </tr>
-                            <tr>
-                              <td class='m75-label'>Tree Canopy</td>
-                              <td class='text-right' data-metric='m75'></td>
-                              <td class='text-right' data-change='m75'></td>
-                              <td class='text-right' data-average='m75'></td>
-                            </tr>
-                            <tr>
-                              <td class='m79-label'>Water Consumption</td>
-                              <td class='text-right' data-metric='m79'></td>
-                              <td class='text-right' data-change='m79'></td>
-                              <td class='text-right' data-average='m79'></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
 
         <!-- Health -->
-        <div class="page page-category">
-            <div class="row">
-                <div class="col-xs-6 text-left">
-                    <h1>Health</h1>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-6">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus urna id mi feugiat placerat. Ut in massa id massa elementum hendrerit. Maecenas a erat justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam eleifend lorem in tortor facilisis, vel ultricies purus molestie. Sed pharetra, magna vitae posuere sodales, orci dolor iaculis justo, id dignissim purus magna nec nunc. Integer posuere facilisis metus, hendrerit tincidunt lacus lobortis eget
-                </div>
-                <div class="col-xs-6">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus urna id mi feugiat placerat. Ut in massa id massa elementum hendrerit. Maecenas a erat justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam eleifend lorem in tortor facilisis, vel ultricies purus molestie. Sed pharetra, magna vitae posuere sodales, orci dolor iaculis justo, id dignissim purus magna nec nunc. Integer posuere facilisis metus, hendrerit tincidunt lacus lobortis eget
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 text-center vis vis-horizontal">
-                    <h4>Residents within &#189; Mile of Health Related Places</h4>
-                    <canvas id="chart-health-1" class="chart-bar" data-chart="m48,m50,m47,m49" data-labels="Grocery,Pharmacy,Medicaid/Free Clinic,Outdoor Recreation" width="650" height="180"></canvas>
-                    <div id="chart-health-1-legend" class="text-left"></div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <table class="table table-condensed">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th class='text-right'></th>
-                                <th class='text-right'></th>
-                                <th class='text-right'>Precinct Avg.</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                              <td class='m46-label'>Age of Death</td>
-                              <td class='text-right' data-metric='m46'></td>
-                              <td class='text-right' data-change='m46'></td>
-                              <td class='text-right' data-average='m46'></td>
-                            </tr>
-                            <tr>
-                              <td class='m44-label'>Births to Adolescents</td>
-                              <td class='text-right' data-metric='m44'></td>
-                              <td class='text-right' data-change='m44'></td>
-                              <td class='text-right' data-average='m44'></td>
-                            </tr>
-                            <tr>
-                              <td class='m45-label'>Medicaid Population</td>
-                              <td class='text-right' data-metric='m45'></td>
-                              <td class='text-right' data-change='m45'></td>
-                              <td class='text-right' data-average='m45'></td>
-                            </tr>
-                            <tr>
-                              <td class='m43-label'>North Carolina State Children's Health Choice Population</td>
-                              <td class='text-right' data-metric='m43'></td>
-                              <td class='text-right' data-change='m43'></td>
-                              <td class='text-right' data-average='m43'></td>
-                            </tr>
-                            <tr>
-                              <td class='m48-label'>Residents within ½ Mile of a Chain Grocery Store</td>
-                              <td class='text-right' data-metric='m48'></td>
-                              <td class='text-right' data-change='m48'></td>
-                              <td class='text-right' data-average='m48'></td>
-                            </tr>
-                            <tr>
-                              <td class='m50-label'>Residents within ½ Mile of a Pharmacy</td>
-                              <td class='text-right' data-metric='m50'></td>
-                              <td class='text-right' data-change='m50'></td>
-                              <td class='text-right' data-average='m50'></td>
-                            </tr>
-                            <tr>
-                              <td class='m47-label'>Residents within ½ Mile of Medicaid Provider or Free Clinic</td>
-                              <td class='text-right' data-metric='m47'></td>
-                              <td class='text-right' data-change='m47'></td>
-                              <td class='text-right' data-average='m47'></td>
-                            </tr>
-                            <tr>
-                              <td class='m49-label'>Residents within ½ Mile of Public Outdoor Recreation Area</td>
-                              <td class='text-right' data-metric='m49'></td>
-                              <td class='text-right' data-change='m49'></td>
-                              <td class='text-right' data-average='m49'></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
 
         <!-- Housing -->
-        <div class="page page-category">
-            <div class="row">
-                <div class="col-xs-6 text-left">
-                    <h1>Housing</h1>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-6">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus urna id mi feugiat placerat. Ut in massa id massa elementum hendrerit. Maecenas a erat justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam eleifend lorem in tortor facilisis, vel ultricies purus molestie.
-                </div>
-                <div class="col-xs-6">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus urna id mi feugiat placerat. Ut in massa id massa elementum hendrerit. Maecenas a erat justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam eleifend lorem in tortor facilisis, vel ultricies purus molestie.
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-3 vis vis-vertical">
-                    <h4>Median Gross Rent (Dollars)</h4>
-                    <canvas id="chart-housing-1" class="chart-line" data-chart="m63" width="150" height="150"></canvas>
-
-                    <h4>New Residential Building Permits</h4>
-                    <canvas id="chart-housing-2" class="chart-line" data-chart="m55" width="150" height="150"></canvas>
-                    <div id="chart-housing-2-legend"></div>
-                </div>
-                <div class="col-xs-9">
-                    <table class="table table-condensed">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th class='text-right'></th>
-                                <th class='text-right'></th>
-                                <th class='text-right'>Precinct Avg.</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                              <td class='m58-label'>Change in Residential Property Value</td>
-                              <td class='text-right' data-metric='m58'></td>
-                              <td class='text-right' data-change='m58'></td>
-                              <td class='text-right' data-average='m58'></td>
-                            </tr>
-                            <tr>
-                              <td class='m54-label'>Heated Square Feet of Single-Family Detached Dwellings</td>
-                              <td class='text-right' data-metric='m54'></td>
-                              <td class='text-right' data-change='m54'></td>
-                              <td class='text-right' data-average='m54'></td>
-                            </tr>
-                            <tr>
-                              <td class='m64-label'>Housing Code Violations</td>
-                              <td class='text-right' data-metric='m64'></td>
-                              <td class='text-right' data-change='m64'></td>
-                              <td class='text-right' data-average='m64'></td>
-                            </tr>
-                            <tr>
-                              <td class='m51-label'>Housing Units</td>
-                              <td class='text-right' data-metric='m51'></td>
-                              <td class='text-right' data-change='m51'></td>
-                              <td class='text-right' data-average='m51'></td>
-                            </tr>
-                            <tr>
-                              <td class='m63-label'>Median Gross Rent</td>
-                              <td class='text-right' data-metric='m63'></td>
-                              <td class='text-right' data-change='m63'></td>
-                              <td class='text-right' data-average='m63'></td>
-                            </tr>
-                            <tr>
-                              <td class='m65-label'>Neighborhood Nuisance Violations</td>
-                              <td class='text-right' data-metric='m65'></td>
-                              <td class='text-right' data-change='m65'></td>
-                              <td class='text-right' data-average='m65'></td>
-                            </tr>
-                            <tr>
-                              <td class='m55-label'>New Residential Building Permits</td>
-                              <td class='text-right' data-metric='m55'></td>
-                              <td class='text-right' data-change='m55'></td>
-                              <td class='text-right' data-average='m55'></td>
-                            </tr>
-                            <tr>
-                              <td class='m66-label'>Owner-Occupied Housing</td>
-                              <td class='text-right' data-metric='m66'></td>
-                              <td class='text-right' data-change='m66'></td>
-                              <td class='text-right' data-average='m66'></td>
-                            </tr>
-                            <tr>
-                              <td class='m56-label'>Residential Building Permits (Renovation)</td>
-                              <td class='text-right' data-metric='m56'></td>
-                              <td class='text-right' data-change='m56'></td>
-                              <td class='text-right' data-average='m56'></td>
-                            </tr>
-                            <tr>
-                              <td class='m59-label'>Residential Foreclosures</td>
-                              <td class='text-right' data-metric='m59'></td>
-                              <td class='text-right' data-change='m59'></td>
-                              <td class='text-right' data-average='m59'></td>
-                            </tr>
-                            <tr>
-                              <td class='m5-label'>Residential Housing Density</td>
-                              <td class='text-right' data-metric='m5'></td>
-                              <td class='text-right' data-change='m5'></td>
-                              <td class='text-right' data-average='m5'></td>
-                            </tr>
-                            <tr>
-                              <td class='m57-label'>Residential Property Value</td>
-                              <td class='text-right' data-metric='m57'></td>
-                              <td class='text-right' data-change='m57'></td>
-                              <td class='text-right' data-average='m57'></td>
-                            </tr>
-                            <tr>
-                              <td class='m61-label'>Single-Family Rental Houses (Detached)</td>
-                              <td class='text-right' data-metric='m61'></td>
-                              <td class='text-right' data-change='m61'></td>
-                              <td class='text-right' data-average='m61'></td>
-                            </tr>
-                            <tr>
-                              <td class='m62-label'>Subsidized Housing Units</td>
-                              <td class='text-right' data-metric='m62'></td>
-                              <td class='text-right' data-change='m62'></td>
-                              <td class='text-right' data-average='m62'></td>
-                            </tr>
-                            <tr>
-                              <td class='m60-label'>Vacancy Rate</td>
-                              <td class='text-right' data-metric='m60'></td>
-                              <td class='text-right' data-change='m60'></td>
-                              <td class='text-right' data-average='m60'></td>
-                            </tr>
-                            <tr>
-                              <td class='m52-label'>Vacant Single Family Parcels</td>
-                              <td class='text-right' data-metric='m52'></td>
-                              <td class='text-right' data-change='m52'></td>
-                              <td class='text-right' data-average='m52'></td>
-                            </tr>
-                            <tr>
-                              <td class='m53-label'>Year Single-Family Housing Constructed</td>
-                              <td class='text-right' data-metric='m53'></td>
-                              <td class='text-right' data-change='m53'></td>
-                              <td class='text-right' data-average='m53'></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
 
         <!-- Safety -->
-        <div class="page page-category">
-            <div class="row">
-                <div class="col-xs-6 text-left">
-                    <h1>Safety</h1>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-6">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus urna id mi feugiat placerat. Ut in massa id massa elementum hendrerit. Maecenas a erat justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam eleifend lorem in tortor facilisis, vel ultricies purus molestie. Sed pharetra, magna vitae posuere sodales, orci dolor iaculis justo, id dignissim purus magna nec nunc. Integer posuere facilisis metus, hendrerit tincidunt lacus lobortis eget
-                </div>
-                <div class="col-xs-6">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus urna id mi feugiat placerat. Ut in massa id massa elementum hendrerit. Maecenas a erat justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam eleifend lorem in tortor facilisis, vel ultricies purus molestie. Sed pharetra, magna vitae posuere sodales, orci dolor iaculis justo, id dignissim purus magna nec nunc. Integer posuere facilisis metus, hendrerit tincidunt lacus lobortis eget
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 text-center vis vis-horizontal">
-                    <h4>Crime/Incident Rate per 100,000</h4>
-                    <canvas id="chart-safety-1" class="chart-bar" data-chart="m27,m26,m25" data-labels="Juvenile,Property,Violent" width="600" height="250"></canvas>
-                    <div id="chart-safety-1-legend" class="text-left"></div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th class='text-right'></th>
-                                <th class='text-right'></th>
-                                <th class='text-right'>Precinct Avg.</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                              <td class='m29-label'>Calls for Animal Control</td>
-                              <td class='text-right' data-metric='m29'></td>
-                              <td class='text-right' data-change='m29'></td>
-                              <td class='text-right' data-average='m29'></td>
-                            </tr>
-                            <tr>
-                              <td class='m28-label'>Fire Calls for Service Rate</td>
-                              <td class='text-right' data-metric='m28'></td>
-                              <td class='text-right' data-change='m28'></td>
-                              <td class='text-right' data-average='m28'></td>
-                            </tr>
-                            <tr>
-                              <td class='m27-label'>Juvenile Incident Rate</td>
-                              <td class='text-right' data-metric='m27'></td>
-                              <td class='text-right' data-change='m27'></td>
-                              <td class='text-right' data-average='m27'></td>
-                            </tr>
-                            <tr>
-                              <td class='m26-label'>Property Crime Rate</td>
-                              <td class='text-right' data-metric='m26'></td>
-                              <td class='text-right' data-change='m26'></td>
-                              <td class='text-right' data-average='m26'></td>
-                            </tr>
-                            <tr>
-                              <td class='m25-label'>Violent Crime Rate</td>
-                              <td class='text-right' data-metric='m25'></td>
-                              <td class='text-right' data-change='m25'></td>
-                              <td class='text-right' data-average='m25'></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
 
     </div>
 
 
     <!-- scripts at the bottom yo -->
-    <script src="js/report.js?foo=49308"></script>
+    <script>
+        var cacheBuster = "?foo=54748";
+    </script>
+    <script src="js/main.js?foo=54748"></script>
 
     <!--   Google Analytics -->
     <script>

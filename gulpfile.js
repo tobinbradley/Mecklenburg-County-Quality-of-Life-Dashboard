@@ -9,25 +9,23 @@ var gulp = require('gulp'),
     convert = require('gulp-convert'),
     imagemin = require('gulp-imagemin'),
     replace = require('gulp-replace'),
-    fsopen = require('open'),
-    jsoncombine = require("gulp-jsoncombine"),
-    fs = require('fs'),
-    config = require('./assets/scripts/config.js');
+    psi = require('psi'),
+    open = require('open'),
+    fs = require('fs');
 
-
-var jsMain = [
+var jsFiles = [
     'bower_components/jquery/dist/jquery.js',
     'bower_components/bootstrap/js/transition.js',
     'bower_components/bootstrap/js/button.js',
     'bower_components/bootstrap/js/collapse.js',
     'bower_components/bootstrap/js/dropdown.js',
     'bower_components/bootstrap/js/tooltip.js',
+    'bower_components/jquery-placeholder/jquery.placeholder.js',
     'bower_components/leaflet/dist/leaflet.js',
-    'assets/scripts/vendor/Object.observe.poly.js',
     'assets/scripts/vendor/jquery-ui-1.10.3.custom.min.js',
     'assets/scripts/vendor/chosen.jquery.js',
-    'assets/scripts/vendor/table2CSV.js',
     'bower_components/d3/d3.js',
+    'assets/scripts/vendor/pubsub.js',
     'bower_components/topojson/topojson.js',
     'assets/scripts/vendor/typeahead.js',
     'assets/scripts/vendor/jquery-tourbus.js',
@@ -37,22 +35,6 @@ var jsMain = [
     'assets/scripts/config.js',
     'assets/scripts/main.js'
 ];
-
-var jsReport = [
-    'bower_components/jquery/dist/jquery.js',
-    'bower_components/bootstrap/js/button.js',
-    'bower_components/leaflet/dist/leaflet.js',
-    'bower_components/Leaflet.label/dist/leaflet.label.js',
-    'bower_components/topojson/topojson.js',
-    'bower_components/lodash/dist/lodash.underscore.js',
-    'bower_components/Chart.js/Chart.js',
-    'assets/scripts/functions/prototypes.js',
-    'assets/scripts/functions/geturlparams.js',
-    'assets/scripts/functions/data-formatting.js',
-    'assets/scripts/config.js',
-    'assets/scripts/report.js'
-];
-
 
 // livereload server
 gulp.task('connect', function() {
@@ -71,14 +53,14 @@ gulp.task('html', function () {
 
 // Less processing
 gulp.task('less', function() {
-    return gulp.src(['assets/less/main.less', 'assets/less/report.less'])
+    return gulp.src('assets/less/main.less')
         .pipe(less())
         .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
         .pipe(gulp.dest('public/css'))
         .pipe(connect.reload());
 });
 gulp.task('less-build', function() {
-    return gulp.src(['assets/less/main.less', 'assets/less/report.less'])
+    return gulp.src('assets/less/main.less')
         .pipe(less())
         .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
         .pipe(minifycss())
@@ -87,21 +69,13 @@ gulp.task('less-build', function() {
 
 // JavaScript
 gulp.task('js', function() {
-    gulp.src(jsMain)
+    return gulp.src(jsFiles)
         .pipe(concat('main.js'))
-        .pipe(gulp.dest('public/js'))
-        .pipe(connect.reload());
-    return gulp.src(jsReport)
-        .pipe(concat('report.js'))
         .pipe(gulp.dest('public/js'))
         .pipe(connect.reload());
 });
 gulp.task('js-build', function() {
-    gulp.src(jsReport)
-        .pipe(concat('report.js'))
-        .pipe(uglify())
-        .pipe(gulp.dest('public/js'));
-    return gulp.src(jsMain)
+    return gulp.src(jsFiles)
         .pipe(concat('main.js'))
         .pipe(uglify())
         .pipe(gulp.dest('public/js'));
@@ -124,13 +98,6 @@ gulp.task('convert', function() {
         .pipe(gulp.dest('public/data/metric/'));
 });
 
-// merge json
-gulp.task('merge-json', function() {
-    return gulp.src("public/data/metric/*.json")
-        .pipe(jsoncombine("merge.json", function(data){ return new Buffer(JSON.stringify(data)); }))
-        .pipe(gulp.dest("public/data"));
-});
-
 // image processing
 gulp.task('imagemin', function() {
     return gulp.src('assets/images/build/*')
@@ -143,22 +110,19 @@ gulp.task('imagemin', function() {
 });
 
 // cache busting
-gulp.task('replace', function() {
-    return gulp.src('assets/*.html')
-        .pipe(replace("{{cachebuster}}", Math.floor((Math.random() * 100000) + 1)))
-        .pipe(replace("{{neighborhoodDescriptor}}", config.neighborhoodDescriptor))
-        .pipe(replace("{{gaKey}}", config.gaKey))
+gulp.task('cachebuster', function() {
+    return gulp.src('public/**/*.html')
+        .pipe(replace(/foo=[0-9]*/g, 'foo=' + Math.floor((Math.random() * 100000) + 1)))
         .pipe(gulp.dest('public/'));
 });
 
 // open broser
 gulp.task("browser", function(){
-    return fsopen('http://localhost:8000');
+    return open('http://localhost:8000');
 });
 
 // watch
 gulp.task('watch', function () {
-    gulp.watch(['./assets/*.html'], ['replace']);
     gulp.watch(['./public/**/*.html'], ['html']);
     gulp.watch(['./assets/less/**/*.less'], ['less']);
     gulp.watch('assets/scripts/**/*.js', ['js']);
@@ -182,7 +146,23 @@ gulp.task('init', function() {
   });
 });
 
+// performace tests
+gulp.task('psi-mobile', function (cb) {
+       psi({
+           nokey: 'true', // or use key: ‘YOUR_API_KEY’
+           url: 'http://mcmap.org/qol',
+           strategy: 'mobile'
+       }, cb);
+  });
+// performace test
+gulp.task('psi-desktop', function (cb) {
+       psi({
+           nokey: 'true', // or use key: ‘YOUR_API_KEY’
+           url: 'http://mcmap.org/qol',
+           strategy: 'desktop'
+       }, cb);
+  });
 
 // controller tasks
-gulp.task('default', ['less', 'js', 'replace', 'watch', 'connect', 'browser']);
-gulp.task('build', ['less-build', 'js-build', 'markdown', 'convert', 'replace', 'imagemin', 'merge-json']);
+gulp.task('default', ['less', 'js', 'watch', 'connect']);
+gulp.task('build', ['less-build', 'js-build', 'markdown', 'convert', 'cachebuster', 'imagemin']);

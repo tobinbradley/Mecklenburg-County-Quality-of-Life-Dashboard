@@ -25,10 +25,9 @@
     <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon-precomposed.png" />
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/main.css?foo=79384">
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700|Arvo:400,700' rel='stylesheet' type='text/css'>
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css?foo=33741">
-
 </head>
 
 <body>
@@ -53,30 +52,22 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="http://qol.charmeck.org/">About</a>
-                    </li>
-                    <li class="report-launch disabled">
-                        <a href="javascript:void(0)">Report</a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">Download Data</a>
-                    </li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">Contact <b class="caret"></b></a>
-                        <div class="dropdown-menu contact">
-                            <form action="" method="post" accept-charset="UTF-8">
-                                <label for="email" class="sr-only">input email address</label>
-                                <input id="email" class="form-control" type="email" name="email" size="30" placeholder="Email Address (optional)" />
-                                <label for="message" class="sr-only">your message</label>
-                                <textarea id="message" name="message" class="form-control" rows="3" placeholder="Message"></textarea>
-                                <input class="btn btn-primary" style="clear: left; width: 100%; height: 32px; font-size: 13px;" type="submit" name="commit" value="Send" />
-                            </form>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)" class="btn-help">Help</a>
-                    </li>
+                   <li>
+                       <a href="javascript:void(0)">Download Data</a>
+                   </li>
+                   <li class="dropdown">
+                       <a class="dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">Contact <b class="caret"></b></a>
+                       <div class="dropdown-menu contact">
+                           <form action="" method="post" accept-charset="UTF-8">
+                               <input id="email" class="form-control" type="email" name="email" size="30" placeholder="Email Address (optional)" />
+                               <textarea id="message" class="form-control" rows="3" placeholder="Message"></textarea>
+                               <input class="btn btn-primary" style="clear: left; width: 100%; height: 32px; font-size: 13px;" type="submit" name="commit" value="Send" />
+                           </form>
+                       </div>
+                   </li>
+                   <li>
+                       <a href="javascript:void(0)" class="btn-help">Help</a>
+                   </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -94,6 +85,7 @@
             </div>
         </div>
     </nav>
+
 
     <div class="container container-content">
         <div class="row row-vis">
@@ -127,21 +119,13 @@
                     </select>
                 </div>
                 <div id="map"></div>
-                <div class="yearDisplay time text-right pull-left">
-                    <button type="button" class="btn btn-primary btn-looper">
-                        <span class="glyphicon glyphicon-play"></span>
-                    </button>
-                    <div class="slider"></div>
-                </div>
                 <div class="btn-group pull-right datatoggle">
                     <button type="button" class="btn btn-default btn-sm toggle-map">Hide Map</button>
                     <button type="button" class="btn btn-default btn-sm toggle-table">Show Data</button>
-                    <button type="button" class="btn btn-default btn-sm report-launch disabled">Report</button>
                     <button type="button" class="btn btn-default btn-sm select-clear">Clear Selected</button>
                 </div>
                 <div class="form mapsearch">
-                    <label for="searchbox" class="sr-only">search the map</label>
-                    <input id="searchbox" name="searchbox" type="text" class="typeahead form-control" placeholder="search map">
+                    <input id="searchbox" type="text" class="typeahead form-control" placeholder="search map">
                 </div>
             </div>
             <div class="col-md-4 map-aside">
@@ -206,12 +190,9 @@
                   </thead>
                   <tbody></tbody>
                 </table>
-                <p class="text-right">
-                    <button type="button" class="btn btn-default btn-sm table2CSV">Download as CSV</button>
-                </p>
             </div>
             <div class="col-md-4">
-                <div class="stats stats-weighted hide">
+                <div class="stats stats-weighted">
                     <div class="row text-center">
                         <div class="col-md-5 col-md-offset-0 col-xs-4 col-xs-offset-1">
                             <h3 class="stats-weighted-mean-county">N/A</h3>
@@ -245,7 +226,6 @@
             <div class="col-md-3">
                 <div class="well">
                     <h4>Additional Resources</h4>
-                    <div class='meta-resources'></div>
                 </div>
             </div>
         </div>
@@ -259,7 +239,6 @@
                     Created by <a href="http://codeforamerica.org/">Code for America</a> and <a href="http://www.lexingtonky.gov/index.aspx">Lexington-Fayette Urban County Government</a>
                     &bull; Source code on <a href="https://github.com/codeforamerica/lexington-qold">Github</a>
                 </p>
-
             </footer>
         </div>
     </div>
@@ -271,10 +250,26 @@
                 var m = $("#metric").val();
             %>
             <td class="text-center"><%- rc.id %></td>
-            <td class="text-right datatable-value"><% if (rc.value) { %><%= dataPretty(rc.value, m) %><% } %></td>
-            <td class="text-left"><% if (rc.accuracy) { %><span class="text-accuracy">&plusmn;<%- dataPretty(rc.accuracy, m) %></span><% } %></td>
-            <td class="text-right datatable-raw"><% if (rc.raw) { %><%= dataPretty(rc.raw, rc.rawM) %><% } %></td>
-            <td class="text-left"><% if (rc.rawaccuracy) { %><span class="text-accuracy">&plusmn;<%= dataPretty(rc.rawaccuracy, rc.rawM) %></span><% } %></td>
+            <td class="text-right datatable-value">
+                <% if (rc.value) { %>
+                    <%= dataPretty(rc.value, m) %>
+                <% } %>
+            </td>
+            <td class="text-left">
+                <% if (rc.accuracy) { %>
+                    <span class="text-accuracy">&plusmn;<%- dataPretty(rc.accuracy, m) %></span>
+                <% } %>
+            </td>
+            <td class="text-right datatable-raw">
+                <% if (rc.raw) { %>
+                    <%= dataPretty(rc.raw, rc.rawM) %>
+                <% } %>
+            </td>
+            <td class="text-left">
+                <% if (rc.rawaccuracy) { %>
+                    <span class="text-accuracy">&plusmn;<%= dataPretty(rc.rawaccuracy, rc.rawM) %></span>
+                <% } %>
+            </td>
         </tr>
     </script>
     <!-- END: Underscore Template Definition. -->
@@ -283,7 +278,7 @@
     <ol class='tourbus-legs' id='dashboard-tour'>
       <li data-orientation='centered' data-width='300'>
         <h3>Welcome!</h3>
-        <p>The Quality of Life Dashboard is designed to help assess the health of neighborhoods in Charlotte and Mecklenburg County.</p>
+        <p>The Quality of Life Dashboard is designed to help assess the health of neighborhoods in the City of Lexington.</p>
         <div class="btn-group pull-right">
           <button type="button" class="btn btn-default btn-sm tourbus-stop">Finished</button>
           <button type="button" class="btn btn-default btn-sm tourbus-next">Next</button>
@@ -291,7 +286,7 @@
       </li>
       <li data-el='.chosen-container' data-orientation='bottom' data-width='300'>
         <h3>Metrics</h3>
-        <p>Use this control to select the <strong>Metric</strong> you're interested in.</p>
+        <p>Use this control to select the <strong>Metric</strong> you're interested in. Metrics are divided into categories, and you can also search for Metrics using the search box.</p>
         <div class="btn-group pull-right">
           <button type="button" class="btn btn-default btn-sm tourbus-prev">Previous</button>
           <button type="button" class="btn btn-default btn-sm tourbus-stop">Finished</button>
@@ -300,7 +295,7 @@
       </li>
       <li data-el='#map' data-orientation='bottom' data-width='300'>
         <h3>Map</h3>
-        <p>The <strong>Map</strong> is fully interactive - you can pan, zoom, and select neighborhoods by mouse or touch.</p>
+        <p>The <strong>Map</strong> is fully interactive - you can pan, zoom, and select neighborhoods by mouse or touch. If you zoom in close, the neighborhoods become transparent so you can view roads and map features.</p>
         <div class="btn-group pull-right">
           <button type="button" class="btn btn-default btn-sm tourbus-prev">Previous</button>
           <button type="button" class="btn btn-default btn-sm tourbus-stop">Finished</button>
@@ -309,8 +304,7 @@
       </li>
       <li data-el='#searchbox' data-orientation='bottom' data-width='300'>
         <h3>Search</h3>
-        <p>The <strong>Search</strong> control lets you search for almost anything. Type in a neighborhood number, the first part of an address, or a place name, and select a match using your mouse, keyboard, or by touch.</p>
-        <p>Ex: Try typing <strong>700 n</strong></p>
+        <p>The <strong>Search</strong> control lets you search for almost anything. Type in a neighborhood number, the first part of an address or a place name, and select a match using your mouse, keyboard, or by touch.</p>
         <div class="btn-group pull-right">
           <button type="button" class="btn btn-default btn-sm tourbus-prev">Previous</button>
           <button type="button" class="btn btn-default btn-sm tourbus-stop">Finished</button>
@@ -319,7 +313,7 @@
       </li>
       <li data-el='.yearDisplay' data-orientation='top' data-width='300'>
         <h3>Year</h3>
-        <p>The <strong>Year</strong> controls let you control the year being shown on the map and in the <strong>Bar Chart</strong>.</p>
+        <p>The <strong>Year</strong> controls let you control the year being shown on the map and in the <strong>Bar Chart</strong>. You can change the year by moving the slider and cycle the years available for the metric by using the Play/Pause button.</p>
         <div class="btn-group pull-right">
           <button type="button" class="btn btn-default btn-sm tourbus-prev">Previous</button>
           <button type="button" class="btn btn-default btn-sm tourbus-stop">Finished</button>
@@ -328,7 +322,7 @@
       </li>
       <li data-el='.datatoggle' data-orientation='bottom' data-width='300'>
         <h3>Data Controls</h3>
-        <p>Use these buttons to toggle the base map, show the data table, clear any selected neighborhoods, or create a report if you have one or more neighborhoods selected.</p>
+        <p>Use these links to clear any selected neighborhoods or view additional information including a table with Voting Precinct values, accuracy information, raw data, and weighted averages.</p>
         <div class="btn-group pull-right">
           <button type="button" class="btn btn-default btn-sm tourbus-prev">Previous</button>
           <button type="button" class="btn btn-default btn-sm tourbus-stop">Finished</button>
@@ -346,7 +340,7 @@
       </li>
       <li data-el='.barchart' data-orientation='bottom' data-width='300'>
         <h3>Bar Chart</h3>
-        <p>The <strong>Bar Chart</strong> shows a lot of information about the <strong>Metric</strong>. First, it acts as a legend for the map - the map colors correspond to the the chart colors. It also shows you the density of the data - the taller the <em>quantile</em>, or bar, the more neighborhoods exist in that range.</p>
+        <p>The <strong>Bar Chart</strong> shows a lot of information about the <strong>Metric</strong>. First, it acts as a legend for the map - the map colors correspond to the the chart colors. It also shows you the density of the data - the taller the <em>quantile</em>, or bar, the more neighborhoods exist in that range. Clicking on a bar will select every neighborhood in that quantile.</p>
         <p>The dashed line represents the average value of the neighborhoods.</p>
         <div class="btn-group pull-right">
           <button type="button" class="btn btn-default btn-sm btn-sm tourbus-prev">Previous</button>
@@ -356,7 +350,7 @@
       </li>
       <li data-el='.linechart' data-orientation='top' data-width='300'>
         <h3>Line Chart</h3>
-        <p>The <strong>Line Chart</strong> shows the trend of the metric over time. The dashed line represents the average value of the neighborhoods.</p>
+        <p>The <strong>Line Chart</strong> shows the trend of the <strong>Metric</strong> over time. The dashed line represents the average value of the neighborhoods.</p>
         <div class="btn-group pull-right">
           <button type="button" class="btn btn-default btn-sm btn-sm tourbus-prev">Previous</button>
           <button type="button" class="btn btn-default btn-sm btn-sm tourbus-stop">Finished</button>
@@ -365,7 +359,16 @@
       </li>
       <li data-el='.meta-joyride' data-orientation='top' data-width='300'>
         <h3>Metric Information</h3>
-        <p>The bottom of the page shows more information about the metric, including a brief description, why it is important, where the data came from, and additional resources.</p>
+        <p>The bottom of the page shows information about the <strong>Metric</strong>, including a brief description, why it is important, where the data came from, and additional resources related to the metric.</p>
+        <div class="btn-group pull-right">
+          <button type="button" class="btn btn-default btn-sm tourbus-prev">Previous</button>
+          <button type="button" class="btn btn-default btn-sm tourbus-stop">Finished</button>
+          <button type="button" class="btn btn-default btn-sm tourbus-next">Next</button>
+        </div>
+      </li>
+      <li data-el='.navbar-right' data-orientation='bottom' data-width='300'>
+        <h3>Nav Bar</h3>
+        <p>The <strong>Nav Bar</strong> can show you more <em>About</em> the Quality of Life study, links to <em>Download</em> the data in a variety of formats, and <em>Help</em> you get started.</p>
         <div class="btn-group pull-right">
           <button type="button" class="btn btn-default btn-sm tourbus-prev">Previous</button>
           <button type="button" class="btn btn-default btn-sm tourbus-stop">Finished</button>
@@ -375,7 +378,7 @@
     <!-- End jQuery Tourbus -->
 
     <!-- scripts at the bottom yo -->
-    <script src="js/main.js?foo=79384"></script>
+    <script src="js/main.js?foo=33741"></script>
 
     <!--   Google Analytics -->
     <script>

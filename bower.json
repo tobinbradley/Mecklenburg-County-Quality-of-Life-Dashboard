@@ -13,16 +13,16 @@
     "test",
     "tests"
   ],
-  "dependencies": {},
+  "dependencies": {
+  },
   "devDependencies": {
-    "jquery.scrollTo": "*",
-    "topojson": "*",
+    "jquery.scrollTo": "1.4.12",
+    "topojson": "1.6.14",
     "bootstrap": "3.1.1",
-    "d3": "*",
-    "jquery": "*",
-    "lodash": "*",
-    "leaflet": "*",
-    "Chart.js": "*",
-    "Leaflet.label": "*"
+    "d3": "3.4.8",
+    "jquery": "2.1.1",
+    "lodash": "2.4.1",
+    "jquery-placeholder": "2.0.8",
+    "leaflet": "0.7.3"
   }
 }

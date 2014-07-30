@@ -1,6 +1,3 @@
-// This is my general dumping ground for odds and ends that don't deservie their
-// own JS file.
-
 // Prototype for moving svg element to the front
 // Useful so highlighted or selected element border goes on top
 d3.selection.prototype.moveToFront = function () {
@@ -10,7 +7,7 @@ d3.selection.prototype.moveToFront = function () {
 };
 
 
-// Hover highlights
+// Hover events
 // Node there's some weirdness with the geometry doing it this way, so there is
 // another function like this specifically for after the geometry is added in
 // d3map.js.
@@ -24,6 +21,8 @@ $(document).on({
         removeHighlight($(this));
     }
 }, '.metric-hover');
+
+
 function addHighlight(elem) {
     if (elem.attr('data-id')) {
         var theId = elem.attr('data-id');
@@ -51,7 +50,6 @@ function removeHighlight(elem) {
     }
 }
 
-// Get a count in each quantile
 function quantizeCount(data) {
     var q1 = _.countBy(data, function (d) {
         return quantize(d);
@@ -67,48 +65,39 @@ function quantizeCount(data) {
     return q2;
 }
 
-// Select or unselect a neighborhood
-function d3Select(id) {
-    var d3obj = d3.select(".geom[data-id='" + id + "']");
-    if (d3obj.classed("d3-select")) {
-        d3obj.classed("d3-select", false);
+function d3Select(msg, d) {
+    if (d.d3obj.classed("d3-select") && msg !== "geocode") {
+        d.d3obj.classed("d3-select", false);
 
-        // remove chart stuff
-        trendChart.lineRemove(id, ".trend-select");
-        valueChart.pointerRemove(id, ".value-select");
+        // remove chart shit
+        trendChart.lineRemove(d.d3obj.attr("data-id"), ".trend-select");
+        valueChart.pointerRemove(d.d3obj.attr("data-id"), ".value-select");
 
-        // remove table stuff
-        $(".datatable-container tr[data-id='" + id + "']").remove();
+        // remove table shit
+        $(".datatable-container tr[data-id='" + d.d3obj.attr("data-id") + "']").remove();
         updateSelectedStats();
     }
     else {
-        d3obj.classed("d3-select", true);
-        if ($.isNumeric(d3obj.attr("data-value"))) {
+        d.d3obj.classed("d3-select", true);
+        if ($.isNumeric(d.d3obj.attr("data-value"))) {
             // add to chart
-            trendChart.lineAdd(".trend-select", id);
-            valueChart.pointerAdd(id, d3obj.attr("data-value"), ".value-select");
+            trendChart.lineAdd(".trend-select", d.d3obj.attr("data-id"));
+            valueChart.pointerAdd(d.d3obj.attr("data-id"), d.d3obj.attr("data-value"), ".value-select");
         }
         // add to table
-        drawTable(id, d3obj.attr("data-value"));
-    }
-
-    // toggle report if nothing selected
-    if ($('.d3-select').length === 0) {
-        $(".report-launch").addClass("disabled");
-    } else {
-        $(".report-launch").removeClass("disabled");
+        drawTable(d.d3obj.attr("data-id"), d.d3obj.attr("data-value"));
     }
 }
 
-// draw the nerd table
+// draw table
 function updateTable() {
     _.each($(".datatable-container tbody tr"), function(el) {
         var theId = $(el).data("id");
-        drawTable(theId, metricData[model.year].map.get(theId));
+        drawTable(theId, metricData[year].map.get(theId));
     });
 }
 
-// update nerd table rows
+// update table rows
 function drawTable(id, val) {
     var tableRec = {};
     tableRec.id = id;
@@ -116,14 +105,14 @@ function drawTable(id, val) {
         tableRec.value = val;
     }
     if (accuracyData.length > 0) {
-        tableRec.accuracy = _.filter(accuracyData, function(r) { return r.id == id; })[0][metricData[model.year].year];
+        tableRec.accuracy = _.filter(accuracyData, function(r) { return r.id == id; })[0][metricData[year].year];
     }
     if (rawData.length > 0) {
-        tableRec.raw = _.filter(rawData, function(r) { return r.id == id; })[0][metricData[model.year].year];
+        tableRec.raw = _.filter(rawData, function(r) { return r.id == id; })[0][metricData[year].year];
         tableRec.rawM = metricRaw[id];
     }
     if (rawAccuracy.length > 0) {
-        tableRec.rawaccuracy = _.filter(rawAccuracy, function(r) { return r.id == id; })[0][metricData[model.year].year];
+        tableRec.rawaccuracy = _.filter(rawAccuracy, function(r) { return r.id == id; })[0][metricData[year].year];
     }
 
     var template = _.template($("script.template").html());
@@ -137,7 +126,7 @@ function drawTable(id, val) {
     updateSelectedStats();
 }
 
-// update stat boxes for selected stuff
+// update stat boxes
 function updateSelectedStats() {
     var m = $("#metric").val(),
         selectedWeightedMean = "N/A",
@@ -161,7 +150,6 @@ function updateSelectedStats() {
 
     // selected weighted mean
     if (metricRaw[m]) {
-        $(".stats-weighted").removeClass('hide');
         // loop through table for selected weighted mean
         if ($(".datatable-container tbody tr").size() > 0) {
             $(".datatable-container tbody tr").each(function() {
@@ -172,19 +160,17 @@ function updateSelectedStats() {
                     count += parseFloat(theRaw);
                 }
             });
+            console.log(values);
             //if (values.length > 0) {
                 selectedWeightedMean = values.reduce(function(a, b) { return a + b;}) / count;
             //}
         }
-    } else {
-        $(".stats-weighted").addClass('hide');
     }
 
     $(".stats-weighted-mean-selected").text(dataPretty(selectedWeightedMean, m));
 
 }
 
-// update stat boxes for global stuff
 function updateCountyStats() {
     var m = $("#metric").val(),
         countyWeightedMean = "N/A",
@@ -193,14 +179,14 @@ function updateCountyStats() {
         count = 0;
 
     // County npa mean and median
-    $(".stats-county-npa-mean").text(dataPretty(d3.mean(metricData[model.year].map.values()), m));
-    $(".stats-county-npa-median").text("Median: " + dataPretty(d3.median(metricData[model.year].map.values()), m));
+    $(".stats-county-npa-mean").text(dataPretty(d3.mean(metricData[year].map.values()), m));
+    $(".stats-county-npa-median").text("Median: " + dataPretty(d3.median(metricData[year].map.values()), m));
 
     if (metricRaw[m]) {
         _.each(rawData, function(d) {
-            if ($.isNumeric(d[metricData[model.year].year])) {
-                values.push(d[metricData[model.year].year] * metricData[model.year].map.get(d.id));
-                count += parseFloat(d[metricData[model.year].year]);
+            if ($.isNumeric(d[metricData[year].year])) {
+                values.push(d[metricData[year].year] * metricData[year].map.get(d.id));
+                count += parseFloat(d[metricData[year].year]);
             }
         });
         countyWeightedMean = values.reduce(function(a, b) { return a + b;}) / count;
@@ -208,8 +194,13 @@ function updateCountyStats() {
     $(".stats-weighted-mean-county").text(dataPretty(countyWeightedMean, m));
 }
 
+function d3Zoom(msg, d) {
+    if ($(".geom.d3-select").length === 0 || msg === "geocode" || msg === "findNeighborhood") {
+        var feature = _.filter(d3Layer.toGeoJSON().features, function(data) { return data.id === d.id; });
+        map.fitBounds(L.geoJson(feature[0]).getBounds());
+    }
+}
 
-// Zoom to polygons. I think I'm only using this to get to old neighborhoods.
 function d3ZoomPolys(msg, d) {
     var features = _.filter(d3Layer.toGeoJSON().features, function(data) { return _.contains(d.ids, data.id); });
     var bounds = L.latLngBounds(L.geoJson(features[0]).getBounds());
@@ -219,18 +210,36 @@ function d3ZoomPolys(msg, d) {
     map.fitBounds(bounds);
 }
 
+// Add marker
+function addMarker(msg, d) {
+    // remove old markers
+    try { map.removeLayer(marker); }
+    catch (err) {}
 
-// zoom to neighborhood, adding a marker if it's a lnglat
-function geocode(d) {
-    // add a marker if a point location is passed
-    if (d.lat) {
-        try { map.removeLayer(marker); }
-        catch (err) {}
-        marker = L.marker([d.lat, d.lng]).addTo(map);
+    // add new marker
+    marker = L.marker([d.lat, d.lng]).addTo(map);
+    //map.panTo([d.lat, d.lng]);
+
+}
+
+
+// format data
+function dataPretty(theValue, theMetric) {
+    var fmat = d3.format("0,000.0"),
+        prefix = "",
+        suffix = "",
+        pretty = theValue;
+
+    if ($.isNumeric(theValue)) {
+        pretty = parseFloat(parseFloat(theValue).toFixed(1)).toString().commafy();
+        if (metricPct.indexOf(theMetric) !== -1) { suffix = "%"; }
+        if (metricMoney.indexOf(theMetric) !== -1) {
+            prefix = "$";
+            pretty = parseFloat(theValue).toFixed(0).commafy();
+        }
+        if(metricYear.indexOf(theMetric) !== -1) {
+            pretty = parseFloat(pretty.replace(",", "")).toFixed(0);
+        }
     }
-
-    // zoom to neighborhood
-    var feature = _.filter(d3Layer.toGeoJSON().features, function(data) { return data.id === d.id; });
-    map.fitBounds(L.geoJson(feature[0]).getBounds());
-
+    return prefix + pretty + suffix;
 }
