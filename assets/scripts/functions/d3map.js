@@ -20,7 +20,14 @@ function initMap() {
 
     d3Layer.on("click", function(d) {
         var sel = d3.select(".geom[data-id='" + d.layer.feature.id + "']");
-        d3Select(d.layer.feature.id);
+        if (sel.classed("d3-select")) {
+            model.selected = _.without(model.selected, d.layer.feature.id);
+            // get rid of this next thing later
+            d3Unselect(d.layer.feature.id);
+        }
+        else {
+            model.selected = _.union(model.selected, [d.layer.feature.id]);
+        }
     });
 
     $(".geom").on({
@@ -51,10 +58,10 @@ function initMap() {
         var arr = [];
         _.each(getURLParameter("n").split(","), function(d) {
             var sel = d3.select(".geom[data-id='" + d + "']");
-            $.isNumeric(d) ? theVal = Number(d) : theVal = d;
+            theVal = d;
             arr.push(theVal);
-            d3Select(theVal);
         });
+        model.selected = _.union(model.selected, arr);
         d3ZoomPolys("", {"ids": arr});
     }
 

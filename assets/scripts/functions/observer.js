@@ -1,4 +1,6 @@
-var model = {};
+var model = {
+    "selected": []
+};
 
 function modelChanges(changes) {
 
@@ -49,7 +51,15 @@ function modelChanges(changes) {
 
     // maybe a selected array?
     if (_.contains(tasklist, "selected")) {
-        if (model.selected.length === 0) {
+
+        if (model.selected.length > 0) {
+            // map selection
+            d3.selectAll(".geom").classed("d3-select", function(d) { return _.contains(model.selected, $(this).attr("data-id")); });
+            _.each(model.selected, function(d) {
+                d3Select(d);
+            });
+        }
+        else {
             // clear all the things
             d3.selectAll(".geom").classed("d3-select", false);
             d3.select(".value-select").selectAll("rect, line, text, circle").remove();
@@ -59,9 +69,6 @@ function modelChanges(changes) {
             $(".report-launch").addClass("disabled");
             try { map.removeLayer(marker); }
             catch (err) {}
-        }
-        else {
-            //console.log("processing selected");
         }
     }
 
