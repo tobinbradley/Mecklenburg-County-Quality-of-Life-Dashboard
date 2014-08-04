@@ -70,34 +70,35 @@ function quantizeCount(data) {
 // Select or unselect a neighborhood
 function d3Select(id) {
     var d3obj = d3.select(".geom[data-id='" + id + "']");
-    if (d3obj.classed("d3-select")) {
-        d3obj.classed("d3-select", false);
 
-        // remove chart stuff
-        trendChart.lineRemove(id, ".trend-select");
-        valueChart.pointerRemove(id, ".value-select");
+    //d3obj.classed("d3-select", true);
+    if ($.isNumeric(d3obj.attr("data-value"))) {
+        // add to chart
+        trendChart.lineAdd(".trend-select", id);
+        valueChart.pointerAdd(id, d3obj.attr("data-value"), ".value-select");
+    }
+    // add to table
+    drawTable(id, d3obj.attr("data-value"));
 
-        // remove table stuff
-        $(".datatable-container tr[data-id='" + id + "']").remove();
-        updateSelectedStats();
-    }
-    else {
-        d3obj.classed("d3-select", true);
-        if ($.isNumeric(d3obj.attr("data-value"))) {
-            // add to chart
-            trendChart.lineAdd(".trend-select", id);
-            valueChart.pointerAdd(id, d3obj.attr("data-value"), ".value-select");
-        }
-        // add to table
-        drawTable(id, d3obj.attr("data-value"));
-    }
+    // make reports active
+    $(".report-launch").removeClass("disabled");
 
-    // toggle report if nothing selected
-    if ($('.d3-select').length === 0) {
-        $(".report-launch").addClass("disabled");
-    } else {
-        $(".report-launch").removeClass("disabled");
-    }
+}
+function d3Unselect(id) {
+    var d3obj = d3.select(".geom[data-id='" + id + "']");
+    d3obj.classed("d3-select", false);
+
+    // remove chart stuff
+    trendChart.lineRemove(id, ".trend-select");
+    valueChart.pointerRemove(id, ".value-select");
+
+    // remove table stuff
+    $(".datatable-container tr[data-id='" + id + "']").remove();
+    updateSelectedStats();
+}
+
+function selected(list) {
+    model.selected = _.union(model.selected, list);
 }
 
 // draw the nerd table
@@ -211,7 +212,7 @@ function updateCountyStats() {
 
 // Zoom to polygons. I think I'm only using this to get to old neighborhoods.
 function d3ZoomPolys(msg, d) {
-    var features = _.filter(d3Layer.toGeoJSON().features, function(data) { return _.contains(d.ids, data.id); });
+    var features = _.filter(d3Layer.toGeoJSON().features, function(data) { return _.contains(d.ids, data.id.toString()); });
     var bounds = L.latLngBounds(L.geoJson(features[0]).getBounds());
     _.each(features, function(feature) {
         bounds.extend(L.geoJson(feature).getBounds());
@@ -232,5 +233,4 @@ function geocode(d) {
     // zoom to neighborhood
     var feature = _.filter(d3Layer.toGeoJSON().features, function(data) { return data.id === d.id; });
     map.fitBounds(L.geoJson(feature[0]).getBounds());
-
 }

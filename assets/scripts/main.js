@@ -6,7 +6,6 @@ var map,                // leaflet map
     rawData = [],       // hold raw data if available
     rawAccuracy = [],   // hold raw data accuracy data (sigh) if available
     timer,              // timer for year slider
-    //year,               // the currently selected year as array index of metricData
     barchartWidth,      // for responsive charts
     marker,             // marker for geocode
     trendChart,         // ye line chart
@@ -289,9 +288,6 @@ function processMetric() {
 
     // set slider and time related stuff
     model.year = metricData.length -1;
-    // $(".slider").slider("option", "max", metricData.length - 1).slider("value", year);
-    // metricData.length > 1 ? $(".time").fadeIn() : $(".time").hide();
-    // $('.time-year').text(metricData[year].year.replace("y_", ""));
 
     // set the data into d3 maps
     _.each(model.metric, function (d) {

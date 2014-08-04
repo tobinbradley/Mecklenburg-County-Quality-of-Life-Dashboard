@@ -157,9 +157,8 @@ function initTypeahead() {
                     'fields': 'id'
                 },
                 success: function (data) {
-                    var sel = d3.select(".geom[data-id='" + data[0].id + "']");
-                    geocode({"id": data[0].id, "lat": datum.lat, "lng": datum.lng});
-                    d3Select(data[0].id);
+                    geocode({"id": data[0].id.toString(), "lat": datum.lat, "lng": datum.lng});
+                    model.selected = _.union(model.selected, [data[0].id.toString()]);
                 }
             });
         }
@@ -178,18 +177,17 @@ function initTypeahead() {
                     success: function(data) {
                         var arr = [];
                         _.each(data, function(d) {
-                            var sel = d3.select(".geom[data-id='" + d.id + "']");
-                            arr.push(d.id);
-                            d3Select(d.id);
+                            arr.push(d.id.toString());
                         });
+                        model.selected = _.union(model.selected, arr);
                         d3ZoomPolys("", {"ids": arr});
                     }
                 });
             }
             else {
                 // select neighborhood
-                geocode({"id": parseInt(datum.value)});
-                d3Select(parseInt(datum.value));
+                geocode({"id": datum.value});
+                model.selected = _.union(model.selected, [datum.value]);
             }
         }
     });

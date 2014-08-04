@@ -39,21 +39,12 @@ function fetchMetricData(m) {
 
         // launch processes
         if (geom[0].type) {
-            //draw(geom[0]);
             model.geom = geom[0];
-            //setTimeout(function() { obj.helloWorld2(); }, 0);
             model.metric = metric[0];
-
-
-            //changeMetric(metric[0]);
         }
         else {
             model.metric = metric[0];
         }
-
-            //changeMetric(metric[0]);
-
-
 
     });
 }

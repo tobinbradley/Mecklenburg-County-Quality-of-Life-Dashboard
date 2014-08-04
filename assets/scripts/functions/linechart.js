@@ -82,6 +82,7 @@ function lineChart() {
     }
 
     var line = d3.svg.line()
+        .interpolate("cardinal")
         .x(function(d, i) {
             return x(years[i]);
         })
