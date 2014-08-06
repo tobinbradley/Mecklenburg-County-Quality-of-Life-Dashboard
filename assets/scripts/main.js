@@ -70,7 +70,9 @@ function nameMonth(year) {
 
 // Slider change event
 function sliderChange(value) {
-    $('.time-year').text(metricData[value].year.replace("y_", ""));
+
+    var sliderText = metricData[value].year.replace()
+    $('.time-year').text(nameMonth(metricData[value].year));
     year = value;
     PubSub.publish('changeYear');
 }
@@ -367,7 +369,7 @@ function processMetric(msg, data) {
     year = metricData.length -1;
     $(".slider").slider("option", "max", metricData.length - 1).slider("value", year);
     metricData.length > 1 ? $(".time").fadeIn() : $(".time").hide();
-    $('.time-year').text(metricData[year].year.replace("y_", ""));
+    $('.time-year').text(nameMonth(metricData[year].year));
 
     _.each(data.metricdata, function (d) {
         for (var i = 0; i < metricData.length; i++) {
