@@ -45,9 +45,34 @@ jQuery.support.placeholder = (function(){
     return 'placeholder' in i;
 })();
 
+function nameMonth(year) {
+    var monthNumber = {
+        "01": "January",
+        "02": "February",
+        "03": "March",
+        "04": "April",
+        "05": "May",
+        "06": "June",
+        "07": "July",
+        "08": "August",
+        "09": "September",
+        "10": "October",
+        "11": "November",
+        "12": "December"
+    };
+
+    var yearNums = year.replace('y_', '');
+    var yearMonth = yearNums.split('-');
+    var sliderTitle = monthNumber[yearMonth[1]] + " " + yearMonth[0];
+    return sliderTitle;
+
+}
+
 // Slider change event
 function sliderChange(value) {
-    $('.time-year').text(metricData[value].year.replace("y_", ""));
+
+    var sliderText = metricData[value].year.replace()
+    $('.time-year').text(nameMonth(metricData[value].year));
     year = value;
     PubSub.publish('changeYear');
 }
@@ -344,7 +369,7 @@ function processMetric(msg, data) {
     year = metricData.length -1;
     $(".slider").slider("option", "max", metricData.length - 1).slider("value", year);
     metricData.length > 1 ? $(".time").fadeIn() : $(".time").hide();
-    $('.time-year').text(metricData[year].year.replace("y_", ""));
+    $('.time-year').text(nameMonth(metricData[year].year));
 
     _.each(data.metricdata, function (d) {
         for (var i = 0; i < metricData.length; i++) {
