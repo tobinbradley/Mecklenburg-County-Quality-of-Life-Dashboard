@@ -20,6 +20,7 @@ function processMetric() {
     }
 
     // set slider and time related stuff
+    $(".slider").slider("option", "max", metricData.length - 1);
     model.year = metricData.length -1;
 
     // set the data into d3 maps
