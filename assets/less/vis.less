@@ -101,12 +101,6 @@ rect.bar {
        stroke: black;
        stroke-dasharray: 8,3;
     }
-    text {
-        text-anchor: middle;
-        font-size: 0.9em;
-        font-weight: bold;
-        fill: black;
-    }
 }
 .value-hover {
     line {
@@ -130,62 +124,11 @@ rect.bar {
     }
 }
 .value-select {
-    line {
-        stroke: @selectedColor;
-    }
-    text {
-        font-weight: bold;
-        text-anchor: middle;
-        font-size: 0.9em;
-        fill:  @darkGray;
-    }
     circle {
         fill: @selectedColor;
-        stroke: darken(@selectedColor, 30%);
     }
-    rect {
-        stroke: @darkGray;
-        fill: @selectedColor;
-    }
-}
-.value-select text, .value-mean text, .value-hover text {
-    pointer-events: none;
 }
 
-// line chart
-.trend-mean {
-    path {
-        pointer-events: none;
-        stroke-dasharray: 8,3;
-        stroke: black;
-    }
-    circle {
-        display: none;
-    }
-}
-.trend-highlight {
-    path {
-        stroke: @highlightColor;
-        fill: none;
-        stroke-width: 3px;
-        opacity: 1;
-    }
-    circle {
-        fill: @highlightColor;
-        stroke: darken(@highlightColor, 30%);
-    }
-}
-.trend-select {
-    path {
-        stroke: @selectedColor;
-        fill: none;
-        stroke-width: 3px;
-    }
-    circle {
-        fill: @selectedColor;
-        stroke: darken(@selectedColor, 30%);
-    }
-}
 
 .tooltip-inner {
     background: rgba(0,0,0,0.85);

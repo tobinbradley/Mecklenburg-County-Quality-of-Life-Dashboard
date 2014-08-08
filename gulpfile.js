@@ -27,6 +27,7 @@ var jsMain = [
     'assets/scripts/vendor/jquery-ui-1.10.3.custom.min.js',
     'assets/scripts/vendor/chosen.jquery.js',
     'assets/scripts/vendor/table2CSV.js',
+    'assets/scripts/vendor/Chart.js',
     'bower_components/d3/d3.js',
     'bower_components/topojson/topojson.js',
     'assets/scripts/vendor/typeahead.js',
@@ -45,10 +46,8 @@ var jsReport = [
     'bower_components/Leaflet.label/dist/leaflet.label.js',
     'bower_components/topojson/topojson.js',
     'bower_components/lodash/dist/lodash.underscore.js',
-    'bower_components/Chart.js/Chart.js',
-    'assets/scripts/functions/prototypes.js',
-    'assets/scripts/functions/geturlparams.js',
-    'assets/scripts/functions/data-formatting.js',
+    'assets/scripts/vendor/Chart.js',
+    'assets/scripts/functions/generics.js',
     'assets/scripts/config.js',
     'assets/scripts/report.js'
 ];

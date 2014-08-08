@@ -8,8 +8,6 @@ var map,                // leaflet map
     timer,              // timer for year slider
     barchartWidth,      // for responsive charts
     marker,             // marker for geocode
-    trendChart,         // ye line chart
-    valueChart,         // ye bar chart
     d3Layer,            // the d3Layer on leaflet
     tour,               // I-don't-want-to-do-real-help thing
     recordHistory = false;
@@ -185,70 +183,15 @@ $(document).ready(function () {
     });
 
     // Set up the map
-    L.Icon.Default.imagePath = './images';
-    map = L.map("map", {
-            attributionControl: false,
-            touchZoom: true,
-            minZoom: mapGeography.minZoom,
-            maxZoom: mapGeography.maxZoom
-        }).setView(mapGeography.center, mapGeography.defaultZoom);
-    var baseTiles = L.tileLayer(baseTilesURL);
-
-    // Year display
-    var yearControl = L.control({position: 'bottomleft'});
-    yearControl.onAdd = function(map) {
-        this._div = L.DomUtil.create('div');
-        this._div.innerHTML = '<h3 class="time-year">2012</h3>';
-        return this._div;
-    };
-    yearControl.addTo(map);
-
-    // make it so if scrolling on the page it disabled map zoom for a second
-    $(window).on('scroll', function() {
-        map.scrollWheelZoom.disable();
-        setTimeout(function() { map.scrollWheelZoom.enable(); }, 1000);
-    });
-
-    // geolocate if on a mobile device
-    // bit hacky here on detection, but should cover most things
-    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-        map.locate({setView: false});
-        map.on('locationfound', function(e) {
-            $.ajax({
-                url: 'http://maps.co.mecklenburg.nc.us/rest/v2/ws_geo_pointoverlay.php',
-                type: 'GET',
-                dataType: 'jsonp',
-                data: {
-                    'x': e.latlng.lng,
-                    'y': e.latlng.lat,
-                    'srid': 4326,
-                    'table': 'neighborhoods',
-                    'fields': 'id'
-                },
-                success: function (data) {
-                    var sel = d3.select(".geom [data-id='" + data[0].id + "']");
-                    geocode({"id": data[0].id, "lat": e.latlng.lat, "lng": e.latlng.lng});
-                    PubSub.publish('geocode', {
-                        "id": data[0].id,
-                        "value": sel.attr("data-value"),
-                        "d3obj": sel,
-                        "lat": e.latlng.lat,
-                        "lng": e.latlng.lng
-                    });
-                }
-            });
-        });
-    }
+    mapCreate();
 
     // initialize charts
-    trendChart = lineChart();
     valueChart = barChart();
 
     // Window resize listener so charts can adjust
     d3.select(window).on("resize", function () {
         if ($(".barchart").parent().width() !== barchartWidth) {
             drawBarChart();
-            drawLineChart();
         }
     });
 
@@ -256,67 +199,3 @@ $(document).ready(function () {
     fetchMetricData($("#metric").val());
 
 });
-
-
-// Draw the map
-function draw(geom) {
-    PubSub.publish('initialize', {
-        "geom": geom
-    });
-}
-
-// Fire off the metric change event
-function changeMetric(data) {
-    var theVal = $("#metric").val();
-    $(".d3-tip").remove();
-    PubSub.publish('changeMetric', {
-        'metricdata': data,
-        'metric': theVal
-    });
-}
-
-// Process the metric into useful stuff
-function processMetric() {
-    // clear metric data
-    metricData.length = 0;
-
-    // get the years available
-    var keys = Object.keys(model.metric[0]);
-    for (var i = 1; i < keys.length; i++) {
-        metricData.push({"year": keys[i], "map": d3.map()});
-    }
-
-    // set slider and time related stuff
-    model.year = metricData.length -1;
-
-    // set the data into d3 maps
-    _.each(model.metric, function (d) {
-        for (var i = 0; i < metricData.length; i++) {
-            if ($.isNumeric(d[metricData[i].year])) { metricData[i].map.set(d.id, parseFloat(d[metricData[i].year])); }
-        }
-    });
-
-    // Set up data extent
-    var extentArray = [];
-    _.each(metricData, function(d) { extentArray = extentArray.concat(d.map.values()); });
-    x_extent = d3.extent(extentArray);
-
-    // set up data quantile from extent
-    quantize = d3.scale.quantile()
-        .domain(x_extent)
-        .range(d3.range(colorbreaks).map(function (i) {
-            return "q" + i;
-        }));
-}
-
-// push metric to GA and state
-function recordMetricHistory() {
-    // write metric viewed out to GA
-    if (window.ga) {
-        theMetric = $("#metric option:selected");
-        ga('send', 'event', 'metric', theMetric.text().trim(), theMetric.parent().prop("label"));
-    }
-    if (history.pushState) {
-        history.pushState({myTag: true}, null, "?m=" + $("#metric").val());
-    }
-}

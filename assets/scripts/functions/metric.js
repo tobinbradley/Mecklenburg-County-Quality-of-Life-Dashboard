@@ -1,13 +1,58 @@
 // This is my general dumping ground for odds and ends that don't deservie their
 // own JS file.
 
-// Prototype for moving svg element to the front
-// Useful so highlighted or selected element border goes on top
-d3.selection.prototype.moveToFront = function () {
-    return this.each(function () {
-        this.parentNode.appendChild(this);
+// Process the metric into useful stuff
+function processMetric() {
+    // clear metric data
+    metricData.length = 0;
+
+    // get the years available
+    var keys = Object.keys(model.metric[0]);
+    for (var i = 1; i < keys.length; i++) {
+        metricData.push({"year": keys[i], "map": d3.map()});
+    }
+
+    // hide or show year related stuff
+    if (keys.length > 2) {
+        $(".temporal").show();
+    } else {
+        $(".temporal").hide();
+    }
+
+    // set slider and time related stuff
+    model.year = metricData.length -1;
+
+    // set the data into d3 maps
+    _.each(model.metric, function (d) {
+        for (var i = 0; i < metricData.length; i++) {
+            if ($.isNumeric(d[metricData[i].year])) { metricData[i].map.set(d.id, parseFloat(d[metricData[i].year])); }
+        }
     });
-};
+
+    // Set up data extent
+    var extentArray = [];
+    _.each(metricData, function(d) { extentArray = extentArray.concat(d.map.values()); });
+    x_extent = d3.extent(extentArray);
+
+    // set up data quantile from extent
+    quantize = d3.scale.quantile()
+        .domain(x_extent)
+        .range(d3.range(colorbreaks).map(function (i) {
+            return "q" + i;
+        }));
+}
+
+// push metric to GA and state
+function recordMetricHistory() {
+    // write metric viewed out to GA
+    if (window.ga) {
+        theMetric = $("#metric option:selected");
+        ga('send', 'event', 'metric', theMetric.text().trim(), theMetric.parent().prop("label"));
+    }
+    if (history.pushState) {
+        history.pushState({myTag: true}, null, "?m=" + $("#metric").val());
+    }
+}
 
 
 // Hover highlights
@@ -28,10 +73,8 @@ function addHighlight(elem) {
     if (elem.attr('data-id')) {
         var theId = elem.attr('data-id');
         var theValue = $('.geom[data-id="' + theId + '"]').attr("data-value");
-        d3.selectAll('[data-id="' + theId + '"]').classed("d3-highlight", true);
-        //$('[data-id="' + theId + '"]').addClass('d3-highlight');
+        d3.selectAll('[data-id="' + theId + '"]').classed("d3-highlight", true).transition().attr("r", 8);
         if ($.isNumeric(theValue)) {
-            trendChart.lineAdd(".trend-highlight", theId);
             if(! elem.closest(".barchart-container").length ) { valueChart.pointerAdd(theId, theValue, ".value-hover"); }
         }
     }
@@ -42,9 +85,8 @@ function addHighlight(elem) {
 function removeHighlight(elem) {
     if (elem.data('id')) {
         var theId = elem.attr('data-id');
-        d3.selectAll('[data-id="' + theId + '"]').classed("d3-highlight", false);
+        d3.selectAll('[data-id="' + theId + '"]').classed("d3-highlight", false).transition().attr("r", 5);
         valueChart.pointerRemove(theId, ".value-hover");
-        trendChart.linesRemove(".trend-highlight");
     }
     else {
         d3.selectAll('[data-quantile="' + elem.data('quantile') + '"]').classed("d3-highlight", false);
@@ -70,26 +112,13 @@ function quantizeCount(data) {
 // Select or unselect a neighborhood
 function d3Select(id) {
     var d3obj = d3.select(".geom[data-id='" + id + "']");
-
-    //d3obj.classed("d3-select", true);
-    if ($.isNumeric(d3obj.attr("data-value"))) {
-        // add to chart
-        trendChart.lineAdd(".trend-select", id);
-        valueChart.pointerAdd(id, d3obj.attr("data-value"), ".value-select");
-    }
     // add to table
     drawTable(id, d3obj.attr("data-value"));
-
-    // make reports active
-    $(".report-launch").removeClass("disabled");
-
 }
 function d3Unselect(id) {
     var d3obj = d3.select(".geom[data-id='" + id + "']");
     d3obj.classed("d3-select", false);
 
-    // remove chart stuff
-    trendChart.lineRemove(id, ".trend-select");
     valueChart.pointerRemove(id, ".value-select");
 
     // remove table stuff
@@ -97,9 +126,6 @@ function d3Unselect(id) {
     updateSelectedStats();
 }
 
-function selected(list) {
-    model.selected = _.union(model.selected, list);
-}
 
 // draw the nerd table
 function updateTable() {
@@ -142,23 +168,17 @@ function drawTable(id, val) {
 function updateSelectedStats() {
     var m = $("#metric").val(),
         selectedWeightedMean = "N/A",
-        selectedMean = "N/A",
+        keys = Object.keys(model.metric[0]),
         values = [],
         count = 0;
 
-    // Selected Mean
-    if ($(".datatable-container tbody tr").size() > 0) {
-        $(".datatable-value").each(function() {
-            if ($.isNumeric($(this).html().replace(/[A-Za-z$-\,]/g, ""))) {
-                values.push(parseFloat($(this).html().replace(/[A-Za-z$-\,]/g, "")));
-            }
-        });
-        if (values.length > 0) {
-            selectedTotal = values.reduce(function(a, b) { return a + b;});
-            selectedMean = selectedTotal / values.length;
-        }
+    // selected mean
+    var selectedMean = mean(_.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }));
+    if(selectedMean) {
+        $(".stats-mean-selected").text(dataPretty(selectedMean[keys[model.year + 1]], m));
+    } else {
+        $(".stats-mean-selected").text("N/A");
     }
-    $(".stats-mean-selected").text(dataPretty(selectedMean, m));
 
     // selected weighted mean
     if (metricRaw[m]) {
@@ -207,30 +227,4 @@ function updateCountyStats() {
         countyWeightedMean = values.reduce(function(a, b) { return a + b;}) / count;
     }
     $(".stats-weighted-mean-county").text(dataPretty(countyWeightedMean, m));
-}
-
-
-// Zoom to polygons. I think I'm only using this to get to old neighborhoods.
-function d3ZoomPolys(msg, d) {
-    var features = _.filter(d3Layer.toGeoJSON().features, function(data) { return _.contains(d.ids, data.id.toString()); });
-    var bounds = L.latLngBounds(L.geoJson(features[0]).getBounds());
-    _.each(features, function(feature) {
-        bounds.extend(L.geoJson(feature).getBounds());
-    });
-    map.fitBounds(bounds);
-}
-
-
-// zoom to neighborhood, adding a marker if it's a lnglat
-function geocode(d) {
-    // add a marker if a point location is passed
-    if (d.lat) {
-        try { map.removeLayer(marker); }
-        catch (err) {}
-        marker = L.marker([d.lat, d.lng]).addTo(map);
-    }
-
-    // zoom to neighborhood
-    var feature = _.filter(d3Layer.toGeoJSON().features, function(data) { return data.id === d.id; });
-    map.fitBounds(L.geoJson(feature[0]).getBounds());
 }

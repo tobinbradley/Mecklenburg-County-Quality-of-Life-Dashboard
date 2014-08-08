@@ -22,7 +22,6 @@
     "jquery": "*",
     "lodash": "*",
     "leaflet": "*",
-    "Chart.js": "*",
     "Leaflet.label": "*"
   }
 }
