@@ -41,7 +41,6 @@ function modelChanges(changes) {
         if ($('.slider').slider('value') !== model.year) {
             $('.slider').slider('value', model.year);
         }
-        year = model.year;
         $('.time-year').text(metricData[model.year].year.replace("y_", ""));
         drawMap();
         drawBarChart();
