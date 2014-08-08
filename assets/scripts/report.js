@@ -28,54 +28,6 @@
 var theFilter = ["434","372","232"],    // default list of neighborhoods if none passed
     theData;                            // global for fetched raw data
 
-// Make a Chart.js legend
-// via http://bebraw.github.io/Chart.js.legend/
-function legend(parent, data) {
-    parent.className = 'legend';
-    var datas = data.hasOwnProperty('datasets') ? data.datasets : data;
-
-    // remove possible children of the parent
-    while(parent.hasChildNodes()) {
-        parent.removeChild(parent.lastChild);
-    }
-
-    datas.forEach(function(d) {
-        var title = document.createElement('span');
-        title.className = 'title';
-        title.style.borderColor = d.hasOwnProperty('strokeColor') ? d.strokeColor : d.color;
-        title.style.borderStyle = 'solid';
-        parent.appendChild(title);
-
-        var text = document.createTextNode(d.title);
-        title.appendChild(text);
-    });
-}
-
-// Get the mean for stuff. NPA's passed for the report are filtered before they get here.
-function mean(metric) {
-    var mean = {},
-        keys = Object.keys(metric[0]);
-
-    _.each(keys, function(el, i) {
-        if (i > 0) {
-            var sum = 0,
-                counter = 0;
-
-            _.each(metric, function(d) {
-                if ($.isNumeric(d[el])) {
-                    sum += Number(d[el]);
-                    counter++;
-                }
-            });
-
-            mean[el] = sum/counter;
-        }
-    });
-
-    return mean;
-}
-
-
 // Here we make our snazzy chartjs charts. Each chart type has it's own code
 // block. The chart's data-chart property stores the metrics each chart needs.
 function createCharts() {
@@ -92,15 +44,20 @@ function createCharts() {
                 keys = Object.keys(theMean);
 
             data.push({
-                value: theMean[keys[keys.length - 1]],
+                value: Number(theMean[keys[keys.length - 1]]),
                 color: colors[i],
-                title: title[i]
+                label: title[i]
             });
         });
 
         ctx = document.getElementById($(this).prop("id")).getContext("2d");
-        new Chart(ctx).Doughnut(data);
-        legend(document.getElementById($(this).prop("id") + "-legend"), data);
+        var chart = new Chart(ctx).Doughnut(data, {
+            //String - A legend template
+    legendTemplate : '<% for (var i=0; i<segments.length; i++){%><span style="border-color:<%=segments[i].fillColor%>" class="title"><%if(segments[i].label){%><%=segments[i].label%><%}%></span><%}%>'
+        });
+
+        $("#" + $(this).prop("id") + "-legend").html(chart.generateLegend());
+
     });
 
     // bar charts
@@ -113,13 +70,13 @@ function createCharts() {
                 fillColor: "rgba(151,187,205,0.5)",
                 strokeColor: "rgba(151,187,205,0.8)",
                 data: [],
-                title: "NPA"
+                label: "NPA"
             },
             {
                 fillColor: "rgba(220,220,220,0.5)",
                 strokeColor: "rgba(220,220,220,0.8)",
                 data: [],
-                title: "County"
+                label: "County"
             }
         ];
 
@@ -136,8 +93,12 @@ function createCharts() {
         data.datasets = datasets;
 
         ctx = document.getElementById($(this).prop("id")).getContext("2d");
-        new Chart(ctx).Bar(data);
-        legend(document.getElementById($(this).prop("id") + "-legend"), data, $(this).data('title'));
+        var chart = new Chart(ctx).Bar(data, {
+            legendTemplate : '<% for (var i=0; i<datasets.length; i++){%><span class="title"  style="border-color:<%=datasets[i].strokeColor%>"><%if(datasets[i].label){%><%=datasets[i].label%><%}%></span><%}%>'
+        });
+
+        $("#" + $(this).prop("id") + "-legend").html(chart.generateLegend());
+
     });
 
     // line charts
@@ -156,7 +117,7 @@ function createCharts() {
                     pointColor: "rgba(151,187,205,1)",
                     pointStrokeColor: "#fff",
                     data: [],
-                    title: "NPA"
+                    label: "NPA"
                 },
                 {
                     fillColor: "rgba(220,220,220,0.2)",
@@ -164,7 +125,7 @@ function createCharts() {
                     pointColor: "rgba(220,220,220,1)",
                     pointStrokeColor: "#fff",
                     data: [],
-                    title: "County"
+                    label: "County"
                 }
             ]
         };
@@ -177,10 +138,14 @@ function createCharts() {
             }
         });
 
+
         ctx = document.getElementById($(this).prop("id")).getContext("2d");
-        new Chart(ctx).Line(data);
+        var chart = new Chart(ctx).Line(data, {
+            legendTemplate : '<% for (var i=0; i<datasets.length; i++){%><span class="title"  style="border-color:<%=datasets[i].strokeColor%>"><%if(datasets[i].label){%><%=datasets[i].label%><%}%></span><%}%>'
+        });
+
         if ($("#" + $(this).prop("id") + "-legend").length > 0) {
-            legend(document.getElementById($(this).prop("id") + "-legend"), data, $(this).data('title'));
+            $("#" + $(this).prop("id") + "-legend").html(chart.generateLegend());
         }
     });
 }

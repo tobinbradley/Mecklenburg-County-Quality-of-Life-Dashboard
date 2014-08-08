@@ -27,7 +27,7 @@ function modelChanges(changes) {
         processMetric();
         drawMap();
         drawBarChart();
-        drawLineChart();
+        lineChartCreate();
         updateMeta();
         updateTable();
         updateCountyStats();
@@ -49,12 +49,23 @@ function modelChanges(changes) {
         updateCountyStats();
     }
 
-    // maybe a selected array?
+    // the selected set changed
     if (_.contains(tasklist, "selected")) {
 
         if (model.selected.length > 0) {
             // map selection
             d3.selectAll(".geom").classed("d3-select", function(d) { return _.contains(model.selected, $(this).attr("data-id")); });
+
+            // enable report links
+            $(".report-launch").removeClass("disabled");
+
+            // bar chart
+            valueChart.selectedPointer(".value-select");
+
+            // line chart
+            lineChartCreate();
+
+            // blocks and tables
             _.each(model.selected, function(d) {
                 d3Select(d);
             });
@@ -62,8 +73,8 @@ function modelChanges(changes) {
         else {
             // clear all the things
             d3.selectAll(".geom").classed("d3-select", false);
-            d3.select(".value-select").selectAll("rect, line, text, circle").remove();
-            d3.selectAll(".trend-select").selectAll("path, circle").remove();
+            d3.select(".value-select").selectAll("circle").remove();
+            lineChartCreate();
             $(".datatable-container tbody tr").remove();
             $(".stats-selected").text("N/A");
             $(".report-launch").addClass("disabled");

@@ -1,8 +1,78 @@
-// Tried to go javascript closure here, was mostly successful.
+// Ye olde line chart
+// This was d3 at one time, but as I didn't need any interactivity
+// with it and d3 is *hard* I went chartjs on the sucker.
+// lineChartCreate calls lineChartData for the data. It's blown away
+// and redrawn every time because canvas is hellafast.
+function lineChartData() {
+    var npaMean = mean(_.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; })),
+        countyMean = mean(model.metric),
+        keys = Object.keys(model.metric[0]);
+
+    var data = {
+        labels: [],
+        datasets: [
+            {
+                label: "County " + neighborhoodDescriptor + " Average",
+                fillColor : "rgba(220,220,220,0.2)",
+                strokeColor : "rgba(220,220,220,1)",
+                pointColor : "rgba(220,220,220,1)",
+                pointStrokeColor : "#fff",
+                pointHighlightFill : "#fff",
+                pointHighlightStroke : "rgba(220,220,220,1)",
+                data : []
+            },
+            {
+                label: "Selected " + neighborhoodDescriptor + " Average",
+                fillColor : "rgba(151,187,205,0.2)",
+                strokeColor : "rgba(151,187,205,1)",
+                pointColor : "rgba(151,187,205,1)",
+                pointStrokeColor : "#fff",
+                pointHighlightFill : "#fff",
+                pointHighlightStroke : "rgba(151,187,205,1)",
+                data :[]
+            }
+        ]
+    };
+
+    _.each(keys, function(el, i) {
+        if (i > 0) {
+            data.labels.push(el.replace("y_", ""));
+            data.datasets[0].data.push(countyMean[el]);
+            data.datasets[1].data.push(npaMean[el]);
+        }
+    });
+
+    // remove select mean if no values are there
+    if (!npaMean) { data.datasets.pop(); }
+
+    return data;
+}
+
+function lineChartCreate() {
+    var keys = Object.keys(model.metric[0]);
+    if (keys.length > 2) {
+        if (window.myLine) { window.myLine.destroy(); }
+        var ctx = document.getElementById("lineChart").getContext("2d");
+        window.myLine = new Chart(ctx).Line(lineChartData(), {
+            responsive: true,
+            maintainAspectRatio: true,
+            animation: true,
+            showTooltips: true,
+            scaleLabel: "<%=dataPretty(value, model.metricId)%>",
+            legendTemplate : '<% for (var i=0; i<datasets.length; i++){%><span class="title"  style="border-color:<%=datasets[i].strokeColor%>"><%if(datasets[i].label){%><%=datasets[i].label%><%}%></span><%}%>'
+        });
+        $(".lineChartLegend").html(myLine.generateLegend());
+    }
+}
+
+
+// Ye olde D3 bar chart. I tried to go full-on JS closure here, but it isn't quite there.
+// If you tried to use this closure generically your life would turn into a furious ball
+// of nothing. Curse my stupid brains.
 function barChart() {
     var width = 720, // default width
-        height = 250, // default height
-        margins = [20, 20, 20, 30],
+        height = 220, // default height
+        margins = [20, 10, 20, 10],
         x,
         y,
         xScale;
@@ -105,7 +175,7 @@ function barChart() {
 
         my.pointerMove();
 
-        // // store chart with for responsiveness
+        // store chart with for responsiveness
         barchartWidth = $(".barchart").width();
     }
 
@@ -136,38 +206,46 @@ function barChart() {
 
     my.pointerAdd = function (id, value, container) {
         d3.select(container)
-            .append("line")
-            .attr("x1", xScale(value))
-            .attr("x2", xScale(value))
-            .attr("y1", y(0))
-            .attr("y2", 185)
-            .attr("data-id", id);
-        d3.select(container)
             .append("circle")
             .attr("cx", xScale(value))
             .attr("cy", y(0))
             .attr("r", 4)
             .attr("data-id", id);
-        var rect = d3.select(container)
-            .append("rect")
-            .attr("y", 165)
-            .attr("rx", 3)
-            .attr("ry", 3)
-            .attr("data-id", id)
-            .attr("class", "metric-hover");
-        var text = d3.select(container)
-            .append("text")
-            .attr("x", xScale(value))
-            .attr("y", 180)
-            .text(id)
-            .attr("data-id", id);
-
-        var textSize = text.node().getBBox();
-        rect.attr("width", textSize.width + 6)
-            .attr("height", textSize.height + 6)
-            .attr("x", xScale(value) - ((textSize.width + 6) / 2));
-
         return my;
+    };
+
+    my.selectedPointer = function (container) {
+        // clear out old stuff
+        d3.selectAll(".value-select circle").remove();
+        if (model.selected.length > 0) {
+        var data = _.filter(model.metric, function(d) { return _.contains(model.selected, d.id); });
+        var keys = Object.keys(data[0]);
+
+        d3.select(container).selectAll("circle")
+            .data(data)
+            .enter()
+            .append("circle")
+            .attr("cx", function(d) { return xScale(d[keys[model.year + 1]]); })
+            .attr("cy", y(0))
+            .attr("r", 5)
+            .attr("class", "metric-hover")
+            .attr("opacity", function(d) { if ($.isNumeric(d[keys[model.year + 1]])) { return "1"; } else { return "0"; }  })
+            .attr("data-id", function(d) { return d.id; })
+            .attr("data-value", function(d) { if ($.isNumeric(d[keys[model.year + 1]])) { return d[keys[model.year + 1]]; } else { return ""; }  });
+        }
+
+        $(".value-select circle").tooltip({
+            html: true,
+            title: function() {
+                var sel = $(this),
+                    num = "";
+                if ($.isNumeric(sel.attr("data-value"))) {
+                    num = "<br>" + dataPretty(sel.attr("data-value"), $("#metric").val());
+                }
+                return "<p class='tip'><strong><span>" + neighborhoodDescriptor + " " + sel.attr("data-id") + "</strong>" + num + "</span></p>";
+            },
+            container: 'body'
+        });
     };
 
     my.pointerRemove = function (id, container) {
@@ -186,27 +264,11 @@ function barChart() {
                         my.pointerAdd(item.attr("data-id"), item.attr("data-value"), ".value-select");
                     }
                     var rect = d3.select(".value-select rect[data-id='" + item.attr("data-id") + "']");
-                    d3.select(".value-select circle[data-id='" + item.attr("data-id") + "']")
+                    d3.selectAll(".value-select circle[data-id='" + item.attr("data-id") + "']")
                         .transition()
                         .duration(1000)
                         .attr("cx", theX)
                         .attr("opacity", "1");
-                    rect
-                        .transition()
-                        .duration(1000)
-                        .attr("opacity", "1")
-                        .attr("x", theX - (rect.node().getBBox().width / 2));
-                    d3.select(".value-select text[data-id='" + item.attr("data-id") + "']")
-                        .transition()
-                        .duration(1000)
-                        .attr("opacity", "1")
-                        .attr("x", theX);
-                    d3.select(".value-select line[data-id='" + item.attr("data-id") + "']")
-                        .transition()
-                        .duration(1000)
-                        .attr("x1", theX)
-                        .attr("opacity", "1")
-                        .attr("x2", theX);
                 }
                 else {
                     d3.selectAll(".value-select [data-id='" + item.attr("data-id") + "']")
