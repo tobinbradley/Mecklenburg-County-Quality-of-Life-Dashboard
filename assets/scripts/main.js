@@ -145,7 +145,7 @@ $(document).ready(function () {
     });
 
     // Set up Tourbus to give noobs a tour.
-    var tour = $('#dashboard-tour').tourbus({});
+    var tour = $('#dashboard-tour').tourbus({ onStop: function( tourbus ) {$("html, body").animate({ scrollTop: 0 }, "slow");} });
     $('.btn-help').on("click", function() {
         tour.trigger('depart.tourbus');
     });
