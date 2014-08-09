@@ -366,7 +366,7 @@ function processMetric(msg, data) {
     }
 
     // set slider and time related stuff
-    year = metricData.length -1;
+    year = 41;
     $(".slider").slider("option", "max", metricData.length - 1).slider("value", year);
     metricData.length > 1 ? $(".time").fadeIn() : $(".time").hide();
     $('.time-year').text(nameMonth(metricData[year].year));
