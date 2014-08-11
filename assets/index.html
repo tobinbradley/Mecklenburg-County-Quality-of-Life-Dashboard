@@ -496,17 +496,30 @@
     </div>
 
     <!-- BEGIN: Underscore Template Definition. -->
-    <script type="text/template" class="template">
-        <tr data-id="<%- rc.id %>" <% if (rc.value) { %>data-value="<%- rc.value%>"<% } %> class="metric-hover">
-            <%
-                var m = $("#metric").val();
-            %>
-            <td class="text-center"><%- rc.id %></td>
-            <td class="text-right datatable-value"><% if (rc.value) { %><%= dataPretty(rc.value, m) %><% } %></td>
-            <td class="text-left"><% if (rc.accuracy) { %><span class="text-accuracy">&plusmn;<%- dataPretty(rc.accuracy, m) %></span><% } %></td>
-            <td class="text-right datatable-raw"><% if (rc.raw) { %><%= dataPretty(rc.raw, rc.rawM) %><% } %></td>
-            <td class="text-left"><% if (rc.rawaccuracy) { %><span class="text-accuracy">&plusmn;<%= dataPretty(rc.rawaccuracy, rc.rawM) %></span><% } %></td>
-        </tr>
+    <script type="text/template" class="template-table">
+        <%
+        var m = $("#metric").val();
+        _.each(rc.theSelected, function (d, i) { %>
+            <tr data-id="<%- d.id %>" <% if (d[rc.keys[model.year + 1]]) { %>data-value="<%- d[rc.keys[model.year + 1]] %>"<% } %> class="metric-hover">
+                <td class="text-center"><%- d.id %></td>
+                <td class="text-right datatable-value"><% if (d[rc.keys[model.year + 1]]) { %><%= dataPretty(d[rc.keys[model.year + 1]], m) %><% } %></td>
+                <td class="text-left"><% if (rc.theAccuracy.length > 0) { %><span class="text-accuracy">&plusmn;<%- dataPretty(rc.theAccuracy[i][rc.keys[model.year + 1]], m) %></span><% } %></td>
+                <td class="text-right"><%
+                    var theDiff = ((d[rc.keys[rc.keys.length - 1]] - d[rc.keys[1]]) / d[rc.keys[1]]) * 100;
+
+                    if (theDiff === 0 || !$.isNumeric(theDiff)) {
+                        theDiff = "--";
+                    } else if (theDiff > 0)
+                        theDiff = "<span class='glyphicon glyphicon-arrow-up'></span> +" + theDiff.toFixed(1) + "%";
+                    else {
+                        theDiff = "<span class='glyphicon glyphicon-arrow-down'></span> -" + (theDiff * -1).toFixed(1) + "%";
+                    }
+                %><%= theDiff %></td>
+                <td class="text-right datatable-raw"><% if (rc.theRaw.length > 0) { %><%= dataPretty(rc.theRaw[i][rc.keys[model.year + 1]], metricRaw[m]) %><% } %></td>
+                <td class="text-left"><% if (rc.theRawAccuracy.length > 0) { %><span class="text-accuracy">&plusmn;<%= dataPretty(rc.theRawAccuracy[i][rc.keys[model.year + 1]], metricRaw[m]) %></span><% } %></td>
+            </tr>
+        <% }); %>
+
     </script>
     <!-- END: Underscore Template Definition. -->
 

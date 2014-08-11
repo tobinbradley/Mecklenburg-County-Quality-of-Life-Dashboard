@@ -33,18 +33,19 @@ function fetchMetricData(m) {
         fetchRaw(m),
         fetchRawAccuracy(m)
     ).then(function(metric, geom, accuracy, raw, rawaccuracy) {
-        accuracyData = accuracy[0];
-        rawData = raw[0];
-        rawAccuracy = rawaccuracy[0];
 
-        // launch processes
+        // set the raw stuff
+        model.metricAccuracy = accuracy[0];
+        model.metricRaw = raw[0];
+        model.metricRawAccuracy = rawaccuracy[0];
+
+        // set the geometry if it's there
         if (geom[0].type) {
             model.geom = geom[0];
-            model.metric = metric[0];
         }
-        else {
-            model.metric = metric[0];
-        }
+
+        // update the metric
+        model.metric = metric[0];
 
     });
 }

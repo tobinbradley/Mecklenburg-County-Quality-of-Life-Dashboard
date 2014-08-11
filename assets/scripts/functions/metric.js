@@ -59,7 +59,7 @@ function recordMetricHistory() {
 // Hover highlights
 // Node there's some weirdness with the geometry doing it this way, so there is
 // another function like this specifically for after the geometry is added in
-// d3map.js.
+// map.js.
 $(document).on({
     mouseenter: function(event){
         event.stopPropagation();
@@ -110,122 +110,55 @@ function quantizeCount(data) {
     return q2;
 }
 
-// Select or unselect a neighborhood
-function d3Select(id) {
-    var d3obj = d3.select(".geom[data-id='" + id + "']");
-    // add to table
-    drawTable(id, d3obj.attr("data-value"));
-}
-function d3Unselect(id) {
-    var d3obj = d3.select(".geom[data-id='" + id + "']");
-    d3obj.classed("d3-select", false);
+// create the table via lodash template
+function drawTable() {
+    var template = _.template($("script.template-table").html()),
+        theSelected = _.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }),
+        theAccuracy = _.filter(model.metricAccuracy, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }),
+        theRaw = _.filter(model.metricRaw, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }),
+        theRawAccuracy = _.filter(model.metricRawAccuracy, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }),
+        keys = Object.keys(model.metric[0]);
 
-    valueChart.pointerRemove(id, ".value-select");
-
-    // remove table stuff
-    $(".datatable-container tr[data-id='" + id + "']").remove();
-    updateSelectedStats();
-}
-
-
-// draw the nerd table
-function updateTable() {
-    _.each($(".datatable-container tbody tr"), function(el) {
-        var theId = $(el).data("id");
-        drawTable(theId, metricData[model.year].map.get(theId));
-    });
-}
-
-// update nerd table rows
-function drawTable(id, val) {
-    var tableRec = {};
-    tableRec.id = id;
-    if ($.isNumeric(val)) {
-        tableRec.value = val;
-    }
-    if (accuracyData.length > 0) {
-        tableRec.accuracy = _.filter(accuracyData, function(r) { return r.id == id; })[0][metricData[model.year].year];
-    }
-    if (rawData.length > 0) {
-        tableRec.raw = _.filter(rawData, function(r) { return r.id == id; })[0][metricData[model.year].year];
-        tableRec.rawM = metricRaw[id];
-    }
-    if (rawAccuracy.length > 0) {
-        tableRec.rawaccuracy = _.filter(rawAccuracy, function(r) { return r.id == id; })[0][metricData[model.year].year];
-    }
-
-    var template = _.template($("script.template").html());
-    if ($(".datatable-container tr[data-id='" + id + "']").size() === 0) {
-        $(".datatable-container tbody").append(template(tableRec));
-    }
-    else {
-        $(".datatable-container tr[data-id='" + id + "']").replaceWith(template(tableRec));
-    }
-
-    updateSelectedStats();
+    $(".datatable-container tbody").html(template({
+        "theSelected": theSelected,
+        "theAccuracy": theAccuracy,
+        "theRaw": theRaw,
+        "theRawAccuracy": theRawAccuracy,
+        "keys": keys
+    }));
 }
 
 // update stat boxes for selected stuff
-function updateSelectedStats() {
+function updateStats() {
     var m = $("#metric").val(),
-        selectedWeightedMean = "N/A",
         keys = Object.keys(model.metric[0]),
-        values = [],
-        count = 0;
+        theStat;
 
-    // selected mean
-    var selectedMean = mean(_.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }));
-    if(selectedMean) {
-        $(".stats-mean-selected").text(dataPretty(selectedMean[keys[model.year + 1]], m));
-    } else {
-        $(".stats-mean-selected").text("N/A");
-    }
+    // County Neighborhood Mean
+    theStat = mean(model.metric);
+    $(".stats-county-npa-mean").text(dataPretty(theStat[keys[model.year + 1]], m));
+
+    // Selected Neighborhood Mean
+    theStat = mean(_.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }));
+    $(".stats-mean-selected").text(dataPretty(theStat[keys[model.year + 1]], m));
+
+    // County Median
+    theStat = median(_.map(model.metric, function(num){ if ($.isNumeric(num[keys[model.year + 1]])) { return Number(num.y_2012); } }));
+    $(".stats-county-npa-median").text("Median: " + dataPretty(theStat, m));
 
     // selected weighted mean
     if (metricRaw[m]) {
         $(".stats-weighted").removeClass('hide');
-        // loop through table for selected weighted mean
-        if ($(".datatable-container tbody tr").size() > 0) {
-            $(".datatable-container tbody tr").each(function() {
-                var theValue = $(this).find(".datatable-value").html().replace(/[A-Za-z$-\,]/g, "");
-                var theRaw = $(this).find(".datatable-raw").html().replace(/[A-Za-z$-\,]/g, "");
-                if ($.isNumeric(theValue) && $.isNumeric(theRaw)) {
-                    values.push(parseFloat(theValue * theRaw));
-                    count += parseFloat(theRaw);
-                }
-            });
-            //if (values.length > 0) {
-                selectedWeightedMean = values.reduce(function(a, b) { return a + b;}) / count;
-            //}
-        }
+
+        // county weighted mean
+        theStat = weightedMean(model.metric, model.metricRaw);
+        $(".stats-weighted-mean-county").text(dataPretty(theStat[keys[model.year + 1]], m));
+
+        // selected weighted mean
+        theStat = weightedMean(_.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }),
+            _.filter(model.metricRaw, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }));
+        $(".stats-weighted-mean-selected").text(dataPretty(theStat[keys[model.year + 1]], m));
     } else {
         $(".stats-weighted").addClass('hide');
     }
-
-    $(".stats-weighted-mean-selected").text(dataPretty(selectedWeightedMean, m));
-
-}
-
-// update stat boxes for global stuff
-function updateCountyStats() {
-    var m = $("#metric").val(),
-        countyWeightedMean = "N/A",
-        selectedWeightedMean = "N/A",
-        values = [],
-        count = 0;
-
-    // County npa mean and median
-    $(".stats-county-npa-mean").text(dataPretty(d3.mean(metricData[model.year].map.values()), m));
-    $(".stats-county-npa-median").text("Median: " + dataPretty(d3.median(metricData[model.year].map.values()), m));
-
-    if (metricRaw[m]) {
-        _.each(rawData, function(d) {
-            if ($.isNumeric(d[metricData[model.year].year])) {
-                values.push(d[metricData[model.year].year] * metricData[model.year].map.get(d.id));
-                count += parseFloat(d[metricData[model.year].year]);
-            }
-        });
-        countyWeightedMean = values.reduce(function(a, b) { return a + b;}) / count;
-    }
-    $(".stats-weighted-mean-county").text(dataPretty(countyWeightedMean, m));
 }
