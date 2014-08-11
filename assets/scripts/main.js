@@ -2,17 +2,14 @@ var map,                // leaflet map
     quantize,           // d3 quantizer for color breaks
     x_extent,           // extent of the metric, including all years
     metricData = [],    // each element is object {'year': the year, 'map': d3 map of data}
-    accuracyData = [],  // hold accuracy data if available
-    rawData = [],       // hold raw data if available
-    rawAccuracy = [],   // hold raw data accuracy data (sigh) if available
     timer,              // timer for year slider
-    barchartWidth,      // for responsive charts
+    barchartWidth,      // for responsive d3 barchart
     marker,             // marker for geocode
     d3Layer,            // the d3Layer on leaflet
     tour,               // I-don't-want-to-do-real-help thing
-    recordHistory = false;
+    recordHistory = false;  // stupid global toggle so it doesn't record page load metric etc. to google analytics
 
-// obligitory lodash/underscore template variable setting
+// lodash/underscore template desucking
 _.templateSettings.variable = "rc";
 
 // Let's do stuff
@@ -63,7 +60,7 @@ $(document).ready(function () {
     $('.table2CSV').on('click', function() {
         var csv = $(".datatable-container table").table2CSV({
                 delivery: 'value',
-                header: [neighborhoodDescriptor,'Value','Accuracy', 'Raw Data', 'Raw Accuracy']
+                header: [neighborhoodDescriptor,'Value','Accuracy', 'Trend', 'Raw Data', 'Raw Accuracy']
             });
         window.location.href = 'http://mcmap.org/utilities/table2csv.php?csv_text=' + encodeURIComponent(csv);
     });

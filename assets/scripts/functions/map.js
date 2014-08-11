@@ -79,8 +79,7 @@ function initMap() {
         var sel = d3.select(".geom[data-id='" + d.layer.feature.id + "']");
         if (sel.classed("d3-select")) {
             model.selected = _.without(model.selected, d.layer.feature.id);
-            // get rid of this next thing later
-            d3Unselect(d.layer.feature.id);
+            sel.classed("d3-select", false);
         }
         else {
             model.selected = _.union(model.selected, [d.layer.feature.id]);

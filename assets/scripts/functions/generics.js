@@ -5,12 +5,10 @@ function mean(metric) {
     if(metric.length > 0) {
         var mean = {},
             keys = Object.keys(metric[0]);
-
         _.each(keys, function(el, i) {
             if (i > 0) {
                 var sum = 0,
                     counter = 0;
-
                 _.each(metric, function(d) {
                     if ($.isNumeric(d[el])) {
                         sum += Number(d[el]);
@@ -21,10 +19,46 @@ function mean(metric) {
                 mean[el] = (sum/counter).toFixed(1);
             }
         });
-
         return mean;
     } else {
         return false;
+    }
+}
+
+// weighted means for crazy people
+function weightedMean(metric, raw) {
+    if (metric.length > 0 && raw.length > 0) {
+        var mean = {},
+            keys = Object.keys(metric[0]);
+
+        _.each(keys, function(el, i){
+            if (i > 0) {
+                var sum = 0,
+                    denom = 0;
+                _.each(metric, function(d, i) {
+                    if ($.isNumeric(d[el])) {
+                        sum = sum + (d[el] * Number(raw[i][el]));
+                        denom = denom + Number(raw[i][el]);
+                    }
+                });
+                mean[el] = sum / denom;
+            }
+        });
+        return mean;
+    }
+    else {
+        return false;
+    }
+}
+
+function median(values) {
+    values.sort( function(a,b) {return a - b;} );
+    var half = Math.floor(values.length/2);
+    if(values.length % 2) {
+        return values[half];
+    }
+    else {
+        return (values[half-1] + values[half]) / 2.0;
     }
 }
 

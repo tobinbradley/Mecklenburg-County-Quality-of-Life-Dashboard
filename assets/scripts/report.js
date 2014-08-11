@@ -171,9 +171,9 @@ function createData() {
         if (theDiff === 0 || !$.isNumeric(theDiff)) {
             theDiff = "--";
         } else if (theDiff > 0)
-            theDiff = "<span class='glyphicon glyphicon-arrow-up'></span> " + theDiff.toFixed(1) + "%";
+            theDiff = "<span class='glyphicon glyphicon-arrow-up'></span> +" + theDiff.toFixed(1) + "%";
         else {
-            theDiff = "<span class='glyphicon glyphicon-arrow-down'></span> " + (theDiff * -1).toFixed(1) + "%";
+            theDiff = "<span class='glyphicon glyphicon-arrow-down'></span> -" + (theDiff * -1).toFixed(1) + "%";
         }
 
         el.html(theDiff);

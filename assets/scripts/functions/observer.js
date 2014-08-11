@@ -1,5 +1,8 @@
 var model = {
-    "selected": []
+    "selected": [],
+    "metricAccuracy": [],
+    "metricRaw": [],
+    "metricRawAccuracy": []
 };
 
 function modelChanges(changes) {
@@ -29,8 +32,8 @@ function modelChanges(changes) {
         drawBarChart();
         lineChartCreate();
         updateMeta();
-        updateTable();
-        updateCountyStats();
+        drawTable();
+        updateStats();
         if (recordHistory) { recordMetricHistory(); }
         recordHistory = true;
     }
@@ -44,38 +47,28 @@ function modelChanges(changes) {
         $('.time-year').text(metricData[model.year].year.replace("y_", ""));
         drawMap();
         drawBarChart();
-        updateTable();
-        updateCountyStats();
+        drawTable();
+        updateStats();
     }
 
     // the selected set changed
     if (_.contains(tasklist, "selected")) {
-
-        if (model.selected.length > 0) {
             // map selection
+            d3.selectAll(".geom").classed("d3-false");
             d3.selectAll(".geom").classed("d3-select", function(d) { return _.contains(model.selected, $(this).attr("data-id")); });
-
             // enable report links
             $(".report-launch").removeClass("disabled");
-
             // bar chart
             valueChart.selectedPointer(".value-select");
-
             // line chart
             lineChartCreate();
+            // table
+            drawTable();
+            // fancy metric blocks
+            updateStats();
 
-            // blocks and tables
-            _.each(model.selected, function(d) {
-                d3Select(d);
-            });
-        }
-        else {
-            // clear all the things
-            d3.selectAll(".geom").classed("d3-select", false);
-            d3.select(".value-select").selectAll("circle").remove();
-            lineChartCreate();
-            $(".datatable-container tbody tr").remove();
-            $(".stats-selected").text("N/A");
+        if (model.selected.length === 0) {
+            // disable report links and remove map marker
             $(".report-launch").addClass("disabled");
             try { map.removeLayer(marker); }
             catch (err) {}
@@ -86,14 +79,4 @@ function modelChanges(changes) {
 
 Object.observe(model, function(changes) {
     modelChanges(changes);
-
-    // changes.forEach(function(change, i){
-    //
-    // //   console.log('what property changed? ' + change.name);
-    // //   console.log('how did it change? ' + change.type);
-    // //   console.log('what was the old value? ' + change.oldValue);
-    // //   console.log('whats the current value? ' + change.object[change.name]);
-    //   //
-    // //   console.log(changes, model);
-    //});
 });
