@@ -78,11 +78,10 @@ function initMap() {
     d3Layer.on("click", function(d) {
         var sel = d3.select(".geom[data-id='" + d.layer.feature.id + "']");
         if (sel.classed("d3-select")) {
-            model.selected = _.without(model.selected, d.layer.feature.id);
-            sel.classed("d3-select", false);
+            model.unselect = [d.layer.feature.id];
         }
         else {
-            model.selected = _.union(model.selected, [d.layer.feature.id]);
+            model.select = [d.layer.feature.id];
         }
     });
 
@@ -142,26 +141,29 @@ function initMap() {
 // update the map colors and values
 function drawMap() {
 
-    var theMetric = $("#metric").val();
-    var theGeom = d3.selectAll(".geom");
+    var theMetric = $("#metric").val(),
+        theGeom = d3.selectAll(".geom"),
+        classlist = [],
+        keys = Object.keys(model.metric[0]);
 
     // clear out quantile classes
-    var classlist = [];
     for (i = 0; i < colorbreaks; i++) {
         classlist.push("q" + i);
     }
     theGeom.classed(classlist.join(" "), false);
 
-    var theData = metricData[model.year].map;
     theGeom.each(function() {
-        var item = d3.select(this);
-        var styleClass = quantize(theData.get(item.attr('data-id')));
+        var item = d3.select(this),
+            theData = _.filter(model.metric, function(el) { return el.id == item.attr('data-id'); }),
+            theValue = theData[0][keys[model.year + 1]];
+
+        var styleClass = quantize(theValue);
         if (!styleClass) {
             styleClass = "";
         }
         item.classed(styleClass, true)
-            .attr("data-value", theData.get(item.attr('data-id')))
-            .attr("data-quantile", quantize(theData.get(item.attr('data-id'))))
+            .attr("data-value", theValue)
+            .attr("data-quantile", quantize(theValue))
             .attr("data-toggle", "tooltip");
     });
 
