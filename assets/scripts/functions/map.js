@@ -6,7 +6,7 @@ function mapCreate() {
             minZoom: mapGeography.minZoom,
             maxZoom: mapGeography.maxZoom
         }).setView(mapGeography.center, mapGeography.defaultZoom);
-    var baseTiles = L.tileLayer(baseTilesURL);
+    window.baseTiles = L.tileLayer(baseTilesURL);
 
     // Year display
     var yearControl = L.control({position: 'bottomleft'});
@@ -161,7 +161,7 @@ function drawMap() {
         if ($.isNumeric(theValue)) {
             styleClass = quantize(theValue);
         }
-        
+
         item.classed(styleClass, true)
             .attr("data-value", theValue)
             .attr("data-quantile", styleClass)
