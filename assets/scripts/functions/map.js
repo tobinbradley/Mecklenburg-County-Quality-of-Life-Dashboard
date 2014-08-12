@@ -155,15 +155,16 @@ function drawMap() {
     theGeom.each(function() {
         var item = d3.select(this),
             theData = _.filter(model.metric, function(el) { return el.id == item.attr('data-id'); }),
-            theValue = theData[0][keys[model.year + 1]];
-
-        var styleClass = quantize(theValue);
-        if (!styleClass) {
+            theValue = theData[0][keys[model.year + 1]],
             styleClass = "";
+
+        if ($.isNumeric(theValue)) {
+            styleClass = quantize(theValue);
         }
+        
         item.classed(styleClass, true)
             .attr("data-value", theValue)
-            .attr("data-quantile", quantize(theValue))
+            .attr("data-quantile", styleClass)
             .attr("data-toggle", "tooltip");
     });
 

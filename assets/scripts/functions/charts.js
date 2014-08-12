@@ -226,20 +226,22 @@ function barChart() {
         // clear out old stuff
         d3.selectAll(".value-select circle").remove();
         if (model.selected.length > 0) {
-        var data = _.filter(model.metric, function(d) { return _.contains(model.selected, d.id); });
-        var keys = Object.keys(data[0]);
+            var data = _.filter(model.metric, function(d) { return _.contains(model.selected, d.id); });
+            var keys = Object.keys(data[0]);
 
-        d3.select(container).selectAll("circle")
-            .data(data)
-            .enter()
-            .append("circle")
-            .attr("cx", function(d) { return xScale(d[keys[model.year + 1]]); })
-            .attr("cy", y(0))
-            .attr("r", 5)
-            .attr("class", "metric-hover")
-            .attr("opacity", function(d) { if ($.isNumeric(d[keys[model.year + 1]])) { return "1"; } else { return "0"; }  })
-            .attr("data-id", function(d) { return d.id; })
-            .attr("data-value", function(d) { if ($.isNumeric(d[keys[model.year + 1]])) { return d[keys[model.year + 1]]; } else { return ""; }  });
+            if ($.isNumeric(d[keys[model.year + 1]])) {
+                d3.select(container).selectAll("circle")
+                    .data(data)
+                    .enter()
+                    .append("circle")
+                    .attr("cx", function(d) { return xScale(d[keys[model.year + 1]]); })
+                    .attr("cy", y(0))
+                    .attr("r", 5)
+                    .attr("class", "metric-hover")
+                    .attr("opacity", function(d) { if ($.isNumeric(d[keys[model.year + 1]])) { return "1"; } else { return "0"; }  })
+                    .attr("data-id", function(d) { return d.id; })
+                    .attr("data-value", function(d) { if ($.isNumeric(d[keys[model.year + 1]])) { return d[keys[model.year + 1]]; } else { return ""; }  });
+            }
         }
 
         $(".value-select circle").tooltip({
