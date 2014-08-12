@@ -1,7 +1,6 @@
 var map,                // leaflet map
     quantize,           // d3 quantizer for color breaks
     x_extent,           // extent of the metric, including all years
-    metricData = [],    // each element is object {'year': the year, 'map': d3 map of data}
     timer,              // timer for year slider
     barchartWidth,      // for responsive d3 barchart
     marker,             // marker for geocode
@@ -24,6 +23,7 @@ $(document).ready(function () {
             random = Math.floor((Math.random() * $options.length));
         $options.eq(random).prop('selected', true);
     }
+    model.metricId =  $("#metric").val();
 
     // set window popstate handler
     if (history.pushState) {

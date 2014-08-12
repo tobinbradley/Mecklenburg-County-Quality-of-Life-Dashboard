@@ -78,13 +78,13 @@ function barChart() {
         xScale;
 
     function my() {
-        var data = quantizeCount(metricData[model.year].map.values());
-        var countyMean = Math.round(d3.mean(metricData[model.year].map.values()) * 10) / 10;
-        var qtiles = quantize.quantiles();
-        var theMetric = $("#metric").val();
-
-        var w = width - margins[1] - margins[3];
-        var h = height - margins[0] - margins[2];
+        var keys = Object.keys(model.metric[0]),
+            data = quantizeCount(_.map(model.metric, function(num) { if ($.isNumeric(num[keys[model.year + 1]])) { return Number(num[keys[model.year + 1]]); } })),
+            countyMean = mean(model.metric)[keys[model.year + 1]],
+            qtiles = quantize.quantiles(),
+            theMetric = $("#metric").val(),
+            w = width - margins[1] - margins[3],
+            h = height - margins[0] - margins[2];
 
         var container = $("#barChart");
 
@@ -164,8 +164,16 @@ function barChart() {
           container: 'body'
         });
 
+        // chart rect click event
+        graph.selectAll("rect").on("click", function(el, i) {
+            var arr = [];
+            $('.geom.' + el.key).each(function(){
+                arr.push($(this).attr("data-id"));
+            });
+            model.select = arr;
+        });
 
-        // // county mean indicator
+        // county mean indicator
         graph.select(".value-mean line")
             .transition()
             .attr("y1", y(0))
@@ -257,8 +265,13 @@ function barChart() {
         d3.selectAll(".geom.d3-select")
             .each(function(d) {
                 var item = d3.select(this);
+
                 if ($.isNumeric(item.attr("data-value"))) {
-                    var theX = xScale(metricData[model.year].map.get(item.attr("data-id")));
+
+                    var theData = _.filter(model.metric, function(el) { return el.id == item.attr('data-id'); }),
+                        keys = Object.keys(model.metric[0]),
+                        theX = xScale(theData[0][keys[model.year + 1]]);
+
                     // add pointer if it doesn't exist
                     if (d3.select(".value-select circle[data-id='" + item.attr("data-id") + "']")[0][0] === null) {
                         my.pointerAdd(item.attr("data-id"), item.attr("data-value"), ".value-select");

@@ -3,14 +3,8 @@
 
 // Process the metric into useful stuff
 function processMetric() {
-    // clear metric data
-    metricData.length = 0;
-
-    // get the years available
     var keys = Object.keys(model.metric[0]);
-    for (var i = 1; i < keys.length; i++) {
-        metricData.push({"year": keys[i], "map": d3.map()});
-    }
+
 
     // hide or show year related stuff
     if (keys.length > 2) {
@@ -20,20 +14,12 @@ function processMetric() {
     }
 
     // set slider and time related stuff
-    $(".slider").slider("option", "max", metricData.length - 1);
-    model.year = metricData.length -1;
-
-    // set the data into d3 maps
-    _.each(model.metric, function (d) {
-        for (var i = 0; i < metricData.length; i++) {
-            if ($.isNumeric(d[metricData[i].year])) { metricData[i].map.set(d.id, parseFloat(d[metricData[i].year])); }
-        }
-    });
+    $(".slider").slider("option", "max", keys.length - 2);
+    model.year = keys.length - 2;
 
     // Set up data extent
-    var extentArray = [];
-    _.each(metricData, function(d) { extentArray = extentArray.concat(d.map.values()); });
-    x_extent = d3.extent(extentArray);
+    var theMap = _.map(model.metric, function(num){ if ($.isNumeric(num[keys[model.year + 1]])) { return Number(num[keys[model.year + 1]]); } });
+    x_extent = d3.extent(theMap);
 
     // set up data quantile from extent
     quantize = d3.scale.quantile()
@@ -51,7 +37,7 @@ function recordMetricHistory() {
         ga('send', 'event', 'metric', theMetric.text().trim(), theMetric.parent().prop("label"));
     }
     if (history.pushState) {
-        history.pushState({myTag: true}, null, "?m=" + $("#metric").val());
+        history.pushState({myTag: true}, null, "?m=" + model.metricId);
     }
 }
 
@@ -130,7 +116,7 @@ function drawTable() {
 
 // update stat boxes for selected stuff
 function updateStats() {
-    var m = $("#metric").val(),
+    var m = model.metricId,
         keys = Object.keys(model.metric[0]),
         theStat;
 
@@ -143,7 +129,7 @@ function updateStats() {
     $(".stats-mean-selected").text(dataPretty(theStat[keys[model.year + 1]], m));
 
     // County Median
-    theStat = median(_.map(model.metric, function(num){ if ($.isNumeric(num[keys[model.year + 1]])) { return Number(num.y_2012); } }));
+    theStat = median(_.map(model.metric, function(num){ if ($.isNumeric(num[keys[model.year + 1]])) { return Number(num[keys[model.year + 1]]); } }));
     $(".stats-county-npa-median").text("Median: " + dataPretty(theStat, m));
 
     // selected weighted mean

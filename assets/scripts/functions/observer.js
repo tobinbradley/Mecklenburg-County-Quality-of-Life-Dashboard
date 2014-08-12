@@ -17,12 +17,16 @@ function modelChanges(changes) {
 
     // the metric id changed, get some data
     if(_.contains(tasklist, "metricId")) {
-        // change chosen if not samsies
-        if (model.metricId !== undefined && $(".chosen-select").chosen().val() !== model.metricId) {
-            $('.chosen-select').val(model.metricId);
-            $('.chosen-select').trigger("chosen:updated");
+        // Make sure a year has been set before
+        var metricChange = _.filter(changes, function(el) { return el.name === "metricId"; });
+        if (metricChange[0].hasOwnProperty('oldValue')) {
+            // change chosen if not samsies
+            if (model.metricId !== undefined && $(".chosen-select").chosen().val() !== model.metricId) {
+                $('.chosen-select').val(model.metricId);
+                $('.chosen-select').trigger("chosen:updated");
+            }
+            fetchMetricData(model.metricId);
         }
-        fetchMetricData(model.metricId);
     }
 
     // Metrics in the house
@@ -40,15 +44,30 @@ function modelChanges(changes) {
 
     // Hopping in the DeLorean
     if (_.contains(tasklist, "year")) {
-        // change year slider if not samsies
-        if ($('.slider').slider('value') !== model.year) {
-            $('.slider').slider('value', model.year);
+        // Make sure a year has been set before
+        var yearChange = _.filter(changes, function(el) { return el.name === "year"; });
+        if (yearChange[0].hasOwnProperty('oldValue')) {
+            // change year slider if not samsies
+            if ($('.slider').slider('value') !== model.year) {
+                $('.slider').slider('value', model.year);
+            }
+            var keys = Object.keys(model.metric[0]);
+            $('.time-year').text(keys[model.year + 1].replace("y_", ""));
+            drawMap();
+            drawBarChart();
+            drawTable();
+            updateStats();
         }
-        $('.time-year').text(metricData[model.year].year.replace("y_", ""));
-        drawMap();
-        drawBarChart();
-        drawTable();
-        updateStats();
+    }
+
+    // Add stuff to selected set
+    if (_.contains(tasklist, "select")) {
+        model.selected = _.union(model.selected, model.select);
+    }
+
+    // Remove stuff from selected set
+    if (_.contains(tasklist, "unselect")) {
+        model.selected = _.difference(model.selected, model.unselect);
     }
 
     // the selected set changed
