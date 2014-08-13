@@ -16,23 +16,24 @@ function GetSubstringIndex(str, substring, n) {
 
 
 function updateMeta(msg, d) {
+    console.log("updating");
     $.ajax({
         url: 'data/meta/' + d.metric + '.html',
         type: 'GET',
         dataType: 'text',
         success: function (data) {
-            // $('.meta-subtitle').html(
-            //     data.substring(GetSubstringIndex(data, '</h2>', 1) + 5, GetSubstringIndex(data, '<h3', 1))
-            // );
-            // $('.meta-important').html(
-            //     data.substring(GetSubstringIndex(data, '</h3>', 1) + 5, GetSubstringIndex(data, '<h3', 2))
-            // );
-            // $('.meta-about').html(
-            //     data.substring(GetSubstringIndex(data, '</h3>', 2) + 5, GetSubstringIndex(data, '<h3', 3))
-            // );
-            // $('.meta-resources').html(
-            //     data.substring(GetSubstringIndex(data, '</h3>', 3) + 5, data.length)
-            // );
+            $('.meta-subtitle').html(
+                data.substring(GetSubstringIndex(data, '</h2>', 1) + 5, GetSubstringIndex(data, '<h3', 1))
+            );
+            $('.meta-important').html(
+                data.substring(GetSubstringIndex(data, '</h3>', 1) + 5, GetSubstringIndex(data, '<h3', 2))
+            );
+            $('.meta-about').html(
+                data.substring(GetSubstringIndex(data, '</h3>', 2) + 5, GetSubstringIndex(data, '<h3', 3))
+            );
+            $('.meta-resources').html(
+                data.substring(GetSubstringIndex(data, '</h3>', 3) + 5, data.length)
+            );
         },
         error: function (error, status, desc) {
             console.log(status, desc);
