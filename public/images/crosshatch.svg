@@ -1,0 +1,23 @@
+<svg class="leaflet-zoom-animated" style="transform: translate(-131px, -88px);" width="863" height="575" viewBox="-131 -88 863 575">
+    <defs>
+        <pattern height="105" width="105" y="0" x="0" patternunits="userSpaceOnUse" id="diagonalHatch">
+            <g style="fill:none; stroke:#fff; stroke-width:2">
+                <path d="M0 90 l15,15"></path>
+                <path d="M0 75 l30,30"></path>
+                <path d="M0 60 l45,45"></path>
+                <path d="M0 45 l60,60"></path>
+                <path d="M0 30 l75,75"></path>
+                <path d="M0 15 l90,90"></path>
+                <path d="M0 0 l105,105"></path>
+                <path d="M15 0 l90,90"></path>
+                <path d="M30 0 l75,75"></path>
+                <path d="M45 0 l60,60"></path>
+                <path d="M60 0 l45,45"></path>
+                <path d="M75 0 l30,30"></path>
+                <path d="M90 0 l15,15"></path>
+            </g>
+        </pattern>
+        <pattern patternunits="userSpaceOnUse" height="2" width="2" y="0" x="0" id="dotted">
+        </pattern>
+    </defs>
+</svg>
