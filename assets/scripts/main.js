@@ -119,14 +119,26 @@ $(document).ready(function () {
     PubSub.subscribe('findNeighborhood', d3Select);
     PubSub.subscribe('findNeighborhood', d3Zoom);
 
+    
+    // THIS REFERS TO OLD NAV
     // Start with random metric if none passed
-    if (getURLParameter("m") !== "null") {
-        $("#metric option[value='" + getURLParameter('m') + "']").prop('selected', true);
+    // if (getURLParameter("m") !== "null") {
+    //     $("#metric option[value='" + getURLParameter('m') + "']").prop('selected', true);
+    // }
+    // else {
+    //     var $options = $('.chosen-select').find('option'),
+    //         random = Math.floor((Math.random() * $options.length));
+    //     $options.eq(random).prop('selected', true);
+    // }
+
+    // Start with random metric if none passed
+    if (getURLParameter('m') !== 'null') {
+        $("#js-category li[data-category='" + getURLParameter('m') + "']").addClass('active');
     }
     else {
-        var $options = $('.chosen-select').find('option'),
+        var $options = $('#js-category').find('li'),
             random = Math.floor((Math.random() * $options.length));
-        $options.eq(random).prop('selected', true);
+        $options.eq(random).addClass('active');
     }
 
     // set window popstate event
