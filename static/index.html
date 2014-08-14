@@ -42,8 +42,8 @@
             <li data-category="ce-housing"><a>Housing Code Violations</a></li>
             <li data-category="ce-nuisance"><a>Nuisance Violations</a></li>
             <li data-category="buildingpermits"><a>Building Permits</a></li>
-            <li><a>Foreclosures</a></li>
-            <li><a>Property Values</a></li>
+            <li data-category="foreclosures"><a>Foreclosures</a></li>
+            <li data-category="avgpropertyvaluefaircash"><a>Property Values</a></li>
         </ul>
         <!-- <div class="container"> -->
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -104,22 +104,33 @@
                     off.
                  -->
                     <select id="metric" data-placeholder="SEARCH VARIABLES" class="form-control input-lg form-metric chosen-select hide">
-                        <optgroup label="Code Enforcement">
+                        <optgroup label="Housing">
                             <option value="ce-nuisance">
                                 Code Enforcement Cases - Nuisance
                             </option>
                             <option value="ce-housing">
                                 Code Enforcement Cases - Housing
                             </option>
-                        </optgroup>
-                        <optgroup label="Permits">
                             <option value="buildingpermits">
                                 Building Permits
                             </option>
+                            <option value="foreclosures">
+                                Foreclosures
+                            </option>
+                            <option value="avgpropertyvaluefaircash">
+                                Property Value
+                            </option>
                         </optgroup>
+
                     </select>
                 </div>
                 <div id="map"></div>
+                <div class="yearDisplay time text-right pull-left">
+                    <button type="button" class="btn btn-primary btn-looper">
+                        <span class="glyphicon glyphicon-play"></span>
+                    </button>
+                    <div class="slider"></div>
+                </div>
                 <div class="btn-group pull-right datatoggle">
                     <button type="button" class="btn btn-default btn-sm toggle-map">Hide Map</button>
                     <button type="button" class="btn btn-default btn-sm toggle-table">Show Data</button>
