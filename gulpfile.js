@@ -83,6 +83,19 @@ gulp.task('markdown', function() {
         .pipe(connect.reload());
 });
 
+gulp.task('fonts', function() {
+    return gulp.src('assets/fonts/*')
+        .pipe(gulp.dest('public/fonts/'))
+        .pipe(connect.reload());
+});
+
+gulp.task('geo', function() {
+    // cp topo and geojson
+    return gulp.src('assets/data/*json')
+        .pipe(gulp.dest('public/data/'))
+        .pipe(connect.reload());
+});
+
 // CSV to JSON
 gulp.task('convert', function() {
     return gulp.src('assets/data/metric/*.csv')
@@ -167,4 +180,4 @@ gulp.task('psi-desktop', function (cb) {
 
 // controller tasks
 gulp.task('default', ['less', 'js', 'watch', 'connect']);
-gulp.task('build', ['less-build', 'js-build', 'markdown', 'convert', 'static', 'cachebuster','imagemin']);
+gulp.task('build', ['less-build', 'js-build', 'markdown', 'fonts', 'convert', 'static', 'cachebuster','geo','imagemin']);
