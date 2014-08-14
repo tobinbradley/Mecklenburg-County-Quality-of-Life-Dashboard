@@ -38,10 +38,10 @@
         <div class="brand-icon">
             <a href="#"></a>
         </div>
-        <ul class="nav nav-pills nav-stacked">
-            <li value="ce-housing"><a>Housing Code Violations</a></li>
-            <li value="ce-nuisance"><a>Nuisance Violations</a></li>
-            <li value="buildingpermits"><a>Building Permits</a></li>
+        <ul id="js-category" class="nav nav-pills nav-stacked">
+            <li data-category="ce-housing"><a>Housing Code Violations</a></li>
+            <li data-category="ce-nuisance"><a>Nuisance Violations</a></li>
+            <li data-category="buildingpermits"><a>Building Permits</a></li>
             <li><a>Foreclosures</a></li>
             <li><a>Property Values</a></li>
         </ul>
@@ -91,7 +91,7 @@
                 <h1>Lexington Housing Data Dashboard</h1>
             </div>
             <div class="col-md-8 map-container">
-                <div style="min-height: 37px">
+                <div id="metric-container" style="min-height: 37px">
                 <!--
                     This is where you list all of the variables you want to see
                     in the dropdown list. You don't have to list everything here.

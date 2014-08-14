@@ -5857,6 +5857,9 @@ rect.bar {
   top: 0;
   background: url(../images/brand-icon.png) no-repeat #1fa67a;
 }
+#metric-container {
+  visibility: hidden;
+}
 /* OldIE Prompt */
 .oldie {
   width: 100%;
