@@ -29162,7 +29162,7 @@ var colorbreaks = 6;
 // If you want to add new data types or change how things are handled, check out
 // the dataPretty in assets/scripts/functions/functions.js
 var metricPct = ["m4", "m6", "m7", "m8", "m9", "m10", "m11", "m12", "m13", "m18", "m19", "m20", "m21", "m32", "m33", "m34", "m35", "m36", "m37", "m38", "m39", "m40", "m41", "m42", "m43", "m44", "m45", "m47", "m48", "m49", "m50", "m58", "m59", "m60", "m61", "m62", "m66", "m67", "m68", "m71", "m73", "m75", "m76", "m77", "m78", "m80"],
-    metricMoney = ["m17","m57","m63"],
+    metricMoney = ["m17","m57","m63","avgpropertyvaluefaircash","avgpropertyvaluetaxable","propertyvalue","propertyvaluefaircash"],
     metricYear = ["m24", "m53"];
 
 // The following things are for crazy people.
@@ -29232,34 +29232,44 @@ jQuery.support.placeholder = (function(){
     return 'placeholder' in i;
 })();
 
-function nameMonth(year) {
-    var monthNumber = {
-        "01": "January",
-        "02": "February",
-        "03": "March",
-        "04": "April",
-        "05": "May",
-        "06": "June",
-        "07": "July",
-        "08": "August",
-        "09": "September",
-        "10": "October",
-        "11": "November",
-        "12": "December"
-    };
+// This function only relevant if using month-over-month
 
-    var yearNums = year.replace('y_', '');
-    var yearMonth = yearNums.split('-');
-    var sliderTitle = monthNumber[yearMonth[1]] + " " + yearMonth[0];
-    return sliderTitle;
+// function nameMonth(year) {
+//     var monthNumber = {
+//         "01": "January",
+//         "02": "February",
+//         "03": "March",
+//         "04": "April",
+//         "05": "May",
+//         "06": "June",
+//         "07": "July",
+//         "08": "August",
+//         "09": "September",
+//         "10": "October",
+//         "11": "November",
+//         "12": "December"
+//     };
 
-}
+//     var yearNums = year.replace('y_', '');
+//     var yearMonth = yearNums.split('-');
+//     var sliderTitle = monthNumber[yearMonth[1]] + " " + yearMonth[0];
+//     return sliderTitle;
 
-// Slider change event
+// }
+
+// Slider change event - month-over-month
+// function sliderChange(value) {
+
+//     var sliderText = metricData[value].year.replace()
+//     $('.time-year').text(nameMonth(metricData[value].year));
+//     year = value;
+//     PubSub.publish('changeYear');
+// }
+
+// Slider change event - year-over-year
 function sliderChange(value) {
 
-    var sliderText = metricData[value].year.replace()
-    $('.time-year').text(nameMonth(metricData[value].year));
+    $('.time-year').text(metricData[value].year.replace("y_", ""));
     year = value;
     PubSub.publish('changeYear');
 }
@@ -29296,14 +29306,26 @@ $(document).ready(function () {
     PubSub.subscribe('findNeighborhood', d3Select);
     PubSub.subscribe('findNeighborhood', d3Zoom);
 
+    
+    // THIS REFERS TO OLD NAV
     // Start with random metric if none passed
-    if (getURLParameter("m") !== "null") {
-        $("#metric option[value='" + getURLParameter('m') + "']").prop('selected', true);
+    // if (getURLParameter("m") !== "null") {
+    //     $("#metric option[value='" + getURLParameter('m') + "']").prop('selected', true);
+    // }
+    // else {
+    //     var $options = $('.chosen-select').find('option'),
+    //         random = Math.floor((Math.random() * $options.length));
+    //     $options.eq(random).prop('selected', true);
+    // }
+
+    // Start with random metric if none passed
+    if (getURLParameter('m') !== 'null') {
+        $("#js-category li[data-category='" + getURLParameter('m') + "']").addClass('active');
     }
     else {
-        var $options = $('.chosen-select').find('option'),
+        var $options = $('#js-category').find('li'),
             random = Math.floor((Math.random() * $options.length));
-        $options.eq(random).prop('selected', true);
+        $options.eq(random).addClass('active');
     }
 
     // set window popstate event
@@ -29561,17 +29583,29 @@ function processMetric(msg, data) {
         metricData.push({"year": keys[i], "map": d3.map()});
     }
 
-    // set slider and time related stuff
-    year = 41; // months numbered with January 2011 as 0, so 41 represents June 2014
-    $(".slider").slider("option", "max", metricData.length - 1).slider("value", year);
-    metricData.length > 1 ? $(".time").fadeIn() : $(".time").hide();
-    $('.time-year').text(nameMonth(metricData[year].year));
+    // set slider and time related stuff - month-over-month
+    // year = 41; // months numbered with January 2011 as 0, so 41 represents June 2014
+    // $(".slider").slider("option", "max", metricData.length - 1).slider("value", year);
+    // metricData.length > 1 ? $(".time").fadeIn() : $(".time").hide();
+    // $('.time-year').text(nameMonth(metricData[year].year));
 
-    _.each(data.metricdata, function (d) {
-        for (var i = 0; i < metricData.length; i++) {
-            if ($.isNumeric(d[metricData[i].year])) { metricData[i].map.set(d.id, parseFloat(d[metricData[i].year])); }
-        }
-    });
+    // _.each(data.metricdata, function (d) {
+    //     for (var i = 0; i < metricData.length; i++) {
+    //         if ($.isNumeric(d[metricData[i].year])) { metricData[i].map.set(d.id, parseFloat(d[metricData[i].year])); }
+    //     }
+    // });
+
+    // set slider and time related stuff - year-over-year
+     year = metricData.length -1;
+     $(".slider").slider("option", "max", metricData.length - 1).slider("value", year);
+     metricData.length > 1 ? $(".time").fadeIn() : $(".time").hide();
+     $('.time-year').text(metricData[year].year.replace("y_", ""));
+ 
+     _.each(data.metricdata, function (d) {
+         for (var i = 0; i < metricData.length; i++) {
+             if ($.isNumeric(d[metricData[i].year])) { metricData[i].map.set(d.id, parseFloat(d[metricData[i].year])); }
+         }
+     });
 
     // Set up extent
     var extentArray = [];
