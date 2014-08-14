@@ -342,6 +342,15 @@ function draw(geom) {
     });
 }
 
+$("#js-category li").on("click",function(){
+    $("#js-category li").removeClass("active");
+    $(this).addClass("active");
+    var theVal = $(this).data("category");
+    fetchMetricData(theVal);
+    $(".chosen-select").val(theVal).trigger("chosen:updated");
+});
+
+
 function changeMetric(data) {
     var theVal = $("#metric").val();
     $(".d3-tip").remove();

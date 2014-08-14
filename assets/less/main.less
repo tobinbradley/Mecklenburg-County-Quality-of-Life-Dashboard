@@ -8,7 +8,8 @@
 @import "vis.less";
 
 // vars
-@body-color: rgb(249, 249, 249);
+// @body-color: rgb(249, 249, 249);
+@body-color: white;
 @fancyshadow: inset 0 0 40px rgba(0, 0, 0, 0.12); //0 8px 6px -6px #666,
 @highlightColor: #F6DC62;
 @selectedColor: #FFA400;
@@ -16,6 +17,20 @@
 @font-family-sans-serif:  "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
 /*@brand-primary: #008F75;*/
 @brand-primary: #1fa67a;
+
+/* nav bar */
+.brand-icon {
+    height: 180px;
+    width: 240px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: url(../images/brand-icon.png) no-repeat @brand-primary;
+}
+
+#metric-container {
+    visibility: hidden;
+}
 
 /* OldIE Prompt */
 .oldie {
@@ -31,11 +46,17 @@
 }
 
 body {
-    background: @body-color;
+    background-color: @body-color;
 }
 
-.container-content {
-    margin-top: 40px;
+.container {
+    background-color: @body-color;
+    margin-top: 15px;
+    margin-left: 250px;
+    h1 {
+        margin-bottom: 108px;
+        color: @brand-primary;
+    } 
 }
 
 /* chosen customizations */
@@ -58,21 +79,6 @@ body {
     }
 }
 
-.category-banner {
-    margin-top: 1em;
-    .category-title {
-        text-align: center;
-        padding: 0 1em 0.8em 1em;
-        border: 6px solid rgb(0,82,64);
-    }  
-    h1 {
-        font-size: 5em;
-        text-shadow: #6a6d41 0 1px 1px;
-        color: white;
-        font-family: "Arvo", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    }
-}
-
 // Leaflet customizations
 .leaflet-control-layers, .leaflet-control-zoom, .leaflet-bar a {
     box-shadow: none;
@@ -87,25 +93,17 @@ body {
     box-shadow: @fancyshadow;
     background-color: rgba(255,255,255,0.3);
 }
-.navbar-main {
-    background: #1fa67a;
-}
 
-.navbar-default {
-    border-radius: 0;
-}
-
-.navbar-default .navbar-brand {
-    text-shadow: #777 0 1px 1px;
-    color: white;
-    &:hover {
-        color: #211f1f;
-        text-shadow: none;
+.nav {
+    top: 180px;
+    bottom: 0px;
+    width: 240px;
+    background-color: #f2f2f2;
+    position: fixed;
+    li {
+        padding: 20px;
+        font-size: 1.2em;
     }
-}
-
-.navbar-default .navbar-nav > li > a {
-    color: white;
 }
 
 .contact {
@@ -239,10 +237,10 @@ table {
 // repsonsive design adjustments
 @media (max-width: 990px) {
     // Header text
-    .navbar-default .navbar-brand {
-        color: white;
-        font-size: 18px;
-    }
+    // .navbar-default .navbar-brand {
+    //     color: white;
+    //     font-size: 18px;
+    // }
     // map
     .map-container {
         height: 380px;
