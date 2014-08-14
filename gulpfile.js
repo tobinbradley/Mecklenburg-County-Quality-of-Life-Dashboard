@@ -109,6 +109,11 @@ gulp.task('imagemin', function() {
         .pipe(gulp.dest('public/images'));
 });
 
+gulp.task('static', function() {
+    return gulp.src('static/*.html')
+        .pipe(gulp.dest('public/'));
+});
+
 // cache busting
 gulp.task('cachebuster', function() {
     return gulp.src('public/**/*.html')
@@ -165,4 +170,4 @@ gulp.task('psi-desktop', function (cb) {
 
 // controller tasks
 gulp.task('default', ['less', 'js', 'watch', 'connect']);
-gulp.task('build', ['less-build', 'js-build', 'markdown', 'convert', 'cachebuster', 'imagemin']);
+gulp.task('build', ['less-build', 'js-build', 'markdown', 'convert', 'static', 'cachebuster','imagemin']);
