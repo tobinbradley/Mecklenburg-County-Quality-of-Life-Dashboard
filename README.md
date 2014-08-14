@@ -1,11 +1,39 @@
-Quality of Life Dashboard v2 Beta
-=================
+# Lexington Housing Data Dashboard
 
-A joint project between the City of Charlotte, Mecklenburg County, and UNCC. A reasonably up-to-date version of this dev branch is [here](http://mcmap.org/qol/). The current site site launched in January 2013 and is over [here](http://maps.co.mecklenburg.nc.us/qoldashboard). There's no launch date for the next release yet, but sometime toward the end of this year should do it. You can see what I'm banging on at [Trello](https://trello.com/b/GxsdKVUl/quality-of-life-dashboard).
+[The Lexington Housing Data Dashboard](http://codeforamerica.github.io/lexington-qold) is a tool designed for visualizing and understanding high-level trends in housing in Lexington-Fayette County. It is currently in development by the 2014 [Code for America](http://codeforamerica.org) [Lexington fellows](http://teambiglex.tumblr.com).
 
-The new project uses D3 for visualizations. The good news is besides all the cool features in the new version has it is less than half the size over the wire and loads over twice as fast. The bad news is IE8 absolutely will not work. I'm sorry/you're welcome.
+The dashboard displays neighborhood-level data -- such as building permits, foreclosures, and code enforcement housing violations -- on a year-over-year basis, allowing users to not only see how neighborhoods compare to each other, but also how neighborhoods have changed over time. Data for the dashboard has been provided by the [Lexington-Fayette Urban County Government](http://lexingtonky.gov).
 
-We hope you find this project useful. Patches are always welcome!
+## The Application
+
+As of August 13, the application has the following datasets:
+
+* Building Permits
+* Code Enforcement Violations - Housing
+* Code Enforcement Violations - Nuisance
+* Foreclosures
+* Raw Property Value - Taxable Value
+* Raw Property Value - Fair Cash Value
+* Average Property Value - Taxable Value
+* Average Property Value - Fair Cash Value
+
+## The Project
+
+The tool itself is built based on the development version of the [Charlotte Quality of Life Dashbaord](http://mcmap.org/qol/), built by Tobin Bradley for the City of Charlotte, NC, Mecklenburg County, and UNCC. That project is also in production and can be found [here](http://github.com/tobinbradley/Mecklenburg-County-Quality-of-Life-Dashboard).
+
+### Technical
+
+The dashboard is a [node.js](http://nodejs.org) application that is actually just a static site generator. The resulting dashboard can be played with in the browser without having to set up any sort of development environment.
+
+The map in the application uses [D3](http://d3js.org) for map data, which means it will NOT work in Internet Explorer 8.
+
+If you are interested in redeploying this for your city, however, that's a little more work. See the ["Redepoying for Your City"](#redeploying-for-your-city) section below.
+
+## Redeploying for Your City
+
+The following section was written by [Tobin Bradley](http://github.com/tobinbradley), the maintainer of the Mecklenberg County Quality of Life Dashboard.
+
+***
 
 Here's a handy [YouTube Tutorial](https://www.youtube.com/watch?v=qmx2mZXeHZQ) on customizing the Dashboard for your area of interest if reading isn't your bag.
 
