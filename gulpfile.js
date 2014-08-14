@@ -45,12 +45,6 @@ gulp.task('connect', function() {
     });
 });
 
-// html
-gulp.task('html', function () {
-    gulp.src('./public/*.html')
-        .pipe(connect.reload());
-});
-
 // Less processing
 gulp.task('less', function() {
     return gulp.src('assets/less/main.less')
@@ -85,7 +79,21 @@ gulp.task('js-build', function() {
 gulp.task('markdown', function() {
     return gulp.src('assets/data/meta/*.md')
         .pipe(markdown())
-        .pipe(gulp.dest('public/data/meta/'));
+        .pipe(gulp.dest('public/data/meta/'))
+        .pipe(connect.reload());
+});
+
+gulp.task('fonts', function() {
+    return gulp.src('assets/fonts/*')
+        .pipe(gulp.dest('public/fonts/'))
+        .pipe(connect.reload());
+});
+
+gulp.task('geo', function() {
+    // cp topo and geojson
+    return gulp.src('assets/data/*json')
+        .pipe(gulp.dest('public/data/'))
+        .pipe(connect.reload());
 });
 
 // CSV to JSON
@@ -109,6 +117,12 @@ gulp.task('imagemin', function() {
         .pipe(gulp.dest('public/images'));
 });
 
+gulp.task('static', function() {
+    return gulp.src('static/*')
+        .pipe(gulp.dest('public/'))
+        .pipe(connect.reload());
+});
+
 // cache busting
 gulp.task('cachebuster', function() {
     return gulp.src('public/**/*.html')
@@ -123,7 +137,8 @@ gulp.task("browser", function(){
 
 // watch
 gulp.task('watch', function () {
-    gulp.watch(['./public/**/*.html'], ['html']);
+    gulp.watch(['./static/*.html'], ['static']);
+    gulp.watch(['./assets/data/meta/*.md'], ['markdown']);
     gulp.watch(['./assets/less/**/*.less'], ['less']);
     gulp.watch('assets/scripts/**/*.js', ['js']);
 });
@@ -165,4 +180,4 @@ gulp.task('psi-desktop', function (cb) {
 
 // controller tasks
 gulp.task('default', ['less', 'js', 'watch', 'connect']);
-gulp.task('build', ['less-build', 'js-build', 'markdown', 'convert', 'cachebuster', 'imagemin']);
+gulp.task('build', ['less-build', 'js-build', 'markdown', 'fonts', 'convert', 'static', 'cachebuster','geo','imagemin']);
