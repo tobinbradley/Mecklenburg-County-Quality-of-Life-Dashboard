@@ -118,7 +118,7 @@ gulp.task('imagemin', function() {
 });
 
 gulp.task('static', function() {
-    return gulp.src('static/*.html')
+    return gulp.src('static/*')
         .pipe(gulp.dest('public/'))
         .pipe(connect.reload());
 });
