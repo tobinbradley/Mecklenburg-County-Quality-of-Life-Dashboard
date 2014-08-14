@@ -1,13 +1,19 @@
-     
-    The humans.txt file explains the team, technology, and graphic 
-    assets behind this site.
-    
+  ____
+< wat? >
+  ----
+         \   ^__^
+          \  (oo)\_______
+             (__)\       )\/\
+                 ||----w |
+                 ||     ||
+
+
 _______________________________________________________________________________
 
 PEOPLE
 
 Tobin Bradley
-Mecklenburg County GIS
+Not very smart, but really, really good-looking. Really. Ask his mom.
 
 
 _______________________________________________________________________________
@@ -20,21 +26,17 @@ http://leafletjs.com
 Underscore
 http://underscorejs.org
 
-HTML5 Boilerplate
-http://html5boilerplate.com/
-
 LESS
 http://lesscss.org/
-
-Modernizr
-http://modernizr.com/
 
 jQuery
 http://jquery.com/
 
+D3
+http://d3js.org/
 
 _______________________________________________________________________________
 
 GRAPHIC ASSETS
 
-Custom bling made in Gimp and Inkscape.
+Custom bling made in Gimp and Inkscape, yo.

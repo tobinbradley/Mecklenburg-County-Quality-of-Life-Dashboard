@@ -25,7 +25,7 @@ var jsMain = [
     'bower_components/leaflet/dist/leaflet.js',
     'assets/scripts/vendor/Object.observe.poly.js',
     'assets/scripts/vendor/jquery-ui-1.10.3.custom.min.js',
-    'assets/scripts/vendor/chosen.jquery.js',
+    'bower_components/chosen_v1.1.0/chosen.jquery.js',
     'assets/scripts/vendor/table2CSV.js',
     'assets/scripts/vendor/Chart.js',
     'bower_components/d3/d3.js',

@@ -14,7 +14,16 @@ function processMetric() {
     }
 
     // set slider and time related stuff
-    $(".slider").slider("option", "max", keys.length - 2);
+    $('.slider label').remove();
+    $(".slider").slider("option", "max", keys.length - 2).each(function() {
+        var vals = $(this).slider("option", "max") - $(this).slider("option", "min");
+        for (var i = 0; i <= vals; i++) {
+            // Create a new element and position it with percentages
+            var el = $('<label>' + keys[i + 1].replace("y_", "") + '</label>').css('left', (i/vals*100) + '%');
+            // Add the element inside #slider
+            $(this).append(el);
+        }
+    });
     model.year = keys.length - 2;
 
     // Set up data extent
@@ -131,6 +140,17 @@ function updateStats() {
     // County Median
     theStat = median(_.map(model.metric, function(num){ if ($.isNumeric(num[keys[model.year + 1]])) { return Number(num[keys[model.year + 1]]); } }));
     $(".stats-county-npa-median").text("Median: " + dataPretty(theStat, m));
+
+    // Total for metrics that are totalable. Totally not a word there.
+    if (metricSummable.indexOf(m) > -1) {
+        $(".stats-county-total").html('Total: ' + dataPretty(sum(_.pluck(model.metric, keys[model.year + 1])), m));
+        $(".stats-selected-total").html('Total: ' + dataPretty(sum(_.pluck(_.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }), keys[model.year + 1])), m));
+    } else if (metricRaw[m]){
+        $(".stats-county-total").html('Total: ' + dataPretty(sum(_.pluck(model.metricRaw, keys[model.year + 1])), metricRaw[m]));
+        $(".stats-selected-total").html('Total: ' + dataPretty(sum(_.pluck(_.filter(model.metricRaw, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }), keys[model.year + 1])), metricRaw[m]));
+    } else {
+        $(".stats-total").text('');
+    }
 
     // selected weighted mean
     if (metricRaw[m]) {

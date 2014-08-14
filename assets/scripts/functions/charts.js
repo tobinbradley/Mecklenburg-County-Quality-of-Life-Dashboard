@@ -94,11 +94,15 @@ function barChart() {
         my.xScale(w, x_extent);
 
         // axis labeling
+        var tickValues = quantize.quantiles();
+        //tickValues.push(x_extent[1]);
+        //tickValues.unshift(x_extent[0]);
         var xAxis = d3.svg.axis()
             .scale(xScale)
             .tickFormat(function(d) { return dataPretty(d, $("#metric").val()); })
             .orient("bottom")
-            .ticks(4);
+            //.ticks(7);
+            .tickValues(tickValues);
 
         var yAxis = d3.svg.axis()
             .scale(y)
@@ -158,8 +162,8 @@ function barChart() {
           title: function() {
               var sel = $(this);
               var theRange = _.map(sel.attr("data-span").split("-"), function(num){ return dataPretty(num, $("#metric").val()); });
-              return "<p class='tip'><span><strong>" + theRange.join(" to ") + "</strong></span><br>" + sel.attr("data-value") + " " + neighborhoodDescriptor + "(s)</p>";
-
+              //return "<p class='tip'><span><strong>" + theRange.join(" to ") + "</strong></span><br>" + sel.attr("data-value") + " " + neighborhoodDescriptor + "(s)</p>";
+              return "<p class='tip'><span><strong>" + sel.attr("data-value") + " " + neighborhoodDescriptor + "(s)</strong></span></p>";
           },
           container: 'body'
         });

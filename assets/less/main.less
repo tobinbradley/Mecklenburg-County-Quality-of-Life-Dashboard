@@ -31,10 +31,6 @@ body {
     background: @body-color url(../images/linen.png);
 }
 
-.container-content {
-    margin-top: 40px;
-}
-
 /* chosen customizations */
 .chosen-container {
     max-width: 100%;
@@ -44,13 +40,20 @@ body {
     font-weight: bold;
     text-align: center;
 }
-.chosen-search input {
-    &:focus {
-        border-color: #66afe9;
-        outline: 0;
-        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
-        box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+.chosen-search {
+    input:focus {
+            border-color: #66afe9;
+            outline: 0;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
     }
+}
+
+.click-here {
+    position: absolute;
+    left: 0;
+    top: -36px;
+    height: 60px;
 }
 
 // Leaflet customizations
@@ -67,11 +70,29 @@ body {
 .navbar-main {
     background: rgba(0,0,0,0.03);
 }
-
 .navbar-default .navbar-brand {
     font-size: 1.8em;
     text-shadow: #777 0 1px 1px;
 }
+
+// jquery ui slider customizations
+.slider {
+    width: 130px;
+    display: inline-block;
+    margin: 0 6px 0 10px;
+    position: relative;
+    top: 3px;
+    label {
+      position: absolute;
+      width: 20px;
+      margin-top: 15px;
+      margin-left: -10px;
+      text-align: center;
+      font-weight: normal;
+      font-size: .8em;
+    }
+}
+
 
 .contact {
     min-width: 300px;
@@ -83,6 +104,7 @@ body {
 
 .row-vis {
     min-height: 651px;
+    margin-top: 27px;
 }
 .page-footer {
     margin-top: 50px;
@@ -106,8 +128,8 @@ body {
 
 .meta-subtitle {
     font-size: 1em;
-    margin-top: 10px;
-    padding-left: 20px;
+    margin-bottom: 10px;
+    min-height: 40px;
 }
 
 .meta-container {
@@ -123,11 +145,9 @@ body {
 // Map
 #map {
     height: 530px;
-    //background: url(../images/wet-graph-paper-seamless-background.jpg);
     background: rgba(0,0,0,0);
-    //border: 1px dashed #d3d4d8;
+    border: 1px dashed #d3d4d8;
     border-top: none;
-    //box-shadow: @fancyshadow;
 }
 .mapsearch {
     position: absolute;
@@ -158,13 +178,6 @@ body {
 // year control
 .yearDisplay {
     margin-top: 5px;
-    .slider {
-       width: 100px;
-       display: inline-block;
-       margin: 0 6px 0 10px;
-       position: relative;
-       top: 3px;
-    }
 }
 .time-year {
     font-weight: bold;
@@ -247,6 +260,9 @@ table {
     // map
     .map-container {
         height: 380px;
+    }
+    .map-aside {
+        margin-top: 50px;
     }
     #map {
         height: 320px;
