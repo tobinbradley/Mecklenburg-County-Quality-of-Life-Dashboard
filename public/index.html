@@ -27,17 +27,27 @@
     <!-- Stylesheets -->
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700|Arvo:400,700' rel='stylesheet' type='text/css'>
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/main.css?foo=33741">
+    <link rel="stylesheet" href="css/main.css?foo=43850">
 </head>
 
 <body>
     <!--[if lt IE 9]>
         <p class="oldie alert-info text-center">You are using an outdated browser. <a href="http://whatbrowser.org/">Upgrade your browser today</a> to better experience this site.</p>
     <![endif]-->
-    <nav class="navbar navbar-default navbar-main" role="navigation">
-        <div class="container">
+    <div role="navigation">
+        <div class="brand-icon">
+            <a href="#"></a>
+        </div>
+        <ul id="js-category" class="nav nav-pills nav-stacked">
+            <li data-category="ce-housing"><a>Housing Code Violations</a></li>
+            <li data-category="ce-nuisance"><a>Nuisance Violations</a></li>
+            <li data-category="buildingpermits"><a>Building Permits</a></li>
+            <li data-category="foreclosures"><a>Foreclosures</a></li>
+            <li data-category="avgpropertyvaluefaircash"><a>Property Values</a></li>
+        </ul>
+        <!-- <div class="container"> -->
             <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
+<!--             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
@@ -48,9 +58,9 @@
                 <a class="navbar-brand" href="./">
                     <strong>Lexington Quality of Life Dashboard</strong>
                 </a>
-            </div>
+            </div> -->
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse navbar-ex1-collapse">
+<!--             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav navbar-right">
                    <li>
                        <a href="javascript:void(0)">Download Data</a>
@@ -69,28 +79,19 @@
                        <a href="javascript:void(0)" class="btn-help">Help</a>
                    </li>
                 </ul>
-            </div>
+            </div> -->
             <!-- /.navbar-collapse -->
-        </div>
-        <div class="hidden-xs category-banner">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-12 col-md-8">
-                        <img src="images/housing-banner.png" width="95%" class="pull-left">
-                    </div>
-                    <div class="hidden-sm col-md-4 category-title visible-md-*">
-                        <h1>Housing</h1>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
+        <!-- </div> -->
+    </div>
 
 
-    <div class="container container-content">
+    <div class="container">
         <div class="row row-vis">
+            <div class="col-md-8">
+                <h1>Lexington Housing Data Dashboard</h1>
+            </div>
             <div class="col-md-8 map-container">
-                <div style="min-height: 37px">
+                <div id="metric-container" style="min-height: 37px">
                 <!--
                     This is where you list all of the variables you want to see
                     in the dropdown list. You don't have to list everything here.
@@ -103,22 +104,33 @@
                     off.
                  -->
                     <select id="metric" data-placeholder="SEARCH VARIABLES" class="form-control input-lg form-metric chosen-select hide">
-                        <optgroup label="Code Enforcement">
+                        <optgroup label="Housing">
                             <option value="ce-nuisance">
                                 Code Enforcement Cases - Nuisance
                             </option>
                             <option value="ce-housing">
                                 Code Enforcement Cases - Housing
                             </option>
-                        </optgroup>
-                        <optgroup label="Permits">
                             <option value="buildingpermits">
                                 Building Permits
                             </option>
+                            <option value="foreclosures">
+                                Foreclosures
+                            </option>
+                            <option value="avgpropertyvaluefaircash">
+                                Property Value
+                            </option>
                         </optgroup>
+
                     </select>
                 </div>
                 <div id="map"></div>
+                <div class="yearDisplay time text-right pull-left">
+                    <button type="button" class="btn btn-primary btn-looper">
+                        <span class="glyphicon glyphicon-play"></span>
+                    </button>
+                    <div class="slider"></div>
+                </div>
                 <div class="btn-group pull-right datatoggle">
                     <button type="button" class="btn btn-default btn-sm toggle-map">Hide Map</button>
                     <button type="button" class="btn btn-default btn-sm toggle-table">Show Data</button>
@@ -378,7 +390,7 @@
     <!-- End jQuery Tourbus -->
 
     <!-- scripts at the bottom yo -->
-    <script src="js/main.js?foo=33741"></script>
+    <script src="js/main.js?foo=43850"></script>
 
     <!--   Google Analytics -->
     <script>

@@ -45,8 +45,43 @@ jQuery.support.placeholder = (function(){
     return 'placeholder' in i;
 })();
 
-// Slider change event
+// This function only relevant if using month-over-month
+
+// function nameMonth(year) {
+//     var monthNumber = {
+//         "01": "January",
+//         "02": "February",
+//         "03": "March",
+//         "04": "April",
+//         "05": "May",
+//         "06": "June",
+//         "07": "July",
+//         "08": "August",
+//         "09": "September",
+//         "10": "October",
+//         "11": "November",
+//         "12": "December"
+//     };
+
+//     var yearNums = year.replace('y_', '');
+//     var yearMonth = yearNums.split('-');
+//     var sliderTitle = monthNumber[yearMonth[1]] + " " + yearMonth[0];
+//     return sliderTitle;
+
+// }
+
+// Slider change event - month-over-month
+// function sliderChange(value) {
+
+//     var sliderText = metricData[value].year.replace()
+//     $('.time-year').text(nameMonth(metricData[value].year));
+//     year = value;
+//     PubSub.publish('changeYear');
+// }
+
+// Slider change event - year-over-year
 function sliderChange(value) {
+
     $('.time-year').text(metricData[value].year.replace("y_", ""));
     year = value;
     PubSub.publish('changeYear');
@@ -84,14 +119,26 @@ $(document).ready(function () {
     PubSub.subscribe('findNeighborhood', d3Select);
     PubSub.subscribe('findNeighborhood', d3Zoom);
 
+    
+    // THIS REFERS TO OLD NAV
     // Start with random metric if none passed
-    if (getURLParameter("m") !== "null") {
-        $("#metric option[value='" + getURLParameter('m') + "']").prop('selected', true);
+    // if (getURLParameter("m") !== "null") {
+    //     $("#metric option[value='" + getURLParameter('m') + "']").prop('selected', true);
+    // }
+    // else {
+    //     var $options = $('.chosen-select').find('option'),
+    //         random = Math.floor((Math.random() * $options.length));
+    //     $options.eq(random).prop('selected', true);
+    // }
+
+    // Start with random metric if none passed
+    if (getURLParameter('m') !== 'null') {
+        $("#js-category li[data-category='" + getURLParameter('m') + "']").addClass('active');
     }
     else {
-        var $options = $('.chosen-select').find('option'),
+        var $options = $('#js-category').find('li'),
             random = Math.floor((Math.random() * $options.length));
-        $options.eq(random).prop('selected', true);
+        $options.eq(random).addClass('active');
     }
 
     // set window popstate event
@@ -205,7 +252,7 @@ $(document).ready(function () {
     var yearControl = L.control({position: 'bottomright'});
     yearControl.onAdd = function(map) {
         this._div = L.DomUtil.create('div', 'yearDisplay time text-right');
-        this._div.innerHTML = '<h3 class="time-year">2012</h3>';
+        this._div.innerHTML = '<h3 class="time-year">2012</h3><button type="button" class="btn btn-primary btn-looper"><span class="glyphicon glyphicon-play"></span></button><div class="slider"></div>';
         return this._div;
     };
     yearControl.addTo(map);
@@ -317,6 +364,15 @@ function draw(geom) {
     });
 }
 
+$("#js-category li").on("click",function(){
+    $("#js-category li").removeClass("active");
+    $(this).addClass("active");
+    var theVal = $(this).data("category");
+    fetchMetricData(theVal);
+    $(".chosen-select").val(theVal).trigger("chosen:updated");
+});
+
+
 function changeMetric(data) {
     var theVal = $("#metric").val();
     $(".d3-tip").remove();
@@ -340,17 +396,29 @@ function processMetric(msg, data) {
         metricData.push({"year": keys[i], "map": d3.map()});
     }
 
-    // set slider and time related stuff
-    year = metricData.length -1;
-    $(".slider").slider("option", "max", metricData.length - 1).slider("value", year);
-    metricData.length > 1 ? $(".time").fadeIn() : $(".time").hide();
-    $('.time-year').text(metricData[year].year.replace("y_", ""));
+    // set slider and time related stuff - month-over-month
+    // year = 41; // months numbered with January 2011 as 0, so 41 represents June 2014
+    // $(".slider").slider("option", "max", metricData.length - 1).slider("value", year);
+    // metricData.length > 1 ? $(".time").fadeIn() : $(".time").hide();
+    // $('.time-year').text(nameMonth(metricData[year].year));
 
-    _.each(data.metricdata, function (d) {
-        for (var i = 0; i < metricData.length; i++) {
-            if ($.isNumeric(d[metricData[i].year])) { metricData[i].map.set(d.id, parseFloat(d[metricData[i].year])); }
-        }
-    });
+    // _.each(data.metricdata, function (d) {
+    //     for (var i = 0; i < metricData.length; i++) {
+    //         if ($.isNumeric(d[metricData[i].year])) { metricData[i].map.set(d.id, parseFloat(d[metricData[i].year])); }
+    //     }
+    // });
+
+    // set slider and time related stuff - year-over-year
+     year = metricData.length -1;
+     $(".slider").slider("option", "max", metricData.length - 1).slider("value", year);
+     metricData.length > 1 ? $(".time").fadeIn() : $(".time").hide();
+     $('.time-year').text(metricData[year].year.replace("y_", ""));
+ 
+     _.each(data.metricdata, function (d) {
+         for (var i = 0; i < metricData.length; i++) {
+             if ($.isNumeric(d[metricData[i].year])) { metricData[i].map.set(d.id, parseFloat(d[metricData[i].year])); }
+         }
+     });
 
     // Set up extent
     var extentArray = [];
