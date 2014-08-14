@@ -5967,12 +5967,11 @@ body {
   height: 660px;
   background: rgba(0, 0, 0, 0);
   border: 1px solid #d3d4d8;
-  border-top: none;
 }
 .mapsearch {
   position: absolute;
   z-index: 5;
-  top: 44px;
+  top: 10px;
   right: 24px;
   width: 40%;
   margin: 0 auto;
