@@ -53,6 +53,11 @@ var metricPct = ["m4", "m6", "m7", "m8", "m9", "m10", "m11", "m12", "m13", "m18"
     metricMoney = ["m17","m57","m63"],
     metricYear = ["m24", "m53"];
 
+// Here we have a list of metrics that are raw numbers and are therefore "summable"
+// (i.e. will show total value for study area and selected). The totalling function will
+// totally check the metricRaw too. Totally.
+var metricSummable = ["m1", "m22"];
+
 // The following things are for crazy people.
 //
 // If you have supplimental accuracy information for one of your metrics, you

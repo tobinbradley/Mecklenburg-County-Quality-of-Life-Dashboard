@@ -62,6 +62,16 @@ function median(values) {
     }
 }
 
+function sum(values) {
+    var theSum = 0;
+    _.each(values, function(el) {
+        if ($.isNumeric(el)) {
+            theSum = theSum + Number(el);
+        }
+    });
+    return theSum;
+}
+
 // Nothing fancy here, just grabs GET parameters
 function getURLParameter(name) {
     return decodeURI(
