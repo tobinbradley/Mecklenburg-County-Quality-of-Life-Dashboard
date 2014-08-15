@@ -18,7 +18,7 @@ var map,                // leaflet map
 function loadPrecincts() {
   $.getJSON('data/precincts.geojson', function(precinctJson) {
     _.each(precinctJson.features, function(feature) {
-      precincts[feature.properties.OBJECTID] = feature.properties.NAME;
+      precincts[feature.properties.OBJECTID - 1] = feature.properties.NAME;
     });
   });
 }
