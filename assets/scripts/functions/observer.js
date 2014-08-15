@@ -72,20 +72,15 @@ function modelChanges(changes) {
 
     // the selected set changed
     if (_.contains(tasklist, "selected")) {
-            // map selection
             d3.selectAll(".geom").classed("d3-false");
             d3.selectAll(".geom").classed("d3-select", function(d) { return _.contains(model.selected, $(this).attr("data-id")); });
-            // enable report links
             $(".report-launch").removeClass("disabled");
-            // bar chart
             valueChart.selectedPointer(".value-select");
-            // line chart
             lineChartCreate();
-            // table
             drawTable();
-            // fancy metric blocks
             updateStats();
-
+            if (recordHistory) { recordMetricHistory(); }
+            recordHistory = true;
         if (model.selected.length === 0) {
             // disable report links and remove map marker
             $(".report-launch").addClass("disabled");

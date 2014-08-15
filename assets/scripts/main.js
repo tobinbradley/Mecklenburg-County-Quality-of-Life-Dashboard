@@ -28,10 +28,18 @@ $(document).ready(function () {
     // set window popstate handler
     if (history.pushState) {
         window.addEventListener("popstate", function(e) {
-            if (getURLParameter("m") !== "null") {
+            if (getURLParameter("m") !== "null" && getURLParameter("m") !== model.metricId) {
+                console.log("running metric popstate");
                 recordHistory = false;
-                $("#metric option[value='" + getURLParameter('m') + "']").prop('selected', true);
-                $('#metric').chosen().change();
+                model.metricId = getURLParameter('m');
+            }
+            if (getURLParameter("n") !== "null" && !model.selected.compare(getURLParameter("n").split(","))) {
+                console.log("running n popstate");
+                recordHistory = false;
+                model.selected = getURLParameter("n").split(",");
+            } else if (getURLParameter("n") === "null") {
+                recordHistory = false;
+                model.selected = [];
             }
         });
     }

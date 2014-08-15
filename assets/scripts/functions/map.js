@@ -112,11 +112,9 @@ function initMap() {
     if (getURLParameter("n") !== "null") {
         var arr = [];
         _.each(getURLParameter("n").split(","), function(d) {
-            var sel = d3.select(".geom[data-id='" + d + "']");
-            theVal = d;
-            arr.push(theVal);
+            arr.push(d);
         });
-        model.selected = _.union(model.selected, arr);
+        model.selected = arr;
         d3ZoomPolys("", {"ids": arr});
     }
 

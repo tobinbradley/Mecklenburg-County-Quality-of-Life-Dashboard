@@ -46,7 +46,7 @@ function recordMetricHistory() {
         ga('send', 'event', 'metric', theMetric.text().trim(), theMetric.parent().prop("label"));
     }
     if (history.pushState) {
-        history.pushState({myTag: true}, null, "?m=" + model.metricId);
+        history.pushState({myTag: true}, null, "?m=" + model.metricId + "&n=" + model.selected.join());
     }
 }
 
