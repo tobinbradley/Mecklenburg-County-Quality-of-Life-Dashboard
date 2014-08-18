@@ -1,10 +1,8 @@
-// This is my general dumping ground for odds and ends that don't deservie their
-// own JS file.
+// This contains all of the metric processing and interaction functions
 
 // Process the metric into useful stuff
 function processMetric() {
     var keys = Object.keys(model.metric[0]);
-
 
     // hide or show year related stuff
     if (keys.length > 2) {
@@ -50,44 +48,6 @@ function recordMetricHistory() {
     }
 }
 
-
-// Hover highlights
-// Node there's some weirdness with the geometry doing it this way, so there is
-// another function like this specifically for after the geometry is added in
-// map.js.
-$(document).on({
-    mouseenter: function(event){
-        event.stopPropagation();
-        addHighlight($(this));
-    },
-    mouseleave: function(event){
-    event.stopPropagation();
-        removeHighlight($(this));
-    }
-}, '.metric-hover');
-function addHighlight(elem) {
-    if (elem.attr('data-id')) {
-        var theId = elem.attr('data-id');
-        var theValue = $('.geom[data-id="' + theId + '"]').attr("data-value");
-        d3.selectAll('[data-id="' + theId + '"]').classed("d3-highlight", true).transition().attr("r", 8);
-        if ($.isNumeric(theValue)) {
-            if(! elem.closest(".barchart-container").length ) { valueChart.pointerAdd(theId, theValue, ".value-hover"); }
-        }
-    }
-    else {
-        d3.selectAll('[data-quantile="' + elem.attr('data-quantile') + '"]').classed("d3-highlight", true);
-    }
-}
-function removeHighlight(elem) {
-    if (elem.data('id')) {
-        var theId = elem.attr('data-id');
-        d3.selectAll('[data-id="' + theId + '"]').classed("d3-highlight", false).transition().attr("r", 5);
-        valueChart.pointerRemove(theId, ".value-hover");
-    }
-    else {
-        d3.selectAll('[data-quantile="' + elem.data('quantile') + '"]').classed("d3-highlight", false);
-    }
-}
 
 // Get a count in each quantile
 function quantizeCount(data) {
@@ -168,3 +128,41 @@ function updateStats() {
         $(".stats-weighted").addClass('hide');
     }
 }
+
+// Hover highlights
+// Node there's some weirdness with the geometry doing it this way, so there is
+// another function like this specifically for after the geometry is added in
+// map.js.
+function addHighlight(elem) {
+    if (elem.attr('data-id')) {
+        var theId = elem.attr('data-id');
+        var theValue = $('.geom[data-id="' + theId + '"]').attr("data-value");
+        d3.selectAll('[data-id="' + theId + '"]').classed("d3-highlight", true).transition().attr("r", 8);
+        if ($.isNumeric(theValue)) {
+            if(! elem.closest(".barchart-container").length ) { valueChart.pointerAdd(theId, theValue, ".value-hover"); }
+        }
+    }
+    else {
+        d3.selectAll('[data-quantile="' + elem.attr('data-quantile') + '"]').classed("d3-highlight", true);
+    }
+}
+function removeHighlight(elem) {
+    if (elem.data('id')) {
+        var theId = elem.attr('data-id');
+        d3.selectAll('[data-id="' + theId + '"]').classed("d3-highlight", false).transition().attr("r", 5);
+        valueChart.pointerRemove(theId, ".value-hover");
+    }
+    else {
+        d3.selectAll('[data-quantile="' + elem.data('quantile') + '"]').classed("d3-highlight", false);
+    }
+}
+$(document).on({
+    mouseenter: function(event){
+        event.stopPropagation();
+        addHighlight($(this));
+    },
+    mouseleave: function(event){
+    event.stopPropagation();
+        removeHighlight($(this));
+    }
+}, '.metric-hover');

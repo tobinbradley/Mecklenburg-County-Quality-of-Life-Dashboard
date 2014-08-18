@@ -13,18 +13,18 @@ Here's a handy [YouTube Tutorial](https://www.youtube.com/watch?v=qmx2mZXeHZQ) o
 The good news about the new Dashboard release is setting up a site for you locality is much easier. The backend has been totally redesigned to easily handle adding data and customizing the app.
 
 <div style="float: left; margin-right: 10px;">
-    <img src="http://i.imgur.com/rNf47d0.png" alt="Your alt text" title="Title"/>
+    <img src="http://i.imgur.com/LwcIEuy.png" alt="Your alt text" title="Title"/>
 </div>
 
 First let's take a look at how the project is laid out.
 
 The root folder has the gulp, npm, and bower configuration along with `.jshintrc` and `.editorconfig` should you use those tools.
 
-The `assets` folder contains everything you'll work on to build your dashboard, including the metric data, images, styles (less), and scripts. Images in `assets\images\build` are optimized into `public\images\`
+The `assets` folder contains everything you'll work on to build your dashboard, including the metric data, images, styles (less), HTML pages, and scripts. Images in `assets\images\build` are optimized into `public\images\`
 
 Ignore `bower_components` and `node_modules` - those are for bower and nodejs to worry about.
 
-The `public` folder contains your processed site - concatenated and uglified JavaScript, preprocessed, auto-prefixed, and minified CSS, your processed data, etc. The only things you'll want to edit directly here are the `index.html` file, the `data\geography.topo.json` file (i.e. replace it), and optionally `humans.txt`.
+The `public` folder contains your processed site - concatenated and uglified JavaScript, preprocessed, auto-prefixed, and minified CSS, your processed data, etc. The only things you'll want to edit directly here are the `data\geography.topo.json` file (i.e. replace it) and optionally `humans.txt`.
 
 <div style="clear: both"></div>
 
@@ -111,7 +111,7 @@ After you add metadata, run `gulp build` to process it into the public folder.
 `assets/scripts/config.js` has a number of knobs you will need to turn to set up the dashboard for your area. These are things like the geographic starting point and zoom level, the name of the neighborhoods in your topojson file, unit types for metrics, metrics that may have raw data or accuracy data associated with them, and a few other odds and ends.
 
 ### Edit index.html
-Once you have your topojson, a metric, and metadata, head into `public/index.html`. You'll see an enormous select control with an id of `metric` at line ~95. Here you'll put in your metric as an option. So if your metric was named `m1.csv`, your option would look like:
+Once you have your topojson, a metric, and metadata, head into `assets/index.html`. You'll see an enormous select control with an id of `metric` at line ~95. Here you'll put in your metric as an option. So if your metric was named `m1.csv`, your option would look like:
 
     <option value="m1">
         Whatever you're calling this sucker
@@ -122,7 +122,7 @@ You can put metrics in optgroups as well - they'll appear as headings in the dro
 ### Edit report.html
 Bad news: the report is so customized that it isn't practical to make one that'll automatically work with anything. Good news: customizing it won't be too hard. You can do it all in HTML (*probably*).
 
-Take a gander at report.html. Each report page is a div with a page class.
+Take a gander at `assets/report.html`. Each report page is a div with a page class.
 
     <div class="page">
       ...

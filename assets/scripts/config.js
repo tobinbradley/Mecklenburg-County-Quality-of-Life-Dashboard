@@ -41,7 +41,7 @@ var overlay = "istates";
 // You will need to monkey about in assets/less/vis.less under
 // "chart and map colors" if you change this number. A good guide for color
 // breaks is at http://colorbrewer2.org
-var colorbreaks = 6;
+var colorbreaks = 5;
 
 // Here you can set some behaviors for how your variables are formatted in terms of
 // rounding, commas, prefixes/suffixes, etc. pct puts a % after the value, money
