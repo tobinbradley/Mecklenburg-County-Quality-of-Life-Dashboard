@@ -1,20 +1,64 @@
-// imports
+// ****************************************
+// LESS imports
+// ****************************************
 @import "../../bower_components/bootstrap/less/bootstrap.less";
 @import (less) "vendor/jquery-ui-1.10.3.custom.css";
 @import (less) "../../bower_components/leaflet/dist/leaflet.css";
 @import "vendor/typeahead.less";
 @import "vendor/bootstrap-chosen.less";
 @import "vendor/jquery-tourbus.less";
-@import "vis.less";
 
-// vars
+
+
+// ****************************************
+// Global vars and helpers (colors and such)
+// ****************************************
 @body-color: rgb(249, 249, 249);
-@fancyshadow: inset 0 0 40px rgba(0, 0, 0, 0.12); //0 8px 6px -6px #666,
+@fancyshadow: inset 0 0 40px rgba(0, 0, 0, 0.12);
 @highlightColor: #F6DC62;
 @selectedColor: #FFA400;
 @darkGray: #666;
+.d3-highlight {
+    fill: @highlightColor !important;
+}
+.d3-select {
+    stroke: @selectedColor !important;
+    stroke-width: 2.5px !important;
+    stroke-opacity: 1;
+}
 
-/* OldIE Prompt */
+
+// ****************************************
+// Quantile Color Breaks
+// ****************************************
+// seven blue color breaks
+// .q0{fill:rgb(198,219,239)}
+// .q1{fill:rgb(158,202,225)}
+// .q2{fill:rgb(107,174,214)}
+// .q3{fill:rgb(66,146,198)}
+// .q4{fill:rgb(33,113,181)}
+// .q5{fill:rgb(8,81,156)}
+// .q6{fill:rgb(8,48,107)}
+//
+// six blue color breaks
+// .q0{fill:rgb(198,219,239)}
+// .q1{fill:rgb(158,202,225)}
+// .q2{fill:rgb(107,174,214)}
+// .q3{fill:rgb(66,146,198)}
+// .q4{fill:rgb(33,113,181)}
+// .q5{fill:rgb(8,69,148)}
+//
+// five blue color breaks
+.q0{fill:rgb(198,219,239)}
+.q1{fill:rgb(158,202,225)}
+.q2{fill:rgb(107,174,214)}
+.q3{fill:rgb(49,130,189)}
+.q4{fill:rgb(8,81,156)}
+
+
+// ****************************************
+// The upgrade-your-browser message for IE<9
+// ****************************************
 .oldie {
     width: 100%;
     margin: 0;
@@ -27,11 +71,86 @@
     }
 }
 
+
+// ****************************************
+// Document level stuff/spacing
+// ****************************************
 body {
     background: @body-color url(../images/linen.png);
 }
+.row-vis {
+    min-height: 651px;
+    margin-top: 27px;
+}
 
-/* chosen customizations */
+
+// ****************************************
+// Header
+// ****************************************
+.navbar-main {
+    background: rgba(0,0,0,0.03);
+}
+.navbar-default .navbar-brand {
+    font-size: 1.8em;
+    text-shadow: #777 0 1px 1px;
+}
+.contact {
+    min-width: 300px;
+    padding: 10px 10px 0;
+    input, textarea {
+        margin: 0 0 10px;
+    }
+}
+
+
+// ****************************************
+// Footer
+// ****************************************
+.page-footer {
+    margin-top: 50px;
+}
+
+
+// ****************************************
+// Tool Tips
+// ****************************************
+@keyframes bounceIn {
+    0% {
+      opacity: 0;
+      transform: scale(.3);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+    70% {
+      transform: scale(.9);
+    }
+    100% {
+      transform: scale(1);
+    }
+}
+.tooltip-inner {
+    background: rgba(0,0,0,0.85);
+    animation: bounceIn 0.2s ease-out;
+    .tip {
+        font-size: 1.3em;
+        margin: 5px;
+        span {
+            color: #ff00c7;
+        }
+        .metric-accuracy {
+            color: #ccc;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+    }
+}
+
+
+// ****************************************
+// Metric Selection/chosen
+// ****************************************
 .chosen-container {
     max-width: 100%;
 }
@@ -48,34 +167,67 @@ body {
             box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
     }
 }
-
-.click-here {
+.start-here-img {
     position: absolute;
     left: 75px;
     top: -40px;
     height: 60px;
 }
 
-// Leaflet customizations
+
+// ****************************************
+// Map
+// ****************************************
 .leaflet-control-layers, .leaflet-control-zoom, .leaflet-bar a {
     box-shadow: none;
     background: none;
 }
+#map {
+    height: 530px;
+    background: rgba(0,0,0,0);
+    border: 1px dashed #d3d4d8;
+    border-top: none;
+}
+.geom {
+    stroke: #949494;
+    stroke-width: 0.5px;
+    transition: all 0.4s ease-out;
+    cursor: pointer;
+    stroke-linecap: round;
+}
+.leaflet-overlay-pane svg path:not(.geom) {
+    pointer-events: none;
+}
 
-// Bootstrap customizations
-.well {
-    box-shadow: @fancyshadow;
-    background-color: rgba(255,255,255,0.3);
+
+// ****************************************
+// Search
+// ****************************************
+.mapsearch {
+    position: absolute;
+    z-index: 5;
+    top: 44px;
+    right: 24px;
+    width: 40%;
+    margin: 0 auto;
+    input[type="text"] {
+        background: rgba(255,255,255,0.7);
+    }
 }
-.navbar-main {
-    background: rgba(0,0,0,0.03);
+.datatoggle {
+    margin-top: 7px;    
 }
-.navbar-default .navbar-brand {
-    font-size: 1.8em;
-    text-shadow: #777 0 1px 1px;
+.btn-default {
+    background-color: rgba(255,255,255,0.2);
+    &:hover {
+        background-color: rgba(200,200,200,0.4);
+    }
 }
 
-// jquery ui slider customizations
+
+// ****************************************
+// Time Slider
+// ****************************************
 .slider {
     width: 130px;
     display: inline-block;
@@ -92,90 +244,6 @@ body {
       font-size: .8em;
     }
 }
-
-
-.contact {
-    min-width: 300px;
-    padding: 10px 10px 0;
-    input, textarea {
-        margin: 0 0 10px;
-    }
-}
-
-.row-vis {
-    min-height: 651px;
-    margin-top: 27px;
-}
-.page-footer {
-    margin-top: 50px;
-}
-
-.legend-mean {
-    margin-top: -15px;
-    font-size: 0.9em;
-}
-
-.datatoggle {
-    margin-top: 7px;
-}
-
-.btn-default {
-    background-color: rgba(255,255,255,0.2);
-    &:hover {
-        background-color: rgba(200,200,200,0.4);
-    }
-}
-
-.meta-subtitle {
-    font-size: 1em;
-    margin-bottom: 10px;
-    min-height: 40px;
-}
-
-.meta-container {
-    margin-top: 55px;
-}
-
-.meta-resources ul {
-    list-style: none;
-    padding-left: 0;
-}
-
-
-// Map
-#map {
-    height: 530px;
-    background: rgba(0,0,0,0);
-    border: 1px dashed #d3d4d8;
-    border-top: none;
-}
-.mapsearch {
-    position: absolute;
-    z-index: 5;
-    top: 44px;
-    right: 24px;
-    width: 40%;
-    margin: 0 auto;
-    input[type="text"] {
-        background: rgba(255,255,255,0.7);
-    }
-}
-
-
-#barChart {
-    height: 220px;
-}
-#lineChart {
-    margin: 20px 0 0;
-    //max-width: 360px;
-    //width: 360px;
-    height: 150px;
-    //max-height: 150px;
-    //height: 150px;
-}
-
-
-// year control
 .yearDisplay {
     margin-top: 5px;
 }
@@ -187,7 +255,76 @@ body {
     margin: 0 0 0 0;
 }
 
-// table
+
+// ****************************************
+// Charts
+// ****************************************
+#barChart {
+    height: 220px;
+}
+#lineChart {
+    margin: 20px 0 0;
+    height: 150px;
+}
+.lineChartLegend {
+    font-family: sans-serif;
+    .legend {
+        padding-left: 20px;
+        text-align: left;
+        text-align: center;
+    }
+    .title {
+        display: inline-block;
+        margin: 0.5em;
+        border-style: solid;
+        border-width: 0 0 0 1em;
+        padding: 0 0.3em;
+        font-size: 0.8em;
+    }
+}
+.barchart {
+    .axis {
+        pointer-events: none;
+        shape-rendering: crispEdges;
+        path, line {
+            fill: none;
+            stroke: #000;
+            shape-rendering: crispEdges;
+            stroke-width: 1;
+        }
+        text {
+            font-size: 10px;
+        }
+        .minor {
+            stroke: lightgrey;
+        }
+    }
+    rect.bar {
+        transition: all 0.2s ease-out;
+    }
+    .value-mean {
+        line {
+           pointer-events: none;
+           stroke: black;
+           stroke-dasharray: 8,3;
+        }
+    }
+    .value-hover {
+        circle {
+            fill: @highlightColor;
+        }
+    }
+    .value-select {
+        circle {
+            fill: @selectedColor;
+        }
+    }
+}
+
+
+// ****************************************
+// Data table
+// ****************************************
 .datatable-container {
     display: none;
     margin-top: 10px;
@@ -202,52 +339,82 @@ body {
     th {
         width: 20%;
     }
-}
-table {
-    td:empty {
-        background: rgba(200,200,200,0.5);
-    }
-    tr.d3-highlight {
-        background: @highlightColor;
-        transition: all 0.5s ease-out;
+    table {
+        td:empty {
+            //background: rgba(200,200,200,0.5);
+        }
+        tr.d3-highlight {
+            background: @highlightColor;
+            transition: all 0.5s ease-out;
+        }
     }
 }
 
-// chart legend
-.vis {
-    font-family: sans-serif;
+
+// ****************************************
+// Metadata
+// ****************************************
+.well {
+    box-shadow: @fancyshadow;
+    background-color: rgba(255,255,255,0.3);
+}
+.meta-subtitle {
+    font-size: 1em;
+    margin-bottom: 10px;
+    min-height: 40px;
+}
+.meta-container {
+    margin-top: 55px;
+}
+.meta-resources ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+
+// ****************************************
+// Stat boxes
+// ****************************************
+.stats {
     span {
-        border-style: solid;
-    }
-    h4 {
-        font-size: 0.8em;
-        font-weight: normal;
-        //margin: 0;
-        text-align: center;
-    }
-    .legend {
-        padding-left: 20px;
-        text-align: left;
-    }
-    .title {
+        color: #999999;
         display: block;
-        margin: 0.5em;
-        border-style: solid;
-        border-width: 0 0 0 1em;
-        padding: 0 0.3em;
-        font-size: 0.8em;
     }
-    &.vis-horizontal {
-        .legend {
-            text-align: center;
-        }
-        .title {
-            display: inline-block;
-        }
+    .header {
+        font-weight: bold;
+        font-size: 1.3em;
+        text-transform: uppercase;
+    }
+    h3 {
+        font-size: 2em;
+        font-weight: bold;
+        margin: 3px 0;
+        white-space: nowrap;
+        width: 100%;
+    }
+    .footer {
+        font-weight: bold;
+        font-size: 0.9em;
+        text-transform: uppercase;
+        white-space: nowrap;
+    }
+    .stats-total, .stats-median {
+        font-size: 0.9em;
     }
 }
+.stats-weighted {
+    div {
+        padding-top: 12px;
+    }
+}
+.stats-npa-mean {
+    min-height: 120px;
+}
 
-// repsonsive design adjustments
+
+// ****************************************
+// Responsive design
+// ****************************************
 @media (max-width: 990px) {
     // Header text
     .meta-container {
@@ -275,7 +442,10 @@ table {
     }
 }
 
-//  printing
+
+// ****************************************
+// Printing
+// ****************************************
 @media print {
 
 }
