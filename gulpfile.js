@@ -9,6 +9,7 @@ var gulp = require('gulp'),
     convert = require('gulp-convert'),
     imagemin = require('gulp-imagemin'),
     replace = require('gulp-replace'),
+    rimraf = require('gulp-rimraf'),
     psi = require('psi'),
     open = require('open'),
     fs = require('fs');
@@ -143,6 +144,12 @@ gulp.task('watch', function () {
     gulp.watch('assets/scripts/**/*.js', ['js']);
 });
 
+gulp.task('clean', function() {
+  return gulp.src('public', { read: false })
+    .pipe(rimraf({ force: true }));
+});
+
+
 // rename files for basic setup
 gulp.task('init', function() {
     // make sure people don't run this twice and end up with no search.js
@@ -180,4 +187,4 @@ gulp.task('psi-desktop', function (cb) {
 
 // controller tasks
 gulp.task('default', ['less', 'js', 'watch', 'connect']);
-gulp.task('build', ['less-build', 'js-build', 'markdown', 'fonts', 'convert', 'static', 'cachebuster','geo','imagemin']);
+gulp.task('build', ['clean', 'less-build', 'js-build', 'markdown', 'fonts', 'convert', 'static', 'cachebuster','geo','imagemin']);
