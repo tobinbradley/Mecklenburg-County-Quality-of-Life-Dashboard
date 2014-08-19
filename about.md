@@ -39,7 +39,7 @@ Average residential property value is a good indicator of the health of individu
 
 ## Why voting precincts?
 
-The goal of the project is to indicate the health of neighborhoods, but Lexington does not have a list of official neighborhood boundaries. The does have boundaries of registered neighborhood associations, but those boundaries do not cover the entirety of Lexington (and some actually overlap each other). Additionally, each voting precinct represents approximately 1,000 people, which makes data comparisons more telling.
+The goal of the project is to indicate the health of neighborhoods, but Lexington does not have a list of official neighborhood boundaries. It does have boundaries of registered neighborhood associations, but those boundaries do not cover the entirety of Lexington (and some actually overlap each other). Additionally, each voting precinct represents approximately 1,000 people, which makes data comparisons more telling.
 
 If you're curious which voting precinct your house falls in, search your address in [What's My District](http://whatsmydistrict.org), a project by [OpenLexington](http://openlexington.org).
 
