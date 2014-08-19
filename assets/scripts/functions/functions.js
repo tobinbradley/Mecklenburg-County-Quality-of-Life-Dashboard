@@ -39,7 +39,7 @@ function addHighlight(elem) {
     }
 }
 function removeHighlight(elem) {
-    if (elem.data('id')) {
+    if (elem.data('id') || elem.data('id') === 0) {
         var theId = elem.attr('data-id');
         d3.selectAll('[data-id="' + theId + '"]').classed("d3-highlight", false);
         valueChart.pointerRemove(theId, ".value-hover");
