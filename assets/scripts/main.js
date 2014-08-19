@@ -70,7 +70,7 @@ $(document).ready(function () {
                 delivery: 'value',
                 header: [neighborhoodDescriptor,'Value','Accuracy', 'Trend', 'Raw Data', 'Raw Accuracy']
             });
-        var theMetric = $("#metric option:selected")
+        var theMetric = $("#metric option:selected");
         window.location.href = 'http://mcmap.org/utilities/table2csv.php?csv_text=' + encodeURIComponent(csv) + '&filename=' + encodeURIComponent(theMetric.text().trim());
     });
 
