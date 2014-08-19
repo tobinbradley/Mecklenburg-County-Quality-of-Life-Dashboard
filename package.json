@@ -16,6 +16,7 @@
     "gulp-markdown": "*",
     "gulp-convert": "*",
     "gulp-connect": "*",
+    "gulp-rimraf": "^0.1.0",
     "open": "*",
     "psi": "*"
   },
