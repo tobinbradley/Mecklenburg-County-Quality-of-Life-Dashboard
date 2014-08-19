@@ -80,7 +80,7 @@ $(document).ready(function () {
         $(this).trigger("chosen:updated");
     });
     $(".chosen-search input").prop("placeholder", "search metrics");
-    $(".chosen-container").click(function() { $(".click-here").fadeOut(); });
+    $(".chosen-container").click(function() { $(".start-here-img").fadeOut(); });
 
     // Time slider and looper. Shouldn't require this much code. Curse my stupid brains.
     $(".slider").slider({
