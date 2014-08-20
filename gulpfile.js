@@ -9,7 +9,8 @@ var gulp = require('gulp'),
     convert = require('gulp-convert'),
     imagemin = require('gulp-imagemin'),
     replace = require('gulp-replace'),
-    rimraf = require('gulp-rimraf'),
+    del = require('del'),
+    run = require('run-sequence'),
     psi = require('psi'),
     open = require('open'),
     fs = require('fs');
@@ -144,9 +145,8 @@ gulp.task('watch', function () {
     gulp.watch('assets/scripts/**/*.js', ['js']);
 });
 
-gulp.task('clean', function() {
-  return gulp.src('public', { read: false })
-    .pipe(rimraf({ force: true }));
+gulp.task('clean', function(cb) {
+  return del('./public', cb)
 });
 
 
@@ -187,4 +187,8 @@ gulp.task('psi-desktop', function (cb) {
 
 // controller tasks
 gulp.task('default', ['less', 'js', 'watch', 'connect']);
-gulp.task('build', ['clean', 'less-build', 'js-build', 'markdown', 'fonts', 'convert', 'static', 'cachebuster','geo','imagemin']);
+gulp.task('build', function(cb) {
+  run('clean',
+    ['less-build', 'js-build', 'markdown', 'fonts', 'convert', 'static', 'cachebuster','geo','imagemin'],
+    cb);
+});
