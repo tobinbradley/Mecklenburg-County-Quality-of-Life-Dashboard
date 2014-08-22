@@ -131,6 +131,7 @@ $(document).ready(function () {
     //     $options.eq(random).prop('selected', true);
     // }
 
+
     // Start with random metric if none passed
     if (getURLParameter('m') !== 'null') {
         $("#js-category li[data-category='" + getURLParameter('m') + "']").addClass('active');
@@ -139,6 +140,7 @@ $(document).ready(function () {
         var $options = $('#js-category').find('li'),
             random = Math.floor((Math.random() * $options.length));
         $options.eq(random).addClass('active');
+        $('.chosen-select').find('option').eq(random).prop('selected', true);
     }
 
     // set window popstate event
