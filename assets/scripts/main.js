@@ -424,7 +424,9 @@ function processMetric(msg, data) {
 
     // Set up extent
     var extentArray = [];
-    _.each(metricData, function(d) { extentArray = extentArray.concat(d.map.values()); });
+    console.log(metricData);
+    extentArray = extentArray.concat(metricData[year].map.values());
+   // _.each(metricData, function(d) { console.log(d); debugger; extentArray = extentArray.concat(d.map.values()); });
     x_extent = d3.extent(extentArray);
 
     // set up quantile
