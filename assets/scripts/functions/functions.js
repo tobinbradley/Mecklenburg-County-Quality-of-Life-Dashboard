@@ -160,7 +160,6 @@ function updateSelectedStats() {
                     count += parseFloat(theRaw);
                 }
             });
-            console.log(values);
             //if (values.length > 0) {
                 selectedWeightedMean = values.reduce(function(a, b) { return a + b;}) / count;
             //}
