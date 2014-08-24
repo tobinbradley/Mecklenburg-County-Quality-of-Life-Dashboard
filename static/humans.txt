@@ -9,6 +9,11 @@ PEOPLE
 Tobin Bradley
 Mecklenburg County GIS
 
+Lyzi Diamond
+Erik Schwartz
+Livien Yin
+Code for America Lexington
+
 
 _______________________________________________________________________________
 
@@ -37,4 +42,4 @@ _______________________________________________________________________________
 
 GRAPHIC ASSETS
 
-Custom bling made in Gimp and Inkscape.
+Beautiful design by Livien Yin with Adobe Creative Suite
