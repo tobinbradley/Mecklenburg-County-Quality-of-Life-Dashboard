@@ -28,10 +28,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/tobinbradley/Mecklenburg-County-Quality-of-Life-Dashboard.git"
+    "url": "git://github.com/codeforamerica/lexington-qold.git"
   },
-  "author": "Tobin Bradley",
-  "license": "MIT",
+  "author": "Tobin Bradley, Lyzi Diamond, Erik Schwartz, Livien Yin",
+  "license": "ISC",
   "readmeFilename": "README.md",
   "gitHead": "5f971b0b3ff2cad74d86af05be9a2cb3af2072f6"
 }
