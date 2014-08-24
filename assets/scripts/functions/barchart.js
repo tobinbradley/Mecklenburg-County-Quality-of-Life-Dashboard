@@ -8,6 +8,10 @@ function barChart() {
 
     function my() {
         var data = quantizeCount(metricData[year].map.values());
+        console.log(metricData[year]);
+        console.log(metricData[year].map);
+        console.log(metricData[year].map.values());
+        console.log(data);
         var countyMean = Math.round(d3.mean(metricData[year].map.values()) * 10) / 10;
         var qtiles = quantize.quantiles();
         var theMetric = $("#metric").val();
@@ -19,6 +23,7 @@ function barChart() {
 
         // x/y/scale stuff
         my.x(w, data.length);
+        console.log(data.length);
         my.y(h, _.max(data, function(d){ return d.value; }).value) ;
         my.xScale(w, x_extent);
 
