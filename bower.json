@@ -1,11 +1,11 @@
 {
   "name": "qoldashboard",
   "version": "2.0.0",
-  "homepage": "https://github.com/tobinbradley/Mecklenburg-County-Quality-of-Life-Dashboard",
+  "homepage": "https://github.com/codeforamerica/lexington-qold",
   "authors": [
-    "Tobin Bradley <tobin.bradley@gmail.com>"
+    "Tobin Bradley <tobin.bradley@gmail.com>", "Lyzi Diamond <lyzi@codeforamerica.org>", "Erik Schwartz <eschwartz@codeforamerica.org>", "Livien Yin <livien@codeforamerica.org>"
   ],
-  "license": "MIT",
+  "license": "ISC",
   "ignore": [
     "**/.*",
     "node_modules",
