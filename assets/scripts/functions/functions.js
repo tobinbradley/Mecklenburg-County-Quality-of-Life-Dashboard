@@ -224,13 +224,13 @@ function addMarker(msg, d) {
 
 // format data
 function dataPretty(theValue, theMetric) {
-    var fmat = d3.format("0,000.0"),
+    var fmat = d3.format("0,000"),
         prefix = "",
         suffix = "",
         pretty = theValue;
 
     if ($.isNumeric(theValue)) {
-        pretty = parseFloat(parseFloat(theValue).toFixed(1)).toString().commafy();
+        pretty = parseFloat(parseFloat(theValue).toFixed(0)).toString().commafy();
         if (metricPct.indexOf(theMetric) !== -1) { suffix = "%"; }
         if (metricMoney.indexOf(theMetric) !== -1) {
             prefix = "$";
