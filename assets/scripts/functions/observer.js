@@ -1,3 +1,6 @@
+// ****************************************
+// The one model of Sauron. Change this and Frodo dies.
+// ****************************************
 var model = {
     "selected": [],
     "metricAccuracy": [],
@@ -5,6 +8,10 @@ var model = {
     "metricRawAccuracy": []
 };
 
+
+// ****************************************
+// Execute model changes
+// ****************************************
 function modelChanges(changes) {
 
     var tasklist = _.pluck(changes, 'name');
@@ -91,6 +98,10 @@ function modelChanges(changes) {
 
 }
 
+
+// ****************************************
+// Initialize the observer
+// ****************************************
 Object.observe(model, function(changes) {
     modelChanges(changes);
 });

@@ -5,6 +5,9 @@
 // Most of our calls are going to our REST-ish HTTP API which you can find on
 // github at https://github.com/tobinbradley/dirt-simple-postgis-http-api
 
+// ****************************************
+// Initizilze twitter typeahead
+// ****************************************
 function initTypeahead() {
     var polyid = _.map(model.geom.objects[neighborhoods].geometries, function(d){ return d.id.toString(); });
 

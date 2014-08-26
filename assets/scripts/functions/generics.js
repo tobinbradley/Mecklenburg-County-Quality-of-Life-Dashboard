@@ -1,9 +1,9 @@
-// Ye olde prototypes. A big man would have more stuff here. I AM NOT A BIG MAN.
-
-// Get the mean for stuff. NPA's passed for the report are filtered before they get here.
+// ****************************************
+// Return metric mean (array)
+// ****************************************
 function mean(metric) {
     if(metric.length > 0) {
-        var mean = {},
+        var themean = {},
             keys = Object.keys(metric[0]);
         _.each(keys, function(el, i) {
             if (i > 0) {
@@ -16,16 +16,18 @@ function mean(metric) {
                     }
                 });
 
-                mean[el] = (sum/counter).toFixed(1);
+                themean[el] = (sum/counter).toFixed(1);
             }
         });
-        return mean;
+        return themean;
     } else {
         return false;
     }
 }
 
-// weighted means for crazy people
+// ****************************************
+// Return weighted metric mean (array)
+// ****************************************
 function weightedMean(metric, raw) {
     if (metric.length > 0 && raw.length > 0) {
         var mean = {},
@@ -51,6 +53,9 @@ function weightedMean(metric, raw) {
     }
 }
 
+// ****************************************
+// Return median metric value per year (array)
+// ****************************************
 function median(values) {
     values.sort( function(a,b) {return a - b;} );
     var half = Math.floor(values.length/2);
@@ -62,6 +67,9 @@ function median(values) {
     }
 }
 
+// ****************************************
+// Return the sum for total-able metrics
+// ****************************************
 function sum(values) {
     var theSum = 0;
     _.each(values, function(el) {
@@ -72,26 +80,24 @@ function sum(values) {
     return theSum;
 }
 
-// compare two arrays
+// ****************************************
+// Compare two arrays to see if the are the same
+// ****************************************
 Array.prototype.compare = function(testArr) {
-    if (this.length != testArr.length) return false;
+    if (this.length !== testArr.length) { return false; }
     for (var i = 0; i < testArr.length; i++) {
         if (this[i].compare) {
-            if (!this[i].compare(testArr[i])) return false;
+            if (!this[i].compare(testArr[i])) { return false; }
         }
-        if (this[i] !== testArr[i]) return false;
+        if (this[i] !== testArr[i]) { return false; }
     }
     return true;
-}
-
-// Nothing fancy here, just grabs GET parameters
-function getURLParameter(name) {
-    return decodeURI(
-        (new RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
-    );
-}
+};
 
 
+// ****************************************
+// Add commas to numbers (i.e. 1,123,123)
+// ****************************************
 String.prototype.commafy = function () {
     return this.replace(/(^|[^\w.])(\d{4,})/g, function($0, $1, $2) {
         return $1 + $2.replace(/\d(?=(?:\d\d\d)+(?!\d))/g, "$&,");
@@ -101,8 +107,18 @@ Number.prototype.commafy = function () {
     return String(this).commafy();
 };
 
-// format data
-// see config.js to check out the various types/filters I have set up
+// ****************************************
+// Get URL GET Parameters
+// ****************************************
+function getURLParameter(name) {
+    return decodeURI(
+        (new RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
+    );
+}
+
+// ****************************************
+// Format metric data (see config.js)
+// ****************************************
 function dataPretty(theValue, theMetric) {
     var prefix = "",
         suffix = "",
@@ -120,7 +136,7 @@ function dataPretty(theValue, theMetric) {
         }
     }
     else {
-        pretty = "N/A"
+        pretty = "N/A";
     }
     return prefix + pretty + suffix;
 }

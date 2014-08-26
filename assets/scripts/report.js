@@ -25,11 +25,18 @@
 // console.log(text);
 
 
-var theFilter = ["434","372","232"],    // default list of neighborhoods if none passed
-    theData;                            // global for fetched raw data
+// ****************************************
+// Globals
+// ****************************************
+var theFilter = ["434","372","232"],   // default list of neighborhoods if none passed
+    theData;                                // global for fetched raw data
 
-// Here we make our snazzy chartjs charts. Each chart type has it's own code
-// block. The chart's data-chart property stores the metrics each chart needs.
+
+// ****************************************
+// Create the chart.js charts
+// The container's data-labels and data-chart properties
+// are used to customize the chart.
+// ****************************************
 function createCharts() {
     var colors = ["#F7464A", "#E2EAE9", "#D4CCC5", "#949FB1"];
 
@@ -90,6 +97,10 @@ function createCharts() {
             datasets[1].data.push(countyMean[keys[keys.length - 1]]);
         });
 
+        if (!$.isNumeric(datasets[0].data[0])) {
+            datasets.shift();
+        }
+
         data.datasets = datasets;
 
         ctx = document.getElementById($(this).prop("id")).getContext("2d");
@@ -138,6 +149,9 @@ function createCharts() {
             }
         });
 
+        if (!$.isNumeric(data.datasets[0].data[0])) {
+            data.datasets.shift();
+        }
 
         ctx = document.getElementById($(this).prop("id")).getContext("2d");
         var chart = new Chart(ctx).Line(data, {
@@ -150,7 +164,10 @@ function createCharts() {
     });
 }
 
-// Here we dump numbers in tables and the blocks on the first page.
+
+// ****************************************
+// Create the metric blocks and table values
+// ****************************************
 function createData() {
     // metrics
     $("[data-metric]").each(function() {
@@ -189,9 +206,10 @@ function createData() {
 }
 
 
-// Nothing fancy here. We're making a small Leaflet map, adding just the neighborhoods
-// that we're reporting on, and zooming to them. I'm adding labels to the neighborhoods
-// via leaflet.label.
+// ****************************************
+// Initialize the map
+// Neighborhoods labled with leaflet.label
+// ****************************************
 function createMap(data){
     // set up map
     L.Icon.Default.imagePath = './images';
@@ -218,7 +236,7 @@ function createMap(data){
             "opacity": 1
         },
         filter: function(feature, layer) {
-            return theFilter.indexOf(feature.id.toString()) != -1;
+            return theFilter.indexOf(feature.id.toString()) !== -1;
         },
         onEachFeature: function(feature, layer) {
             var pt = L.geoJson(feature).getBounds().getCenter();
@@ -237,9 +255,10 @@ function createMap(data){
 }
 
 
-// Do all the things
+// ****************************************
+// Document ready kickoff
+// ****************************************
 $(document).ready(function() {
-
     // ye customizable subtitle
     $(".subtitle").on("click", function() { $(this).select(); });
 
@@ -265,5 +284,4 @@ $(document).ready(function() {
         createData();
         createCharts();
     });
-
 });

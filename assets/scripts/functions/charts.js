@@ -1,8 +1,6 @@
-// Ye olde line chart
-// This was d3 at one time, but as I didn't need any interactivity
-// with it and d3 is *hard* I went chartjs on the sucker.
-// lineChartCreate calls lineChartData for the data. It's blown away
-// and redrawn every time because canvas is hellafast.
+// ****************************************
+// Line chart (trend) in chart.js
+// ****************************************
 function lineChartData() {
     var npaMean = mean(_.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; })),
         countyMean = mean(model.metric),
@@ -47,7 +45,6 @@ function lineChartData() {
 
     return data;
 }
-
 function lineChartCreate() {
     var keys = Object.keys(model.metric[0]);
     if (keys.length > 2) {
@@ -66,9 +63,9 @@ function lineChartCreate() {
 }
 
 
-// Ye olde D3 bar chart. I tried to go full-on JS closure here, but it isn't quite there.
-// If you tried to use this closure generically your life would turn into a furious ball
-// of nothing. Curse my stupid brains.
+// ****************************************
+// D3 Bar Chart
+// ****************************************
 function barChart() {
     var width = 720, // default width
         height = 220, // default height
@@ -299,7 +296,10 @@ function barChart() {
     return my;
 }
 
-// draw the bar chart
+
+// ****************************************
+// Initialize the bar chart
+// ****************************************
 function drawBarChart() {
     valueChart.container("barChart");
     valueChart();

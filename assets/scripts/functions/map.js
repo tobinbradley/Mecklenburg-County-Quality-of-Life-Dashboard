@@ -1,3 +1,36 @@
+// ****************************************
+// Zoom to polygons
+// ****************************************
+function d3ZoomPolys(msg, d) {
+    var features = _.filter(d3Layer.toGeoJSON().features, function(data) { return _.contains(d.ids, data.id.toString()); });
+    var bounds = L.latLngBounds(L.geoJson(features[0]).getBounds());
+    _.each(features, function(feature) {
+        bounds.extend(L.geoJson(feature).getBounds());
+    });
+    map.fitBounds(bounds);
+}
+
+
+// ****************************************
+// Geocode a location or a neighborhood
+// ****************************************
+function geocode(d) {
+    // add a marker if a point location is passed
+    if (d.lat) {
+        try { map.removeLayer(marker); }
+        catch (err) {}
+        marker = L.marker([d.lat, d.lng]).addTo(map);
+    }
+
+    // zoom to neighborhood
+    var feature = _.filter(d3Layer.toGeoJSON().features, function(data) { return data.id === d.id; });
+    map.fitBounds(L.geoJson(feature[0]).getBounds());
+}
+
+
+// ****************************************
+// Create the map
+// ****************************************
 function mapCreate() {
     L.Icon.Default.imagePath = './images';
     map = L.map("map", {
@@ -55,6 +88,10 @@ function mapCreate() {
     }
 }
 
+
+// ****************************************
+// Initialize the D3 map layer
+// ****************************************
 function initMap() {
     // Eyes wide open for this gnarly hack.
     // There are lots of different ways to put a D3 layer on Leaflet, and I found
@@ -136,10 +173,13 @@ function initMap() {
     polyid = _.map(model.geom.objects[neighborhoods].geometries, function(d){ return d.id.toString(); });
 }
 
-// update the map colors and values
+
+// ****************************************
+// Color the map
+// ****************************************
 function drawMap() {
 
-    var theMetric = $("#metric").val(),
+    var theMetric = model.metricId,
         theGeom = d3.selectAll(".geom"),
         classlist = [],
         keys = Object.keys(model.metric[0]);
@@ -169,29 +209,4 @@ function drawMap() {
     var xScale = d3.scale.linear().domain(x_extent).range([0, $("#barChart").parent().width() - 60]);
 
     var y = d3.scale.linear().range([260, 0]).domain([0, 260]);
-}
-
-// Zoom to polygons. I think I'm only using this to get to old neighborhoods.
-function d3ZoomPolys(msg, d) {
-    var features = _.filter(d3Layer.toGeoJSON().features, function(data) { return _.contains(d.ids, data.id.toString()); });
-    var bounds = L.latLngBounds(L.geoJson(features[0]).getBounds());
-    _.each(features, function(feature) {
-        bounds.extend(L.geoJson(feature).getBounds());
-    });
-    map.fitBounds(bounds);
-}
-
-
-// zoom to neighborhood, adding a marker if it's a lnglat
-function geocode(d) {
-    // add a marker if a point location is passed
-    if (d.lat) {
-        try { map.removeLayer(marker); }
-        catch (err) {}
-        marker = L.marker([d.lat, d.lng]).addTo(map);
-    }
-
-    // zoom to neighborhood
-    var feature = _.filter(d3Layer.toGeoJSON().features, function(data) { return data.id === d.id; });
-    map.fitBounds(L.geoJson(feature[0]).getBounds());
 }
