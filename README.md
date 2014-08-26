@@ -6,16 +6,13 @@ The dashboard displays neighborhood-level data -- such as building permits, fore
 
 ## The Application
 
-As of August 13, the application has the following datasets:
+As of August 26, the application has the following datasets:
 
 * Building Permits
-* Code Enforcement Violations - Housing
-* Code Enforcement Violations - Nuisance
+* Housing Code Complaints
+* Nuisance Complaints
 * Foreclosures
-* Raw Property Value - Taxable Value
-* Raw Property Value - Fair Cash Value
-* Average Property Value - Taxable Value
-* Average Property Value - Fair Cash Value
+* Average Property Value
 
 ## The Project
 
