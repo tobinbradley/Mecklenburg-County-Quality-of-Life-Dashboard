@@ -25,8 +25,14 @@ function processMetric() {
     model.year = keys.length - 2;
 
     // Set up data extent
-    var theMap = _.map(model.metric, function(num){ if ($.isNumeric(num[keys[model.year + 1]])) { return Number(num[keys[model.year + 1]]); } });
-    x_extent = d3.extent(theMap);
+    var theVals = [];
+    _.each(keys, function(key, i) {
+        if (i > 0) {
+            var theMap = _.map(model.metric, function(num){ if ($.isNumeric(num[key])) { return Number(num[key]); } });
+            theVals = theVals.concat(theMap);
+        }
+    });
+    x_extent = d3.extent(theVals);
 
     // set up data quantile from extent
     quantize = d3.scale.quantile()
