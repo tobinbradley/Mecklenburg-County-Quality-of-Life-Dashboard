@@ -1,3 +1,6 @@
+// ****************************************
+// Global variables and settings
+// ****************************************
 var map,                // leaflet map
     quantize,           // d3 quantizer for color breaks
     x_extent,           // extent of the metric, including all years
@@ -11,7 +14,9 @@ var map,                // leaflet map
 // lodash/underscore template desucking
 _.templateSettings.variable = "rc";
 
-// Let's do stuff
+// ****************************************
+// Document Ready - kickoff
+// ****************************************
 $(document).ready(function () {
 
     // Start with random metric if none passed
@@ -124,7 +129,7 @@ $(document).ready(function () {
     // Don't let clicked toggle buttons remain colored because ugly
     $(".datatoggle").on("focus", "button", function() { $(this).blur(); });
 
-    // Clear selected button. TODO: make this suck less
+    // Clear selected button.
     $(".select-clear").on("click", function() {
         model.selected = [];
     });
@@ -151,14 +156,13 @@ $(document).ready(function () {
         $(this).text(txt);
     });
 
-    // Set up Tourbus to give noobs a tour.
+    // Set up Tourbus for noob assistance
     var tour = $('#dashboard-tour').tourbus({ onStop: function( tourbus ) {$("html, body").animate({ scrollTop: 0 }, "slow");} });
     $('.btn-help').on("click", function() {
         tour.trigger('depart.tourbus');
     });
 
-    // Use Google Analytics to track outbound resource links. Pretty sure nobody needs this,
-    // but too scared to touch it.
+    // Use Google Analytics to track outbound resource links.
     $(".meta-resources").on("mousedown", "a", function(e){
         if (window.ga && e.which !== 3) {
             ga('send', 'event', 'resource', $(this).text().trim(), $("#metric option:selected").text().trim());
@@ -192,17 +196,17 @@ $(document).ready(function () {
     // Set up the map
     mapCreate();
 
-    // initialize charts
+    // initialize the bar chart
     valueChart = barChart();
 
-    // Window resize listener so charts can adjust
+    // Window resize listener so the bar chart can be responsive
     d3.select(window).on("resize", function () {
         if ($(".barchart").parent().width() !== barchartWidth) {
             drawBarChart();
         }
     });
 
-    // Go get the data and kick everything off
-    fetchMetricData($("#metric").val());
+    // Get the data and kick everything off
+    fetchMetricData(model.metricId);
 
 });

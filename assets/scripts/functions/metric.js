@@ -1,6 +1,6 @@
-// This contains all of the metric processing and interaction functions
-
-// Process the metric into useful stuff
+// *************************************************
+// Process the new metric (slider/time, data extent and quantiles)
+// *************************************************
 function processMetric() {
     var keys = Object.keys(model.metric[0]);
 
@@ -36,7 +36,9 @@ function processMetric() {
         }));
 }
 
-// push metric to GA and state
+// ****************************************
+// Record history via pushstate and GA
+// ****************************************
 function recordMetricHistory() {
     // write metric viewed out to GA
     if (window.ga) {
@@ -49,7 +51,9 @@ function recordMetricHistory() {
 }
 
 
-// Get a count in each quantile
+// ****************************************
+// Get a count of neighborhoods in each quantile (array)
+// ****************************************
 function quantizeCount(data) {
     var q1 = _.countBy(data, function (d) {
         return quantize(d);
@@ -65,7 +69,9 @@ function quantizeCount(data) {
     return q2;
 }
 
-// create the table via lodash template
+// ****************************************
+// Make the nerd table via Underscore template
+// ****************************************
 function drawTable() {
     var template = _.template($("script.template-table").html()),
         theSelected = _.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }),
@@ -83,7 +89,9 @@ function drawTable() {
     }));
 }
 
-// update stat boxes for selected stuff
+// ****************************************
+// Update stat boxes for study area and selected
+// ****************************************
 function updateStats() {
     var m = model.metricId,
         keys = Object.keys(model.metric[0]),
@@ -129,10 +137,9 @@ function updateStats() {
     }
 }
 
-// Hover highlights
-// Node there's some weirdness with the geometry doing it this way, so there is
-// another function like this specifically for after the geometry is added in
-// map.js.
+// ****************************************
+// Hover highlights for all except the map
+// ****************************************
 function addHighlight(elem) {
     if (elem.attr('data-id')) {
         var theId = elem.attr('data-id');

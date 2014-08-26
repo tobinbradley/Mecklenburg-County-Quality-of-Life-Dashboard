@@ -1,11 +1,6 @@
-// Eyes wide open for this giant hack. I'm reading the metric HTML (converted from
-// markdown in build process) and pulling substrings out to place on the page via
-// ill-advised lefty-righty kind of crap. I should probably be beaten for this.
-// Given the proclivity of the project partners to edit the metadata nearly
-// continuously for years markdown made the most sense, and to process the result
-// into my various buckets requires this kind of hacky stuff. Needless to say you'll
-// need to update updateMeta if you screw with the metadata markdown layout at all.
-
+// ****************************************
+// Return the nth instance of a substring
+// ****************************************
 function GetSubstringIndex(str, substring, n) {
     var times = 0, index = null;
     while (times < n && index !== -1) {
@@ -15,7 +10,17 @@ function GetSubstringIndex(str, substring, n) {
     return index;
 }
 
+// ****************************************
+// Update the meta fields
+// ****************************************
 function updateMeta() {
+    // Eyes wide open for this giant hack. I'm reading the metric HTML (converted from
+    // markdown in build process) and pulling substrings out to place on the page via
+    // ill-advised lefty-righty kind of crap. I should probably be beaten for this.
+    // Given the proclivity of the project partners to edit the metadata nearly
+    // continuously for years markdown made the most sense, and to process the result
+    // into my various buckets requires this kind of hacky stuff. Needless to say you'll
+    // need to update updateMeta if you screw with the metadata markdown layout at all.
     $.ajax({
         url: 'data/meta/' + $("#metric").val() + '.html',
         type: 'GET',
