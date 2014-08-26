@@ -99,7 +99,7 @@ $(document).ready(function () {
 
     // pubsub subscriptions
     PubSub.subscribe('initialize', initMap);
-    PubSub.subscribe('initialize', initTypeahead);
+    // PubSub.subscribe('initialize', initTypeahead);
     PubSub.subscribe('changeYear', drawMap);
     PubSub.subscribe('changeYear', drawBarChart);
     PubSub.subscribe('changeYear', updateTable);
@@ -119,7 +119,7 @@ $(document).ready(function () {
     PubSub.subscribe('findNeighborhood', d3Select);
     PubSub.subscribe('findNeighborhood', d3Zoom);
 
-    
+
     // THIS REFERS TO OLD NAV
     // Start with random metric if none passed
     // if (getURLParameter("m") !== "null") {
@@ -415,7 +415,7 @@ function processMetric(msg, data) {
      $(".slider").slider("option", "max", metricData.length - 1).slider("value", year);
      metricData.length > 1 ? $(".time").fadeIn() : $(".time").hide();
      $('.time-year').text(metricData[year].year.replace("y_", ""));
- 
+
      _.each(data.metricdata, function (d) {
          for (var i = 0; i < metricData.length; i++) {
              if ($.isNumeric(d[metricData[i].year])) { metricData[i].map.set(d.id, parseFloat(d[metricData[i].year])); }
