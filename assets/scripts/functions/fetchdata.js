@@ -11,7 +11,7 @@ function fetchMetricData(m) {
     ).then(function(metric, geom) {
         // launch processes
         if (geom[0].type) {
-            draw(geom[0]);
+            globals.draw(geom[0]);
         }
         changeMetric(metric[0]);
     });

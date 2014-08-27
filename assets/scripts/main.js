@@ -4,7 +4,7 @@ var map,                // leaflet map
     year,               // the currently selected year as array index of metricData
     barchartWidth,      // for responsive charts
     marker,             // marker for geocode
-    globals = {}, // stash globals here and clean them up during code gardening sesh
+    globals = {},       // stash globals here and clean them up during code gardening sesh
     trendChart,
     valueChart,
     d3Layer,
@@ -151,57 +151,15 @@ var setup = {
       }
       $(this).text(txt);
     });
-  }
-};
-
-$(document).ready(function () {
-
-    setup.loadPrecinctNames();
-    setup.initPubSub();
-    // setup.loadMetricFromUrl();
-    // setup.initPushstate();
-    setup.initChosen();
-    setup.initMapToggles();
-
+  },
+  initTour: function() {
     // joyride
     var tour = $('#dashboard-tour').tourbus({});
     $('.btn-help').on("click", function() {
         tour.trigger('depart.tourbus');
     });
-
-
-    // Track outbound resource links
-    // $(".meta-resources").on("mousedown", "a", function(e){
-    //     if (window.ga && e.which !== 3) {
-    //         ga('send', 'event', 'resource', $(this).text().trim(), $("#metric option:selected").text().trim());
-    //     }
-    // });
-
-    // contact form
-    $(".contact form").submit(function(e) {
-        e.preventDefault();
-        $(".contact").dropdown("toggle");
-        // send feedback
-        if ($("#message").val().trim().length > 0) {
-            $.ajax({
-                type: "POST",
-                url: "/utilities/feedback.php",
-                data: {
-                    email: $("#email").val(),
-                    url: window.location.href,
-                    agent: navigator.userAgent,
-                    subject: "Quality of Life Dashboard Feedback",
-                    to: "tobin.bradley@gmail.com",
-                    message: $("#message").val()
-                }
-            });
-        }
-    });
-    $('.dropdown .contact input').click(function(e) {
-        e.stopPropagation();
-    });
-
-
+  },
+  initMap: function() {
     // set up map
     L.Icon.Default.imagePath = './images';
     map = L.map("map", {
@@ -221,99 +179,87 @@ $(document).ready(function () {
         return this._div;
     };
     yearControl.addTo(map);
+  },
+  setupSlider: function() {
+    // Slider change event - year-over-year
+    var sliderChange = function(value) {
+      $('.time-year').text(metricData[value].year.replace("y_", ""));
+      year = value;
+      PubSub.publish('changeYear');
+    }
 
-    var setupSlider = function() {
-      // Slider change event - year-over-year
-      var sliderChange = function(value) {
-        $('.time-year').text(metricData[value].year.replace("y_", ""));
-        year = value;
-        PubSub.publish('changeYear');
-      }
-
-      // time slider and looper
-      $(".slider").slider({
-        value: 1,
-        min: 0,
-        max: 1,
-        step: 1,
-        animate: true,
-        slide: function( event, ui ) {
-          sliderChange(ui.value);
-        }
-      });
-      $(".btn-looper").on("click", function () {
-        var that = $(this).children("span");
-        var theSlider = $('.slider');
-        var timer;
-        if (that.hasClass("glyphicon-play")) {
-          that.removeClass("glyphicon-play").addClass("glyphicon-pause");
-          if (theSlider.slider("value") === theSlider.slider("option", "max")) {
-            theSlider.slider("value", 0);
-          }
-          else {
-            theSlider.slider("value", theSlider.slider("value") + 1);
-          }
-      sliderChange(theSlider.slider("value"));
-      timer = setInterval(function () {
+    // time slider and looper
+    $(".slider").slider({
+      value: 1,
+    min: 0,
+    max: 1,
+    step: 1,
+    animate: true,
+    slide: function( event, ui ) {
+      sliderChange(ui.value);
+    }
+    });
+    $(".btn-looper").on("click", function () {
+      var that = $(this).children("span");
+      var theSlider = $('.slider');
+      var timer;
+      if (that.hasClass("glyphicon-play")) {
+        that.removeClass("glyphicon-play").addClass("glyphicon-pause");
         if (theSlider.slider("value") === theSlider.slider("option", "max")) {
           theSlider.slider("value", 0);
         }
         else {
           theSlider.slider("value", theSlider.slider("value") + 1);
         }
-      sliderChange(theSlider.slider("value"));
-      }, 3000);
+    sliderChange(theSlider.slider("value"));
+    timer = setInterval(function () {
+      if (theSlider.slider("value") === theSlider.slider("option", "max")) {
+        theSlider.slider("value", 0);
+      }
+      else {
+        theSlider.slider("value", theSlider.slider("value") + 1);
+      }
+    sliderChange(theSlider.slider("value"));
+    }, 3000);
+      }
+      else {
+        that.removeClass("glyphicon-pause").addClass("glyphicon-play");
+        clearInterval(timer);
+      }
+    });
+  },
+  trackOutboundLinks: function() {
+    // Track outbound resource links
+    $(".meta-resources").on("mousedown", "a", function(e){
+        if (window.ga && e.which !== 3) {
+            ga('send', 'event', 'resource', $(this).text().trim(), $("#metric option:selected").text().trim());
         }
-        else {
-          that.removeClass("glyphicon-pause").addClass("glyphicon-play");
-          clearInterval(timer);
-        }
-      });
-    }
-    setupSlider();
+    });
+  },
+  initMetricNav: function() {
+    $("#js-category li").on("click",function(){
+        $("#js-category li").removeClass("active");
+        $(this).addClass("active");
+        var theVal = $(this).data("category");
+        fetchMetricData(theVal);
+        $(".chosen-select").val(theVal).trigger("chosen:updated");
+    });
+  },
+};
 
-    // // Only show map when zoomed in
-    // map.on("zoomend", function() {
-    //     if (map.getZoom() >= mapGeography.baseTileVisible) {
-    //         $(".geom").css("fill-opacity", "0.5");
-    //         $(".leaflet-overlay-pane svg path:not(.geom)").css("stroke-opacity", "0");
-    //         map.addLayer(baseTiles);
-    //     } else {
-    //         $(".geom").css("fill-opacity", "1");
-    //         $(".leaflet-overlay-pane svg path:not(.geom)").css("stroke-opacity", "0.6");
-    //         map.removeLayer(baseTiles);
-    //     }
-    // });
+$(document).ready(function () {
 
-    // geolocate if on a mobile device
-    // bit hacky here on detection, but should cover most things
-    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-        map.locate({setView: false});
-        map.on('locationfound', function(e) {
-            $.ajax({
-                url: 'http://maps.co.mecklenburg.nc.us/rest/v2/ws_geo_pointoverlay.php',
-                type: 'GET',
-                dataType: 'jsonp',
-                data: {
-                    'x': e.latlng.lng,
-                    'y': e.latlng.lat,
-                    'srid': 4326,
-                    'table': 'neighborhoods',
-                    'fields': 'id'
-                },
-                success: function (data) {
-                    var sel = d3.select(".geom [data-id='" + data[0].id + "']");
-                    PubSub.publish('geocode', {
-                        "id": data[0].id,
-                        "value": sel.attr("data-value"),
-                        "d3obj": sel,
-                        "lat": e.latlng.lat,
-                        "lng": e.latlng.lng
-                    });
-                }
-            });
-        });
-    }
+    setup.loadPrecinctNames();
+    setup.initPubSub();
+    // setup.loadMetricFromUrl();
+    // setup.initPushstate();
+    setup.initChosen();
+    setup.initMapToggles();
+    setup.initTour();
+    // setup.trackOutboundLinks();
+
+    setup.initMap();
+    setup.setupSlider();
 
     // initialize charts
     trendChart = lineChart();
@@ -327,26 +273,16 @@ $(document).ready(function () {
         }
     });
 
-
     // kick everything off
     fetchMetricData($("#metric").val());
-
+    setup.initMetricNav();
 });
 
-function draw(geom) {
+globals.draw = function(geom) {
     PubSub.publish('initialize', {
         "geom": geom
     });
 }
-
-$("#js-category li").on("click",function(){
-    $("#js-category li").removeClass("active");
-    $(this).addClass("active");
-    var theVal = $(this).data("category");
-    fetchMetricData(theVal);
-    $(".chosen-select").val(theVal).trigger("chosen:updated");
-});
-
 
 function changeMetric(data) {
     var theVal = $("#metric").val();
