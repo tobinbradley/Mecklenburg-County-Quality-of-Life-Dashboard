@@ -1,6 +1,5 @@
 var map,                // leaflet map
     quantize,           // d3 quantizer for color breaks
-    x_extent,           // extent of the metric, including all years
     metricData = [],    // each element is object {'year': the year, 'map': d3 map of data}
     accuracyData = [],
     rawData = [],
@@ -428,7 +427,7 @@ function processMetric(msg, data) {
     // Shows distribution by year instead of by total
     extentArray = extentArray.concat(metricData[year].map.values());
    // _.each(metricData, function(d) { console.log(d); debugger; extentArray = extentArray.concat(d.map.values()); });
-    x_extent = d3.extent(extentArray);
+    var x_extent = d3.extent(extentArray);
 
     // set up quantile
     quantize = d3.scale.quantile()

@@ -64,7 +64,7 @@ function lineChart() {
 
   my.y = function(min, max, w, h) {
     if (!arguments.length) { return y; }
-    y = d3.scale.linear().domain(x_extent).range([h, 0]);
+    y = d3.scale.linear().domain(quantize.domain()).range([h, 0]);
     return my;
   };
 

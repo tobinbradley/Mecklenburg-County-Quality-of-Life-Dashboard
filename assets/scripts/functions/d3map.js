@@ -108,7 +108,7 @@ function drawMap(msg, data) {
             .attr("data-toggle", "tooltip");
     });
 
-    var xScale = d3.scale.linear().domain(x_extent).range([0, $("#barChart").parent().width() - 60]);
+    var xScale = d3.scale.linear().domain(quantize.domain()).range([0, $("#barChart").parent().width() - 60]);
 
     var y = d3.scale.linear().range([260, 0]).domain([0, 260]);
 }
