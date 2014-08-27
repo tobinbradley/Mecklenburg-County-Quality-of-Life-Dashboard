@@ -57,7 +57,7 @@ var setup = {
       });
     });
   },
-  initPubsub: function() {
+  initPubSub: function() {
     // pubsub subscriptions
     PubSub.subscribe('initialize', initMap);
     // PubSub.subscribe('initialize', initTypeahead);
@@ -79,59 +79,51 @@ var setup = {
     PubSub.subscribe('geocode', addMarker);
     PubSub.subscribe('findNeighborhood', d3Select);
     PubSub.subscribe('findNeighborhood', d3Zoom);
+  },
+  loadMetricFromUrl: function() {
+    // Start with random metric if none passed
+    if (getURLParameter('m') !== 'null') {
+      $("#js-category li[data-category='" + getURLParameter('m') + "']").addClass('active');
+    }
+    else {
+      var $options = $('#js-category').find('li'),
+        random = Math.floor((Math.random() * $options.length));
+      $options.eq(random).addClass('active');
+      $('.chosen-select').find('option').eq(random).prop('selected', true);
+    }
+  },
+  initPushstate: function() {
+    // set window popstate event
+    if (history.pushState) {
+      window.addEventListener("popstate", function(e) {
+        if (getURLParameter("m") !== "null") {
+          PubSub.unsubscribe(recordMetricHistory);
+          $("#metric option[value='" + getURLParameter('m') + "']").prop('selected', true);
+          $('#metric').chosen().change();
+          PubSub.subscribe("recordHistory", recordMetricHistory);
+        }
+      });
+    }
+  },
+  initChosen: function() {
+    // chosen
+    $(".chosen-select").chosen({width: '100%', no_results_text: "Not found - "}).change(function () {
+      var theVal = $(this).val();
+      fetchMetricData(theVal);
+      $(this).trigger("chosen:updated");
+      PubSub.publish("recordHistory", {});
+    });
+    $(".chosen-search input").prop("placeholder", "search metrics");
   }
 };
 
 $(document).ready(function () {
 
     setup.loadPrecinctNames();
-    setup.initPubsub();
-
-
-
-    // THIS REFERS TO OLD NAV
-    // Start with random metric if none passed
-    // if (getURLParameter("m") !== "null") {
-    //     $("#metric option[value='" + getURLParameter('m') + "']").prop('selected', true);
-    // }
-    // else {
-    //     var $options = $('.chosen-select').find('option'),
-    //         random = Math.floor((Math.random() * $options.length));
-    //     $options.eq(random).prop('selected', true);
-    // }
-
-
-    // Start with random metric if none passed
-    if (getURLParameter('m') !== 'null') {
-        $("#js-category li[data-category='" + getURLParameter('m') + "']").addClass('active');
-    }
-    else {
-        var $options = $('#js-category').find('li'),
-            random = Math.floor((Math.random() * $options.length));
-        $options.eq(random).addClass('active');
-        $('.chosen-select').find('option').eq(random).prop('selected', true);
-    }
-
-    // set window popstate event
-    if (history.pushState) {
-        window.addEventListener("popstate", function(e) {
-            if (getURLParameter("m") !== "null") {
-                PubSub.unsubscribe(recordMetricHistory);
-                $("#metric option[value='" + getURLParameter('m') + "']").prop('selected', true);
-                $('#metric').chosen().change();
-                PubSub.subscribe("recordHistory", recordMetricHistory);
-            }
-        });
-    }
-
-    // chosen
-    $(".chosen-select").chosen({width: '100%', no_results_text: "Not found - "}).change(function () {
-        var theVal = $(this).val();
-        fetchMetricData(theVal);
-        $(this).trigger("chosen:updated");
-        PubSub.publish("recordHistory", {});
-    });
-    $(".chosen-search input").prop("placeholder", "search metrics");
+    setup.initPubSub();
+    // setup.loadMetricFromUrl();
+    // setup.initPushstate();
+    setup.initChosen();
 
     // Don't let clicked toggle buttons remain colored
     $(".datatoggle").on("focus", "button", function() { $(this).blur(); });
