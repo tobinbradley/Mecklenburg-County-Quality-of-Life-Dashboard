@@ -114,6 +114,43 @@ var setup = {
       PubSub.publish("recordHistory", {});
     });
     $(".chosen-search input").prop("placeholder", "search metrics");
+  },
+  initMapToggles: function() {
+    // Don't let clicked toggle buttons remain colored
+    $(".datatoggle").on("focus", "button", function() { $(this).blur(); });
+
+    // Clear selected button
+    $(".select-clear").on("click", function() {
+      d3.selectAll(".geom").classed("d3-select", false);
+      d3.select(".value-select").selectAll("rect, line, text, circle").remove();
+      d3.selectAll(".trend-select").selectAll("path, circle").remove();
+      $(".datatable-container tbody tr").remove();
+      $(".stats-selected").text("N/A");
+      try { map.removeLayer(marker); }
+      catch (err) {}
+    });
+
+    // Toggle table button
+    $(".toggle-table").on("click", function() {
+      var txt = $(".datatable-container").is(':visible') ? 'Show Data' : 'Hide Data';
+      $(this).text(txt);
+      $(".datatable-container").toggle("slow");
+    });
+
+    // Toggle map button
+    $(".toggle-map").on("click", function() {
+      var txt = $(this).text() === "Show Map" ? 'Hide Map' : 'Show Map';
+      if (txt !== "Hide Map") {
+        $(".geom").css("fill-opacity", "1");
+        $(".leaflet-overlay-pane svg path:not(.geom)").css("stroke-opacity", "1");
+        map.removeLayer(baseTiles);
+      } else {
+        $(".geom").css("fill-opacity", "0.7");
+        $(".leaflet-overlay-pane svg path:not(.geom)").css("stroke-opacity", "0.6");
+        map.addLayer(baseTiles);
+      }
+      $(this).text(txt);
+    });
   }
 };
 
@@ -124,42 +161,7 @@ $(document).ready(function () {
     // setup.loadMetricFromUrl();
     // setup.initPushstate();
     setup.initChosen();
-
-    // Don't let clicked toggle buttons remain colored
-    $(".datatoggle").on("focus", "button", function() { $(this).blur(); });
-
-    // Clear selected button
-    $(".select-clear").on("click", function() {
-        d3.selectAll(".geom").classed("d3-select", false);
-        d3.select(".value-select").selectAll("rect, line, text, circle").remove();
-        d3.selectAll(".trend-select").selectAll("path, circle").remove();
-        $(".datatable-container tbody tr").remove();
-        $(".stats-selected").text("N/A");
-        try { map.removeLayer(marker); }
-        catch (err) {}
-    });
-
-    // Toggle table button
-    $(".toggle-table").on("click", function() {
-        var txt = $(".datatable-container").is(':visible') ? 'Show Data' : 'Hide Data';
-        $(this).text(txt);
-        $(".datatable-container").toggle("slow");
-    });
-
-    // Toggle map button
-    $(".toggle-map").on("click", function() {
-        var txt = $(this).text() === "Show Map" ? 'Hide Map' : 'Show Map';
-        if (txt !== "Hide Map") {
-            $(".geom").css("fill-opacity", "1");
-            $(".leaflet-overlay-pane svg path:not(.geom)").css("stroke-opacity", "1");
-            map.removeLayer(baseTiles);
-        } else {
-            $(".geom").css("fill-opacity", "0.7");
-            $(".leaflet-overlay-pane svg path:not(.geom)").css("stroke-opacity", "0.6");
-            map.addLayer(baseTiles);
-        }
-        $(this).text(txt);
-    });
+    setup.initMapToggles();
 
     // joyride
     var tour = $('#dashboard-tour').tourbus({});
