@@ -49,17 +49,15 @@ function getURLParameter(name) {
     );
 }
 
-$(document).ready(function () {
-
-  var loadPrecincts = function() {
+var setup = {
+  loadPrecinctNames: function() {
     $.getJSON('data/precincts.geojson', function(precinctJson) {
       _.each(precinctJson.features, function(feature) {
         precincts[feature.properties.OBJECTID - 1] = feature.properties.NAME;
       });
     });
-  }
-  loadPrecincts();
-
+  },
+  initPubsub: function() {
     // pubsub subscriptions
     PubSub.subscribe('initialize', initMap);
     // PubSub.subscribe('initialize', initTypeahead);
@@ -81,6 +79,14 @@ $(document).ready(function () {
     PubSub.subscribe('geocode', addMarker);
     PubSub.subscribe('findNeighborhood', d3Select);
     PubSub.subscribe('findNeighborhood', d3Zoom);
+  }
+};
+
+$(document).ready(function () {
+
+    setup.loadPrecinctNames();
+    setup.initPubsub();
+
 
 
     // THIS REFERS TO OLD NAV
