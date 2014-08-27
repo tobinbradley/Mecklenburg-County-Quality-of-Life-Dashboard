@@ -104,8 +104,8 @@ function drawTable(id, val) {
     if ($.isNumeric(val)) {
         tableRec.value = val;
     }
-    if (accuracyData.length > 0) {
-        tableRec.accuracy = _.filter(accuracyData, function(r) { return r.id == id; })[0][metricData[year].year];
+    if (selectedDataset.accuracyData.length > 0) {
+        tableRec.accuracy = _.filter(selectedDataset.accuracyData, function(r) { return r.id == id; })[0][metricData[year].year];
     }
     if (rawData.length > 0) {
         tableRec.raw = _.filter(rawData, function(r) { return r.id == id; })[0][metricData[year].year];

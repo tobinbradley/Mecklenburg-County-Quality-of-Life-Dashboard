@@ -33,7 +33,7 @@ function fetchMetricData(m) {
         fetchRaw(m),
         fetchRawAccuracy(m)
     ).then(function(metric, geom, accuracy, raw, rawaccuracy) {
-        accuracyData = accuracy[0];
+        selectedDataset.accuracyData = accuracy[-1];
         rawData = raw[0];
         rawAccuracy = rawaccuracy[0];
 
