@@ -1,9 +1,6 @@
 var map,                // leaflet map
     quantize,           // d3 quantizer for color breaks
-    selectedDataset = {},
     metricData = [],    // each element is object {'year': the year, 'map': d3 map of data}
-    rawData = [],
-    rawAccuracy = [],
     timer,              // timer for year slider
     year,               // the currently selected year as array index of metricData
     barchartWidth,      // for responsive charts
