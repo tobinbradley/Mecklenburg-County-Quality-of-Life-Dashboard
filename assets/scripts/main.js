@@ -68,14 +68,6 @@ jQuery.support.placeholder = (function(){
 //     PubSub.publish('changeYear');
 // }
 
-// Slider change event - year-over-year
-function sliderChange(value) {
-
-    $('.time-year').text(metricData[value].year.replace("y_", ""));
-    year = value;
-    PubSub.publish('changeYear');
-}
-
 function getURLParameter(name) {
     return decodeURI(
         (new RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
@@ -255,46 +247,55 @@ $(document).ready(function () {
     };
     yearControl.addTo(map);
 
+    var setupSlider = function() {
+      // Slider change event - year-over-year
+      var sliderChange = function(value) {
+        $('.time-year').text(metricData[value].year.replace("y_", ""));
+        year = value;
+        PubSub.publish('changeYear');
+      }
 
-    // time slider and looper
-    $(".slider").slider({
+      // time slider and looper
+      $(".slider").slider({
         value: 1,
         min: 0,
         max: 1,
         step: 1,
         animate: true,
         slide: function( event, ui ) {
-            sliderChange(ui.value);
+          sliderChange(ui.value);
         }
-    });
-    $(".btn-looper").on("click", function () {
+      });
+      $(".btn-looper").on("click", function () {
         var that = $(this).children("span");
         var theSlider = $('.slider');
         var timer;
         if (that.hasClass("glyphicon-play")) {
-            that.removeClass("glyphicon-play").addClass("glyphicon-pause");
-            if (theSlider.slider("value") === theSlider.slider("option", "max")) {
-                theSlider.slider("value", 0);
-            }
-            else {
-                theSlider.slider("value", theSlider.slider("value") + 1);
-            }
-            sliderChange(theSlider.slider("value"));
-            timer = setInterval(function () {
-                    if (theSlider.slider("value") === theSlider.slider("option", "max")) {
-                        theSlider.slider("value", 0);
-                    }
-                    else {
-                        theSlider.slider("value", theSlider.slider("value") + 1);
-                    }
-                    sliderChange(theSlider.slider("value"));
-                }, 3000);
+          that.removeClass("glyphicon-play").addClass("glyphicon-pause");
+          if (theSlider.slider("value") === theSlider.slider("option", "max")) {
+            theSlider.slider("value", 0);
+          }
+          else {
+            theSlider.slider("value", theSlider.slider("value") + 1);
+          }
+      sliderChange(theSlider.slider("value"));
+      timer = setInterval(function () {
+        if (theSlider.slider("value") === theSlider.slider("option", "max")) {
+          theSlider.slider("value", 0);
         }
         else {
-            that.removeClass("glyphicon-pause").addClass("glyphicon-play");
-            clearInterval(timer);
+          theSlider.slider("value", theSlider.slider("value") + 1);
         }
-    });
+      sliderChange(theSlider.slider("value"));
+      }, 3000);
+        }
+        else {
+          that.removeClass("glyphicon-pause").addClass("glyphicon-play");
+          clearInterval(timer);
+        }
+      });
+    }
+    setupSlider();
 
     // // Only show map when zoomed in
     // map.on("zoomend", function() {
