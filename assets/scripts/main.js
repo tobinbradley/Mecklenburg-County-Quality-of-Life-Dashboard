@@ -1,7 +1,6 @@
 var map,                // leaflet map
     quantize,           // d3 quantizer for color breaks
     metricData = [],    // each element is object {'year': the year, 'map': d3 map of data}
-    timer,              // timer for year slider
     year,               // the currently selected year as array index of metricData
     barchartWidth,      // for responsive charts
     marker,             // marker for geocode
@@ -270,6 +269,7 @@ $(document).ready(function () {
     $(".btn-looper").on("click", function () {
         var that = $(this).children("span");
         var theSlider = $('.slider');
+        var timer;
         if (that.hasClass("glyphicon-play")) {
             that.removeClass("glyphicon-play").addClass("glyphicon-pause");
             if (theSlider.slider("value") === theSlider.slider("option", "max")) {
