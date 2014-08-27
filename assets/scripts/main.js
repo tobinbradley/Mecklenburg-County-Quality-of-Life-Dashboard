@@ -4,20 +4,14 @@ var map,                // leaflet map
     year,               // the currently selected year as array index of metricData
     barchartWidth,      // for responsive charts
     marker,             // marker for geocode
+    globals = {}, // stash globals here and clean them up during code gardening sesh
     trendChart,
     valueChart,
     d3Layer,
     tour,
     precincts = {};
 
-function loadPrecincts() {
-  $.getJSON('data/precincts.geojson', function(precinctJson) {
-    _.each(precinctJson.features, function(feature) {
-      precincts[feature.properties.OBJECTID - 1] = feature.properties.NAME;
-    });
-  });
-}
-function precinctName(id) {
+globals.precinctName = function(id) {
   return precincts[id];
 }
 
@@ -90,6 +84,13 @@ function getURLParameter(name) {
 
 $(document).ready(function () {
 
+  var loadPrecincts = function() {
+    $.getJSON('data/precincts.geojson', function(precinctJson) {
+      _.each(precinctJson.features, function(feature) {
+        precincts[feature.properties.OBJECTID - 1] = feature.properties.NAME;
+      });
+    });
+  }
   loadPrecincts();
 
     // pubsub subscriptions
