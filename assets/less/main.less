@@ -81,7 +81,7 @@ body {
 }
 .row-vis {
     min-height: 651px;
-    margin-top: 27px;
+    margin-top: 20px;
 }
 
 
@@ -174,7 +174,7 @@ body {
 .start-here-img {
     position: absolute;
     left: 75px;
-    top: -40px;
+    top: -37px;
     height: 60px;
 }
 
@@ -245,7 +245,7 @@ body {
       margin-left: -10px;
       text-align: center;
       font-weight: normal;
-      font-size: .8em;
+      font-size: .7em;
     }
 }
 .yearDisplay {
@@ -420,7 +420,6 @@ body {
 // Responsive design
 // ****************************************
 @media (max-width: 990px) {
-    // Header text
     .meta-container {
         display: none;
     }
@@ -428,22 +427,24 @@ body {
         color: #666;
         font-size: 18px;
     }
-    // map
-    .map-container {
-        height: 380px;
-    }
     .map-aside {
-        margin-top: 50px;
+        margin-top: 20px;
     }
     #map {
         height: 320px;
     }
-    .stats {
-        div {
-            padding-top: 15px;
-        }
+}
+@media (max-width: 740px) {
+    button.report-launch, button.toggle-table {
+        display: none;
     }
 }
+@media (max-width: 500px) {
+    button.toggle-map, button.btn-looper {
+        display: none;
+    }
+}
+
 
 
 // ****************************************
