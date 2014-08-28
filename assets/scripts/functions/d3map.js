@@ -1,4 +1,4 @@
-// todo figure out where there is a need to initMap in two different ways (global versus setup)
+// todo figure out whey there is a need to initMap in two different ways (global versus setup)
 globals.initMap = function(msg, data) {
     var setPanBounds = function(padding) {
         // Creates pan bounds with custom padding around data extent.
