@@ -20,7 +20,7 @@ function barChart() {
         // x/y/scale stuff
         my.x(w, data.length);
         my.y(h, _.max(data, function(d){ return d.value; }).value) ;
-        my.xScale(w, x_extent);
+        my.xScale(w, quantize.domain());
 
         // axis labeling
         var xAxis = d3.svg.axis()
@@ -72,10 +72,10 @@ function barChart() {
             })
             .attr("data-span", function(d, i) {
                 if (i === 0) {
-                    return d3.min(x_extent) + " - " + qtiles[i];
+                    return d3.min(quantize.domain()) + " - " + qtiles[i];
                 }
                 if (i === colorbreaks - 1) {
-                    return qtiles[i - 1] + " - " + d3.max(x_extent);
+                    return qtiles[i - 1] + " - " + d3.max(quantize.domain());
                 } else {
                     return qtiles[i - 1] + " - " + qtiles[i];
                 }
@@ -158,7 +158,7 @@ function barChart() {
             .append("text")
             .attr("x", xScale(value))
             .attr("y", 180)
-            .text(precinctName(id))
+            .text(globals.precinctName(id))
             .attr("data-id", id);
 
         var textSize = text.node().getBBox();

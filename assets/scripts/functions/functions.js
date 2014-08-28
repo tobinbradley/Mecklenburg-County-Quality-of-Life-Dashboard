@@ -104,16 +104,6 @@ function drawTable(id, val) {
     if ($.isNumeric(val)) {
         tableRec.value = val;
     }
-    if (accuracyData.length > 0) {
-        tableRec.accuracy = _.filter(accuracyData, function(r) { return r.id == id; })[0][metricData[year].year];
-    }
-    if (rawData.length > 0) {
-        tableRec.raw = _.filter(rawData, function(r) { return r.id == id; })[0][metricData[year].year];
-        tableRec.rawM = metricRaw[id];
-    }
-    if (rawAccuracy.length > 0) {
-        tableRec.rawaccuracy = _.filter(rawAccuracy, function(r) { return r.id == id; })[0][metricData[year].year];
-    }
 
     var template = _.template($("script.template").html());
     if ($(".datatable-container tr[data-id='" + id + "']").size() === 0) {
@@ -147,27 +137,7 @@ function updateSelectedStats() {
         }
     }
     $(".stats-mean-selected").text(dataPretty(selectedMean, m));
-
-    // selected weighted mean
-    if (metricRaw[m]) {
-        // loop through table for selected weighted mean
-        if ($(".datatable-container tbody tr").size() > 0) {
-            $(".datatable-container tbody tr").each(function() {
-                var theValue = $(this).find(".datatable-value").html().replace(/[A-Za-z$-\,]/g, "");
-                var theRaw = $(this).find(".datatable-raw").html().replace(/[A-Za-z$-\,]/g, "");
-                if ($.isNumeric(theValue) && $.isNumeric(theRaw)) {
-                    values.push(parseFloat(theValue * theRaw));
-                    count += parseFloat(theRaw);
-                }
-            });
-            //if (values.length > 0) {
-                selectedWeightedMean = values.reduce(function(a, b) { return a + b;}) / count;
-            //}
-        }
-    }
-
     $(".stats-weighted-mean-selected").text(dataPretty(selectedWeightedMean, m));
-
 }
 
 function updateCountyStats() {
@@ -180,16 +150,6 @@ function updateCountyStats() {
     // County npa mean and median
     $(".stats-county-npa-mean").text(dataPretty(d3.mean(metricData[year].map.values()), m));
     $(".stats-county-npa-median").text("Median: " + dataPretty(d3.median(metricData[year].map.values()), m));
-
-    if (metricRaw[m]) {
-        _.each(rawData, function(d) {
-            if ($.isNumeric(d[metricData[year].year])) {
-                values.push(d[metricData[year].year] * metricData[year].map.get(d.id));
-                count += parseFloat(d[metricData[year].year]);
-            }
-        });
-        countyWeightedMean = values.reduce(function(a, b) { return a + b;}) / count;
-    }
     $(".stats-weighted-mean-county").text(dataPretty(countyWeightedMean, m));
 }
 

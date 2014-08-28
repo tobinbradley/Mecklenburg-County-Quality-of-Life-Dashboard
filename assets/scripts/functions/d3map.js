@@ -1,16 +1,17 @@
-function setPanBounds(padding) {
-    // Creates pan bounds with custom padding around data extent.
+// todo figure out whey there is a need to initMap in two different ways (global versus setup)
+globals.initMap = function(msg, data) {
+    var setPanBounds = function(padding) {
+        // Creates pan bounds with custom padding around data extent.
 
-    var maxBounds = d3Layer.getBounds();
-    var southWest = maxBounds.getSouthWest();
-    var northEast = maxBounds.getNorthEast();
-    var newSouthWest = L.latLng(southWest.lat - padding, southWest.lng - padding);
-    var newNorthEast = L.latLng(northEast.lat + padding, northEast.lng + padding);
-    return L.latLngBounds(newSouthWest, newNorthEast);
+        var maxBounds = d3Layer.getBounds();
+        var southWest = maxBounds.getSouthWest();
+        var northEast = maxBounds.getNorthEast();
+        var newSouthWest = L.latLng(southWest.lat - padding, southWest.lng - padding);
+        var newNorthEast = L.latLng(northEast.lat + padding, northEast.lng + padding);
+        return L.latLngBounds(newSouthWest, newNorthEast);
 
-};
+    };
 
-function initMap(msg, data) {
     // Eyes wide open for this narly hack.
     // There are lots of different ways to put a D3 layer on Leaflet, and I found
     // them all to be annoying and/or weird. So, here I'm adding the topojson as a
@@ -63,7 +64,7 @@ function initMap(msg, data) {
             if ($.isNumeric(sel.attr("data-value"))) {
                 num = dataPretty(sel.attr("data-value"), $("#metric").val());
             }
-            return "<p class='tip'>Precinct: " + precinctName(sel.attr("data-id")) + "<span>" + num + "</span></p>";
+            return "<p class='tip'>Precinct: " + globals.precinctName(sel.attr("data-id")) + "<span>" + num + "</span></p>";
         },
         container: '#map'
     });
@@ -84,7 +85,7 @@ function initMap(msg, data) {
     }
 }
 
-function drawMap(msg, data) {
+globals.drawMap = function(msg, data) {
     var theMetric = $("#metric").val();
     var theGeom = d3.selectAll(".geom");
 
@@ -108,7 +109,7 @@ function drawMap(msg, data) {
             .attr("data-toggle", "tooltip");
     });
 
-    var xScale = d3.scale.linear().domain(x_extent).range([0, $("#barChart").parent().width() - 60]);
+    var xScale = d3.scale.linear().domain(quantize.domain()).range([0, $("#barChart").parent().width() - 60]);
 
     var y = d3.scale.linear().range([260, 0]).domain([0, 260]);
 }
