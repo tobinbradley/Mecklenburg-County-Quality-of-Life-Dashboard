@@ -39,6 +39,7 @@ var setup = {
     // pubsub subscriptions
     PubSub.subscribe('initialize', globals.initMap);
     // PubSub.subscribe('initialize', initTypeahead);
+    PubSub.subscribe('changeYear', globals.setExtent);
     PubSub.subscribe('changeYear', globals.drawMap);
     PubSub.subscribe('changeYear', drawBarChart);
     PubSub.subscribe('changeYear', updateTable);
@@ -240,6 +241,14 @@ globals.changeMetric = function(data) {
     });
 }
 
+globals.setExtent = function(msg, data) {
+    var extentArray = [];
+    // Shows distribution by year instead of by total
+    extentArray = extentArray.concat(metricData[year].map.values());
+    // _.each(metricData, function(d) { console.log(d); debugger; extentArray = extentArray.concat(d.map.values()); });
+    x_extent = d3.extent(extentArray);
+}
+
 globals.processMetric = function(msg, data) {
     // get current year if available so slider can find nearest
     if (_.isNumber(year)) {
@@ -278,13 +287,8 @@ globals.processMetric = function(msg, data) {
          }
      });
 
-    // Set up extent
-    var extentArray = [];
-    console.log(metricData);
-    // Shows distribution by year instead of by total
-    extentArray = extentArray.concat(metricData[year].map.values());
-   // _.each(metricData, function(d) { console.log(d); debugger; extentArray = extentArray.concat(d.map.values()); });
-    var x_extent = d3.extent(extentArray);
+    // Set up x_extent
+    globals.setExtent();
 
     // set up quantile
     quantize = d3.scale.quantile()

@@ -8,5 +8,6 @@ var map,                // leaflet map
     trendChart,
     valueChart,
     d3Layer,
+    x_extent,
     tour,
     precincts = {};
