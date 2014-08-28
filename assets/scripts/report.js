@@ -59,8 +59,8 @@ function createCharts() {
 
         ctx = document.getElementById($(this).prop("id")).getContext("2d");
         var chart = new Chart(ctx).Doughnut(data, {
-            //String - A legend template
-    legendTemplate : '<% for (var i=0; i<segments.length; i++){%><span style="border-color:<%=segments[i].fillColor%>" class="title"><%if(segments[i].label){%><%=segments[i].label%><%}%></span><%}%>'
+            showTooltips: false,
+            legendTemplate : '<% for (var i=0; i<segments.length; i++){%><span style="border-color:<%=segments[i].fillColor%>" class="title"><%if(segments[i].label){%><%=segments[i].label%><%}%></span><%}%>'
         });
 
         $("#" + $(this).prop("id") + "-legend").html(chart.generateLegend());
@@ -105,6 +105,7 @@ function createCharts() {
 
         ctx = document.getElementById($(this).prop("id")).getContext("2d");
         var chart = new Chart(ctx).Bar(data, {
+            showTooltips: false,
             legendTemplate : '<% for (var i=0; i<datasets.length; i++){%><span class="title"  style="border-color:<%=datasets[i].strokeColor%>"><%if(datasets[i].label){%><%=datasets[i].label%><%}%></span><%}%>'
         });
 
@@ -155,6 +156,7 @@ function createCharts() {
 
         ctx = document.getElementById($(this).prop("id")).getContext("2d");
         var chart = new Chart(ctx).Line(data, {
+            showTooltips: false,
             legendTemplate : '<% for (var i=0; i<datasets.length; i++){%><span class="title"  style="border-color:<%=datasets[i].strokeColor%>"><%if(datasets[i].label){%><%=datasets[i].label%><%}%></span><%}%>'
         });
 

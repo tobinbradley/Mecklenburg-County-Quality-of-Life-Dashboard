@@ -25,7 +25,7 @@
     <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon-precomposed.png" />
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/main.css?foo=89514">
+    <link rel="stylesheet" href="css/main.css?foo=1603">
 
 </head>
 
@@ -365,35 +365,41 @@
                     <img src="images/click-here-arrow.png" class="start-here-img" alt="click here">
                 </div>
                 <div id="map"></div>
-                <div class="yearDisplay temporal time text-right pull-left">
-                    <button type="button" class="btn btn-primary btn-looper">
-                        <span class="glyphicon glyphicon-play"></span>
-                    </button>
-                    <div class="slider"></div>
-                </div>
-                <div class="btn-group pull-right datatoggle">
-                    <button type="button" class="btn btn-default btn-sm toggle-map">Show Map</button>
-                    <button type="button" class="btn btn-default btn-sm toggle-table">Show Data</button>
-                    <button type="button" class="btn btn-default btn-sm report-launch disabled">Report</button>
-                    <button type="button" class="btn btn-default btn-sm select-clear">Clear Selected</button>
-                </div>
                 <div class="form mapsearch">
                     <label for="searchbox" class="sr-only">search the map</label>
                     <input id="searchbox" name="searchbox" type="text" class="typeahead form-control" placeholder="search map">
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-xs-6">
+                        <div class="yearDisplay temporal time">
+                            <button type="button" class="btn btn-primary btn-looper">
+                                <span class="glyphicon glyphicon-play"></span>
+                            </button>
+                            <div class="slider"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-7 col-xs-6 text-right">
+                        <div class="btn-group datatoggle text-right">
+                            <button type="button" class="btn btn-default btn-sm toggle-map">Show Map</button>
+                            <button type="button" class="btn btn-default btn-sm toggle-table">Show Data</button>
+                            <button type="button" class="btn btn-default btn-sm report-launch disabled">Report</button>
+                            <button type="button" class="btn btn-default btn-sm select-clear">Clear Selected</button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-md-4 map-aside">
                 <div class="meta-subtitle text-center"></div>
                 <div class="stats">
                     <div class="row text-center">
-                        <div class="col-md-6 col-xs-3 stats-npa-mean">
+                        <div class="col-md-6 col-xs-6 stats-npa-mean">
                             <h3 class="stats-county-npa-mean">&nbsp;</h3>
                             <span class="header">County</span>
                             <span class="footer">NPA Average</span>
                             <span class="stats-total stats-county-total"></span>
                             <span class="stats-median stats-county-npa-median">&nbsp;</span>
                         </div>
-                        <div class="col-md-6 col-xs-3">
+                        <div class="col-md-6 col-xs-6">
                             <h3 class="stats-selected stats-mean-selected">N/A</h3>
                             <span class="header">Selected</span>
                             <span class="footer">NPA Average</span>
@@ -617,7 +623,7 @@
     <!-- End jQuery Tourbus -->
 
     <!-- scripts at the bottom yo -->
-    <script src="js/main.js?foo=89514"></script>
+    <script src="js/main.js?foo=1603"></script>
 
     <!--   Google Analytics -->
     <script>
