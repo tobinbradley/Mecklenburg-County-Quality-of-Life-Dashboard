@@ -37,7 +37,7 @@ var setup = {
   },
   initPubSub: function() {
     // pubsub subscriptions
-    PubSub.subscribe('initialize', initMap);
+    PubSub.subscribe('initialize', globals.initMap);
     // PubSub.subscribe('initialize', initTypeahead);
     PubSub.subscribe('changeYear', globals.drawMap);
     PubSub.subscribe('changeYear', drawBarChart);

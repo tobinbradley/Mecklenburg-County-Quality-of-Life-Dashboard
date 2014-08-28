@@ -1,16 +1,17 @@
-function setPanBounds(padding) {
-    // Creates pan bounds with custom padding around data extent.
+// todo figure out where there is a need to initMap in two different ways (global versus setup)
+globals.initMap = function(msg, data) {
+    var setPanBounds = function(padding) {
+        // Creates pan bounds with custom padding around data extent.
 
-    var maxBounds = d3Layer.getBounds();
-    var southWest = maxBounds.getSouthWest();
-    var northEast = maxBounds.getNorthEast();
-    var newSouthWest = L.latLng(southWest.lat - padding, southWest.lng - padding);
-    var newNorthEast = L.latLng(northEast.lat + padding, northEast.lng + padding);
-    return L.latLngBounds(newSouthWest, newNorthEast);
+        var maxBounds = d3Layer.getBounds();
+        var southWest = maxBounds.getSouthWest();
+        var northEast = maxBounds.getNorthEast();
+        var newSouthWest = L.latLng(southWest.lat - padding, southWest.lng - padding);
+        var newNorthEast = L.latLng(northEast.lat + padding, northEast.lng + padding);
+        return L.latLngBounds(newSouthWest, newNorthEast);
 
-};
+    };
 
-function initMap(msg, data) {
     // Eyes wide open for this narly hack.
     // There are lots of different ways to put a D3 layer on Leaflet, and I found
     // them all to be annoying and/or weird. So, here I'm adding the topojson as a
