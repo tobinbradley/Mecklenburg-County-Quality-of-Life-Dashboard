@@ -1,16 +1,3 @@
-var map,                // leaflet map
-    quantize,           // d3 quantizer for color breaks
-    metricData = [],    // each element is object {'year': the year, 'map': d3 map of data}
-    year,               // the currently selected year as array index of metricData
-    barchartWidth,      // for responsive charts
-    marker,             // marker for geocode
-    globals = {},       // stash globals here and clean them up during code gardening sesh
-    trendChart,
-    valueChart,
-    d3Layer,
-    tour,
-    precincts = {};
-
 globals.precinctName = function(id) {
   return precincts[id];
 }
@@ -52,12 +39,12 @@ var setup = {
     // pubsub subscriptions
     PubSub.subscribe('initialize', initMap);
     // PubSub.subscribe('initialize', initTypeahead);
-    PubSub.subscribe('changeYear', drawMap);
+    PubSub.subscribe('changeYear', globals.drawMap);
     PubSub.subscribe('changeYear', drawBarChart);
     PubSub.subscribe('changeYear', updateTable);
     PubSub.subscribe('changeYear', updateCountyStats);
     PubSub.subscribe('changeMetric', globals.processMetric);
-    PubSub.subscribe('changeMetric', drawMap);
+    PubSub.subscribe('changeMetric', globals.drawMap);
     PubSub.subscribe('changeMetric', drawBarChart);
     PubSub.subscribe('changeMetric', drawLineChart);
     PubSub.subscribe('changeMetric', updateMeta);
@@ -238,37 +225,6 @@ var setup = {
   },
 };
 
-$(document).ready(function () {
-
-    setup.loadPrecinctNames();
-    setup.initPubSub();
-    // setup.loadMetricFromUrl();
-    // setup.initPushstate();
-    setup.initChosen();
-    setup.initMapToggles();
-    setup.initTour();
-    // setup.trackOutboundLinks();
-
-    setup.initMap();
-    setup.setupSlider();
-
-    // initialize charts
-    trendChart = lineChart();
-    valueChart = barChart();
-
-    // window resize so charts change
-    d3.select(window).on("resize", function () {
-        if ($(".barchart").parent().width() !== barchartWidth) {
-            drawBarChart();
-            drawLineChart();
-        }
-    });
-
-    // kick everything off
-    fetchMetricData($("#metric").val());
-    setup.initMetricNav();
-});
-
 globals.draw = function(geom) {
     PubSub.publish('initialize', {
         "geom": geom
@@ -351,3 +307,35 @@ globals.recordMetricHistory = function(msg, data) {
         }
     }
 }
+
+$(document).ready(function () {
+
+    setup.loadPrecinctNames();
+    setup.initPubSub();
+    // setup.loadMetricFromUrl();
+    // setup.initPushstate();
+    setup.initChosen();
+    setup.initMapToggles();
+    setup.initTour();
+    // setup.trackOutboundLinks();
+
+    setup.initMap();
+    setup.setupSlider();
+
+    // initialize charts
+    trendChart = lineChart();
+    valueChart = barChart();
+
+    // window resize so charts change
+    d3.select(window).on("resize", function () {
+        if ($(".barchart").parent().width() !== barchartWidth) {
+            drawBarChart();
+            drawLineChart();
+        }
+    });
+
+    // kick everything off
+    fetchMetricData($("#metric").val());
+    setup.initMetricNav();
+});
+

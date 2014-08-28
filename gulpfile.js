@@ -33,6 +33,7 @@ var jsFiles = [
     'assets/scripts/vendor/jquery-tourbus.js',
     'bower_components/lodash/dist/lodash.underscore.js',
     'bower_components/jquery.scrollTo/jquery.scrollTo.js',
+    'assets/scripts/function-globals.js',
     'assets/scripts/functions/*.js',
     'assets/scripts/config.js',
     'assets/scripts/main.js'

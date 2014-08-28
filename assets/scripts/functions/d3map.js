@@ -84,7 +84,7 @@ function initMap(msg, data) {
     }
 }
 
-function drawMap(msg, data) {
+globals.drawMap = function(msg, data) {
     var theMetric = $("#metric").val();
     var theGeom = d3.selectAll(".geom");
 
