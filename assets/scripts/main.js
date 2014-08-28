@@ -34,16 +34,7 @@ jQuery.support.placeholder = (function(){
     return 'placeholder' in i;
 })();
 
-// Slider change event - month-over-month
-// function sliderChange(value) {
-
-//     var sliderText = metricData[value].year.replace()
-//     $('.time-year').text(nameMonth(metricData[value].year));
-//     year = value;
-//     PubSub.publish('changeYear');
-// }
-
-function getURLParameter(name) {
+globals.getURLParameter = function(name) {
     return decodeURI(
         (new RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
     );
@@ -65,14 +56,14 @@ var setup = {
     PubSub.subscribe('changeYear', drawBarChart);
     PubSub.subscribe('changeYear', updateTable);
     PubSub.subscribe('changeYear', updateCountyStats);
-    PubSub.subscribe('changeMetric', processMetric);
+    PubSub.subscribe('changeMetric', globals.processMetric);
     PubSub.subscribe('changeMetric', drawMap);
     PubSub.subscribe('changeMetric', drawBarChart);
     PubSub.subscribe('changeMetric', drawLineChart);
     PubSub.subscribe('changeMetric', updateMeta);
     PubSub.subscribe('changeMetric', updateTable);
     PubSub.subscribe('changeMetric', updateCountyStats);
-    PubSub.subscribe('recordHistory', recordMetricHistory);
+    PubSub.subscribe('recordHistory', globals.recordMetricHistory);
     PubSub.subscribe('selectGeo', d3Select);
     PubSub.subscribe('geocode', d3Select);
     PubSub.subscribe('geocode', d3Zoom);
@@ -82,8 +73,8 @@ var setup = {
   },
   loadMetricFromUrl: function() {
     // Start with random metric if none passed
-    if (getURLParameter('m') !== 'null') {
-      $("#js-category li[data-category='" + getURLParameter('m') + "']").addClass('active');
+    if (globals.getURLParameter('m') !== 'null') {
+      $("#js-category li[data-category='" + globals.getURLParameter('m') + "']").addClass('active');
     }
     else {
       var $options = $('#js-category').find('li'),
@@ -96,9 +87,9 @@ var setup = {
     // set window popstate event
     if (history.pushState) {
       window.addEventListener("popstate", function(e) {
-        if (getURLParameter("m") !== "null") {
+        if (globals.getURLParameter("m") !== "null") {
           PubSub.unsubscribe(recordMetricHistory);
-          $("#metric option[value='" + getURLParameter('m') + "']").prop('selected', true);
+          $("#metric option[value='" + globals.getURLParameter('m') + "']").prop('selected', true);
           $('#metric').chosen().change();
           PubSub.subscribe("recordHistory", recordMetricHistory);
         }
@@ -284,7 +275,7 @@ globals.draw = function(geom) {
     });
 }
 
-function changeMetric(data) {
+globals.changeMetric = function(data) {
     var theVal = $("#metric").val();
     $(".d3-tip").remove();
     PubSub.publish('changeMetric', {
@@ -293,7 +284,7 @@ function changeMetric(data) {
     });
 }
 
-function processMetric(msg, data) {
+globals.processMetric = function(msg, data) {
     // get current year if available so slider can find nearest
     if (_.isNumber(year)) {
         var prevYear = parseInt(metricData[year].year.replace("y_", ""));
@@ -347,7 +338,7 @@ function processMetric(msg, data) {
         }));
 }
 
-function recordMetricHistory(msg, data) {
+globals.recordMetricHistory = function(msg, data) {
     // push metric to GA and state
     // Note I'm doing the text descript, not the little name, for clarity in analytics
     if (msg !== 'initialize') {

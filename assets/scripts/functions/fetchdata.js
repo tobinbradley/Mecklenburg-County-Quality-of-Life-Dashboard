@@ -13,6 +13,6 @@ function fetchMetricData(m) {
         if (geom[0].type) {
             globals.draw(geom[0]);
         }
-        changeMetric(metric[0]);
+        globals.changeMetric(metric[0]);
     });
 }
