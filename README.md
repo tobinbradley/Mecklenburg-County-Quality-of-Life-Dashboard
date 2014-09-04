@@ -147,4 +147,11 @@ Building for deployment does all of the niceties for you - JavaScript concatenat
 
 *Note you need to run this command in the root of the project folder.*
 
-Copy the contents of your public folder to your production web server and you're good to go.
+## Deploy to github pages
+
+```
+git checkout dev
+gulp build
+git checkout gh-pages
+sh deploy.sh
+```
