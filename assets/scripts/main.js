@@ -60,6 +60,11 @@ $(document).ready(function () {
         }
     });
 
+    // Social media links
+    $(".social-links li a").on("click", function() {
+        window.open($(this).data("url") + encodeURI(document.URL), "", "width=450, height=250");
+    });
+
     // download table to csv
     // Because IE doesn't do DATA URI's for cool stuff, I'm using a little utility PHP file
     // on one of my servers. Feel free to use it, but if you want to host your own, the PHP
