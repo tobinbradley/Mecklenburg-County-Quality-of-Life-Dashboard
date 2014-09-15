@@ -50,14 +50,8 @@ $(document).ready(function () {
     }
 
     // launch report window with selected neighborhoods
-    $(".report-launch a, button.report-launch").on("click", function() {
-        if (!$(this).parent().hasClass("disabled")) {
-            var arr = [];
-            $(".d3-select").each(function() {
-                arr.push($(this).data("id"));
-            });
-            window.open("report.html?n=" + arr.join());
-        }
+    $("button.report-launch").on("click", function() {
+        window.open("report.html?n=" + model.selected.join());
     });
 
     // Social media links
