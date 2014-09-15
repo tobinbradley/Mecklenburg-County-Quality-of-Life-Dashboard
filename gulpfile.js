@@ -1,5 +1,5 @@
 var gulp = require('gulp'),
-    connect = require('gulp-connect'),
+    browserSync = require('browser-sync'),
     less = require('gulp-less'),
     autoprefixer = require('gulp-autoprefixer'),
     minifycss = require('gulp-minify-css'),
@@ -9,7 +9,6 @@ var gulp = require('gulp'),
     convert = require('gulp-convert'),
     imagemin = require('gulp-imagemin'),
     replace = require('gulp-replace'),
-    fsopen = require('open'),
     jsoncombine = require("gulp-jsoncombine"),
     fs = require('fs'),
     config = require('./assets/scripts/config.js');
@@ -52,29 +51,22 @@ var jsReport = [
     'assets/scripts/report.js'
 ];
 
-
-// livereload server
-gulp.task('connect', function() {
-    connect.server({
-        root: 'public',
-        livereload: true,
-        port: 8000
+// Web server
+gulp.task('browser-sync', function() {
+    browserSync(['./public/**/*.css', './public/**/*.js', './public/**/*.html'], {
+        server: {
+            baseDir: "./public"
+        }
     });
 });
 
-// html
-gulp.task('html', function () {
-    gulp.src('./public/*.html')
-        .pipe(connect.reload());
-});
 
 // Less processing
 gulp.task('less', function() {
     return gulp.src(['assets/less/main.less', 'assets/less/report.less'])
         .pipe(less())
         .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
-        .pipe(gulp.dest('public/css'))
-        .pipe(connect.reload());
+        .pipe(gulp.dest('public/css'));
 });
 gulp.task('less-build', function() {
     return gulp.src(['assets/less/main.less', 'assets/less/report.less'])
@@ -88,12 +80,10 @@ gulp.task('less-build', function() {
 gulp.task('js', function() {
     gulp.src(jsMain)
         .pipe(concat('main.js'))
-        .pipe(gulp.dest('public/js'))
-        .pipe(connect.reload());
+        .pipe(gulp.dest('public/js'));
     return gulp.src(jsReport)
         .pipe(concat('report.js'))
-        .pipe(gulp.dest('public/js'))
-        .pipe(connect.reload());
+        .pipe(gulp.dest('public/js'));
 });
 gulp.task('js-build', function() {
     gulp.src(jsReport)
@@ -150,21 +140,15 @@ gulp.task('replace', function() {
         .pipe(gulp.dest('public/'));
 });
 
-// open broser
-gulp.task("browser", function(){
-    return fsopen('http://localhost:8000');
-});
-
 // watch
 gulp.task('watch', function () {
     gulp.watch(['./assets/*.html'], ['replace']);
-    gulp.watch(['./public/**/*.html'], ['html']);
     gulp.watch(['./assets/less/**/*.less'], ['less']);
     gulp.watch('assets/scripts/**/*.js', ['js']);
 });
 
 // rename files for basic setup
-gulp.task('init', function() {
+gulp.task('initSearch', function() {
     // make sure people don't run this twice and end up with no search.js
     fs.exists('assets/scripts/functions/search.js.basic', function(exists) {
         if (exists) {
@@ -183,5 +167,5 @@ gulp.task('init', function() {
 
 
 // controller tasks
-gulp.task('default', ['less', 'js', 'replace', 'watch', 'connect', 'browser']);
+gulp.task('default', ['less', 'js', 'replace', 'watch', 'browser-sync']);
 gulp.task('build', ['less-build', 'js-build', 'markdown', 'convert', 'replace', 'imagemin', 'merge-json']);

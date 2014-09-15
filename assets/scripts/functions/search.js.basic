@@ -2,8 +2,8 @@
 // Initialize twitter typeahead
 // Advanced version of this in search.js.advanced
 // ****************************************
-function initTypeahead(msg, data) {
-    var polyid = _.map(data.geom.objects[neighborhoods].geometries, function(d){ return d.id.toString(); });
+function initTypeahead() {
+    var polyid = _.map(model.geom.objects[neighborhoods].geometries, function(d){ return d.id.toString(); });
     $("#searchbox").click(function () { $(this).select(); }).focus();
     $('.typeahead').typeahead([
         {

@@ -8,7 +8,6 @@
     "gulp": "*",
     "gulp-autoprefixer": "*",
     "gulp-concat": "*",
-    "gulp-connect": "*",
     "gulp-convert": "*",
     "gulp-imagemin": "*",
     "gulp-jsoncombine": "*",
@@ -17,7 +16,7 @@
     "gulp-minify-css": "*",
     "gulp-replace": "*",
     "gulp-uglify": "*",
-    "open": "*"
+    "browser-sync": "^1.4.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

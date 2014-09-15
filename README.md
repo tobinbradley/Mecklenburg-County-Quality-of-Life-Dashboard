@@ -62,7 +62,7 @@ We need to install our gulp extensions and some required JavaScript libraries ar
 
     npm install
     bower install
-    gulp init
+    gulp initSearch
 
 ### Fire it up!
 Gulp is configured with its own web server complete with livereload for development, so when you change the code your browser will automatically refresh. To start the development environment, just type:
