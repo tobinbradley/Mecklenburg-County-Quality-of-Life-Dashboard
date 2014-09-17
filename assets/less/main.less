@@ -9,7 +9,6 @@
 @import "vendor/jquery-tourbus.less";
 
 
-
 // ****************************************
 // Global vars and helpers (colors and such)
 // ****************************************
@@ -19,6 +18,16 @@
 @selectedColor: #FFA400;
 @darkGray: #666;
 @font-family-sans-serif: 'Open Sans', 'Lucida Sans', 'Lucida Grande', 'Lucida Sans Unicode', Calibri, sans-serif;
+@font-face {
+  font-family: 'fontello';
+  src: url('../fonts/fontello.eot');
+  src: url('../fonts/fontello.eot') format('embedded-opentype'),
+       url('../fonts/fontello.woff') format('woff'),
+       url('../fonts/fontello.ttf') format('truetype'),
+       url('../fonts/fontello.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
 .d3-highlight {
     fill: @highlightColor !important;
 }
@@ -27,6 +36,53 @@
     stroke-width: 2.5px !important;
     stroke-opacity: 1;
 }
+
+
+// ****************************************
+// Fontello fonts for social media
+// ****************************************
+[class^="icon-"]:before, [class*=" icon-"]:before {
+  font-family: "fontello";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  font-size: 1.3em;
+  transition-duration: 0.5s;
+  /* opacity: .8; */
+
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+
+  /* Uncomment for 3D effect */
+  text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3);
+
+}
+.icon-facebook-rect {
+    &:before { content: '\e800'; } /* 'î ' */
+    &:hover { color: #3B5998; }
+}
+.icon-twitter-bird {
+    &:before { content: '\e801'; } /* 'î ' */
+    &:hover { color: #4099FF; }
+}
+.icon-googleplus-rect {
+    &:before { content: '\e802'; } /* 'î ' */
+    &:hover { color: #d34836; }
+}
+
 
 
 // ****************************************
@@ -264,11 +320,11 @@ body {
 // Charts
 // ****************************************
 #barChart {
-    height: 220px;
+    height: 180px;
 }
 #lineChart {
     margin: 20px 0 0;
-    height: 150px;
+    height: 100px;
 }
 .lineChartLegend {
     font-family: sans-serif;
@@ -365,7 +421,7 @@ body {
 .meta-subtitle {
     font-size: 0.9em;
     margin-bottom: 10px;
-    min-height: 40px;
+    min-height: 60px;
 }
 .meta-container {
     margin-top: 55px;
@@ -388,6 +444,7 @@ body {
         font-weight: bold;
         font-size: 1.3em;
         text-transform: uppercase;
+        line-height: 0.9em;
     }
     h3 {
         font-size: 2em;
@@ -412,7 +469,7 @@ body {
     }
 }
 .stats-npa-mean {
-    min-height: 120px;
+    min-height: 110px;
 }
 
 

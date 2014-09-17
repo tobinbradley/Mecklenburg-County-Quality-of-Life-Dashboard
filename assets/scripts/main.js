@@ -55,7 +55,7 @@ $(document).ready(function () {
     });
 
     // Social media links
-    $(".social-links li a").on("click", function() {
+    $(".social-links a").on("click", function() {
         window.open($(this).data("url") + encodeURI(document.URL), "", "width=450, height=250");
     });
 
