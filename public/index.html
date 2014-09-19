@@ -25,7 +25,7 @@
     <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon-precomposed.png" />
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/main.css?foo=97012">
+    <link rel="stylesheet" href="css/main.css?foo=4051">
 
 </head>
 
@@ -506,7 +506,6 @@
                 <td class="text-left"><% if (rc.theAccuracy.length > 0) { %><span class="text-accuracy">&plusmn;<%- dataPretty(rc.theAccuracy[i][rc.keys[model.year + 1]], m) %></span><% } %></td>
                 <td class="text-right"><%
                     var theDiff = ((d[rc.keys[rc.keys.length - 1]] - d[rc.keys[1]]) / d[rc.keys[1]]) * 100;
-
                     if (theDiff === 0 || !$.isNumeric(theDiff)) {
                         theDiff = "--";
                     } else if (theDiff > 0)
@@ -618,7 +617,7 @@
     <!-- End jQuery Tourbus -->
 
     <!-- scripts at the bottom yo -->
-    <script src="js/main.js?foo=97012"></script>
+    <script src="js/main.js?foo=4051"></script>
 
     <!--   Google Analytics -->
     <script>

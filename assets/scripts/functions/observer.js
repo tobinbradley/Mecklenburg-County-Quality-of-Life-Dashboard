@@ -23,7 +23,7 @@ function modelChanges(changes) {
     }
 
     // the metric id changed, get some data
-    if(_.contains(tasklist, "metricId")) {
+    if (_.contains(tasklist, "metricId")) {
         // Make sure a year has been set before
         var metricChange = _.filter(changes, function(el) { return el.name === "metricId"; });
         if (metricChange[0].hasOwnProperty('oldValue')) {
