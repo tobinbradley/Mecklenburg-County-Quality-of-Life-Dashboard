@@ -506,7 +506,6 @@
                 <td class="text-left"><% if (rc.theAccuracy.length > 0) { %><span class="text-accuracy">&plusmn;<%- dataPretty(rc.theAccuracy[i][rc.keys[model.year + 1]], m) %></span><% } %></td>
                 <td class="text-right"><%
                     var theDiff = ((d[rc.keys[rc.keys.length - 1]] - d[rc.keys[1]]) / d[rc.keys[1]]) * 100;
-
                     if (theDiff === 0 || !$.isNumeric(theDiff)) {
                         theDiff = "--";
                     } else if (theDiff > 0)

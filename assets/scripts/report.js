@@ -20,7 +20,7 @@
 // $("optgroup[label='Economics'] option").each(function() {
 //     var label = $(this).prop("label");
 // 	var m = $(this).val();
-// 	text += "<tr><td class='" + m + "-label'>" + label + "</td><td class='text-right' data-metric='" + m + "'></td><td class='text-right' data-change='" + m + "'></td><td class='text-right' data-average='" + m + "'></td></tr>";
+// 	text += "<tr><td data-label='" + m + "'>" + label + "</td><td class='text-right' data-metric='" + m + "'></td><td class='text-right' data-change='" + m + "'></td><td class='text-right' data-average='" + m + "'></td></tr>";
 // });
 // console.log(text);
 
@@ -171,6 +171,13 @@ function createCharts() {
 // Create the metric blocks and table values
 // ****************************************
 function createData() {
+    // year
+    $("[data-label]").each(function() {
+        var el = $(this),
+            keys = Object.keys(theData[el.data("label")][0]);
+        el.append(' (' + keys[keys.length -1].replace('y_', '') + ')');
+    });
+
     // metrics
     $("[data-metric]").each(function() {
         var el = $(this),
