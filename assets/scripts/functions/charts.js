@@ -10,17 +10,7 @@ function lineChartData() {
         labels: [],
         datasets: [
             {
-                label: "County " + neighborhoodDescriptor + " Average",
-                fillColor : "rgba(220,220,220,0.2)",
-                strokeColor : "rgba(220,220,220,1)",
-                pointColor : "rgba(220,220,220,1)",
-                pointStrokeColor : "#fff",
-                pointHighlightFill : "#fff",
-                pointHighlightStroke : "rgba(220,220,220,1)",
-                data : []
-            },
-            {
-                label: "Selected " + neighborhoodDescriptor + " Average",
+                label: neighborhoodDescriptor,
                 fillColor : "rgba(151,187,205,0.2)",
                 strokeColor : "rgba(151,187,205,1)",
                 pointColor : "rgba(151,187,205,1)",
@@ -28,6 +18,16 @@ function lineChartData() {
                 pointHighlightFill : "#fff",
                 pointHighlightStroke : "rgba(151,187,205,1)",
                 data :[]
+            },
+            {
+                label: "County",
+                fillColor : "rgba(220,220,220,0.2)",
+                strokeColor : "rgba(220,220,220,1)",
+                pointColor : "rgba(220,220,220,1)",
+                pointStrokeColor : "#fff",
+                pointHighlightFill : "#fff",
+                pointHighlightStroke : "rgba(220,220,220,1)",
+                data : []
             }
         ]
     };
@@ -35,13 +35,13 @@ function lineChartData() {
     _.each(keys, function(el, i) {
         if (i > 0) {
             data.labels.push(el.replace("y_", ""));
-            data.datasets[0].data.push(countyMean[el]);
-            data.datasets[1].data.push(npaMean[el]);
+            data.datasets[0].data.push(npaMean[el]);
+            data.datasets[1].data.push(countyMean[el]);
         }
     });
 
     // remove select mean if no values are there
-    if (!npaMean) { data.datasets.pop(); }
+    if (!npaMean) { data.datasets.shift(); }
 
     return data;
 }
