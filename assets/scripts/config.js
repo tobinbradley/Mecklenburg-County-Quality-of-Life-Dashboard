@@ -75,8 +75,8 @@ var metricSummable = ["m1", "m22"];
 //
 // var metricAccuracy = [];
 // var metricRaw = {};
-var metricAccuracy = ["m1", "m8"];
-var metricRaw = {"m8": "m1"};
+var metricAccuracy = ["m2", "m67"];
+var metricRaw = {"m2": "m84", "m75": "m85", "m73": "m86", "m5": "m51", "m54": "m88", "m53": "m89", "m55": "m90", "m67": "m92",};
 
 
 // we're going to export a few of our vars for the node build/watch process. Done in a try/catch

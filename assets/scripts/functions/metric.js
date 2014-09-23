@@ -131,13 +131,17 @@ function updateStats() {
         $(".stats-weighted").removeClass('hide');
 
         // county weighted mean
-        theStat = weightedMean(model.metric, model.metricRaw);
+        //theStat = weightedMean(model.metric, model.metricRaw);
+        theStat = aggregateMean(model.metric, model.metricRaw);
         $(".stats-weighted-mean-county").text(dataPretty(theStat[keys[model.year + 1]], m));
 
         // selected weighted mean
-        theStat = weightedMean(_.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }),
+        // theStat = weightedMean(_.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }),
+        //     _.filter(model.metricRaw, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }));
+        theStat = aggregateMean(_.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }),
             _.filter(model.metricRaw, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }));
         $(".stats-weighted-mean-selected").text(dataPretty(theStat[keys[model.year + 1]], m));
+
     } else {
         $(".stats-weighted").addClass('hide');
     }
