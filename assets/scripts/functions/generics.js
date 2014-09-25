@@ -162,6 +162,9 @@ function dataPretty(theValue, theMetric) {
         if(metricYear.indexOf(theMetric) !== -1) {
             pretty = parseFloat(pretty.replace(",", "")).toFixed(0);
         }
+        if (metricRidiculousDecimals.indexOf(theMetric) !== -1) {
+            pretty = parseFloat(parseFloat(theValue).toFixed(3)).toString().commafy();
+        }
     }
     else {
         pretty = "N/A";

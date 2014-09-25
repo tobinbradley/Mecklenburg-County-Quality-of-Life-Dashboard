@@ -51,7 +51,8 @@ var colorbreaks = 5;
 // the dataPretty in assets/scripts/functions/functions.js
 var metricPct = ["m4", "m6", "m7", "m8", "m9", "m10", "m11", "m12", "m13", "m18", "m19", "m20", "m21", "m32", "m33", "m34", "m35", "m36", "m37", "m38", "m39", "m40", "m41", "m42", "m43", "m44", "m45", "m47", "m48", "m49", "m50", "m58", "m59", "m60", "m61", "m62", "m66", "m67", "m68", "m71", "m73", "m75", "m76", "m77", "m78", "m80"],
     metricMoney = ["m17","m57","m63"],
-    metricYear = ["m24", "m53"];
+    metricYear = ["m24", "m53"],
+    metricRidiculousDecimals = ["m55", "m56"];
 
 // Here we have a list of metrics that are raw numbers and are therefore "summable"
 // (i.e. will show total value for study area and selected). The totalling function will
@@ -76,7 +77,7 @@ var metricSummable = ["m1", "m22"];
 // var metricAccuracy = [];
 // var metricRaw = {};
 var metricAccuracy = ["m2", "m67"];
-var metricRaw = {"m2": "m84", "m75": "m85", "m73": "m86", "m5": "m51", "m54": "m88", "m53": "m89", "m55": "m90", "m67": "m92",};
+var metricRaw = {"m2": "m84", "m75": "m85", "m73": "m86", "m5": "m51", "m54": "m88", "m53": "m89", "m55": "m90", "m67": "m92", "m56": "m91"};
 
 
 // we're going to export a few of our vars for the node build/watch process. Done in a try/catch

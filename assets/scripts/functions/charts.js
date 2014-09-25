@@ -10,7 +10,7 @@ function lineChartData() {
         labels: [],
         datasets: [
             {
-                label: neighborhoodDescriptor,
+                label: "Selected " + neighborhoodDescriptor + "s",
                 fillColor : "rgba(151,187,205,0.2)",
                 strokeColor : "rgba(151,187,205,1)",
                 pointColor : "rgba(151,187,205,1)",
