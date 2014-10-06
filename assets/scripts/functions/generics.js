@@ -39,11 +39,12 @@ function aggregateMean(metric, raw) {
                 var numer = 0,
                     denom = 0;
                 _.each(metric, function(d, i) {
-                    if ($.isNumeric(d[el])) {
+                    if ($.isNumeric(d[el]) && $.isNumeric(raw[i][el]) && Number(d[el]) !== 0) {
                         numer = numer + Number(raw[i][el]);
                         denom = denom + (Number(raw[i][el]) / d[el]);
                     }
                 });
+                if (denom === 0) { denom = 1; }
                 mean[el] = numer / denom;
             }
         });
@@ -56,7 +57,7 @@ function aggregateMean(metric, raw) {
 
 
 // ****************************************
-// Return median metric value 
+// Return median metric value
 // ****************************************
 function median(values) {
     values.sort( function(a,b) {return a - b;} );

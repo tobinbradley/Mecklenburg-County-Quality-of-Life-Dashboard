@@ -2,9 +2,19 @@
 // Line chart (trend) in chart.js
 // ****************************************
 function lineChartData() {
-    var npaMean = mean(_.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; })),
-        countyMean = mean(model.metric),
+    var npaMean,
+        countyMean,
         keys = Object.keys(model.metric[0]);
+
+    // County stat box
+    if (metricRaw[model.metricId]) {
+        countyMean = aggregateMean(model.metric, model.metricRaw);
+        npaMean = aggregateMean(_.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }),
+            _.filter(model.metricRaw, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }));
+    } else {
+        countyMean = mean(model.metric);
+        npaMean = mean(_.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }));
+    }
 
     var data = {
         labels: [],
