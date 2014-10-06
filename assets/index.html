@@ -223,8 +223,8 @@
                     <tr>
                       <th class="text-center">{{neighborhoodDescriptor}}</th>
                       <th class="text-right">Value</th>
-                      <th class="text-right">Accuracy</th>
-                      <th class="text-right">% Change</th>
+                      <th class="text-right"></th>
+                      <th class="text-right"></th>
                       <th class="text-right">Raw</th>
                     </tr>
                   </thead>
@@ -277,13 +277,14 @@
                 <td class="text-left"><% if (rc.theAccuracy.length > 0) { %><span class="text-accuracy">&plusmn;<%- dataPretty(rc.theAccuracy[i][rc.keys[model.year + 1]], m) %></span><% } %></td>
                 <td class="text-right"><%
                     var theDiff = ((d[rc.keys[rc.keys.length - 1]] - d[rc.keys[1]]) / d[rc.keys[1]]) * 100;
-                    if (theDiff === 0 || !$.isNumeric(theDiff)) {
+                    theDiff = "";
+                    /*if (theDiff === 0 || !$.isNumeric(theDiff)) {
                         theDiff = "--";
                     } else if (theDiff > 0)
                         theDiff = "<span class='glyphicon glyphicon-arrow-up'></span> +" + theDiff.toFixed(1) + "%";
                     else {
                         theDiff = "<span class='glyphicon glyphicon-arrow-down'></span> -" + (theDiff * -1).toFixed(1) + "%";
-                    }
+                    }*/
                 %><%= theDiff %></td>
                 <td class="text-right datatable-raw"><% if (rc.theRaw.length > 0) { %><%= dataPretty(rc.theRaw[i][rc.keys[model.year + 1]], metricRaw[m]) %><% } %></td>
             </tr>
