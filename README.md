@@ -82,6 +82,10 @@ Data in the dashboard comes in three pieces:
 * Your metric data, with each metric being stored in a CSV file. This file has a neighborhood id attribute and a column for each year of data in the format `y_<year>`. You can have as many or as few years as you have. If only one year is available, the time slider and trend chart will automatically hide. Null values should be empty, as in `<id>,12,,14`.
 * The metric metadata, with each metric metadata being stored in a markdown file *with a particular format*. More about that in a minute.
 
+Note that the metric data is case sensitive. `Y_2014` will turn your life into a furious ball of nothing. To globally fix the case on all of your CSV files:
+
+     for f in *.csv; do sed -e 's/\(.*\)/\L\1/' $f > out/$f; done
+
 ### Topojson
 The first thing you'll need to do is convert your neighborhood layer to topojson. There are a lot of options during conversion, which you can peruse [here](https://github.com/mbostock/topojson/wiki/Command-Line-Reference). You should start out with an Esri shapefile or geojson file. The file will need to be in WGS84 (EPSG:4326). You can use [ogr2ogr](http://www.gdal.org/ogr2ogr.html) to project a shapefile or, if the command line isn't your bag, I highly recommend [QGIS](http://www.qgis.org/).
 

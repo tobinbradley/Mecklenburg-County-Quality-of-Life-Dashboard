@@ -101,24 +101,21 @@ function drawTable() {
 function updateStats() {
     var m = model.metricId,
         keys = Object.keys(model.metric[0]),
-        theStat;
+        theStat,
+        theStatCounty,
+        theStatNPA;
 
     // County stat box
     if (metricRaw[m]) {
-        theStat = aggregateMean(model.metric, model.metricRaw);
-    } else {
-        theStat = mean(model.metric);
-    }
-    $(".stat-box-county .stat-mean").text(dataPretty(theStat[keys[model.year + 1]], m));
-
-    // NPA stat box
-    if (metricRaw[m]) {
-        theStat = aggregateMean(_.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }),
+        theStatCounty = aggregateMean(model.metric, model.metricRaw);
+        theStatNPA = aggregateMean(_.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }),
             _.filter(model.metricRaw, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }));
     } else {
-        theStat = mean(_.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }));
+        theStatCounty = mean(model.metric);
+        theStatNPA = mean(_.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }));
     }
-    $(".stat-box-neighborhood .stat-mean").text(dataPretty(theStat[keys[model.year + 1]], m));
+    $(".stat-box-county .stat-mean").text(dataPretty(theStatCounty[keys[model.year + 1]], m));
+    $(".stat-box-neighborhood .stat-mean").text(dataPretty(theStatNPA[keys[model.year + 1]], m));
 
     // totals
     if (metricSummable.indexOf(m) > -1) {
