@@ -25,33 +25,6 @@ function mean(metric) {
     }
 }
 
-// ****************************************
-// Return weighted metric mean (array)
-// ****************************************
-function weightedMean(metric, raw) {
-    if (metric.length > 0 && raw.length > 0) {
-        var mean = {},
-            keys = Object.keys(metric[0]);
-
-        _.each(keys, function(el, i){
-            if (i > 0) {
-                var sum = 0,
-                    denom = 0;
-                _.each(metric, function(d, i) {
-                    if ($.isNumeric(d[el])) {
-                        sum = sum + (d[el] * Number(raw[i][el]));
-                        denom = denom + Number(raw[i][el]);
-                    }
-                });
-                mean[el] = sum / denom;
-            }
-        });
-        return mean;
-    }
-    else {
-        return false;
-    }
-}
 
 // ****************************************
 // Return aggregate metric mean (array)
@@ -81,8 +54,9 @@ function aggregateMean(metric, raw) {
     }
 }
 
+
 // ****************************************
-// Return median metric value per year (array)
+// Return median metric value 
 // ****************************************
 function median(values) {
     values.sort( function(a,b) {return a - b;} );

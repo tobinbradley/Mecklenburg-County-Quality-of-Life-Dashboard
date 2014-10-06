@@ -78,6 +78,7 @@ function barChart() {
         var keys = Object.keys(model.metric[0]),
             data = quantizeCount(_.map(model.metric, function(num) { if ($.isNumeric(num[keys[model.year + 1]])) { return Number(num[keys[model.year + 1]]); } })),
             countyMean = mean(model.metric)[keys[model.year + 1]],
+            countyMedian = median(_.map(model.metric, function(num){ if ($.isNumeric(num[keys[model.year + 1]])) { return Number(num[keys[model.year + 1]]); } })),
             qtiles = quantize.quantiles(),
             theMetric = $("#metric").val(),
             w = width - margins[1] - margins[3],
@@ -179,8 +180,8 @@ function barChart() {
             .transition()
             .attr("y1", y(0))
             .attr("y2", 0)
-            .attr("x1", xScale(countyMean))
-            .attr("x2", xScale(countyMean));
+            .attr("x1", xScale(countyMedian))
+            .attr("x2", xScale(countyMedian));
 
         my.pointerMove();
 

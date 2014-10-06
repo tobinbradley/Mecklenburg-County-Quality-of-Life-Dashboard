@@ -103,48 +103,39 @@ function updateStats() {
         keys = Object.keys(model.metric[0]),
         theStat;
 
-    // County Neighborhood Mean
-    theStat = mean(model.metric);
-    $(".stats-county-npa-mean").text(dataPretty(theStat[keys[model.year + 1]], m));
-
-    // Selected Neighborhood Mean
-    theStat = mean(_.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }));
-    $(".stats-mean-selected").text(dataPretty(theStat[keys[model.year + 1]], m));
-
-    // County Median
-    theStat = median(_.map(model.metric, function(num){ if ($.isNumeric(num[keys[model.year + 1]])) { return Number(num[keys[model.year + 1]]); } }));
-    $(".stats-county-npa-median").text("Median: " + dataPretty(theStat, m));
-
-    // Total for metrics that are totalable. Totally not a word there.
-    if (metricSummable.indexOf(m) > -1) {
-        $(".stats-county-total").html('Total: ' + dataPretty(sum(_.pluck(model.metric, keys[model.year + 1])), m));
-        $(".stats-selected-total").html('Total: ' + dataPretty(sum(_.pluck(_.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }), keys[model.year + 1])), m));
-    } else if (metricRaw[m]){
-        $(".stats-county-total").html('Total: ' + dataPretty(sum(_.pluck(model.metricRaw, keys[model.year + 1])), metricRaw[m]));
-        $(".stats-selected-total").html('Total: ' + dataPretty(sum(_.pluck(_.filter(model.metricRaw, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }), keys[model.year + 1])), metricRaw[m]));
-    } else {
-        $(".stats-total").text('');
-    }
-
-    // selected weighted mean
+    // County stat box
     if (metricRaw[m]) {
-        $(".stats-weighted").removeClass('hide');
-
-        // county weighted mean
-        //theStat = weightedMean(model.metric, model.metricRaw);
         theStat = aggregateMean(model.metric, model.metricRaw);
-        $(".stats-weighted-mean-county").text(dataPretty(theStat[keys[model.year + 1]], m));
+    } else {
+        theStat = mean(model.metric);
+    }
+    $(".stat-box-county .stat-mean").text(dataPretty(theStat[keys[model.year + 1]], m));
 
-        // selected weighted mean
-        // theStat = weightedMean(_.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }),
-        //     _.filter(model.metricRaw, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }));
+    // NPA stat box
+    if (metricRaw[m]) {
         theStat = aggregateMean(_.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }),
             _.filter(model.metricRaw, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }));
-        $(".stats-weighted-mean-selected").text(dataPretty(theStat[keys[model.year + 1]], m));
-
     } else {
-        $(".stats-weighted").addClass('hide');
+        theStat = mean(_.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }));
     }
+    $(".stat-box-neighborhood .stat-mean").text(dataPretty(theStat[keys[model.year + 1]], m));
+
+    // totals
+    if (metricSummable.indexOf(m) > -1) {
+    //     $(".stats-county-total").html('Total: ' + dataPretty(sum(_.pluck(model.metric, keys[model.year + 1])), m));
+    //     $(".stats-selected-total").html('Total: ' + dataPretty(sum(_.pluck(_.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }), keys[model.year + 1])), m));
+    // } else if (metricRaw[m]){
+    //     $(".stats-county-total").html('Total: ' + dataPretty(sum(_.pluck(model.metricRaw, keys[model.year + 1])), metricRaw[m]));
+    //     $(".stats-selected-total").html('Total: ' + dataPretty(sum(_.pluck(_.filter(model.metricRaw, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }), keys[model.year + 1])), metricRaw[m]));
+    // } else {
+    //     $(".stats-total").text('');
+    }
+
+    // median
+    theStat = median(_.map(model.metric, function(num){ if ($.isNumeric(num[keys[model.year + 1]])) { return Number(num[keys[model.year + 1]]); } }));
+    $(".median").html(dataPretty(theStat, m));
+
+
 }
 
 // ****************************************

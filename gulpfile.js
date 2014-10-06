@@ -21,6 +21,7 @@ var jsMain = [
     'bower_components/bootstrap/js/collapse.js',
     'bower_components/bootstrap/js/dropdown.js',
     'bower_components/bootstrap/js/tooltip.js',
+    'bower_components/bootstrap/js/popover.js',
     'bower_components/leaflet/dist/leaflet.js',
     'assets/scripts/vendor/Object.observe.poly.js',
     'assets/scripts/vendor/jquery-ui-1.10.3.custom.min.js',
