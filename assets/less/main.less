@@ -41,6 +41,9 @@
 // ****************************************
 // Fontello fonts for social media
 // ****************************************
+.social-links {
+    margin-top: 18px;
+}
 [class^="icon-"]:before, [class*=" icon-"]:before {
   font-family: "fontello";
   font-style: normal;
@@ -326,8 +329,9 @@ body {
     margin: 20px 0 0;
     height: 100px;
 }
-.lineChartLegend {
+.chartLegend {
     font-family: sans-serif;
+    font-size: 0.8em;
     .legend {
         padding-left: 20px;
         text-align: left;
@@ -339,7 +343,6 @@ body {
         border-style: solid;
         border-width: 0 0 0 1em;
         padding: 0 0.3em;
-        font-size: 0.8em;
     }
 }
 .barchart {
@@ -388,6 +391,9 @@ body {
 .datatable-container {
     display: none;
     margin-top: 10px;
+    // max-height: 200px;
+    // overflow: auto;
+    // overflow-x: none;
     .text-accuracy {
         font-size: 0.8em;
         padding-left: 15px;
@@ -396,14 +402,14 @@ body {
     .datatable-raw, .datatable-value {
         font-weight: bold;
     }
-    th {
-        width: 20%;
-    }
     table {
         tr.d3-highlight {
             background: @highlightColor;
             transition: all 0.5s ease-out;
         }
+        // th {
+        //     width: 20%;
+        // }
         td {
             white-space: nowrap;
         }
@@ -429,6 +435,11 @@ body {
 .meta-resources ul {
     list-style: none;
     padding-left: 0;
+}
+.meta-definition {
+    text-decoration: none;
+    border-bottom: 1px dotted;
+    cursor: pointer;
 }
 
 

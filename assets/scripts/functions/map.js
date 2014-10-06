@@ -136,7 +136,7 @@ function initMap() {
         html: true,
         title: function() {
             var sel = $(this),
-                num = "";
+                num = "<br>N/A";
             if ($.isNumeric(sel.attr("data-value"))) {
                 num = "<br>" + dataPretty(sel.attr("data-value"), $("#metric").val());
             }
