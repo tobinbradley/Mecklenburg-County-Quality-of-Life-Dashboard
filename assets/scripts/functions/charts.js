@@ -65,7 +65,9 @@ function lineChartCreate() {
             maintainAspectRatio: true,
             animation: true,
             showTooltips: true,
-            scaleLabel: "<%=dataPretty(value, model.metricId)%>",
+            tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= dataPretty(value, model.metricId) %>",
+            multiTooltipTemplate: "<%= dataPretty(value, model.metricId) %>",
+            scaleLabel: "<%= dataPretty(value, model.metricId) %>",
             legendTemplate : '<% for (var i=0; i<datasets.length; i++){%><span class="title"  style="border-color:<%=datasets[i].strokeColor%>"><%if(datasets[i].label){%><%=datasets[i].label%><%}%></span><%}%>'
         });
         $(".lineChartLegend").html(myLine.generateLegend());
