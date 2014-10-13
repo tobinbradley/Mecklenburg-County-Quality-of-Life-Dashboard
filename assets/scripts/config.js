@@ -57,7 +57,7 @@ var metricPct = ["m4", "m6", "m7", "m8", "m9", "m10", "m11", "m12", "m13", "m18"
 // Here we have a list of metrics that are raw numbers and are therefore "summable"
 // (i.e. will show total value for study area and selected). The totalling function will
 // totally check the metricRaw too. Totally.
-var metricSummable = ["m1", "m22"];
+var metricSummable = ["m3", "m5", "m54", "m55", "m56", "m73", "m75"];
 
 // The following things are for crazy people.
 //
@@ -79,6 +79,18 @@ var metricSummable = ["m1", "m22"];
 var metricAccuracy = ["m2", "m67"];
 var metricRaw = {"m2": "m84", "m75": "m85", "m73": "m86", "m5": "m51", "m54": "m88", "m53": "m89", "m55": "m90", "m67": "m92", "m56": "m91"};
 
+// Even more metric suffixes. I can't believe it either.
+var metricExtraSuffix = {
+    "m2": "Years",
+    "m3": "Acres",
+    "m5": "Units",
+	"m53": "Years",
+    "m54": "SqFt",
+    "m55": "Permits",
+	"m56": "Permits",
+    "m73": "Acres",
+	"m75": "Acres"
+};
 
 // we're going to export a few of our vars for the node build/watch process. Done in a try/catch
 // so a browser reading this will barf quietly to itself.
