@@ -9,6 +9,7 @@ var map,                // leaflet map
     marker,             // marker for geocode
     d3Layer,            // the d3Layer on leaflet
     tour,               // I-don't-want-to-do-real-help thing
+    numDecimals,          // number of significant decimals for metrics based on data
     recordHistory = false;  // stupid global toggle so it doesn't record page load metric etc. to google analytics
 
 // lodash/underscore template desucking
@@ -84,7 +85,6 @@ $(document).ready(function () {
         $(this).trigger("chosen:updated");
     });
     $(".chosen-search input").prop("placeholder", "search metrics");
-    $(".chosen-container, .chosen-select").click(function() { $(".start-here-img").fadeOut(); });
     $(".chosen-select").removeClass("hide");  // just in case it's mobile
 
     // Time slider and looper. Shouldn't require this much code. Curse my stupid brains.

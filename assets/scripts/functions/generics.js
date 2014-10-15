@@ -84,6 +84,18 @@ function sum(values) {
 }
 
 // ****************************************
+// Get number of numbers after the decimal
+// ****************************************
+Number.prototype.getDecimals = function() {
+        var num = this,
+            match = ('' + num).match(/(?:\.(\d+))?(?:[eE]([+-]?\d+))?$/);
+        if (!match) {
+            return 0;
+        }
+        return Math.max(0, (match[1] ? match[1].length : 0) - (match[2] ? +match[2] : 0));
+    };
+
+// ****************************************
 // Compare two arrays to see if the are the same
 // ****************************************
 Array.prototype.compare = function(testArr) {
@@ -125,10 +137,12 @@ function getURLParameter(name) {
 function dataPretty(theValue, theMetric) {
     var prefix = "",
         suffix = "",
-        pretty = theValue;
+        pretty = theValue,
+        numDecimals = 1;
 
     if ($.isNumeric(theValue)) {
-        pretty = parseFloat(parseFloat(theValue).toFixed(1)).toString().commafy();
+        pretty = parseFloat(parseFloat(theValue).toFixed(numDecimals)).toString().commafy();
+
         if (metricPct.indexOf(theMetric) !== -1) { suffix = "%"; }
         if (metricMoney.indexOf(theMetric) !== -1) {
             prefix = "$";

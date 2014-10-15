@@ -23,6 +23,11 @@ function processMetric() {
         }
     });
     model.year = keys.length - 2;
+    $('.time-year').text(keys[model.year + 1].replace("y_", ""));
+
+    // determine number of decimals to show
+    var lastYear = Object.keys(model.metric[0])[model.year + 1];
+    numDecimals = _.max(_.map(model.metric, function(el){ return parseFloat(el[lastYear]).getDecimals(); }));
 
     // Set up data extent
     var theVals = [];
