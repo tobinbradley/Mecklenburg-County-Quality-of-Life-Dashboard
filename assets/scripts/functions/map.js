@@ -45,7 +45,7 @@ function mapCreate() {
     var yearControl = L.control({position: 'bottomleft'});
     yearControl.onAdd = function(map) {
         this._div = L.DomUtil.create('div');
-        this._div.innerHTML = '<h3 class="time-year">2012</h3>';
+        this._div.innerHTML = '<h3 class="time-year"></h3>';
         return this._div;
     };
     yearControl.addTo(map);

@@ -11,9 +11,6 @@
     <!-- Set the title here -->
     <title>Quality of Life Dashboard</title>
 
-    <!-- turn off robots during dev -->
-    <meta name="robots" value="none">
-
     <!-- Mobile viewport optimized: j.mp/bplateviewport -->
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -43,7 +40,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="./"><strong>Quality of Life Dashboard <span class="text-primary">beta</span></strong></a>
+                <a class="navbar-brand" href="./"><strong>Quality of Life Dashboard</strong></a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
@@ -141,7 +138,6 @@
                         <optgroup label="Safety">
                         </optgroup>
                     </select>
-                    <img src="images/click-here-arrow.png" class="start-here-img" alt="click here">
                 </div>
                 <div id="map"></div>
                 <div class="form mapsearch">
@@ -172,12 +168,12 @@
                 <div class="stats">
                     <div class="row text-center">
                         <div class="col-md-6 col-xs-6 stat-box stat-box-neighborhood">
-                            <span class="header">{{neighborhoodDescriptor}}</span>
+                            <span class="header">SELECTED {{neighborhoodDescriptor}}s</span>
                             <h3 class="stat-mean">N/A</h3>
                             <span class="stat-total"></span>
                         </div>
                         <div class="col-md-6 col-xs-6 stat-box stat-box-county">
-                            <span class="header">County</span>
+                            <span class="header">COUNTY</span>
                             <h3 class="stat-mean">&nbsp;</h3>
                             <span class="stat-total"></span>
                         </div>
@@ -348,7 +344,7 @@
           <button type="button" class="btn btn-default btn-sm tourbus-next">Next</button>
         </div>
       </li>
-      <li data-el='.stats-npa-mean' data-orientation='bottom' data-width='300'>
+      <li data-el='.stat-box-neighborhood' data-orientation='bottom' data-width='300'>
         <h3>Average</h3>
         <p>The <strong>Average</strong> for County NPA's and any selected NPA's is shown here. The County NPA Average is indicated by a dashed line on the charts.</p>
         <div class="btn-group pull-right">

@@ -111,7 +111,6 @@ function barChart() {
             .scale(xScale)
             .tickFormat(function(d) { return dataPretty(d, $("#metric").val()); })
             .orient("bottom")
-            //.ticks(7);
             .tickValues(tickValues);
 
         var yAxis = d3.svg.axis()
