@@ -7,7 +7,7 @@ function lineChartData() {
         keys = Object.keys(model.metric[0]);
 
     // County stat box
-    if (metricRaw[model.metricId]) {
+    if (hasRaw(model.metricId)) {
         countyMean = aggregateMean(model.metric, model.metricRaw);
         npaMean = aggregateMean(_.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }),
             _.filter(model.metricRaw, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }));
@@ -81,7 +81,7 @@ function lineChartCreate() {
 function barChart() {
     var width = 720, // default width
         height = 220, // default height
-        margins = [20, 10, 20, 10],
+        margins = [20, 30, 20, 30],
         x,
         y,
         xScale;
@@ -105,8 +105,8 @@ function barChart() {
 
         // axis labeling
         var tickValues = quantize.quantiles();
-        //tickValues.push(x_extent[1]);
-        //tickValues.unshift(x_extent[0]);
+        tickValues.push(x_extent[1]);
+        tickValues.unshift(x_extent[0]);
         var xAxis = d3.svg.axis()
             .scale(xScale)
             .tickFormat(function(d) { return dataPretty(d, $("#metric").val()); })

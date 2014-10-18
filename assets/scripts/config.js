@@ -49,15 +49,14 @@ var colorbreaks = 5;
 //
 // If you want to add new data types or change how things are handled, check out
 // the dataPretty in assets/scripts/functions/functions.js
-var metricPct = ["m4", "m6", "m7", "m8", "m9", "m10", "m11", "m12", "m13", "m18", "m19", "m20", "m21", "m32", "m33", "m34", "m35", "m36", "m37", "m38", "m39", "m40", "m41", "m42", "m43", "m44", "m45", "m47", "m48", "m49", "m50", "m58", "m59", "m60", "m61", "m62", "m66", "m67", "m68", "m71", "m73", "m75", "m76", "m77", "m78", "m80"],
-    metricMoney = ["m17","m57","m63"],
-    metricYear = ["m24", "m53"],
-    metricRidiculousDecimals = ["m55", "m56"];
+var metricPct = ["m3", "m4", "m10"],
+    metricMoney = [];
+
 
 // Here we have a list of metrics that are raw numbers and are therefore "summable"
 // (i.e. will show total value for study area and selected). The totalling function will
 // totally check the metricRaw too. Totally.
-var metricSummable = ["m3", "m5", "m54", "m55", "m56", "m73", "m75"];
+var metricSummable = ["r1", "r2", "r3", "r4", "r5", "r8", "r9"];
 
 // The following things are for crazy people.
 //
@@ -75,21 +74,23 @@ var metricSummable = ["m3", "m5", "m54", "m55", "m56", "m73", "m75"];
 // You should probably set these variables empty and then shake your head ruefully.
 //
 // var metricAccuracy = [];
-// var metricRaw = {};
-var metricAccuracy = ["m2", "m67"];
-var metricRaw = {"m2": "m84", "m75": "m85", "m73": "m86", "m5": "m51", "m54": "m88", "m53": "m89", "m55": "m90", "m67": "m92", "m56": "m91"};
+var metricAccuracy = ["m2", "m10"];
+
 
 // Even more metric suffixes. I can't believe it either.
-var metricExtraSuffix = {
+var metricUnits = {
+    "r1": "Acres",
     "m2": "Years",
-    "m3": "Acres",
-    "m5": "Units",
-	"m53": "Years",
-    "m54": "SqFt",
-    "m55": "Permits",
-	"m56": "Permits",
-    "m73": "Acres",
-	"m75": "Acres"
+    "r3": "Acres",
+	"r4": "Acres",
+    "m5": "Units per Acre",
+    "r5": "Units",
+	"m6": "Average Sqft",
+    "m7": "Years",
+	"m8": "Permits per 100 Acres",
+    "r8": "Permits",
+    "m9": "Permits per 100 Acres",
+    "r9": "Permits"
 };
 
 // we're going to export a few of our vars for the node build/watch process. Done in a try/catch

@@ -44,7 +44,10 @@ function updateMeta() {
             // In your meta, do this to create a popover. I'm using a span tag so when viewing the raw HTML coverted
             // from the markdown you don't get useless hyperlink-looking things in it.
             // <span tabindex="1000" class="meta-definition" data-toggle="popover" data-title="The Title" data-content="And here's some amazing content. It's very engaging. Right?">NPA</span>
-            $('.meta-definition').popover({ "placement": "auto", "trigger": "focus" });
+            $('.meta-definition').popover({ "placement": "auto", "trigger": "focus", "container": "body" });
+
+            // make metric tables (jesus tables really?) from markdown get the bootstrap table class
+            $('.meta-container table').addClass('table table-condensed');
         },
         error: function (error, status, desc) {
             console.log(status, desc);

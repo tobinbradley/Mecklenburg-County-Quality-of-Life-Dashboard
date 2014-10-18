@@ -55,6 +55,7 @@ $(document).ready(function () {
         window.open("report.html?n=" + model.selected.join());
     });
 
+
     // Social media links
     $(".social-links a").on("click", function() {
         window.open($(this).data("url") + encodeURI(document.URL), "", "width=450, height=250");
@@ -72,8 +73,7 @@ $(document).ready(function () {
     // ?>
     $('.table2CSV').on('click', function() {
         var csv = $(".datatable-container table").table2CSV({
-                delivery: 'value',
-                header: [neighborhoodDescriptor,'Value','Accuracy', 'Trend', 'Raw Data', 'Raw Accuracy']
+                delivery: 'value'
             });
         var theMetric = $("#metric option:selected");
         window.location.href = 'http://mcmap.org/utilities/table2csv.php?csv_text=' + encodeURIComponent(csv) + '&filename=' + encodeURIComponent(theMetric.text().trim());

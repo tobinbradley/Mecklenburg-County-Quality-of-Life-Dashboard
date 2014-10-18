@@ -170,3 +170,4 @@ gulp.task('initSearch', function() {
 // controller tasks
 gulp.task('default', ['less', 'js', 'replace', 'watch', 'browser-sync']);
 gulp.task('build', ['less-build', 'js-build', 'markdown', 'convert', 'replace', 'imagemin', 'merge-json']);
+gulp.task('initdata', ['markdown', 'convert']);

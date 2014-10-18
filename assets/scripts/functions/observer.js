@@ -4,8 +4,7 @@
 var model = {
     "selected": [],
     "metricAccuracy": [],
-    "metricRaw": [],
-    "metricRawAccuracy": []
+    "metricRaw": []
 };
 
 
@@ -60,6 +59,12 @@ function modelChanges(changes) {
             }
             var keys = Object.keys(model.metric[0]);
             $('.time-year').text(keys[model.year + 1].replace("y_", ""));
+            // set up data quantile from extent
+            quantize = d3.scale.quantile()
+                .domain(x_extent)
+                .range(d3.range(colorbreaks).map(function (i) {
+                    return "q" + i;
+                }));
             drawMap();
             drawBarChart();
             drawTable();

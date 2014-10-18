@@ -87,13 +87,13 @@ function sum(values) {
 // Get number of numbers after the decimal
 // ****************************************
 Number.prototype.getDecimals = function() {
-        var num = this,
-            match = ('' + num).match(/(?:\.(\d+))?(?:[eE]([+-]?\d+))?$/);
-        if (!match) {
-            return 0;
-        }
-        return Math.max(0, (match[1] ? match[1].length : 0) - (match[2] ? +match[2] : 0));
-    };
+    var num = this,
+        match = ('' + num).match(/(?:\.(\d+))?(?:[eE]([+-]?\d+))?$/);
+    if (!match) {
+        return 0;
+    }
+    return Math.max(0, (match[1] ? match[1].length : 0) - (match[2] ? +match[2] : 0));
+};
 
 // ****************************************
 // Compare two arrays to see if the are the same
@@ -132,28 +132,37 @@ function getURLParameter(name) {
 }
 
 // ****************************************
+// The trend arrow thing for the tables
+// ****************************************
+function getTrend(x1, x2) {
+    if ($.isNumeric(x1) && $.isNumeric(x2)) {
+        var theDiff = x2 - x1;
+        if (theDiff === 0) {
+            return "&#8596; 0";
+        } else if (theDiff > 0) {
+            return "<span class='glyphicon glyphicon-arrow-up'></span> " + dataPretty(theDiff, model.metricId).replace("%","").replace("$","");
+        }
+        else if (theDiff < 0) {
+            return "<span class='glyphicon glyphicon-arrow-down'></span> " + dataPretty(Math.abs(theDiff), model.metricId).replace("%","").replace("$","");
+        }
+    }
+    else {
+        return "--";
+    }
+}
+
+// ****************************************
 // Format metric data (see config.js)
 // ****************************************
 function dataPretty(theValue, theMetric) {
     var prefix = "",
         suffix = "",
-        pretty = theValue,
-        numDecimals = 1;
+        pretty = theValue;
 
     if ($.isNumeric(theValue)) {
         pretty = parseFloat(parseFloat(theValue).toFixed(numDecimals)).toString().commafy();
-
         if (metricPct.indexOf(theMetric) !== -1) { suffix = "%"; }
-        if (metricMoney.indexOf(theMetric) !== -1) {
-            prefix = "$";
-            pretty = parseFloat(theValue).toFixed(0).commafy();
-        }
-        if(metricYear.indexOf(theMetric) !== -1) {
-            pretty = parseFloat(pretty.replace(",", "")).toFixed(0);
-        }
-        if (metricRidiculousDecimals.indexOf(theMetric) !== -1) {
-            pretty = parseFloat(parseFloat(theValue).toFixed(3)).toString().commafy();
-        }
+        if (metricMoney.indexOf(theMetric) !== -1) { prefix = "$"; }
     }
     else {
         pretty = "N/A";

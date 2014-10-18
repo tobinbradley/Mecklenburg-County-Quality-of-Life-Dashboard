@@ -88,14 +88,12 @@ function drawTable() {
         theSelected = _.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }),
         theAccuracy = _.filter(model.metricAccuracy, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }),
         theRaw = _.filter(model.metricRaw, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }),
-        theRawAccuracy = _.filter(model.metricRawAccuracy, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }),
         keys = Object.keys(model.metric[0]);
 
-    $(".datatable-container tbody").html(template({
+    $(".datatable-container table").html(template({
         "theSelected": theSelected,
         "theAccuracy": theAccuracy,
         "theRaw": theRaw,
-        "theRawAccuracy": theRawAccuracy,
         "keys": keys
     }));
 }
@@ -111,7 +109,7 @@ function updateStats() {
         theStatNPA;
 
     // County stat box
-    if (metricRaw[m]) {
+    if (hasRaw(m)) {
         theStatCounty = aggregateMean(model.metric, model.metricRaw);
         theStatNPA = aggregateMean(_.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }),
             _.filter(model.metricRaw, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }));
@@ -176,3 +174,30 @@ $(document).on({
         removeHighlight($(this));
     }
 }, '.metric-hover');
+
+
+// ****************************************
+// Return whether raw exists based on filename
+// If it's rX, no raw, if mX, there is one.
+// ****************************************
+function hasRaw(m) {
+    if (m.indexOf("m") !== -1) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+// ****************************************
+// Get the raw number for a metric
+// ****************************************
+function getRaw(m) {
+    return "r" + m.match(/\d+/)[0];
+}
+
+// ****************************************
+// Get the year
+// ****************************************
+function getYear(y) {
+    return y.replace("y_","");
+}
