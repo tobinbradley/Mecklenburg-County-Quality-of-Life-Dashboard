@@ -22,7 +22,7 @@
     <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon-precomposed.png" />
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/main.css?foo=16889">
+    <link rel="stylesheet" href="css/main.css?foo=8982">
 
 </head>
 
@@ -89,8 +89,8 @@
                  -->
                     <select id="metric" name="metric" class="form-control chosen-select hide">
                         <optgroup label="Character">
-                            <option value="m3">
-                                Area (in acres)
+                            <option value="r1">
+                                Area
                             </option>
                             <option value="m2">
                                 Median Age of Residents
@@ -103,36 +103,33 @@
                         <optgroup label="Engagement">
                         </optgroup>
                         <optgroup label="Environment">
-                            <option value="m67">
+                            <option value="m10">
                                 Commuters Driving Alone
                             </option>
-                            <option value="m73">
+                            <option value="m4">
                                 Impervious Surface
                             </option>
-                            <option value="m75">
+                            <option value="m3">
                                 Tree Canopy
                             </option>
                         </optgroup>
                         <optgroup label="Health">
                         </optgroup>
                         <optgroup label="Housing">
-                            <option value="m54">
-                                Heated Square Feet of Single-Family Detached Dwellings
+                            <option value="m8">
+                                Building Permits for New Construction
                             </option>
-                            <option value="m51">
-                                Housing Units
+                            <option value="m9">
+                                Building Permits for Renovation
                             </option>
-                            <option value="m55">
-                                New Residential Building Permits
-                            </option>
-                            <option value="m56">
-                                Residential Building Permits (Renovation)
+                            <option value="m6">
+                                Housing Unit Size
                             </option>
                             <option value="m5">
-                                Residential Housing Density
+                                Housing Density
                             </option>
-                            <option value="m53">
-                                Year Single-Family Housing Constructed
+                            <option value="m7">
+                                Year Housing Constructed / Age
                             </option>
                         </optgroup>
                         <optgroup label="Safety">
@@ -168,7 +165,9 @@
                 <div class="stats">
                     <div class="row text-center">
                         <div class="col-md-6 col-xs-6 stat-box stat-box-neighborhood">
-                            <span class="header">SELECTED NPAs</span>
+                            <span class="header">SELECTED <a href="javascript:void(0)" tabindex="0" class="meta-definition" data-toggle="popover" data-title="Neighborhood Profile Area"
+                                data-content="Neighborhood Profile Areas (NPAs) are geographic areas used for the organization and presentation of data in the Quality of Life Study. The boundaries were developed with community input and are based on one or more Census block groups.">
+                                NPAs</a></span>
                             <h3 class="stat-mean">N/A</h3>
                             <span class="stat-total"></span>
                         </div>
@@ -214,25 +213,14 @@
         </div>
         <div class="row">
             <div class="col-md-8 datatable-container">
-                <table class="table table-condensed">
-                  <thead>
-                    <tr>
-                      <th class="text-center">NPA</th>
-                      <th class="text-right">Value</th>
-                      <th class="text-right"></th>
-                      <th class="text-right"></th>
-                      <th class="text-right">Raw</th>
-                    </tr>
-                  </thead>
-                  <tbody></tbody>
-                </table>
+                <table class="table table-condensed"></table>
                 <p class="text-right">
                     <button type="button" class="btn btn-default btn-sm table2CSV">Download as CSV</button>
                 </p>
             </div>
         </div>
         <div class="row meta-container">
-            <div class="col-md-7">
+            <div class="col-md-8">
                 <div class="well meta-joyride">
                     <h4>Why This is Important</h4>
                     <div class='meta-important'></div>
@@ -242,7 +230,7 @@
                     <div class='meta-resources'></div>
                 </div>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <div class="well">
                     <h4>About the Data</h4>
                     <div class='meta-about'></div>
@@ -264,27 +252,38 @@
 
     <!-- BEGIN: Underscore Template Definition. -->
     <script type="text/template" class="template-table">
+        <thead>
+          <tr>
+            <th class="text-center"><a href="javascript:void(0)" tabindex="0" class="meta-definition" data-toggle="popover" data-title="Neighborhood Profile Area"
+                data-content="Neighborhood Profile Areas (NPAs) are geographic areas used for the organization and presentation of data in the Quality of Life Study. The boundaries were developed with community input and are based on one or more Census block groups.">
+                NPA</a></th>
+            <th class="text-right">Value</th>
+            <th class="text-left"></th>
+            <th class="text-center"><% if (metricAccuracy.indexOf(model.metricId) !== -1) { %><a href="javascript:void(0)" tabindex="0" class="meta-definition" data-toggle="popover" data-title="Margin of Error"
+                    data-content="Margin of error (MOE) is an indicator of reliability for data that comes from the American Community Survey (ACS). The ACS is mailed to only a small percentage of households, and because not all households are surveyed, the data are only estimates.">
+                    MOE<% } %></th>
+            <th class="text-center"><% if (rc.keys.length > 2) { %>Trend<br><%= getYear(rc.keys[1]) + "-" + getYear(rc.keys[rc.keys.length - 1]) %><% } %></th>
+            <th class="text-right"><% if (hasRaw(model.metricId)) { %>Number<% } %></th>
+            <th class="text-left"></th>
+            <th class="text-center"><% if (rc.keys.length > 2 && hasRaw(model.metricId)) { %>Trend<br><%= getYear(rc.keys[1]) + "-" + getYear(rc.keys[rc.keys.length - 1]) %><% } %></th>
+          </tr>
+        </thead>
+        <tbody>
         <%
-        var m = $("#metric").val();
+        var m = model.metricId;
         _.each(rc.theSelected, function (d, i) { %>
             <tr data-id="<%- d.id %>" <% if (d[rc.keys[model.year + 1]]) { %>data-value="<%- d[rc.keys[model.year + 1]] %>"<% } %> class="metric-hover">
                 <td class="text-center"><%- d.id %></td>
-                <td class="text-right datatable-value"><% if (d[rc.keys[model.year + 1]]) { %><%= dataPretty(d[rc.keys[model.year + 1]], m) %><% } else {%><%= 'N/A' %><% }%></td>
-                <td class="text-left"><% if (rc.theAccuracy.length > 0) { %><span class="text-accuracy">&plusmn;<%- dataPretty(rc.theAccuracy[i][rc.keys[model.year + 1]], m) %></span><% } %></td>
-                <td class="text-right"><%
-                    var theDiff = ((d[rc.keys[rc.keys.length - 1]] - d[rc.keys[1]]) / d[rc.keys[1]]) * 100;
-                    theDiff = "";
-                    /*if (theDiff === 0 || !$.isNumeric(theDiff)) {
-                        theDiff = "--";
-                    } else if (theDiff > 0)
-                        theDiff = "<span class='glyphicon glyphicon-arrow-up'></span> +" + theDiff.toFixed(1) + "%";
-                    else {
-                        theDiff = "<span class='glyphicon glyphicon-arrow-down'></span> -" + (theDiff * -1).toFixed(1) + "%";
-                    }*/
-                %><%= theDiff %></td>
-                <td class="text-right datatable-raw"><% if (rc.theRaw.length > 0) { %><%= dataPretty(rc.theRaw[i][rc.keys[model.year + 1]], metricRaw[m]) %><% } %></td>
+                <td class="text-right datatable-value  td-border-left"><%= dataPretty(d[rc.keys[model.year + 1]], m) %></td>
+                <td class="text-left"><% if (metricUnits[model.metricId]) { %><%= metricUnits[model.metricId] %><% } %></td>
+                <td class="text-center"><% if (metricAccuracy.indexOf(model.metricId) !== -1) { %>&#177;<%= dataPretty(rc.theAccuracy[i][rc.keys[model.year + 1]], m) %><% } %></td>
+                <td class="text-center"><% if (rc.keys.length > 2) { %><%= getTrend(d[rc.keys[rc.keys.length - 1]], d[rc.keys[1]]) %><% } %></td>
+                <td class="text-right td-border-left"><% if (hasRaw(m)) { %><%= dataPretty(rc.theRaw[i][rc.keys[model.year + 1]], getRaw(m)) %><% } %></td>
+                <td class="text-left"><% if (hasRaw(model.metricId) && metricUnits[getRaw(model.metricId)]) { %><%= metricUnits[getRaw(m)] %><% } %></td>
+                <td class="text-center"><% if (rc.keys.length > 2 && hasRaw(model.metricId)) { %><%= getTrend(rc.theRaw[i][rc.keys[rc.keys.length - 1]], rc.theRaw[i][rc.keys[1]]) %><% } %></td>
             </tr>
         <% }); %>
+        </tbody>
     </script>
     <!-- END: Underscore Template Definition. -->
 
@@ -384,7 +383,7 @@
     <!-- End jQuery Tourbus -->
 
     <!-- scripts at the bottom yo -->
-    <script src="js/main.js?foo=16889"></script>
+    <script src="js/main.js?foo=8982"></script>
 
     <!--   Google Analytics -->
     <script>
