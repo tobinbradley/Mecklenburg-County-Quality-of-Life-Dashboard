@@ -22,7 +22,7 @@
     <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon-precomposed.png" />
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/main.css?foo=8982">
+    <link rel="stylesheet" href="css/main.css?foo=95049">
 
 </head>
 
@@ -30,6 +30,19 @@
     <!--[if lt IE 9]>
         <p class="oldie alert-info text-center">You are using an outdated browser. <a href="http://whatbrowser.org/">Upgrade your browser today</a> to better experience this site.</p>
     <![endif]-->
+    <div class="jumbotron">
+      <div class="container">
+          <h1>Quality of Life Dashboard</h1>
+          <p>
+              Assessing the quality of life in neighborhoods through their character, economics, education, engagment,
+              environment, health, housing, and safety.
+          </p>
+          <p>
+              <a href="http://qol.charmeck.org/" class="btn btn-primary btn-lg" role="button">Learn more</a>
+              <a href="javascript:void(0)" class="btn btn-primary btn-lg scrollToStart" role="button">Get started</a>
+          </p>
+      </div>
+    </div>
     <nav class="navbar navbar-default navbar-main" role="navigation">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -40,13 +53,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="./"><strong>Quality of Life Dashboard</strong></a>
+                <a class="navbar-brand" href="./">Quality of Life Dashboard</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="http://qol.charmeck.org/">About</a>
+                        <a href="javascript:void(0)" class="scrollToStart">About</a>
                     </li>
                     <li>
                         <a href="javascript:void(0)">Get Data</a>
@@ -71,6 +84,7 @@
             <!-- /.navbar-collapse -->
         </div>
     </nav>
+
 
     <div class="container container-content">
         <div class="row row-vis">
@@ -153,7 +167,6 @@
                     <div class="col-md-7 col-xs-6 text-right">
                         <div class="btn-group datatoggle text-right">
                             <button type="button" class="btn btn-default btn-sm toggle-map">Show Map</button>
-                            <button type="button" class="btn btn-default btn-sm toggle-table">Show Data</button>
                             <!-- <button type="button" class="btn btn-default btn-sm report-launch disabled">Report</button> -->
                             <button type="button" class="btn btn-default btn-sm select-clear">Clear Selected</button>
                         </div>
@@ -164,18 +177,8 @@
                 <div class="meta-subtitle text-center"></div>
                 <div class="stats">
                     <div class="row text-center">
-                        <div class="col-md-6 col-xs-6 stat-box stat-box-neighborhood">
-                            <span class="header">SELECTED <a href="javascript:void(0)" tabindex="0" class="meta-definition" data-toggle="popover" data-title="Neighborhood Profile Area"
-                                data-content="Neighborhood Profile Areas (NPAs) are geographic areas used for the organization and presentation of data in the Quality of Life Study. The boundaries were developed with community input and are based on one or more Census block groups.">
-                                NPAs</a></span>
-                            <h3 class="stat-mean">N/A</h3>
-                            <span class="stat-total"></span>
-                        </div>
-                        <div class="col-md-6 col-xs-6 stat-box stat-box-county">
-                            <span class="header">COUNTY</span>
-                            <h3 class="stat-mean">&nbsp;</h3>
-                            <span class="stat-total"></span>
-                        </div>
+                        <div class="col-md-6 col-xs-6 stat-box stat-box-neighborhood"></div>
+                        <div class="col-md-6 col-xs-6 stat-box stat-box-county"></div>
                     </div>
                 </div>
                 <div id="barChart">
@@ -212,12 +215,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-8 datatable-container">
-                <table class="table table-condensed"></table>
-                <p class="text-right">
-                    <button type="button" class="btn btn-default btn-sm table2CSV">Download as CSV</button>
-                </p>
-            </div>
+            <div class="col-md-8 datatable-container"></div>
         </div>
         <div class="row meta-container">
             <div class="col-md-8">
@@ -250,40 +248,64 @@
         </div>
     </div>
 
-    <!-- BEGIN: Underscore Template Definition. -->
+    <!-- BEGIN: Underscore Template Definitions -->
     <script type="text/template" class="template-table">
-        <thead>
-          <tr>
-            <th class="text-center"><a href="javascript:void(0)" tabindex="0" class="meta-definition" data-toggle="popover" data-title="Neighborhood Profile Area"
-                data-content="Neighborhood Profile Areas (NPAs) are geographic areas used for the organization and presentation of data in the Quality of Life Study. The boundaries were developed with community input and are based on one or more Census block groups.">
-                NPA</a></th>
-            <th class="text-right">Value</th>
-            <th class="text-left"></th>
-            <th class="text-center"><% if (metricAccuracy.indexOf(model.metricId) !== -1) { %><a href="javascript:void(0)" tabindex="0" class="meta-definition" data-toggle="popover" data-title="Margin of Error"
-                    data-content="Margin of error (MOE) is an indicator of reliability for data that comes from the American Community Survey (ACS). The ACS is mailed to only a small percentage of households, and because not all households are surveyed, the data are only estimates.">
-                    MOE<% } %></th>
-            <th class="text-center"><% if (rc.keys.length > 2) { %>Trend<br><%= getYear(rc.keys[1]) + "-" + getYear(rc.keys[rc.keys.length - 1]) %><% } %></th>
-            <th class="text-right"><% if (hasRaw(model.metricId)) { %>Number<% } %></th>
-            <th class="text-left"></th>
-            <th class="text-center"><% if (rc.keys.length > 2 && hasRaw(model.metricId)) { %>Trend<br><%= getYear(rc.keys[1]) + "-" + getYear(rc.keys[rc.keys.length - 1]) %><% } %></th>
-          </tr>
-        </thead>
-        <tbody>
-        <%
-        var m = model.metricId;
-        _.each(rc.theSelected, function (d, i) { %>
-            <tr data-id="<%- d.id %>" <% if (d[rc.keys[model.year + 1]]) { %>data-value="<%- d[rc.keys[model.year + 1]] %>"<% } %> class="metric-hover">
-                <td class="text-center"><%- d.id %></td>
-                <td class="text-right datatable-value  td-border-left"><%= dataPretty(d[rc.keys[model.year + 1]], m) %></td>
-                <td class="text-left"><% if (metricUnits[model.metricId]) { %><%= metricUnits[model.metricId] %><% } %></td>
-                <td class="text-center"><% if (metricAccuracy.indexOf(model.metricId) !== -1) { %>&#177;<%= dataPretty(rc.theAccuracy[i][rc.keys[model.year + 1]], m) %><% } %></td>
-                <td class="text-center"><% if (rc.keys.length > 2) { %><%= getTrend(d[rc.keys[rc.keys.length - 1]], d[rc.keys[1]]) %><% } %></td>
-                <td class="text-right td-border-left"><% if (hasRaw(m)) { %><%= dataPretty(rc.theRaw[i][rc.keys[model.year + 1]], getRaw(m)) %><% } %></td>
-                <td class="text-left"><% if (hasRaw(model.metricId) && metricUnits[getRaw(model.metricId)]) { %><%= metricUnits[getRaw(m)] %><% } %></td>
-                <td class="text-center"><% if (rc.keys.length > 2 && hasRaw(model.metricId)) { %><%= getTrend(rc.theRaw[i][rc.keys[rc.keys.length - 1]], rc.theRaw[i][rc.keys[1]]) %><% } %></td>
-            </tr>
-        <% }); %>
-        </tbody>
+        <% if (rc.theSelected.length > 0) {
+            var m = model.metricId;
+            %>
+        <div class="div-scroll">
+            <table class="table table-condensed">
+                <thead>
+                  <tr>
+                    <th class="text-center"><a href="javascript:void(0)" tabindex="0" class="meta-definition" data-toggle="popover" data-title="Neighborhood Profile Area"
+                        data-content="Neighborhood Profile Areas (NPAs) are geographic areas used for the organization and presentation of data in the Quality of Life Study. The boundaries were developed with community input and are based on one or more Census block groups.">
+                        NPA</a></th>
+                    <th class="text-right">Value</th>
+                    <th class="text-left"></th>
+                    <th class="text-center"><% if (metricAccuracy.indexOf(model.metricId) !== -1) { %><a href="javascript:void(0)" tabindex="0" class="meta-definition" data-toggle="popover" data-title="Margin of Error"
+                            data-content="Margin of error (MOE) is an indicator of reliability for data that comes from the American Community Survey (ACS). The ACS is mailed to only a small percentage of households, and because not all households are surveyed, the data are only estimates.">
+                            MOE<% } %></th>
+                    <th class="text-center"><% if (rc.keys.length > 2) { %>Change<br><%= getYear(rc.keys[1]) + "-" + getYear(rc.keys[rc.keys.length - 1]) %><% } %></th>
+                    <th class="text-right"><% if (metricSummable.indexOf(getRaw(m)) !== -1) { %>Number<% } %></th>
+                    <th class="text-left"></th>
+                    <th class="text-center"><% if (rc.keys.length > 2 && metricSummable.indexOf(getRaw(m)) !== -1) { %>Change<br><%= getYear(rc.keys[1]) + "-" + getYear(rc.keys[rc.keys.length - 1]) %><% } %></th>
+                  </tr>
+                </thead>
+                <tbody>
+                <%
+                _.each(rc.theSelected, function (d, i) { %>
+                    <tr data-id="<%- d.id %>" <% if (d[rc.keys[model.year + 1]]) { %>data-value="<%- d[rc.keys[model.year + 1]] %>"<% } %> class="metric-hover">
+                        <td class="text-center"><%- d.id %></td>
+                        <td class="text-right datatable-value  td-border-left"><%= dataPretty(d[rc.keys[model.year + 1]], m) %></td>
+                        <td class="text-left"><% if (metricUnits[model.metricId]) { %><%= metricUnits[model.metricId] %><% } %></td>
+                        <td class="text-center"><% if (metricAccuracy.indexOf(model.metricId) !== -1) { %>&#177;<%= dataPretty(rc.theAccuracy[i][rc.keys[model.year + 1]], m) %><% } %></td>
+                        <td class="text-center"><% if (rc.keys.length > 2) { %><%= getTrend(d[rc.keys[rc.keys.length - 1]], d[rc.keys[1]]) %><% } %></td>
+                        <td class="text-right td-border-left"><% if (metricSummable.indexOf(getRaw(m)) !== -1) { %><%= dataPretty(rc.theRaw[i][rc.keys[model.year + 1]], getRaw(m)) %><% } %></td>
+                        <td class="text-left"><% if (hasRaw(model.metricId) && metricUnits[getRaw(model.metricId)]) { %><%= metricUnits[getRaw(m)] %><% } %></td>
+                        <td class="text-center"><% if (rc.keys.length > 2 && hasRaw(model.metricId) && metricSummable.indexOf(getRaw(m)) !== -1) { %><%= getTrend(rc.theRaw[i][rc.keys[rc.keys.length - 1]], rc.theRaw[i][rc.keys[1]]) %><% } %></td>
+                    </tr>
+                <% }); %>
+                </tbody>
+            </table>
+        </div>
+        <p class="text-right">
+            <button type="button" class="btn btn-default btn-sm table2CSV">Download as CSV</button>
+        </p>
+        <% } %>
+    </script>
+
+    <script type="text/template" class="template-statbox">
+        <span class="header"><%= rc.topText %></span>
+        <h3 class="stat-mean"><%= rc.mainNumber %></h3>
+        <% if (rc.mainUnits) { %>
+            <span class="stat-units"><%= rc.mainUnits %></span>
+        <% } %>
+        <% if (rc.rawTotal) { %>
+            <span class="stat-total">
+                <%= rc.rawTotal %>
+                <% if (rc.rawUnits) { %><%= rc.rawUnits %><% } %>
+            </span>
+        <% } %>
     </script>
     <!-- END: Underscore Template Definition. -->
 
@@ -383,7 +405,7 @@
     <!-- End jQuery Tourbus -->
 
     <!-- scripts at the bottom yo -->
-    <script src="js/main.js?foo=8982"></script>
+    <script src="js/main.js?foo=95049"></script>
 
     <!--   Google Analytics -->
     <script>

@@ -129,16 +129,27 @@ $(document).ready(function () {
     // Don't let clicked toggle buttons remain colored because ugly
     $(".datatoggle").on("focus", "button", function() { $(this).blur(); });
 
+    // Scroll to begin position (i.e. get past enormous jumbotron)
+    $(".scrollToStart").on("click", function() {
+        $('.jumbotron').slideToggle();
+    });
+
     // Clear selected button.
     $(".select-clear").on("click", function() {
         model.selected = [];
     });
 
-    // Toggle the nerd table
-    $(".toggle-table").on("click", function() {
-        var txt = $(".datatable-container").is(':visible') ? 'Show Data' : 'Hide Data';
-        $(this).text(txt);
-        $(".datatable-container").toggle("slow");
+    // Now to put in some popover definitions. I hate popover definitions, but I am just a cog in the machine. The
+    // really crappy machine.
+    //
+    // In your meta, do this to create a popover. I'm using a span tag so when viewing the raw HTML coverted
+    // from the markdown you don't get useless hyperlink-looking things in it.
+    // <span tabindex="1000" class="meta-definition" data-toggle="popover" data-title="The Title" data-content="And here's some amazing content. It's very engaging. Right?">NPA</span>
+    $('body').popover({
+        selector: '[data-toggle=popover]',
+        "placement": "auto",
+        "trigger": "focus",
+        "container": "body"
     });
 
     // Toggle the map, making polys less opaque and activating a base layer.

@@ -136,11 +136,11 @@
 // Document level stuff/spacing
 // ****************************************
 body {
-    background: @body-color url(../images/linen.png);
+    //background: @body-color url(../images/linen.png);
+    background: @body-color;
 }
 .row-vis {
     min-height: 651px;
-    margin-top: 20px;
 }
 
 
@@ -148,11 +148,7 @@ body {
 // Header
 // ****************************************
 .navbar-main {
-    background: rgba(0,0,0,0.03);
-}
-.navbar-default .navbar-brand {
-    font-size: 1.8em;
-    text-shadow: #777 0 1px 1px;
+    //background: rgba(0,0,0,0.03);
 }
 .contact {
     min-width: 300px;
@@ -161,6 +157,15 @@ body {
         margin: 0 0 10px;
     }
 }
+.jumbotron {
+    padding: 20px 0 30px;
+    margin-bottom: 0;
+    box-shadow: inset 0 -5px 7px -5px #666;
+    h1 {
+        text-shadow: #777 0 1px 1px;
+    }
+}
+
 
 
 // ****************************************
@@ -383,11 +388,6 @@ body {
 // Data table
 // ****************************************
 .datatable-container {
-    display: none;
-    margin-top: 10px;
-    // max-height: 200px;
-    // overflow: auto;
-    // overflow-x: none;
     .text-accuracy {
         font-size: 0.8em;
         padding-left: 15px;
@@ -396,7 +396,16 @@ body {
     .datatable-raw, .datatable-value {
         font-weight: bold;
     }
+    .div-scroll {
+        max-height: 300px;
+        overflow: auto;
+        overflow-x: none;
+    }
+    p {
+        margin-top: 15px;
+    }
     table {
+        margin-bottom: 0;
         tr.d3-highlight {
             background: @highlightColor;
             transition: all 0.5s ease-out;
@@ -406,8 +415,7 @@ body {
         }
         td {
             white-space: nowrap;
-            min-width: 20px;
-            max-width: 30px;
+            min-width: 30px;
         }
         .td-border-left {
             border-left: 1px solid rgb(221, 221, 221);
@@ -420,8 +428,8 @@ body {
 // Metadata
 // ****************************************
 .well {
-    box-shadow: @fancyshadow;
-    background-color: rgba(255,255,255,0.3);
+    //box-shadow: @fancyshadow;
+    //background-color: rgba(255,255,255,0.3);
 }
 .meta-subtitle {
     font-size: 0.9em;
@@ -469,7 +477,7 @@ body {
     h3 {
         font-size: 2em;
         font-weight: bold;
-        margin: 3px 0;
+        margin: 8px 0 2px;
         white-space: nowrap;
         width: 100%;
     }
@@ -512,7 +520,7 @@ body {
     }
 }
 @media (max-width: 740px) {
-    button.report-launch, button.toggle-table {
+    button.report-launch {
         display: none;
     }
 }

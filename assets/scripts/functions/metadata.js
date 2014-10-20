@@ -38,15 +38,8 @@ function updateMeta() {
             $('.meta-resources').html(
                 data.substring(GetSubstringIndex(data, '</h3>', 3) + 5, data.length)
             );
-            // Now to put in some popover definitions. I hate popover definitions, but I am just a cog in the machine. The
-            // really crappy machine.
-            //
-            // In your meta, do this to create a popover. I'm using a span tag so when viewing the raw HTML coverted
-            // from the markdown you don't get useless hyperlink-looking things in it.
-            // <span tabindex="1000" class="meta-definition" data-toggle="popover" data-title="The Title" data-content="And here's some amazing content. It's very engaging. Right?">NPA</span>
-            $('.meta-definition').popover({ "placement": "auto", "trigger": "focus", "container": "body" });
 
-            // make metric tables (jesus tables really?) from markdown get the bootstrap table class
+            // make meta tables (jesus tables really?) from markdown get the bootstrap table class
             $('.meta-container table').addClass('table table-condensed');
         },
         error: function (error, status, desc) {

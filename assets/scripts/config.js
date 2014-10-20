@@ -56,7 +56,7 @@ var metricPct = ["m3", "m4", "m10"],
 // Here we have a list of metrics that are raw numbers and are therefore "summable"
 // (i.e. will show total value for study area and selected). The totalling function will
 // totally check the metricRaw too. Totally.
-var metricSummable = ["r1", "r2", "r3", "r4", "r5", "r8", "r9"];
+var metricSummable = ["r1", "r3", "r4", "r5", "r8", "r9"];
 
 // The following things are for crazy people.
 //

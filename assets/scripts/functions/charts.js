@@ -20,7 +20,7 @@ function lineChartData() {
         labels: [],
         datasets: [
             {
-                label: "Selected " + neighborhoodDescriptor + "s",
+                label: 'Selected <a href="javascript:void(0)" tabindex="0" class="meta-definition" data-toggle="popover" data-title="Neighborhood Profile Area" data-content="Neighborhood Profile Areas (NPAs) are geographic areas used for the organization and presentation of data in the Quality of Life Study. The boundaries were developed with community input and are based on one or more Census block groups.">NPAs</a>',
                 fillColor : "rgba(151,187,205,0.2)",
                 strokeColor : "rgba(151,187,205,1)",
                 pointColor : "rgba(151,187,205,1)",
