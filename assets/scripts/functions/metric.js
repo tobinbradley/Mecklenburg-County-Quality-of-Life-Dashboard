@@ -90,7 +90,7 @@ function drawTable() {
         theRaw = _.filter(model.metricRaw, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }),
         keys = Object.keys(model.metric[0]);
 
-    $(".datatable-container table").html(template({
+    $(".datatable-container").html(template({
         "theSelected": theSelected,
         "theAccuracy": theAccuracy,
         "theRaw": theRaw,
@@ -100,36 +100,54 @@ function drawTable() {
 
 // ****************************************
 // Update stat boxes for study area and selected
+// Lots of filters and nests and calculations. I don't
+// even pretend to know what's going on here anymore.
+// People stopped complaining about the numbers being
+// wrong so I ran away.
 // ****************************************
 function updateStats() {
     var m = model.metricId,
         keys = Object.keys(model.metric[0]),
         theStat,
-        theStatCounty,
-        theStatNPA;
+        params = {},
+        template = _.template($("script.template-statbox").html());
 
-    // County stat box
+
+    // County
+    params.topText = "COUNTY";
+    if (metricUnits[m]) { params.mainUnits = metricUnits[m]; }
+    if (metricUnits[getRaw(m)]) { params.rawUnits = metricUnits[getRaw(m)]; }
+    // next do the main number. if it has a raw, aggregate, if not, sum.
     if (hasRaw(m)) {
-        theStatCounty = aggregateMean(model.metric, model.metricRaw);
-        theStatNPA = aggregateMean(_.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }),
-            _.filter(model.metricRaw, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }));
+        theStat = aggregateMean(model.metric, model.metricRaw);
+        params.mainNumber = dataPretty(theStat[keys[model.year + 1]], m);
+        if (metricSummable.indexOf(getRaw(m)) !== -1) {
+            params.rawTotal = sum(_.map(model.metricRaw, function(num){ return num[keys[model.year + 1]]; })).toFixed(0).commafy();
+        }
     } else {
-        theStatCounty = mean(model.metric);
-        theStatNPA = mean(_.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }));
+        theStat = sum(_.map(model.metric, function(num){ return num[keys[model.year + 1]]; }));
+        params.mainNumber = dataPretty(theStat, m);
     }
-    $(".stat-box-county .stat-mean").text(dataPretty(theStatCounty[keys[model.year + 1]], m));
-    $(".stat-box-neighborhood .stat-mean").text(dataPretty(theStatNPA[keys[model.year + 1]], m));
+    $(".stat-box-county").html(template(params));
+    params = {};
 
-    // totals
-    if (metricSummable.indexOf(m) > -1) {
-    //     $(".stats-county-total").html('Total: ' + dataPretty(sum(_.pluck(model.metric, keys[model.year + 1])), m));
-    //     $(".stats-selected-total").html('Total: ' + dataPretty(sum(_.pluck(_.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }), keys[model.year + 1])), m));
-    // } else if (metricRaw[m]){
-    //     $(".stats-county-total").html('Total: ' + dataPretty(sum(_.pluck(model.metricRaw, keys[model.year + 1])), metricRaw[m]));
-    //     $(".stats-selected-total").html('Total: ' + dataPretty(sum(_.pluck(_.filter(model.metricRaw, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }), keys[model.year + 1])), metricRaw[m]));
-    // } else {
-    //     $(".stats-total").text('');
+
+    // Selected
+    params.topText = "SELECTED NPAs";
+    if (metricUnits[m]) { params.mainUnits = metricUnits[m]; }
+    if (metricUnits[getRaw(m)]) { params.rawUnits = metricUnits[getRaw(m)]; }
+    // next do the main number. if it has a raw, aggregate, if not, sum.
+    if (hasRaw(m)) {
+        theStat = aggregateMean(_.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }),
+            _.filter(model.metricRaw, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }));
+        params.mainNumber = dataPretty(theStat[keys[model.year + 1]], m);
+        if (metricSummable.indexOf(getRaw(m)) !== -1) {
+            params.rawTotal = sum(_.pluck(_.filter(model.metricRaw, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }), keys[model.year + 1])).toFixed(0).commafy();
+        }
+    } else {
+        params.mainNumber = dataPretty(sum(_.pluck(_.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }), keys[model.year + 1])), m);
     }
+    $(".stat-box-neighborhood").html(template(params));
 
     // median
     theStat = median(_.map(model.metric, function(num){ if ($.isNumeric(num[keys[model.year + 1]])) { return Number(num[keys[model.year + 1]]); } }));
