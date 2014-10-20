@@ -133,7 +133,7 @@ function updateStats() {
 
 
     // Selected
-    params.topText = "SELECTED NPAs";
+    params.topText = 'SELECTED <a href="javascript:void(0)" tabindex="0" class="meta-definition" data-toggle="popover" data-title="Neighborhood Profile Area" data-content="Neighborhood Profile Areas (NPAs) are geographic areas used for the organization and presentation of data in the Quality of Life Study. The boundaries were developed with community input and are based on one or more Census block groups.">NPAs</a>';
     if (metricUnits[m]) { params.mainUnits = metricUnits[m]; }
     if (metricUnits[getRaw(m)]) { params.rawUnits = metricUnits[getRaw(m)]; }
     // next do the main number. if it has a raw, aggregate, if not, sum.
