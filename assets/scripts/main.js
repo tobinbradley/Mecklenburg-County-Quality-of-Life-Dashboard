@@ -213,6 +213,12 @@ $(document).ready(function () {
     // Window resize listener so the bar chart can be responsive
     d3.select(window).on("resize", function () {
         if ($(".barchart").parent().width() !== barchartWidth) {
+            // set up data quantile from extent
+            quantize = d3.scale.quantile()
+                .domain(x_extent)
+                .range(d3.range(colorbreaks).map(function (i) {
+                    return "q" + i;
+                }));
             drawBarChart();
         }
     });
