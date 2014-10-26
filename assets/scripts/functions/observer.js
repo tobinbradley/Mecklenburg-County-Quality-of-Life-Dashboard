@@ -42,8 +42,8 @@ function modelChanges(changes) {
         drawBarChart();
         lineChartCreate();
         updateMeta();
-        drawTable();
         updateStats();
+        drawTable();
         if (recordHistory) { recordMetricHistory(); }
         recordHistory = true;
     }

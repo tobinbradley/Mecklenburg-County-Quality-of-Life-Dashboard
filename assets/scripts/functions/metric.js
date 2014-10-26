@@ -100,10 +100,31 @@ function drawTable() {
 
 // ****************************************
 // Update stat boxes for study area and selected
-// Lots of filters and nests and calculations. I don't
-// even pretend to know what's going on here anymore.
-// People stopped complaining about the numbers being
-// wrong so I ran away.
+//
+// This has turned into a jumbled pile of yuck, so some
+// explaining on the logic is in order.
+//
+// Basically there are two numbers to get ahold of: the
+// main stat and the raw stat.
+//
+// The main stat is either summed, averaged, or aggregate
+// averaged.
+//
+// The main stat first checks to see if it's in the summable
+// list. If so it gets summed. If it isn't in the summable list
+// it checks to see if it has a raw metric associated with it (i.e.
+// the metric id starts with a "m"). If so it does an aggregate
+// calculation. If there is no raw number associated with it, it does
+// an arithmetic average.
+//
+// If there is a raw number, it checks to see if the raw number is
+// summable. If it isn't, that means we aren't showing it. If it is,
+// it gets summed.
+//
+// We're also setting the units to be displayed, if any, and the median.
+//
+// On a related note, I'm in the market for a gun. Nothing fancy.
+// I only need to use it just the once.
 // ****************************************
 function updateStats() {
     var m = model.metricId,
@@ -112,46 +133,65 @@ function updateStats() {
         params = {},
         template = _.template($("script.template-statbox").html());
 
-
-    // County
-    params.topText = "COUNTY";
-    if (metricUnits[m]) { params.mainUnits = metricUnits[m]; }
-    if (metricUnits[getRaw(m)]) { params.rawUnits = metricUnits[getRaw(m)]; }
-    // next do the main number. if it has a raw, aggregate, if not, sum.
-    if (hasRaw(m)) {
-        theStat = aggregateMean(model.metric, model.metricRaw);
-        params.mainNumber = dataPretty(theStat[keys[model.year + 1]], m);
-        if (metricSummable.indexOf(getRaw(m)) !== -1) {
-            params.rawTotal = sum(_.map(model.metricRaw, function(num){ return num[keys[model.year + 1]]; })).toFixed(0).commafy();
-        }
-    } else {
-        theStat = sum(_.map(model.metric, function(num){ return num[keys[model.year + 1]]; }));
-        params.mainNumber = dataPretty(theStat, m);
-    }
-    $(".stat-box-county").html(template(params));
-    params = {};
-
-
-    // Selected
-    params.topText = 'SELECTED <a href="javascript:void(0)" tabindex="0" class="meta-definition" data-toggle="popover" data-title="Neighborhood Profile Area" data-content="Neighborhood Profile Areas (NPAs) are geographic areas used for the organization and presentation of data in the Quality of Life Study. The boundaries were developed with community input and are based on one or more Census block groups.">NPAs</a>';
-    if (metricUnits[m]) { params.mainUnits = metricUnits[m]; }
-    if (metricUnits[getRaw(m)]) { params.rawUnits = metricUnits[getRaw(m)]; }
-    // next do the main number. if it has a raw, aggregate, if not, sum.
-    if (hasRaw(m)) {
-        theStat = aggregateMean(_.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }),
-            _.filter(model.metricRaw, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }));
-        params.mainNumber = dataPretty(theStat[keys[model.year + 1]], m);
-        if (metricSummable.indexOf(getRaw(m)) !== -1) {
-            params.rawTotal = sum(_.pluck(_.filter(model.metricRaw, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }), keys[model.year + 1])).toFixed(0).commafy();
-        }
-    } else {
-        params.mainNumber = dataPretty(sum(_.pluck(_.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }), keys[model.year + 1])), m);
-    }
-    $(".stat-box-neighborhood").html(template(params));
-
     // median
     theStat = median(_.map(model.metric, function(num){ if ($.isNumeric(num[keys[model.year + 1]])) { return Number(num[keys[model.year + 1]]); } }));
     $(".median").html(dataPretty(theStat, m));
+
+    // set the units for the stat boxes
+    if (metricUnits[m]) { params.mainUnits = metricUnits[m]; }
+    if (metricUnits[getRaw(m)]) { params.rawUnits = metricUnits[getRaw(m)]; }
+
+    // County stat box
+    params.topText = "COUNTY";
+    // main number
+    if (metricSummable.indexOf(m) !== -1) {
+        // sum
+        theStat = sum(_.map(model.metric, function(num){ return num[keys[model.year + 1]]; }));
+        params.mainNumber = dataPretty(theStat, m);
+    }
+    else if (hasRaw(m)) {
+        // aggregate
+        theStat = aggregateMean(model.metric, model.metricRaw);
+        params.mainNumber = dataPretty(theStat[keys[model.year + 1]], m);
+    }
+    else {
+        // arithmetic average
+        theStat = mean(model.metric, model.metricRaw);
+        params.mainNumber = dataPretty(theStat[keys[model.year + 1]], m);
+    }
+    // raw number
+    if (hasRaw(m) && metricSummable.indexOf(getRaw(m)) !== -1) {
+        params.rawTotal = sum(_.map(model.metricRaw, function(num){ return num[keys[model.year + 1]]; })).toFixed(0).commafy();
+    }
+    // write out stat box
+    $(".stat-box-county").html(template(params));
+
+
+    // Selected NPAs
+    params.topText = 'SELECTED <a href="javascript:void(0)" tabindex="0" class="meta-definition" data-toggle="popover" data-title="Neighborhood Profile Area" data-content="Neighborhood Profile Areas (NPAs) are geographic areas used for the organization and presentation of data in the Quality of Life Study. The boundaries were developed with community input and are based on one or more Census block groups.">NPAs</a>';
+    // main number
+    if (metricSummable.indexOf(m) !== -1) {
+        // sum
+        params.mainNumber = dataPretty(sum(_.pluck(_.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }), keys[model.year + 1])), m);
+    }
+    else if (hasRaw(m)) {
+        // aggregate
+        theStat = aggregateMean(_.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }),
+            _.filter(model.metricRaw, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }));
+        params.mainNumber = dataPretty(theStat[keys[model.year + 1]], m);
+    }
+    else {
+        // arithmetic average
+        theStat = mean(_.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }),
+            _.filter(model.metricRaw, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }));
+        params.mainNumber = dataPretty(theStat[keys[model.year + 1]], m);
+    }
+    // raw number
+    if (hasRaw(m) && metricSummable.indexOf(getRaw(m)) !== -1) {
+        params.rawTotal = sum(_.pluck(_.filter(model.metricRaw, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }), keys[model.year + 1])).toFixed(0).commafy();
+    }
+    // write out stat box
+    $(".stat-box-neighborhood").html(template(params));
 
 
 }
