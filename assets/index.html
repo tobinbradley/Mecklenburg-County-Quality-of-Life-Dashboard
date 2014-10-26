@@ -210,6 +210,7 @@
                         <a href="javascript:void(0)" data-url="https://twitter.com/intent/tweet?tw_p=tweetbutton&url="><i class="icon-twitter-bird" title="Share on Twitter"></i></a>
                         <a href="javascript:void(0)" data-url="http://www.facebook.com/sharer.php?u="><i class="icon-facebook-rect" title="Share on Facebook"></i></a>
                         <a href="javascript:void(0)" data-url="https://plus.google.com/share?url="><i class="icon-googleplus-rect" title="Share on Google+"></i></a>
+                        <a href="javascript:void(0)" data-url="https://www.linkedin.com/shareArticle?mini=true&title=Quality%20of%20Life%20Dashboard&summary=&source=&url="><i class="icon-linkedin-rect" title="Share on Linkedin"></i></a>
                     </p>
                 </div>
             </div>
@@ -266,7 +267,7 @@
                             data-content="Margin of error (MOE) is an indicator of reliability for data that comes from the American Community Survey (ACS). The ACS is mailed to only a small percentage of households, and because not all households are surveyed, the data are only estimates.">
                             MOE<% } %></th>
                     <th class="text-center"><% if (rc.keys.length > 2) { %>Change<br><%= getYear(rc.keys[1]) + "-" + getYear(rc.keys[rc.keys.length - 1]) %><% } %></th>
-                    <th class="text-right"><% if (metricSummable.indexOf(getRaw(m)) !== -1) { %>Number<% } %></th>
+                    <th class="text-right"><% if (hasRaw(m) && metricSummable.indexOf(getRaw(m)) !== -1) { %>Number<% } %></th>
                     <th class="text-left"></th>
                     <th class="text-center"><% if (rc.keys.length > 2 && metricSummable.indexOf(getRaw(m)) !== -1) { %>Change<br><%= getYear(rc.keys[1]) + "-" + getYear(rc.keys[rc.keys.length - 1]) %><% } %></th>
                   </tr>
@@ -280,7 +281,7 @@
                         <td class="text-left"><% if (metricUnits[model.metricId]) { %><%= metricUnits[model.metricId] %><% } %></td>
                         <td class="text-center"><% if (metricAccuracy.indexOf(model.metricId) !== -1) { %>&#177;<%= dataPretty(rc.theAccuracy[i][rc.keys[model.year + 1]], m) %><% } %></td>
                         <td class="text-center"><% if (rc.keys.length > 2) { %><%= getTrend(d[rc.keys[rc.keys.length - 1]], d[rc.keys[1]]) %><% } %></td>
-                        <td class="text-right td-border-left"><% if (metricSummable.indexOf(getRaw(m)) !== -1) { %><%= dataPretty(rc.theRaw[i][rc.keys[model.year + 1]], getRaw(m)) %><% } %></td>
+                        <td class="text-right table-raw-boundary"><% if (hasRaw(m) && metricSummable.indexOf(getRaw(m)) !== -1) { %><%= dataPretty(rc.theRaw[i][rc.keys[model.year + 1]], getRaw(m)) %><% } %></td>
                         <td class="text-left"><% if (hasRaw(model.metricId) && metricUnits[getRaw(model.metricId)]) { %><%= metricUnits[getRaw(m)] %><% } %></td>
                         <td class="text-center"><% if (rc.keys.length > 2 && hasRaw(model.metricId) && metricSummable.indexOf(getRaw(m)) !== -1) { %><%= getTrend(rc.theRaw[i][rc.keys[rc.keys.length - 1]], rc.theRaw[i][rc.keys[1]]) %><% } %></td>
                     </tr>
