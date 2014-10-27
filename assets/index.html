@@ -289,8 +289,12 @@
                 </tbody>
             </table>
         </div>
-        <p class="text-right">
-            <button type="button" class="btn btn-default btn-sm table2CSV">Download as CSV</button>
+        <p>
+            <form action="http://mcmap.org/utilities/table2csv.php" method ="post" class="text-right">
+                <input type="hidden" name="csv_text" id="csv_text">
+                <input type="hidden" name="filename" id="filename">
+                <button type="submit" class="btn btn-default btn-sm table2CSV">Download as CSV</button>
+            </form>
         </p>
         <% } %>
     </script>

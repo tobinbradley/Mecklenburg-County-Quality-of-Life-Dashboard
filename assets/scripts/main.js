@@ -40,7 +40,6 @@ $(document).ready(function () {
                 model.metricId = getURLParameter('m');
             }
             if (getURLParameter("n") !== "null" && !model.selected.compare(getURLParameter("n").split(","))) {
-                console.log("running n popstate");
                 recordHistory = false;
                 model.selected = getURLParameter("n").split(",");
             } else if (getURLParameter("n") === "null") {
@@ -71,12 +70,10 @@ $(document).ready(function () {
     // $data=stripcslashes($_REQUEST['csv_text']);
     // echo $data;
     // ?>
-    $('.table2CSV').on('click', function() {
-        var csv = $(".datatable-container table").table2CSV({
-                delivery: 'value'
-            });
-        var theMetric = $("#metric option:selected");
-        window.location.href = 'http://mcmap.org/utilities/table2csv.php?csv_text=' + encodeURIComponent(csv) + '&filename=' + encodeURIComponent(theMetric.text().trim());
+    $('body').on('click', '.table2CSV', function() {
+        var csv = $(".datatable-container table").table2CSV({ delivery: 'value' });
+        $("#csv_text").val(csv);
+        $("#filename").val($("#metric [value='" + model.metricId + "']").text().trim());
     });
 
     // chosen - the uber select list

@@ -22,7 +22,7 @@
     <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon-precomposed.png" />
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/main.css?foo=51748">
+    <link rel="stylesheet" href="css/main.css?foo=40092">
 
 </head>
 
@@ -289,8 +289,12 @@
                 </tbody>
             </table>
         </div>
-        <p class="text-right">
-            <button type="button" class="btn btn-default btn-sm table2CSV">Download as CSV</button>
+        <p>
+            <form action="http://mcmap.org/utilities/table2csv.php" method ="post" class="text-right">
+                <input type="hidden" name="csv_text" id="csv_text">
+                <input type="hidden" name="filename" id="filename">
+                <button type="submit" class="btn btn-default btn-sm table2CSV">Download as CSV</button>
+            </form>
         </p>
         <% } %>
     </script>
@@ -406,7 +410,7 @@
     <!-- End jQuery Tourbus -->
 
     <!-- scripts at the bottom yo -->
-    <script src="js/main.js?foo=51748"></script>
+    <script src="js/main.js?foo=40092"></script>
 
     <!--   Google Analytics -->
     <script>
