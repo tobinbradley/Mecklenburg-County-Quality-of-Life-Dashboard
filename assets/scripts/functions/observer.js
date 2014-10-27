@@ -74,7 +74,9 @@ function modelChanges(changes) {
 
     // Add stuff to selected set
     if (_.contains(tasklist, "select")) {
+
         model.selected = _.union(model.selected, model.select);
+        console.log("hi");
     }
 
     // Remove stuff from selected set
@@ -84,6 +86,7 @@ function modelChanges(changes) {
 
     // the selected set changed
     if (_.contains(tasklist, "selected")) {
+
             d3.selectAll(".geom").classed("d3-false");
             d3.selectAll(".geom").classed("d3-select", function(d) { return _.contains(model.selected, $(this).attr("data-id")); });
             $(".report-launch").removeClass("disabled");

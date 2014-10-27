@@ -115,10 +115,10 @@ function initMap() {
     d3Layer.on("click", function(d) {
         var sel = d3.select(".geom[data-id='" + d.layer.feature.id + "']");
         if (sel.classed("d3-select")) {
-            model.unselect = [d.layer.feature.id];
+            model.selected = _.difference(model.selected, [d.layer.feature.id]);
         }
         else {
-            model.select = [d.layer.feature.id];
+            model.selected = _.union(model.selected, [d.layer.feature.id]);
         }
     });
 
