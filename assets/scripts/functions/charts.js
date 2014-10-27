@@ -183,7 +183,7 @@ function barChart() {
             $('.geom.' + el.key).each(function(){
                 arr.push($(this).attr("data-id"));
             });
-            model.select = arr;
+            model.selected = _.union(model.selected, arr);
         });
 
         // county mean indicator

@@ -57,21 +57,16 @@
   font-size: 1.3em;
   transition-duration: 0.5s;
   /* opacity: .8; */
-
   /* For safety - reset parent styles, that can break glyph codes*/
   font-variant: normal;
   text-transform: none;
-
   /* fix buttons height, for twitter bootstrap */
   line-height: 1em;
-
   /* Animation center compensation - margins should be symmetric */
   /* remove if not needed */
   margin-left: .2em;
-
   /* Uncomment for 3D effect */
   text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3);
-
 }
 .icon-facebook-rect {
     &:before { content: '\e800'; } /* 'î ' */
@@ -85,7 +80,7 @@
     &:before { content: '\e802'; } /* 'î ' */
     &:hover { color: #d34836; }
 }
-.icon-linkedin-rect {    
+.icon-linkedin-rect {
     &:before { content: '\e803'; } /* '' */
     &:hover { color: #0077b5;  }
 }
@@ -118,6 +113,16 @@
 .q2{fill:rgb(107,174,214)}
 .q3{fill:rgb(49,130,189)}
 .q4{fill:rgb(8,81,156)}
+
+
+// ****************************************
+// Button shadow lift effect
+// ****************************************
+.btn:hover {
+box-shadow: 0 4px 8px rgba(0,0,0, .16),
+                    0 4px 8px rgba(0,0,0, .23) ;
+    transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
 
 // ****************************************
@@ -327,7 +332,7 @@ body {
 }
 #lineChart {
     margin: 20px 0 0;
-    height: 100px;
+    min-height: 100px;
 }
 .chartLegend {
     font-family: sans-serif;
