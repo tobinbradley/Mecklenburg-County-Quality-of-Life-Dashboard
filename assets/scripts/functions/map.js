@@ -140,20 +140,13 @@ function initMap() {
             if ($.isNumeric(sel.attr("data-value"))) {
                 num = "<br>" + dataPretty(sel.attr("data-value"), $("#metric").val());
             }
+            if (metricUnits[model.metricId]) {
+                num += "<br>" + metricUnits[model.metricId];
+            }
             return "<p class='tip'><strong><span>" + neighborhoodDescriptor + " " + sel.attr("data-id") + "</strong>" + num + "</span></p>";
         },
         container: '#map'
     });
-
-    // if neihborhoods are being passed from page load
-    if (getURLParameter("n") !== "null") {
-        var arr = [];
-        _.each(getURLParameter("n").split(","), function(d) {
-            arr.push(d);
-        });
-        model.selected = arr;
-        d3ZoomPolys("", {"ids": arr});
-    }
 
     // Here's where you would load other crap in your topojson for display purposes.
     // Change the styling here as desired.
@@ -171,6 +164,16 @@ function initMap() {
 
     //  initialize neighborhood id's in typeahead
     polyid = _.map(model.geom.objects[neighborhoods].geometries, function(d){ return d.id.toString(); });
+
+    // if neihborhoods are being passed from page load
+    if (getURLParameter("n") !== "null") {
+        var arr = [];
+        _.each(getURLParameter("n").split(","), function(d) {
+            arr.push(d);
+        });
+        model.selected = arr;
+        d3ZoomPolys("", {"ids": arr});
+    }
 }
 
 
@@ -209,4 +212,7 @@ function drawMap() {
     var xScale = d3.scale.linear().domain(x_extent).range([0, $("#barChart").parent().width() - 60]);
 
     var y = d3.scale.linear().range([260, 0]).domain([0, 260]);
+
+    // make sure our stuff is highlighted
+    d3.selectAll(".geom").classed("d3-select", function(d) { return _.contains(model.selected, $(this).attr("data-id")); });
 }
