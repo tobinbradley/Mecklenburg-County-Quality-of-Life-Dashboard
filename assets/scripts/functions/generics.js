@@ -136,7 +136,7 @@ function getURLParameter(name) {
 // ****************************************
 function getTrend(x1, x2) {
     if ($.isNumeric(x1) && $.isNumeric(x2)) {
-        var theDiff = x2 - x1;
+        var theDiff = x1 - x2;
         if (theDiff === 0) {
             return "&#8596; 0";
         } else if (theDiff > 0) {
