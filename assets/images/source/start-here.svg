@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="212.33479"
+   height="76.054085"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.5 r10040"
+   sodipodi:docname="New document 1">
+  <defs
+     id="defs4">
+    <filter
+       inkscape:collect="always"
+       id="filter3793"
+       color-interpolation-filters="sRGB">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="0.70317439"
+         id="feGaussianBlur3795" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.979899"
+     inkscape:cx="214.49242"
+     inkscape:cy="16.714799"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1534"
+     inkscape:window-height="947"
+     inkscape:window-x="2080"
+     inkscape:window-y="56"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-145.74663,-438.40355)">
+    <path
+       sodipodi:type="arc"
+       style="fill:none;stroke:#9e0000;stroke-width:3;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="path3778"
+       sodipodi:cx="171.72594"
+       sodipodi:cy="456.62473"
+       sodipodi:rx="12.879445"
+       sodipodi:ry="12.879445"
+       d="m 184.60538,456.62473 c 0,7.11312 -5.76632,12.87944 -12.87944,12.87944 -7.11312,0 -12.87945,-5.76632 -12.87945,-12.87944 0,-5.4145 3.38645,-10.25086 8.47442,-12.10272"
+       sodipodi:start="0"
+       sodipodi:end="4.3633231"
+       sodipodi:open="true"
+       transform="matrix(0,2.6445417,-2.6445417,0,1391.3368,22.294188)" />
+    <path
+       style="fill:#9e0000;fill-opacity:1;stroke:#9e0000;stroke-width:3.10432577;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1"
+       inkscape:transform-center-y="0.3331125"
+       d="m 217.70791,472.14742 -11.50109,-7.30638 -11.50109,-7.30641 14.1755,-2.29044 9.98064,-10.32365 -0.57699,13.61344 z"
+       id="path3776"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccccc"
+       inkscape:transform-center-x="3.6413625" />
+    <g
+       id="g3797"
+       transform="translate(8,0)">
+      <text
+         xml:space="preserve"
+         style="font-size:26.97323799px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;filter:url(#filter3793);font-family:Sans"
+         x="226.51376"
+         y="469.87836"
+         id="text3785"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan3787"
+           x="226.51376"
+           y="469.87836">Start Here</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text3781"
+         y="469.30692"
+         x="226.29948"
+         style="font-size:26.97323799px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           y="469.30692"
+           x="226.29948"
+           id="tspan3783"
+           sodipodi:role="line">Start Here</tspan></text>
+    </g>
+  </g>
+</svg>
