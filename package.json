@@ -5,6 +5,7 @@
   "main": "gulpfile.js",
   "dependencies": {},
   "devDependencies": {
+    "browser-sync": "^1.4.0",
     "gulp": "*",
     "gulp-autoprefixer": "*",
     "gulp-concat": "*",
@@ -15,8 +16,7 @@
     "gulp-markdown": "*",
     "gulp-minify-css": "*",
     "gulp-replace": "*",
-    "gulp-uglify": "*",
-    "browser-sync": "^1.4.0"
+    "gulp-uglify": "*"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -20,7 +20,7 @@
 // $("optgroup[label='Economics'] option").each(function() {
 //     var label = $(this).prop("label");
 // 	var m = $(this).val();
-// 	text += "<tr><td data-label='" + m + "'>" + label + "</td><td class='text-right' data-metric='" + m + "'></td><td class='text-right' data-change='" + m + "'></td><td class='text-right' data-average='" + m + "'></td></tr>";
+// 	text += "<tr><td data-label='" + m + "'><a target='_blank' href='data/meta/" + m + ".html'>" + label + "</a></td><td class='text-right' data-metric='" + m + "'></td><td class='text-right' data-change='" + m + "'></td><td class='text-right' data-average='" + m + "'></td></tr>";
 // });
 // console.log(text);
 
@@ -29,8 +29,11 @@
 // Globals
 // ****************************************
 var theFilter = ["434","372","232"],   // default list of neighborhoods if none passed
-    theData;                                // global for fetched raw data
+    theData,                                // global for fetched raw data
+    theConfig,
+    numDecimals;
 
+_.templateSettings.variable = "rc";
 
 // ****************************************
 // Create the chart.js charts
@@ -38,33 +41,24 @@ var theFilter = ["434","372","232"],   // default list of neighborhoods if none 
 // are used to customize the chart.
 // ****************************************
 function createCharts() {
-    var colors = ["#F7464A", "#E2EAE9", "#D4CCC5", "#949FB1"];
+    var colors = ["#F7464A", "#E2EAE9", "#D4CCC5", "#949FB1", "#bada55"];
 
     // doughnut charts
     $(".chart-doughnut").each(function() {
-        // prep the data
-        var data = [],
-            title = $(this).data('labels').split(',');
-
+        var data = [];
         _.each($(this).data('chart').split(','), function(el, i) {
-            var theMean = mean(_.filter(theData[el], function(d) { return theFilter.indexOf(d.id.toString()) !== -1; })),
-                keys = Object.keys(theMean);
-
             data.push({
-                value: Number(theMean[keys[keys.length - 1]]),
+                value: Number($(".data-" + el).data("val")),
                 color: colors[i],
-                label: title[i]
+                label: $(".label-" + el).data("val")
             });
         });
-
         ctx = document.getElementById($(this).prop("id")).getContext("2d");
         var chart = new Chart(ctx).Doughnut(data, {
             showTooltips: false,
             legendTemplate : '<% for (var i=0; i<segments.length; i++){%><span style="border-color:<%=segments[i].fillColor%>" class="title"><%if(segments[i].label){%><%=segments[i].label%><%}%></span><%}%>'
         });
-
         $("#" + $(this).prop("id") + "-legend").html(chart.generateLegend());
-
     });
 
     // bar charts
@@ -171,47 +165,125 @@ function createCharts() {
 // Create the metric blocks and table values
 // ****************************************
 function createData() {
-    // year
-    $("[data-label]").each(function() {
-        var el = $(this),
-            keys = Object.keys(theData[el.data("label")][0]);
-        el.append(' (' + keys[keys.length -1].replace('y_', '') + ')');
+    var template = _.template($("script.template-row").html());
+
+
+    _.each(theConfig, function(dim, key) {
+      var theTable = $(".table-" + key.toLowerCase());
+      _.each(dim, function(el) {
+        var tdata = {
+              "id": el.Normalized,
+              "name": el.Variable,
+              "label": el.Variable,
+              "val": "",
+              "units": "",
+              "change": "",
+              "raw": "",
+              "rawunits": "",
+              "rawchange": ""
+          };
+
+          // name
+          keys = Object.keys(theData[el.Normalized][0]);
+          year = ' (' + keys[keys.length -1].replace('y_', '') + ')';
+          label = '<a target="_blank" href="data/meta/' + el.Normalized + '.html">' + el.Variable + '</a>';
+          tdata.name = label + year;
+
+          // val
+          var theMean = mean(_.filter(theData[el.Normalized], function(d) { return theFilter.indexOf(d.id.toString()) !== -1; })),
+              theAgg = aggregateMean(_.filter(theData[el.Normalized], function(d) { return theFilter.indexOf(d.id.toString()) !== -1; }), _.filter(theData[el.Raw], function(d) { return theFilter.indexOf(d.id.toString()) !== -1; }));
+              keys = Object.keys(theMean);
+          tdata.val = theAgg[keys[keys.length -1]];
+
+          // units
+          if (el["Normalized Label"]) {
+            tdata.units = el["Normalized Label"];
+          }
+
+          // change
+          keys = Object.keys(theData[el.Normalized][0]);
+
+          if (keys.length > 2) {
+            theAgg = aggregateMean(_.filter(theData[el.Normalized], function(d) { return theFilter.indexOf(d.id.toString()) !== -1; }), _.filter(theData[el.Raw], function(d) { return theFilter.indexOf(d.id.toString()) !== -1; }));
+            theDiff = theAgg[keys[keys.length - 1]] - theAgg[keys[1]];
+
+
+            if (Number(theDiff.toFixed(1)) == 0) {
+                theDiff = "↔ 0";
+            } else if (theDiff > 0) {
+                theDiff = "<span class='glyphicon glyphicon-arrow-up'></span> " + theDiff.toFixed(1);
+            } else {
+                theDiff = "<span class='glyphicon glyphicon-arrow-down'></span> " + (theDiff * -1).toFixed(1);
+            }
+
+            tdata.change = theDiff;
+          }
+
+
+
+
+          // RAW stuff
+          // if (metricSummable.indexOf(el.Raw) !== -1) {
+          //   // raw
+          //
+          //   // raw units
+          //   if (el["Raw Label"]) {
+          //     tdata.rawunits = el["Raw Label"];
+          //   }
+          //
+          //   // raw change
+          //
+          // }
+
+
+          // Write out stuff
+          theTable.append(template(tdata));
+      });
     });
 
-    // metrics
-    $("[data-metric]").each(function() {
-        var el = $(this),
-            theMean = mean(_.filter(theData[el.data("metric")], function(d) { return theFilter.indexOf(d.id.toString()) !== -1; })),
-            keys = Object.keys(theMean);
-
-        el.html(dataPretty(theMean[keys[keys.length -1]], el.data("metric")));
-    });
-
-    // diffs
-    $("[data-change]").each(function() {
-        var el = $(this),
-            theMean = mean(_.filter(theData[el.data("change")], function(d) { return theFilter.indexOf(d.id.toString()) !== -1; })),
-            keys = Object.keys(theMean),
-            theDiff = ((theMean[keys[keys.length - 1]] - theMean[keys[0]]) / theMean[keys[0]]) * 100;
-
-        if (theDiff === 0 || !$.isNumeric(theDiff)) {
-            theDiff = "--";
-        } else if (theDiff > 0) {
-            theDiff = "<span class='glyphicon glyphicon-arrow-up'></span> +" + theDiff.toFixed(1) + "%";
-        } else {
-            theDiff = "<span class='glyphicon glyphicon-arrow-down'></span> -" + (theDiff * -1).toFixed(1) + "%";
-        }
-
-        el.html(theDiff);
-    });
-
-    // county averages
-    $("[data-average]").each(function() {
-        var el = $(this),
-            theMean = mean(theData[el.data("average")]),
-            keys = Object.keys(theMean);
-        el.html(dataPretty(theMean[keys[keys.length - 1]], el.data("average")));
-    });
+    // // year
+    // $("[data-label]").each(function() {
+    //     if (theData[$(this).data("label")]) {
+    //       var el = $(this),
+    //           keys = Object.keys(theData[el.data("label")][0]);
+    //       el.append(' (' + keys[keys.length -1].replace('y_', '') + ')');
+    //     }
+    // });
+    //
+    // // metrics
+    // $("[data-metric]").each(function() {
+    //     var el = $(this),
+    //         theMean = mean(_.filter(theData[el.data("metric")], function(d) { return theFilter.indexOf(d.id.toString()) !== -1; })),
+    //         keys = Object.keys(theMean);
+    //
+    //     el.html(dataPretty(theMean[keys[keys.length -1]], el.data("metric")));
+    // });
+    //
+    // // diffs
+    // $("[data-change]").each(function() {
+    //     var el = $(this),
+    //         theMean = mean(_.filter(theData[el.data("change")], function(d) { return theFilter.indexOf(d.id.toString()) !== -1; })),
+    //         keys = Object.keys(theMean),
+    //         theDiff = ((theMean[keys[keys.length - 1]] - theMean[keys[0]]) / theMean[keys[0]]) * 100;
+    //
+    //     if (theDiff === 0 || !$.isNumeric(theDiff)) {
+    //         theDiff = "--";
+    //     } else if (theDiff > 0) {
+    //         theDiff = "<span class='glyphicon glyphicon-arrow-up'></span> +" + theDiff.toFixed(1) + "%";
+    //     } else {
+    //         theDiff = "<span class='glyphicon glyphicon-arrow-down'></span> -" + (theDiff * -1).toFixed(1) + "%";
+    //     }
+    //
+    //     el.html(theDiff);
+    // });
+    //
+    // // county averages
+    // $("[data-average]").each(function() {
+    //     var el = $(this),
+    //         theMean = mean(theData[el.data("average")]),
+    //         keys = Object.keys(theMean);
+    //     el.html(dataPretty(theMean[keys[keys.length - 1]], el.data("average")));
+    // });
 }
 
 
@@ -288,9 +360,14 @@ $(document).ready(function() {
     });
 
     // fetch the metrics and make numbers and charts
-    $.get("data/merge.json", function(data) {
-        theData = data;
+    $.when(
+        $.get("data/merge.json"),
+        $.get("data/report.json")
+    ).then(function(merge, report) {
+        theData = merge[0];
+        theConfig = report[0];
         createData();
         createCharts();
     });
+
 });
