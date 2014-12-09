@@ -21,6 +21,9 @@
     <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
     <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon-precomposed.png" />
 
+    <!-- Theme color for Android -->
+    <meta name="theme-color" content="#db5945">
+
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/main.css?foo={{cachebuster}}">
 
@@ -38,8 +41,7 @@
               environment, health, housing, and safety.
           </p>
           <p>
-              <a href="http://qol.charmeck.org/" class="btn btn-primary btn-lg" role="button">Learn more</a>
-              <a href="javascript:void(0)" class="btn btn-primary btn-lg scrollToStart" role="button">Get started</a>
+              <a href="javascript:void(0)" class="btn btn-primary btn-lg scrollToStart" role="button">Get Started</a>
           </p>
       </div>
     </div>
@@ -53,13 +55,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="./">Quality of Life Dashboard</a>
+                <a class="navbar-brand" href="./"><strong>Quality of Life Dashboard</strong></a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="javascript:void(0)" class="scrollToStart">About</a>
+                        <a href="http://qol.charmeck.org/">About</a>
                     </li>
                     <li>
                         <a href="javascript:void(0)">Get Data</a>
@@ -90,66 +92,91 @@
         <div class="row row-vis">
             <div class="col-md-8 map-container">
                 <div style="min-height: 37px">
-                <!--
-                    This is where you list all of the variables you want to see
-                    in the dropdown list. You don't have to list everything here.
-                    For example, you might want to not explicitly show raw numbers
-                    or accuracy information.
+                  <!--
+                      This is where you list all of the variables you want to see
+                      in the dropdown list. You don't have to list everything here.
+                      For example, you might want to not explicitly show raw numbers
+                      or accuracy information.
 
-                    Note this is in a seemingly useless div because if it doesn't
-                    have a container with a height the map repositions after the
-                    chosen control shows up on page load, consequently pissing me
-                    off.
-                 -->
+                      Note this is in a seemingly useless div because if it doesn't
+                      have a container with a height the map repositions after the
+                      chosen control shows up on page load, consequently pissing me
+                      off.
+                   -->
                     <select id="metric" name="metric" class="form-control chosen-select hide">
                         <optgroup label="Character">
-                            <option value="r1">
-                                Area
-                            </option>
-                            <option value="m2">
-                                Age of Residents
-                            </option>
+                          <option value="m2">Age of Residents</option>
+                          <option value="r1">Area</option>
+                          <option value="m13">Older Adult Population</option>
+                          <option value="m47">Population Density</option>
+                          <option value="m16">Race/Ethnicity- Asian</option>
+                          <option value="m15">Race/Ethnicity- Black</option>
+                          <option value="m18">Race/Ethnicity- Hispanic/Latino</option>
+                          <option value="m17">Race/Ethnicity- Other Races</option>
+                          <option value="m14">Race/Ethnicity- White</option>
+                          <option value="m11">Vacant Land</option>
+                          <option value="m12">Youth Population</option>
                         </optgroup>
-                        <optgroup label="Economics">
+                        <optgroup label="Economy">
+                          <option value="m42">Commercial Building Age</option>
+                          <option value="m41">Commercial Building Size</option>
+                          <option value="m19">Commercial Construction</option>
+                          <option value="m38">Employment Rate</option>
+                          <option value="m37">Median Household Income</option>
                         </optgroup>
                         <optgroup label="Education">
+                          <option value="m20">Adults with a Bachelor's Degree</option>
+                          <option value="m39">Adults with a High School Diploma</option>
+                          <option value="m51">Library Card Holders</option>
+                          <option value="m21">Proximity to Pre-School Programs</option>
+                          <option value="m22">Proximity to School-Age Programs</option>
                         </optgroup>
                         <optgroup label="Engagement">
+                          <option value="m52">311 Requests</option>
+                          <option value="m50">Arts and Culture Participation</option>
                         </optgroup>
                         <optgroup label="Environment">
-                            <option value="m10">
-                                Commuters Driving Alone
-                            </option>
-                            <option value="m4">
-                                Impervious Surface
-                            </option>
-                            <option value="m3">
-                                Tree Canopy
-                            </option>
+                          <option value="m43">Adopt-a-Stream Participation</option>
+                          <option value="m10">Commuters Driving Alone</option>
+                          <option value="m4">Impervious Surface</option>
+                          <option value="m26">Residential Electricity Consumption</option>
+                          <option value="m23">Residential Recycling</option>
+                          <option value="m24">Residential Solid Waste</option>
+                          <option value="m25">Residential Solid Waste Diversion</option>
+                          <option value="m27">Residential Water Consumption</option>
+                          <option value="m3">Tree Canopy</option>
                         </optgroup>
                         <optgroup label="Health">
+                          <option value="m57">Age of Death</option>
+                          <option value="m54">Births to Adolescents</option>
+                          <option value="m55">Low Birthweight</option>
+                          <option value="m56">Prenatal Care</option>
+                          <option value="m28">Proximity to Low-Cost Health Care</option>
+                          <option value="m45">Proximity to a Grocery Store</option>
+                          <option value="m46">Proximity to a Pharmacy</option>
                         </optgroup>
                         <optgroup label="Housing">
-                            <option value="m7">
-                                Housing Age
-                            </option>
-                            <option value="m5">
-                                Housing Density
-                            </option>
-                            <option value="m6">
-                                Housing Size
-                            </option>
-                            <option value="m8">
-                                Residential New Construction
-                            </option>
-                            <option value="m9">
-                                Residential Renovation
-                            </option>
+                          <option value="m29">Home Ownership</option>
+                          <option value="m7">Housing Age</option>
+                          <option value="m5">Housing Density</option>
+                          <option value="m6">Housing Size</option>
+                          <option value="m32">Neighborhood Nuisance Violations</option>
+                          <option value="m40">Rental Costs</option>
+                          <option value="m53">Renter-Occupied Houses</option>
+                          <option value="m8">Residential New Construction</option>
+                          <option value="m31">Residential Occupancy</option>
+                          <option value="m9">Residential Renovation</option>
+                          <option value="m30">Single-Family Housing</option>
                         </optgroup>
-                        <optgroup label="Safety">
+                        <optgroup label="Transportation">
+                          <option value="m34">Bicycle Friendliness</option>
+                          <option value="m33">Long Commute</option>
+                          <option value="m36">Proximity to Public Transportation</option>
+                          <option value="m35">Street Connectivity</option>
                         </optgroup>
                     </select>
                 </div>
+                <div class="focus_ring"></div>
                 <div id="map"></div>
                 <div class="form mapsearch">
                     <label for="searchbox" class="sr-only">search the map</label>
@@ -167,8 +194,8 @@
                     <div class="col-md-7 col-xs-6 text-right">
                         <div class="btn-group datatoggle text-right">
                             <button type="button" class="btn btn-default btn-sm toggle-map">Show Map</button>
-                            <!-- <button type="button" class="btn btn-default btn-sm report-launch disabled">Report</button> -->
                             <button type="button" class="btn btn-default btn-sm select-clear">Clear Selected</button>
+                            <button type="button" class="btn btn-default btn-sm report-launch disabled">Report</button>
                         </div>
                     </div>
                 </div>
@@ -316,17 +343,9 @@
 
     <!-- Begin jQuery Tourbus -->
     <ol class='tourbus-legs' id='dashboard-tour'>
-      <li data-orientation='centered' data-width='300'>
-        <h3>Welcome!</h3>
-        <p>The Quality of Life Dashboard is designed to help assess the health of neighborhoods in Charlotte and Mecklenburg County.</p>
-        <div class="btn-group pull-right">
-          <button type="button" class="btn btn-default btn-sm tourbus-stop">Finished</button>
-          <button type="button" class="btn btn-default btn-sm tourbus-next">Next</button>
-        </div>
-      </li>
       <li data-el='.chosen-container' data-orientation='bottom' data-width='300'>
-        <h3>Metrics</h3>
-        <p>Use this control to select the <strong>Metric</strong> you're interested in.</p>
+        <h3>Variables</h3>
+        <p>Use this control to select the <strong>Variable</strong> you’re interested in.</p>
         <div class="btn-group pull-right">
           <button type="button" class="btn btn-default btn-sm tourbus-prev">Previous</button>
           <button type="button" class="btn btn-default btn-sm tourbus-stop">Finished</button>
@@ -352,7 +371,7 @@
           <button type="button" class="btn btn-default btn-sm tourbus-next">Next</button>
         </div>
       </li>
-      <li data-el='.yearDisplay' data-orientation='top' data-width='300'>
+      <li data-el='.time-year' data-orientation='top' data-width='300'>
         <h3>Year</h3>
         <p>The <strong>Year</strong> controls let you control the year being shown on the map and in the <strong>Bar Chart</strong>.</p>
         <div class="btn-group pull-right">
@@ -363,7 +382,7 @@
       </li>
       <li data-el='.datatoggle' data-orientation='top' data-width='300'>
         <h3>Data Controls</h3>
-        <p>Use these buttons to toggle the base map, show the data table, clear any selected neighborhoods, or create a report if you have one or more neighborhoods selected.</p>
+        <p>Use these buttons to toggle the base map, clear any selected neighborhoods, or create a report if you have one or more neighborhoods selected.</p>
         <div class="btn-group pull-right">
           <button type="button" class="btn btn-default btn-sm tourbus-prev">Previous</button>
           <button type="button" class="btn btn-default btn-sm tourbus-stop">Finished</button>
@@ -371,27 +390,18 @@
         </div>
       </li>
       <li data-el='.stat-box-neighborhood' data-orientation='bottom' data-width='300'>
-        <h3>Average</h3>
-        <p>The <strong>Average</strong> for County NPA's and any selected NPA's is shown here. The County NPA Average is indicated by a dashed line on the charts.</p>
+        <h3>Variable Value</h3>
+        <p>The <strong>Value</strong> of each variable is shown here – for the area you’ve selected on the map, and for the county as a whole.</p>
         <div class="btn-group pull-right">
           <button type="button" class="btn btn-default btn-sm btn-sm tourbus-prev">Previous</button>
           <button type="button" class="btn btn-default btn-sm btn-sm tourbus-stop">Finished</button>
           <button type="button" class="btn btn-default btn-sm btn-sm tourbus-next">Next</button>
         </div>
       </li>
-      <li data-el='.barchart' data-orientation='bottom' data-width='300'>
-        <h3>Bar Chart</h3>
-        <p>The <strong>Bar Chart</strong> shows a lot of information about the <strong>Metric</strong>. First, it acts as a legend for the map - the map colors correspond to the the chart colors. It also shows you the density of the data - the taller the <em>quantile</em>, or bar, the more neighborhoods exist in that range.</p>
-        <p>The dashed line represents the average value of the neighborhoods.</p>
-        <div class="btn-group pull-right">
-          <button type="button" class="btn btn-default btn-sm btn-sm tourbus-prev">Previous</button>
-          <button type="button" class="btn btn-default btn-sm btn-sm tourbus-stop">Finished</button>
-          <button type="button" class="btn btn-default btn-sm btn-sm tourbus-next">Next</button>
-        </div>
-      </li>
-      <li data-el='.lineChart-container' data-orientation='top' data-width='300'>
-        <h3>Line Chart</h3>
-        <p>The <strong>Line Chart</strong> shows the trend of the metric over time. The dashed line represents the average value of the neighborhoods.</p>
+      <li data-el='#barChart' data-orientation='left' data-width='300'>
+        <h3>Charts</h3>
+        <p>The <strong>Bar Chart</strong> acts as a legend for the map and also shows the density of the data - the taller the bar, the more neighborhoods are in that range. The dashed line represents the median NPA value.</p>
+        <p>The <strong>Line Chart</strong>, if available, shows the trend of the variable over time.</p>
         <div class="btn-group pull-right">
           <button type="button" class="btn btn-default btn-sm btn-sm tourbus-prev">Previous</button>
           <button type="button" class="btn btn-default btn-sm btn-sm tourbus-stop">Finished</button>
@@ -399,8 +409,8 @@
         </div>
       </li>
       <li data-el='.meta-joyride' data-orientation='top' data-width='300'>
-        <h3>Metric Information</h3>
-        <p>The bottom of the page shows more information about the metric, including a brief description, why it is important, where the data came from, and additional resources.</p>
+        <h3>Variable Information</h3>
+        <p>Here you’ll find more information about each variable, including what it means and how you can use it, where the data come from, and additional resources for you to learn more or take action.</p>
         <div class="btn-group pull-right">
           <button type="button" class="btn btn-default btn-sm tourbus-prev">Previous</button>
           <button type="button" class="btn btn-default btn-sm tourbus-stop">Finished</button>

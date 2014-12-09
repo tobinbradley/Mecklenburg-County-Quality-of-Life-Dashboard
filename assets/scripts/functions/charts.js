@@ -21,17 +21,17 @@ function lineChartData() {
         datasets: [
             {
                 label: 'Selected <a href="javascript:void(0)" tabindex="0" class="meta-definition" data-toggle="popover" data-title="Neighborhood Profile Area" data-content="Neighborhood Profile Areas (NPAs) are geographic areas used for the organization and presentation of data in the Quality of Life Study. The boundaries were developed with community input and are based on one or more Census block groups.">NPAs</a>',
-                fillColor : "rgba(151,187,205,0.2)",
-                strokeColor : "rgba(151,187,205,1)",
-                pointColor : "rgba(151,187,205,1)",
+                fillColor : "rgba(255,164,0,0.2)",
+                strokeColor : "rgba(255,164,0,1)",
+                pointColor : "rgba(255,164,0,1)",
                 pointStrokeColor : "#fff",
                 pointHighlightFill : "#fff",
-                pointHighlightStroke : "rgba(151,187,205,1)",
+                pointHighlightStroke : "rgba(255,164,0,1)",
                 data :[]
             },
             {
                 label: "County",
-                fillColor : "rgba(220,220,220,0.2)",
+                fillColor : "rgba(220,220,220,0.5)",
                 strokeColor : "rgba(220,220,220,1)",
                 pointColor : "rgba(220,220,220,1)",
                 pointStrokeColor : "#fff",
@@ -45,8 +45,8 @@ function lineChartData() {
     _.each(keys, function(el, i) {
         if (i > 0) {
             data.labels.push(el.replace("y_", ""));
-            data.datasets[0].data.push(npaMean[el]);
-            data.datasets[1].data.push(countyMean[el]);
+            data.datasets[0].data.push(Math.round(npaMean[el] * 10) / 10);
+            data.datasets[1].data.push(Math.round(countyMean[el] * 10) / 10);
         }
     });
 

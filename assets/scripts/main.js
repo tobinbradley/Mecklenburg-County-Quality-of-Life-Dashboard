@@ -83,6 +83,9 @@ $(document).ready(function () {
     });
     $(".chosen-search input").prop("placeholder", "search metrics");
     $(".chosen-select").removeClass("hide");  // just in case it's mobile
+    $('.chosen-select').on('chosen:showing_dropdown', function(evt, params) {
+      $(".focus_ring").removeClass("focus_active");
+    });
 
     // Time slider and looper. Shouldn't require this much code. Curse my stupid brains.
     $(".slider").slider({
@@ -128,7 +131,10 @@ $(document).ready(function () {
 
     // Scroll to begin position (i.e. get past enormous jumbotron)
     $(".scrollToStart").on("click", function() {
-        $('.jumbotron').slideToggle();
+
+        $('.jumbotron').css('box-shadow', 'none').slideToggle("medium", function() {
+            $(".focus_ring").addClass("focus_active");
+        });
     });
 
     // Clear selected button.
