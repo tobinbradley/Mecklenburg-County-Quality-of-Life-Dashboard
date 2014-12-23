@@ -18656,18 +18656,28 @@ function createData() {
               "rawunits": "",
               "rawchange": ""
           };
+          var selectedRecords = _.filter(theData[el.Normalized], function(d) { return theFilter.indexOf(d.id.toString()) !== -1; });
+          var selectedRaw = _.filter(theData[el.Raw], function(d) { return theFilter.indexOf(d.id.toString()) !== -1; });
+          var keys = Object.keys(theData[el.Normalized][0]);
 
           // name
-          keys = Object.keys(theData[el.Normalized][0]);
           year = ' (' + keys[keys.length -1].replace('y_', '') + ')';
           label = '<a target="_blank" href="data/meta/' + el.Normalized + '.html">' + el.Variable + '</a>';
           tdata.name = label + year;
 
           // val
-          var theMean = mean(_.filter(theData[el.Normalized], function(d) { return theFilter.indexOf(d.id.toString()) !== -1; })),
-              theAgg = aggregateMean(_.filter(theData[el.Normalized], function(d) { return theFilter.indexOf(d.id.toString()) !== -1; }), _.filter(theData[el.Raw], function(d) { return theFilter.indexOf(d.id.toString()) !== -1; }));
-              keys = Object.keys(theMean);
-          tdata.val = theAgg[keys[keys.length -1]];
+          var theMean = mean(selectedRecords),
+              theAgg = aggregateMean(selectedRecords, selectedRaw);
+          var theVal = theAgg[keys[keys.length -1]];
+          if (metricSummable.indexOf(el.Normalized) !== -1) {
+              theVal = sum(_.map(selectedRecords, function(num){ return num[keys[keys.length -1]]; }));
+          }
+          tdata.val = theVal;
+
+          // front page
+          if ($('[data-metric="' + el.Normalized + '"]').length > 0) {
+              $('[data-metric="' + el.Normalized + '"]').text(dataPretty(theVal, el.Normalized));
+          }
 
           // units
           if (el["Normalized Label"]) {
@@ -18678,7 +18688,7 @@ function createData() {
           keys = Object.keys(theData[el.Normalized][0]);
 
           if (keys.length > 2) {
-            theAgg = aggregateMean(_.filter(theData[el.Normalized], function(d) { return theFilter.indexOf(d.id.toString()) !== -1; }), _.filter(theData[el.Raw], function(d) { return theFilter.indexOf(d.id.toString()) !== -1; }));
+            theAgg = aggregateMean(selectedRecords, selectedRaw);
             theDiff = theAgg[keys[keys.length - 1]] - theAgg[keys[1]];
 
 
@@ -18715,49 +18725,20 @@ function createData() {
       });
     });
 
-    // // year
-    // $("[data-label]").each(function() {
-    //     if (theData[$(this).data("label")]) {
-    //       var el = $(this),
-    //           keys = Object.keys(theData[el.data("label")][0]);
-    //       el.append(' (' + keys[keys.length -1].replace('y_', '') + ')');
-    //     }
-    // });
+
+    // metrics
+    // $(['.data-metric']).each(function() {
+    //     var selectedRecords = _.filter(theData[el.Normalized], function(d) { return theFilter.indexOf(d.id.toString()) !== -1; });
+    //     var selectedRaw = _.filter(theData[el.Raw], function(d) { return theFilter.indexOf(d.id.toString()) !== -1; });
+    //     var keys = Object.keys(theData[el.Normalized][0]);
     //
-    // // metrics
-    // $("[data-metric]").each(function() {
     //     var el = $(this),
     //         theMean = mean(_.filter(theData[el.data("metric")], function(d) { return theFilter.indexOf(d.id.toString()) !== -1; })),
     //         keys = Object.keys(theMean);
     //
     //     el.html(dataPretty(theMean[keys[keys.length -1]], el.data("metric")));
     // });
-    //
-    // // diffs
-    // $("[data-change]").each(function() {
-    //     var el = $(this),
-    //         theMean = mean(_.filter(theData[el.data("change")], function(d) { return theFilter.indexOf(d.id.toString()) !== -1; })),
-    //         keys = Object.keys(theMean),
-    //         theDiff = ((theMean[keys[keys.length - 1]] - theMean[keys[0]]) / theMean[keys[0]]) * 100;
-    //
-    //     if (theDiff === 0 || !$.isNumeric(theDiff)) {
-    //         theDiff = "--";
-    //     } else if (theDiff > 0) {
-    //         theDiff = "<span class='glyphicon glyphicon-arrow-up'></span> +" + theDiff.toFixed(1) + "%";
-    //     } else {
-    //         theDiff = "<span class='glyphicon glyphicon-arrow-down'></span> -" + (theDiff * -1).toFixed(1) + "%";
-    //     }
-    //
-    //     el.html(theDiff);
-    // });
-    //
-    // // county averages
-    // $("[data-average]").each(function() {
-    //     var el = $(this),
-    //         theMean = mean(theData[el.data("average")]),
-    //         keys = Object.keys(theMean);
-    //     el.html(dataPretty(theMean[keys[keys.length - 1]], el.data("average")));
-    // });
+
 }
 
 
