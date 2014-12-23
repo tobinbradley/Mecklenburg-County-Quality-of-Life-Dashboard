@@ -16,6 +16,14 @@ function lineChartData() {
         npaMean = mean(_.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }));
     }
 
+    // Make sure there wasn't a null in the values
+    var selectedRecs = _.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; });
+    _.each(selectedRecs, function(el) {
+        _.each(el, function(val, key) {
+            if (val === "") { npaMean = null; }
+        });
+    });
+
     var data = {
         labels: [],
         datasets: [
@@ -45,16 +53,17 @@ function lineChartData() {
     _.each(keys, function(el, i) {
         if (i > 0) {
             data.labels.push(el.replace("y_", ""));
-            data.datasets[0].data.push(Math.round(npaMean[el] * 10) / 10);
+            if (npaMean !== null) { data.datasets[0].data.push(Math.round(npaMean[el] * 10) / 10); }
             data.datasets[1].data.push(Math.round(countyMean[el] * 10) / 10);
         }
     });
 
     // remove select mean if no values are there
-    if (!npaMean) { data.datasets.shift(); }
+    if (!npaMean || npaMean === null) { data.datasets.shift(); }
 
     return data;
 }
+
 function lineChartCreate() {
     var keys = Object.keys(model.metric[0]);
     if (keys.length > 2) {
