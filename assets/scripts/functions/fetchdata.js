@@ -3,7 +3,7 @@
 // if it's available.
 // ****************************************
 function fetchAccuracy(m) {
-    if (metricAccuracy.indexOf(m) !== -1) {
+    if (metricConfig[m].accuracy) {
         return $.get("data/metric/" + m + "-accuracy.json");
     }
     else { return [[]]; }

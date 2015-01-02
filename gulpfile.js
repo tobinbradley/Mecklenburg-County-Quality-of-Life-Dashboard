@@ -36,6 +36,7 @@ var jsMain = [
     'bower_components/jquery.scrollTo/jquery.scrollTo.js',
     'assets/scripts/functions/*.js',
     'assets/scripts/config.js',
+    'assets/scripts/metricconfig.js',
     'assets/scripts/main.js'
 ];
 
@@ -49,6 +50,7 @@ var jsReport = [
     'assets/scripts/vendor/Chart.js',
     'assets/scripts/functions/generics.js',
     'assets/scripts/config.js',
+    'assets/scripts/metricconfig.js',
     'assets/scripts/report.js'
 ];
 

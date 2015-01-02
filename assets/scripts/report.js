@@ -10,19 +10,10 @@
 //
 // Also, because it's very printer/designer-y, it's mostly hard coded to our data.
 // Sorry - I can't figure out a generic way to do what we wanted. Still, it isn't
-// hard. Directions to come here.
+// hard. Directions to come (maybe).
 //
 // Imagine my face while coding up a print page.
 
-// script for getting crap out of the select box for the page tables
-// run this in your browser's JS console
-// var text = "";
-// $("optgroup[label='Economics'] option").each(function() {
-//     var label = $(this).prop("label");
-// 	var m = $(this).val();
-// 	text += "<tr><td data-label='" + m + "'><a target='_blank' href='data/meta/" + m + ".html'>" + label + "</a></td><td class='text-right' data-metric='" + m + "'></td><td class='text-right' data-change='" + m + "'></td><td class='text-right' data-average='" + m + "'></td></tr>";
-// });
-// console.log(text);
 
 
 // ****************************************
@@ -30,8 +21,8 @@
 // ****************************************
 var theFilter = ["434","372","232"],   // default list of neighborhoods if none passed
     theData,                                // global for fetched raw data
-    theConfig,
-    numDecimals;
+    numDecimals,
+    dimensions = ['character', 'economy', 'education', 'engagement', 'environment', 'health', 'housing', 'safety', 'transportation'];
 
 _.templateSettings.variable = "rc";
 
@@ -167,103 +158,77 @@ function createCharts() {
 function createData() {
     var template = _.template($("script.template-row").html());
 
+    _.each(dimensions, function(dim) {
+        var theTable = $(".table-" + dim);
+        var theMetrics = _.filter(metricConfig, function(el) { return el.dimension.toLowerCase() === dim; });
 
-    _.each(theConfig, function(dim, key) {
-      var theTable = $(".table-" + key.toLowerCase());
-      _.each(dim, function(el) {
-        var tdata = {
-              "id": el.Normalized,
-              "name": el.Variable,
-              "label": el.Variable,
-              "val": "",
-              "units": "",
-              "change": "",
-              "raw": "",
-              "rawunits": "",
-              "rawchange": ""
-          };
-          var selectedRecords = _.filter(theData[el.Normalized], function(d) { return theFilter.indexOf(d.id.toString()) !== -1; });
-          var selectedRaw = _.filter(theData[el.Raw], function(d) { return theFilter.indexOf(d.id.toString()) !== -1; });
-          var keys = Object.keys(theData[el.Normalized][0]);
+        console.log(theMetrics);
 
-          // name
-          year = ' (' + keys[keys.length -1].replace('y_', '') + ')';
-          label = '<a target="_blank" href="data/meta/' + el.Normalized + '.html">' + el.Variable + '</a>';
-          tdata.name = label + year;
+        _.each(theMetrics, function(val) {
+            if (theData[val.metric]) {
+                var tdata = {
+                    "id": val.metric,
+                    "name": val.title,
+                    "label": val.title,
+                    "val": "",
+                    "units": "",
+                    "change": "",
+                    "raw": "",
+                    "rawunits": "",
+                    "rawchange": ""
+                };
 
-          // val
-          var theMean = mean(selectedRecords),
-              theAgg = aggregateMean(selectedRecords, selectedRaw);
-          var theVal = theAgg[keys[keys.length -1]];
-          if (metricSummable.indexOf(el.Normalized) !== -1) {
-              theVal = sum(_.map(selectedRecords, function(num){ return num[keys[keys.length -1]]; }));
-          }
-          tdata.val = theVal;
+                var selectedRecords = _.filter(theData[val.metric], function(d) { return theFilter.indexOf(d.id.toString()) !== -1; });
+                var selectedRaw = _.filter(theData[val.raw], function(d) { return theFilter.indexOf(d.id.toString()) !== -1; });
+                var keys = Object.keys(theData[val.metric][0]);
 
-          // front page
-          if ($('[data-metric="' + el.Normalized + '"]').length > 0) {
-              $('[data-metric="' + el.Normalized + '"]').text(dataPretty(theVal, el.Normalized));
-          }
+                // name
+                year = ' (' + keys[keys.length -1].replace('y_', '') + ')';
+                label = '<a target="_blank" href="data/meta/' + val.metric + '.html">' + val.title + '</a>';
+                tdata.name = label + year;
 
-          // units
-          if (el["Normalized Label"]) {
-            tdata.units = el["Normalized Label"];
-          }
+                // val
+                var theMean = mean(selectedRecords),
+                theAgg = aggregateMean(selectedRecords, selectedRaw);
+                var theVal = theAgg[keys[keys.length -1]];
+                if (metricConfig[val.metric].summable) {
+                    theVal = sum(_.map(selectedRecords, function(num){ return num[keys[keys.length -1]]; }));
+                }
+                tdata.val = theVal;
 
-          // change
-          keys = Object.keys(theData[el.Normalized][0]);
+                // front page
+                if ($('[data-metric="' + val.metric + '"]').length > 0) {
+                    $('[data-metric="' + val.metric + '"]').text(dataPretty(theVal, val.metric));
+                }
 
-          if (keys.length > 2) {
-            theAgg = aggregateMean(selectedRecords, selectedRaw);
-            theDiff = theAgg[keys[keys.length - 1]] - theAgg[keys[1]];
+                // units
+                tdata.units = val.label;
 
+                // change
+                keys = Object.keys(theData[val.metric][0]);
 
-            if (Number(theDiff.toFixed(1)) == 0) {
-                theDiff = "↔ 0";
-            } else if (theDiff > 0) {
-                theDiff = "<span class='glyphicon glyphicon-arrow-up'></span> " + theDiff.toFixed(1);
-            } else {
-                theDiff = "<span class='glyphicon glyphicon-arrow-down'></span> " + (theDiff * -1).toFixed(1);
+                if (keys.length > 2) {
+                    theAgg = aggregateMean(selectedRecords, selectedRaw);
+                    theDiff = theAgg[keys[keys.length - 1]] - theAgg[keys[1]];
+
+                    if (Number(theDiff.toFixed(1)) == 0) {
+                        theDiff = "↔ 0";
+                    } else if (theDiff > 0) {
+                        theDiff = "<span class='glyphicon glyphicon-arrow-up'></span> " + theDiff.toFixed(1);
+                    } else {
+                        theDiff = "<span class='glyphicon glyphicon-arrow-down'></span> " + (theDiff * -1).toFixed(1);
+                    }
+
+                    tdata.change = theDiff;
+                }
+
+                // Write out stuff
+                theTable.append(template(tdata));
+
             }
+        });
 
-            tdata.change = theDiff;
-          }
-
-
-
-
-          // RAW stuff
-          // if (metricSummable.indexOf(el.Raw) !== -1) {
-          //   // raw
-          //
-          //   // raw units
-          //   if (el["Raw Label"]) {
-          //     tdata.rawunits = el["Raw Label"];
-          //   }
-          //
-          //   // raw change
-          //
-          // }
-
-
-          // Write out stuff
-          theTable.append(template(tdata));
-      });
     });
-
-
-    // metrics
-    // $(['.data-metric']).each(function() {
-    //     var selectedRecords = _.filter(theData[el.Normalized], function(d) { return theFilter.indexOf(d.id.toString()) !== -1; });
-    //     var selectedRaw = _.filter(theData[el.Raw], function(d) { return theFilter.indexOf(d.id.toString()) !== -1; });
-    //     var keys = Object.keys(theData[el.Normalized][0]);
-    //
-    //     var el = $(this),
-    //         theMean = mean(_.filter(theData[el.data("metric")], function(d) { return theFilter.indexOf(d.id.toString()) !== -1; })),
-    //         keys = Object.keys(theMean);
-    //
-    //     el.html(dataPretty(theMean[keys[keys.length -1]], el.data("metric")));
-    // });
 
 }
 
@@ -341,12 +306,8 @@ $(document).ready(function() {
     });
 
     // fetch the metrics and make numbers and charts
-    $.when(
-        $.get("data/merge.json"),
-        $.get("data/report.json")
-    ).then(function(merge, report) {
-        theData = merge[0];
-        theConfig = report[0];
+    $.get("data/merge.json", function(data) {
+        theData = data;
         createData();
         createCharts();
     });

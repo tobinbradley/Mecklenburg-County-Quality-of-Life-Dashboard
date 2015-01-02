@@ -20,6 +20,22 @@ _.templateSettings.variable = "rc";
 // ****************************************
 $(document).ready(function () {
 
+    // load select
+    var selectVals = '',
+        selectGroup = '';
+    _.each(metricConfig, function(el, key) {
+        if (el.dimension === selectGroup) {
+            selectVals += '<option value="' + key + '">' + el.title + '</option>';
+        } else {
+            if (selectVals.length > 0) { selectVals += '</optgroup>'; }
+            selectVals += '<optgroup label="' + el.dimension + '">';
+            selectVals += '<option value="' + key + '">' + el.title + '</option>';
+            selectGroup = el.dimension;
+        }
+    });
+    selectVals += '</optgroup>';
+    $("#metric").html(selectVals);
+
     // Start with random metric if none passed
     if (getURLParameter("m") !== "null") {
         $("#metric option[value='" + getURLParameter('m') + "']").prop('selected', true);
@@ -30,6 +46,17 @@ $(document).ready(function () {
         $options.eq(random).prop('selected', true);
     }
     model.metricId =  $("#metric").val();
+
+    // chosen - the uber select list
+    $(".chosen-select").chosen({width: '100%', no_results_text: "Not found - "}).change(function () {
+        model.metricId = $(this).val();
+        $(this).trigger("chosen:updated");
+    });
+    $(".chosen-search input").prop("placeholder", "search metrics");
+    $(".chosen-select").removeClass("hide");  // just in case it's mobile
+    $('.chosen-select').on('chosen:showing_dropdown', function(evt, params) {
+        $(".focus_ring").removeClass("focus_active");
+    });
 
     // set window popstate handler
     if (history.pushState) {
@@ -76,16 +103,7 @@ $(document).ready(function () {
         $("#filename").val($("#metric [value='" + model.metricId + "']").text().trim());
     });
 
-    // chosen - the uber select list
-    $(".chosen-select").chosen({width: '100%', no_results_text: "Not found - "}).change(function () {
-        model.metricId = $(this).val();
-        $(this).trigger("chosen:updated");
-    });
-    $(".chosen-search input").prop("placeholder", "search metrics");
-    $(".chosen-select").removeClass("hide");  // just in case it's mobile
-    $('.chosen-select').on('chosen:showing_dropdown', function(evt, params) {
-      $(".focus_ring").removeClass("focus_active");
-    });
+
 
     // Time slider and looper. Shouldn't require this much code. Curse my stupid brains.
     $(".slider").slider({

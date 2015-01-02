@@ -78,9 +78,9 @@ function modelChanges(changes) {
             d3.selectAll(".geom").classed("d3-select", function(d) { return _.contains(model.selected, $(this).attr("data-id")); });
             $(".report-launch").removeClass("disabled");
             valueChart.selectedPointer(".value-select");
-            lineChartCreate();
-            drawTable();
+            lineChartCreate();            
             updateStats();
+            drawTable();
             if (recordHistory) { recordMetricHistory(); }
             recordHistory = true;
         if (model.selected.length === 0) {

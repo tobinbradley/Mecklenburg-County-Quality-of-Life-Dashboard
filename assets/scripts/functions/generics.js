@@ -154,15 +154,30 @@ function getTrend(x1, x2) {
 // ****************************************
 // Format metric data (see config.js)
 // ****************************************
+function dataRound(theValue, theMetric) {
+    return Number(theValue.toFixed(numDecimals));
+}
+function nullCheck(theCheck) {
+    if (!theCheck) {
+        return "";
+    }
+    else {
+        return theCheck;
+    }
+}
 function dataPretty(theValue, theMetric) {
+
     var prefix = "",
         suffix = "",
         pretty = theValue;
 
+    if (theMetric) {
+        prefix = nullCheck(metricConfig[theMetric].prefix);
+        suffix = nullCheck(metricConfig[theMetric].suffix);
+    }
+
     if ($.isNumeric(theValue)) {
         pretty = parseFloat(parseFloat(theValue).toFixed(numDecimals)).toString().commafy();
-        if (metricPct.indexOf(theMetric) !== -1) { suffix = "%"; }
-        if (metricMoney.indexOf(theMetric) !== -1) { prefix = "$"; }
     }
     else {
         pretty = "N/A";
