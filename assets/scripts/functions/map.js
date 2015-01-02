@@ -140,8 +140,8 @@ function initMap() {
             if ($.isNumeric(sel.attr("data-value"))) {
                 num = "<br>" + dataPretty(sel.attr("data-value"), $("#metric").val());
             }
-            if (metricUnits[model.metricId]) {
-                num += "<br>" + metricUnits[model.metricId];
+            if (metricConfig[model.metricId].label) {
+                num += "<br>" + metricConfig[model.metricId].label;
             }
             return "<p class='tip'><strong><span>" + neighborhoodDescriptor + " " + sel.attr("data-id") + "</strong>" + num + "</span></p>";
         },

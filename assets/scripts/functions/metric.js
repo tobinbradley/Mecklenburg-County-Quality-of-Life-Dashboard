@@ -90,6 +90,13 @@ function drawTable() {
         theRaw = _.filter(model.metricRaw, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }),
         keys = Object.keys(model.metric[0]);
 
+    // console.log(template({
+    //     "theSelected": theSelected,
+    //     "theAccuracy": theAccuracy,
+    //     "theRaw": theRaw,
+    //     "keys": keys
+    // }));
+
     $(".datatable-container").html(template({
         "theSelected": theSelected,
         "theAccuracy": theAccuracy,
@@ -138,13 +145,13 @@ function updateStats() {
     $(".median").html(dataPretty(theStat, m));
 
     // set the units for the stat boxes
-    if (metricUnits[m]) { params.mainUnits = metricUnits[m]; }
-    if (metricUnits[getRaw(m)]) { params.rawUnits = metricUnits[getRaw(m)]; }
+    params.mainUnits = nullCheck(metricConfig[model.metricId].label);
+    params.rawUnits = nullCheck(metricConfig[model.metricId].raw_label);
 
     // County stat box
     params.topText = "COUNTY";
     // main number
-    if (metricSummable.indexOf(m) !== -1) {
+    if (metricConfig[m].summable) {
         // sum
         theStat = sum(_.map(model.metric, function(num){ return num[keys[model.year + 1]]; }));
         params.mainNumber = dataPretty(theStat, m);
@@ -160,7 +167,7 @@ function updateStats() {
         params.mainNumber = dataPretty(theStat[keys[model.year + 1]], m);
     }
     // raw number
-    if (hasRaw(m) && metricSummable.indexOf(getRaw(m)) !== -1) {
+    if (hasRaw(m) && metricConfig[model.metricId].summable) {
         params.rawTotal = sum(_.map(model.metricRaw, function(num){ return num[keys[model.year + 1]]; })).toFixed(0).commafy();
     }
     // write out stat box
@@ -170,7 +177,7 @@ function updateStats() {
     // Selected NPAs
     params.topText = 'SELECTED <a href="javascript:void(0)" tabindex="0" class="meta-definition" data-toggle="popover" data-title="Neighborhood Profile Area" data-content="Neighborhood Profile Areas (NPAs) are geographic areas used for the organization and presentation of data in the Quality of Life Study. The boundaries were developed with community input and are based on one or more Census block groups.">NPAs</a>';
     // main number
-    if (metricSummable.indexOf(m) !== -1) {
+    if (metricConfig[m].summable) {
         // sum
         params.mainNumber = dataPretty(sum(_.pluck(_.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }), keys[model.year + 1])), m);
     }
@@ -187,7 +194,7 @@ function updateStats() {
         params.mainNumber = dataPretty(theStat[keys[model.year + 1]], m);
     }
     // raw number
-    if (hasRaw(m) && metricSummable.indexOf(getRaw(m)) !== -1) {
+    if (hasRaw(m) && metricConfig[m].summable) {
         params.rawTotal = sum(_.pluck(_.filter(model.metricRaw, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }), keys[model.year + 1])).toFixed(0).commafy();
     }
     // write out stat box
