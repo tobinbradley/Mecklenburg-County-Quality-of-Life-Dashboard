@@ -154,8 +154,19 @@ function getTrend(x1, x2) {
 // ****************************************
 // Format metric data (see config.js)
 // ****************************************
-function dataRound(theValue, theMetric) {
-    return Number(theValue.toFixed(numDecimals));
+function dataRound(theValue, theDecimals) {
+    return Number(theValue.toFixed(theDecimals));
+}
+function dataFormat(theValue, theMetric) {
+  var prefix = "",
+  suffix = "";
+
+  if (theMetric) {
+    prefix = nullCheck(metricConfig[theMetric].prefix);
+    suffix = nullCheck(metricConfig[theMetric].suffix);
+  }
+
+  return prefix + theValue.toString().commafy() + suffix;
 }
 function nullCheck(theCheck) {
     if (!theCheck) {
@@ -166,21 +177,13 @@ function nullCheck(theCheck) {
     }
 }
 function dataPretty(theValue, theMetric) {
-
-    var prefix = "",
-        suffix = "",
-        pretty = theValue;
-
-    if (theMetric) {
-        prefix = nullCheck(metricConfig[theMetric].prefix);
-        suffix = nullCheck(metricConfig[theMetric].suffix);
-    }
+    var pretty;
 
     if ($.isNumeric(theValue)) {
-        pretty = parseFloat(parseFloat(theValue).toFixed(numDecimals)).toString().commafy();
+        pretty = dataFormat(dataRound(Number(theValue), numDecimals), theMetric);
     }
     else {
         pretty = "N/A";
     }
-    return prefix + pretty + suffix;
+    return pretty;
 }

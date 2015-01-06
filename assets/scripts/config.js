@@ -46,7 +46,7 @@ var colorbreaks = 5;
 // Here we have a list of metrics that are raw numbers and are therefore "summable"
 // (i.e. will show total value for study area and selected). The totalling function will
 // totally check the metricRaw too. Totally.
-
+var metricIsRaw = ["r1", "r73"];
 
 // we're going to export a few of our vars for the node build/watch process. Done in a try/catch
 // so a browser reading this will barf quietly to itself.

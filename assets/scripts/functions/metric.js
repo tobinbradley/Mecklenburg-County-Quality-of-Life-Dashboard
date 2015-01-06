@@ -151,7 +151,7 @@ function updateStats() {
     // County stat box
     params.topText = "COUNTY";
     // main number
-    if (metricConfig[m].summable) {
+    if (metricIsRaw.indexOf(m) !== -1) {
         // sum
         theStat = sum(_.map(model.metric, function(num){ return num[keys[model.year + 1]]; }));
         params.mainNumber = dataPretty(theStat, m);
@@ -177,7 +177,7 @@ function updateStats() {
     // Selected NPAs
     params.topText = 'SELECTED <a href="javascript:void(0)" tabindex="0" class="meta-definition" data-toggle="popover" data-title="Neighborhood Profile Area" data-content="Neighborhood Profile Areas (NPAs) are geographic areas used for the organization and presentation of data in the Quality of Life Study. The boundaries were developed with community input and are based on one or more Census block groups.">NPAs</a>';
     // main number
-    if (metricConfig[m].summable) {
+    if (metricIsRaw.indexOf(m) !== -1) {
         // sum
         params.mainNumber = dataPretty(sum(_.pluck(_.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }), keys[model.year + 1])), m);
     }

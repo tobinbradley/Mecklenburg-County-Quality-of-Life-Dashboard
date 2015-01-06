@@ -41,7 +41,7 @@ function createCharts() {
             data.push({
                 value: Number($(".data-" + el).data("val")),
                 color: colors[i],
-                label: $(".label-" + el).data("val")
+                label: $(".label-" + el).data("val").replace('Race/Ethnicity - ', '')
             });
         });
         ctx = document.getElementById($(this).prop("id")).getContext("2d");
@@ -162,20 +162,15 @@ function createData() {
         var theTable = $(".table-" + dim);
         var theMetrics = _.filter(metricConfig, function(el) { return el.dimension.toLowerCase() === dim; });
 
-        console.log(theMetrics);
-
         _.each(theMetrics, function(val) {
             if (theData[val.metric]) {
                 var tdata = {
                     "id": val.metric,
-                    "name": val.title,
-                    "label": val.title,
-                    "val": "",
-                    "units": "",
-                    "change": "",
-                    "raw": "",
-                    "rawunits": "",
-                    "rawchange": ""
+                    "year": "",
+                    "selectedVal": "",
+                    "selectedRaw": "",
+                    "countyVal": "",
+                    "countyRaw": ""
                 };
 
                 var selectedRecords = _.filter(theData[val.metric], function(d) { return theFilter.indexOf(d.id.toString()) !== -1; });
@@ -183,44 +178,56 @@ function createData() {
                 var keys = Object.keys(theData[val.metric][0]);
 
                 // name
-                year = ' (' + keys[keys.length -1].replace('y_', '') + ')';
-                label = '<a target="_blank" href="data/meta/' + val.metric + '.html">' + val.title + '</a>';
-                tdata.name = label + year;
+                tdata.year = keys[keys.length -1].replace('y_', '');
 
-                // val
-                var theMean = mean(selectedRecords),
-                theAgg = aggregateMean(selectedRecords, selectedRaw);
-                var theVal = theAgg[keys[keys.length -1]];
-                if (metricConfig[val.metric].summable) {
-                    theVal = sum(_.map(selectedRecords, function(num){ return num[keys[keys.length -1]]; }));
+                // selected value
+                if (metricIsRaw.indexOf(val.metric) !== -1) {
+                    tdata.selectedVal = sum(_.map(selectedRecords, function(num){ return num[keys[keys.length -1]]; }));
+                } else {
+                    theAgg = aggregateMean(selectedRecords, selectedRaw);
+                    tdata.selectedVal = theAgg[keys[keys.length -1]];
+                    if (metricConfig[val.metric].summable) {
+                        tdata.selectedRaw = sum(_.map(selectedRaw, function(num){ return num[keys[keys.length -1]]; }));
+                    }
                 }
-                tdata.val = theVal;
+
+
+                // county value
+                if (metricIsRaw.indexOf(val.metric) !== -1) {
+                    tdata.countyVal = sum(_.map(theData[val.metric], function(num){ return num[keys[keys.length -1]]; }));
+                } else {
+                    theAgg = aggregateMean(theData[val.metric], theData[val.raw]);
+                    tdata.countyVal = theAgg[keys[keys.length -1]];
+                    if (metricConfig[val.metric].summable) {
+                        tdata.countyRaw = sum(_.map(theData[val.raw], function(num){ return num[keys[keys.length -1]]; }));
+                    }
+                }
 
                 // front page
                 if ($('[data-metric="' + val.metric + '"]').length > 0) {
-                    $('[data-metric="' + val.metric + '"]').text(dataPretty(theVal, val.metric));
+                    $('[data-metric="' + val.metric + '"]').text(dataPretty(tdata.countyVal, val.metric));
                 }
 
                 // units
-                tdata.units = val.label;
+                //tdata.units = val.label;
 
                 // change
-                keys = Object.keys(theData[val.metric][0]);
-
-                if (keys.length > 2) {
-                    theAgg = aggregateMean(selectedRecords, selectedRaw);
-                    theDiff = theAgg[keys[keys.length - 1]] - theAgg[keys[1]];
-
-                    if (Number(theDiff.toFixed(1)) == 0) {
-                        theDiff = "↔ 0";
-                    } else if (theDiff > 0) {
-                        theDiff = "<span class='glyphicon glyphicon-arrow-up'></span> " + theDiff.toFixed(1);
-                    } else {
-                        theDiff = "<span class='glyphicon glyphicon-arrow-down'></span> " + (theDiff * -1).toFixed(1);
-                    }
-
-                    tdata.change = theDiff;
-                }
+                // keys = Object.keys(theData[val.metric][0]);
+                //
+                // if (keys.length > 2) {
+                //     theAgg = aggregateMean(selectedRecords, selectedRaw);
+                //     theDiff = theAgg[keys[keys.length - 1]] - theAgg[keys[1]];
+                //
+                //     if (Number(theDiff.toFixed(1)) == 0) {
+                //         theDiff = "↔ 0";
+                //     } else if (theDiff > 0) {
+                //         theDiff = "<span class='glyphicon glyphicon-arrow-up'></span> " + theDiff.toFixed(1);
+                //     } else {
+                //         theDiff = "<span class='glyphicon glyphicon-arrow-down'></span> " + (theDiff * -1).toFixed(1);
+                //     }
+                //
+                //     tdata.change = theDiff;
+                // }
 
                 // Write out stuff
                 theTable.append(template(tdata));
@@ -229,7 +236,18 @@ function createData() {
         });
 
     });
+}
 
+function createBlocks() {
+    $(".metric-box h3").each(function() {
+        var m = $(this).data("metric");
+        if (m.indexOf("r") !== -1) {
+            var keys = Object.keys(theData[m][0]);
+            var selectedRecords = _.filter(theData[m], function(d) { return theFilter.indexOf(d.id.toString()) !== -1; });
+            var theVal = sum(_.map(selectedRecords, function(num){ return num[keys[keys.length -1]]; }));
+            $(this).html(dataPretty(theVal, null));
+        }
+    });
 }
 
 
@@ -309,6 +327,7 @@ $(document).ready(function() {
     $.get("data/merge.json", function(data) {
         theData = data;
         createData();
+        createBlocks();
         createCharts();
     });
 
