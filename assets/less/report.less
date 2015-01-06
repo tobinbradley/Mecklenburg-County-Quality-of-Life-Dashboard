@@ -99,11 +99,14 @@ body { background: #ccc; }
     }
     h4 {
         margin-top: 5px;
+        font-size: 1.1em;
     }
     .metric-box {
         width: 100%;
+        border-collapse: collapse;
+        border-style: hidden;
         td {
-            border: 1px solid #666;
+            border: 2px solid #dddddd;
             h2 {
                 font-size: 1.2em;
                 text-transform: uppercase;
@@ -127,6 +130,23 @@ body { background: #ccc; }
     h1 {
         margin: 0;
         text-shadow: 1px 1px 1px #ccc;
+    }
+    .table {
+        margin-top: 30px;
+        td {
+            white-space: nowrap;
+            //padding: 6px 2px !important;
+            font-size: 0.9em;
+        }
+        td:first-of-type {
+            white-space: normal;
+        }
+    }
+    .report-column-selected {
+        background: #dce6f0;
+    }
+    .report-column-county {
+        background: #ecf0df;
     }
 }
 
@@ -161,22 +181,7 @@ body { background: #ccc; }
 // ****************************************
 // Tables
 // ****************************************
-.table {
-    td {
-        white-space: nowrap;
-        //padding: 6px 2px !important;
-        font-size: 0.9em;
-    }
-    td:first-of-type {
-        white-space: normal;
-    }
-}
-.report-column-selected {
-    background: #dce6f0;
-}
-.report-column-county {
-    background: #ecf0df;
-}
+
 
 
 // ****************************************
