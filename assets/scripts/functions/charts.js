@@ -16,13 +16,14 @@ function lineChartData() {
         npaMean = mean(_.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }));
     }
 
-    // Make sure there wasn't a null in the values
-    var selectedRecs = _.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; });
-    _.each(selectedRecs, function(el) {
-        _.each(el, function(val, key) {
-            if (val === "") { npaMean = null; }
-        });
+    // make sure selected stuff really has a value
+    _.each(npaMean, function(el) {
+        if (el === 0) {
+            npaMean = null;
+        }
     });
+
+
 
     var data = {
         labels: [],
@@ -76,7 +77,7 @@ function lineChartCreate() {
             showTooltips: true,
             tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= dataPretty(value, model.metricId) %>",
             multiTooltipTemplate: "<%= dataPretty(value, model.metricId) %>",
-            scaleLabel: "<%= dataPretty(value, model.metricId) %>",
+            scaleLabel: "<%= dataFormat(dataRound(Number(value), 2), model.metricId) %>",
             legendTemplate : '<% for (var i=0; i<datasets.length; i++){%><span class="title"  style="border-color:<%=datasets[i].strokeColor%>"><%if(datasets[i].label){%><%=datasets[i].label%><%}%></span><%}%>'
         });
         $(".lineChartLegend").html(myLine.generateLegend());

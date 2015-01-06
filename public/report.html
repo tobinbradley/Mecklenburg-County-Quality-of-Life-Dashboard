@@ -6,7 +6,7 @@
     <meta charset="utf-8">
 
     <!-- Set the title here -->
-    <title>Quality of Life Dashboard</title>
+    <title>Summary Report - Quality of Life Explorer</title>
 
     <!-- metadata -->
     <meta name="description" content="Quality of Life Dashboard.">
@@ -20,7 +20,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/report.css?foo=73850">
+    <link rel="stylesheet" href="css/report.css?foo=42081">
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
@@ -44,7 +44,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="hero">
-                        <h1>Quality of Life Study</h1>
+                        <h1>Quality of Life Explorer</h1>
                         <input type="text" class="form-control input-lg subtitle" placeholder="optional subtitle - type here" value="Summary Report" maxlength=40>
                         <h4 class="neighborhoods">&nbsp;</h4>
                     </div>
@@ -54,10 +54,13 @@
             <div class="row">
                 <div class="col-xs-6">
                     <p>
-                        Vivamus pulvinar augue in velit vehicula imperdiet. Quisque convallis dignissim nisl, ut consectetur erat adipiscing et. Donec a quam a elit fermentum semper. Donec ultricies enim non justo interdum dictum. Nulla aliquam suscipit tincidunt. Cras cursus mi sed massa pulvinar, et dictum tortor ornare. Etiam urna ante, iaculis quis tellus eget, mattis rhoncus metus.
+                        The <a href="http://mcmap.org/qol/">Quality of Life Explorer</a> is an interactive online tool to help neighborhoods, government leaders and staff, businesses, community organizations, new residents and others learn more about our county and the diverse neighborhoods within it.  The Explorer features over 80 variables that reflect you, the places you live and work, and collectively, our community.
                     </p>
                     <p>
-                        Vivamus pulvinar augue in velit vehicula imperdiet. Quisque convallis dignissim nisl, ut consectetur erat adipiscing et. Donec a quam a elit fermentum semper. Donec ultricies enim non justo interdum dictum. Nulla aliquam suscipit tincidunt. Cras cursus mi sed massa pulvinar, et dictum tortor ornare. Etiam urna ante, iaculis quis tellus eget, mattis rhoncus metus.
+                        On these pages, you’ll find information about the selected area’s social, housing, economic and environmental conditions.  Check out the Explorer online to learn more about what’s happening, see trends over time, and connect to resources to take action on the issues that matter to you.
+                    </p>
+                    <p>
+                        Learn More.  Take Action.  Create Change.
                     </p>
                 </div>
                 <div class="col-xs-6 text-right">
@@ -71,52 +74,52 @@
                             <tr>
                                 <td>
                                     <h2>Character</h2>
-                                    <h3 data-metric="m1">&nbsp;</h3>
-                                    <h4>people</h4>
+                                    <h3 data-metric="r47">&nbsp;</h3>
+                                    <h4>population</h4>
+                                </td>
+                                <td>
+                                    <h2>Education</h2>
+                                    <h3 data-metric="m20">&nbsp;</h3>
+                                    <h4>bachelor's degree</h4>
                                 </td>
                                 <td>
                                     <h2>Economy</h2>
                                     <h3 data-metric="m37">&nbsp;</h3>
-                                    <h4>median household income</h4>
-                                </td>
-                                <td>
-                                    <h2>Education</h2>
-                                    <h3 data-metric="m31">&nbsp;</h3>
-                                    <h4>school age programs</h4>
+                                    <h4>household income</h4>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     <h2>Engagement</h2>
-                                    <h3 data-metric="m15">&nbsp;</h3>
-                                    <h4>neighborhood organizations</h4>
-                                </td>
-                                <td>
-                                    <h2>Environment</h2>
-                                    <h3 data-metric="m81">&nbsp;</h3>
-                                    <h4>electricity consumption</h4>
-                                </td>
-                                <td>
-                                    <h2>Health</h2>
                                     <h3 data-metric="m48">&nbsp;</h3>
-                                    <h4>proximity to grocery store</h4>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h2>Housing</h2>
-                                    <h3 data-metric="m57">&nbsp;</h3>
-                                    <h4>average property value</h4>
-                                </td>
-                                <td>
-                                    <h2>Safety</h2>
-                                    <h3 data-metric="m26">&nbsp;</h3>
-                                    <h4>property crime rate</h4>
+                                    <h4>voter participation</h4>
                                 </td>
                                 <td>
                                     <h2>Transportation</h2>
                                     <h3 data-metric="m70">&nbsp;</h3>
-                                    <h4>bicycle friendliness</h4>
+                                    <h4>streets with sidewalks</h4>
+                                </td>
+                                <td>
+                                    <h2>Housing</h2>
+                                    <h3 data-metric="r5">&nbsp;</h3>
+                                    <h4>house units</h4>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h2>Safety</h2>
+                                    <h3 data-metric="m59">&nbsp;</h3>
+                                    <h4>property crime</h4>
+                                </td>
+                                <td>
+                                    <h2>Environment</h2>
+                                    <h3 data-metric="m3">&nbsp;</h3>
+                                    <h4>tree canopy</h4>
+                                </td>
+                                <td>
+                                    <h2>Health</h2>
+                                    <h3 data-metric="m45">&nbsp;</h3>
+                                    <h4>grocery store proximity</h4>
                                 </td>
                             </tr>
                         </tbody>
@@ -134,26 +137,20 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-6">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus urna id mi feugiat placerat. Ut in massa id massa elementum hendrerit. Maecenas a erat justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam eleifend lorem in tortor facilisis, vel ultricies purus molestie. Sed pharetra, magna vitae posuere sodales, orci dolor iaculis justo, id dignissim purus magna nec nunc. Integer posuere facilisis metus, hendrerit tincidunt lacus lobortis eget
-                </div>
-                <div class="col-xs-6">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus urna id mi feugiat placerat. Ut in massa id massa elementum hendrerit. Maecenas a erat justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam eleifend lorem in tortor facilisis, vel ultricies purus molestie. Sed pharetra, magna vitae posuere sodales, orci dolor iaculis justo, id dignissim purus magna nec nunc. Integer posuere facilisis metus, hendrerit tincidunt lacus lobortis eget
+                <div class="col-xs-12 text-center vis vis-horizontal">
+                    <h4>Race</h4>
+                    <canvas id="chart-character-1" class="chart-doughnut" data-chart="m16,m15,m18,m17,m14" width="150" height="150"></canvas>
+                    <div id="chart-character-1-legend" class="text-center"></div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-3 vis vis-vertical">
-                    <h4>Race</h4>
-                    <canvas id="chart-character-1" class="chart-doughnut" data-chart="m16,m15,m18,m17,m14" width="150" height="150"></canvas>
-                    <div id="chart-character-1-legend"></div>
-                </div>
-                <div class="col-xs-9">
-                    <table class="table table-character">
+                <div class="col-xs-12">
+                    <table class="table table-condensed table-character">
                       <thead>
                         <tr>
-                          <th></th>
-                          <th></th>
-                          <th></th>
+                          <th>Variable</th>
+                          <th class="text-right report-column-selected">Selected</th>
+                          <th class="text-right report-column-county">County</th>
                           <th></th>
                         </tr>
                       </thead>
@@ -171,18 +168,10 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-6">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus urna id mi feugiat placerat. Ut in massa id massa elementum hendrerit. Maecenas a erat justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam eleifend lorem in tortor facilisis, vel ultricies purus molestie.
-                </div>
-                <div class="col-xs-6">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus urna id mi feugiat placerat. Ut in massa id massa elementum hendrerit. Maecenas a erat justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam eleifend lorem in tortor facilisis, vel ultricies purus molestie.
-                </div>
-            </div>
-            <div class="row">
                 <div class="col-xs-12 text-center vis vis-horizontal">
-                    <h4>Median Household Income in Dollars</h4>
-                    <canvas id="chart-economics-1" class="chart-line" data-chart="m37" width="550" height="200"></canvas>
-                    <div id="chart-economics-1-legend" class="text-center"></div>
+                    <h4>Household Income</h4>
+                    <canvas id="chart-economics-1" class="chart-bar" data-chart="m37" data-labels="Household Income" width="550" height="180"></canvas>
+                    <div id="chart-econcomics-1-legend" class="text-center"><span class="title" style="border-color:rgba(151,187,205,0.8)">NPA</span><span class="title" style="border-color:rgba(220,220,220,0.8)">County</span></div>
                 </div>
             </div>
             <div class="row">
@@ -190,10 +179,10 @@
                     <table class="table table-economy">
                       <thead>
                         <tr>
-                          <th></th>
-                          <th></th>
-                          <th></th>
-                          <th></th>
+                            <th>Variable</th>
+                            <th class="text-right report-column-selected">Selected</th>
+                            <th class="text-right report-column-county">County</th>
+                            <th></th>
                         </tr>
                       </thead>
                     </table>
@@ -209,29 +198,21 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-6">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus urna id mi feugiat placerat. Ut in massa id massa elementum hendrerit. Maecenas a erat justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae
-                </div>
-                <div class="col-xs-6">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus urna id mi feugiat placerat. Ut in massa id massa elementum hendrerit. Maecenas a erat justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae
-                </div>
-            </div>
-            <div class="row">
                 <div class="col-xs-12 text-center vis vis-horizontal">
-                    <h4>Percentage of CMS Students Proficient in EOG Tests</h4>
-                    <canvas id="chart-education-1" class="chart-bar" data-chart="m32,m33,m34" data-labels="3-5 Grade,6-8 Grade,9-12 Grade" width="550" height="180"></canvas>
+                    <h4>Education Level</h4>
+                    <canvas id="chart-education-1" class="chart-bar" data-chart="m39,m20" data-labels="High School Diploma,Bachelor's Degree" width="550" height="180"></canvas>
                     <div id="chart-education-1-legend" class="text-center"></div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                    <table class="table table-condensed table-education">
+                    <table class="table table-education">
                       <thead>
                         <tr>
-                          <th></th>
-                          <th></th>
-                          <th></th>
-                          <th></th>
+                            <th>Variable</th>
+                            <th class="text-right report-column-selected">Selected</th>
+                            <th class="text-right report-column-county">County</th>
+                            <th></th>
                         </tr>
                       </thead>
                     </table>
@@ -247,17 +228,9 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-6">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus urna id mi feugiat placerat. Ut in massa id massa elementum hendrerit. Maecenas a erat justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam eleifend lorem in tortor facilisis, vel ultricies purus molestie. Sed pharetra, magna vitae posuere sodales, orci dolor iaculis justo, id dignissim purus magna nec nunc. Integer posuere facilisis metus, hendrerit tincidunt lacus lobortis eget
-                </div>
-                <div class="col-xs-6">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus urna id mi feugiat placerat. Ut in massa id massa elementum hendrerit. Maecenas a erat justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam eleifend lorem in tortor facilisis, vel ultricies purus molestie. Sed pharetra, magna vitae posuere sodales, orci dolor iaculis justo, id dignissim purus magna nec nunc. Integer posuere facilisis metus, hendrerit tincidunt lacus lobortis eget
-                </div>
-            </div>
-            <div class="row">
                 <div class="col-xs-12 text-center vis vis-horizontal">
-                    <h4>Percentage Registered Voters</h4>
-                    <canvas id="chart-engagement-1" class="chart-line" data-chart="m13" width="550" height="220"></canvas>
+                    <h4>Voter Participation</h4>
+                    <canvas id="chart-engagement-1" class="chart-line" data-chart="m48" width="550" height="220"></canvas>
                     <div id="chart-engagement-1-legend" class="text-center"></div>
                 </div>
             </div>
@@ -266,10 +239,10 @@
                     <table class="table table-engagement">
                       <thead>
                         <tr>
-                          <th></th>
-                          <th></th>
-                          <th></th>
-                          <th></th>
+                            <th>Variable</th>
+                            <th class="text-right report-column-selected">Selected</th>
+                            <th class="text-right report-column-county">County</th>
+                            <th></th>
                         </tr>
                       </thead>
                     </table>
@@ -285,30 +258,21 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-6">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus urna id mi feugiat placerat. Ut in massa id massa elementum hendrerit. Maecenas a erat justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam eleifend lorem in tortor facilisis, vel ultricies purus molestie.
-                </div>
-                <div class="col-xs-6">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus urna id mi feugiat placerat. Ut in massa id massa elementum hendrerit. Maecenas a erat justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam eleifend lorem in tortor facilisis, vel ultricies purus molestie.
-                </div>
+              <div class="col-xs-12 text-center vis vis-horizontal">
+                <h4>Residential Water Consumption</h4>
+                <canvas id="chart-environment-1" class="chart-line" data-chart="m27" width="550" height="220"></canvas>
+                <div id="chart-environment-1-legend" class="text-center"></div>
+              </div>
             </div>
             <div class="row">
-                <div class="col-xs-3 vis vis-horizontal">
-                    <h4>Residential Electricity Consumption (kilowatts)</h4>
-                    <canvas id="chart-environment-1" class="chart-line" data-chart="m81" width="150" height="150"></canvas>
-
-                    <h4>Residential Recycling Participation Rate</h4>
-                    <canvas id="chart-environment-2" class="chart-line" data-chart="m78" width="150" height="150"></canvas>
-                    <div id="chart-environment-2-legend"></div>
-                </div>
-                <div class="col-xs-9">
+                <div class="col-xs-12">
                     <table class="table table-condensed table-environment">
                       <thead>
                         <tr>
-                          <th></th>
-                          <th></th>
-                          <th></th>
-                          <th></th>
+                            <th>Variable</th>
+                            <th class="text-right report-column-selected">Selected</th>
+                            <th class="text-right report-column-county">County</th>
+                            <th></th>
                         </tr>
                       </thead>
                     </table>
@@ -324,29 +288,21 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-6">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus urna id mi feugiat placerat. Ut in massa id massa elementum hendrerit. Maecenas a erat justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam eleifend lorem in tortor facilisis, vel ultricies purus molestie. Sed pharetra, magna vitae posuere sodales, orci dolor iaculis justo, id dignissim purus magna nec nunc. Integer posuere facilisis metus, hendrerit tincidunt lacus lobortis eget
-                </div>
-                <div class="col-xs-6">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus urna id mi feugiat placerat. Ut in massa id massa elementum hendrerit. Maecenas a erat justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam eleifend lorem in tortor facilisis, vel ultricies purus molestie. Sed pharetra, magna vitae posuere sodales, orci dolor iaculis justo, id dignissim purus magna nec nunc. Integer posuere facilisis metus, hendrerit tincidunt lacus lobortis eget
-                </div>
-            </div>
-            <div class="row">
                 <div class="col-xs-12 text-center vis vis-horizontal">
-                    <h4>Residents within &#189; Mile of Health Related Places</h4>
-                    <canvas id="chart-health-1" class="chart-bar" data-chart="m48,m50,m47,m49" data-labels="Grocery,Pharmacy,Medicaid/Free Clinic,Outdoor Recreation" width="650" height="180"></canvas>
-                    <div id="chart-health-1-legend" class="text-center"></div>
-                </div>
+                <h4>Proximity to a Grocery Store</h4>
+                <canvas id="chart-health-1" class="chart-line" data-chart="m45" width="550" height="200"></canvas>
+                <div id="chart-health-1-legend" class="text-center"></div>
+            </div>
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                    <table class="table table-condensed table-health">
+                    <table class="table table-health">
                       <thead>
                         <tr>
-                          <th></th>
-                          <th></th>
-                          <th></th>
-                          <th></th>
+                            <th>Variable</th>
+                            <th class="text-right report-column-selected">Selected</th>
+                            <th class="text-right report-column-county">County</th>
+                            <th></th>
                         </tr>
                       </thead>
                     </table>
@@ -362,30 +318,21 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-6">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus urna id mi feugiat placerat. Ut in massa id massa elementum hendrerit. Maecenas a erat justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae.
-                </div>
-                <div class="col-xs-6">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus urna id mi feugiat placerat. Ut in massa id massa elementum hendrerit. Maecenas a erat justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae.
-                </div>
+              <div class="col-xs-12 text-center vis vis-horizontal">
+                <h4>Housing Density</h4>
+                <canvas id="chart-housing-1" class="chart-line" data-chart="m5" width="550" height="200"></canvas>
+                <div id="chart-housing-1-legend" class="text-center"></div>
+              </div>
             </div>
             <div class="row">
-                <div class="col-xs-3 vis vis-horizontal">
-                    <h4>Median Gross Rent (Dollars)</h4>
-                    <canvas id="chart-housing-1" class="chart-line" data-chart="m63" width="150" height="150"></canvas>
-
-                    <h4>New Residential Building Permits</h4>
-                    <canvas id="chart-housing-2" class="chart-line" data-chart="m55" width="150" height="150"></canvas>
-                    <div id="chart-housing-2-legend"></div>
-                </div>
-                <div class="col-xs-9">
+                <div class="col-xs-12">
                     <table class="table table-condensed table-housing">
                       <thead>
                         <tr>
-                          <th></th>
-                          <th></th>
-                          <th></th>
-                          <th></th>
+                            <th>Variable</th>
+                            <th class="text-right report-column-selected">Selected</th>
+                            <th class="text-right report-column-county">County</th>
+                            <th></th>
                         </tr>
                       </thead>
                     </table>
@@ -401,14 +348,6 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-6">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus urna id mi feugiat placerat. Ut in massa id massa elementum hendrerit. Maecenas a erat justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam eleifend lorem in tortor facilisis, vel ultricies purus molestie. Sed pharetra, magna vitae posuere sodales, orci dolor iaculis justo, id dignissim purus magna nec nunc. Integer posuere facilisis metus, hendrerit tincidunt lacus lobortis eget
-                </div>
-                <div class="col-xs-6">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus urna id mi feugiat placerat. Ut in massa id massa elementum hendrerit. Maecenas a erat justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam eleifend lorem in tortor facilisis, vel ultricies purus molestie. Sed pharetra, magna vitae posuere sodales, orci dolor iaculis justo, id dignissim purus magna nec nunc. Integer posuere facilisis metus, hendrerit tincidunt lacus lobortis eget
-                </div>
-            </div>
-            <div class="row">
                 <div class="col-xs-12 text-center vis vis-horizontal">
                     <h4>Crime/Incident Rate per 100,000</h4>
                     <canvas id="chart-safety-1" class="chart-bar" data-chart="m27,m26,m25" data-labels="Juvenile,Property,Violent" width="600" height="250"></canvas>
@@ -420,15 +359,45 @@
                     <table class="table table-safety">
                       <thead>
                         <tr>
-                          <th></th>
-                          <th></th>
-                          <th></th>
-                          <th></th>
+                            <th>Variable</th>
+                            <th class="text-right report-column-selected">Selected</th>
+                            <th class="text-right report-column-county">County</th>
+                            <th></th>
                         </tr>
                       </thead>
                     </table>
                 </div>
             </div>
+        </div>
+
+        <!-- Transportation -->
+        <div class="page page-category">
+          <div class="row">
+            <div class="col-xs-6 text-left">
+              <h1>Transportation</h1>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 text-center vis vis-horizontal">
+              <h4></h4>
+              <canvas id="chart-transportation-1" class="chart-bar" data-chart="m33,m36" data-labels="Long Commute,Proximity to Public Transportation" width="600" height="250"></canvas>
+              <div id="chart-transportation-1-legend" class="text-center"></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <table class="table table-transportation">
+                <thead>
+                  <tr>
+                      <th>Variable</th>
+                      <th class="text-right report-column-selected">Selected</th>
+                      <th class="text-right report-column-county">County</th>
+                      <th></th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </div>
         </div>
 
     </div>
@@ -438,20 +407,35 @@
         <tbody>
           <tr data-metric="<%= rc.id %>">
               <!-- Name (year) -->
-              <td class='text-left label-<%= rc.id %>' data-val="<%= rc.label %>"><%= rc.name %></td>
-              <!-- Value -->
-              <td class='text-right data-<%= rc.id %>' data-val="<%= rc.val %>"><%= dataPretty(rc.val, rc.id) %></td>
+              <td class='text-left label-<%= rc.id %>' data-val="<%= metricConfig[rc.id].title %>">
+                  <a target="_blank" href="http://mcmap.org/qol/?m=<%= rc.id %>&n=<%= theFilter.join(',') %>"><%= metricConfig[rc.id].title %></a>
+                (<%= rc.year %>)
+              </td>
+              <!-- Selected Value -->
+              <td class='text-right data-<%= rc.id %> report-column-selected' data-val="<%= rc.selectedVal %>">
+                  <%= dataPretty(rc.selectedVal, rc.id).trim() %><% if (metricConfig[rc.id].summable && metricIsRaw.indexOf(rc.id) === -1) { %><br><%= dataPretty(rc.selectedRaw, null) %>
+                  <% } %>
+
+              </td>
+              <!-- County Value -->
+              <td class='text-right report-column-county'>
+                  <%= dataPretty(rc.countyVal, rc.id) %><% if (metricConfig[rc.id].summable && metricIsRaw.indexOf(rc.id) === -1) { %><br> <%= dataPretty(rc.countyRaw, null) %>
+                  <% } %>
+              </td>
               <!-- Units -->
-              <td class='text-left'><%= rc.units %></td>
-              <!-- Change -->
-              <td class='text-right'><%= rc.change %></td>
+              <td class='text-left report-units'>
+                  <%= metricConfig[rc.id].label %>
+                  <% if (metricConfig[rc.id].summable && metricIsRaw.indexOf(rc.id) === -1) { %>
+                      <br><%= metricConfig[rc.id].raw_label %>
+                  <% } %>
+              </td>
           </tr>
         </tbody>
     </script>
 
 
     <!-- scripts at the bottom yo -->
-    <script src="js/report.js?foo=73850"></script>
+    <script src="js/report.js?foo=42081"></script>
 
     <!--   Google Analytics -->
     <script>
