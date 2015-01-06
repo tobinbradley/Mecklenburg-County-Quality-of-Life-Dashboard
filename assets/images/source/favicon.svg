@@ -9,12 +9,15 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="64"
-   height="64"
+   width="16"
+   height="16"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.5 r10040"
-   sodipodi:docname="New document 1">
+   sodipodi:docname="favicon.svg"
+   inkscape:export-filename="/home/tobin/SpiderOak Hive/code/qol/assets/images/build/favicon.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -25,8 +28,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="11.078125"
-     inkscape:cx="32"
-     inkscape:cy="32"
+     inkscape:cx="20.626234"
+     inkscape:cy="21.167842"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -51,15 +54,19 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,-988.36218)">
-    <g
-       transform="scale(1.0465427,0.95552714)"
-       style="font-size:90.15058899px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bauhaus-Heavy-Bold;-inkscape-font-specification:Bauhaus-Heavy-Bold Bold"
-       id="text2985">
-      <path
-         d="m 21.849075,1093.3121 c -0.841428,-0.2404 -1.712883,-0.5709 -2.614368,-0.9916 -0.901525,-0.4207 -1.80303,-0.9015 -2.704517,-1.4424 -4.026741,-2.404 -7.722911,-5.9199 -11.0885226,-10.5477 -3.3656256,-4.6277 -5.04843492,-9.7662 -5.04843303,-15.4157 -1.89e-6,-0.06 -1.89e-6,-0.1202 0,-0.1803 0.0600984,-0.1202 0.0901486,-0.2404 0.0901506,-0.3606 -1.98e-6,-0.1202 -1.98e-6,-0.2103 0,-0.2705 0.0600984,-0.1201 0.0901485,-0.2103 0.0901506,-0.2704 0.66110155,-8.414 3.75626875,-15.3556 9.28551065,-20.8248 5.5893198,-5.4691 12.5910088,-8.2036 21.0050868,-8.2037 0.901473,10e-5 1.833028,0.06 2.794669,0.1803 0.96157,0.06 1.893125,0.1804 2.794668,0.3606 6.070096,1.142 11.599326,4.0568 16.587708,8.7446 5.048374,4.6278 7.572588,10.9984 7.57265,19.1119 -6.2e-5,8.7146 -2.133624,15.3557 -6.400692,19.9233 -4.267179,4.5676 -9.495908,7.9934 -15.686202,10.2772 l 0,7.5726 -14.063492,0 0,-32.1837 13.432437,0 0,4.6878 c 1.262068,-0.7813 2.253723,-1.9532 2.97497,-3.5159 0.781262,-1.5626 1.232014,-3.2153 1.352259,-4.9583 -4.4e-5,-0.1201 -4.4e-5,-0.2403 0,-0.3606 -4.4e-5,-0.1802 -4.4e-5,-0.3605 0,-0.5409 -4.4e-5,-0.1802 -4.4e-5,-0.3305 0,-0.4507 -4.4e-5,-0.1803 -4.4e-5,-0.3606 0,-0.5409 -0.240445,-2.5242 -1.322251,-4.8381 -3.245422,-6.9416 -1.86315,-2.1636 -4.507565,-3.2454 -7.933251,-3.2454 l -0.811356,-0.09 c -3.125249,0.06 -5.649463,1.2321 -7.572649,3.5159 -1.863135,2.2237 -2.91489,4.6578 -3.155271,7.3022 -2.1e-5,0.1803 -2.1e-5,0.3606 0,0.5409 -2.1e-5,0.1202 -2.1e-5,0.2705 0,0.4507 -2.1e-5,0.3006 -2.1e-5,0.6311 0,0.9917 0.06008,0.3005 0.12018,0.6311 0.180301,0.9917 0.18028,0.8414 0.450732,1.7128 0.811356,2.6143 0.36058,0.8415 0.811332,1.5927 1.352259,2.2538 l 0,21.8164 0,0"
-         style=""
-         id="path2990" />
-    </g>
+     transform="translate(0,-1036.3622)">
+    <text
+       xml:space="preserve"
+       style="font-size:21.5219841px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#2c89a0;fill-opacity:1;stroke:none;font-family:Gotham;-inkscape-font-specification:Gotham"
+       x="-1.1406649"
+       y="1037.1519"
+       id="text3011"
+       sodipodi:linespacing="125%"
+       transform="scale(0.98597597,1.0142235)"><tspan
+         sodipodi:role="line"
+         id="tspan3013"
+         x="-1.1406649"
+         y="1037.1519"
+         style="font-weight:bold;-inkscape-font-specification:Gotham Bold">Q</tspan></text>
   </g>
 </svg>

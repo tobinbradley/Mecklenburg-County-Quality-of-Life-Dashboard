@@ -32,14 +32,16 @@ _.templateSettings.variable = "rc";
 // are used to customize the chart.
 // ****************************************
 function createCharts() {
-    var colors = ["#F7464A", "#E2EAE9", "#D4CCC5", "#949FB1", "#bada55"];
+    var colors = ["#5C2B2D", "#7A9993", "#959BA9", "#FAFBDD", "#C3DBDE"];
 
     // doughnut charts
     $(".chart-doughnut").each(function() {
         var data = [];
+        var selector = $(this).data("selector");
         _.each($(this).data('chart').split(','), function(el, i) {
+
             data.push({
-                value: Number($(".data-" + el).data("val")),
+                value: Number($(".data-" + el).data(selector)),
                 color: colors[i],
                 label: $(".label-" + el).data("val").replace('Race/Ethnicity - ', '')
             });
@@ -56,6 +58,7 @@ function createCharts() {
     $(".chart-bar").each(function() {
         // prep the data
         var data = {};
+        var dataTypeKey = "";
 
         datasets = [
             {
@@ -75,11 +78,9 @@ function createCharts() {
         data.labels = $(this).data('labels').split(",");
 
         _.each($(this).data('chart').split(','), function(el) {
-            var npaMean = mean(_.filter(theData[el], function(d) { return theFilter.indexOf(d.id.toString()) !== -1; })),
-                countyMean = mean(theData[el]),
-                keys = Object.keys(npaMean);
-            datasets[0].data.push(npaMean[keys[keys.length - 1]]);
-            datasets[1].data.push(countyMean[keys[keys.length - 1]]);
+            datasets[0].data.push($(".data-" + el).data("selected-val"));
+            datasets[1].data.push($(".data-" + el).data("county-val"));
+            dataTypeKey = el;
         });
 
         if (!$.isNumeric(datasets[0].data[0])) {
@@ -91,7 +92,8 @@ function createCharts() {
         ctx = document.getElementById($(this).prop("id")).getContext("2d");
         var chart = new Chart(ctx).Bar(data, {
             showTooltips: false,
-            legendTemplate : '<% for (var i=0; i<datasets.length; i++){%><span class="title"  style="border-color:<%=datasets[i].strokeColor%>"><%if(datasets[i].label){%><%=datasets[i].label%><%}%></span><%}%>'
+            legendTemplate : '<% for (var i=0; i<datasets.length; i++){%><span class="title"  style="border-color:<%=datasets[i].strokeColor%>"><%if(datasets[i].label){%><%=datasets[i].label%><%}%></span><%}%>',
+            scaleLabel: "<%= dataFormat(dataRound(Number(value), 2), '" + dataTypeKey + "') %>"
         });
 
         $("#" + $(this).prop("id") + "-legend").html(chart.generateLegend());
@@ -142,7 +144,8 @@ function createCharts() {
         ctx = document.getElementById($(this).prop("id")).getContext("2d");
         var chart = new Chart(ctx).Line(data, {
             showTooltips: false,
-            legendTemplate : '<% for (var i=0; i<datasets.length; i++){%><span class="title"  style="border-color:<%=datasets[i].strokeColor%>"><%if(datasets[i].label){%><%=datasets[i].label%><%}%></span><%}%>'
+            legendTemplate : '<% for (var i=0; i<datasets.length; i++){%><span class="title"  style="border-color:<%=datasets[i].strokeColor%>"><%if(datasets[i].label){%><%=datasets[i].label%><%}%></span><%}%>',
+            scaleLabel: "<%= dataFormat(dataRound(Number(value), 2), '" + metric + "') %>"
         });
 
         if ($("#" + $(this).prop("id") + "-legend").length > 0) {
@@ -159,7 +162,7 @@ function createData() {
     var template = _.template($("script.template-row").html());
 
     _.each(dimensions, function(dim) {
-        var theTable = $(".table-" + dim);
+        var theTable = $(".table-" + dim + " tbody");
         var theMetrics = _.filter(metricConfig, function(el) { return el.dimension.toLowerCase() === dim; });
 
         _.each(theMetrics, function(val) {

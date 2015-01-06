@@ -20,7 +20,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/report.css?foo=30977">
+    <link rel="stylesheet" href="css/report.css?foo=50307">
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
@@ -137,10 +137,17 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-12 text-center vis vis-horizontal">
-                    <h4>Race</h4>
-                    <canvas id="chart-character-1" class="chart-doughnut" data-chart="m16,m15,m18,m17,m14" width="150" height="150"></canvas>
-                    <div id="chart-character-1-legend" class="text-center"></div>
+                <div class="col-xs-3 col-xs-offset-1 text-center vis vis-horizontal">
+                    <h4>Selected - Race</h4>
+                    <canvas id="chart-character-1" class="chart-doughnut" data-selector="selected-val" data-chart="m16,m15,m18,m17,m14" width="150" height="150"></canvas>
+
+                </div>
+                <div class="col-xs-4 text-center vis vis-vertical">
+                    <h4>County - Race</h4>
+                    <canvas id="chart-character-2" class="chart-doughnut" data-selector="county-val" data-chart="m16,m15,m18,m17,m14" width="150" height="150"></canvas>
+                </div>
+                <div class="col-xs-4 text-center vis vis-vertical">
+                    <div id="chart-character-2-legend" class="text-center" style="margin-top: 60px;"></div>
                 </div>
             </div>
             <div class="row">
@@ -154,6 +161,7 @@
                           <th></th>
                         </tr>
                       </thead>
+                      <tbody></tbody>
                     </table>
                 </div>
             </div>
@@ -170,7 +178,7 @@
             <div class="row">
                 <div class="col-xs-12 text-center vis vis-horizontal">
                     <h4>Household Income</h4>
-                    <canvas id="chart-economics-1" class="chart-bar" data-chart="m37" data-labels="Household Income" width="550" height="180"></canvas>
+                    <canvas id="chart-economics-1" class="chart-bar" data-chart="m37" data-labels="Household Income in Dollars" width="550" height="180"></canvas>
                     <div id="chart-econcomics-1-legend" class="text-center"><span class="title" style="border-color:rgba(151,187,205,0.8)">NPA</span><span class="title" style="border-color:rgba(220,220,220,0.8)">County</span></div>
                 </div>
             </div>
@@ -185,6 +193,7 @@
                             <th></th>
                         </tr>
                       </thead>
+                      <tbody></tbody>
                     </table>
                 </div>
             </div>
@@ -215,6 +224,7 @@
                             <th></th>
                         </tr>
                       </thead>
+                      <tbody></tbody>
                     </table>
                 </div>
             </div>
@@ -245,6 +255,7 @@
                             <th></th>
                         </tr>
                       </thead>
+                      <tbody></tbody>
                     </table>
                 </div>
             </div>
@@ -275,6 +286,7 @@
                             <th></th>
                         </tr>
                       </thead>
+                      <tbody></tbody>
                     </table>
                 </div>
             </div>
@@ -305,6 +317,7 @@
                             <th></th>
                         </tr>
                       </thead>
+                      <tbody></tbody>
                     </table>
                 </div>
             </div>
@@ -335,6 +348,7 @@
                             <th></th>
                         </tr>
                       </thead>
+                      <tbody></tbody>
                     </table>
                 </div>
             </div>
@@ -349,9 +363,9 @@
             </div>
             <div class="row">
                 <div class="col-xs-12 text-center vis vis-horizontal">
-                    <h4>Crime/Incident Rate per 100,000</h4>
+                    <!-- <h4>Crime/Incident Rate per 100,000</h4>
                     <canvas id="chart-safety-1" class="chart-bar" data-chart="m27,m26,m25" data-labels="Juvenile,Property,Violent" width="600" height="250"></canvas>
-                    <div id="chart-safety-1-legend" class="text-center"></div>
+                    <div id="chart-safety-1-legend" class="text-center"></div> -->
                 </div>
             </div>
             <div class="row">
@@ -365,6 +379,7 @@
                             <th></th>
                         </tr>
                       </thead>
+                      <tbody></tbody>
                     </table>
                 </div>
             </div>
@@ -395,6 +410,7 @@
                       <th></th>
                   </tr>
                 </thead>
+                <tbody></tbody>
               </table>
             </div>
           </div>
@@ -404,38 +420,35 @@
 
     <!-- Underscore row template -->
     <script type="text/template" class="template-row">
-        <tbody>
-          <tr data-metric="<%= rc.id %>">
-              <!-- Name (year) -->
-              <td class='text-left label-<%= rc.id %>' data-val="<%= metricConfig[rc.id].title %>">
-                  <a target="_blank" href="http://mcmap.org/qol/?m=<%= rc.id %>&n=<%= theFilter.join(',') %>"><%= metricConfig[rc.id].title %></a>
-                (<%= rc.year %>)
-              </td>
-              <!-- Selected Value -->
-              <td class='text-right data-<%= rc.id %> report-column-selected' data-val="<%= rc.selectedVal %>">
-                  <%= dataPretty(rc.selectedVal, rc.id).trim() %><% if (metricConfig[rc.id].summable && metricIsRaw.indexOf(rc.id) === -1) { %><br><%= dataPretty(rc.selectedRaw, null) %>
-                  <% } %>
-
-              </td>
-              <!-- County Value -->
-              <td class='text-right report-column-county'>
-                  <%= dataPretty(rc.countyVal, rc.id) %><% if (metricConfig[rc.id].summable && metricIsRaw.indexOf(rc.id) === -1) { %><br> <%= dataPretty(rc.countyRaw, null) %>
-                  <% } %>
-              </td>
-              <!-- Units -->
-              <td class='text-left report-units'>
-                  <%= metricConfig[rc.id].label %>
-                  <% if (metricConfig[rc.id].summable && metricIsRaw.indexOf(rc.id) === -1) { %>
-                      <br><%= metricConfig[rc.id].raw_label %>
-                  <% } %>
-              </td>
-          </tr>
-        </tbody>
+      <tr data-metric="<%= rc.id %>">
+          <!-- Name (year) -->
+          <td class='text-left label-<%= rc.id %>' data-val="<%= metricConfig[rc.id].title %>">
+              <a target="_blank" href="http://mcmap.org/qol/?m=<%= rc.id %>&n=<%= theFilter.join(',') %>"><%= metricConfig[rc.id].title %></a>
+            (<%= rc.year %>)
+          </td>
+          <!-- Selected Value -->
+          <td class='text-right data-<%= rc.id %> report-column-selected' data-selected-val="<%= rc.selectedVal %>" data-county-val="<%= rc.countyVal %>">
+              <%= dataPretty(rc.selectedVal, rc.id).trim() %><% if (metricConfig[rc.id].summable && metricIsRaw.indexOf(rc.id) === -1) { %><br><%= dataPretty(rc.selectedRaw, null) %>
+              <% } %>
+          </td>
+          <!-- County Value -->
+          <td class='text-right report-column-county'>
+              <%= dataPretty(rc.countyVal, rc.id) %><% if (metricConfig[rc.id].summable && metricIsRaw.indexOf(rc.id) === -1) { %><br> <%= dataPretty(rc.countyRaw, null) %>
+              <% } %>
+          </td>
+          <!-- Units -->
+          <td class='text-left report-units'>
+              <%= metricConfig[rc.id].label %>
+              <% if (metricConfig[rc.id].summable && metricIsRaw.indexOf(rc.id) === -1) { %>
+                  <br><%= metricConfig[rc.id].raw_label %>
+              <% } %>
+          </td>
+      </tr>
     </script>
 
 
     <!-- scripts at the bottom yo -->
-    <script src="js/report.js?foo=30977"></script>
+    <script src="js/report.js?foo=50307"></script>
 
     <!--   Google Analytics -->
     <script>
