@@ -149,8 +149,8 @@ $(document).ready(function () {
 
     // Scroll to begin position (i.e. get past enormous jumbotron)
     $(".scrollToStart").on("click", function() {
-
         $('.jumbotron').css('box-shadow', 'none').slideToggle("medium", function() {
+            $("html, body").animate({ scrollTop: 0 }, "slow");
             $(".focus_ring").addClass("focus_active");
         });
     });
