@@ -27,7 +27,6 @@ function processMetric() {
 
     // determine number of decimals to show
     var lastYear = Object.keys(model.metric[0])[model.year + 1];
-    numDecimals = _.max(_.map(model.metric, function(el){ return parseFloat(el[lastYear]).getDecimals(); }));
 
     // Set up data extent
     var theVals = [];
@@ -88,14 +87,7 @@ function drawTable() {
         theSelected = _.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }),
         theAccuracy = _.filter(model.metricAccuracy, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }),
         theRaw = _.filter(model.metricRaw, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }),
-        keys = Object.keys(model.metric[0]);
-
-    // console.log(template({
-    //     "theSelected": theSelected,
-    //     "theAccuracy": theAccuracy,
-    //     "theRaw": theRaw,
-    //     "keys": keys
-    // }));
+        keys = Object.keys(model.metric[0]);    
 
     $(".datatable-container").html(template({
         "theSelected": theSelected,

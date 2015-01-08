@@ -21,7 +21,6 @@
 // ****************************************
 var theFilter = ["434","372","232"],   // default list of neighborhoods if none passed
     theData,                                // global for fetched raw data
-    numDecimals,
     dimensions = ['character', 'economy', 'education', 'engagement', 'environment', 'health', 'housing', 'safety', 'transportation'];
 
 _.templateSettings.variable = "rc";

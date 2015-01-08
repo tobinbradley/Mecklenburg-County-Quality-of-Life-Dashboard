@@ -9,7 +9,6 @@ var map,                // leaflet map
     marker,             // marker for geocode
     d3Layer,            // the d3Layer on leaflet
     tour,               // I-don't-want-to-do-real-help thing
-    numDecimals,          // number of significant decimals for metrics based on data
     recordHistory = false;  // stupid global toggle so it doesn't record page load metric etc. to google analytics
 
 // lodash/underscore template desucking
@@ -24,13 +23,15 @@ $(document).ready(function () {
     var selectVals = '',
         selectGroup = '';
     _.each(metricConfig, function(el, key) {
-        if (el.dimension === selectGroup) {
-            selectVals += '<option value="' + key + '">' + el.title + '</option>';
-        } else {
-            if (selectVals.length > 0) { selectVals += '</optgroup>'; }
-            selectVals += '<optgroup label="' + el.dimension + '">';
-            selectVals += '<option value="' + key + '">' + el.title + '</option>';
-            selectGroup = el.dimension;
+        if (el.exists) {
+            if (el.dimension === selectGroup) {
+                selectVals += '<option value="' + key + '">' + el.title + '</option>';
+            } else {
+                if (selectVals.length > 0) { selectVals += '</optgroup>'; }
+                selectVals += '<optgroup label="' + el.dimension + '">';
+                selectVals += '<option value="' + key + '">' + el.title + '</option>';
+                selectGroup = el.dimension;
+            }
         }
     });
     selectVals += '</optgroup>';
@@ -62,7 +63,6 @@ $(document).ready(function () {
     if (history.pushState) {
         window.addEventListener("popstate", function(e) {
             if (getURLParameter("m") !== "null" && getURLParameter("m") !== model.metricId) {
-                console.log("running metric popstate");
                 recordHistory = false;
                 model.metricId = getURLParameter('m');
             }

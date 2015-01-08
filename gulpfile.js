@@ -15,6 +15,7 @@ var gulp = require('gulp'),
 
 
 var jsMain = [
+    'assets/scripts/vendor/log.js',
     'bower_components/jquery/dist/jquery.js',
     'bower_components/bootstrap/js/transition.js',
     'bower_components/bootstrap/js/button.js',
@@ -22,6 +23,7 @@ var jsMain = [
     'bower_components/bootstrap/js/dropdown.js',
     'bower_components/bootstrap/js/tooltip.js',
     'bower_components/bootstrap/js/popover.js',
+    'bower_components/d3/d3.js',
     'bower_components/leaflet/dist/leaflet.js',
     'assets/scripts/vendor/Object.observe.poly.js',
     'assets/scripts/vendor/jquery-ui-1.10.3.custom.min.js',
@@ -29,7 +31,6 @@ var jsMain = [
     'assets/scripts/vendor/table2CSV.js',
     'assets/scripts/vendor/Chart.js',
     'bower_components/lodash/dist/lodash.underscore.js',
-    'bower_components/d3/d3.js',
     'bower_components/topojson/topojson.js',
     'assets/scripts/vendor/typeahead.js',
     'assets/scripts/vendor/jquery-tourbus.js',
