@@ -177,7 +177,12 @@ function nullCheck(theCheck) {
     }
 }
 function dataPretty(theValue, theMetric) {
-    var pretty;
+    var pretty,
+        numDecimals = 0;
+
+    if (theMetric !== null) {
+        numDecimals = metricConfig[theMetric].decimals;
+    }
 
     if ($.isNumeric(theValue)) {
         pretty = dataFormat(dataRound(Number(theValue), numDecimals), theMetric);
