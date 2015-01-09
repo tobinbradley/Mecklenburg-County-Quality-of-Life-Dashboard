@@ -20,6 +20,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Stylesheets -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:700,400' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/report.css?foo={{cachebuster}}">
 
     <!-- Favicon -->
@@ -44,11 +45,12 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="hero">
-                        <h1>Quality of Life Explorer</h1>
-                        <input type="text" class="form-control input-lg subtitle" placeholder="optional subtitle - type here" value="Summary Report" maxlength=40>
-                        <h4 class="neighborhoods">&nbsp;</h4>
+                        <img class="logo-image" src="images/report-logo.png">
+                        <div class="subhero">
+                            <input type="text" class="form-control input-lg subtitle" placeholder="optional subtitle - type here" value="Summary Report" maxlength=40>
+                            <h4 class="neighborhoods">&nbsp;</h4>
+                        </div>
                     </div>
-                    <img class="logo-image" src="images/report-logo.png">
                 </div>
             </div>
             <div class="row">
@@ -102,14 +104,14 @@
                                 <td>
                                     <h2>Housing</h2>
                                     <h3 data-metric="r5">&nbsp;</h3>
-                                    <h4>house units</h4>
+                                    <h4>housing units</h4>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     <h2>Safety</h2>
                                     <h3 data-metric="m59">&nbsp;</h3>
-                                    <h4>property crime</h4>
+                                    <h4>property crime rate</h4>
                                 </td>
                                 <td>
                                     <h2>Environment</h2>
@@ -138,12 +140,11 @@
             </div>
             <div class="row">
                 <div class="col-xs-3 col-xs-offset-1 text-center vis vis-horizontal">
-                    <h4>Selected - Race</h4>
+                    <h4>Selected Race</h4>
                     <canvas id="chart-character-1" class="chart-doughnut" data-selector="selected-val" data-chart="m16,m15,m18,m17,m14" width="150" height="150"></canvas>
-
                 </div>
                 <div class="col-xs-4 text-center vis vis-vertical">
-                    <h4>County - Race</h4>
+                    <h4>County Race</h4>
                     <canvas id="chart-character-2" class="chart-doughnut" data-selector="county-val" data-chart="m16,m15,m18,m17,m14" width="150" height="150"></canvas>
                 </div>
                 <div class="col-xs-4 text-center vis vis-vertical">
@@ -333,7 +334,7 @@
             <div class="row">
               <div class="col-xs-12 text-center vis vis-horizontal">
                 <h4>Housing Density</h4>
-                <canvas id="chart-housing-1" class="chart-line" data-chart="m5" width="550" height="200"></canvas>
+                <canvas id="chart-housing-1" class="chart-line" data-chart="m5" width="450" height="150"></canvas>
                 <div id="chart-housing-1-legend" class="text-center"></div>
               </div>
             </div>

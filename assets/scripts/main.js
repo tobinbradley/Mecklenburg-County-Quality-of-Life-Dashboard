@@ -104,7 +104,6 @@ $(document).ready(function () {
     });
 
 
-
     // Time slider and looper. Shouldn't require this much code. Curse my stupid brains.
     $(".slider").slider({
         value: 1,
@@ -114,6 +113,7 @@ $(document).ready(function () {
         animate: true,
         slide: function( event, ui ) {
             model.year = ui.value;
+            changeYear();
         }
     });
     $(".btn-looper").on("click", function () {
@@ -128,6 +128,7 @@ $(document).ready(function () {
                 theSlider.slider("value", theSlider.slider("value") + 1);
             }
             model.year = theSlider.slider("value");
+            changeYear();
             timer = setInterval(function () {
                     if (theSlider.slider("value") === theSlider.slider("option", "max")) {
                         theSlider.slider("value", 0);
@@ -136,6 +137,7 @@ $(document).ready(function () {
                         theSlider.slider("value", theSlider.slider("value") + 1);
                     }
                     model.year = theSlider.slider("value");
+                    changeYear();
                 }, 3000);
         }
         else {
@@ -242,6 +244,13 @@ $(document).ready(function () {
                 }));
             drawBarChart();
         }
+    });
+
+    // ****************************************
+    // Initialize the observer
+    // ****************************************
+    Object.observe(model, function(changes) {
+        modelChanges(changes);
     });
 
     // Get the data and kick everything off

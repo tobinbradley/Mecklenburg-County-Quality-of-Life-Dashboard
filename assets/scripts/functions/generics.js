@@ -83,17 +83,6 @@ function sum(values) {
     return theSum;
 }
 
-// ****************************************
-// Get number of numbers after the decimal
-// ****************************************
-Number.prototype.getDecimals = function() {
-    var num = this,
-        match = ('' + num).match(/(?:\.(\d+))?(?:[eE]([+-]?\d+))?$/);
-    if (!match) {
-        return 0;
-    }
-    return Math.max(0, (match[1] ? match[1].length : 0) - (match[2] ? +match[2] : 0));
-};
 
 // ****************************************
 // Compare two arrays to see if the are the same
