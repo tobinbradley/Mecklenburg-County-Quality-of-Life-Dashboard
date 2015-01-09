@@ -188,8 +188,10 @@ function createData() {
                 } else {
                     theAgg = aggregateMean(selectedRecords, selectedRaw);
                     tdata.selectedVal = theAgg[keys[keys.length -1]];
-                    if (metricConfig[val.metric].summable) {
+                    if (metricConfig[val.metric].summable && tdata.selectedVal !== "N/A") {
                         tdata.selectedRaw = sum(_.map(selectedRaw, function(num){ return num[keys[keys.length -1]]; }));
+                    } else {
+                        tdata.selectedRaw = "N/A";
                     }
                 }
 
@@ -210,27 +212,6 @@ function createData() {
                     $('[data-metric="' + val.metric + '"]').text(dataPretty(tdata.countyVal, val.metric));
                 }
 
-                // units
-                //tdata.units = val.label;
-
-                // change
-                // keys = Object.keys(theData[val.metric][0]);
-                //
-                // if (keys.length > 2) {
-                //     theAgg = aggregateMean(selectedRecords, selectedRaw);
-                //     theDiff = theAgg[keys[keys.length - 1]] - theAgg[keys[1]];
-                //
-                //     if (Number(theDiff.toFixed(1)) == 0) {
-                //         theDiff = "↔ 0";
-                //     } else if (theDiff > 0) {
-                //         theDiff = "<span class='glyphicon glyphicon-arrow-up'></span> " + theDiff.toFixed(1);
-                //     } else {
-                //         theDiff = "<span class='glyphicon glyphicon-arrow-down'></span> " + (theDiff * -1).toFixed(1);
-                //     }
-                //
-                //     tdata.change = theDiff;
-                // }
-
                 // Write out stuff
                 theTable.append(template(tdata));
 
@@ -246,7 +227,7 @@ function createBlocks() {
         if (m.indexOf("r") !== -1) {
             var keys = Object.keys(theData[m][0]);
             var selectedRecords = _.filter(theData[m], function(d) { return theFilter.indexOf(d.id.toString()) !== -1; });
-            var theVal = sum(_.map(selectedRecords, function(num){ return num[keys[keys.length -1]]; }));
+            var theVal = sum(_.filter(_.map(selectedRecords, function(num){ return num[keys[keys.length -1]]; }), function(el) { return $.isNumeric(el); }));
             $(this).html(dataPretty(theVal, null));
         }
     });
