@@ -37,8 +37,10 @@ function aggregateMean(metric, raw) {
         _.each(keys, function(el, i){
             if (i > 0) {
                 var numer = 0,
-                    denom = 0;
+                    denom = 0,
+                    isNumeric = false;
                 _.each(metric, function(d, i) {
+                    if ($.isNumeric(d[el])) { isNumeric = true; };
                     if ($.isNumeric(d[el]) && $.isNumeric(raw[i][el]) && Number(d[el]) !== 0) {
                         numer = numer + Number(raw[i][el]);
                         denom = denom + (Number(raw[i][el]) / d[el]);
@@ -46,6 +48,7 @@ function aggregateMean(metric, raw) {
                 });
                 if (denom === 0) { denom = 1; }
                 mean[el] = numer / denom;
+                if (!isNumeric) { mean[el] = "N/A"; }
             }
         });
         return mean;
@@ -74,9 +77,11 @@ function median(values) {
 // Return the sum for total-able metrics
 // ****************************************
 function sum(values) {
-    var theSum = 0;
+    var theSum = "N/A",
+        isNumeric = false;
     _.each(values, function(el) {
         if ($.isNumeric(el)) {
+            if (theSum === "N/A") { theSum = 0; }
             theSum = theSum + Number(el);
         }
     });

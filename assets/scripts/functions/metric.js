@@ -155,11 +155,7 @@ function updateStats() {
         theStat = aggregateMean(model.metric, model.metricRaw);
         params.mainNumber = dataPretty(theStat[keys[model.year + 1]], m);
     }
-    else {
-        // arithmetic average
-        theStat = mean(model.metric, model.metricRaw);
-        params.mainNumber = dataPretty(theStat[keys[model.year + 1]], m);
-    }
+
     // raw number
     if (hasRaw(m) && metricConfig[model.metricId].summable) {
         params.rawTotal = sum(_.map(model.metricRaw, function(num){ return num[keys[model.year + 1]]; })).toFixed(0).commafy();
@@ -181,16 +177,14 @@ function updateStats() {
             _.filter(model.metricRaw, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }));
         params.mainNumber = dataPretty(theStat[keys[model.year + 1]], m);
     }
-    else {
-        // arithmetic average
-        theStat = mean(_.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }),
-            _.filter(model.metricRaw, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }));
-        params.mainNumber = dataPretty(theStat[keys[model.year + 1]], m);
-    }
+
     // raw number
     if (hasRaw(m) && metricConfig[m].summable) {
-        params.rawTotal = sum(_.pluck(_.filter(model.metricRaw, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }), keys[model.year + 1])).toFixed(0).commafy();
+        params.rawTotal = sum(_.pluck(_.filter(model.metricRaw, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }), keys[model.year + 1]));
+        if ($.isNumeric(params.rawTotal)) { params.rawTotal = params.rawTotal.toFixed(0).commafy(); }
     }
+
+
     // write out stat box
     $(".stat-box-neighborhood").html(template(params));
 

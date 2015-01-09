@@ -18,7 +18,7 @@ function lineChartData() {
 
     // make sure selected stuff really has a value
     _.each(npaMean, function(el) {
-        if (el === 0) {
+        if (!$.isNumeric(el)) {
             npaMean = null;
         }
     });

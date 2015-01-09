@@ -203,7 +203,9 @@ var metricConfig = {
   "raw": "r65",
   "suffix": "%",
   "raw_label": "Students",
-  "title": "High School Graduation Rate"
+  "title": "High School Graduation Rate",
+  "exists": "true",
+  "decimals": 0
  },
  "m51": {
   "metric": "m51",
@@ -222,7 +224,9 @@ var metricConfig = {
   "raw": "r67",
   "suffix": "%",
   "raw_label": "Students",
-  "title": "Neighborhood School Attendance "
+  "title": "Neighborhood School Attendance ",
+  "exists": "true",
+  "decimals": 0
  },
  "m21": {
   "metric": "m21",
@@ -252,7 +256,9 @@ var metricConfig = {
   "raw": "r66",
   "suffix": "%",
   "raw_label": "Students",
-  "title": "Student Absenteeism"
+  "title": "Student Absenteeism",
+  "exists": "true",
+  "decimals": 0
  },
  "m62": {
   "metric": "m62",
@@ -260,7 +266,9 @@ var metricConfig = {
   "raw": "r62",
   "suffix": "%",
   "raw_label": "Students",
-  "title": "Test Proficiency - Elementary School"
+  "title": "Test Proficiency - Elementary School",
+  "exists": "true",
+  "decimals": 1
  },
  "m64": {
   "metric": "m64",
@@ -268,7 +276,9 @@ var metricConfig = {
   "raw": "r64",
   "suffix": "%",
   "raw_label": "Students",
-  "title": "Test Proficiency - High School"
+  "title": "Test Proficiency - High School",
+  "exists": "true",
+  "decimals": 1
  },
  "m63": {
   "metric": "m63",
@@ -276,7 +286,9 @@ var metricConfig = {
   "raw": "r63",
   "suffix": "%",
   "raw_label": "Students",
-  "title": "Test Proficiency - Middle School"
+  "title": "Test Proficiency - Middle School",
+  "exists": "true",
+  "decimals": 1
  },
  "m52": {
   "metric": "m52",
@@ -523,14 +535,18 @@ var metricConfig = {
   "dimension": "Health",
   "raw": "r81",
   "suffix": "%",
-  "title": "Public Health Insurance"
+  "title": "Public Health Insurance",
+  "exists": "true",
+  "decimals": 0
  },
  "m80": {
   "metric": "m80",
   "dimension": "Health",
   "raw": "r80",
   "suffix": "%",
-  "title": "Public Nutrition Assistance"
+  "title": "Public Nutrition Assistance",
+  "exists": "true",
+  "decimals": 0
  },
  "m29": {
   "metric": "m29",
@@ -698,7 +714,9 @@ var metricConfig = {
   "label": "Calls per 1,000 People",
   "raw": "r61",
   "raw_label": "Calls",
-  "title": "Calls for Animal Control"
+  "title": "Calls for Animal Control",
+  "exists": "true",
+  "decimals": 1
  },
  "m59": {
   "metric": "m59",
@@ -707,7 +725,9 @@ var metricConfig = {
   "label": "Crimes per 1,000 People",
   "raw": "r59",
   "raw_label": "Crimes",
-  "title": "Crime - Property"
+  "title": "Crime - Property",
+  "exists": "true",
+  "decimals": 1
  },
  "m58": {
   "metric": "m58",
@@ -716,7 +736,9 @@ var metricConfig = {
   "label": "Crimes per 1,000 People",
   "raw": "r58",
   "raw_label": "Crimes",
-  "title": "Crime - Violent"
+  "title": "Crime - Violent",
+  "exists": "true",
+  "decimals": 1
  },
  "m60": {
   "metric": "m60",
@@ -725,7 +747,9 @@ var metricConfig = {
   "label": "Calls per 1,000 People",
   "raw": "r60",
   "raw_label": "Calls",
-  "title": "Disorder-related Calls"
+  "title": "Disorder-related Calls",
+  "exists": "true",
+  "decimals": 1
  },
  "m78": {
   "metric": "m78",
