@@ -75,22 +75,30 @@ body { background: #ccc; }
 // ****************************************
 .page-front {
     .subtitle {
-        font-size: 1.8em;
+        font-size: 1.5em;
         font-weight: bold;
         border: none;
         border-bottom: 1px dashed #ccc;
         box-shadow: none;
-        padding: 2px;
+        padding: 8px 2px 2px;
         text-shadow: 1px 1px 1px #ccc;
+        background: none;
+        height: 38px;
     }
     .logo-image {
-        position:absolute;
-        top:10px;
-        left: 10px;
-        width: 100px;
+        // position:absolute;
+        // top:10px;
+        // left: 10px;
+        width: 408px;
     }
     .hero {
-        margin-left: 110px;
+        height: 120px;
+    }
+    .subhero {
+        position: absolute;
+        top: 55px;
+        left: 105px;
+        right: 20px;
     }
     h1 {
         font-size: 2.8em;
@@ -146,7 +154,7 @@ body { background: #ccc; }
         background: #dce6f0;
     }
     .report-column-county {
-        background: #ecf0df;        
+        background: #ecf0df;
     }
 }
 
@@ -198,7 +206,7 @@ body { background: #ccc; }
         outline: 0 !important;
         border: 0px solid !important;
     }
-    a[href]:after {
+    table a[href]:after {
         content: none;
-      }
+    }
 }

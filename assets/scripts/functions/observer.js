@@ -48,37 +48,13 @@ function modelChanges(changes) {
         recordHistory = true;
     }
 
-    // Hopping in the DeLorean
-    if (_.contains(tasklist, "year")) {
-        // Make sure a year has been set before
-        var yearChange = _.filter(changes, function(el) { return el.name === "year"; });
-        if (yearChange[0].hasOwnProperty('oldValue')) {
-            // change year slider if not samsies
-            if ($('.slider').slider('value') !== model.year) {
-                $('.slider').slider('value', model.year);
-            }
-            var keys = Object.keys(model.metric[0]);
-            $('.time-year').text(keys[model.year + 1].replace("y_", ""));
-            // set up data quantile from extent
-            quantize = d3.scale.quantile()
-                .domain(x_extent)
-                .range(d3.range(colorbreaks).map(function (i) {
-                    return "q" + i;
-                }));
-            drawMap();
-            drawBarChart();
-            drawTable();
-            updateStats();
-        }
-    }
-
     // the selected set changed
     if (_.contains(tasklist, "selected")) {
             d3.selectAll(".geom").classed("d3-select", false);
             d3.selectAll(".geom").classed("d3-select", function(d) { return _.contains(model.selected, $(this).attr("data-id")); });
             $(".report-launch").removeClass("disabled");
             valueChart.selectedPointer(".value-select");
-            lineChartCreate();            
+            lineChartCreate();
             updateStats();
             drawTable();
             if (recordHistory) { recordMetricHistory(); }
@@ -94,9 +70,21 @@ function modelChanges(changes) {
 }
 
 
-// ****************************************
-// Initialize the observer
-// ****************************************
-Object.observe(model, function(changes) {
-    modelChanges(changes);
-});
+function changeYear() {
+    // change year slider if not samsies
+    if ($('.slider').slider('value') !== model.year) {
+        $('.slider').slider('value', model.year);
+    }
+    var keys = Object.keys(model.metric[0]);
+    $('.time-year').text(keys[model.year + 1].replace("y_", ""));
+    // set up data quantile from extent
+    quantize = d3.scale.quantile()
+        .domain(x_extent)
+        .range(d3.range(colorbreaks).map(function (i) {
+            return "q" + i;
+        }));
+    drawMap();
+    drawBarChart();
+    drawTable();
+    updateStats();
+}

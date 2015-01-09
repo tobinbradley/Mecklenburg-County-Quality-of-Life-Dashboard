@@ -22,7 +22,9 @@ function processMetric() {
             $(this).append(el);
         }
     });
+    $(".slider").slider("value", $(".slider").slider("option", "max"));
     model.year = keys.length - 2;
+
     $('.time-year').text(keys[model.year + 1].replace("y_", ""));
 
     // determine number of decimals to show
@@ -87,7 +89,7 @@ function drawTable() {
         theSelected = _.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }),
         theAccuracy = _.filter(model.metricAccuracy, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }),
         theRaw = _.filter(model.metricRaw, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }),
-        keys = Object.keys(model.metric[0]);    
+        keys = Object.keys(model.metric[0]);
 
     $(".datatable-container").html(template({
         "theSelected": theSelected,
