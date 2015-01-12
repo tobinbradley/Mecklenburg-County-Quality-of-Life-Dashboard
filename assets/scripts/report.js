@@ -209,7 +209,7 @@ function createData() {
 
                 // front page
                 if ($('[data-metric="' + val.metric + '"]').length > 0) {
-                    $('[data-metric="' + val.metric + '"]').text(dataPretty(tdata.countyVal, val.metric));
+                    $('[data-metric="' + val.metric + '"]').text(dataPretty(tdata.selectedVal, val.metric));
                 }
 
                 // Write out stuff
