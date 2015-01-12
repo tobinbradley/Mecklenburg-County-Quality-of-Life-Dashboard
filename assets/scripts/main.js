@@ -256,4 +256,11 @@ $(document).ready(function () {
     // Get the data and kick everything off
     fetchMetricData(model.metricId);
 
+    // turn on form labels if placeholder not supported
+    if (!('placeholder' in document.createElement('input'))) {
+        $("label").removeClass("sr-only")
+    }
+
+
+
 });

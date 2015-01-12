@@ -13,7 +13,8 @@
     "test",
     "tests"
   ],
-  "dependencies": {},
+  "dependencies": {
+  },
   "devDependencies": {
     "jquery.scrollTo": "*",
     "topojson": "*",
