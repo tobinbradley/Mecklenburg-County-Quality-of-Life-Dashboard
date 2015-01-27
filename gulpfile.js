@@ -11,11 +11,11 @@ var gulp = require('gulp'),
     replace = require('gulp-replace'),
     jsoncombine = require("gulp-jsoncombine"),
     fs = require('fs'),
-    config = require('./assets/scripts/config.js');
+    config = require('./src/scripts/config.js');
 
 
 var jsMain = [
-    'assets/scripts/vendor/log.js',
+    'src/scripts/vendor/log.js',
     'bower_components/jquery/dist/jquery.js',
     'bower_components/bootstrap/js/transition.js',
     'bower_components/bootstrap/js/button.js',
@@ -25,20 +25,20 @@ var jsMain = [
     'bower_components/bootstrap/js/popover.js',
     'bower_components/d3/d3.js',
     'bower_components/leaflet/dist/leaflet.js',
-    'assets/scripts/vendor/Object.observe.poly.js',
-    'assets/scripts/vendor/jquery-ui-1.10.3.custom.min.js',
+    'src/scripts/vendor/Object.observe.poly.js',
+    'src/scripts/vendor/jquery-ui-1.10.3.custom.min.js',
     'bower_components/chosen_v1.1.0/chosen.jquery.js',
-    'assets/scripts/vendor/table2CSV.js',
-    'assets/scripts/vendor/Chart.js',
+    'src/scripts/vendor/table2CSV.js',
+    'src/scripts/vendor/Chart.js',
     'bower_components/lodash/dist/lodash.underscore.js',
     'bower_components/topojson/topojson.js',
-    'assets/scripts/vendor/typeahead.js',
-    'assets/scripts/vendor/jquery-tourbus.js',
+    'src/scripts/vendor/typeahead.js',
+    'src/scripts/vendor/jquery-tourbus.js',
     'bower_components/jquery.scrollTo/jquery.scrollTo.js',
-    'assets/scripts/functions/*.js',
-    'assets/scripts/config.js',
-    'assets/scripts/metricconfig.js',
-    'assets/scripts/main.js'
+    'src/scripts/functions/*.js',
+    'src/scripts/config.js',
+    'src/scripts/metricconfig.js',
+    'src/scripts/main.js'
 ];
 
 var jsReport = [
@@ -48,18 +48,18 @@ var jsReport = [
     'bower_components/Leaflet.label/dist/leaflet.label.js',
     'bower_components/topojson/topojson.js',
     'bower_components/lodash/dist/lodash.underscore.js',
-    'assets/scripts/vendor/Chart.js',
-    'assets/scripts/functions/generics.js',
-    'assets/scripts/config.js',
-    'assets/scripts/metricconfig.js',
-    'assets/scripts/report.js'
+    'src/scripts/vendor/Chart.js',
+    'src/scripts/functions/generics.js',
+    'src/scripts/config.js',
+    'src/scripts/metricconfig.js',
+    'src/scripts/report.js'
 ];
 
 // Web server
 gulp.task('browser-sync', function() {
-    browserSync(['./public/**/*.css', './public/**/*.js', './public/**/*.html'], {
+    browserSync(['./dist/**/*.css', './dist/**/*.js', './dist/**/*.html'], {
         server: {
-            baseDir: "./public"
+            baseDir: "./dist"
         }
     });
 });
@@ -67,102 +67,102 @@ gulp.task('browser-sync', function() {
 
 // Less processing
 gulp.task('less', function() {
-    return gulp.src(['assets/less/main.less', 'assets/less/report.less'])
+    return gulp.src(['src/less/main.less', 'src/less/report.less'])
         .pipe(less())
         .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
-        .pipe(gulp.dest('public/css'));
+        .pipe(gulp.dest('dist/css'));
 });
 gulp.task('less-build', function() {
-    return gulp.src(['assets/less/main.less', 'assets/less/report.less'])
+    return gulp.src(['src/less/main.less', 'src/less/report.less'])
         .pipe(less())
         .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
         .pipe(minifycss())
-        .pipe(gulp.dest('public/css'));
+        .pipe(gulp.dest('dist/css'));
 });
 
 // JavaScript
 gulp.task('js', function() {
     gulp.src(jsMain)
         .pipe(concat('main.js'))
-        .pipe(gulp.dest('public/js'));
+        .pipe(gulp.dest('dist/js'));
     return gulp.src(jsReport)
         .pipe(concat('report.js'))
-        .pipe(gulp.dest('public/js'));
+        .pipe(gulp.dest('dist/js'));
 });
 gulp.task('js-build', function() {
     gulp.src(jsReport)
         .pipe(concat('report.js'))
         .pipe(uglify())
-        .pipe(gulp.dest('public/js'));
+        .pipe(gulp.dest('dist/js'));
     return gulp.src(jsMain)
         .pipe(concat('main.js'))
         .pipe(uglify())
-        .pipe(gulp.dest('public/js'));
+        .pipe(gulp.dest('dist/js'));
 });
 
 // markdown
 gulp.task('markdown', function() {
-    return gulp.src('assets/data/meta/*.md')
+    return gulp.src('src/data/meta/*.md')
         .pipe(markdown())
-        .pipe(gulp.dest('public/data/meta/'));
+        .pipe(gulp.dest('dist/data/meta/'));
 });
 
 // CSV to JSON
 gulp.task('convert', function() {
-    return gulp.src('assets/data/metric/*.csv')
+    return gulp.src('src/data/metric/*.csv')
         .pipe(convert({
             from: 'csv',
             to: 'json'
         }))
-        .pipe(gulp.dest('public/data/metric/'));
+        .pipe(gulp.dest('dist/data/metric/'));
 });
 
 // merge json
 gulp.task('merge-json', function() {
-    return gulp.src("public/data/metric/*.json")
+    return gulp.src("dist/data/metric/*.json")
         .pipe(jsoncombine("merge.json", function(data){ return new Buffer(JSON.stringify(data)); }))
-        .pipe(gulp.dest("public/data"));
+        .pipe(gulp.dest("dist/data"));
 });
 
 // image processing
 gulp.task('imagemin', function() {
-    return gulp.src('assets/images/build/*')
+    return gulp.src('src/images/build/*')
         .pipe(imagemin({
             optimizationLevel: 3,
             progressive: true,
             interlaced: true
         }))
-        .pipe(gulp.dest('public/images'));
+        .pipe(gulp.dest('dist/images'));
 });
 
 // cache busting
 gulp.task('replace', function() {
-    return gulp.src('assets/*.html')
+    return gulp.src('src/*.html')
         .pipe(replace("{{cachebuster}}", Math.floor((Math.random() * 100000) + 1)))
         .pipe(replace("{{neighborhoodDescriptor}}", config.neighborhoodDescriptor))
         .pipe(replace("{{gaKey}}", config.gaKey))
-        .pipe(gulp.dest('public/'));
+        .pipe(gulp.dest('dist/'));
 });
 
 // watch
 gulp.task('watch', function () {
-    gulp.watch(['./assets/*.html'], ['replace']);
-    gulp.watch(['./assets/less/**/*.less'], ['less']);
-    gulp.watch('assets/scripts/**/*.js', ['js']);
+    gulp.watch(['./src/*.html'], ['replace']);
+    gulp.watch(['./src/less/**/*.less'], ['less']);
+    gulp.watch('src/scripts/**/*.js', ['js']);
 });
 
 // rename files for basic setup
 gulp.task('initSearch', function() {
     // make sure people don't run this twice and end up with no search.js
-    fs.exists('assets/scripts/functions/search.js.basic', function(exists) {
+    fs.exists('src/scripts/functions/search.js.basic', function(exists) {
         if (exists) {
             console.log("renaming search files...");
             // rename mecklenburg search file to search.js.meck
-            fs.rename('assets/scripts/functions/search.js', 'assets/scripts/functions/search.js.advanced', function(err) {
+            fs.rename('src/scripts/functions/search.js', 'src/scripts/functions/search.js.advanced', function(err) {
                 if ( err ) { console.log('ERROR: ' + err); }
             });
             // rename default search file to search.js
-            fs.rename('assets/scripts/functions/search.js.basic', 'assets/scripts/functions/search.js', function(err) {
+            fs.rename('src/scripts/functions/search.js.basic', 'src/scripts/functions/search.js', function(err) {
                 if ( err ) { console.log('ERROR: ' + err); }
             });
         }
