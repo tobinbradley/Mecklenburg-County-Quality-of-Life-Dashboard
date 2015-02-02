@@ -1,63 +1,103 @@
 // ****************************************
-// Return metric mean (array)
+// Serious mathing
 // ****************************************
-function mean(metric) {
-    if(metric.length > 0) {
-        var themean = {},
-            keys = Object.keys(metric[0]);
-        _.each(keys, function(el, i) {
-            if (i > 0) {
-                var sum = 0,
-                    counter = 0;
-                _.each(metric, function(d) {
-                    if ($.isNumeric(d[el])) {
-                        sum += Number(d[el]);
-                        counter++;
-                    }
-                });
 
-                themean[el] = (sum/counter).toFixed(1);
-            }
+// Filter our selected records out
+function dataFilter(dataSet, filter) {
+    return _.filter(dataSet, function(el) { return filter.indexOf(el.id) !== -1; });
+}
+
+// strip to just numbers
+function dataStrip(dataSet, key) {
+    return _.filter(_.pluck(dataSet, key), function (el) {  return $.isNumeric(el); }).map(Number);
+}
+
+// sum a metric
+function dataSum(dataSet, key, filter) {
+    // apply filter if passed
+    if (typeof filter !== "undefined" && filter !== null) {
+       dataSet = dataFilter(dataSet, filter);
+    }
+
+    // reduce dataSet to numbers - no nulls
+    dataSet = dataStrip(dataSet, key);
+
+    if (dataSet.length > 0) {
+        // calculate
+        var total = dataSet.reduce(function(a, b) {
+            return a + b;
         });
-        return themean;
+        return total;
     } else {
-        return false;
+        return 'N/A';
     }
 }
 
+// average a metric
+function dataMean(dataSet, key, filter) {
+    // apply filter if passed
+    if (typeof filter !== "undefined" && filter !== null) {
+       dataSet = dataFilter(dataSet, filter);
+    }
 
-// ****************************************
-// Return aggregate metric mean (array)
-// ****************************************
-function aggregateMean(metric, raw) {
-    if (metric.length > 0 && raw.length > 0) {
-        var mean = {},
-            keys = Object.keys(metric[0]);
+    // reduce dataSet to numbers - no nulls
+    dataSet = dataStrip(dataSet, key);
 
-        _.each(keys, function(el, i){
-            if (i > 0) {
-                var numer = 0,
-                    denom = 0,
-                    isNumeric = false;
-                _.each(metric, function(d, i) {
-                    if ($.isNumeric(d[el])) { isNumeric = true; }
-                    if ($.isNumeric(d[el]) && $.isNumeric(raw[i][el]) && Number(d[el]) !== 0) {
-                        numer = numer + Number(raw[i][el]);
-                        denom = denom + (Number(raw[i][el]) / d[el]);
-                    }
-                });
-                if (denom === 0) { denom = 1; }
-                mean[el] = numer / denom;
-                if (!isNumeric) { mean[el] = "N/A"; }
-            }
+    if (dataSet.length > 0) {
+        // calculate
+        var total = dataSet.reduce(function(a, b) {
+            return a + b;
         });
-        return mean;
-    }
-    else {
-        return false;
+        return total / dataSet.length;
+    } else {
+        return 'N/A';
     }
 }
 
+// renormalize a metric
+function dataNormalize(dataNumerator, dataDenominator, key, filter) {
+    // apply filter if passed
+    if (typeof filter !== "undefined" && filter !== null) {
+        dataNumerator = dataFilter(dataNumerator, filter);
+        dataDenominator = dataFilter(dataDenominator, filter);
+    }
+
+    // reduce dataSet to numbers - no nulls
+    dataNumerator = dataStrip(dataNumerator, key);
+    dataDenominator = dataStrip(dataDenominator, key);
+
+    if (dataNumerator.length > 0 && dataDenominator.length > 0) {
+        // calculate
+        var totalNumerator = dataNumerator.reduce(function(a, b) {
+            return a + b;
+        });
+        var totalDenominator = dataDenominator.reduce(function(a, b) {
+            return a + b;
+        });
+        return totalNumerator / totalDenominator;
+    } else {
+        return 'N/A';
+    }
+}
+
+// decide which computation to run and run it
+function dataCrunch(key, filter) {
+    var theReturn;
+    if (typeof filter === "undefined") { filter = null; }
+
+    switch (metricConfig[model.metricId].type) {
+        case "sum":
+            theReturn = dataSum(model.metric, key, filter);
+            break;
+        case "mean":
+            theReturn = dataMean(model.metric, key, filter);
+            break;
+        case "normalize":
+            theReturn = dataNormalize(model.metricRaw, model.metricDenominator, key, filter);
+            break;
+    }
+    return theReturn;
+}
 
 
 // ****************************************
@@ -72,21 +112,6 @@ function median(values) {
     else {
         return (values[half-1] + values[half]) / 2.0;
     }
-}
-
-// ****************************************
-// Return the sum for total-able metrics
-// ****************************************
-function sum(values) {
-    var theSum = "N/A",
-        isNumeric = false;
-    _.each(values, function(el) {
-        if ($.isNumeric(el)) {
-            if (theSum === "N/A") { theSum = 0; }
-            theSum = theSum + Number(el);
-        }
-    });
-    return theSum;
 }
 
 
@@ -147,7 +172,7 @@ function getTrend(x1, x2) {
 }
 
 // ****************************************
-// Format metric data (see config.js)
+// Format metric data
 // ****************************************
 function dataRound(theValue, theDecimals) {
     return Number(theValue.toFixed(theDecimals));

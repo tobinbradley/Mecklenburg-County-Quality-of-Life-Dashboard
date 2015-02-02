@@ -21,7 +21,7 @@
 // ****************************************
 var theFilter = ["434","372","232"],   // default list of neighborhoods if none passed
     theData,                                // global for fetched raw data
-    dimensions = ['character', 'economy', 'education', 'engagement', 'environment', 'health', 'housing', 'safety', 'transportation'];
+    model = {};
 
 _.templateSettings.variable = "rc";
 
@@ -38,7 +38,7 @@ function createCharts() {
         var data = [];
         var selector = $(this).data("selector");
         _.each($(this).data('chart').split(','), function(el, i) {
-
+            dataTypeKey = el;
             data.push({
                 value: Number($(".data-" + el).data(selector)),
                 color: colors[i],
@@ -47,8 +47,10 @@ function createCharts() {
         });
         ctx = document.getElementById($(this).prop("id")).getContext("2d");
         var chart = new Chart(ctx).Doughnut(data, {
-            showTooltips: false,
-            legendTemplate : '<% for (var i=0; i<segments.length; i++){%><span style="border-color:<%=segments[i].fillColor%>" class="title"><%if(segments[i].label){%><%=segments[i].label%><%}%></span><%}%>'
+            showTooltips: true,
+            legendTemplate : '<% for (var i=0; i<segments.length; i++){%><span style="border-color:<%=segments[i].fillColor%>" class="title"><%if(segments[i].label){%><%=segments[i].label%><%}%></span><%}%>',
+            tooltipTemplate: "<%= dataPretty(value, '" + dataTypeKey + "') %>",
+            multiTooltipTemplate: "<%= dataPretty(value, '" + dataTypeKey + "') %>",
         });
         $("#" + $(this).prop("id") + "-legend").html(chart.generateLegend());
     });
@@ -90,9 +92,11 @@ function createCharts() {
 
         ctx = document.getElementById($(this).prop("id")).getContext("2d");
         var chart = new Chart(ctx).Bar(data, {
-            showTooltips: false,
+            showTooltips: true,
             legendTemplate : '<% for (var i=0; i<datasets.length; i++){%><span class="title"  style="border-color:<%=datasets[i].strokeColor%>"><%if(datasets[i].label){%><%=datasets[i].label%><%}%></span><%}%>',
-            scaleLabel: "<%= dataFormat(dataRound(Number(value), 2), '" + dataTypeKey + "') %>"
+            scaleLabel: "<%= dataFormat(dataRound(Number(value), 2), '" + dataTypeKey + "') %>",
+            tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= dataPretty(value, '" + dataTypeKey + "') %>",
+            multiTooltipTemplate: "<%= dataPretty(value, '" + dataTypeKey + "') %>",
         });
 
         $("#" + $(this).prop("id") + "-legend").html(chart.generateLegend());
@@ -101,10 +105,26 @@ function createCharts() {
 
     // line charts
     $(".chart-line").each(function() {
-        var metric = $(this).data("chart"),
-            npaMean = mean(_.filter(theData[metric], function(el) { return theFilter.indexOf(el.id.toString()) !== -1; })),
-            countyMean = mean(theData[metric]),
-            keys = Object.keys(theData[metric][0]);
+        var m = $(this).data("chart"),
+            npaMean = [],
+            countyMean = [];
+
+        setModel(m);
+        keys = getYear(m);
+
+        // County stat box
+        _.each(keys, function(year) {
+            countyMean.push(dataCrunch(year));
+            npaMean.push(dataCrunch(year, theFilter));
+            dataTypeKey = m;
+        });
+
+        // make sure selected stuff really has a value
+        _.each(npaMean, function(el) {
+            if (!$.isNumeric(el)) {
+                npaMean = null;
+            }
+        });
 
         var data = {
             labels: [],
@@ -128,23 +148,23 @@ function createCharts() {
             ]
         };
 
-        _.each(keys, function(el, i) {
-            if (i > 0) {
-                data.labels.push(el.replace("y_", ""));
-                data.datasets[1].data.push(countyMean[el]);
-                data.datasets[0].data.push(npaMean[el]);
-            }
+        _.each(countyMean, function(el, i) {
+            data.labels.push(keys[i].replace("y_", ""));
+            if (npaMean !== null) { data.datasets[0].data.push(Math.round(npaMean[i] * 10) / 10); }
+            data.datasets[1].data.push(Math.round(el * 10) / 10);
         });
 
-        if (!$.isNumeric(data.datasets[0].data[0])) {
-            data.datasets.shift();
-        }
+        // remove select mean if no values are there
+        if (!npaMean || npaMean === null) { data.datasets.shift(); }
+
 
         ctx = document.getElementById($(this).prop("id")).getContext("2d");
         var chart = new Chart(ctx).Line(data, {
-            showTooltips: false,
+            showTooltips: true,
             legendTemplate : '<% for (var i=0; i<datasets.length; i++){%><span class="title"  style="border-color:<%=datasets[i].strokeColor%>"><%if(datasets[i].label){%><%=datasets[i].label%><%}%></span><%}%>',
-            scaleLabel: "<%= dataFormat(dataRound(Number(value), 2), '" + metric + "') %>"
+            scaleLabel: "<%= dataFormat(dataRound(Number(value), 2), '" + m + "') %>",
+            tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= dataPretty(value, '" + dataTypeKey + "') %>",
+            multiTooltipTemplate: "<%= dataPretty(value, '" + dataTypeKey + "') %>",
         });
 
         if ($("#" + $(this).prop("id") + "-legend").length > 0) {
@@ -154,82 +174,88 @@ function createCharts() {
 }
 
 
+function getYear(m) {
+    switch(metricConfig[m].type) {
+        case 'sum': case 'normalize':
+            return _.without(_.keys(theData['r' + metricConfig[m].metric][0]), 'id');
+            break;
+        case 'mean':
+            return _.without(_.keys(theData['n' + metricConfig[m].metric][0]), 'id');
+            break;
+    }
+}
+
+function setModel(m) {
+    model.metricId = m;
+    switch(metricConfig[m].type) {
+        case 'sum':
+            model.metric = theData['r' + metricConfig[m].metric];
+            break;
+        case 'mean':
+            model.metric = theData['n' + metricConfig[m].metric];
+            break;
+        case 'normalize':
+            model.metricRaw = theData['r' + metricConfig[m].metric];
+            model.metricDenominator = theData['d' + metricConfig[m].metric];
+            break;
+    }
+}
+
 // ****************************************
 // Create the metric blocks and table values
 // ****************************************
 function createData() {
-    var template = _.template($("script.template-row").html());
+    var template = _.template($("script.template-row").html()),
+        categories = _.uniq(_.pluck(metricConfig, 'category'));
 
-    _.each(dimensions, function(dim) {
-        var theTable = $(".table-" + dim + " tbody");
-        var theMetrics = _.filter(metricConfig, function(el) { return el.category.toLowerCase() === dim; });
+    _.each(categories, function(dim) {
+        var theTable = $(".table-" + dim.toLowerCase() + " tbody");
+        var theMetrics = _.filter(metricConfig, function(el) { return el.category.toLowerCase() === dim.toLowerCase(); });
 
         _.each(theMetrics, function(val) {
-            if (theData[val.metric]) {
+                var m = 'm' + val.metric;
+                setModel(m);
+
                 var tdata = {
-                    "id": val.metric,
+                    "id": m,
                     "year": "",
                     "selectedVal": "",
                     "selectedRaw": "",
+                    "selectedNVal": "",
                     "countyVal": "",
-                    "countyRaw": ""
+                    "countyRaw": "",
+                    "countyNVal": ""
                 };
 
-                var selectedRecords = _.filter(theData[val.metric], function(d) { return theFilter.indexOf(d.id.toString()) !== -1; });
-                var selectedRaw = _.filter(theData[val.raw], function(d) { return theFilter.indexOf(d.id.toString()) !== -1; });
-                var keys = Object.keys(theData[val.metric][0]);
+                var keys = getYear(m);
 
-                // name
-                tdata.year = keys[keys.length -1].replace('y_', '');
+                // year
+                var year = keys[keys.length - 1];
+                tdata.year = year.replace('y_', '');
 
-                // selected value
-                if (metricIsRaw.indexOf(val.metric) !== -1) {
-                    tdata.selectedVal = sum(_.map(selectedRecords, function(num){ return num[keys[keys.length -1]]; }));
-                } else {
-                    theAgg = aggregateMean(selectedRecords, selectedRaw);
-                    tdata.selectedVal = theAgg[keys[keys.length -1]];
-                    if (metricConfig[val.metric].summable && tdata.selectedVal !== "N/A") {
-                        tdata.selectedRaw = sum(_.map(selectedRaw, function(num){ return num[keys[keys.length -1]]; }));
-                    } else {
-                        tdata.selectedRaw = "N/A";
-                    }
-                }
-
-
-                // county value
-                if (metricIsRaw.indexOf(val.metric) !== -1) {
-                    tdata.countyVal = sum(_.map(theData[val.metric], function(num){ return num[keys[keys.length -1]]; }));
-                } else {
-                    theAgg = aggregateMean(theData[val.metric], theData[val.raw]);
-                    tdata.countyVal = theAgg[keys[keys.length -1]];
-                    if (metricConfig[val.metric].summable) {
-                        tdata.countyRaw = sum(_.map(theData[val.raw], function(num){ return num[keys[keys.length -1]]; }));
-                    }
+                // Stats
+                tdata.countyNVal = dataCrunch(year);
+                tdata.countyVal = dataPretty(tdata.countyNVal, m);
+                tdata.selectedNVal = dataCrunch(year, theFilter);
+                tdata.selectedVal = dataPretty(tdata.selectedNVal, m);
+                if (metricConfig[m].raw_label) {
+                    tdata.countyRaw = '<br>' + dataSum(model.metricRaw, year).toFixed(0).commafy();
+                    tdata.selectedRaw = '<br>' + dataSum(model.metricRaw, year, theFilter).toFixed(0).commafy();
                 }
 
                 // front page
-                if ($('[data-metric="' + val.metric + '"]').length > 0) {
-                    $('[data-metric="' + val.metric + '"]').text(dataPretty(tdata.selectedVal, val.metric));
+                if ($('[data-metric="' + m + '"]').length > 0) {
+                    $('[data-metric="' + m + '"]').text(tdata.selectedVal);
+                }
+                if ($('[data-metric="r' + val.metric + '"]').length > 0) {
+                    $('[data-metric="r' + val.metric + '"]').text(tdata.selectedRaw.replace('<br>', ''));
                 }
 
                 // Write out stuff
                 theTable.append(template(tdata));
 
-            }
         });
 
-    });
-}
-
-function createBlocks() {
-    $(".metric-box h3").each(function() {
-        var m = $(this).data("metric");
-        if (m.indexOf("r") !== -1) {
-            var keys = Object.keys(theData[m][0]);
-            var selectedRecords = _.filter(theData[m], function(d) { return theFilter.indexOf(d.id.toString()) !== -1; });
-            var theVal = sum(_.filter(_.map(selectedRecords, function(num){ return num[keys[keys.length -1]]; }), function(el) { return $.isNumeric(el); }));
-            $(this).html(dataPretty(theVal, null));
-        }
     });
 }
 
@@ -241,19 +267,26 @@ function createBlocks() {
 function createMap(data){
     // set up map
     L.Icon.Default.imagePath = './images';
-    var map = L.map("map", {
+    var smallMap = L.map("smallmap", {
             attributionControl: false,
             zoomControl: false,
-            touchZoom: false,
-            minZoom: mapGeography.minZoom,
-            maxZoom: mapGeography.maxZoom
+            touchZoom: false
+        }).setView(mapGeography.center, mapGeography.defaultZoom - 1);
+    var largeMap = L.map("largemap", {
+            attributionControl: false,
+            zoomControl: false,
+            touchZoom: false
         });
 
     // Disable drag and zoom handlers.
-    map.dragging.disable();
-    map.touchZoom.disable();
-    map.doubleClickZoom.disable();
-    map.scrollWheelZoom.disable();
+    smallMap.dragging.disable();
+    smallMap.touchZoom.disable();
+    smallMap.doubleClickZoom.disable();
+    smallMap.scrollWheelZoom.disable();
+    largeMap.dragging.disable();
+    largeMap.touchZoom.disable();
+    largeMap.doubleClickZoom.disable();
+    largeMap.scrollWheelZoom.disable();
 
     // add data filtering by passed neighborhood id's
     var geom = L.geoJson(topojson.feature(data, data.objects[neighborhoods]), {
@@ -271,15 +304,28 @@ function createMap(data){
             label = new L.Label();
             label.setContent(feature.id.toString());
             label.setLatLng(pt);
-            map.showLabel(label);
+            largeMap.showLabel(label);
         }
-    }).addTo(map);
+    }).addTo(largeMap);
 
-    // zoom to data
-    map.fitBounds(geom.getBounds());
+    var geom = L.geoJson(topojson.feature(data, data.objects[neighborhoods]), {
+        style: {
+            "color": "#FFA400",
+            "fillColor": "#FFA400",
+            "weight": 2,
+            "opacity": 1
+        },
+        filter: function(feature, layer) {
+            return theFilter.indexOf(feature.id.toString()) !== -1;
+        }
+    }).addTo(smallMap);
+
+    // zoom large map
+    largeMap.fitBounds(geom.getBounds());
 
     // add base tiles at the end so no extra image grabs
-    L.tileLayer(baseTilesURL).addTo(map);
+    L.tileLayer(baseTilesURL).addTo(largeMap);
+    L.tileLayer(baseTilesURL).addTo(smallMap);
 }
 
 
@@ -310,7 +356,6 @@ $(document).ready(function() {
     $.get("data/merge.json", function(data) {
         theData = data;
         createData();
-        createBlocks();
         createCharts();
     });
 

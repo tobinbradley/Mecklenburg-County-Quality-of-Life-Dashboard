@@ -2,10 +2,10 @@
 // Process the new metric (slider/time, data extent and quantiles)
 // *************************************************
 function processMetric() {
-    var keys = Object.keys(model.metric[0]);
+    var keys = _.without(_.keys(model.metric[0]), "id");
 
     // hide or show year related stuff
-    if (keys.length > 2) {
+    if (keys.length > 1) {
         $(".temporal").show();
     } else {
         $(".temporal").hide();
@@ -13,30 +13,28 @@ function processMetric() {
 
     // set slider and time related stuff
     $('.slider label').remove();
-    $(".slider").slider("option", "max", keys.length - 2).each(function() {
+    $(".slider").slider("option", "max", keys.length - 1).each(function() {
         var vals = $(this).slider("option", "max") - $(this).slider("option", "min");
         for (var i = 0; i <= vals; i++) {
             // Create a new element and position it with percentages
-            var el = $('<label>' + keys[i + 1].replace("y_", "") + '</label>').css('left', (i/vals*100) + '%');
+            var el = $('<label>' + keys[i].replace("y_", "") + '</label>').css('left', (i/vals*100) + '%');
             // Add the element inside #slider
             $(this).append(el);
         }
     });
     $(".slider").slider("value", $(".slider").slider("option", "max"));
-    model.year = keys.length - 2;
+    model.year = keys.length - 1;
+    model.years = keys;
 
-    $('.time-year').text(keys[model.year + 1].replace("y_", ""));
+    $('.time-year').text(keys[model.year].replace("y_", ""));
 
     // determine number of decimals to show
-    var lastYear = Object.keys(model.metric[0])[model.year + 1];
+    var lastYear = Object.keys(model.metric[0])[model.year];
 
     // Set up data extent
     var theVals = [];
     _.each(keys, function(key, i) {
-        if (i > 0) {
-            var theMap = _.map(model.metric, function(num){ if ($.isNumeric(num[key])) { return Number(num[key]); } });
-            theVals = theVals.concat(theMap);
-        }
+        theVals = theVals.concat(dataStrip(model.metric, key));
     });
     x_extent = d3.extent(theVals);
 
@@ -86,9 +84,9 @@ function quantizeCount(data) {
 // ****************************************
 function drawTable() {
     var template = _.template($("script.template-table").html()),
-        theSelected = _.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }),
-        theAccuracy = _.filter(model.metricAccuracy, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }),
-        theRaw = _.filter(model.metricRaw, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }),
+        theSelected = dataFilter(model.metric, model.selected),
+        theAccuracy = dataFilter(model.metricAccuracy, model.selected),
+        theRaw = dataFilter(model.metricRaw, model.selected),
         keys = Object.keys(model.metric[0]);
 
     $(".datatable-container").html(template({
@@ -101,37 +99,14 @@ function drawTable() {
 
 // ****************************************
 // Update stat boxes for study area and selected
-//
-// This has turned into a jumbled pile of yuck, so some
-// explaining on the logic is in order.
-//
-// Basically there are two numbers to get ahold of: the
-// main stat and the raw stat.
-//
-// The main stat is either summed, averaged, or aggregate
-// averaged.
-//
-// The main stat first checks to see if it's in the summable
-// list. If so it gets summed. If it isn't in the summable list
-// it checks to see if it has a raw metric associated with it (i.e.
-// the metric id starts with a "m"). If so it does an aggregate
-// calculation. If there is no raw number associated with it, it does
-// an arithmetic average.
-//
-// If there is a raw number, it checks to see if the raw number is
-// summable. If it isn't, that means we aren't showing it. If it is,
-// it gets summed.
-//
-// We're also setting the units to be displayed, if any, and the median.
-//
-// On a related note, I'm in the market for a gun. Nothing fancy.
-// I only need to use it just the once.
+// Stat boxes are those two suckers sitting above the charts
 // ****************************************
 function updateStats() {
     var m = model.metricId,
         keys = Object.keys(model.metric[0]),
         theStat,
         params = {},
+        year = model.years[model.year],
         template = _.template($("script.template-statbox").html());
 
     // median
@@ -144,21 +119,11 @@ function updateStats() {
 
     // County stat box
     params.topText = "COUNTY";
-    // main number
-    if (metricIsRaw.indexOf(m) !== -1) {
-        // sum
-        theStat = sum(_.map(model.metric, function(num){ return num[keys[model.year + 1]]; }));
-        params.mainNumber = dataPretty(theStat, m);
-    }
-    else if (hasRaw(m)) {
-        // aggregate
-        theStat = aggregateMean(model.metric, model.metricRaw);
-        params.mainNumber = dataPretty(theStat[keys[model.year + 1]], m);
-    }
-
+    theStat = dataCrunch(year);
+    params.mainNumber = dataPretty(theStat, m);
     // raw number
-    if (hasRaw(m) && metricConfig[model.metricId].summable) {
-        params.rawTotal = sum(_.map(model.metricRaw, function(num){ return num[keys[model.year + 1]]; })).toFixed(0).commafy();
+    if (metricConfig[model.metricId].raw_label) {
+        params.rawTotal = dataSum(model.metricRaw, year).toFixed(0).commafy();
     }
     // write out stat box
     $(".stat-box-county").html(template(params));
@@ -167,27 +132,14 @@ function updateStats() {
     // Selected NPAs
     params.topText = 'SELECTED <a href="javascript:void(0)" tabindex="0" class="meta-definition" data-toggle="popover" data-title="Neighborhood Profile Area" data-content="Neighborhood Profile Areas (NPAs) are geographic areas used for the organization and presentation of data in the Quality of Life Study. The boundaries were developed with community input and are based on one or more Census block groups.">NPAs</a>';
     // main number
-    if (metricIsRaw.indexOf(m) !== -1) {
-        // sum
-        params.mainNumber = dataPretty(sum(_.pluck(_.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }), keys[model.year + 1])), m);
-    }
-    else if (hasRaw(m)) {
-        // aggregate
-        theStat = aggregateMean(_.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }),
-            _.filter(model.metricRaw, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }));
-        params.mainNumber = dataPretty(theStat[keys[model.year + 1]], m);
-    }
-
+    theStat = dataCrunch(year, model.selected);
+    params.mainNumber = dataPretty(theStat, m);
     // raw number
-    if (hasRaw(m) && metricConfig[m].summable) {
-        params.rawTotal = sum(_.pluck(_.filter(model.metricRaw, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }), keys[model.year + 1]));
-        if ($.isNumeric(params.rawTotal)) { params.rawTotal = params.rawTotal.toFixed(0).commafy(); }
+    if (metricConfig[model.metricId].raw_label) {
+        params.rawTotal = dataSum(model.metricRaw, year, model.selected).toFixed(0).commafy();
     }
-
-
     // write out stat box
     $(".stat-box-neighborhood").html(template(params));
-
 
 }
 
@@ -228,25 +180,6 @@ $(document).on({
     }
 }, '.metric-hover');
 
-
-// ****************************************
-// Return whether raw exists based on filename
-// If it's rX, no raw, if mX, there is one.
-// ****************************************
-function hasRaw(m) {
-    if (m.indexOf("m") !== -1) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-// ****************************************
-// Get the raw number for a metric
-// ****************************************
-function getRaw(m) {
-    return "r" + m.match(/\d+/)[0];
-}
 
 // ****************************************
 // Get the year

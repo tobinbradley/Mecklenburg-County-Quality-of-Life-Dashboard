@@ -11,6 +11,7 @@ var gulp = require('gulp'),
     replace = require('gulp-replace'),
     jsoncombine = require("gulp-jsoncombine"),
     fs = require('fs'),
+    path = require('path'),
     config = require('./src/scripts/config.js');
 
 
@@ -167,6 +168,20 @@ gulp.task('initSearch', function() {
             });
         }
   });
+});
+
+// clean folders
+gulp.task('clean', function() {
+    fs.readdirSync("./dist/data/meta").forEach(function(fileName) {
+        if (path.extname(fileName) === ".html") {
+            fs.unlinkSync("./dist/data/meta/" + fileName);
+        }
+    });
+    fs.readdirSync("./dist/data/metric").forEach(function(fileName) {
+        if (path.extname(fileName) === ".json") {
+            fs.unlinkSync("./dist/data/metric/" + fileName);
+        }
+    });
 });
 
 

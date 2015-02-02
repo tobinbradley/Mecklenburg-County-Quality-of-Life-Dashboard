@@ -222,9 +222,9 @@
                             data-content="Margin of error (MOE) is an indicator of reliability for data that comes from the American Community Survey (ACS). The ACS is mailed to only a small percentage of households, and because not all households are surveyed, the data are only estimates.">
                             MOE<% } %></th>
                     <th class="text-center"><% if (rc.keys.length > 2) { %>Change<br><%= getYear(rc.keys[1]) + "-" + getYear(rc.keys[rc.keys.length - 1]) %><% } %></th>
-                    <th class="text-right"><% if (hasRaw(m) && metricConfig[m].summable) { %>Number<% } %></th>
+                    <th class="text-right"><% if (metricConfig[m].raw_label) { %>Number<% } %></th>
                     <th class="text-left"></th>
-                    <th class="text-center"><% if (rc.keys.length > 2 && metricConfig[m].summable) { %>Change<br><%= getYear(rc.keys[1]) + "-" + getYear(rc.keys[rc.keys.length - 1]) %><% } %></th>
+                    <th class="text-center"><% if (rc.keys.length > 2 && metricConfig[m].raw_label) { %>Change<br><%= getYear(rc.keys[1]) + "-" + getYear(rc.keys[rc.keys.length - 1]) %><% } %></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -236,9 +236,9 @@
                         <td class="text-left"><%= nullCheck(metricConfig[m].label) %></td>
                         <td class="text-center"><% if (metricConfig[m].accuracy) { %>&#177;<%= dataPretty(rc.theAccuracy[i][rc.keys[model.year + 1]], m) %><% } %></td>
                         <td class="text-center"><% if (rc.keys.length > 2) { %><%= getTrend(d[rc.keys[rc.keys.length - 1]], d[rc.keys[1]]) %><% } %></td>
-                        <td class="text-right table-raw-boundary"><% if (hasRaw(m) && metricConfig[m].summable) { %><%= dataPretty(rc.theRaw[i][rc.keys[model.year + 1]], null) %><% } %></td>
+                        <td class="text-right table-raw-boundary"><% if (metricConfig[m].raw_label) { %><%= dataPretty(rc.theRaw[i][rc.keys[model.year + 1]], null) %><% } %></td>
                         <td class="text-left"><%= nullCheck(metricConfig[m].raw_label) %></td>
-                        <td class="text-center"><% if (rc.keys.length > 2 && hasRaw(m) && metricConfig[m].summable) { %><%= getTrend(rc.theRaw[i][rc.keys[rc.keys.length - 1]], rc.theRaw[i][rc.keys[1]]) %><% } %></td>
+                        <td class="text-center"><% if (rc.keys.length > 2 && metricConfig[m].raw_label) { %><%= getTrend(rc.theRaw[i][rc.keys[rc.keys.length - 1]], rc.theRaw[i][rc.keys[1]]) %><% } %></td>
                     </tr>
                 <% }); %>
                 </tbody>

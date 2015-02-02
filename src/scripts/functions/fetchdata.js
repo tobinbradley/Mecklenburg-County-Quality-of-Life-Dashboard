@@ -9,8 +9,20 @@ function fetchAccuracy(m) {
     else { return [[]]; }
 }
 function fetchRaw(m) {
-    if (hasRaw(m)) {
-        return $.get("data/metric/" + getRaw(m) + ".json");
+    if (metricConfig[m].raw_label || metricConfig[m].type === "normalize" || metricConfig[m].type === "sum") {
+        return $.get("data/metric/r" + metricConfig[m].metric + ".json");
+    }
+    else { return [[]]; }
+}
+function fetchDenominator(m) {
+    if (metricConfig[m].type === "normalize") {
+        return $.get("data/metric/d" + metricConfig[m].metric + ".json");
+    }
+    else { return [[]]; }
+}
+function fetchNormalized(m) {
+    if (metricConfig[m].type === "mean") {
+        return $.get("data/metric/n" + metricConfig[m].metric + ".json");
     }
     else { return [[]]; }
 }
@@ -20,25 +32,52 @@ function fetchGeometry() {
     }
     else { return [[]]; }
 }
+
+
 function fetchMetricData(m) {
-    $.when(
-        $.get("data/metric/" + m + ".json"),
-        fetchGeometry(),
-        fetchAccuracy(m),
-        fetchRaw(m)
-    ).then(function(metric, geom, accuracy, raw) {
+    // flush
+    model.metricAccuracy = [];
+    model.metricRaw = [];
+    model.denominator = [];
 
-        // set the raw stuff
-        model.metricAccuracy = accuracy[0];
-        model.metricRaw = raw[0];
+    // fetch data based on metric
+    switch (metricConfig[m].type) {
+        case "sum":
+            $.when(
+                fetchGeometry(),
+                fetchAccuracy(m),
+                fetchRaw(m)
+            ).then(function(geom, accuracy, raw) {
+                if (geom[0].type) { model.geom = geom[0]; }
+                model.metricAccuracy = accuracy[0];
+                model.metric = raw[0];
+            });
+            break;
+        case "normalize":
+            $.when(
+                fetchGeometry(),
+                fetchAccuracy(m),
+                fetchRaw(m),
+                fetchDenominator(m)
+            ).then(function(geom, accuracy, raw, denominator) {
+                if (geom[0].type) { model.geom = geom[0]; }
+                model.metricAccuracy = accuracy[0];
+                model.metricRaw = raw[0];
+                model.metricDenominator = denominator[0];
 
-        // set the geometry if it's there
-        if (geom[0].type) {
-            model.geom = geom[0];
-        }
+                var calcMetric = $.extend(true, {}, model.metricRaw);
+                var keys = _.without(_.keys(model.metricRaw[0]), "id");
 
-        // update the metric
-        model.metric = metric[0];
+                 _.each(calcMetric, function(theval, i) {
+                    _.each(keys, function(key) {
+                        theRaw = model.metricRaw[i][key];
+                        theDemoninator = model.metricDenominator[i][key];
+                        theval[key] = theRaw / theDemoninator;
+                    });
+                });
 
-    });
+                model.metric = calcMetric;
+            });
+            break;
+    }
 }
