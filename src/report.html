@@ -20,7 +20,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Stylesheets -->
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:700,400' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/report.css?foo={{cachebuster}}">
 
     <!-- Favicon -->
@@ -66,7 +65,7 @@
                     </p>
                 </div>
                 <div class="col-xs-6 text-right">
-                    <div id="map" class="pull-right"></div>
+                    <div id="smallmap" class="pull-right"></div>
                 </div>
             </div>
             <div class="row">
@@ -130,6 +129,15 @@
             </div>
         </div>
 
+        <!-- Large Map -->
+        <div class="page page-category">
+            <div class="row text-center">
+                <!-- <div style="border: 1px solid black; margin: 20px"> -->
+                    <div id="largemap"></div>
+                <!-- </div> -->
+            </div>
+
+        </div>
 
         <!-- Character -->
         <div class="page page-category">
@@ -428,19 +436,17 @@
             (<%= rc.year %>)
           </td>
           <!-- Selected Value -->
-          <td class='text-right data-<%= rc.id %> report-column-selected' data-selected-val="<%= rc.selectedVal %>" data-county-val="<%= rc.countyVal %>">
-              <%= dataPretty(rc.selectedVal, rc.id).trim() %><% if (metricConfig[rc.id].summable && metricIsRaw.indexOf(rc.id) === -1) { %><br><%= dataPretty(rc.selectedRaw, null) %>
-              <% } %>
+          <td class='text-right data-<%= rc.id %> report-column-selected' data-selected-val="<%= rc.selectedNVal %>" data-county-val="<%= rc.countyNVal %>">
+              <%= rc.selectedVal %><%= rc.selectedRaw %>
           </td>
           <!-- County Value -->
           <td class='text-right report-column-county'>
-              <%= dataPretty(rc.countyVal, rc.id) %><% if (metricConfig[rc.id].summable && metricIsRaw.indexOf(rc.id) === -1) { %><br> <%= dataPretty(rc.countyRaw, null) %>
-              <% } %>
+              <%= rc.countyVal %><%= rc.countyRaw %>
           </td>
           <!-- Units -->
           <td class='text-left report-units'>
               <%= metricConfig[rc.id].label %>
-              <% if (metricConfig[rc.id].summable && metricIsRaw.indexOf(rc.id) === -1) { %>
+              <% if (metricConfig[rc.id].raw_label) { %>
                   <br><%= metricConfig[rc.id].raw_label %>
               <% } %>
           </td>

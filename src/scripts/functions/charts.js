@@ -2,19 +2,15 @@
 // Line chart (trend) in chart.js
 // ****************************************
 function lineChartData() {
-    var npaMean,
-        countyMean,
-        keys = Object.keys(model.metric[0]);
+    var npaMean = [],
+        countyMean = [],
+        keys = _.without(_.keys(model.metric[0]), "id");
 
     // County stat box
-    if (hasRaw(model.metricId)) {
-        countyMean = aggregateMean(model.metric, model.metricRaw);
-        npaMean = aggregateMean(_.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }),
-            _.filter(model.metricRaw, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }));
-    } else {
-        countyMean = mean(model.metric);
-        npaMean = mean(_.filter(model.metric, function(el) { return model.selected.indexOf(el.id.toString()) !== -1; }));
-    }
+    _.each(model.years, function(year) {
+        countyMean.push(dataCrunch(year));
+        npaMean.push(dataCrunch(year, model.selected));
+    });
 
     // make sure selected stuff really has a value
     _.each(npaMean, function(el) {
@@ -22,8 +18,6 @@ function lineChartData() {
             npaMean = null;
         }
     });
-
-
 
     var data = {
         labels: [],
@@ -51,12 +45,10 @@ function lineChartData() {
         ]
     };
 
-    _.each(keys, function(el, i) {
-        if (i > 0) {
-            data.labels.push(el.replace("y_", ""));
-            if (npaMean !== null) { data.datasets[0].data.push(Math.round(npaMean[el] * 10) / 10); }
-            data.datasets[1].data.push(Math.round(countyMean[el] * 10) / 10);
-        }
+    _.each(countyMean, function(el, i) {
+        data.labels.push(model.years[i].replace("y_", ""));
+        if (npaMean !== null) { data.datasets[0].data.push(Math.round(npaMean[i] * 10) / 10); }
+        data.datasets[1].data.push(Math.round(el * 10) / 10);
     });
 
     // remove select mean if no values are there
@@ -66,8 +58,7 @@ function lineChartData() {
 }
 
 function lineChartCreate() {
-    var keys = Object.keys(model.metric[0]);
-    if (keys.length > 2) {
+    if (model.years.length > 1) {
         if (window.myLine) { window.myLine.destroy(); }
         var ctx = document.getElementById("lineChart").getContext("2d");
         window.myLine = new Chart(ctx).Line(lineChartData(), {
@@ -99,7 +90,6 @@ function barChart() {
     function my() {
         var keys = Object.keys(model.metric[0]),
             data = quantizeCount(_.map(model.metric, function(num) { if ($.isNumeric(num[keys[model.year + 1]])) { return Number(num[keys[model.year + 1]]); } })),
-            countyMean = mean(model.metric)[keys[model.year + 1]],
             countyMedian = median(_.map(model.metric, function(num){ if ($.isNumeric(num[keys[model.year + 1]])) { return Number(num[keys[model.year + 1]]); } })),
             qtiles = quantize.quantiles(),
             theMetric = $("#metric").val(),
