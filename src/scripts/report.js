@@ -240,7 +240,9 @@ function createData() {
                 tdata.selectedVal = dataPretty(tdata.selectedNVal, m);
                 if (metricConfig[m].raw_label) {
                     tdata.countyRaw = '<br>' + dataSum(model.metricRaw, year).toFixed(0).commafy();
-                    tdata.selectedRaw = '<br>' + dataSum(model.metricRaw, year, theFilter).toFixed(0).commafy();
+                    theStat = dataSum(model.metricRaw, year, theFilter);
+                    if ($.isNumeric(theStat)) { theStat = theStat.toFixed(0).commafy(); }
+                    tdata.selectedRaw = '<br>' + theStat;
                 }
 
                 // front page
@@ -345,7 +347,7 @@ $(document).ready(function() {
     }
 
     // populate the neighborhoods list on the first page
-    $(".neighborhoods").text("NPA " + theFilter.join(", "));
+    $(".neighborhoods").text(neighborhoodDescriptor + " " + theFilter.join(", "));
 
     // fetch map data and make map
     $.get("data/geography.topo.json", function(data) {

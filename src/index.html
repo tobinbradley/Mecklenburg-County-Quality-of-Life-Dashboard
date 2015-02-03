@@ -213,12 +213,12 @@
             <table class="table table-condensed">
                 <thead>
                   <tr>
-                    <th class="text-center"><a href="javascript:void(0)" tabindex="0" class="meta-definition" data-toggle="popover" data-title="Neighborhood Profile Area"
-                        data-content="Neighborhood Profile Areas (NPAs) are geographic areas used for the organization and presentation of data in the Quality of Life Study. The boundaries were developed with community input and are based on one or more Census block groups.">
+                    <th class="text-center"><a href="javascript:void(0)" tabindex="0" class="meta-definition" data-toggle="popover"
+                        data-content="<%= neighborhoodDefinition %>">
                         {{neighborhoodDescriptor}}</a></th>
                     <th class="text-right">Value</th>
                     <th class="text-left"></th>
-                    <th class="text-center"><% if (metricConfig[model.metricId].accuracy) { %><a href="javascript:void(0)" tabindex="0" class="meta-definition" data-toggle="popover" data-title="Margin of Error"
+                    <th class="text-center"><% if (metricConfig[model.metricId].accuracy) { %><a href="javascript:void(0)" tabindex="0" class="meta-definition" data-toggle="popover" 
                             data-content="Margin of error (MOE) is an indicator of reliability for data that comes from the American Community Survey (ACS). The ACS is mailed to only a small percentage of households, and because not all households are surveyed, the data are only estimates.">
                             MOE<% } %></th>
                     <th class="text-center"><% if (rc.keys.length > 2) { %>Change<br><%= getYear(rc.keys[1]) + "-" + getYear(rc.keys[rc.keys.length - 1]) %><% } %></th>
