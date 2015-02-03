@@ -6,7 +6,7 @@ function lineChartData() {
         countyMean = [],
         keys = _.without(_.keys(model.metric[0]), "id");
 
-    // County stat box
+    // get stats
     _.each(model.years, function(year) {
         countyMean.push(dataCrunch(year));
         npaMean.push(dataCrunch(year, model.selected));
@@ -23,7 +23,7 @@ function lineChartData() {
         labels: [],
         datasets: [
             {
-                label: 'Selected <a href="javascript:void(0)" tabindex="0" class="meta-definition" data-toggle="popover" data-title="Neighborhood Profile Area" data-content="Neighborhood Profile Areas (NPAs) are geographic areas used for the organization and presentation of data in the Quality of Life Study. The boundaries were developed with community input and are based on one or more Census block groups.">NPAs</a>',
+                label: 'Selected <a href="javascript:void(0)" tabindex="0" class="meta-definition" data-toggle="popover" data-content="' + neighborhoodDefinition + '">' + neighborhoodDescriptor + 's</a>',
                 fillColor : "rgba(255,164,0,0.2)",
                 strokeColor : "rgba(255,164,0,1)",
                 pointColor : "rgba(255,164,0,1)",
