@@ -1,6 +1,6 @@
 // ****************************************
-// Fetch metric data, grabbing extra stuff like raw data
-// if it's available.
+// Fetch metric data.
+// Depending on the metric, different files may be fetched.
 // ****************************************
 function fetchAccuracy(m) {
     if (metricConfig[m].accuracy) {
@@ -51,6 +51,17 @@ function fetchMetricData(m) {
                 if (geom[0].type) { model.geom = geom[0]; }
                 model.metricAccuracy = accuracy[0];
                 model.metric = raw[0];
+            });
+            break;
+        case "mean":
+            $.when(
+                fetchGeometry(),
+                fetchNormalized(m),
+                fetchRaw(m)
+            ).then(function(geom, accuracy, normalized) {
+                if (geom[0].type) { model.geom = geom[0]; }
+                model.metricAccuracy = accuracy[0];
+                model.metric = normalized[0];
             });
             break;
         case "normalize":

@@ -1,14 +1,4 @@
 // ****************************************
-// The one model of Sauron. Change this and Frodo dies.
-// ****************************************
-var model = {
-    "selected": [],
-    "metricAccuracy": [],
-    "metricRaw": []
-};
-
-
-// ****************************************
 // Execute model changes
 // ****************************************
 function modelChanges(changes) {

@@ -1,35 +1,32 @@
 // *************************************************
-// Process the new metric (slider/time, data extent and quantiles)
+// Process the new metric (slider/time, data extent and quantiles, set year values)
 // *************************************************
 function processMetric() {
     var keys = _.without(_.keys(model.metric[0]), "id");
 
+    model.year = keys.length - 1;
+    model.years = keys;
+    $('.time-year').text(keys[model.year].replace("y_", ""));
+
     // hide or show year related stuff
-    if (keys.length > 1) {
+    if (model.years.length > 1) {
         $(".temporal").show();
+        // set slider and time related stuff
+        $('.slider label').remove();
+        $(".slider").slider("option", "max", keys.length - 1).each(function() {
+            var vals = $(this).slider("option", "max") - $(this).slider("option", "min");
+            for (var i = 0; i <= vals; i++) {
+                // Create a new element and position it with percentages
+                var el = $('<label>' + keys[i].replace("y_", "") + '</label>').css('left', (i/vals*100) + '%');
+                // Add the element inside #slider
+                $(this).append(el);
+            }
+        });
+        $(".slider").slider("value", $(".slider").slider("option", "max"));
     } else {
         $(".temporal").hide();
     }
 
-    // set slider and time related stuff
-    $('.slider label').remove();
-    $(".slider").slider("option", "max", keys.length - 1).each(function() {
-        var vals = $(this).slider("option", "max") - $(this).slider("option", "min");
-        for (var i = 0; i <= vals; i++) {
-            // Create a new element and position it with percentages
-            var el = $('<label>' + keys[i].replace("y_", "") + '</label>').css('left', (i/vals*100) + '%');
-            // Add the element inside #slider
-            $(this).append(el);
-        }
-    });
-    $(".slider").slider("value", $(".slider").slider("option", "max"));
-    model.year = keys.length - 1;
-    model.years = keys;
-
-    $('.time-year').text(keys[model.year].replace("y_", ""));
-
-    // determine number of decimals to show
-    var lastYear = Object.keys(model.metric[0])[model.year];
 
     // Set up data extent
     var theVals = [];
@@ -136,7 +133,9 @@ function updateStats() {
     params.mainNumber = dataPretty(theStat, m);
     // raw number
     if (metricConfig[model.metricId].raw_label) {
-        params.rawTotal = dataSum(model.metricRaw, year, model.selected).toFixed(0).commafy();
+        theStat = dataSum(model.metricRaw, year, model.selected);
+        if ($.isNumeric(theStat)) { theStat = theStat.toFixed(0).commafy(); }
+        params.rawTotal = theStat;
     }
     // write out stat box
     $(".stat-box-neighborhood").html(template(params));
@@ -179,11 +178,3 @@ $(document).on({
         removeHighlight($(this));
     }
 }, '.metric-hover');
-
-
-// ****************************************
-// Get the year
-// ****************************************
-function getYear(y) {
-    return y.replace("y_","");
-}

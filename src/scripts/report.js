@@ -2,33 +2,62 @@
 //
 // The idea was this would be a print page, because try as I might I can't convince
 // people that burning your screen into pressed tree pulp in 2014 is a bad idea.
-// But I figured if I could format it well for printing and display so it could be a
+// But I figured I could format it well for printing and display so it could be a
 // "nice feature".
 //
-// Because there isn't interactivity and I need all of the data, I'm loading the full
-// montey and not doing any fancy PubSub or other design patterns.
+// Because it's very printer/designer-y, it's mostly hard coded to our data.
+// Sorry - I can't figure out a generic way to do what we wanted.
 //
-// Also, because it's very printer/designer-y, it's mostly hard coded to our data.
-// Sorry - I can't figure out a generic way to do what we wanted. Still, it isn't
-// hard. Directions to come (maybe).
-//
-// Imagine my face while coding up a print page.
+// Imagine my face while coding up a print page. IMAGINE MY FACE.
 
 
 
 // ****************************************
 // Globals
 // ****************************************
-var theFilter = ["434","372","232"],   // default list of neighborhoods if none passed
+var theFilter = ["434","372","232"],        // default list of neighborhoods if none passed
     theData,                                // global for fetched raw data
     model = {};
 
 _.templateSettings.variable = "rc";
 
+
 // ****************************************
-// Create the chart.js charts
-// The container's data-labels and data-chart properties
-// are used to customize the chart.
+// get the year(s) for each metric
+// ****************************************
+function getYear(m) {
+    switch(metricConfig[m].type) {
+        case 'sum': case 'normalize':
+            return _.without(_.keys(theData['r' + metricConfig[m].metric][0]), 'id');
+            break;
+        case 'mean':
+            return _.without(_.keys(theData['n' + metricConfig[m].metric][0]), 'id');
+            break;
+    }
+}
+
+// ****************************************
+// set model variable as needed from data type
+// ****************************************
+function setModel(m) {
+    model.metricId = m;
+    switch(metricConfig[m].type) {
+        case 'sum':
+            model.metric = theData['r' + metricConfig[m].metric];
+            break;
+        case 'mean':
+            model.metric = theData['n' + metricConfig[m].metric];
+            break;
+        case 'normalize':
+            model.metricRaw = theData['r' + metricConfig[m].metric];
+            model.metricDenominator = theData['d' + metricConfig[m].metric];
+            break;
+    }
+}
+
+
+// ****************************************
+// Create charts
 // ****************************************
 function createCharts() {
     var colors = ["#5C2B2D", "#7A9993", "#959BA9", "#FAFBDD", "#C3DBDE"];
@@ -66,7 +95,7 @@ function createCharts() {
                 fillColor: "rgba(151,187,205,0.5)",
                 strokeColor: "rgba(151,187,205,0.8)",
                 data: [],
-                label: "NPA"
+                label: "Selected " + neighborhoodDescriptor + "s"
             },
             {
                 fillColor: "rgba(220,220,220,0.5)",
@@ -112,7 +141,7 @@ function createCharts() {
         setModel(m);
         keys = getYear(m);
 
-        // County stat box
+        // stats
         _.each(keys, function(year) {
             countyMean.push(dataCrunch(year));
             npaMean.push(dataCrunch(year, theFilter));
@@ -135,7 +164,7 @@ function createCharts() {
                     pointColor: "rgba(151,187,205,1)",
                     pointStrokeColor: "#fff",
                     data: [],
-                    label: "NPA"
+                    label: "Selected " + neighborhoodDescriptor + "s"
                 },
                 {
                     fillColor: "rgba(220,220,220,0.2)",
@@ -157,7 +186,6 @@ function createCharts() {
         // remove select mean if no values are there
         if (!npaMean || npaMean === null) { data.datasets.shift(); }
 
-
         ctx = document.getElementById($(this).prop("id")).getContext("2d");
         var chart = new Chart(ctx).Line(data, {
             showTooltips: true,
@@ -173,33 +201,6 @@ function createCharts() {
     });
 }
 
-
-function getYear(m) {
-    switch(metricConfig[m].type) {
-        case 'sum': case 'normalize':
-            return _.without(_.keys(theData['r' + metricConfig[m].metric][0]), 'id');
-            break;
-        case 'mean':
-            return _.without(_.keys(theData['n' + metricConfig[m].metric][0]), 'id');
-            break;
-    }
-}
-
-function setModel(m) {
-    model.metricId = m;
-    switch(metricConfig[m].type) {
-        case 'sum':
-            model.metric = theData['r' + metricConfig[m].metric];
-            break;
-        case 'mean':
-            model.metric = theData['n' + metricConfig[m].metric];
-            break;
-        case 'normalize':
-            model.metricRaw = theData['r' + metricConfig[m].metric];
-            model.metricDenominator = theData['d' + metricConfig[m].metric];
-            break;
-    }
-}
 
 // ****************************************
 // Create the metric blocks and table values
@@ -325,7 +326,7 @@ function createMap(data){
     // zoom large map
     largeMap.fitBounds(geom.getBounds());
 
-    // add base tiles at the end so no extra image grabs
+    // add base tiles at the end so no extra image grabs/FOUC
     L.tileLayer(baseTilesURL).addTo(largeMap);
     L.tileLayer(baseTilesURL).addTo(smallMap);
 }

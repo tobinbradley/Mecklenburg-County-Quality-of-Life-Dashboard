@@ -246,7 +246,11 @@ function barChart() {
                 .data(data)
                 .enter()
                 .append("circle")
-                .attr("cx", function(d) { return xScale(d[keys[model.year + 1]]); })
+                .attr("cx", function(d) {
+                    if ($.isNumeric(d[keys[model.year + 1]])) {
+                        return xScale(d[keys[model.year + 1]]);
+                    } 
+                })
                 .attr("cy", y(0))
                 .attr("r", 5)
                 .attr("class", "metric-hover")
