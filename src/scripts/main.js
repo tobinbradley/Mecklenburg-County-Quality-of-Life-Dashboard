@@ -11,6 +11,13 @@ var map,                // leaflet map
     tour,               // I-don't-want-to-do-real-help thing
     recordHistory = false;  // stupid global toggle so it doesn't record page load metric etc. to google analytics
 
+// ****************************************
+// The One Model of Sauron. Change this and Frodo dies.
+// ****************************************
+var model = {
+    "selected": []
+};
+
 // lodash/underscore template desucking
 _.templateSettings.variable = "rc";
 
@@ -19,7 +26,7 @@ _.templateSettings.variable = "rc";
 // ****************************************
 $(document).ready(function () {
 
-    // load select
+    // load metrics
     var selectVals = '',
         selectGroup = '';
     _.each(metricConfig, function(el, key) {
@@ -46,7 +53,7 @@ $(document).ready(function () {
     }
     model.metricId =  $("#metric").val();
 
-    // chosen - the uber select list
+    // set up chosen
     $(".chosen-select").chosen({width: '100%', no_results_text: "Not found - "}).change(function () {
         model.metricId = $(this).val();
         $(this).trigger("chosen:updated");
@@ -102,7 +109,7 @@ $(document).ready(function () {
     });
 
 
-    // Time slider and looper. Shouldn't require this much code. Curse my stupid brains.
+    // Time slider and looper. Seems like a lot of code for this. Curse my stupid brains.
     $(".slider").slider({
         value: 1,
         min: 0,
@@ -162,10 +169,6 @@ $(document).ready(function () {
 
     // Now to put in some popover definitions. I hate popover definitions, but I am just a cog in the machine. The
     // really crappy machine.
-    //
-    // In your meta, do this to create a popover. I'm using a span tag so when viewing the raw HTML coverted
-    // from the markdown you don't get useless hyperlink-looking things in it.
-    // <span tabindex="1000" class="meta-definition" data-toggle="popover" data-title="The Title" data-content="And here's some amazing content. It's very engaging. Right?">NPA</span>
     $('body').popover({
         selector: '[data-toggle=popover]',
         "placement": "auto",
@@ -205,17 +208,16 @@ $(document).ready(function () {
     $(".contact form").submit(function(e) {
         e.preventDefault();
         $(".contact").dropdown("toggle");
-        // send feedback
         if ($("#message").val().trim().length > 0) {
             $.ajax({
                 type: "POST",
-                url: "/utilities/feedback.php",
+                url: contactConfig.url,
                 data: {
                     email: $("#email").val(),
                     url: window.location.href,
                     agent: navigator.userAgent,
                     subject: "Quality of Life Dashboard Feedback",
-                    to: "tobin.bradley@gmail.com",
+                    to: contactConfig.to,
                     message: $("#message").val()
                 }
             });
@@ -258,7 +260,5 @@ $(document).ready(function () {
     if (!('placeholder' in document.createElement('input'))) {
         $("label").removeClass("sr-only");
     }
-
-
 
 });

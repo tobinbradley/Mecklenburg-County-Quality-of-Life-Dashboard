@@ -218,13 +218,13 @@
                         {{neighborhoodDescriptor}}</a></th>
                     <th class="text-right">Value</th>
                     <th class="text-left"></th>
-                    <th class="text-center"><% if (metricConfig[model.metricId].accuracy) { %><a href="javascript:void(0)" tabindex="0" class="meta-definition" data-toggle="popover" 
+                    <th class="text-center"><% if (metricConfig[model.metricId].accuracy) { %><a href="javascript:void(0)" tabindex="0" class="meta-definition" data-toggle="popover"
                             data-content="Margin of error (MOE) is an indicator of reliability for data that comes from the American Community Survey (ACS). The ACS is mailed to only a small percentage of households, and because not all households are surveyed, the data are only estimates.">
                             MOE<% } %></th>
-                    <th class="text-center"><% if (rc.keys.length > 2) { %>Change<br><%= getYear(rc.keys[1]) + "-" + getYear(rc.keys[rc.keys.length - 1]) %><% } %></th>
+                    <th class="text-center"><% if (rc.keys.length > 2) { %>Change<br><%= rc.keys[1].replace('y_', '') + "-" + rc.keys[rc.keys.length - 1].replace('y_', '') %><% } %></th>
                     <th class="text-right"><% if (metricConfig[m].raw_label) { %>Number<% } %></th>
                     <th class="text-left"></th>
-                    <th class="text-center"><% if (rc.keys.length > 2 && metricConfig[m].raw_label) { %>Change<br><%= getYear(rc.keys[1]) + "-" + getYear(rc.keys[rc.keys.length - 1]) %><% } %></th>
+                    <th class="text-center"><% if (rc.keys.length > 2 && metricConfig[m].raw_label) { %>Change<br><%= rc.keys[1].replace('y_', '') + "-" + rc.keys[rc.keys.length - 1].replace('y_', '') %><% } %></th>
                   </tr>
                 </thead>
                 <tbody>

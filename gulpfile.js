@@ -11,7 +11,7 @@ var gulp = require('gulp'),
     replace = require('gulp-replace'),
     jsoncombine = require("gulp-jsoncombine"),
     fs = require('fs'),
-    path = require('path'),
+    del = require('del'),
     config = require('./src/scripts/config.js');
 
 
@@ -51,6 +51,7 @@ var jsReport = [
     'bower_components/lodash/dist/lodash.underscore.js',
     'src/scripts/vendor/Chart.js',
     'src/scripts/functions/generics.js',
+    'src/scripts/functions/calculations.js',
     'src/scripts/config.js',
     'src/scripts/metricconfig.js',
     'src/scripts/report.js'
@@ -102,14 +103,14 @@ gulp.task('js-build', function() {
 });
 
 // markdown
-gulp.task('markdown', function() {
+gulp.task('markdown', ['clean'], function() {
     return gulp.src('src/data/meta/*.md')
         .pipe(markdown())
         .pipe(gulp.dest('dist/data/meta/'));
 });
 
 // CSV to JSON
-gulp.task('convert', function() {
+gulp.task('convert', ['clean'], function() {
     return gulp.src('src/data/metric/*.csv')
         .pipe(convert({
             from: 'csv',
@@ -119,7 +120,7 @@ gulp.task('convert', function() {
 });
 
 // merge json
-gulp.task('merge-json', function() {
+gulp.task('merge-json', ['clean', 'convert'], function() {
     return gulp.src("dist/data/metric/*.json")
         .pipe(jsoncombine("merge.json", function(data){ return new Buffer(JSON.stringify(data)); }))
         .pipe(gulp.dest("dist/data"));
@@ -170,22 +171,16 @@ gulp.task('initSearch', function() {
   });
 });
 
-// clean folders
-gulp.task('clean', function() {
-    fs.readdirSync("./dist/data/meta").forEach(function(fileName) {
-        if (path.extname(fileName) === ".html") {
-            fs.unlinkSync("./dist/data/meta/" + fileName);
-        }
-    });
-    fs.readdirSync("./dist/data/metric").forEach(function(fileName) {
-        if (path.extname(fileName) === ".json") {
-            fs.unlinkSync("./dist/data/metric/" + fileName);
-        }
-    });
+// clean junk before build
+gulp.task('clean', function(cb) {
+    del([
+    'dist/data/meta/*.html',
+    'dist/data/metric/*.json',
+    'dist/data/merge.json'
+  ], cb);
 });
 
 
 // controller tasks
 gulp.task('default', ['less', 'js', 'replace', 'watch', 'browser-sync']);
-gulp.task('build', ['less-build', 'js-build', 'markdown', 'convert', 'replace', 'imagemin', 'merge-json']);
-gulp.task('initdata', ['markdown', 'convert']);
+gulp.task('build', ['clean', 'less-build', 'js-build', 'markdown', 'convert', 'replace', 'imagemin', 'merge-json']);

@@ -16,6 +16,15 @@ var neighborhoodDefinition = "Neighborhood Profile Areas (NPAs) are geographic a
 // You want to change this - our base tiles only cover Mecklenburg County NC.
 var baseTilesURL = "http://tiles.mcmap.org/meckbase/{z}/{x}/{y}.png";
 
+// Server-side processor for feedback.
+// Arguments passed to the server: email, url, agent (browser info), subject, to, message
+var contactConfig = {
+    "to": "tobin.bradley@gmail.com",
+    "url": "/utilities/feedback.php"
+};
+
+
+
 // The basic geographic setup for your map: the minimum zoom level,
 // maximum zoom level, and the starting zoom level, the map center point, and when
 // the base tiles should become visible.

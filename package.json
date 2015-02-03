@@ -6,6 +6,7 @@
   "dependencies": {},
   "devDependencies": {
     "browser-sync": "*",
+    "del": "^1.1.1",
     "gulp": "*",
     "gulp-autoprefixer": "*",
     "gulp-concat": "*",
