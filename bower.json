@@ -13,8 +13,7 @@
     "test",
     "tests"
   ],
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "jquery.scrollTo": "*",
     "topojson": "*",
@@ -24,6 +23,6 @@
     "lodash": "*",
     "leaflet": "*",
     "Leaflet.label": "*",
-    "chosen_v1.1.0": "https://github.com/harvesthq/chosen/releases/download/v1.1.0/chosen_v1.1.0.zip"
+    "chosen-build": "~1.1.0"
   }
 }
