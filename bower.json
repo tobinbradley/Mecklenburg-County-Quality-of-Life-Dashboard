@@ -17,7 +17,7 @@
   "devDependencies": {
     "jquery.scrollTo": "*",
     "topojson": "*",
-    "bootstrap": "3.3.1",
+    "bootstrap": "*",
     "d3": "*",
     "jquery": "*",
     "lodash": "*",

@@ -26,6 +26,14 @@ Number.prototype.commafy = function () {
 };
 
 // ****************************************
+// Capitalize first letter of strings
+// ****************************************
+String.prototype.toProperCase = function(opt_lowerCaseTheRest) {
+  return (opt_lowerCaseTheRest ? this.toLowerCase() : this)
+    .replace(/(^|[\s\xA0])[^\s\xA0]/g, function(s){ return s.toUpperCase(); });
+};
+
+// ****************************************
 // Get URL GET Parameters
 // ****************************************
 function getURLParameter(name) {
@@ -83,7 +91,7 @@ function dataPretty(theValue, theMetric) {
     var pretty,
         numDecimals = 0;
 
-    if (theMetric !== null) {
+    if (theMetric !== null && metricConfig[theMetric].decimals) {
         numDecimals = metricConfig[theMetric].decimals;
     }
 

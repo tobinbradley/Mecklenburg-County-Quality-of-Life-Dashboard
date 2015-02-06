@@ -89,12 +89,13 @@ function dataCrunch(key, filter) {
         case "sum":
             theReturn = dataSum(model.metric, key, filter);
             break;
-        case "mean":
+        case "mean": case "normalize":
             theReturn = dataMean(model.metric, key, filter);
             break;
-        case "normalize":
-            theReturn = dataNormalize(model.metricRaw, model.metricDenominator, key, filter);
-            break;
+        // experimental - use with caution!
+        // case "normalize":
+        //     theReturn = dataNormalize(model.metricRaw, model.metricDenominator, key, filter);
+        //     break;
     }
     return theReturn;
 }

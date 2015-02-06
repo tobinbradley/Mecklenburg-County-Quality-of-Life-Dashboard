@@ -51,6 +51,21 @@ function setModel(m) {
         case 'normalize':
             model.metricRaw = theData['r' + metricConfig[m].metric];
             model.metricDenominator = theData['d' + metricConfig[m].metric];
+
+            var calcMetric = $.extend(true, {}, model.metricRaw);
+            var keys = _.without(_.keys(model.metricRaw[0]), "id");
+
+            // this next bit can get taken out when the normalize capabilities are complete
+             _.each(calcMetric, function(theval, i) {
+                _.each(keys, function(key) {
+                    theRaw = model.metricRaw[i][key];
+                    theDemoninator = model.metricDenominator[i][key];
+                    theval[key] = theRaw / theDemoninator;
+                });
+            });
+            model.metric = calcMetric;
+            // end bit
+
             break;
     }
 }
@@ -210,7 +225,7 @@ function createData() {
         categories = _.uniq(_.pluck(metricConfig, 'category'));
 
     _.each(categories, function(dim) {
-        var theTable = $(".table-" + dim.toLowerCase() + " tbody");
+        var theTable = $(".table-" + dim.toLowerCase().replace(/\s+/g, "-") + " tbody");
         var theMetrics = _.filter(metricConfig, function(el) { return el.category.toLowerCase() === dim.toLowerCase(); });
 
         _.each(theMetrics, function(val) {
@@ -333,9 +348,36 @@ function createMap(data){
 
 
 // ****************************************
+// get pages in for data categories
+// ****************************************
+function pageTemplates() {
+    var template = _.template($("#template-category").html()),
+        categories = _.uniq(_.pluck(metricConfig, 'category')),
+        pages = $(".category-pages");
+
+
+    _.each(categories, function(el) {
+        cat = el.toLowerCase();
+
+        // get vis if available
+        if ($("#template-vis-" + cat).length > 0) {
+            vis = _.template($("#template-vis-" + cat.replace(/\s+/g, "-")).html());
+        } else {
+            vis = "";
+        }
+
+        // drop in category page
+        pages.append(template({ "vis": vis, "category": cat }));
+    });
+}
+
+// ****************************************
 // Document ready kickoff
 // ****************************************
 $(document).ready(function() {
+    // scaffold in category pages
+    pageTemplates();
+
     // ye customizable subtitle
     $(".subtitle").on("click", function() { $(this).select(); });
 

@@ -1,3 +1,21 @@
+// ***********************************************************
+// Ye Olde Metric Configuration
+//
+// Here's the format:
+// "m<the metric number>": {
+        // "metric"        the metric number
+        // "accuracy"      [optional] set true if metric has an accuracy file
+        // "category"      the category of the metric
+        // "label"         [optional] metric unit information
+        // "title"         metric descriptive title
+        // "decimals"      [optional] number of decimal places to display (default is 0)
+        // "prefix"        [optional] prefix for the number, like '$'
+        // "suffix"        [optional] suffix for the number, like '%'
+        // "raw_label"     [optional] label for raw number if available (also makes raw number visible)
+        // "type"          Type of calculation to be performed (and files to fetch). Options are sum, mean, and normalize.
+// }
+// ***********************************************************
+
 var metricConfig = {
  "m2": {
   "metric": "2",
@@ -5,7 +23,6 @@ var metricConfig = {
   "category": "Character",
   "label": "Years",
   "title": "Age of Residents",
-  "decimals": 0,
   "type": "normalize"
  },
  "m1": {
@@ -13,7 +30,6 @@ var metricConfig = {
   "category": "Character",
   "label": "Acres",
   "title": "Area",
-  "decimals": 0,
   "type": "sum"
  },
  "m13": {
@@ -22,7 +38,6 @@ var metricConfig = {
   "category": "Character",
   "suffix": "%",
   "title": "Population - Older Adult",
-  "decimals": 0,
   "type": "normalize"
  },
  "m12": {
@@ -31,7 +46,6 @@ var metricConfig = {
   "category": "Character",
   "suffix": "%",
   "title": "Population - Youth",
-  "decimals": 0,
   "type": "normalize"
  },
  "m47": {
@@ -40,7 +54,6 @@ var metricConfig = {
   "label": "People per Acre",
   "raw_label": "People",
   "title": "Population Density",
-  "decimals": 0,
   "type": "normalize"
  },
  "m17": {
@@ -97,7 +110,6 @@ var metricConfig = {
   "category": "Economy",
   "label": "Years",
   "title": "Commercial Building Age",
-  "decimals": 0,
   "type": "normalize"
  },
  "m19": {
@@ -115,7 +127,6 @@ var metricConfig = {
   "label": "Average Square Feet",
   "raw_label": "Square Feet",
   "title": "Commercial Space",
-  "decimals": 0,
   "type": "normalize"
  },
  "m38": {
@@ -124,7 +135,6 @@ var metricConfig = {
   "category": "Economy",
   "suffix": "%",
   "title": "Employment",
-  "decimals": 0,
   "type": "normalize"
  },
  "m80": {
@@ -132,7 +142,6 @@ var metricConfig = {
   "category": "Economy",
   "suffix": "%",
   "title": "Food and Nutrition Services",
-  "decimals": 0,
   "type": "normalize"
  },
  "m37": {
@@ -141,7 +150,6 @@ var metricConfig = {
   "category": "Economy",
   "prefix": "$",
   "title": "Household Income",
-  "decimals": 0,
   "type": "normalize"
  },
  "m75": {
@@ -159,7 +167,6 @@ var metricConfig = {
   "suffix": "%",
   "raw_label": "Units",
   "title": "Proximity to Financial Services",
-  "decimals": 0,
   "type": "normalize"
  },
  "m20": {
@@ -168,7 +175,6 @@ var metricConfig = {
   "category": "Education",
   "suffix": "%",
   "title": "Education Level - Bachelor's Degree",
-  "decimals": 0,
   "type": "normalize"
  },
  "m39": {
@@ -177,7 +183,6 @@ var metricConfig = {
   "category": "Education",
   "suffix": "%",
   "title": "Education Level - High School Diploma",
-  "decimals": 0,
   "type": "normalize"
  },
  "m65": {
@@ -185,7 +190,6 @@ var metricConfig = {
   "category": "Education",
   "suffix": "%",
   "title": "High School Graduation Rate",
-  "decimals": 0,
   "type": "normalize"
  },
  "m51": {
@@ -193,7 +197,6 @@ var metricConfig = {
   "category": "Education",
   "suffix": "%",
   "title": "Library Card Holders",
-  "decimals": 0,
   "type": "normalize"
  },
  "m67": {
@@ -201,7 +204,6 @@ var metricConfig = {
   "category": "Education",
   "suffix": "%",
   "title": "Neighborhood School Attendance ",
-  "decimals": 0,
   "type": "normalize"
  },
  "m21": {
@@ -210,7 +212,6 @@ var metricConfig = {
   "suffix": "%",
   "raw_label": "Units",
   "title": "Proximity to Early Care and Education",
-  "decimals": 0,
   "type": "normalize"
  },
  "m22": {
@@ -219,7 +220,6 @@ var metricConfig = {
   "suffix": "%",
   "raw_label": "Units",
   "title": "Proximity to School-Age Care",
-  "decimals": 0,
   "type": "normalize"
  },
  "m66": {
@@ -227,7 +227,6 @@ var metricConfig = {
   "category": "Education",
   "suffix": "%",
   "title": "Student Absenteeism",
-  "decimals": 0,
   "type": "normalize"
  },
  "m62": {
@@ -269,7 +268,6 @@ var metricConfig = {
   "suffix": "%",
   "raw_label": "Households",
   "title": "Arts and Culture Participation",
-  "decimals": 0,
   "type": "normalize"
  },
  "m72": {
@@ -278,7 +276,6 @@ var metricConfig = {
   "label": "Residents serving per 1,000 People",
   "raw_label": "People",
   "title": "Municipal Board/Committee Participation",
-  "decimals": 0,
   "type": "normalize"
  },
  "m73": {
@@ -286,7 +283,6 @@ var metricConfig = {
   "category": "Engagement",
   "label": "Organizations",
   "title": "Neighborhood Organizations",
-  "decimals": 0,
   "type": "sum"
  },
  "m48": {
@@ -304,7 +300,6 @@ var metricConfig = {
   "suffix": "%",
   "raw_label": "Miles",
   "title": "Adopt-a-Stream Participation",
-  "decimals": 0,
   "type": "normalize"
  },
  "m10": {
@@ -314,7 +309,6 @@ var metricConfig = {
   "suffix": "%",
   "title": "Commuters Driving Alone",
   "raw_label": "",
-  "decimals": 0,
   "type": "normalize"
  },
  "m26": {
@@ -323,7 +317,6 @@ var metricConfig = {
   "label": "Kilowatt hours per Month per unit",
   "raw_label": "Kilowatt hours per Month",
   "title": "Energy Consumption - Electricity",
-  "decimals": 0,
   "type": "normalize"
  },
  "m77": {
@@ -332,7 +325,6 @@ var metricConfig = {
   "label": "Therms per Month per unit",
   "raw_label": "Therms per Month",
   "title": "Energy Consumption - Natural Gas",
-  "decimals": 0,
   "type": "normalize"
  },
  "m4": {
@@ -386,7 +378,6 @@ var metricConfig = {
   "label": "Gallons per Day per unit",
   "raw_label": "Gallons per Day",
   "title": "Water Consumption",
-  "decimals": 0,
   "type": "normalize"
  },
  "m57": {
@@ -394,7 +385,6 @@ var metricConfig = {
   "category": "Health",
   "label": "Years",
   "title": "Age of Death",
-  "decimals": 0,
   "type": "normalize"
  },
  "m54": {
@@ -427,7 +417,6 @@ var metricConfig = {
   "suffix": "%",
   "raw_label": "Units",
   "title": "Proximity to Low-Cost Health Care",
-  "decimals": 0,
   "type": "normalize"
  },
  "m74": {
@@ -436,7 +425,6 @@ var metricConfig = {
   "suffix": "%",
   "raw_label": "Units",
   "title": "Proximity to Public Outdoor Recreation",
-  "decimals": 0,
   "type": "normalize"
  },
  "m45": {
@@ -445,7 +433,6 @@ var metricConfig = {
   "suffix": "%",
   "raw_label": "Units",
   "title": "Proximity to a Grocery Store",
-  "decimals": 0,
   "type": "normalize"
  },
  "m81": {
@@ -453,7 +440,6 @@ var metricConfig = {
   "category": "Health",
   "suffix": "%",
   "title": "Public Health Insurance",
-  "decimals": 0,
   "type": "normalize"
  },
  "m29": {
@@ -462,7 +448,6 @@ var metricConfig = {
   "category": "Housing",
   "suffix": "%",
   "title": "Home Ownership",
-  "decimals": 0,
   "type": "normalize"
  },
  "m76": {
@@ -470,7 +455,6 @@ var metricConfig = {
   "category": "Housing",
   "prefix": "$",
   "title": "Home Sales Price",
-  "decimals": 0,
   "type": "normalize"
  },
  "m7": {
@@ -478,7 +462,6 @@ var metricConfig = {
   "category": "Housing",
   "label": "Years",
   "title": "Housing Age",
-  "decimals": 0,
   "type": "normalize"
  },
  "m5": {
@@ -495,7 +478,6 @@ var metricConfig = {
   "category": "Housing",
   "label": "Average Sqft",
   "title": "Housing Size",
-  "decimals": 0,
   "type": "normalize"
  },
  "m40": {
@@ -504,7 +486,6 @@ var metricConfig = {
   "category": "Housing",
   "prefix": "$",
   "title": "Rental Costs",
-  "decimals": 0,
   "type": "normalize"
  },
  "m53": {
@@ -513,7 +494,6 @@ var metricConfig = {
   "suffix": "%",
   "raw_label": "Units",
   "title": "Rental Houses",
-  "decimals": 0,
   "type": "normalize"
  },
  "m69": {
@@ -540,7 +520,6 @@ var metricConfig = {
   "category": "Housing",
   "suffix": "%",
   "title": "Residential Occupancy",
-  "decimals": 0,
   "type": "normalize"
  },
  "m9": {
@@ -558,7 +537,6 @@ var metricConfig = {
   "suffix": "%",
   "raw_label": "Units",
   "title": "Single-Family Housing",
-  "decimals": 0,
   "type": "normalize"
  },
  "m61": {
@@ -630,7 +608,6 @@ var metricConfig = {
   "category": "Transportation",
   "suffix": "%",
   "title": "Long Commute",
-  "decimals": 0,
   "type": "normalize"
  },
  "m36": {
@@ -639,7 +616,6 @@ var metricConfig = {
   "suffix": "%",
   "raw_label": "Units",
   "title": "Proximity to Public Transportation",
-  "decimals": 0,
   "type": "normalize"
  },
  "m70": {
@@ -665,7 +641,6 @@ var metricConfig = {
   "label": "Boardings per Available Route",
   "raw_label": "Average Weekly Boardings",
   "title": "Transit Ridership",
-  "decimals": 0,
   "type": "normalize"
  }
 };
