@@ -132,36 +132,32 @@
         <!-- Large Map -->
         <div class="page page-category">
             <div class="row text-center">
-                <!-- <div style="border: 1px solid black; margin: 20px"> -->
-                    <div id="largemap"></div>
-                <!-- </div> -->
+                <div id="largemap"></div>
             </div>
-
         </div>
 
-        <!-- Character -->
+        <!-- category pages -->
+        <div class="category-pages"></div>
+
+
+    </div>
+
+    <!-- category page template -->
+    <script type="text/template" id="template-category">
         <div class="page page-category">
             <div class="row">
                 <div class="col-xs-6 text-left">
-                    <h1>Character</h1>
+                    <h1><%= rc.category.toProperCase() %></h1>
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-3 col-xs-offset-1 text-center vis vis-horizontal">
-                    <h4>Selected Race</h4>
-                    <canvas id="chart-character-1" class="chart-doughnut" data-selector="selected-val" data-chart="m16,m15,m18,m17,m14" width="150" height="150"></canvas>
-                </div>
-                <div class="col-xs-4 text-center vis vis-vertical">
-                    <h4>County Race</h4>
-                    <canvas id="chart-character-2" class="chart-doughnut" data-selector="county-val" data-chart="m16,m15,m18,m17,m14" width="150" height="150"></canvas>
-                </div>
-                <div class="col-xs-4 text-center vis vis-vertical">
-                    <div id="chart-character-2-legend" class="text-center" style="margin-top: 60px;"></div>
-                </div>
+                <% if (typeof rc.vis === 'function') { %>
+                <%= rc.vis() %>
+                <% } %>
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                    <table class="table table-condensed table-character">
+                    <table class="table table-condensed table-<%= rc.category.replace(/\s+/g, "-") %>">
                       <thead>
                         <tr>
                           <th>Variable</th>
@@ -175,264 +171,14 @@
                 </div>
             </div>
         </div>
-
-
-        <!-- Economics -->
-        <div class="page page-category">
-            <div class="row">
-                <div class="col-xs-6 text-left">
-                    <h1>Economy</h1>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 text-center vis vis-horizontal">
-                    <h4>Household Income</h4>
-                    <canvas id="chart-economics-1" class="chart-bar" data-chart="m37" data-labels="Household Income in Dollars" width="550" height="180"></canvas>
-                    <div id="chart-economics-1-legend" class="text-center"></div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <table class="table table-economy">
-                      <thead>
-                        <tr>
-                            <th>Variable</th>
-                            <th class="text-right report-column-selected">Selected</th>
-                            <th class="text-right report-column-county">County</th>
-                            <th></th>
-                        </tr>
-                      </thead>
-                      <tbody></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- Education -->
-        <div class="page page-category">
-            <div class="row">
-                <div class="col-xs-6 text-left">
-                    <h1>Education</h1>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 text-center vis vis-horizontal">
-                    <h4>Education Level</h4>
-                    <canvas id="chart-education-1" class="chart-bar" data-chart="m39,m20" data-labels="High School Diploma,Bachelor's Degree" width="550" height="180"></canvas>
-                    <div id="chart-education-1-legend" class="text-center"></div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <table class="table table-education">
-                      <thead>
-                        <tr>
-                            <th>Variable</th>
-                            <th class="text-right report-column-selected">Selected</th>
-                            <th class="text-right report-column-county">County</th>
-                            <th></th>
-                        </tr>
-                      </thead>
-                      <tbody></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- Engagement -->
-        <div class="page page-category">
-            <div class="row">
-                <div class="col-xs-6 text-left">
-                    <h1>Engagement</h1>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 text-center vis vis-horizontal">
-                    <h4>Voter Participation</h4>
-                    <canvas id="chart-engagement-1" class="chart-line" data-chart="m48" width="550" height="220"></canvas>
-                    <div id="chart-engagement-1-legend" class="text-center"></div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <table class="table table-engagement">
-                      <thead>
-                        <tr>
-                            <th>Variable</th>
-                            <th class="text-right report-column-selected">Selected</th>
-                            <th class="text-right report-column-county">County</th>
-                            <th></th>
-                        </tr>
-                      </thead>
-                      <tbody></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- Environment -->
-        <div class="page page-category">
-            <div class="row">
-                <div class="col-xs-6 text-left">
-                    <h1>Environment</h1>
-                </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-12 text-center vis vis-horizontal">
-                <h4>Residential Water Consumption</h4>
-                <canvas id="chart-environment-1" class="chart-line" data-chart="m27" width="550" height="220"></canvas>
-                <div id="chart-environment-1-legend" class="text-center"></div>
-              </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <table class="table table-condensed table-environment">
-                      <thead>
-                        <tr>
-                            <th>Variable</th>
-                            <th class="text-right report-column-selected">Selected</th>
-                            <th class="text-right report-column-county">County</th>
-                            <th></th>
-                        </tr>
-                      </thead>
-                      <tbody></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- Health -->
-        <div class="page page-category">
-            <div class="row">
-                <div class="col-xs-6 text-left">
-                    <h1>Health</h1>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 text-center vis vis-horizontal">
-                    <h4>Proximity</h4>
-                    <canvas id="chart-health-1" class="chart-bar" data-chart="m28,m74,m45" data-labels="Low-Cost Health Care,Public Outdoor Recreation,Grocery Store" width="550" height="180"></canvas>
-                    <div id="chart-health-1-legend" class="text-center"></div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <table class="table table-health">
-                      <thead>
-                        <tr>
-                            <th>Variable</th>
-                            <th class="text-right report-column-selected">Selected</th>
-                            <th class="text-right report-column-county">County</th>
-                            <th></th>
-                        </tr>
-                      </thead>
-                      <tbody></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- Housing -->
-        <div class="page page-category">
-            <div class="row">
-                <div class="col-xs-6 text-left">
-                    <h1>Housing</h1>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 text-center vis vis-horizontal">
-                    <h4>Permits per 100 Acres</h4>
-                    <canvas id="chart-housing-1" class="chart-bar" data-chart="m8,m9" data-labels="Residential New Construction,Residential Renovation" width="550" height="180"></canvas>
-                    <div id="chart-housing-1-legend" class="text-center"></div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <table class="table table-condensed table-housing">
-                      <thead>
-                        <tr>
-                            <th>Variable</th>
-                            <th class="text-right report-column-selected">Selected</th>
-                            <th class="text-right report-column-county">County</th>
-                            <th></th>
-                        </tr>
-                      </thead>
-                      <tbody></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- Safety -->
-        <div class="page page-category">
-            <div class="row">
-                <div class="col-xs-6 text-left">
-                    <h1>Safety</h1>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 text-center vis vis-horizontal">
-                    <h4>Incidents per 1,000 People</h4>
-                    <canvas id="chart-safety-1" class="chart-bar" data-chart="m59,m58,m60" data-labels="Crime - Property,Crime - Violent, Disorder-related Calls" width="550" height="180"></canvas>
-                    <div id="chart-safety-1-legend" class="text-center"></div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <table class="table table-safety">
-                      <thead>
-                        <tr>
-                            <th>Variable</th>
-                            <th class="text-right report-column-selected">Selected</th>
-                            <th class="text-right report-column-county">County</th>
-                            <th></th>
-                        </tr>
-                      </thead>
-                      <tbody></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- Transportation -->
-        <div class="page page-category">
-          <div class="row">
-            <div class="col-xs-6 text-left">
-              <h1>Transportation</h1>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-12 text-center vis vis-horizontal">
-              <h4></h4>
-              <canvas id="chart-transportation-1" class="chart-bar" data-chart="m33,m36" data-labels="Long Commute,Proximity to Public Transportation" width="600" height="250"></canvas>
-              <div id="chart-transportation-1-legend" class="text-center"></div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-12">
-              <table class="table table-transportation">
-                <thead>
-                  <tr>
-                      <th>Variable</th>
-                      <th class="text-right report-column-selected">Selected</th>
-                      <th class="text-right report-column-county">County</th>
-                      <th></th>
-                  </tr>
-                </thead>
-                <tbody></tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-
-    </div>
+    </script>
 
     <!-- Underscore row template -->
     <script type="text/template" class="template-row">
       <tr data-metric="<%= rc.id %>">
           <!-- Name (year) -->
           <td class='text-left label-<%= rc.id %>' data-val="<%= metricConfig[rc.id].title %>">
-              <a target="_blank" href="http://mcmap.org/qol/?m=<%= rc.id %>&n=<%= theFilter.join(',') %>"><%= metricConfig[rc.id].title %></a>
+              <a target="_blank" href="./?m=<%= rc.id %>&n=<%= theFilter.join(',') %>"><%= metricConfig[rc.id].title %></a>
             (<%= rc.year %>)
           </td>
           <!-- Selected Value -->
@@ -451,6 +197,94 @@
               <% } %>
           </td>
       </tr>
+    </script>
+
+    <!-- category chart template - character -->
+    <script type="text/template" id="template-vis-character">
+        <div class="col-xs-3 col-xs-offset-1 text-center vis vis-horizontal">
+            <h4>Selected Race</h4>
+            <canvas id="chart-character-1" class="chart-doughnut" data-selector="selected-val" data-chart="m16,m15,m18,m17,m14" width="150" height="150"></canvas>
+        </div>
+        <div class="col-xs-4 text-center vis vis-vertical">
+            <h4>County Race</h4>
+            <canvas id="chart-character-2" class="chart-doughnut" data-selector="county-val" data-chart="m16,m15,m18,m17,m14" width="150" height="150"></canvas>
+        </div>
+        <div class="col-xs-4 text-center vis vis-vertical">
+            <div id="chart-character-2-legend" class="text-center" style="margin-top: 60px;"></div>
+        </div>
+    </script>
+
+
+    <!-- category chart template - economy -->
+    <script type="text/template" id="template-vis-economy">
+        <div class="col-xs-12 text-center vis vis-horizontal">
+            <h4>Household Income</h4>
+            <canvas id="chart-economy-1" class="chart-bar" data-chart="m37" data-labels="Household Income in Dollars" width="550" height="180"></canvas>
+            <div id="chart-economy-1-legend" class="text-center"></div>
+        </div>
+    </script>
+
+    <!-- category chart template - education -->
+    <script type="text/template" id="template-vis-education">
+        <div class="col-xs-12 text-center vis vis-horizontal">
+            <h4>Education Level</h4>
+            <canvas id="chart-education-1" class="chart-bar" data-chart="m39,m20" data-labels="High School Diploma,Bachelor's Degree" width="550" height="180"></canvas>
+            <div id="chart-education-1-legend" class="text-center"></div>
+        </div>
+    </script>
+
+    <!-- category chart template - engagement -->
+    <script type="text/template" id="template-vis-engagement">
+        <div class="col-xs-12 text-center vis vis-horizontal">
+            <h4>Voter Participation</h4>
+            <canvas id="chart-engagement-1" class="chart-line" data-chart="m48" width="550" height="220"></canvas>
+            <div id="chart-engagement-1-legend" class="text-center"></div>
+        </div>
+    </script>
+
+    <!-- category chart template - environment -->
+    <script type="text/template" id="template-vis-environment">
+        <div class="col-xs-12 text-center vis vis-horizontal">
+          <h4>Residential Water Consumption</h4>
+          <canvas id="chart-environment-1" class="chart-line" data-chart="m27" width="550" height="220"></canvas>
+          <div id="chart-environment-1-legend" class="text-center"></div>
+        </div>
+    </script>
+
+    <!-- category chart template - health -->
+    <script type="text/template" id="template-vis-health">
+        <div class="col-xs-12 text-center vis vis-horizontal">
+            <h4>Proximity</h4>
+            <canvas id="chart-health-1" class="chart-bar" data-chart="m28,m74,m45" data-labels="Low-Cost Health Care,Public Outdoor Recreation,Grocery Store" width="550" height="180"></canvas>
+            <div id="chart-health-1-legend" class="text-center"></div>
+        </div>
+    </script>
+
+    <!-- category chart template - housing -->
+    <script type="text/template" id="template-vis-housing">
+        <div class="col-xs-12 text-center vis vis-horizontal">
+            <h4>Permits per 100 Acres</h4>
+            <canvas id="chart-housing-1" class="chart-bar" data-chart="m8,m9" data-labels="Residential New Construction,Residential Renovation" width="550" height="180"></canvas>
+            <div id="chart-housing-1-legend" class="text-center"></div>
+        </div>
+    </script>
+
+    <!-- category chart template - safety -->
+    <script type="text/template" id="template-vis-safety">
+        <div class="col-xs-12 text-center vis vis-horizontal">
+            <h4>Incidents per 1,000 People</h4>
+            <canvas id="chart-safety-1" class="chart-bar" data-chart="m59,m58,m60" data-labels="Crime - Property,Crime - Violent, Disorder-related Calls" width="550" height="180"></canvas>
+            <div id="chart-safety-1-legend" class="text-center"></div>
+        </div>
+    </script>
+
+    <!-- category chart template - safety -->
+    <script type="text/template" id="template-vis-transportation">
+        <div class="col-xs-12 text-center vis vis-horizontal">
+          <h4></h4>
+          <canvas id="chart-transportation-1" class="chart-bar" data-chart="m33,m36" data-labels="Long Commute,Proximity to Public Transportation" width="600" height="250"></canvas>
+          <div id="chart-transportation-1-legend" class="text-center"></div>
+        </div>
     </script>
 
 
