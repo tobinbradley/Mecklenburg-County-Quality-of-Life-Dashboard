@@ -56,13 +56,9 @@ $(document).ready(function () {
     // set up chosen
     $(".chosen-select").chosen({width: '100%', no_results_text: "Not found - "}).change(function () {
         model.metricId = $(this).val();
-        $(this).trigger("chosen:updated");
     });
     $(".chosen-search input").prop("placeholder", "search metrics");
     $(".chosen-select").removeClass("hide");  // just in case it's mobile
-    $('.chosen-select').on('chosen:showing_dropdown', function(evt, params) {
-        $(".focus_ring").removeClass("focus_active");
-    });
 
     // set window popstate handler
     if (history.pushState) {
