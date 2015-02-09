@@ -60,7 +60,6 @@ function fetchMetricData(m) {
                 fetchNormalized(m),
                 fetchRaw(m)
             ).then(function(geom, accuracy, normalized, raw) {
-                console.log();
                 if (geom[0].type) { model.geom = geom[0]; }
                 model.metricAccuracy = accuracy[0];
                 model.metricRaw = raw[0];
