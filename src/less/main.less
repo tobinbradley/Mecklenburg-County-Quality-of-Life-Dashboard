@@ -4,6 +4,7 @@
 @import "../../bower_components/bootstrap/less/bootstrap.less";
 @import (less) "vendor/jquery-ui-1.10.3.custom.css";
 @import (less) "../../bower_components/leaflet/dist/leaflet.css";
+@import (less) "../../bower_components/leaflet.locatecontrol/dist/L.Control.Locate.css";
 @import "vendor/typeahead.less";
 @import "vendor/bootstrap-chosen.less";
 @import "vendor/jquery-tourbus.less";
@@ -266,14 +267,19 @@ body {
 // ****************************************
 // Map
 // ****************************************
-.leaflet-control-layers, .leaflet-control-zoom, .leaflet-bar a {
+.leaflet-control-layers, .leaflet-control-zoom, .leaflet-bar, .leaflet-bar a {
+    background: @body-color;
     box-shadow: none;
-    background: none;
+}
+.locate-icon {
+    font-size: 15px;
+    top: 3px;
+    left: -1px;
 }
 #map {
     height: 530px;
     background: rgba(0,0,0,0);
-    border: 1px dashed #d3d4d8;
+    border: 1px solid #d3d4d8;
     border-top: none;
 }
 .geom {
