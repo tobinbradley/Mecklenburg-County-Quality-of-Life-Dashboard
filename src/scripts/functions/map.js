@@ -24,7 +24,8 @@ function geocode(d) {
 
     // zoom to neighborhood
     var feature = _.filter(d3Layer.toGeoJSON().features, function(data) { return data.id === d.id; });
-    map.fitBounds(L.geoJson(feature[0]).getBounds());
+    var bounds = L.latLngBounds(L.geoJson(feature[0]).getBounds());
+    map.fitBounds(bounds);
 }
 
 
@@ -56,36 +57,10 @@ function mapCreate() {
         setTimeout(function() { map.scrollWheelZoom.enable(); }, 1000);
     });
 
-    // geolocate if on a mobile device
-    // bit hacky here on detection, but should cover most things
-    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-        map.locate({setView: false});
-        map.on('locationfound', function(e) {
-            $.ajax({
-                url: 'http://maps.co.mecklenburg.nc.us/rest/v2/ws_geo_pointoverlay.php',
-                type: 'GET',
-                dataType: 'jsonp',
-                data: {
-                    'x': e.latlng.lng,
-                    'y': e.latlng.lat,
-                    'srid': 4326,
-                    'table': 'neighborhoods',
-                    'fields': 'id'
-                },
-                success: function (data) {
-                    var sel = d3.select(".geom [data-id='" + data[0].id + "']");
-                    geocode({"id": data[0].id, "lat": e.latlng.lat, "lng": e.latlng.lng});
-                    PubSub.publish('geocode', {
-                        "id": data[0].id,
-                        "value": sel.attr("data-value"),
-                        "d3obj": sel,
-                        "lat": e.latlng.lat,
-                        "lng": e.latlng.lng
-                    });
-                }
-            });
-        });
-    }
+    // Add geolocation api control
+    L.control.locate({
+        icon: 'glyphicon glyphicon-map-marker locate-icon'
+    }).addTo(map);
 }
 
 
