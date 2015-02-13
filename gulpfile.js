@@ -155,7 +155,7 @@ gulp.task('watch', function () {
 });
 
 // rename files for basic setup
-gulp.task('initSearch', function() {
+gulp.task('init', function() {
     // make sure people don't run this twice and end up with no search.js
     fs.exists('src/scripts/functions/search.js.basic', function(exists) {
         if (exists) {
