@@ -127,7 +127,7 @@ function updateStats() {
 
 
     // Selected NPAs
-    params.topText = 'SELECTED <a href="javascript:void(0)" tabindex="0" class="meta-definition" data-toggle="popover" data-content="' + neighborhoodDefinition + '">' + neighborhoodDescriptor + 's</a>';
+    params.topText = 'SELECTED <a href="javascript:void(0)" tabindex="0" class="meta-definition" data-toggle="popover" data-content="' + neighborhoodDefinition + '">' + neighborhoodDescriptor.toUpperCase() + 's</a>';
     // main number
     theStat = dataCrunch(year, model.selected);
     params.mainNumber = dataPretty(theStat, m);
