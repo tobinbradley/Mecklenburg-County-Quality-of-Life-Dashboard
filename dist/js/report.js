@@ -24225,7 +24225,7 @@ var gaKey = "UA-48797957-1";
 // Here's where to put what you are calling your neighborhoods. We call them NPA,
 // you might call them NSA or precinct or even something crazy like "neighborhood".
 // Shorter is better lest you run into some unintended wrapping text issues.
-var neighborhoodDescriptor = "NPA";
+var neighborhoodDescriptor = "Tract";
 var neighborhoodDefinition = "Neighborhood Profile Areas (NPAs) are geographic areas used for the organization and presentation of data in the Quality of Life Study. The boundaries were developed with community input and are based on one or more Census block groups.";
 
 // The URL for your base map tiles.
