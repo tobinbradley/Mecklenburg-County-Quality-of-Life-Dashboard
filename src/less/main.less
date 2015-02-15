@@ -269,11 +269,16 @@ body {
     background: @body-color;
     box-shadow: none;
 }
-.locate-icon {
-    font-size: 15px;
-    top: 3px;
-    left: -1px;
+.leaflet-bar {
+    .glyphicon {
+        font-size: 15px;
+        top: 3px;
+    }
+    .locate-icon {
+        left: -1px;
+    }
 }
+
 #map {
     height: 530px;
     background: rgba(0,0,0,0);

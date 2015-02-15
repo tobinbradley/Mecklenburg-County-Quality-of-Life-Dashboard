@@ -24,6 +24,7 @@
     "leaflet": "*",
     "Leaflet.label": "*",
     "chosen-build": "~1.1.0",
-    "leaflet.locatecontrol": "~0.40.0"
+    "leaflet.locatecontrol": "~0.40.0",
+    "L.EasyButton": "*"
   }
 }
