@@ -39,7 +39,6 @@ var jsMain = [
     'src/scripts/vendor/jquery-tourbus.js',
     'src/scripts/functions/*.js',
     'src/scripts/config.js',
-    'src/scripts/metricconfig.js',
     'src/scripts/main.js'
 ];
 
@@ -54,7 +53,6 @@ var jsReport = [
     'src/scripts/functions/generics.js',
     'src/scripts/functions/calculations.js',
     'src/scripts/config.js',
-    'src/scripts/metricconfig.js',
     'src/scripts/report.js'
 ];
 
