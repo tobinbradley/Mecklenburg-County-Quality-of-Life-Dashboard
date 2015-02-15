@@ -42,6 +42,18 @@ function mapCreate() {
         }).setView(mapGeography.center, mapGeography.defaultZoom);
     window.baseTiles = L.tileLayer(baseTilesURL);
 
+    // full screen display button
+    L.easyButton('glyphicon glyphicon-fullscreen', function (){
+            map.setView(mapGeography.center, mapGeography.defaultZoom);
+        },
+        'Zoom to full extent'
+    );
+
+    // Add geolocation api control
+    L.control.locate({
+        icon: 'glyphicon glyphicon-map-marker locate-icon'
+    }).addTo(map);
+
     // Year display
     var yearControl = L.control({position: 'bottomleft'});
     yearControl.onAdd = function(map) {
@@ -57,10 +69,6 @@ function mapCreate() {
         setTimeout(function() { map.scrollWheelZoom.enable(); }, 1000);
     });
 
-    // Add geolocation api control
-    L.control.locate({
-        icon: 'glyphicon glyphicon-map-marker locate-icon'
-    }).addTo(map);
 }
 
 
