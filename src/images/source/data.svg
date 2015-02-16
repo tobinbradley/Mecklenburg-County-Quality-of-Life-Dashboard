@@ -1757,5 +1757,11 @@
        id="path5465"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccc" />
+    <path
+       sodipodi:nodetypes="cc"
+       inkscape:connector-curvature="0"
+       id="path5469"
+       d="m 542.45192,185.6513 c 91.22289,6.76081 115.11835,-8.6014 168.69546,-3.03046"
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow1Lend)" />
   </g>
 </svg>

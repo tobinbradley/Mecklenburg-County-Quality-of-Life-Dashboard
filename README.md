@@ -54,7 +54,7 @@ The default gulp task starts [BrowserSync](https://github.com/BrowserSync/browse
 Data in the dashboard comes in three pieces:
 
 <div style="text-align: center">
-<img src="http://i.imgur.com/UEHwUI1.png" style="max-width: 100%">
+<img src="http://i.imgur.com/H3aTnOW.png" style="max-width: 100%">
 </div>
 
 * The neighborhood geography topojson with your neighborhood id.
