@@ -165,8 +165,7 @@ function initMap() {
 // ****************************************
 function drawMap() {
 
-    var theMetric = model.metricId,
-        theGeom = d3.selectAll(".geom"),
+    var theGeom = d3.selectAll(".geom"),
         classlist = [],
         keys = Object.keys(model.metric[0]);
 

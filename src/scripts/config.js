@@ -12,7 +12,7 @@ var neighborhoodDefinition = "Neighborhood Profile Areas (NPAs) are geographic a
 // The URL for your base map tiles.
 // Here's a good place to find some:
 // http://leaflet-extras.github.io/leaflet-providers/preview/
-// Ex: http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
+// Ex: http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png
 // You want to change this - our base tiles only cover Mecklenburg County NC.
 var baseTilesURL = "http://tiles.mcmap.org/meckbase/{z}/{x}/{y}.png";
 

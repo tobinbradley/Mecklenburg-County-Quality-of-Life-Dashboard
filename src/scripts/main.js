@@ -54,7 +54,7 @@ $(document).ready(function () {
     model.metricId =  $("#metric").val();
 
     // set up chosen
-    $(".chosen-select").chosen({width: '100%', no_results_text: "Not found - "}).change(function () {
+    $(".chosen-select").chosen({width: '100%', no_results_text: "Not found - ", "disable_search_threshold": 10}).change(function () {
         model.metricId = $(this).val();
     });
     $(".chosen-search input").prop("placeholder", "search metrics");
