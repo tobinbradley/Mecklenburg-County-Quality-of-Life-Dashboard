@@ -47,6 +47,9 @@ function setModel(m) {
             break;
         case 'mean':
             model.metric = theData['n' + metricConfig[m].metric];
+            if (metricConfig[m].raw_label) {
+                model.metricRaw = theData['r' + metricConfig[m].metric];
+            }
             break;
         case 'normalize':
             model.metricRaw = theData['r' + metricConfig[m].metric];
