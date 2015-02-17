@@ -39499,8 +39499,7 @@ function initMap() {
 // ****************************************
 function drawMap() {
 
-    var theMetric = model.metricId,
-        theGeom = d3.selectAll(".geom"),
+    var theGeom = d3.selectAll(".geom"),
         classlist = [],
         keys = Object.keys(model.metric[0]);
 
@@ -40060,7 +40059,7 @@ var neighborhoodDefinition = "Neighborhood Profile Areas (NPAs) are geographic a
 // The URL for your base map tiles.
 // Here's a good place to find some:
 // http://leaflet-extras.github.io/leaflet-providers/preview/
-// Ex: http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
+// Ex: http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png
 // You want to change this - our base tiles only cover Mecklenburg County NC.
 var baseTilesURL = "http://tiles.mcmap.org/meckbase/{z}/{x}/{y}.png";
 
@@ -40810,7 +40809,7 @@ $(document).ready(function () {
     model.metricId =  $("#metric").val();
 
     // set up chosen
-    $(".chosen-select").chosen({width: '100%', no_results_text: "Not found - "}).change(function () {
+    $(".chosen-select").chosen({width: '100%', no_results_text: "Not found - ", "disable_search_threshold": 10}).change(function () {
         model.metricId = $(this).val();
     });
     $(".chosen-search input").prop("placeholder", "search metrics");

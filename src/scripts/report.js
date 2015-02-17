@@ -386,14 +386,18 @@ $(document).ready(function() {
 
     // grab the neighborhood list from the URL to set the filter
     if (getURLParameter("n") !== "null") {
-        theFilter.length = 0;
-        _.each(getURLParameter("n").split(","), function (n) {
-            theFilter.push(n);
-        });
+        theFilter = getURLParameter("n").split(",");
     }
 
     // populate the neighborhoods list on the first page
-    $(".neighborhoods").text(neighborhoodDescriptor + " " + theFilter.join(", "));
+    // if too long to fit one one line it lists the number of neighborhoods instead
+    var theNeighborhoods = theFilter.join(", ");
+    if (theNeighborhoods.length > 85) {
+        theNeighborhoods = theNeighborhoods.length;
+        $(".neighborhoods").text(theNeighborhoods.commafy() + " " + neighborhoodDescriptor + "s");
+    } else {
+        $(".neighborhoods").text(neighborhoodDescriptor + ": " + theNeighborhoods.commafy());
+    }
 
     // fetch map data and make map
     $.get("data/geography.topo.json", function(data) {
