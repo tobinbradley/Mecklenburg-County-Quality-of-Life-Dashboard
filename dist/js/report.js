@@ -24231,7 +24231,7 @@ var neighborhoodDefinition = "Neighborhood Profile Areas (NPAs) are geographic a
 // The URL for your base map tiles.
 // Here's a good place to find some:
 // http://leaflet-extras.github.io/leaflet-providers/preview/
-// Ex: http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
+// Ex: http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png
 // You want to change this - our base tiles only cover Mecklenburg County NC.
 var baseTilesURL = "http://tiles.mcmap.org/meckbase/{z}/{x}/{y}.png";
 
@@ -24974,6 +24974,9 @@ function setModel(m) {
             break;
         case 'mean':
             model.metric = theData['n' + metricConfig[m].metric];
+            if (metricConfig[m].raw_label) {
+                model.metricRaw = theData['r' + metricConfig[m].metric];
+            }
             break;
         case 'normalize':
             model.metricRaw = theData['r' + metricConfig[m].metric];
@@ -25310,14 +25313,18 @@ $(document).ready(function() {
 
     // grab the neighborhood list from the URL to set the filter
     if (getURLParameter("n") !== "null") {
-        theFilter.length = 0;
-        _.each(getURLParameter("n").split(","), function (n) {
-            theFilter.push(n);
-        });
+        theFilter = getURLParameter("n").split(",");
     }
 
     // populate the neighborhoods list on the first page
-    $(".neighborhoods").text(neighborhoodDescriptor + " " + theFilter.join(", "));
+    // if too long to fit one one line it lists the number of neighborhoods instead
+    var theNeighborhoods = theFilter.join(", ");
+    if (theNeighborhoods.length > 85) {
+        theNeighborhoods = theNeighborhoods.length;
+        $(".neighborhoods").text(theNeighborhoods.commafy() + " " + neighborhoodDescriptor + "s");
+    } else {
+        $(".neighborhoods").text(neighborhoodDescriptor + ": " + theNeighborhoods.commafy());
+    }
 
     // fetch map data and make map
     $.get("data/geography.topo.json", function(data) {
