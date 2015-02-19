@@ -37,6 +37,9 @@
     stroke-width: 2.5px !important;
     stroke-opacity: 1;
 }
+a {
+    color: #175e99;
+}
 
 
 // ****************************************
@@ -115,6 +118,19 @@
 .q3{fill:rgb(49,130,189)}
 .q4{fill:rgb(8,81,156)}
 
+.q0{fill:rgb(240,249,232)}
+.q1{fill:rgb(186,228,188)}
+.q2{fill:rgb(123,204,196)}
+.q3{fill:rgb(67,162,202)}
+.q4{fill:rgb(8,104,172)}
+
+.q0{fill:rgb(255,255,204)}
+.q1{fill:rgb(161,218,180)}
+.q2{fill:rgb(65,182,196)}
+.q3{fill:rgb(44,127,184)}
+.q4{fill:rgb(37,52,148)}
+
+
 
 // ****************************************
 // Button shadow lift effect
@@ -167,10 +183,16 @@ body {
 .jumbotron {
     padding: 20px 0 30px;
     margin-bottom: 0;
-    box-shadow: inset 0 -5px 7px -5px #666;
+    box-shadow: inset 0 -6px 7px -5px #666;
+    //background: rgb(35, 133, 161);
     h1 {
         text-shadow: #777 0 1px 1px;
     }
+}
+.navbar {
+    //background: rgb(35, 133, 161);
+    //border: 0;
+    //box-shadow: 5px 5px 10px -5px #666;
 }
 
 
@@ -228,7 +250,7 @@ body {
     100% {transform: scale(1.2, 1.2); opacity: 0.0;}
 }
 .focus_ring {
-    border: 3px solid #03A9F4;
+    border: 3px solid @selectedColor;
     border-radius: 50%;
     height: 38px;
     width: 38px;
@@ -268,6 +290,9 @@ body {
 .leaflet-control-layers, .leaflet-control-zoom, .leaflet-bar, .leaflet-bar a {
     background: @body-color;
     box-shadow: none;
+}
+.leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar {
+    border: 1px solid #d3d4d8;
 }
 .leaflet-bar {
     .glyphicon {
@@ -474,7 +499,7 @@ body {
 // ****************************************
 .well {
     //box-shadow: @fancyshadow;
-    //background-color: rgba(255,255,255,0.3);
+    //background-color: #fefefe;
     h4 {
         font-size: 1.5em;
     }
@@ -519,7 +544,7 @@ body {
 .stats {
     min-height: 112px;
     span {
-        color: #999999;
+        color: #727272;
         display: block;
     }
     .header {

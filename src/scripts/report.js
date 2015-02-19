@@ -313,7 +313,7 @@ function createMap(data){
     var geom = L.geoJson(topojson.feature(data, data.objects[neighborhoods]), {
         style: {
             "color": "#FFA400",
-            "fillColor": "rgba(0,0,0,0)",
+            "fillColor": "rgba(255,164,0,0.3)",
             "weight": 2,
             "opacity": 1
         },
@@ -329,7 +329,7 @@ function createMap(data){
         }
     }).addTo(largeMap);
 
-    var geom = L.geoJson(topojson.feature(data, data.objects[neighborhoods]), {
+    geom = L.geoJson(topojson.feature(data, data.objects[neighborhoods]), {
         style: {
             "color": "#FFA400",
             "fillColor": "#FFA400",
