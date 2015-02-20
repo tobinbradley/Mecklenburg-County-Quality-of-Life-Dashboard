@@ -112,34 +112,24 @@ a {
 // .q5{fill:rgb(8,69,148)}
 //
 // five blue color breaks
-.q0{fill:rgb(198,219,239)}
-.q1{fill:rgb(158,202,225)}
-.q2{fill:rgb(107,174,214)}
-.q3{fill:rgb(49,130,189)}
-.q4{fill:rgb(8,81,156)}
-
-.q0{fill:rgb(240,249,232)}
-.q1{fill:rgb(186,228,188)}
-.q2{fill:rgb(123,204,196)}
-.q3{fill:rgb(67,162,202)}
-.q4{fill:rgb(8,104,172)}
-
+// .q0{fill:rgb(198,219,239)}
+// .q1{fill:rgb(158,202,225)}
+// .q2{fill:rgb(107,174,214)}
+// .q3{fill:rgb(49,130,189)}
+// .q4{fill:rgb(8,81,156)}
+//
+// .q0{fill:rgb(240,249,232)}
+// .q1{fill:rgb(186,228,188)}
+// .q2{fill:rgb(123,204,196)}
+// .q3{fill:rgb(67,162,202)}
+// .q4{fill:rgb(8,104,172)}
+//
 .q0{fill:rgb(255,255,204)}
 .q1{fill:rgb(161,218,180)}
 .q2{fill:rgb(65,182,196)}
 .q3{fill:rgb(44,127,184)}
 .q4{fill:rgb(37,52,148)}
 
-
-
-// ****************************************
-// Button shadow lift effect
-// ****************************************
-.btn:hover {
-box-shadow: 0 4px 8px rgba(0,0,0, .16),
-                    0 4px 8px rgba(0,0,0, .23) ;
-    transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
-}
 
 
 // ****************************************
@@ -162,8 +152,8 @@ box-shadow: 0 4px 8px rgba(0,0,0, .16),
 // Document level stuff/spacing
 // ****************************************
 body {
-    //background: @body-color url(../images/linen.png);
     background: @body-color;
+    padding-top: 50px;  // for fixed navbar
 }
 .row-vis {
     min-height: 651px;
@@ -181,18 +171,25 @@ body {
     }
 }
 .jumbotron {
-    padding: 20px 0 30px;
-    margin-bottom: 0;
-    box-shadow: inset 0 -6px 7px -5px #666;
-    //background: rgb(35, 133, 161);
+    padding: 70px 0;
+    margin-bottom: 60px;
+    background: #03A9F4;
+    background: linear-gradient(to bottom, #03A9F4 0%,#0288D1 100%);
+    color: white;
     h1 {
         text-shadow: #777 0 1px 1px;
+        font-weight: bold;
     }
-}
-.navbar {
-    //background: rgb(35, 133, 161);
-    //border: 0;
-    //box-shadow: 5px 5px 10px -5px #666;
+    p {
+        font-size: 1.2em;
+        max-width: 700px;
+        margin: 20px auto;
+    }
+    .btn:hover {
+        box-shadow: 0 4px 8px rgba(0,0,0, .16),
+                    0 4px 8px rgba(0,0,0, .23) ;
+        transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    }
 }
 
 
