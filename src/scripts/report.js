@@ -393,7 +393,7 @@ $(document).ready(function() {
     // if too long to fit one one line it lists the number of neighborhoods instead
     var theNeighborhoods = theFilter.join(", ");
     if (theNeighborhoods.length > 85) {
-        theNeighborhoods = theNeighborhoods.length;
+        theNeighborhoods = theFilter.length;
         $(".neighborhoods").text(theNeighborhoods.commafy() + " " + neighborhoodDescriptor + "s");
     } else {
         $(".neighborhoods").text(neighborhoodDescriptor + ": " + theNeighborhoods.commafy());
