@@ -152,7 +152,7 @@ $(document).ready(function () {
 
     // Scroll to begin position (i.e. get past enormous jumbotron)
     $(".scrollToStart").on("click", function() {
-        var pos = $('.container-content').position().top - $('.navbar').height() - 40;
+        var pos = $('.container-content').position().top - $('.navbar').height();
         $("html, body").animate({ scrollTop: pos }, "slow", function() {
             $(".focus_ring").addClass("focus_active");
         });
@@ -200,7 +200,7 @@ $(document).ready(function () {
         }
     });
 
-    // Contact form. You'll want to send this someplace else.
+    // Contact form. You'll want to send this someplace else via config.js
     $(".contact form").submit(function(e) {
         e.preventDefault();
         $(".contact").dropdown("toggle");
@@ -252,7 +252,7 @@ $(document).ready(function () {
     // Get the data and kick everything off
     fetchMetricData(model.metricId);
 
-    // turn on form labels if placeholder not supported
+    // turn on form labels if placeholder not supported - curse you IE9
     if (!('placeholder' in document.createElement('input'))) {
         $("label").removeClass("sr-only");
     }
