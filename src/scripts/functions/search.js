@@ -116,7 +116,7 @@ function initTypeahead() {
                         });
                     });
                     if (dataset.length === 0) { dataset.push({ value: "No records found." }); }
-                    return _(dataset).sortBy("value");
+                    return _.sortBy(dataset, "value");
                 }
             },
             minLength: 4,
@@ -139,7 +139,7 @@ function initTypeahead() {
                         });
                     });
                     if (dataset.length === 0) { dataset.push({ value: "No records found." }); }
-                    return _(dataset).sortBy("value");
+                    return _.sortBy(dataset, "value");
                 }
             },
             minLength: 4,
@@ -194,5 +194,5 @@ function initTypeahead() {
             }
         }
     });
-    
+
 }
