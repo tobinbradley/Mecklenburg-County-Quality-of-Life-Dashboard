@@ -15,9 +15,14 @@ function initTypeahead() {
 
     $('.typeahead').typeahead([
         {
-            name: 'npa',
+            name: 'neighborhood',
             local: polyid,
-            header: '<h4 class="typeahead-header"><span class="glyphicon glyphicon-home"></span> NPA</h4>'
+            header: '<h4 class="typeahead-header"><span class="glyphicon glyphicon-home"></span> ' + neighborhoodDescriptor + '</h4>'
+        },
+        {
+            name: 'metric',
+            local: _.pluck(metricConfig, "title"),
+            header: '<h4 class="typeahead-header"><span class="glyphicon glyphicon-eye-open"></span> Metric</h4>'
         },
         {
             name: 'Address',
@@ -146,7 +151,7 @@ function initTypeahead() {
             limit: 15,
             header: '<h4 class="typeahead-header"><span class="glyphicon glyphicon-briefcase"></span> Business</h4>'
         }
-    ]).on('typeahead:selected', function (obj, datum) {
+    ]).on('typeahead:selected', function (obj, datum, theType) {
         if (datum.lat) {
             $.ajax({
                 url: 'http://maps.co.mecklenburg.nc.us/rest/v2/ws_geo_pointoverlay.php',
@@ -187,10 +192,13 @@ function initTypeahead() {
                     }
                 });
             }
-            else {
+            if (theType === 'neighborhood') {
                 // select neighborhood
                 geocode({"id": datum.value});
                 model.selected = _.union(model.selected, [datum.value]);
+            }
+            if (theType === 'metric') {
+                model.metricId =  $(".chosen-select option:contains('" + datum.value + "')").val();
             }
         }
     });

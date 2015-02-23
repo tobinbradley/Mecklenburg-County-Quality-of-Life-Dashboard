@@ -83,7 +83,7 @@ Metric files are simple CSV files named to reflect what they are. The are stored
 
 Depending on what you want to do with the metric, you will name your files slightly different things. If your metric is normalized, like population density, you would have it as `n1.csv`. If your metric is raw, like population, you would name it `r1.csv`. If your metric is going to be re-normalized (i.e. weighted average), you would need the denominator or units for the normalization. That would be `d1.csv`. The number in these names is just a unique number for that metric - it can be anything you set in your `config.js`.
 
-These CSV's are converted into JSON files when the project is built.
+The CSV's are converted into JSON files by running `gulp datagen`.
 
 **Tip 1: CSV column case sensitivity**
 
@@ -120,7 +120,11 @@ Metadata files are in markdown and are named for the metric, like `m1.md`, and a
 
 When processing the HTML from the markdown, the h2 and h3 tags are used in a really awful lefty-righty kind of way. If you insert another h2 or h3, you will be boned. Same if you drop one. If you want to format the metadata differently, you must edit `src/scripts/functions/metadata.js` to meet your needs. It won't be hard, but not doing it and jacking with the markdown will lead to disappointment.
 
-After you add metadata, run `gulp build` to convert the markdown to HTML.
+After you add metadata, run `gulp datagen` to convert the markdown to HTML.
+
+**Tip: Beware non-HTML characters**
+
+Don't edit Markdown in Word. You're welcome.
 
 ### Customize config.js
 `src/scripts/config.js` has knobs you will need to turn to set up the dashboard for your area. It is all well documented there. Each metric has a JSON description with a few required and many optional properties.

@@ -94,21 +94,7 @@
     <div class="container container-content">
         <div class="row row-vis">
             <div class="col-md-8 map-container">
-                <div style="min-height: 37px">
-                  <!--
-                      This is where you list all of the variables you want to see
-                      in the dropdown list. You don't have to list everything here.
-                      For example, you might want to not explicitly show raw numbers
-                      or accuracy information.
-
-                      Note this is in a seemingly useless div because if it doesn't
-                      have a container with a height the map repositions after the
-                      chosen control shows up on page load, consequently pissing me
-                      off.
-                   -->
-                    <select id="metric" name="metric" class="form-control chosen-select hide" aria-label="variable selection"></select>
-                </div>
-                <div class="focus_ring"></div>
+                <select id="metric" name="metric" class="form-control input-lg chosen-select" aria-label="variable selection"></select>
                 <div id="map"></div>
                 <div class="form mapsearch">
                     <input id="searchbox" name="searchbox" type="text" class="typeahead form-control" placeholder="search map">

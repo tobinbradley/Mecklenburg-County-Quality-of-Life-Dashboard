@@ -183,4 +183,6 @@ gulp.task('clean', function(cb) {
 
 // controller tasks
 gulp.task('default', ['less', 'js', 'replace', 'watch', 'browser-sync']);
-gulp.task('build', ['clean', 'less-build', 'js-build', 'markdown', 'convert', 'replace', 'imagemin', 'merge-json']);
+gulp.task('build', ['less-build', 'js-build', 'markdown', 'replace']);
+gulp.task('datagen', ['clean', 'markdown', 'convert', 'merge-json']);
+gulp.task('imageshrink', ['imagemin']);
