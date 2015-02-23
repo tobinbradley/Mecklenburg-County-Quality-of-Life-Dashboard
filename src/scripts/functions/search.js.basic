@@ -7,13 +7,24 @@ function initTypeahead() {
     $("#searchbox").click(function () { $(this).select(); }).focus();
     $('.typeahead').typeahead([
         {
-            name: neighborhoodDescriptor,
+            name: 'neighborhood',
             local: polyid,
             header: '<h4 class="typeahead-header"><span class="glyphicon glyphicon-home"></span> ' + neighborhoodDescriptor + '</h4>'
+        },
+        {
+            name: 'metric',
+            local: _.pluck(metricConfig, "title"),
+            header: '<h4 class="typeahead-header"><span class="glyphicon glyphicon-eye-open"></span> Metric</h4>'
+        },
+    ]).on('typeahead:selected', function (obj, datum, theType) {
+        if (theType === 'neighborhood') {
+            // select neighborhood
+            geocode({"id": datum.value});
+            model.selected = _.union(model.selected, [datum.value]);
         }
-    ]).on('typeahead:selected', function (obj, datum) {
-        // select neighborhood
-        geocode({"id": datum.value});
-        model.selected = _.union(model.selected, [datum.value]);
+        if (theType === 'metric') {
+            // load the metric
+            model.metricId =  $(".chosen-select option:contains('" + datum.value + "')").val();
+        }
     });
 }

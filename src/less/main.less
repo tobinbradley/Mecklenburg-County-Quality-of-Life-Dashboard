@@ -6,7 +6,6 @@
 @import (less) "../../bower_components/leaflet/dist/leaflet.css";
 @import (less) "../../bower_components/leaflet.locatecontrol/dist/L.Control.Locate.css";
 @import "vendor/typeahead.less";
-@import "vendor/bootstrap-chosen.less";
 @import "vendor/jquery-tourbus.less";
 
 
@@ -128,7 +127,7 @@ body {
     min-height: 651px;
 }
 .container-content {
-    padding-top: 40px;
+    padding-top: 30px;
 }
 
 
@@ -220,45 +219,27 @@ body {
 
 
 // ****************************************
-// Metric Selection/chosen
+// Metric Select
 // ****************************************
 @keyframes pulsate {
-    0% {transform: scale(0.1, 0.1); opacity: 0.0;}
-    50% {opacity: 1.0;}
-    100% {transform: scale(1.3, 1.3); opacity: 0.0;}
+    0% { box-shadow: 0 0 0;}
+    50% { box-shadow: 1px 1px 0 @selectedColor,
+                      -1px -1px 0 @selectedColor,
+                      -1px 1px 0 @selectedColor,
+                      1px -1px 0 @selectedColor,
+                      0 0 20px @selectedColor;
+        }
+    100% { box-shadow: 0 0 0; }
 }
-.focus_ring {
-    border: 5px solid @selectedColor;
-    border-radius: 50%;
-    height: 38px;
-    width: 38px;
-    position: absolute;
-    right: 10px;
-    top: -1px;
-    opacity: 0.0;
-    pointer-events: none;
+.chosen-select {
+  border-radius: 5px 5px 0 0;
+  background: #eee;
+  background: linear-gradient(to bottom,#fff 0,#eee 100%);
+  transition: all 0.3s ease;
 }
-.focus_active {
-  animation: pulsate 2s ease-out;
+.select-highlight {
+  animation: pulsate 1.5s ease-out;
   animation-iteration-count: 3;
-}
-.chosen-container {
-    max-width: 100%;
-}
-.chosen-single {
-    font-size: 1.3em;
-    font-weight: bold;
-    text-align: center;
-}
-.chosen-search {
-    input:focus {
-            border-color: #66afe9;
-            outline: 0;
-            box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
-    }
-}
-.group-result {
-    font-size: 1.4em;
 }
 
 
@@ -281,7 +262,6 @@ body {
         left: -1px;
     }
 }
-
 #map {
     height: 530px;
     background: rgba(0,0,0,0);
@@ -306,7 +286,7 @@ body {
 .mapsearch {
     position: absolute;
     z-index: 5;
-    top: 44px;
+    top: 55px;
     right: 24px;
     width: 40%;
     margin: 0 auto;

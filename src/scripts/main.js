@@ -53,12 +53,10 @@ $(document).ready(function () {
     }
     model.metricId =  $("#metric").val();
 
-    // set up chosen
-    $(".chosen-select").chosen({width: '100%', no_results_text: "Not found - ", "disable_search_threshold": 10}).change(function () {
+    // data select
+    $(".chosen-select").on("change", function() {
         model.metricId = $(this).val();
     });
-    $(".chosen-search input").prop("placeholder", "search metrics");
-    $(".chosen-select").removeClass("hide");  // just in case it's mobile
 
     // set window popstate handler
     if (history.pushState) {
@@ -150,11 +148,13 @@ $(document).ready(function () {
     // Don't let clicked toggle buttons remain colored because ugly
     $(".datatoggle").on("focus", "button", function() { $(this).blur(); });
 
-    // Scroll to begin position (i.e. get past enormous jumbotron)
+    // Scroll to begin position (i.e. get past and then nuke jumbotron)
     $(".scrollToStart").on("click", function() {
-        var pos = $('.container-content').position().top - $('.navbar').height();
-        $("html, body").animate({ scrollTop: pos }, "slow", function() {
-            $(".focus_ring").addClass("focus_active");
+        var pos = $(".container-content").position().top - $(".navbar").height();
+        $('html, body').animate({ scrollTop: pos}, 'slow', function() {
+            $('.jumbotron').remove();
+            $(window).scrollTop(0);
+            $(".chosen-select").addClass("select-highlight");
         });
     });
 

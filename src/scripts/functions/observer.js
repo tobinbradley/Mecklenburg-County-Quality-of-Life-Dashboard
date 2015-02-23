@@ -16,10 +16,9 @@ function modelChanges(changes) {
         // Make sure a year has been set before
         var metricChange = _.filter(changes, function(el) { return el.name === "metricId"; });
         if (metricChange[0].hasOwnProperty('oldValue')) {
-            // change chosen if not samsies
-            if (model.metricId !== undefined && $(".chosen-select").chosen().val() !== model.metricId) {
+            // change select if not samsies
+            if (model.metricId !== undefined && $(".chosen-select").val() !== model.metricId) {
                 $('.chosen-select').val(model.metricId);
-                $('.chosen-select').trigger("chosen:updated");
             }
             fetchMetricData(model.metricId);
         }
