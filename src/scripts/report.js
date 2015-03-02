@@ -54,21 +54,7 @@ function setModel(m) {
         case 'normalize':
             model.metricRaw = theData['r' + metricConfig[m].metric];
             model.metricDenominator = theData['d' + metricConfig[m].metric];
-
-            var calcMetric = $.extend(true, {}, model.metricRaw);
             var keys = _.without(_.keys(model.metricRaw[0]), "id");
-
-            // this next bit can get taken out when the normalize capabilities are complete
-             _.each(calcMetric, function(theval, i) {
-                _.each(keys, function(key) {
-                    theRaw = model.metricRaw[i][key];
-                    theDemoninator = model.metricDenominator[i][key];
-                    theval[key] = theRaw / theDemoninator;
-                });
-            });
-            model.metric = calcMetric;
-            // end bit
-
             break;
     }
 }
@@ -131,10 +117,6 @@ function createCharts() {
             dataTypeKey = el;
         });
 
-        if (!$.isNumeric(datasets[0].data[0])) {
-            datasets.shift();
-        }
-
         data.datasets = datasets;
 
         ctx = document.getElementById($(this).prop("id")).getContext("2d");
@@ -161,8 +143,8 @@ function createCharts() {
 
         // stats
         _.each(keys, function(year) {
-            countyMean.push(dataCrunch(year));
-            npaMean.push(dataCrunch(year, theFilter));
+            countyMean.push(dataCrunch(metricConfig[m].type, year));
+            npaMean.push(dataCrunch(metricConfig[m].typeyear, theFilter));
             dataTypeKey = m;
         });
 
@@ -253,9 +235,9 @@ function createData() {
                 tdata.year = year.replace('y_', '');
 
                 // Stats
-                tdata.countyNVal = dataCrunch(year);
+                tdata.countyNVal = dataCrunch(metricConfig[m].type, year);
                 tdata.countyVal = dataPretty(tdata.countyNVal, m);
-                tdata.selectedNVal = dataCrunch(year, theFilter);
+                tdata.selectedNVal = dataCrunch(metricConfig[m].type, year, theFilter);
                 tdata.selectedVal = dataPretty(tdata.selectedNVal, m);
                 if (metricConfig[m].raw_label) {
                     tdata.countyRaw = '<br>' + dataSum(model.metricRaw, year).toFixed(0).commafy();
