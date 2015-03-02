@@ -54,22 +54,47 @@ function dataMean(dataSet, key, filter) {
     }
 }
 
+// renormalize/weight a metric
+function dataNormalize(dataNumerator, dataDenominator, key, filter) {
+    // apply filter if passed
+    if (typeof filter !== "undefined" && filter !== null) {
+        dataNumerator = dataFilter(dataNumerator, filter);
+        dataDenominator = dataFilter(dataDenominator, filter);
+    }
+
+    // reduce dataSet to numbers - no nulls
+    dataNumerator = dataStrip(dataNumerator, key);
+    dataDenominator = dataStrip(dataDenominator, key);
+
+    if (dataNumerator.length > 0 && dataDenominator.length > 0) {
+        // calculate
+        var totalNumerator = dataNumerator.reduce(function(a, b) {
+            return a + b;
+        });
+        var totalDenominator = dataDenominator.reduce(function(a, b) {
+            return a + b;
+        });
+        return totalNumerator / totalDenominator;
+    } else {
+        return 'N/A';
+    }
+}
+
 // decide which computation to run and run it
-function dataCrunch(key, filter) {
+function dataCrunch(theType, key, filter) {
     var theReturn;
     if (typeof filter === "undefined") { filter = null; }
 
-    switch (metricConfig[model.metricId].type) {
+    switch (theType) {
         case "sum":
             theReturn = dataSum(model.metric, key, filter);
             break;
-        case "mean": case "normalize":
+        case "mean":
             theReturn = dataMean(model.metric, key, filter);
             break;
-        // experimental - use with caution!
-        // case "normalize":
-        //     theReturn = dataNormalize(model.metricRaw, model.metricDenominator, key, filter);
-        //     break;
+        case "normalize":
+            theReturn = dataNormalize(model.metricRaw, model.metricDenominator, key, filter);
+            break;
     }
     return theReturn;
 }

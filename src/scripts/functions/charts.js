@@ -8,8 +8,8 @@ function lineChartData() {
 
     // get stats
     _.each(model.years, function(year) {
-        countyMean.push(dataCrunch(year));
-        npaMean.push(dataCrunch(year, model.selected));
+        countyMean.push(dataCrunch(metricConfig[model.metricId].type, year));
+        npaMean.push(dataCrunch(metricConfig[model.metricId].type, year, model.selected));
     });
 
     // make sure selected stuff really has a value
@@ -249,7 +249,7 @@ function barChart() {
                 .attr("cx", function(d) {
                     if ($.isNumeric(d[keys[model.year + 1]])) {
                         return xScale(d[keys[model.year + 1]]);
-                    } 
+                    }
                 })
                 .attr("cy", y(0))
                 .attr("r", 5)

@@ -116,7 +116,7 @@ function updateStats() {
 
     // County stat box
     params.topText = "COUNTY";
-    theStat = dataCrunch(year);
+    theStat = dataCrunch(metricConfig[model.metricId].type, year);
     params.mainNumber = dataPretty(theStat, m);
     // raw number
     if (metricConfig[model.metricId].raw_label) {
@@ -129,7 +129,7 @@ function updateStats() {
     // Selected NPAs
     params.topText = 'SELECTED <a href="javascript:void(0)" tabindex="0" class="meta-definition" data-toggle="popover" data-content="' + neighborhoodDefinition + '">' + neighborhoodDescriptor.toUpperCase() + 's</a>';
     // main number
-    theStat = dataCrunch(year, model.selected);
+    theStat = dataCrunch(metricConfig[model.metricId].type, year, model.selected);
     params.mainNumber = dataPretty(theStat, m);
     // raw number
     if (metricConfig[model.metricId].raw_label) {
