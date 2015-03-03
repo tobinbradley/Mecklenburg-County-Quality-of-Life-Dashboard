@@ -180,6 +180,15 @@ gulp.task('clean', function(cb) {
   ], cb);
 });
 
+// clean data out for new location
+gulp.task('clean-data', function(cb) {
+    del([
+    'src/data/meta/*.md',
+    'src/data/metric/*.csv',
+    'dist/data/geography.topo.json'
+  ], cb);
+});
+
 
 // controller tasks
 gulp.task('default', ['less', 'js', 'replace', 'watch', 'browser-sync']);
