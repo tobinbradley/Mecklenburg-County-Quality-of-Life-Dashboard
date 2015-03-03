@@ -7,11 +7,10 @@ The current (master) version is ready for production, but we decided to add a ne
 
 The dashboard uses D3 for visualizations. The good news is besides all the cool features in the new version has it is less than half the size over the wire and loads twice as fast. The bad news is IE8 absolutely will not work. I'm sorry/you're welcome.
 
+Here's a handy [YouTube Tutorial](https://www.youtube.com/watch?v=9p9onu_e4Og) on customizing the Dashboard for your area of interest if reading isn't your bag.
+
 We hope you find this project useful. Patches are always welcome!
 
-<!--
-Here's a handy [YouTube Tutorial](https://www.youtube.com/watch?v=qmx2mZXeHZQ) on customizing the Dashboard for your area of interest if reading isn't your bag.
--->
 
 ## Setting Up
 
