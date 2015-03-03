@@ -50,7 +50,7 @@ The default gulp task starts [BrowserSync](https://github.com/BrowserSync/browse
 
     gulp
 
-## Customizing the Dashboard for your area
+## Customizing the Dashboard
 Data in the dashboard comes in three pieces:
 
 <div style="text-align: center">
@@ -75,19 +75,22 @@ Metric files are simple CSV files named to reflect what they are. The are stored
 
      id,y_2012,y_2014
 
- With `y_XXXX` representing the year of that data column. Null values are expressed as nothing, like:
+ With `y_XXXX` representing the year of that data column. Null values are empty, like:
 
      id,y_2012,y_2014
-     11,100,200
      12,,400
 
-Depending on what you want to do with the metric, you will name your files slightly different things. If your metric is normalized, like population density, you would have it as `n1.csv`. If your metric is raw, like population, you would name it `r1.csv`. If your metric is going to be re-normalized (i.e. weighted average), you would need the denominator or units for the normalization. That would be `d1.csv`. The number in these names is just a unique number for that metric - it can be anything you set in your `config.js`.
+Depending on what you want to do with the metric, you will name your files slightly different things. There are three types of metrics, with the type being set in `config.js`. Each type will look for different file names.
 
-The CSV's are converted into JSON files by running `gulp datagen`.
+* **sum**: This is for raw variables, like population. It will look for a file name beginning with *r*, like `r[X].csv`.
+* **mean**: This is for normalized variables, like population density. It will look for a file name beginning with *n*, like `n[X].csv`.
+* **normalize**: This will normalize data or perform a weighted average and will look for two files - a raw file beginning with *r*, like `r[X].csv`, and a weighting variable beginning with *d*, like `d[X].csv`. Suppose you wanted to have a weighted average for people per acre (population density). If you specify normalize, it'll look for a raw population in `rX.csv` and the number of acres for the denominator in `dX.csv` and produce a weighted average.
+
+The CSV's are converted to JSON by running `gulp datagen`.
 
 **Tip 1: CSV column case sensitivity**
 
-Spreadsheet software often likes to capitalize the first letter in the `y_XXXX` field. That will turn your life into a furious ball of nothing, so keep an eye on that. You can all your files at once on Linux like so:
+Spreadsheet software often likes to capitalize the first letter in the `y_XXXX` field. That will turn your life into a furious ball of nothing. You can all your files at once on Linux like so:
 
      for f in *.csv; do sed -e 's/\(.*\)/\L\1/' $f > out/$f; done
 
@@ -131,9 +134,9 @@ Don't edit Markdown in Word. You're welcome.
 
 In particular, note the `type` on the metric description, which describes the calculation to be performed. The type of calculation to be performed effects what the dashboard will look for.
 
-* `sum`: This is for raw variables, like population. It'll look for `rX.csv`.
-* `mean`: This is for normalized variables, like population density. It'll look for `nX.csv`.
-* `normalize`: This will normalize data or perform a weighted average. Suppose you wanted to have a weighted average for people per acre (population density). If you specify normalize, it'll look for a raw population in `rX.csv` and the number of acres for the denominator in `dX.csv` and produce a weighted average.
+* **sum**: This is for raw variables, like population. It'll look for `rX.csv`.
+* **mean**: This is for normalized variables, like population density. It'll look for `nX.csv`.
+* **normalize**: This will normalize data or perform a weighted average. Suppose you wanted to have a weighted average for people per acre (population density). If you specify normalize, it'll look for a raw population in `rX.csv` and the number of acres for the denominator in `dX.csv` and produce a weighted average.
 
 *Note the normalize type doesn't work yet. It doesn't break, it just does the same thing as mean.*
 
