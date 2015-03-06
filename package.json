@@ -9,6 +9,7 @@
     "del": "^1.1.1",
     "gulp": "*",
     "gulp-autoprefixer": "*",
+    "gulp-changed": "^1.1.1",
     "gulp-concat": "*",
     "gulp-convert": "*",
     "gulp-imagemin": "*",
@@ -17,8 +18,7 @@
     "gulp-markdown": "*",
     "gulp-minify-css": "*",
     "gulp-replace": "*",
-    "gulp-uglify": "*",
-    "tape": "^3.5.0"
+    "gulp-uglify": "*"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

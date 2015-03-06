@@ -144,7 +144,7 @@ function createCharts() {
         // stats
         _.each(keys, function(year) {
             countyMean.push(dataCrunch(metricConfig[m].type, year));
-            npaMean.push(dataCrunch(metricConfig[m].typeyear, theFilter));
+            npaMean.push(dataCrunch(metricConfig[m].type, year, theFilter));
             dataTypeKey = m;
         });
 
