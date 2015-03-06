@@ -8,6 +8,7 @@ var gulp = require('gulp'),
     markdown = require('gulp-markdown'),
     convert = require('gulp-convert'),
     imagemin = require('gulp-imagemin'),
+    changed    = require('gulp-changed'),
     replace = require('gulp-replace'),
     jsoncombine = require("gulp-jsoncombine"),
     fs = require('fs'),
@@ -129,10 +130,10 @@ gulp.task('merge-json', ['clean', 'convert'], function() {
 // image processing
 gulp.task('imagemin', function() {
     return gulp.src('src/images/build/*')
+        .pipe(changed('dist/images'))
         .pipe(imagemin({
-            optimizationLevel: 3,
-            progressive: true,
-            interlaced: true
+            optimizationLevel: 5,
+            svgoPlugins: [{removeViewBox: false}]
         }))
         .pipe(gulp.dest('dist/images'));
 });
@@ -192,6 +193,5 @@ gulp.task('clean-data', function(cb) {
 
 // controller tasks
 gulp.task('default', ['less', 'js', 'replace', 'watch', 'browser-sync']);
-gulp.task('build', ['less-build', 'js-build', 'replace']);
+gulp.task('build', ['less-build', 'js-build', 'replace', 'imagemin']);
 gulp.task('datagen', ['clean', 'markdown', 'convert', 'merge-json']);
-gulp.task('imageshrink', ['imagemin']);

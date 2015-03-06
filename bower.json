@@ -24,6 +24,7 @@
     "leaflet": "*",
     "Leaflet.label": "*",
     "leaflet.locatecontrol": "~0.40.0",
-    "L.EasyButton": "*"
+    "L.EasyButton": "*",
+    "qunit": "~1.17.1"
   }
 }
