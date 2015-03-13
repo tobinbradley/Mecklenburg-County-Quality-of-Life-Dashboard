@@ -13,6 +13,7 @@ var gulp = require('gulp'),
     jsoncombine = require("gulp-jsoncombine"),
     fs = require('fs'),
     del = require('del'),
+    _ = require('lodash'),
     config = require('./src/scripts/config.js');
 
 
@@ -57,6 +58,21 @@ var jsReport = [
     'src/scripts/config.js',
     'src/scripts/report.js'
 ];
+
+
+// Unit tests
+gulp.task('tests', function() {
+    // build JS
+    gulp.src(_.without(jsMain, 'src/scripts/main.js'))
+        .pipe(concat('app.js'))
+        .pipe(gulp.dest('src/tests'));
+    // fire up qunit page
+    browserSync(['./src/tests/*.*'], {
+        server: {
+            baseDir: "./src/tests"
+        }
+    });
+});
 
 // Web server
 gulp.task('browser-sync', function() {
