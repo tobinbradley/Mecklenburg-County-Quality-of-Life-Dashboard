@@ -23,8 +23,7 @@
     "lodash": "*",
     "leaflet": "*",
     "Leaflet.label": "*",
-    "leaflet.locatecontrol": "~0.40.0",
-    "L.EasyButton": "*",
-    "qunit": "~1.17.1"
+    "leaflet.locatecontrol": "*",
+    "L.EasyButton": "*"
   }
 }

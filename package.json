@@ -1,6 +1,6 @@
 {
   "name": "qoldashboard",
-  "version": "1.9.1",
+  "version": "2.0.0",
   "description": "Node packages for gulp",
   "main": "gulpfile.js",
   "dependencies": {},
@@ -18,7 +18,8 @@
     "gulp-markdown": "*",
     "gulp-minify-css": "*",
     "gulp-replace": "*",
-    "gulp-uglify": "*"
+    "gulp-uglify": "*",
+    "lodash": "^3.5.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
