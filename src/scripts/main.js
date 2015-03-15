@@ -41,6 +41,9 @@ $(document).ready(function () {
     });
     selectVals += '</optgroup>';
     $("#metric").html(selectVals);
+    $('#metric').hover(function() {
+        $(this).removeClass('select-highlight');
+    });
 
     // Start with random metric if none passed
     if (getURLParameter("m") !== "null") {

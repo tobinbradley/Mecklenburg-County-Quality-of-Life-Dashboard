@@ -38715,41 +38715,6 @@ jQuery.fn.table2CSV = function(options) {
 
 }).call(this);
 
-// ****************************************
-// Serious mathing
-// ****************************************
-
-// Filter our selected records out
-function dataFilter(dataSet, filter) {
-    return _.filter(dataSet, function(el) { return filter.indexOf(el.id) !== -1; });
-}
-
-// strip to just numbers
-function dataStrip(dataSet, key) {
-    return _.filter(_.pluck(dataSet, key), function (el) {  return $.isNumeric(el); }).map(Number);
-}
-
-// sum a metric
-function dataSum(dataSet, key, filter) {
-    // apply filter if passed
-    if (typeof filter !== "undefined" && filter !== null) {
-       dataSet = dataFilter(dataSet, filter);
-    }
-
-    // reduce dataSet to numbers - no nulls
-    dataSet = dataStrip(dataSet, key);
-
-    if (dataSet.length > 0) {
-        // calculate
-        var total = dataSet.reduce(function(a, b) {
-            return a + b;
-        });
-        return total;
-    } else {
-        return 'N/A';
-    }
-}
-
 // average a metric
 function dataMean(dataSet, key, filter) {
     // apply filter if passed
@@ -38796,6 +38761,42 @@ function dataNormalize(dataNumerator, dataDenominator, key, filter) {
         return 'N/A';
     }
 }
+
+// sum a metric
+function dataSum(dataSet, key, filter) {
+    // apply filter if passed
+    if (typeof filter !== "undefined" && filter !== null) {
+       dataSet = dataFilter(dataSet, filter);
+    }
+
+    // reduce dataSet to numbers - no nulls
+    dataSet = dataStrip(dataSet, key);
+
+    if (dataSet.length > 0) {
+        // calculate
+        var total = dataSet.reduce(function(a, b) {
+            return a + b;
+        });
+        return total;
+    } else {
+        return 'N/A';
+    }
+}
+
+// ****************************************
+// Serious mathing
+// ****************************************
+
+// Filter our selected records out
+function dataFilter(dataSet, filter) {
+    return _.filter(dataSet, function(el) { return filter.indexOf(el.id) !== -1; });
+}
+
+// strip to just numbers
+function dataStrip(dataSet, key) {
+    return _.filter(_.pluck(dataSet, key), function (el) {  return $.isNumeric(el); }).map(Number);
+}
+
 
 // decide which computation to run and run it
 function dataCrunch(theType, key, filter) {
@@ -40828,6 +40829,9 @@ $(document).ready(function () {
     });
     selectVals += '</optgroup>';
     $("#metric").html(selectVals);
+    $('#metric').hover(function() {
+        $(this).removeClass('select-highlight');
+    });
 
     // Start with random metric if none passed
     if (getURLParameter("m") !== "null") {
