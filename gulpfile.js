@@ -40,6 +40,7 @@ var jsMain = [
     'src/scripts/vendor/Chart.js',
     'src/scripts/vendor/typeahead.js',
     'src/scripts/vendor/jquery-tourbus.js',
+    'src/scripts/functions/calculations/*.js',
     'src/scripts/functions/*.js',
     'src/scripts/config.js',
     'src/scripts/main.js'
@@ -53,6 +54,7 @@ var jsReport = [
     'bower_components/topojson/topojson.js',
     'bower_components/lodash/lodash.js',
     'src/scripts/vendor/Chart.js',
+    'src/scripts/functions/calculations/*.js',
     'src/scripts/functions/generics.js',
     'src/scripts/functions/calculations.js',
     'src/scripts/config.js',
