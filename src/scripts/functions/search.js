@@ -43,9 +43,6 @@ function initTypeahead() {
                         });
                     });
                     var query = $(".typeahead").val();
-                    if (dataset.length === 0 && $.isNumeric(query.split(" ")[0]) && query.trim().split(" ").length > 1) {
-                        dataset.push({ value: "No records found." });
-                    }
                     return dataset;
                 }
             },
@@ -69,8 +66,6 @@ function initTypeahead() {
                         });
                     });
                     var query = $(".typeahead").val();
-                    if (dataset.length === 0 && query.length === 8 && query.indexOf(" ") === -1 && $.isNumeric(query.substring(0, 5))) {
-                        dataset.push({ value: "No records found." }); }
                     return dataset;
                 }
             },
@@ -96,12 +91,11 @@ function initTypeahead() {
                         });
                     });
                     var query = $(".typeahead").val();
-                    if (dataset.length === 0 && query.length === 8 && query.indexOf(" ") === -1 && $.isNumeric(query.substring(0, 5))) {
-                        dataset.push({ value: "No records found." }); }
                     return dataset;
                 }
             },
             minLength: 8,
+            maxLength: 8,
             limit: 5,
             header: '<h4 class="typeahead-header"><span class="glyphicon glyphicon-home"></span> Parcel</h4>'
         }, {
@@ -120,7 +114,6 @@ function initTypeahead() {
                             lng: item.lng
                         });
                     });
-                    if (dataset.length === 0) { dataset.push({ value: "No records found." }); }
                     return _.sortBy(dataset, "value");
                 }
             },
@@ -143,7 +136,6 @@ function initTypeahead() {
                             lng: item.lng
                         });
                     });
-                    if (dataset.length === 0) { dataset.push({ value: "No records found." }); }
                     return _.sortBy(dataset, "value");
                 }
             },

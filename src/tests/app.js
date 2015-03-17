@@ -38715,41 +38715,6 @@ jQuery.fn.table2CSV = function(options) {
 
 }).call(this);
 
-// ****************************************
-// Serious mathing
-// ****************************************
-
-// Filter our selected records out
-function dataFilter(dataSet, filter) {
-    return _.filter(dataSet, function(el) { return filter.indexOf(el.id) !== -1; });
-}
-
-// strip to just numbers
-function dataStrip(dataSet, key) {
-    return _.filter(_.pluck(dataSet, key), function (el) {  return $.isNumeric(el); }).map(Number);
-}
-
-// sum a metric
-function dataSum(dataSet, key, filter) {
-    // apply filter if passed
-    if (typeof filter !== "undefined" && filter !== null) {
-       dataSet = dataFilter(dataSet, filter);
-    }
-
-    // reduce dataSet to numbers - no nulls
-    dataSet = dataStrip(dataSet, key);
-
-    if (dataSet.length > 0) {
-        // calculate
-        var total = dataSet.reduce(function(a, b) {
-            return a + b;
-        });
-        return total;
-    } else {
-        return 'N/A';
-    }
-}
-
 // average a metric
 function dataMean(dataSet, key, filter) {
     // apply filter if passed
@@ -38797,7 +38762,43 @@ function dataNormalize(dataNumerator, dataDenominator, key, filter) {
     }
 }
 
-// decide which computation to run and run it
+// sum a metric
+function dataSum(dataSet, key, filter) {
+    // apply filter if passed
+    if (typeof filter !== "undefined" && filter !== null) {
+       dataSet = dataFilter(dataSet, filter);
+    }
+
+    // reduce dataSet to numbers - no nulls
+    dataSet = dataStrip(dataSet, key);
+
+    if (dataSet.length > 0) {
+        // calculate
+        var total = dataSet.reduce(function(a, b) {
+            return a + b;
+        });
+        return total;
+    } else {
+        return 'N/A';
+    }
+}
+
+// ****************************************
+// Serious mathing
+// ****************************************
+
+// Filter our selected records out
+function dataFilter(dataSet, filter) {
+    return _.filter(dataSet, function(el) { return filter.indexOf(el.id) !== -1; });
+}
+
+// strip to just numbers
+function dataStrip(dataSet, key) {
+    return _.filter(_.pluck(dataSet, key), function (el) {  return $.isNumeric(el); }).map(Number);
+}
+
+
+// This is where you can set new calculation types.
 function dataCrunch(theType, key, filter) {
     var theReturn;
     if (typeof filter === "undefined") { filter = null; }
@@ -39915,9 +39916,6 @@ function initTypeahead() {
                         });
                     });
                     var query = $(".typeahead").val();
-                    if (dataset.length === 0 && $.isNumeric(query.split(" ")[0]) && query.trim().split(" ").length > 1) {
-                        dataset.push({ value: "No records found." });
-                    }
                     return dataset;
                 }
             },
@@ -39941,8 +39939,6 @@ function initTypeahead() {
                         });
                     });
                     var query = $(".typeahead").val();
-                    if (dataset.length === 0 && query.length === 8 && query.indexOf(" ") === -1 && $.isNumeric(query.substring(0, 5))) {
-                        dataset.push({ value: "No records found." }); }
                     return dataset;
                 }
             },
@@ -39968,12 +39964,11 @@ function initTypeahead() {
                         });
                     });
                     var query = $(".typeahead").val();
-                    if (dataset.length === 0 && query.length === 8 && query.indexOf(" ") === -1 && $.isNumeric(query.substring(0, 5))) {
-                        dataset.push({ value: "No records found." }); }
                     return dataset;
                 }
             },
             minLength: 8,
+            maxLength: 8,
             limit: 5,
             header: '<h4 class="typeahead-header"><span class="glyphicon glyphicon-home"></span> Parcel</h4>'
         }, {
@@ -39992,7 +39987,6 @@ function initTypeahead() {
                             lng: item.lng
                         });
                     });
-                    if (dataset.length === 0) { dataset.push({ value: "No records found." }); }
                     return _.sortBy(dataset, "value");
                 }
             },
@@ -40015,7 +40009,6 @@ function initTypeahead() {
                             lng: item.lng
                         });
                     });
-                    if (dataset.length === 0) { dataset.push({ value: "No records found." }); }
                     return _.sortBy(dataset, "value");
                 }
             },

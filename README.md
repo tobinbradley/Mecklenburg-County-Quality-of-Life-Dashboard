@@ -148,3 +148,10 @@ Building for deployment does all of the niceties for you - JavaScript concatenat
     gulp build
 
 Copy the contents of the `dist` folder to your production web server and you're good to go.
+
+## Unit Tests
+There are a series of unit tests for the calculations to make sure the outputs are correct and that nulls are handled appropriately. These execute via [QUnit](http://qunitjs.com/) and can be fired via gulp.
+
+``` bash
+gulp test
+```

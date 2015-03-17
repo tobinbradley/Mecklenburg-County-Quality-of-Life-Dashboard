@@ -13,7 +13,7 @@ function dataStrip(dataSet, key) {
 }
 
 
-// decide which computation to run and run it
+// This is where you can set new calculation types.
 function dataCrunch(theType, key, filter) {
     var theReturn;
     if (typeof filter === "undefined") { filter = null; }
