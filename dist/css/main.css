@@ -7478,9 +7478,6 @@ textarea.twitter-typeahead .tt-hint {
   stroke-width: 2.5px !important;
   stroke-opacity: 1;
 }
-a {
-  color: #175e99;
-}
 .social-links {
   margin-top: 18px;
 }
@@ -7547,7 +7544,7 @@ a {
   color: #0077b5;
 }
 .q0 {
-  fill: #f0f9e8;
+  fill: #eefae3;
 }
 .q1 {
   fill: #bae4bc;
@@ -7573,21 +7570,33 @@ a {
   text-decoration: underline;
 }
 body {
-  background: white;
+  background: #f9f9f9;
   padding-top: 50px;
 }
 .row-vis {
   min-height: 651px;
 }
 .container-content {
-  padding-top: 30px;
+  padding-top: 40px;
 }
-.navbar-default .navbar-brand {
+.navbar-color {
   -webkit-transition: 0.5s;
           transition: 0.5s;
+  background: #0277BD;
 }
-.navbar-default .navbar-brand:hover {
-  color: #03A9F4;
+.navbar-color .navbar-brand,
+.navbar-color .navbar-nav > li > a {
+  color: white;
+}
+.navbar-color .navbar-brand:hover,
+.navbar-color .navbar-nav > li > a:hover {
+  color: white;
+}
+.navbar-color .navbar-toggle {
+  border-color: white;
+}
+.navbar-color .navbar-toggle .icon-bar {
+  background-color: white;
 }
 .contact {
   min-width: 300px;
@@ -7706,9 +7715,7 @@ body {
 }
 .chosen-select {
   border-radius: 5px 5px 0 0;
-  background: #eee;
-  background: -webkit-linear-gradient(top, #ffffff 0, #eeeeee 100%);
-  background: linear-gradient(to bottom, #ffffff 0, #eeeeee 100%);
+  background: #f5f5f5;
   -webkit-transition: all 0.3s ease;
           transition: all 0.3s ease;
 }
@@ -7722,7 +7729,7 @@ body {
 .leaflet-control-zoom,
 .leaflet-bar,
 .leaflet-bar a {
-  background: white;
+  background: #f9f9f9;
   box-shadow: none;
 }
 .leaflet-touch .leaflet-control-layers,
@@ -7738,7 +7745,7 @@ body {
 }
 #map {
   height: 530px;
-  background: rgba(0, 0, 0, 0);
+  background: #f9f9f9;
   border: 1px solid #d3d4d8;
   border-top: none;
 }
@@ -7849,6 +7856,8 @@ body {
 .barchart rect.bar {
   -webkit-transition: all 0.2s ease-out;
           transition: all 0.2s ease-out;
+  stroke-width: 0.2;
+  stroke: #666;
 }
 .barchart .value-mean line {
   pointer-events: none;
@@ -7912,7 +7921,7 @@ body {
   min-height: 40px;
 }
 .meta-container {
-  margin-top: 55px;
+  margin-top: 65px;
 }
 .meta-resources ul {
   list-style: none;
@@ -7969,10 +7978,6 @@ body {
 @media (max-width: 990px) {
   .meta-container {
     display: none;
-  }
-  .navbar-default .navbar-brand {
-    color: #666;
-    font-size: 18px;
   }
   .map-aside {
     margin-top: 20px;

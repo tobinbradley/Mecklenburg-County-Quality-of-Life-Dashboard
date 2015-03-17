@@ -66,8 +66,14 @@
                     <li>
                         <a href="http://qol.charmeck.org/">About</a>
                     </li>
-                    <li>
-                        <a href="data/qol-data.zip">Get Data</a>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Get Data <span class="caret"></span></a>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href="data/qol-data.zip">Download Quality of Life Study</a></li>
+                        <li class="divider"></li>
+                        <li><a href="http://maps.co.mecklenburg.nc.us/openmapping/">Mecklenburg County Open Mapping</a></li>
+                        <li><a href="http://clt.charlotte.opendata.arcgis.com/">City of Charlotte Open Data Portal</a></li>
+                      </ul>
                     </li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">Contact <span class="caret"></span></a>
@@ -261,7 +267,7 @@
 
     <!-- Begin jQuery Tourbus -->
     <ol class='tourbus-legs' id='dashboard-tour'>
-      <li data-el='.chosen-container' data-orientation='bottom' data-width='300'>
+      <li data-el='#metric' data-orientation='bottom' data-width='300'>
         <h3>Variables</h3>
         <p>Use this control to select the <strong>Variable</strong> you’re interested in.</p>
         <div class="btn-group pull-right">

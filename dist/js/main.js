@@ -38798,7 +38798,7 @@ function dataStrip(dataSet, key) {
 }
 
 
-// decide which computation to run and run it
+// This is where you can set new calculation types.
 function dataCrunch(theType, key, filter) {
     var theReturn;
     if (typeof filter === "undefined") { filter = null; }
@@ -39916,9 +39916,6 @@ function initTypeahead() {
                         });
                     });
                     var query = $(".typeahead").val();
-                    if (dataset.length === 0 && $.isNumeric(query.split(" ")[0]) && query.trim().split(" ").length > 1) {
-                        dataset.push({ value: "No records found." });
-                    }
                     return dataset;
                 }
             },
@@ -39942,8 +39939,6 @@ function initTypeahead() {
                         });
                     });
                     var query = $(".typeahead").val();
-                    if (dataset.length === 0 && query.length === 8 && query.indexOf(" ") === -1 && $.isNumeric(query.substring(0, 5))) {
-                        dataset.push({ value: "No records found." }); }
                     return dataset;
                 }
             },
@@ -39969,12 +39964,11 @@ function initTypeahead() {
                         });
                     });
                     var query = $(".typeahead").val();
-                    if (dataset.length === 0 && query.length === 8 && query.indexOf(" ") === -1 && $.isNumeric(query.substring(0, 5))) {
-                        dataset.push({ value: "No records found." }); }
                     return dataset;
                 }
             },
             minLength: 8,
+            maxLength: 8,
             limit: 5,
             header: '<h4 class="typeahead-header"><span class="glyphicon glyphicon-home"></span> Parcel</h4>'
         }, {
@@ -39993,7 +39987,6 @@ function initTypeahead() {
                             lng: item.lng
                         });
                     });
-                    if (dataset.length === 0) { dataset.push({ value: "No records found." }); }
                     return _.sortBy(dataset, "value");
                 }
             },
@@ -40016,7 +40009,6 @@ function initTypeahead() {
                             lng: item.lng
                         });
                     });
-                    if (dataset.length === 0) { dataset.push({ value: "No records found." }); }
                     return _.sortBy(dataset, "value");
                 }
             },
@@ -40945,7 +40937,8 @@ $(document).ready(function () {
         $('html, body').animate({ scrollTop: pos}, 'slow', function() {
             $('.jumbotron').remove();
             $(window).scrollTop(0);
-            $(".chosen-select").addClass("select-highlight");
+            $('.navbar').addClass('navbar-color');
+            $(".chosen-select").addClass("select-highlight");            
         });
     });
 

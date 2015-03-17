@@ -157,7 +157,8 @@ $(document).ready(function () {
         $('html, body').animate({ scrollTop: pos}, 'slow', function() {
             $('.jumbotron').remove();
             $(window).scrollTop(0);
-            $(".chosen-select").addClass("select-highlight");
+            $('.navbar').addClass('navbar-color');
+            $(".chosen-select").addClass("select-highlight");            
         });
     });
 

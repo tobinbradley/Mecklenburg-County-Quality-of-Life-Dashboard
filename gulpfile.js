@@ -63,11 +63,12 @@ var jsReport = [
 
 
 // Unit tests
-gulp.task('tests', function() {
-    // build JS
-    gulp.src(_.without(jsMain, 'src/scripts/main.js'))
+gulp.task('test-build', function() {
+    return gulp.src(_.without(jsMain, 'src/scripts/main.js'))
         .pipe(concat('app.js'))
         .pipe(gulp.dest('src/tests'));
+});
+gulp.task('qunit', function() {
     // fire up qunit page
     browserSync(['./src/tests/*.*'], {
         server: {
@@ -169,7 +170,7 @@ gulp.task('replace', function() {
 gulp.task('watch', function () {
     gulp.watch(['./src/*.html'], ['replace']);
     gulp.watch(['./src/less/**/*.less'], ['less']);
-    gulp.watch('src/scripts/**/*.js', ['js']);
+    gulp.watch('src/scripts/**/*.js', ['js', 'test-build']);
 });
 
 // rename files for basic setup
@@ -213,3 +214,4 @@ gulp.task('clean-data', function(cb) {
 gulp.task('default', ['less', 'js', 'replace', 'watch', 'browser-sync']);
 gulp.task('build', ['less-build', 'js-build', 'replace', 'imagemin']);
 gulp.task('datagen', ['clean', 'markdown', 'convert', 'merge-json']);
+gulp.task('test', ['test-build', 'qunit', 'watch']);

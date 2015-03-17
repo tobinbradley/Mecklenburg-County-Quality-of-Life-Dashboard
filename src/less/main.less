@@ -12,8 +12,7 @@
 // ****************************************
 // Global vars and helpers (colors and such)
 // ****************************************
-//@body-color: rgb(249, 249, 249);
-@body-color: white;
+@body-color: rgb(249, 249, 249);
 @fancyshadow: inset 0 0 40px rgba(0, 0, 0, 0.12);
 @highlightColor: #F6DC62;
 @selectedColor: #FFA400;
@@ -37,9 +36,7 @@
     stroke-width: 2.5px !important;
     stroke-opacity: 1;
 }
-a {
-    color: #175e99;
-}
+
 
 
 // ****************************************
@@ -94,7 +91,7 @@ a {
 // Quantile Color Breaks
 // ****************************************
 // five green-blue color breaks
-.q0{fill:rgb(240,249,232)}
+.q0{fill:rgb(238,250,227)}
 .q1{fill:rgb(186,228,188)}
 .q2{fill:rgb(123,204,196)}
 .q3{fill:rgb(67,162,202)}
@@ -128,17 +125,27 @@ body {
     min-height: 651px;
 }
 .container-content {
-    padding-top: 30px;
+    padding-top: 40px;
 }
 
 
 // ****************************************
 // Header
 // ****************************************
-.navbar-default .navbar-brand {
+.navbar-color {
     transition: 0.5s;
-    &:hover {
-        color: #03A9F4;
+    background: #0277BD;
+    .navbar-brand, .navbar-nav > li > a {
+        color: white;
+        &:hover {
+            color: white;
+        }
+    }
+    .navbar-toggle {
+        border-color: white;
+        .icon-bar {
+            background-color: white;
+        }
     }
 }
 .contact {
@@ -234,8 +241,7 @@ body {
 }
 .chosen-select {
   border-radius: 5px 5px 0 0;
-  background: #eee;
-  background: linear-gradient(to bottom,#fff 0,#eee 100%);
+  background: #f5f5f5;
   transition: all 0.3s ease;
 }
 .select-highlight {
@@ -265,7 +271,7 @@ body {
 }
 #map {
     height: 530px;
-    background: rgba(0,0,0,0);
+    background: @body-color;
     border: 1px solid #d3d4d8;
     border-top: none;
 }
@@ -389,6 +395,8 @@ body {
     }
     rect.bar {
         transition: all 0.2s ease-out;
+        stroke-width: 0.2;
+        stroke: #666;
     }
     .value-mean {
         line {
@@ -457,8 +465,6 @@ body {
 // Metadata
 // ****************************************
 .well {
-    //box-shadow: @fancyshadow;
-    //background-color: #fefefe;
     h4 {
         font-size: 1.5em;
     }
@@ -473,7 +479,7 @@ body {
     min-height: 40px;
 }
 .meta-container {
-    margin-top: 55px;
+    margin-top: 65px;
 }
 .meta-resources ul {
     list-style: none;
@@ -542,10 +548,6 @@ body {
     .meta-container {
         display: none;
     }
-    .navbar-default .navbar-brand {
-        color: #666;
-        font-size: 18px;
-    }
     .map-aside {
         margin-top: 20px;
     }
@@ -565,13 +567,4 @@ body {
     button.toggle-map, button.btn-looper {
         display: none;
     }
-}
-
-
-
-// ****************************************
-// Printing
-// ****************************************
-@media print {
-
 }
