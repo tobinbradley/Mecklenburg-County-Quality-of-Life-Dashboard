@@ -85,7 +85,8 @@ function createCharts() {
             tooltipTemplate: "<%= dataPretty(value, '" + dataTypeKey + "') %>",
             multiTooltipTemplate: "<%= dataPretty(value, '" + dataTypeKey + "') %>",
         });
-        $("#" + $(this).prop("id") + "-legend").html(chart.generateLegend());
+        var legend = document.getElementById($(this).prop("id") + "-legend");
+        if (legend) { legend.innerHTML = chart.generateLegend(); }
     });
 
     // bar charts
@@ -128,7 +129,8 @@ function createCharts() {
             multiTooltipTemplate: "<%= dataPretty(value, '" + dataTypeKey + "') %>",
         });
 
-        $("#" + $(this).prop("id") + "-legend").html(chart.generateLegend());
+        var legend = document.getElementById($(this).prop("id") + "-legend");
+        if (legend) { legend.innerHTML = chart.generateLegend(); }
 
     });
 
@@ -195,9 +197,9 @@ function createCharts() {
             multiTooltipTemplate: "<%= dataPretty(value, '" + dataTypeKey + "') %>",
         });
 
-        if ($("#" + $(this).prop("id") + "-legend").length > 0) {
-            $("#" + $(this).prop("id") + "-legend").html(chart.generateLegend());
-        }
+        var legend = document.getElementById($(this).prop("id") + "-legend");
+        if (legend) { legend.innerHTML = chart.generateLegend(); }
+
     });
 }
 
@@ -206,7 +208,7 @@ function createCharts() {
 // Create the metric blocks and table values
 // ****************************************
 function createData() {
-    var template = _.template($("script.template-row").html()),
+    var template = _.template(document.querySelector('.template-row').innerHTML),
         categories = _.uniq(_.pluck(metricConfig, 'category'));
 
     _.each(categories, function(dim) {
@@ -336,7 +338,7 @@ function createMap(data){
 // get pages in for data categories
 // ****************************************
 function pageTemplates() {
-    var template = _.template($("#template-category").html()),
+    var template = _.template(document.getElementById('template-category').innerHTML),
         categories = _.uniq(_.pluck(metricConfig, 'category')),
         pages = $(".category-pages");
 
@@ -346,7 +348,7 @@ function pageTemplates() {
 
         // get vis if available
         if ($("#template-vis-" + cat).length > 0) {
-            vis = _.template($("#template-vis-" + cat.replace(/\s+/g, "-")).html());
+            vis = _.template(document.getElementById("template-vis-" + cat.replace(/\s+/g, "-")).innerHTML);
         } else {
             vis = "";
         }

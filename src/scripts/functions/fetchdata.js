@@ -27,7 +27,7 @@ function fetchNormalized(m) {
     else { return [[]]; }
 }
 function fetchGeometry() {
-    if (typeof(d3Layer) == "undefined") {
+    if (d3Layer === undefined) {
         return $.get("data/geography.topo.json");
     }
     else { return [[]]; }
@@ -35,11 +35,6 @@ function fetchGeometry() {
 
 
 function fetchMetricData(m) {
-    // flush
-    model.metricAccuracy = [];
-    model.metricRaw = [];
-    model.denominator = [];
-
     // fetch data based on metric
     switch (metricConfig[m].type) {
         case "sum":
