@@ -39184,7 +39184,7 @@ function fetchNormalized(m) {
     else { return [[]]; }
 }
 function fetchGeometry() {
-    if (typeof(d3Layer) == "undefined") {
+    if (d3Layer === undefined) {
         return $.get("data/geography.topo.json");
     }
     else { return [[]]; }
@@ -39192,11 +39192,6 @@ function fetchGeometry() {
 
 
 function fetchMetricData(m) {
-    // flush
-    model.metricAccuracy = [];
-    model.metricRaw = [];
-    model.denominator = [];
-
     // fetch data based on metric
     switch (metricConfig[m].type) {
         case "sum":
@@ -39562,7 +39557,7 @@ function drawMap() {
 // ****************************************
 // Return the nth instance of a substring
 // ****************************************
-function GetSubstringIndex(str, substring, n) {
+function getSubstringIndex(str, substring, n) {
     var times = 0, index = null;
     while (times < n && index !== -1) {
         index = str.indexOf(substring, index+1);
@@ -39587,19 +39582,10 @@ function updateMeta() {
         type: 'GET',
         dataType: 'text',
         success: function (data) {
-            $('.meta-subtitle').html(
-                data.substring(GetSubstringIndex(data, '</h2>', 1) + 5, GetSubstringIndex(data, '<h3', 1))
-            );
-            $('.meta-important').html(
-                data.substring(GetSubstringIndex(data, '</h3>', 1) + 5, GetSubstringIndex(data, '<h3', 2))
-            );
-            $('.meta-about').html(
-                data.substring(GetSubstringIndex(data, '</h3>', 2) + 5, GetSubstringIndex(data, '<h3', 3))
-            );
-            $('.meta-resources').html(
-                data.substring(GetSubstringIndex(data, '</h3>', 3) + 5, data.length)
-            );
-
+            document.querySelector('.meta-subtitle').innerHTML = data.substring(getSubstringIndex(data, '</h2>', 1) + 5, getSubstringIndex(data, '<h3', 1));
+            document.querySelector('.meta-important').innerHTML = data.substring(getSubstringIndex(data, '</h3>', 1) + 5, getSubstringIndex(data, '<h3', 2));
+            document.querySelector('.meta-about').innerHTML = data.substring(getSubstringIndex(data, '</h3>', 2) + 5, getSubstringIndex(data, '<h3', 3));
+            document.querySelector('.meta-resources').innerHTML = data.substring(getSubstringIndex(data, '</h3>', 3) + 5, data.length);
             // make meta tables (jesus tables really?) from markdown get the bootstrap table class
             $('.meta-container table').addClass('table table-condensed');
         },
@@ -40823,7 +40809,7 @@ $(document).ready(function () {
         }
     });
     selectVals += '</optgroup>';
-    $("#metric").html(selectVals);
+    document.querySelector("#metric").innerHTML = selectVals;
     $('#metric').hover(function() {
         $(this).removeClass('select-highlight');
     });
@@ -40941,7 +40927,7 @@ $(document).ready(function () {
             $('.jumbotron').remove();
             $(window).scrollTop(0);
             $('.navbar').addClass('navbar-color');
-            $(".chosen-select").addClass("select-highlight");            
+            $(".chosen-select").addClass("select-highlight");
         });
     });
 

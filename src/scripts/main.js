@@ -40,7 +40,7 @@ $(document).ready(function () {
         }
     });
     selectVals += '</optgroup>';
-    $("#metric").html(selectVals);
+    document.querySelector("#metric").innerHTML = selectVals;
     $('#metric').hover(function() {
         $(this).removeClass('select-highlight');
     });
@@ -158,7 +158,7 @@ $(document).ready(function () {
             $('.jumbotron').remove();
             $(window).scrollTop(0);
             $('.navbar').addClass('navbar-color');
-            $(".chosen-select").addClass("select-highlight");            
+            $(".chosen-select").addClass("select-highlight");
         });
     });
 
