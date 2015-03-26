@@ -28,7 +28,8 @@ $(document).ready(function () {
 
     // load metrics
     var selectVals = '',
-        selectGroup = '';
+        selectGroup = '',
+        elemMetrics = $('#metric');
     _.each(metricConfig, function(el, key) {
         if (el.category === selectGroup) {
             selectVals += '<option value="' + key + '">' + el.title + '</option>';
@@ -40,9 +41,12 @@ $(document).ready(function () {
         }
     });
     selectVals += '</optgroup>';
-    document.querySelector("#metric").innerHTML = selectVals;
-    $('#metric').hover(function() {
-        $(this).removeClass('select-highlight');
+    elemMetrics.html(selectVals); // can't get rid of this because IE barfs on elem.innerHTML with select
+    elemMetrics.hover(function() {
+        document.querySelector('#metric').classList.remove('select-highlight');
+    });
+    elemMetrics.on("change", function() {
+        model.metricId = $(this).val();
     });
 
     // Start with random metric if none passed
@@ -54,12 +58,9 @@ $(document).ready(function () {
             random = Math.floor((Math.random() * $options.length));
         $options.eq(random).prop('selected', true);
     }
-    model.metricId =  $("#metric").val();
 
-    // data select
-    $(".chosen-select").on("change", function() {
-        model.metricId = $(this).val();
-    });
+    // set the initial metric
+    model.metricId =  $("#metric").val();
 
     // set window popstate handler
     if (history.pushState) {
@@ -119,10 +120,11 @@ $(document).ready(function () {
         }
     });
     $(".btn-looper").on("click", function () {
-        var that = $(this).children("span");
-        var theSlider = $('.slider');
-        if (that.hasClass("glyphicon-play")) {
-            that.removeClass("glyphicon-play").addClass("glyphicon-pause");
+        var that = document.querySelector('.btn-looper span'),
+            theSlider = $('.slider');
+        if (that.classList.contains("glyphicon-play")) {
+            that.classList.remove('glyphicon-play');
+            that.classList.add('glyphicon-pause');
             if (theSlider.slider("value") === theSlider.slider("option", "max")) {
                 theSlider.slider("value", 0);
             }
@@ -143,7 +145,8 @@ $(document).ready(function () {
                 }, 3000);
         }
         else {
-            that.removeClass("glyphicon-pause").addClass("glyphicon-play");
+            that.classList.remove('glyphicon-pause');
+            that.classList.add('glyphicon-play');
             clearInterval(timer);
         }
     });
@@ -153,12 +156,15 @@ $(document).ready(function () {
 
     // Scroll to begin position (i.e. get past and then nuke jumbotron)
     $(".scrollToStart").on("click", function() {
+        document.querySelector('.jumbotron .btn').classList.remove('btnHoverShadow');
         var pos = $(".container-content").position().top - $(".navbar").height();
         $('html, body').animate({ scrollTop: pos}, 'slow', function() {
             $('.jumbotron').remove();
             $(window).scrollTop(0);
-            $('.navbar').addClass('navbar-color');
-            $(".chosen-select").addClass("select-highlight");
+            document.querySelector('.navbar').classList.add('navbar-color');
+            var elemSelector = document.querySelector('.chosen-select');
+            elemSelector.classList.add('select-highlight');
+            elemSelector.focus();
         });
     });
 
@@ -180,12 +186,12 @@ $(document).ready(function () {
     $(".toggle-map").on("click", function() {
         var txt = $(this).text() === "Hide Map" ? 'Show Map' : 'Hide Map';
         if (txt !== "Show Map") {
-            $(".geom").css("fill-opacity", "0.4");
-            $(".leaflet-overlay-pane svg path:not(.geom)").css("stroke-opacity", "0");
+            d3.selectAll('.geom').style("fill-opacity", 0.4);
+            d3.selectAll('.leaflet-overlay-pane svg path:not(.geom)').style('stroke-opacity', 0);
             map.addLayer(baseTiles);
         } else {
-            $(".geom").css("fill-opacity", "1");
-            $(".leaflet-overlay-pane svg path:not(.geom)").css("stroke-opacity", "0.6");
+            d3.selectAll('.geom').style("fill-opacity", 1);
+            d3.selectAll('.leaflet-overlay-pane svg path:not(.geom)').style('stroke-opacity', 0.6);
             map.removeLayer(baseTiles);
         }
         $(this).text(txt);
@@ -258,7 +264,10 @@ $(document).ready(function () {
 
     // turn on form labels if placeholder not supported - curse you IE9
     if (!('placeholder' in document.createElement('input'))) {
-        $("label").removeClass("sr-only");
+        var labels = document.querySelectorAll('label');
+        for (i = 0; i < labels.length; ++i) {
+          labels[i].classList.remove('sr-only');
+        }
     }
 
 });

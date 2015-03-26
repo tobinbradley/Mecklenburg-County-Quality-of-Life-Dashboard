@@ -65,10 +65,10 @@ catch(err) {}
 // Here's the format:
 // "m<the metric number>": {
 //        "metric"        the metric number
-//        "type"          Type of calculation to be performed (determines files to fetch). Options are sum, mean, and normalize.
+//        "type"          Type of calculation to be performed (determines files to fetch). Options are sum, mean, and weighted.
 //                            sum: r<metric>.csv
 //                            mean: n<metric>.csv
-//                            normalize: r<metric>.csv and d<metric>.csv
+//                            weighted: r<metric>.csv and d<metric>.csv
 //        "category"      the category of the metric
 //        "title"         metric descriptive title
 //        "accuracy"      [optional] set true if metric has an accuracy file (i.e. m<metric>-accuracy.csv)
@@ -87,7 +87,7 @@ var metricConfig = {
   "category": "Character",
   "label": "Years",
   "title": "Age of Residents",
-  "type": "normalize"
+  "type": "weighted"
  },
  "m1": {
   "metric": "1",
@@ -102,7 +102,7 @@ var metricConfig = {
   "category": "Character",
   "suffix": "%",
   "title": "Population - Older Adult",
-  "type": "normalize"
+  "type": "weighted"
  },
  "m12": {
   "metric": "12",
@@ -110,7 +110,7 @@ var metricConfig = {
   "category": "Character",
   "suffix": "%",
   "title": "Population - Youth",
-  "type": "normalize"
+  "type": "weighted"
  },
  "m47": {
   "metric": "47",
@@ -118,7 +118,7 @@ var metricConfig = {
   "label": "People per Acre",
   "raw_label": "People",
   "title": "Population Density",
-  "type": "normalize"
+  "type": "weighted"
  },
  "m17": {
   "metric": "17",
@@ -126,7 +126,7 @@ var metricConfig = {
   "suffix": "%",
   "title": "Race/Ethnicity - All Other Races",
   "decimals": 1,
-  "type": "normalize"
+  "type": "weighted"
  },
  "m16": {
   "metric": "16",
@@ -134,7 +134,7 @@ var metricConfig = {
   "suffix": "%",
   "title": "Race/Ethnicity - Asian",
   "decimals": 1,
-  "type": "normalize"
+  "type": "weighted"
  },
  "m15": {
   "metric": "15",
@@ -142,7 +142,7 @@ var metricConfig = {
   "suffix": "%",
   "title": "Race/Ethnicity - Black or African American",
   "decimals": 1,
-  "type": "normalize"
+  "type": "weighted"
  },
  "m18": {
   "metric": "18",
@@ -150,7 +150,7 @@ var metricConfig = {
   "suffix": "%",
   "title": "Race/Ethnicity - Hispanic or Latino",
   "decimals": 1,
-  "type": "normalize"
+  "type": "weighted"
  },
  "m14": {
   "metric": "14",
@@ -158,7 +158,7 @@ var metricConfig = {
   "suffix": "%",
   "title": "Race/Ethnicity - White or Caucasian",
   "decimals": 1,
-  "type": "normalize"
+  "type": "weighted"
  },
  "m11": {
   "metric": "11",
@@ -167,14 +167,14 @@ var metricConfig = {
   "raw_label": "Acres",
   "title": "Vacant Land",
   "decimals": 1,
-  "type": "normalize"
+  "type": "weighted"
  },
  "m42": {
   "metric": "42",
   "category": "Economy",
   "label": "Years",
   "title": "Commercial Building Age",
-  "type": "normalize"
+  "type": "weighted"
  },
  "m19": {
   "metric": "19",
@@ -183,7 +183,7 @@ var metricConfig = {
   "raw_label": "Permits",
   "title": "Commercial Construction",
   "decimals": 1,
-  "type": "normalize"
+  "type": "weighted"
  },
  "m41": {
   "metric": "41",
@@ -191,7 +191,7 @@ var metricConfig = {
   "label": "Average Square Feet",
   "raw_label": "Square Feet",
   "title": "Commercial Space",
-  "type": "normalize"
+  "type": "weighted"
  },
  "m38": {
   "metric": "38",
@@ -199,14 +199,14 @@ var metricConfig = {
   "category": "Economy",
   "suffix": "%",
   "title": "Employment",
-  "type": "normalize"
+  "type": "weighted"
  },
  "m80": {
   "metric": "80",
   "category": "Economy",
   "suffix": "%",
   "title": "Food and Nutrition Services",
-  "type": "normalize"
+  "type": "weighted"
  },
  "m37": {
   "metric": "37",
@@ -214,7 +214,7 @@ var metricConfig = {
   "category": "Economy",
   "prefix": "$",
   "title": "Household Income",
-  "type": "normalize"
+  "type": "weighted"
  },
  "m75": {
   "metric": "75",
@@ -223,7 +223,7 @@ var metricConfig = {
   "raw_label": "Jobs",
   "title": "Job Density",
   "decimals": 1,
-  "type": "normalize"
+  "type": "weighted"
  },
  "m79": {
   "metric": "79",
@@ -231,7 +231,7 @@ var metricConfig = {
   "suffix": "%",
   "raw_label": "Units",
   "title": "Proximity to Financial Services",
-  "type": "normalize"
+  "type": "weighted"
  },
  "m20": {
   "metric": "20",
@@ -239,7 +239,7 @@ var metricConfig = {
   "category": "Education",
   "suffix": "%",
   "title": "Education Level - Bachelor's Degree",
-  "type": "normalize"
+  "type": "weighted"
  },
  "m39": {
   "metric": "39",
@@ -247,28 +247,28 @@ var metricConfig = {
   "category": "Education",
   "suffix": "%",
   "title": "Education Level - High School Diploma",
-  "type": "normalize"
+  "type": "weighted"
  },
  "m65": {
   "metric": "65",
   "category": "Education",
   "suffix": "%",
   "title": "High School Graduation Rate",
-  "type": "normalize"
+  "type": "weighted"
  },
  "m51": {
   "metric": "51",
   "category": "Education",
   "suffix": "%",
   "title": "Library Card Holders",
-  "type": "normalize"
+  "type": "weighted"
  },
  "m67": {
   "metric": "67",
   "category": "Education",
   "suffix": "%",
   "title": "Neighborhood School Attendance ",
-  "type": "normalize"
+  "type": "weighted"
  },
  "m21": {
   "metric": "21",
@@ -276,7 +276,7 @@ var metricConfig = {
   "suffix": "%",
   "raw_label": "Units",
   "title": "Proximity to Early Care and Education",
-  "type": "normalize"
+  "type": "weighted"
  },
  "m22": {
   "metric": "22",
@@ -284,14 +284,14 @@ var metricConfig = {
   "suffix": "%",
   "raw_label": "Units",
   "title": "Proximity to School-Age Care",
-  "type": "normalize"
+  "type": "weighted"
  },
  "m66": {
   "metric": "66",
   "category": "Education",
   "suffix": "%",
   "title": "Student Absenteeism",
-  "type": "normalize"
+  "type": "weighted"
  },
  "m62": {
   "metric": "62",
@@ -299,7 +299,7 @@ var metricConfig = {
   "suffix": "%",
   "title": "Test Proficiency - Elementary School",
   "decimals": 1,
-  "type": "normalize"
+  "type": "weighted"
  },
  "m64": {
   "metric": "64",
@@ -307,7 +307,7 @@ var metricConfig = {
   "suffix": "%",
   "title": "Test Proficiency - High School",
   "decimals": 1,
-  "type": "normalize"
+  "type": "weighted"
  },
  "m63": {
   "metric": "63",
@@ -315,7 +315,7 @@ var metricConfig = {
   "suffix": "%",
   "title": "Test Proficiency - Middle School",
   "decimals": 1,
-  "type": "normalize"
+  "type": "weighted"
  },
  "m52": {
   "metric": "52",
@@ -324,7 +324,7 @@ var metricConfig = {
   "raw_label": "Calls",
   "title": "311 Requests",
   "decimals": 1,
-  "type": "normalize"
+  "type": "weighted"
  },
  "m50": {
   "metric": "50",
@@ -332,7 +332,7 @@ var metricConfig = {
   "suffix": "%",
   "raw_label": "Households",
   "title": "Arts and Culture Participation",
-  "type": "normalize"
+  "type": "weighted"
  },
  "m72": {
   "metric": "72",
@@ -340,7 +340,7 @@ var metricConfig = {
   "label": "Residents serving per 1,000 People",
   "raw_label": "People",
   "title": "Municipal Board/Committee Participation",
-  "type": "normalize"
+  "type": "weighted"
  },
  "m73": {
   "metric": "73",
@@ -356,7 +356,7 @@ var metricConfig = {
   "raw_label": "People",
   "title": "Voter Participation",
   "decimals": 1,
-  "type": "normalize"
+  "type": "weighted"
  },
  "m43": {
   "metric": "43",
@@ -364,7 +364,7 @@ var metricConfig = {
   "suffix": "%",
   "raw_label": "Miles",
   "title": "Adopt-a-Stream Participation",
-  "type": "normalize"
+  "type": "weighted"
  },
  "m10": {
   "metric": "10",
@@ -373,7 +373,7 @@ var metricConfig = {
   "suffix": "%",
   "title": "Commuters Driving Alone",
   "raw_label": "",
-  "type": "normalize"
+  "type": "weighted"
  },
  "m26": {
   "metric": "26",
@@ -381,7 +381,7 @@ var metricConfig = {
   "label": "Kilowatt hours per Month per unit",
   "raw_label": "Kilowatt hours per Month",
   "title": "Energy Consumption - Electricity",
-  "type": "normalize"
+  "type": "weighted"
  },
  "m77": {
   "metric": "77",
@@ -389,7 +389,7 @@ var metricConfig = {
   "label": "Therms per Month per unit",
   "raw_label": "Therms per Month",
   "title": "Energy Consumption - Natural Gas",
-  "type": "normalize"
+  "type": "weighted"
  },
  "m4": {
   "metric": "4",
@@ -398,7 +398,7 @@ var metricConfig = {
   "raw_label": "Acres",
   "title": "Impervious Surface",
   "decimals": 1,
-  "type": "normalize"
+  "type": "weighted"
  },
  "m23": {
   "metric": "23",
@@ -407,7 +407,7 @@ var metricConfig = {
   "raw_label": "Units",
   "title": "Residential Recycling",
   "decimals": 1,
-  "type": "normalize"
+  "type": "weighted"
  },
  "m24": {
   "metric": "24",
@@ -416,7 +416,7 @@ var metricConfig = {
   "raw_label": "Pounds per Day",
   "title": "Residential Solid Waste",
   "decimals": 1,
-  "type": "normalize"
+  "type": "weighted"
  },
  "m25": {
   "metric": "25",
@@ -425,7 +425,7 @@ var metricConfig = {
   "raw_label": "Tons",
   "title": "Residential Solid Waste Diversion",
   "decimals": 1,
-  "type": "normalize"
+  "type": "weighted"
  },
  "m3": {
   "metric": "3",
@@ -434,7 +434,7 @@ var metricConfig = {
   "raw_label": "Acres",
   "title": "Tree Canopy",
   "decimals": 1,
-  "type": "normalize"
+  "type": "weighted"
  },
  "m27": {
   "metric": "27",
@@ -442,14 +442,14 @@ var metricConfig = {
   "label": "Gallons per Day per unit",
   "raw_label": "Gallons per Day",
   "title": "Water Consumption",
-  "type": "normalize"
+  "type": "weighted"
  },
  "m57": {
   "metric": "57",
   "category": "Health",
   "label": "Years",
   "title": "Age of Death",
-  "type": "normalize"
+  "type": "weighted"
  },
  "m54": {
   "metric": "54",
@@ -457,7 +457,7 @@ var metricConfig = {
   "suffix": "%",
   "title": "Births to Adolescents",
   "decimals": 1,
-  "type": "normalize"
+  "type": "weighted"
  },
  "m55": {
   "metric": "55",
@@ -465,7 +465,7 @@ var metricConfig = {
   "suffix": "%",
   "title": "Low Birthweight",
   "decimals": 1,
-  "type": "normalize"
+  "type": "weighted"
  },
  "m56": {
   "metric": "56",
@@ -473,7 +473,7 @@ var metricConfig = {
   "suffix": "%",
   "title": "Prenatal Care",
   "decimals": 1,
-  "type": "normalize"
+  "type": "weighted"
  },
  "m28": {
   "metric": "28",
@@ -481,7 +481,7 @@ var metricConfig = {
   "suffix": "%",
   "raw_label": "Units",
   "title": "Proximity to Low-Cost Health Care",
-  "type": "normalize"
+  "type": "weighted"
  },
  "m74": {
   "metric": "74",
@@ -489,7 +489,7 @@ var metricConfig = {
   "suffix": "%",
   "raw_label": "Units",
   "title": "Proximity to Public Outdoor Recreation",
-  "type": "normalize"
+  "type": "weighted"
  },
  "m45": {
   "metric": "45",
@@ -497,14 +497,14 @@ var metricConfig = {
   "suffix": "%",
   "raw_label": "Units",
   "title": "Proximity to a Grocery Store",
-  "type": "normalize"
+  "type": "weighted"
  },
  "m81": {
   "metric": "81",
   "category": "Health",
   "suffix": "%",
   "title": "Public Health Insurance",
-  "type": "normalize"
+  "type": "weighted"
  },
  "m29": {
   "metric": "29",
@@ -512,21 +512,21 @@ var metricConfig = {
   "category": "Housing",
   "suffix": "%",
   "title": "Home Ownership",
-  "type": "normalize"
+  "type": "weighted"
  },
  "m76": {
   "metric": "76",
   "category": "Housing",
   "prefix": "$",
   "title": "Home Sales Price",
-  "type": "normalize"
+  "type": "weighted"
  },
  "m7": {
   "metric": "7",
   "category": "Housing",
   "label": "Years",
   "title": "Housing Age",
-  "type": "normalize"
+  "type": "weighted"
  },
  "m5": {
   "metric": "5",
@@ -535,14 +535,14 @@ var metricConfig = {
   "raw_label": "Units",
   "title": "Housing Density",
   "decimals": 1,
-  "type": "normalize"
+  "type": "weighted"
  },
  "m6": {
   "metric": "6",
   "category": "Housing",
   "label": "Average Sqft",
   "title": "Housing Size",
-  "type": "normalize"
+  "type": "weighted"
  },
  "m40": {
   "metric": "40",
@@ -550,7 +550,7 @@ var metricConfig = {
   "category": "Housing",
   "prefix": "$",
   "title": "Rental Costs",
-  "type": "normalize"
+  "type": "weighted"
  },
  "m53": {
   "metric": "53",
@@ -558,7 +558,7 @@ var metricConfig = {
   "suffix": "%",
   "raw_label": "Units",
   "title": "Rental Houses",
-  "type": "normalize"
+  "type": "weighted"
  },
  "m69": {
   "metric": "69",
@@ -567,7 +567,7 @@ var metricConfig = {
   "raw_label": "Units",
   "title": "Residential Foreclosures",
   "decimals": 1,
-  "type": "normalize"
+  "type": "weighted"
  },
  "m8": {
   "metric": "8",
@@ -576,7 +576,7 @@ var metricConfig = {
   "raw_label": "Permits",
   "title": "Residential New Construction",
   "decimals": 1,
-  "type": "normalize"
+  "type": "weighted"
  },
  "m31": {
   "metric": "31",
@@ -584,7 +584,7 @@ var metricConfig = {
   "category": "Housing",
   "suffix": "%",
   "title": "Residential Occupancy",
-  "type": "normalize"
+  "type": "weighted"
  },
  "m9": {
   "metric": "9",
@@ -593,7 +593,7 @@ var metricConfig = {
   "raw_label": "Permits",
   "title": "Residential Renovation",
   "decimals": 1,
-  "type": "normalize"
+  "type": "weighted"
  },
  "m30": {
   "metric": "30",
@@ -601,7 +601,7 @@ var metricConfig = {
   "suffix": "%",
   "raw_label": "Units",
   "title": "Single-Family Housing",
-  "type": "normalize"
+  "type": "weighted"
  },
  "m61": {
   "metric": "61",
@@ -610,7 +610,7 @@ var metricConfig = {
   "raw_label": "Calls",
   "title": "Calls for Animal Control",
   "decimals": 1,
-  "type": "normalize"
+  "type": "weighted"
  },
  "m59": {
   "metric": "59",
@@ -619,7 +619,7 @@ var metricConfig = {
   "raw_label": "Crimes",
   "title": "Crime - Property",
   "decimals": 1,
-  "type": "normalize"
+  "type": "weighted"
  },
  "m58": {
   "metric": "58",
@@ -628,7 +628,7 @@ var metricConfig = {
   "raw_label": "Crimes",
   "title": "Crime - Violent",
   "decimals": 1,
-  "type": "normalize"
+  "type": "weighted"
  },
  "m60": {
   "metric": "60",
@@ -637,7 +637,7 @@ var metricConfig = {
   "raw_label": "Calls",
   "title": "Disorder-related Calls",
   "decimals": 1,
-  "type": "normalize"
+  "type": "weighted"
  },
  "m78": {
   "metric": "78",
@@ -646,7 +646,7 @@ var metricConfig = {
   "raw_label": "Calls",
   "title": "Fire Calls for Service",
   "decimals": 1,
-  "type": "normalize"
+  "type": "weighted"
  },
  "m32": {
   "metric": "32",
@@ -655,7 +655,7 @@ var metricConfig = {
   "raw_label": "Violations",
   "title": "Nuisance Violations",
   "decimals": 1,
-  "type": "normalize"
+  "type": "weighted"
  },
  "m34": {
   "metric": "34",
@@ -664,7 +664,7 @@ var metricConfig = {
   "raw_label": "Index Value (1-3)",
   "title": "Bicycle Friendliness",
   "decimals": 1,
-  "type": "normalize"
+  "type": "weighted"
  },
  "m33": {
   "metric": "33",
@@ -672,7 +672,7 @@ var metricConfig = {
   "category": "Transportation",
   "suffix": "%",
   "title": "Long Commute",
-  "type": "normalize"
+  "type": "weighted"
  },
  "m36": {
   "metric": "36",
@@ -680,7 +680,7 @@ var metricConfig = {
   "suffix": "%",
   "raw_label": "Units",
   "title": "Proximity to Public Transportation",
-  "type": "normalize"
+  "type": "weighted"
  },
  "m70": {
   "metric": "70",
@@ -689,7 +689,7 @@ var metricConfig = {
   "raw_label": "Miles",
   "title": "Sidewalk Availability",
   "decimals": 1,
-  "type": "normalize"
+  "type": "weighted"
  },
  "m35": {
   "metric": "35",
@@ -697,7 +697,7 @@ var metricConfig = {
   "label": "Index Value (1-3)",
   "title": "Street Connectivity",
   "decimals": 2,
-  "type": "normalize"
+  "type": "weighted"
  },
  "m44": {
   "metric": "44",
@@ -705,6 +705,6 @@ var metricConfig = {
   "label": "Boardings per Available Route",
   "raw_label": "Average Weekly Boardings",
   "title": "Transit Ridership",
-  "type": "normalize"
+  "type": "weighted"
  }
 };

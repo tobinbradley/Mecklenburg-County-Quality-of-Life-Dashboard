@@ -27,7 +27,7 @@ _.templateSettings.variable = "rc";
 // ****************************************
 function getYear(m) {
     switch(metricConfig[m].type) {
-        case 'sum': case 'normalize':
+        case 'sum': case 'weighted':
             return _.without(_.keys(theData['r' + metricConfig[m].metric][0]), 'id');
             break;
         case 'mean':
@@ -51,7 +51,7 @@ function setModel(m) {
                 model.metricRaw = theData['r' + metricConfig[m].metric];
             }
             break;
-        case 'normalize':
+        case 'weighted':
             model.metricRaw = theData['r' + metricConfig[m].metric];
             model.metricDenominator = theData['d' + metricConfig[m].metric];
             var keys = _.without(_.keys(model.metricRaw[0]), "id");

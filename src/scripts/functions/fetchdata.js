@@ -9,13 +9,13 @@ function fetchAccuracy(m) {
     else { return [[]]; }
 }
 function fetchRaw(m) {
-    if (metricConfig[m].raw_label || metricConfig[m].type === "normalize" || metricConfig[m].type === "sum") {
+    if (metricConfig[m].raw_label || metricConfig[m].type === "weighted" || metricConfig[m].type === "sum") {
         return $.get("data/metric/r" + metricConfig[m].metric + ".json");
     }
     else { return [[]]; }
 }
 function fetchDenominator(m) {
-    if (metricConfig[m].type === "normalize") {
+    if (metricConfig[m].type === "weighted") {
         return $.get("data/metric/d" + metricConfig[m].metric + ".json");
     }
     else { return [[]]; }
@@ -61,7 +61,7 @@ function fetchMetricData(m) {
                 model.metric = normalized[0];
             });
             break;
-        case "normalize":
+        case "weighted":
             $.when(
                 fetchGeometry(),
                 fetchAccuracy(m),
