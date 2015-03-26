@@ -1,5 +1,5 @@
 // renormalize/weight a metric
-function dataNormalize(dataNumerator, dataDenominator, key, filter) {
+function dataWeighted(dataNumerator, dataDenominator, key, filter) {
     // apply filter if passed
     if (typeof filter !== "undefined" && filter !== null) {
         dataNumerator = dataFilter(dataNumerator, filter);

@@ -40,6 +40,7 @@ var jsMain = [
     'src/scripts/vendor/Chart.js',
     'src/scripts/vendor/typeahead.js',
     'src/scripts/vendor/jquery-tourbus.js',
+    'src/scripts/vendor/classlist.js',
     'src/scripts/functions/calculations/*.js',
     'src/scripts/functions/*.js',
     'src/scripts/config.js',

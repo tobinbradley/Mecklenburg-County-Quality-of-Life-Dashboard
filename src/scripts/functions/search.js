@@ -22,7 +22,7 @@ function initTypeahead() {
         {
             name: 'metric',
             local: _.pluck(metricConfig, "title"),
-            header: '<h4 class="typeahead-header"><span class="glyphicon glyphicon-eye-open"></span> Metric</h4>'
+            header: '<h4 class="typeahead-header"><span class="glyphicon glyphicon-eye-open"></span> Variable</h4>'
         },
         {
             name: 'Address',

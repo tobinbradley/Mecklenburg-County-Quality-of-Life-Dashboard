@@ -173,11 +173,11 @@ body {
             padding-top: 10px;
         }
     }
-    .btn:hover {
-        box-shadow: 0 4px 8px rgba(0,0,0, .16),
-                    0 4px 8px rgba(0,0,0, .23) ;
-        transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
-    }
+}
+.btnHoverShadow:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0, .16),
+                0 4px 8px rgba(0,0,0, .23) ;
+    transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 
@@ -231,11 +231,11 @@ body {
 // ****************************************
 @keyframes pulsate {
     0% { box-shadow: 0 0 0;}
-    50% { box-shadow: 1px 1px 0 @selectedColor,
-                      -1px -1px 0 @selectedColor,
-                      -1px 1px 0 @selectedColor,
-                      1px -1px 0 @selectedColor,
-                      0 0 20px @selectedColor;
+    50% { box-shadow: 1px 1px 0 rgba(102, 175, 233, 0.8),
+                      -1px -1px 0 rgba(102, 175, 233, 0.8),
+                      -1px 1px 0 rgba(102, 175, 233, 0.8),
+                      1px -1px 0 rgba(102, 175, 233, 0.8),
+                      0 0 20px rgba(102, 175, 233, 0.8);
         }
     100% { box-shadow: 0 0 0; }
 }
@@ -246,7 +246,7 @@ body {
 }
 .select-highlight {
   animation: pulsate 1.5s ease-out;
-  animation-iteration-count: 3;
+  animation-iteration-count: 2.8;
 }
 
 
@@ -278,7 +278,7 @@ body {
 .geom {
     stroke: #949494;
     stroke-width: 0.5px;
-    transition: all 0.4s ease-out;
+    transition: fill 0.3s ease;
     cursor: pointer;
     stroke-linecap: round;
 }
@@ -298,7 +298,7 @@ body {
     width: 40%;
     margin: 0 auto;
     input[type="text"] {
-        background: rgba(255,255,255,0.7);
+        background: rgba(255,255,255, 0.8);
     }
     label {
         background: rgba(100,100,100,0.3);
@@ -357,9 +357,8 @@ body {
 #barChart {
     height: 180px;
 }
-#lineChart {
-    margin: 20px 0 0;
-    min-height: 100px;
+.lineChart-container {
+    margin: 20px;
 }
 .chartLegend {
     font-size: 0.8em;
@@ -394,7 +393,7 @@ body {
         }
     }
     rect.bar {
-        transition: all 0.2s ease-out;
+        transition: all 0.2s ease;
         stroke-width: 0.2;
         stroke: #666;
     }
@@ -475,11 +474,14 @@ body {
 }
 .meta-subtitle {
     font-size: 0.9em;
-    margin: 10px 0;
+    margin: 10px 0 15px;
     min-height: 40px;
 }
 .meta-container {
     margin-top: 65px;
+    a {
+        color: darken(#0277BD, 10%);
+    }
 }
 .meta-resources ul {
     list-style: none;
@@ -507,7 +509,7 @@ body {
 // Stat boxes
 // ****************************************
 .stats {
-    min-height: 112px;
+    min-height: 100px;
     span {
         color: #727272;
         display: block;

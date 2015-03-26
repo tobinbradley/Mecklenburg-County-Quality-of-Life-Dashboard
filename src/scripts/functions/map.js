@@ -169,11 +169,10 @@ function drawMap() {
         classlist = [],
         keys = Object.keys(model.metric[0]);
 
-    // clear out quantile classes
+    // make list of color classes to remove
     for (i = 0; i < colorbreaks; i++) {
         classlist.push("q" + i);
     }
-    theGeom.classed(classlist.join(" "), false);
 
     theGeom.each(function() {
         var item = d3.select(this),
@@ -185,7 +184,8 @@ function drawMap() {
             styleClass = quantize(theValue);
         }
 
-        item.classed(styleClass, true)
+        item.classed(classlist.join(" "), false)
+            .classed(styleClass, true)
             .attr("data-value", theValue)
             .attr("data-quantile", styleClass)
             .attr("data-toggle", "tooltip");
@@ -195,6 +195,4 @@ function drawMap() {
 
     var y = d3.scale.linear().range([260, 0]).domain([0, 260]);
 
-    // make sure our stuff is highlighted
-    d3.selectAll(".geom").classed("d3-select", function(d) { return _.contains(model.selected, $(this).attr("data-id")); });
 }

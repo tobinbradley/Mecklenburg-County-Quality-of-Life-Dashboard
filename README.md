@@ -52,12 +52,12 @@ The default gulp task starts [BrowserSync](https://github.com/BrowserSync/browse
 ## Customizing the Dashboard
 Data in the dashboard comes in three pieces:
 
-<div style="text-align: center">
-<img src="http://i.imgur.com/H3aTnOW.png" style="max-width: 100%">
+<div>
+<img src="http://i.imgur.com/2WAS10m.png" style="max-width: 100%">
 </div>
 
 * The neighborhood geography topojson with your neighborhood id.
-* The metric data. You will need 1 to 3 files depending on the calculation and what you want to show.
+* The metric data. You will need 1 to 4 files depending on the calculation and what you want to show.
 * The metric metadata.
 
 ### Topojson
@@ -83,7 +83,7 @@ Depending on what you want to do with the metric, you will name your files sligh
 
 * **sum**: This is for raw variables, like population. It will look for a file name beginning with *r*, like `r[X].csv`.
 * **mean**: This is for normalized variables, like population density. It will look for a file name beginning with *n*, like `n[X].csv`.
-* **normalize**: This will normalize data or perform a weighted average and will look for two files - a raw file beginning with *r*, like `r[X].csv`, and a weighting variable beginning with *d*, like `d[X].csv`. Suppose you wanted to have a weighted average for people per acre (population density). If you specify normalize, it'll look for a raw population in `rX.csv` and the number of acres for the denominator in `dX.csv` and produce a weighted average.
+* **weighted**: This will normalize data or perform a weighted average and will look for two files - a raw file beginning with *r*, like `r[X].csv`, and a weighting variable beginning with *d*, like `d[X].csv`. Suppose you wanted to have a weighted average for people per acre (population density). If you specify normalize, it'll look for a raw population in `rX.csv` and the number of acres for the denominator in `dX.csv` and produce a weighted average.
 
 The CSV's are converted to JSON by running `gulp datagen`.
 
@@ -124,20 +124,29 @@ When processing the HTML from the markdown, the h2 and h3 tags are used in a rea
 
 After you add metadata, run `gulp datagen` to convert the markdown to HTML.
 
-**Tip: Beware non-HTML characters**
+**Tip: Don't add additional H2 (##) or H3 (###) tags**
+
+Because we're using those as choppers for layout, adding more of those will screw up your formatting.
+
+**Tip: Beware weird, non-web safe characters characters**
 
 Don't edit Markdown in Word. You're welcome.
 
 ### Customize config.js
 `src/scripts/config.js` has knobs you will need to turn to set up the dashboard for your area. It is all well documented there. Each metric has a JSON description with a few required and many optional properties.
 
-In particular, note the `type` on the metric description, which describes the calculation to be performed. The type of calculation to be performed effects what the dashboard will look for.
+* **metric**: The unique metric number.
+* **type**: The calculation performed: sum, mean, or weighted. This effects the files fetched. See the data diagram for more information.
+* **category**: The category of the metric.
+* **title**: Descriptive title (for the select list).
+* [optional] **accuracy**: Set to `True` if the metric has an accuracy file.
+* [optional] **label**: Metric unit information, like "square miles".
+* [optional] **decimals**: Number of decimals to display (default is 0).
+* [optional] **prefix**: Prefix for the number, like "$".
+* [optional] **suffix**: Suffix for the number, like "%".
+* [optional] **raw_label**: Label for raw number if there is one (also makes it visible).
 
-* **sum**: This is for raw variables, like population. It'll look for `rX.csv`.
-* **mean**: This is for normalized variables, like population density. It'll look for `nX.csv`.
-* **normalize**: This will normalize data or perform a weighted average. Suppose you wanted to have a weighted average for people per acre (population density). If you specify normalize, it'll look for a raw population in `rX.csv` and the number of acres for the denominator in `dX.csv` and produce a weighted average.
-
-*Note the normalize type doesn't work yet. It doesn't break, it just does the same thing as mean.*
+*Note the weighted type doesn't work yet. It doesn't break, it just does the same thing as mean.*
 
 ### Odds and ends
 You will have a few additional things to fiddle with, all of which you'll find in either `src/index.html` or `src/report.html`. Different app titles, logos, making some custom charts for your report - that kind of thing. It'll be pretty easy. At the bottom of report.html you will find example chart templates which will require a bit more thought, but all of the chart properties are logically laid out in data attributes on the canvas elements.

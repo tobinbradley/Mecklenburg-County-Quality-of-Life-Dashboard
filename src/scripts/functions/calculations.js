@@ -25,8 +25,8 @@ function dataCrunch(theType, key, filter) {
         case "mean":
             theReturn = dataMean(model.metric, key, filter);
             break;
-        case "normalize":
-            theReturn = dataNormalize(model.metricRaw, model.metricDenominator, key, filter);
+        case "weighted":
+            theReturn = dataWeighted(model.metricRaw, model.metricDenominator, key, filter);
             break;
     }
     return theReturn;

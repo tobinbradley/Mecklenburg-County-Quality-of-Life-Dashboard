@@ -31,7 +31,10 @@ function updateMeta() {
             document.querySelector('.meta-about').innerHTML = data.substring(getSubstringIndex(data, '</h3>', 2) + 5, getSubstringIndex(data, '<h3', 3));
             document.querySelector('.meta-resources').innerHTML = data.substring(getSubstringIndex(data, '</h3>', 3) + 5, data.length);
             // make meta tables (jesus tables really?) from markdown get the bootstrap table class
-            $('.meta-container table').addClass('table table-condensed');
+            var tables = document.querySelectorAll('.meta-container table');
+            for (i = 0; i < tables.length; i++) {
+                tables[i].classList.add('table', 'table-condensed');
+            }
         },
         error: function (error, status, desc) {
             console.log(status, desc);
