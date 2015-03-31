@@ -164,7 +164,6 @@ $(document).ready(function () {
             document.querySelector('.navbar').classList.add('navbar-color');
             var elemSelector = document.querySelector('.chosen-select');
             elemSelector.classList.add('select-highlight');
-            elemSelector.focus();
         });
     });
 
