@@ -661,7 +661,6 @@ var metricConfig = {
   "metric": "34",
   "category": "Transportation",
   "label": "Index Value (1-3)",
-  "raw_label": "Index Value (1-3)",
   "title": "Bicycle Friendliness",
   "decimals": 1,
   "type": "weighted"
