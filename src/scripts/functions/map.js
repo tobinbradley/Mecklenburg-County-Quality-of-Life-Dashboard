@@ -30,6 +30,35 @@ function geocode(d) {
 
 
 // ****************************************
+// Style GeoJSON on load
+// ****************************************
+function jsonStyle(feature) {
+    return {
+          "fillColor": "rgba(0,0,0,0)",
+          "color": "none",
+          "fillOpacity": 1,
+          className: "geom metric-hover",
+    };
+}
+
+
+// ****************************************
+// GeoJSON click event
+// ****************************************
+function onEachFeature(feature, layer) {
+    layer.on({
+        click: function() {
+                    if(model.selected.indexOf(feature.id) !== -1) {
+                        model.selected = _.difference(model.selected, [feature.id]);
+                    } else {
+                        model.selected = _.union(model.selected, [feature.id]);
+                    }
+                }
+    });
+}
+
+
+// ****************************************
 // Create the map
 // ****************************************
 function mapCreate() {
@@ -76,32 +105,21 @@ function mapCreate() {
 // Initialize the D3 map layer
 // ****************************************
 function initMap() {
-    // Eyes wide open for this gnarly hack.
-    // There are lots of different ways to put a D3 layer on Leaflet, and I found
-    // them all to be annoying and/or weird. So, here I'm adding the topojson as a
-    // regular leaflet layer so Leaflet can manage zooming/redrawing/events/etc. However,
-    // I want D3 to manage symbolization et al, so I rely on the fact that Leaflet
-    // adds the polys in the topojson order to add a data-id and geom class to the
-    // layer so I can handle it D3-ish rather than through the Leaflet API.
+    // Load TopoJSON as geoJSON and set basic styling, classes, and click interaction
     d3Layer = L.geoJson(topojson.feature(model.geom, model.geom.objects[neighborhoods]), {
-        style: {
-            "fillColor": "rgba(0,0,0,0)",
-            "color": "none",
-            "fillOpacity": 1
-        }
+        style: jsonStyle,
+        onEachFeature: onEachFeature
     }).addTo(map);
 
-    d3.selectAll(".leaflet-overlay-pane svg path").attr("class", "geom metric-hover").attr("data-id", function(d, i) {
-        return model.geom.objects[neighborhoods].geometries[i].id;
-    });
-
-    d3Layer.on("click", function(d) {
-        var sel = d3.select(".geom[data-id='" + d.layer.feature.id + "']");
-        if (sel.classed("d3-select")) {
-            model.selected = _.difference(model.selected, [d.layer.feature.id]);
-        }
-        else {
-            model.selected = _.union(model.selected, [d.layer.feature.id]);
+    // add data-id attribute to SVG objects.
+    // the if-then is to handle non-contiguous polygon features (hi coastal areas)
+    d3Layer.eachLayer(function (layer) {
+        if (typeof layer._path !== 'undefined') {
+            layer._path.setAttribute("data-id", layer.feature.id);
+        } else {
+            layer.eachLayer(function (layer2) {
+                layer2._path.setAttribute("data-id", layer.feature.id);
+            });
         }
     });
 
