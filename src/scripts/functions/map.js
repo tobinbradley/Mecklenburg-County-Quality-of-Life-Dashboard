@@ -112,9 +112,9 @@ function initMap() {
     }).addTo(map);
 
     // add data-id attribute to SVG objects.
-    // the if-then is to handle non-contiguous polygon features (hi coastal areas)
+    // the if-then is to handle non-contiguous polygon features (hi coastal areas!)
     d3Layer.eachLayer(function (layer) {
-        if (typeof layer._path !== 'undefined') {
+        if (layer._path) {
             layer._path.setAttribute("data-id", layer.feature.id);
         } else {
             layer.eachLayer(function (layer2) {
@@ -208,9 +208,5 @@ function drawMap() {
             .attr("data-quantile", styleClass)
             .attr("data-toggle", "tooltip");
     });
-
-    var xScale = d3.scale.linear().domain(x_extent).range([0, $("#barChart").parent().width() - 60]);
-
-    var y = d3.scale.linear().range([260, 0]).domain([0, 260]);
 
 }

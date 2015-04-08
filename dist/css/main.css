@@ -7607,7 +7607,7 @@ body {
   margin: 0 0 10px;
 }
 .jumbotron {
-  padding: 70px 0;
+  padding: 90px 0;
   margin: 0;
   background: #03A9F4;
   background: -webkit-linear-gradient(top, #03a9f4 0%, #0277bd 100%);
@@ -7619,12 +7619,18 @@ body {
   font-weight: bold;
 }
 .jumbotron p {
-  font-size: 1.2em;
+  font-size: 1.3em;
   max-width: 700px;
   margin: 20px auto;
 }
 .jumbotron p:nth-child(3) {
   padding-top: 10px;
+}
+.jumbotron .btn-xl {
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 18px;
+  padding: 20px 40px;
 }
 .btnHoverShadow:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.16), 0 4px 8px rgba(0, 0, 0, 0.23);
