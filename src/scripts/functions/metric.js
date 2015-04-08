@@ -75,6 +75,8 @@ function quantizeCount(data) {
 
 // ****************************************
 // Return a D3 scale
+// If you want to do some different or custom scaling,
+// this is the place.
 // ****************************************
 function getScale(extent, breaks) {
     return d3.scale.quantile()
