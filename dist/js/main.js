@@ -39672,6 +39672,35 @@ function geocode(d) {
 
 
 // ****************************************
+// Style GeoJSON on load
+// ****************************************
+function jsonStyle(feature) {
+    return {
+          "fillColor": "rgba(0,0,0,0)",
+          "color": "none",
+          "fillOpacity": 1,
+          className: "geom metric-hover",
+    };
+}
+
+
+// ****************************************
+// GeoJSON click event
+// ****************************************
+function onEachFeature(feature, layer) {
+    layer.on({
+        click: function() {
+                    if(model.selected.indexOf(feature.id) !== -1) {
+                        model.selected = _.difference(model.selected, [feature.id]);
+                    } else {
+                        model.selected = _.union(model.selected, [feature.id]);
+                    }
+                }
+    });
+}
+
+
+// ****************************************
 // Create the map
 // ****************************************
 function mapCreate() {
@@ -39718,32 +39747,21 @@ function mapCreate() {
 // Initialize the D3 map layer
 // ****************************************
 function initMap() {
-    // Eyes wide open for this gnarly hack.
-    // There are lots of different ways to put a D3 layer on Leaflet, and I found
-    // them all to be annoying and/or weird. So, here I'm adding the topojson as a
-    // regular leaflet layer so Leaflet can manage zooming/redrawing/events/etc. However,
-    // I want D3 to manage symbolization et al, so I rely on the fact that Leaflet
-    // adds the polys in the topojson order to add a data-id and geom class to the
-    // layer so I can handle it D3-ish rather than through the Leaflet API.
+    // Load TopoJSON as geoJSON and set basic styling, classes, and click interaction
     d3Layer = L.geoJson(topojson.feature(model.geom, model.geom.objects[neighborhoods]), {
-        style: {
-            "fillColor": "rgba(0,0,0,0)",
-            "color": "none",
-            "fillOpacity": 1
-        }
+        style: jsonStyle,
+        onEachFeature: onEachFeature
     }).addTo(map);
 
-    d3.selectAll(".leaflet-overlay-pane svg path").attr("class", "geom metric-hover").attr("data-id", function(d, i) {
-        return model.geom.objects[neighborhoods].geometries[i].id;
-    });
-
-    d3Layer.on("click", function(d) {
-        var sel = d3.select(".geom[data-id='" + d.layer.feature.id + "']");
-        if (sel.classed("d3-select")) {
-            model.selected = _.difference(model.selected, [d.layer.feature.id]);
-        }
-        else {
-            model.selected = _.union(model.selected, [d.layer.feature.id]);
+    // add data-id attribute to SVG objects.
+    // the if-then is to handle non-contiguous polygon features (hi coastal areas!)
+    d3Layer.eachLayer(function (layer) {
+        if (layer._path) {
+            layer._path.setAttribute("data-id", layer.feature.id);
+        } else {
+            layer.eachLayer(function (layer2) {
+                layer2._path.setAttribute("data-id", layer.feature.id);
+            });
         }
     });
 
@@ -39833,10 +39851,6 @@ function drawMap() {
             .attr("data-toggle", "tooltip");
     });
 
-    var xScale = d3.scale.linear().domain(x_extent).range([0, $("#barChart").parent().width() - 60]);
-
-    var y = d3.scale.linear().range([260, 0]).domain([0, 260]);
-
 }
 
 // ****************************************
@@ -39922,11 +39936,7 @@ function processMetric() {
     x_extent = d3.extent(theVals);
 
     // set up data quantile from extent
-    quantize = d3.scale.quantile()
-        .domain(x_extent)
-        .range(d3.range(colorbreaks).map(function (i) {
-            return "q" + i;
-        }));
+    quantize = getScale(x_extent, colorbreaks);
 }
 
 // ****************************************
@@ -39960,6 +39970,18 @@ function quantizeCount(data) {
         });
     }
     return q2;
+}
+
+
+// ****************************************
+// Return a D3 scale
+// ****************************************
+function getScale(extent, breaks) {
+    return d3.scale.quantile()
+                .domain(extent)
+                .range(d3.range(breaks).map(function (i) {
+                    return "q" + i;
+                }));
 }
 
 // ****************************************
@@ -40134,11 +40156,7 @@ function changeYear() {
     var keys = Object.keys(model.metric[0]);
     $('.time-year').text(keys[model.year + 1].replace("y_", ""));
     // set up data quantile from extent
-    quantize = d3.scale.quantile()
-        .domain(x_extent)
-        .range(d3.range(colorbreaks).map(function (i) {
-            return "q" + i;
-        }));
+    quantize = getScale(x_extent, colorbreaks);
     drawMap();
     drawBarChart();
     drawTable();
@@ -41298,11 +41316,7 @@ $(document).ready(function () {
     d3.select(window).on("resize", function () {
         if ($(".barchart").parent().width() !== barchartWidth) {
             // set up data quantile from extent
-            quantize = d3.scale.quantile()
-                .domain(x_extent)
-                .range(d3.range(colorbreaks).map(function (i) {
-                    return "q" + i;
-                }));
+            quantize = getScale(x_extent, colorbreaks);
             drawBarChart();
         }
     });

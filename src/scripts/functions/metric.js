@@ -36,11 +36,7 @@ function processMetric() {
     x_extent = d3.extent(theVals);
 
     // set up data quantile from extent
-    quantize = d3.scale.quantile()
-        .domain(x_extent)
-        .range(d3.range(colorbreaks).map(function (i) {
-            return "q" + i;
-        }));
+    quantize = getScale(x_extent, colorbreaks);
 }
 
 // ****************************************
@@ -74,6 +70,18 @@ function quantizeCount(data) {
         });
     }
     return q2;
+}
+
+
+// ****************************************
+// Return a D3 scale
+// ****************************************
+function getScale(extent, breaks) {
+    return d3.scale.quantile()
+                .domain(extent)
+                .range(d3.range(breaks).map(function (i) {
+                    return "q" + i;
+                }));
 }
 
 // ****************************************
