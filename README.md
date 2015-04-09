@@ -145,6 +145,7 @@ Don't edit Markdown in Word. You're welcome.
 * [optional] **prefix**: Prefix for the number, like "$".
 * [optional] **suffix**: Suffix for the number, like "%".
 * [optional] **raw_label**: Label for raw number if there is one (also makes it visible).
+* [optional] **scale**: A numeric array of custom data scale breaks, ommitting the top and bottom bounds. Must match the number of color breaks. For example, if you specified 5 color breaks, your array might be `[100, 2000, 4000, 10000]`. Non-specified scales get a runtime-computed linear scale.
 
 *Note the weighted type doesn't work yet. It doesn't break, it just does the same thing as mean.*
 
