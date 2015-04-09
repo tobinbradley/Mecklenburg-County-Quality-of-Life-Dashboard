@@ -250,9 +250,7 @@ $(document).ready(function () {
     // ****************************************
     // Initialize the observer
     // ****************************************
-    Object.observe(model, function(changes) {
-        modelChanges(changes);
-    });
+    Object.observe(model, modelChanges);
 
     // Get the data and kick everything off
     fetchMetricData(model.metricId);
@@ -265,4 +263,11 @@ $(document).ready(function () {
         }
     }
 
+});
+
+$(window).load(function() {
+    if (getURLParameter("n") !== "null") {
+        var arr = getURLParameter("n").split(",");
+        //model.selected = arr;
+    }
 });

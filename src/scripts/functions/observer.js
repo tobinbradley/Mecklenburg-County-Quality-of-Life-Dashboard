@@ -35,29 +35,43 @@ function modelChanges(changes) {
         drawTable();
         if (recordHistory) { recordMetricHistory(); }
         recordHistory = true;
+        // hack for ie and ff not picking up n arg on page load
+        // probably because they use the object.observe polyfill
+        if (getURLParameter("n") !== "null") {
+            var arr = getURLParameter("n").split(",");
+            if (document.querySelectorAll(".geom.d3-select").length !== arr.length) {
+                recordHistory = false;
+                updateSelected();
+            }
+        }
     }
 
     // the selected set changed
     if (_.contains(tasklist, "selected")) {
-            d3.selectAll(".geom").classed("d3-select", false);
-            d3.selectAll(".geom").classed("d3-select", function(d) { return _.contains(model.selected, $(this).attr("data-id")); });
-            $(".report-launch").removeClass("disabled");
-            valueChart.selectedPointer(".value-select");
-            lineChartCreate();
-            updateStats();
-            drawTable();
-            if (recordHistory) { recordMetricHistory(); }
-            recordHistory = true;
-        if (model.selected.length === 0) {
-            // disable report links and remove map marker
-            $(".report-launch").addClass("disabled");
-            try { map.removeLayer(marker); }
-            catch (err) {}
-        }
+        updateSelected();
     }
-
 }
 
+// update the selected stuff
+// I had to move this out because IE and FF use a object.observe polyfill
+// and it wasn't catching selected polys passed in.
+function updateSelected() {
+    d3.selectAll(".geom").classed("d3-select", false);
+    d3.selectAll(".geom").classed("d3-select", function(d) { return _.contains(model.selected, $(this).attr("data-id")); });
+    $(".report-launch").removeClass("disabled");
+    valueChart.selectedPointer(".value-select");
+    lineChartCreate();
+    updateStats();
+    drawTable();
+    if (recordHistory) { recordMetricHistory(); }
+    recordHistory = true;
+    if (model.selected.length === 0) {
+        // disable report links and remove map marker
+        $(".report-launch").addClass("disabled");
+        try { map.removeLayer(marker); }
+        catch (err) {}
+    }
+}
 
 function changeYear() {
     // change year slider if not samsies
