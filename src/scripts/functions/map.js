@@ -168,12 +168,9 @@ function initMap() {
 
     // if neihborhoods are being passed from page load
     if (getURLParameter("n") !== "null") {
-        var arr = [];
-        _.each(getURLParameter("n").split(","), function(d) {
-            arr.push(d);
-        });
-        model.selected = arr;
+        var arr = getURLParameter("n").split(",");
         d3ZoomPolys("", {"ids": arr});
+        model.selected = arr;
     }
 }
 

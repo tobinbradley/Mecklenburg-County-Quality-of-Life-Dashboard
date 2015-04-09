@@ -98,8 +98,7 @@ var metricConfig = {
   "category": "Character",
   "label": "Acres",
   "title": "Area",
-  "type": "sum",
-  "scale": [1000, 2000, 3000, 6000]
+  "type": "sum"
  },
  "m13": {
   "metric": "13",
