@@ -6938,7 +6938,6 @@ button.close {
 }
 .leaflet-container {
   cursor: -webkit-grab;
-  cursor: -moz-grab;
 }
 .leaflet-popup-pane,
 .leaflet-control {
@@ -6948,7 +6947,6 @@ button.close {
 .leaflet-dragging .leaflet-clickable {
   cursor: move;
   cursor: -webkit-grabbing;
-  cursor: -moz-grabbing;
 }
 /* visual tweaks */
 .leaflet-container {

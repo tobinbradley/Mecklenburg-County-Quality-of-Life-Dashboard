@@ -79,12 +79,35 @@ function quantizeCount(data) {
 // this is the place.
 // ****************************************
 function getScale(extent, breaks) {
-    return d3.scale.quantile()
-                .domain(extent)
-                .range(d3.range(breaks).map(function (i) {
-                    return "q" + i;
-                }));
+    if (metricConfig[model.metricId].scale) {
+        // custom breaks yo
+        var customScale = function (d) {
+            var theQtile = "q0",
+                theBreaks = metricConfig[model.metricId].scale;
+            _.each(theBreaks, function(value, index) {
+                if (d > value) {
+                    theQtile = "q" + (index + 1);
+                }
+            });
+            return theQtile;
+        };
+		customScale.quantiles = function() {
+			var theScale = _.clone(metricConfig[model.metricId].scale);
+            theScale.push(x_extent[1]);
+            theScale.unshift(x_extent[0]);
+            return theScale;
+		};
+        return customScale;
+    } else {
+        // default quantile scale
+        return d3.scale.quantile()
+                    .domain(extent)
+                    .range(d3.range(breaks).map(function (i) {
+                        return "q" + i;
+                    }));
+    }
 }
+
 
 // ****************************************
 // Make the nerd table via Underscore template

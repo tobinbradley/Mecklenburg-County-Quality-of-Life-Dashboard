@@ -127,26 +127,31 @@ function barChart() {
             .call(xAxis);
 
         // create original rects
-            var barContainer = graph.select(".bar-container");
-            barContainer.selectAll(".bar")
-                .data(data)
-                .enter().append("rect")
-                .attr("class", function(d) {
-                    return "bar chart-tooltips metric-hover " + d.key;
-                })
-                .attr("data-quantile", function(d) {
-                    return d.key;
-                })
-                .attr("data-toggle", "tooltip");
+        var barContainer = graph.select(".bar-container");
+        barContainer.selectAll(".bar")
+            .data(data)
+            .enter().append("rect")
+            .attr("class", function(d) {
+                return "bar chart-tooltips metric-hover " + d.key;
+            })
+            .attr("data-quantile", function(d) {
+                return d.key;
+            })
+            .attr("data-toggle", "tooltip");
 
-        // // set bar position, height, and tooltip info
+        // scaling factor for bar width
+        var scaleFactor = w / (_.last(qtiles) - qtiles[0]);
+
+        // set bar position, height, and tooltip info
         graph.selectAll("rect")
             .data(data)
             .transition()
             .duration(1000)
-            .attr("width", w / data.length)
-            .attr("x", function(d,i) {
-                return x(i);
+            .attr("width", function(d,i) {
+                return (qtiles[i + 1] - qtiles[i]) * scaleFactor;
+            })
+            .attr("x", function(d, i) {
+                return (qtiles[i] - qtiles[0]) * scaleFactor;
             })
             .attr("y", function(d) {
                 return y(d.value);
@@ -165,6 +170,7 @@ function barChart() {
                 }
             })
             .attr("data-value", function(d) { return d.value; });
+
 
         $(".bar").tooltip({
           html: true,
@@ -209,7 +215,8 @@ function barChart() {
 
     my.x = function(width, max) {
       if (!arguments.length) { return x; }
-      x = d3.scale.linear().domain([0, max]).range([0, width]);
+      //x = d3.scale.linear().domain([0, max]).range([0, width]);
+      x = d3.scale.linear().range([0, width]);
       return my;
     };
 

@@ -77,6 +77,10 @@ catch(err) {}
 //        "prefix"        [optional] prefix for the number, like '$'
 //        "suffix"        [optional] suffix for the number, like '%'
 //        "raw_label"     [optional] label for raw number if available (also makes raw number visible)
+//        "scale"         [optional] An array of custom data scale breaks, ommitting the top and bottom bounds.
+//                                   Must match the number of color breaks. For example, if you specified
+//                                   5 color breaks, your array might be [100, 2000, 4000, 10000].
+//                                   Non-specified scales will get a runtime-computed linear scale.
 // }
 // ***********************************************************
 
@@ -94,7 +98,8 @@ var metricConfig = {
   "category": "Character",
   "label": "Acres",
   "title": "Area",
-  "type": "sum"
+  "type": "sum",
+  "scale": [1000, 2000, 3000, 6000]
  },
  "m13": {
   "metric": "13",
