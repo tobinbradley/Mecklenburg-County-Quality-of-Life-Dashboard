@@ -11,6 +11,7 @@ var gulp = require('gulp'),
     changed    = require('gulp-changed'),
     replace = require('gulp-replace'),
     jsoncombine = require("gulp-jsoncombine"),
+    jsonmin = require('gulp-jsonmin'),
     fs = require('fs'),
     del = require('del'),
     _ = require('lodash'),
@@ -137,6 +138,7 @@ gulp.task('convert', ['clean'], function() {
             from: 'csv',
             to: 'json'
         }))
+        .pipe(jsonmin())
         .pipe(gulp.dest('dist/data/metric/'));
 });
 
@@ -144,6 +146,7 @@ gulp.task('convert', ['clean'], function() {
 gulp.task('merge-json', ['clean', 'convert'], function() {
     return gulp.src("dist/data/metric/*.json")
         .pipe(jsoncombine("merge.json", function(data){ return new Buffer(JSON.stringify(data)); }))
+        .pipe(jsonmin())
         .pipe(gulp.dest("dist/data"));
 });
 

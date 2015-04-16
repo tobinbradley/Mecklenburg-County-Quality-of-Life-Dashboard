@@ -25177,6 +25177,20 @@ function dataMean(dataSet, key, filter) {
     }
 }
 
+// ****************************************
+// Return median value from array
+// ****************************************
+function median(values) {
+    values.sort( function(a,b) {return a - b;} );
+    var half = Math.floor(values.length/2);
+    if(values.length % 2) {
+        return values[half];
+    }
+    else {
+        return (values[half-1] + values[half]) / 2.0;
+    }
+}
+
 // sum a metric
 function dataSum(dataSet, key, filter) {
     // apply filter if passed
@@ -25364,21 +25378,6 @@ function dataCrunch(theType, key, filter) {
     return theReturn;
 }
 
-
-// ****************************************
-// Return median metric value
-// ****************************************
-function median(values) {
-    values.sort( function(a,b) {return a - b;} );
-    var half = Math.floor(values.length/2);
-    if(values.length % 2) {
-        return values[half];
-    }
-    else {
-        return (values[half-1] + values[half]) / 2.0;
-    }
-}
-
 // Here we have a bunch of configuration nobs.
 
 // Stick your Google Analytics key here
@@ -25404,14 +25403,11 @@ var contactConfig = {
     "url": "/utilities/feedback.php"
 };
 
-// The basic geographic setup for your map: the minimum zoom level,
-// maximum zoom level, and the starting zoom level, the map center point, and when
-// the base tiles should become visible.
+// The min and max zoom for you map
+// map default extent is the extent of your neighborhoods
 var mapGeography = {
         minZoom: 9,
-        maxZoom: 17,
-        defaultZoom: 10,
-        center: [35.260, -80.827]
+        maxZoom: 17
     };
 
 // Neighborhoods name in your TopoJSON file. This is usually the name of the shapefile
@@ -26379,7 +26375,7 @@ function createMap(data){
             attributionControl: false,
             zoomControl: false,
             touchZoom: false
-        }).setView(mapGeography.center, mapGeography.defaultZoom - 1);
+        });
     var largeMap = L.map("largemap", {
             attributionControl: false,
             zoomControl: false,
@@ -26397,7 +26393,8 @@ function createMap(data){
     largeMap.scrollWheelZoom.disable();
 
     // add data filtering by passed neighborhood id's
-    var geom = L.geoJson(topojson.feature(data, data.objects[neighborhoods]), {
+    var theGeoJSON = topojson.feature(data, data.objects[neighborhoods]);
+    var geom = L.geoJson(theGeoJSON, {
         style: {
             "color": "#FFA400",
             "fillColor": "rgba(255,164,0,0.3)",
@@ -26416,7 +26413,7 @@ function createMap(data){
         }
     }).addTo(largeMap);
 
-    geom = L.geoJson(topojson.feature(data, data.objects[neighborhoods]), {
+    geom = L.geoJson(theGeoJSON, {
         style: {
             "color": "#FFA400",
             "fillColor": "#FFA400",
@@ -26430,6 +26427,11 @@ function createMap(data){
 
     // zoom large map
     largeMap.fitBounds(geom.getBounds());
+
+    // zoom small map
+    geom = L.geoJson(theGeoJSON);
+    smallMap.fitBounds(geom);
+
 
     // add base tiles at the end so no extra image grabs/FOUC
     L.tileLayer(baseTilesURL).addTo(largeMap);

@@ -88,7 +88,7 @@ var metric2 = [
 // test sum calculation
 QUnit.test( "Calculation - Sum", function( assert ) {
     // test county
-    assert.equal( dataSum(metric, "y_2010").toFixed(2), 194.11, "Check Set Sum" );
+    assert.equal( dataSum(metric, "y_2010").toFixed(2), 194.11, "Check County Sum" );
     // test selected
     assert.equal( dataSum(metric, "y_2010", ["5", "6", "7", "8", "9", "10"]).toFixed(2), 92.04, "Check Selected Sum" );
     // test selected are null
@@ -98,7 +98,7 @@ QUnit.test( "Calculation - Sum", function( assert ) {
 // test mean calculation
 QUnit.test( "Calculation - Mean", function( assert ) {
     // test county
-    assert.equal( dataMean(metric, "y_2010").toFixed(2), 21.57, "Check Set Mean" );
+    assert.equal( dataMean(metric, "y_2010").toFixed(2), 21.57, "Check County Mean" );
     // test selected
     assert.equal( dataMean(metric, "y_2010", ["5", "6", "7", "8", "9", "10"]).toFixed(2), 18.41, "Check Selected Mean" );
     // test selected are null
@@ -106,11 +106,19 @@ QUnit.test( "Calculation - Mean", function( assert ) {
 });
 
 // test normalize calculation
-QUnit.test( "Calculation - Normalize", function( assert ) {
+QUnit.test( "Calculation - Weighted", function( assert ) {
     // test county
-    assert.equal( dataWeighted(metric2, metric, "y_2010").toFixed(2), 3705.96, "Check Set Normalized" );
+    assert.equal( dataWeighted(metric2, metric, "y_2010").toFixed(2), 3705.96, "Check County Normalized" );
     // test selected
     assert.equal( dataWeighted(metric2, metric, "y_2010", ["5", "6", "7", "8", "9", "10"]).toFixed(2), 3892.52, "Check Selected Normalized" );
     // test selected are null
     assert.equal( dataWeighted(metric2, metric, "y_2010", ["5"]), "N/A", "Check Selected Normalized is Null" );
+});
+
+// test normalize calculation
+QUnit.test( "Calculation - Median", function( assert ) {
+    // test median
+    assert.equal( median([5, 13, 54, 32, 100, 12, 5]), 13, "Check Median - Odd number of values");
+    // test median even number of values
+    assert.equal( median([5, 13, 54, 32, 100, 12]), 22.5, "Check Median - Even number of values");
 });

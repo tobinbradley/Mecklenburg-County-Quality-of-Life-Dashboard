@@ -7496,7 +7496,7 @@ textarea.twitter-typeahead .tt-hint {
 }
 .d3-select {
   stroke: #ffa400 !important;
-  stroke-width: 2.5px !important;
+  stroke-width: 3px !important;
   stroke-opacity: 1;
 }
 .social-links {
@@ -8007,14 +8007,11 @@ body {
   padding-top: 12px;
 }
 @media (max-width: 990px) {
-  .meta-container {
-    display: none;
-  }
   .map-aside {
     margin-top: 20px;
   }
   #map {
-    height: 350px;
+    height: 400px;
   }
 }
 @media (max-width: 740px) {
@@ -8022,6 +8019,12 @@ body {
     display: none;
   }
   .social-links {
+    display: none;
+  }
+  .container-content {
+    padding-top: 15px;
+  }
+  .meta-container {
     display: none;
   }
 }

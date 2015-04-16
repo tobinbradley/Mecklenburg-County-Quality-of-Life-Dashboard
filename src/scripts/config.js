@@ -23,14 +23,11 @@ var contactConfig = {
     "url": "/utilities/feedback.php"
 };
 
-// The basic geographic setup for your map: the minimum zoom level,
-// maximum zoom level, and the starting zoom level, the map center point, and when
-// the base tiles should become visible.
+// The min and max zoom for you map
+// map default extent is the extent of your neighborhoods
 var mapGeography = {
         minZoom: 9,
-        maxZoom: 17,
-        defaultZoom: 10,
-        center: [35.260, -80.827]
+        maxZoom: 17
     };
 
 // Neighborhoods name in your TopoJSON file. This is usually the name of the shapefile
