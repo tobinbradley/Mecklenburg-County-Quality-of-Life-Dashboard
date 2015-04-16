@@ -284,7 +284,7 @@ function createMap(data){
             attributionControl: false,
             zoomControl: false,
             touchZoom: false
-        }).setView(mapGeography.center, mapGeography.defaultZoom - 1);
+        });
     var largeMap = L.map("largemap", {
             attributionControl: false,
             zoomControl: false,
@@ -302,7 +302,8 @@ function createMap(data){
     largeMap.scrollWheelZoom.disable();
 
     // add data filtering by passed neighborhood id's
-    var geom = L.geoJson(topojson.feature(data, data.objects[neighborhoods]), {
+    var theGeoJSON = topojson.feature(data, data.objects[neighborhoods]);
+    var geom = L.geoJson(theGeoJSON, {
         style: {
             "color": "#FFA400",
             "fillColor": "rgba(255,164,0,0.3)",
@@ -321,7 +322,7 @@ function createMap(data){
         }
     }).addTo(largeMap);
 
-    geom = L.geoJson(topojson.feature(data, data.objects[neighborhoods]), {
+    geom = L.geoJson(theGeoJSON, {
         style: {
             "color": "#FFA400",
             "fillColor": "#FFA400",
@@ -335,6 +336,11 @@ function createMap(data){
 
     // zoom large map
     largeMap.fitBounds(geom.getBounds());
+
+    // zoom small map
+    geom = L.geoJson(theGeoJSON);
+    smallMap.fitBounds(geom);
+
 
     // add base tiles at the end so no extra image grabs/FOUC
     L.tileLayer(baseTilesURL).addTo(largeMap);

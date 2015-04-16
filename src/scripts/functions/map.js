@@ -47,11 +47,11 @@ function jsonStyle(feature) {
 // ****************************************
 function onEachFeature(feature, layer) {
     layer.on({
-        click: function() {
+        click: function(e) {
                     if(model.selected.indexOf(feature.id) !== -1) {
                         model.selected = _.difference(model.selected, [feature.id]);
                     } else {
-                        model.selected = _.union(model.selected, [feature.id]);
+                        model.selected = _.union(model.selected, [feature.id]);                        
                     }
                 }
     });
@@ -68,12 +68,12 @@ function mapCreate() {
             touchZoom: true,
             minZoom: mapGeography.minZoom,
             maxZoom: mapGeography.maxZoom
-        }).setView(mapGeography.center, mapGeography.defaultZoom);
+        });
     window.baseTiles = L.tileLayer(baseTilesURL);
 
     // full screen display button
     L.easyButton('glyphicon glyphicon-fullscreen', function (){
-            map.setView(mapGeography.center, mapGeography.defaultZoom);
+            map.fitBounds(d3Layer.getBounds());
         },
         'Zoom to full extent'
     );
@@ -105,11 +105,14 @@ function mapCreate() {
 // Initialize the D3 map layer
 // ****************************************
 function initMap() {
+
     // Load TopoJSON as geoJSON and set basic styling, classes, and click interaction
     d3Layer = L.geoJson(topojson.feature(model.geom, model.geom.objects[neighborhoods]), {
         style: jsonStyle,
         onEachFeature: onEachFeature
     }).addTo(map);
+
+    map.fitBounds(d3Layer.getBounds());
 
     // add data-id attribute to SVG objects.
     // the if-then is to handle non-contiguous polygon features (hi coastal areas!)

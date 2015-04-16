@@ -40077,6 +40077,20 @@ function dataMean(dataSet, key, filter) {
     }
 }
 
+// ****************************************
+// Return median value from array
+// ****************************************
+function median(values) {
+    values.sort( function(a,b) {return a - b;} );
+    var half = Math.floor(values.length/2);
+    if(values.length % 2) {
+        return values[half];
+    }
+    else {
+        return (values[half-1] + values[half]) / 2.0;
+    }
+}
+
 // sum a metric
 function dataSum(dataSet, key, filter) {
     // apply filter if passed
@@ -40156,21 +40170,6 @@ function dataCrunch(theType, key, filter) {
             break;
     }
     return theReturn;
-}
-
-
-// ****************************************
-// Return median metric value
-// ****************************************
-function median(values) {
-    values.sort( function(a,b) {return a - b;} );
-    var half = Math.floor(values.length/2);
-    if(values.length % 2) {
-        return values[half];
-    }
-    else {
-        return (values[half-1] + values[half]) / 2.0;
-    }
 }
 
 // ****************************************
@@ -40750,11 +40749,11 @@ function jsonStyle(feature) {
 // ****************************************
 function onEachFeature(feature, layer) {
     layer.on({
-        click: function() {
+        click: function(e) {
                     if(model.selected.indexOf(feature.id) !== -1) {
                         model.selected = _.difference(model.selected, [feature.id]);
                     } else {
-                        model.selected = _.union(model.selected, [feature.id]);
+                        model.selected = _.union(model.selected, [feature.id]);                        
                     }
                 }
     });
@@ -40771,12 +40770,12 @@ function mapCreate() {
             touchZoom: true,
             minZoom: mapGeography.minZoom,
             maxZoom: mapGeography.maxZoom
-        }).setView(mapGeography.center, mapGeography.defaultZoom);
+        });
     window.baseTiles = L.tileLayer(baseTilesURL);
 
     // full screen display button
     L.easyButton('glyphicon glyphicon-fullscreen', function (){
-            map.setView(mapGeography.center, mapGeography.defaultZoom);
+            map.fitBounds(d3Layer.getBounds());
         },
         'Zoom to full extent'
     );
@@ -40808,11 +40807,14 @@ function mapCreate() {
 // Initialize the D3 map layer
 // ****************************************
 function initMap() {
+
     // Load TopoJSON as geoJSON and set basic styling, classes, and click interaction
     d3Layer = L.geoJson(topojson.feature(model.geom, model.geom.objects[neighborhoods]), {
         style: jsonStyle,
         onEachFeature: onEachFeature
     }).addTo(map);
+
+    map.fitBounds(d3Layer.getBounds());
 
     // add data-id attribute to SVG objects.
     // the if-then is to handle non-contiguous polygon features (hi coastal areas!)
@@ -41133,6 +41135,7 @@ function updateStats() {
 
 }
 
+
 // ****************************************
 // Hover highlights for all except the map
 // ****************************************
@@ -41226,10 +41229,19 @@ function modelChanges(changes) {
 
 // update the selected stuff
 // I had to move this out because IE and FF use a object.observe polyfill
-// and it wasn't catching selected polys passed in.
+// and it wasn't catching selected polys passed in on page load.
 function updateSelected() {
-    d3.selectAll(".geom").classed("d3-select", false);
-    d3.selectAll(".geom").classed("d3-select", function(d) { return _.contains(model.selected, $(this).attr("data-id")); });
+    var geom = d3.selectAll(".geom");
+    geom.classed("d3-select", function(d) { return _.contains(model.selected, $(this).attr("data-id")); });
+    // bring selected geog to front if browser not crap
+    if (!L.Browser.ie) {
+        d3Layer.eachLayer(function (layer) {
+            if (layer._path.getAttribute("class").indexOf('d3-select') !== -1) {
+                layer.bringToFront();
+            }
+        });
+        if (typeof overlay !== 'undefined') { geojson.bringToFront(); }
+    }
     $(".report-launch").removeClass("disabled");
     valueChart.selectedPointer(".value-select");
     lineChartCreate();
@@ -41484,14 +41496,11 @@ var contactConfig = {
     "url": "/utilities/feedback.php"
 };
 
-// The basic geographic setup for your map: the minimum zoom level,
-// maximum zoom level, and the starting zoom level, the map center point, and when
-// the base tiles should become visible.
+// The min and max zoom for you map
+// map default extent is the extent of your neighborhoods
 var mapGeography = {
         minZoom: 9,
-        maxZoom: 17,
-        defaultZoom: 10,
-        center: [35.260, -80.827]
+        maxZoom: 17
     };
 
 // Neighborhoods name in your TopoJSON file. This is usually the name of the shapefile

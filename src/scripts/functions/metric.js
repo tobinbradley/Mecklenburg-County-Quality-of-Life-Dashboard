@@ -175,6 +175,7 @@ function updateStats() {
 
 }
 
+
 // ****************************************
 // Hover highlights for all except the map
 // ****************************************

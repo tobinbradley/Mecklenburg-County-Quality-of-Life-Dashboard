@@ -54,10 +54,19 @@ function modelChanges(changes) {
 
 // update the selected stuff
 // I had to move this out because IE and FF use a object.observe polyfill
-// and it wasn't catching selected polys passed in.
+// and it wasn't catching selected polys passed in on page load.
 function updateSelected() {
-    d3.selectAll(".geom").classed("d3-select", false);
-    d3.selectAll(".geom").classed("d3-select", function(d) { return _.contains(model.selected, $(this).attr("data-id")); });
+    var geom = d3.selectAll(".geom");
+    geom.classed("d3-select", function(d) { return _.contains(model.selected, $(this).attr("data-id")); });
+    // bring selected geog to front if browser not crap
+    if (!L.Browser.ie) {
+        d3Layer.eachLayer(function (layer) {
+            if (layer._path.getAttribute("class").indexOf('d3-select') !== -1) {
+                layer.bringToFront();
+            }
+        });
+        if (typeof overlay !== 'undefined') { geojson.bringToFront(); }
+    }
     $(".report-launch").removeClass("disabled");
     valueChart.selectedPointer(".value-select");
     lineChartCreate();
