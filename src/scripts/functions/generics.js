@@ -47,7 +47,9 @@ function getURLParameter(name) {
 // ****************************************
 function getTrend(x1, x2) {
     if ($.isNumeric(x1) && $.isNumeric(x2)) {
-        var theDiff = x1 - x2;
+        var sigfigs = 0;
+        if (metricConfig[model.metricId].decimals) { sigfigs =  metricConfig[model.metricId].decimals; }
+        var theDiff = Number(Number(x1).toFixed(sigfigs)) - Number(Number(x2).toFixed(sigfigs));
         if (theDiff === 0) {
             return "&#8596; 0";
         } else if (theDiff > 0) {
