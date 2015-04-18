@@ -40300,6 +40300,9 @@ function barChart() {
             .attr("transform", "translate(0," + h + ")")
             .call(xAxis);
 
+        // scaling factor for bar width
+        var scaleFactor = w / (_.last(qtiles) - qtiles[0]);
+
         // create original rects
         var barContainer = graph.select(".bar-container");
         barContainer.selectAll(".bar")
@@ -40313,22 +40316,19 @@ function barChart() {
             })
             .attr("data-toggle", "tooltip");
 
-        // scaling factor for bar width
-        var scaleFactor = w / (_.last(qtiles) - qtiles[0]);
-
         // set bar position, height, and tooltip info
         graph.selectAll("rect")
             .data(data)
             .transition()
             .duration(1000)
-            .attr("width", function(d,i) {
-                return (qtiles[i + 1] - qtiles[i]) * scaleFactor;
-            })
             .attr("x", function(d, i) {
                 return (qtiles[i] - qtiles[0]) * scaleFactor;
             })
             .attr("y", function(d) {
                 return y(d.value);
+            })
+            .attr("width", function(d,i) {
+                return (qtiles[i + 1] - qtiles[i]) * scaleFactor;
             })
             .attr("height", function(d) {
                 return h - y(d.value) + 6;
@@ -40344,6 +40344,8 @@ function barChart() {
                 }
             })
             .attr("data-value", function(d) { return d.value; });
+
+
 
 
         $(".bar").tooltip({
@@ -40643,7 +40645,9 @@ function getURLParameter(name) {
 // ****************************************
 function getTrend(x1, x2) {
     if ($.isNumeric(x1) && $.isNumeric(x2)) {
-        var theDiff = x1 - x2;
+        var sigfigs = 0;
+        if (metricConfig[model.metricId].decimals) { sigfigs =  metricConfig[model.metricId].decimals; }
+        var theDiff = Number(Number(x1).toFixed(sigfigs)) - Number(Number(x2).toFixed(sigfigs));
         if (theDiff === 0) {
             return "&#8596; 0";
         } else if (theDiff > 0) {
