@@ -19,7 +19,7 @@ var baseTilesURL = "http://tiles.mcmap.org/meckbase/{z}/{x}/{y}.png";
 // Server-side processor for feedback.
 // Post arguments passed to the server: email, url, agent (browser info), subject, to, message
 var contactConfig = {
-    "to": "tobin.bradley@gmail.com",
+    "to": "tobin.bradley@gmail.com,qualityoflife@charlottenc.gov",
     "url": "/utilities/feedback.php"
 };
 
@@ -367,6 +367,14 @@ var metricConfig = {
   "title": "Adopt-a-Stream Participation",
   "type": "weighted"
  },
+ "m71": {
+  "metric": "71",
+  "category": "Environment",
+  "suffix": "%",
+  "raw_label": "Miles",
+  "title": "Adopt-a-Street Participation",
+  "type": "weighted"
+ },
  "m10": {
   "metric": "10",
   "accuracy": "true",
@@ -476,6 +484,14 @@ var metricConfig = {
   "decimals": 1,
   "type": "weighted"
  },
+ "m46": {
+  "metric": "46",
+  "category": "Health",
+  "suffix": "%",
+  "raw_label": "Units",
+  "title": "Proximity to a Pharmacy",
+  "type": "weighted"
+ },
  "m28": {
   "metric": "28",
   "category": "Health",
@@ -528,6 +544,14 @@ var metricConfig = {
   "label": "Years",
   "title": "Housing Age",
   "type": "weighted"
+ },
+ "m68": {
+  "metric": "68",
+  "category": "Housing",
+  "label": "Violations per 100 Units",
+  "title": "Housing Code Violations",
+  "type": "weighted",
+  "raw_label": "Violations"
  },
  "m5": {
   "metric": "5",
@@ -602,6 +626,14 @@ var metricConfig = {
   "suffix": "%",
   "raw_label": "Units",
   "title": "Single-Family Housing",
+  "type": "weighted"
+ },
+ "m82": {
+  "metric": "82",
+  "category": "Housing",
+  "suffix": "%",
+  "raw_label": "Units",
+  "title": "Subsidized Housing",
   "type": "weighted"
  },
  "m61": {
