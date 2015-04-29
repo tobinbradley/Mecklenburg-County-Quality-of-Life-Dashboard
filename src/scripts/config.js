@@ -445,6 +445,14 @@ var metricConfig = {
   "decimals": 1,
   "type": "weighted"
  },
+ "m49": {
+  "metric": "49",
+  "category": "Environment",
+  "suffix": "%",
+  "raw_label": "Acres",
+  "title": "Tree Canopy - Residential",
+  "type": "weighted"
+ },
  "m27": {
   "metric": "27",
   "category": "Environment",
