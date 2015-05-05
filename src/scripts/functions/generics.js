@@ -37,7 +37,7 @@ String.prototype.toProperCase = function(opt_lowerCaseTheRest) {
 // Get URL GET Parameters
 // ****************************************
 function getURLParameter(name) {
-    return decodeURI(
+    return decodeURIComponent(
         (new RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
     );
 }

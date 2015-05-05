@@ -40635,7 +40635,7 @@ String.prototype.toProperCase = function(opt_lowerCaseTheRest) {
 // Get URL GET Parameters
 // ****************************************
 function getURLParameter(name) {
-    return decodeURI(
+    return decodeURIComponent(
         (new RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
     );
 }
@@ -41920,6 +41920,14 @@ var metricConfig = {
   "raw_label": "Acres",
   "title": "Tree Canopy",
   "decimals": 1,
+  "type": "weighted"
+ },
+ "m49": {
+  "metric": "49",
+  "category": "Environment",
+  "suffix": "%",
+  "raw_label": "Acres",
+  "title": "Tree Canopy - Residential",
   "type": "weighted"
  },
  "m27": {

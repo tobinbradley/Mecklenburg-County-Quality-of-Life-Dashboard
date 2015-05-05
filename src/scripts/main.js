@@ -84,6 +84,11 @@ $(document).ready(function () {
         window.open("report.html?n=" + model.selected.join());
     });
 
+    // navbar collapse on click
+    $('.btn-help').on('click', function() {
+        $('.navbar-collapse').removeClass('in');
+    });
+
 
     // Social media links
     $(".social-links a").on("click", function() {
@@ -268,6 +273,5 @@ $(document).ready(function () {
 $(window).load(function() {
     if (getURLParameter("n") !== "null") {
         var arr = getURLParameter("n").split(",");
-        //model.selected = arr;
     }
 });
