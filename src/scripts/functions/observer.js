@@ -61,7 +61,7 @@ function updateSelected() {
     // bring selected geog to front if browser not crap
     if (!L.Browser.ie) {
         d3Layer.eachLayer(function (layer) {
-            if (layer._path.getAttribute("class").indexOf('d3-select') !== -1) {
+            if (layer._path && layer._path.getAttribute("class").indexOf('d3-select') !== -1) {
                 layer.bringToFront();
             }
         });
