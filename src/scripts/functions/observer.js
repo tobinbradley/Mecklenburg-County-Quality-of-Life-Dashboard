@@ -87,10 +87,11 @@ function changeYear() {
     if ($('.slider').slider('value') !== model.year) {
         $('.slider').slider('value', model.year);
     }
-    var keys = Object.keys(model.metric[0]);
-    $('.time-year').text(keys[model.year + 1].replace("y_", ""));
+    var keys = _.without(_.keys(model.metric[0]), "id");    
+    $('.time-year').text(keys[model.year].replace("y_", ""));
     // set up data quantile from extent
-    quantize = getScale(x_extent, colorbreaks);
+    theVals = dataStripAll(model.metric);
+    quantize = getScale(x_extent, colorbreaks, theVals);
     drawMap();
     drawBarChart();
     drawTable();
