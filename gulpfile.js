@@ -27,6 +27,7 @@ var jsMain = [
     'bower_components/bootstrap/js/tooltip.js',
     'bower_components/bootstrap/js/popover.js',
     'bower_components/d3/d3.js',
+    'bower_components/simple-statistics/src/simple_statistics.js',
     'bower_components/leaflet/dist/leaflet.js',
     'bower_components/leaflet.locatecontrol/src/L.Control.Locate.js',
     'bower_components/jquery.scrollTo/jquery.scrollTo.js',

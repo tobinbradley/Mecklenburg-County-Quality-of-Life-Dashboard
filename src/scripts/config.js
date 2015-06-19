@@ -47,6 +47,12 @@ var overlay = "istates";
 // breaks is at http://colorbrewer2.org
 var colorbreaks = 5;
 
+
+// The default way you want to carve up the data range/colors. This effects the colors on the map
+// and the bar chart. Values are "jenks" or "linear". Note that with "jenks" your bar
+// chart x axis labels may collide if the breaks are too close to each other.
+var quantileScale = "linear";
+
 // we're going to export a few of our vars for the node build/watch process. Done in a try/catch
 // so a browser reading this will barf quietly to itself.
 try {

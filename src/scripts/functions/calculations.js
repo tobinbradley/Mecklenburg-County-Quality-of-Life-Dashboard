@@ -11,6 +11,14 @@ function dataFilter(dataSet, filter) {
 function dataStrip(dataSet, key) {
     return _.filter(_.pluck(dataSet, key), function (el) {  return $.isNumeric(el); }).map(Number);
 }
+function dataStripAll(dataSet) {
+    var keys = _.without(_.keys(dataSet[0]), "id");
+    var theVals = [];
+    _.each(keys, function(key, i) {
+        theVals = theVals.concat(dataStrip(dataSet, key));
+    });
+    return theVals;
+}
 
 
 // This is where you can set new calculation types.

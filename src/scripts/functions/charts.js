@@ -82,7 +82,7 @@ function lineChartCreate() {
 function barChart() {
     var width = 720, // default width
         height = 220, // default height
-        margins = [20, 30, 20, 30],
+        margins = [2, 30, 30, 30],
         x,
         y,
         xScale;
@@ -125,6 +125,11 @@ function barChart() {
         graph.select(".x.axis")
             .attr("transform", "translate(0," + h + ")")
             .call(xAxis);
+
+        // make line longer for every other x axis tick
+        // the text is shifted down in CSS via a transform
+        graph.selectAll(".x.axis line").filter(function(d, i) { return i & 1; })
+            .attr("y2", "15");
 
         // scaling factor for bar width
         var scaleFactor = w / (_.last(qtiles) - qtiles[0]);

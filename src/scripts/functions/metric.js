@@ -29,14 +29,11 @@ function processMetric() {
 
 
     // Set up data extent
-    var theVals = [];
-    _.each(keys, function(key, i) {
-        theVals = theVals.concat(dataStrip(model.metric, key));
-    });
+    theVals = dataStripAll(model.metric);
     x_extent = d3.extent(theVals);
 
     // set up data quantile from extent
-    quantize = getScale(x_extent, colorbreaks);
+    quantize = getScale(x_extent, colorbreaks, theVals);
 }
 
 // ****************************************
@@ -78,34 +75,21 @@ function quantizeCount(data) {
 // If you want to do some different or custom scaling,
 // this is the place.
 // ****************************************
-function getScale(extent, breaks) {
+function getScale(extent, breaks, values) {
     if (metricConfig[model.metricId].scale) {
-        // custom breaks yo
-        var customScale = function (d) {
-            var theQtile = "q0",
-                theBreaks = metricConfig[model.metricId].scale;
-            _.each(theBreaks, function(value, index) {
-                if (d > value) {
-                    theQtile = "q" + (index + 1);
-                }
-            });
-            return theQtile;
-        };
-		customScale.quantiles = function() {
-			var theScale = _.clone(metricConfig[model.metricId].scale);
-            theScale.push(x_extent[1]);
-            theScale.unshift(x_extent[0]);
-            return theScale;
-		};
-        return customScale;
-    } else {
-        // default quantile scale
-        return d3.scale.quantile()
-                    .domain(extent)
-                    .range(d3.range(breaks).map(function (i) {
-                        return "q" + i;
-                    }));
+        extent = _.clone(metricConfig[model.metricId].scale);
+        extent.push(x_extent[1]);
+        extent.unshift(x_extent[0]);
     }
+    else if (quantileScale === "jenks") {
+        extent = ss.jenks(values, 5).slice(1);
+    }
+
+    return d3.scale.quantile()
+        .domain(extent)
+        .range(d3.range(breaks).map(function (i) {
+            return "q" + i;
+        }));
 }
 
 
