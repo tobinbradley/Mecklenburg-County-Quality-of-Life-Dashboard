@@ -9,12 +9,30 @@ var gaKey = "UA-48797957-1";
 var neighborhoodDescriptor = "NPA";
 var neighborhoodDefinition = "Neighborhood Profile Areas (NPAs) are geographic areas used for the organization and presentation of data in the Quality of Life Study. The boundaries were developed with community input and are based on one or more Census block groups.";
 
-// The URL for your base map tiles.
+// The URL(s) for your base map tiles.
 // Here's a good place to find some:
 // http://leaflet-extras.github.io/leaflet-providers/preview/
-// Ex: http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png
-// You want to change this - our base tiles only cover Mecklenburg County NC.
+// The first one is the default (show only data). When you select other layers
+// the choropleth will automagically get an opacity of 40%.
+// the baseMaps is set in a try/catch so when Node reads the file independently it doesn't
+// face plant on L is not defined.
 var baseTilesURL = "http://tiles.mcmap.org/meckbase/{z}/{x}/{y}.png";
+try {
+    var baseMaps = {
+      'Data': L.tileLayer(''),
+      'Mecklenburg': L.tileLayer('http://tiles.mcmap.org/meckbase/{z}/{x}/{y}.png', {
+        'attribution': 'Map data &copy; Mecklenburg County'
+        }),
+      'OpenStreetMap': L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        'attribution': 'Map data &copy; OpenStreetMap contributors'
+        }),
+      'Aerials':  L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+        })
+    };
+}
+catch(err) {}
+
 
 // Server-side processor for feedback.
 // Post arguments passed to the server: email, url, agent (browser info), subject, to, message
@@ -51,7 +69,7 @@ var colorbreaks = 5;
 // The default way you want to carve up the data range/colors. This effects the colors on the map
 // and the bar chart. Values are "jenks" or "linear". Note that with "jenks" your bar
 // chart x axis labels may collide if the breaks are too close to each other.
-var quantileScale = "linear";
+var quantileScale = "jenks";
 
 // we're going to export a few of our vars for the node build/watch process. Done in a try/catch
 // so a browser reading this will barf quietly to itself.

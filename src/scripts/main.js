@@ -184,22 +184,7 @@ $(document).ready(function () {
         "placement": "auto",
         "trigger": "focus",
         "container": "body"
-    });
-
-    // Toggle the map, making polys less opaque and activating a base layer.
-    $(".toggle-map").on("click", function() {
-        var txt = $(this).text() === "Hide Map" ? 'Show Map' : 'Hide Map';
-        if (txt !== "Show Map") {
-            d3.selectAll('.geom').style("fill-opacity", 0.4);
-            d3.selectAll('.leaflet-overlay-pane svg path:not(.geom)').style('stroke-opacity', 0);
-            map.addLayer(baseTiles);
-        } else {
-            d3.selectAll('.geom').style("fill-opacity", 1);
-            d3.selectAll('.leaflet-overlay-pane svg path:not(.geom)').style('stroke-opacity', 0.6);
-            map.removeLayer(baseTiles);
-        }
-        $(this).text(txt);
-    });
+    });    
 
     // Set up Tourbus for noob assistance
     var tour = $('#dashboard-tour').tourbus({ onStop: function( tourbus ) {$("html, body").animate({ scrollTop: 0 }, "slow");} });
@@ -247,7 +232,7 @@ $(document).ready(function () {
     d3.select(window).on("resize", function () {
         if ($(".barchart").parent().width() !== barchartWidth) {
             // set up data quantile from extent
-            quantize = getScale(x_extent, colorbreaks);
+            quantize = getScale(x_extent, colorbreaks, dataStripAll(model.metric));
             drawBarChart();
         }
     });

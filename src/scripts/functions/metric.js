@@ -84,7 +84,7 @@ function getScale(extent, breaks, values) {
     else if (quantileScale === "jenks") {
         extent = ss.jenks(values, 5).slice(1);
     }
-
+    console.log(extent);
     return d3.scale.quantile()
         .domain(extent)
         .range(d3.range(breaks).map(function (i) {

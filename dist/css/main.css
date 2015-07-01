@@ -7985,6 +7985,13 @@ body {
 .leaflet-touch .leaflet-bar {
   border: 1px solid #d3d4d8;
 }
+.leaflet-control-layers-toggle {
+  background-size: 20px 20px !important;
+  background-image: url(../images/layers.png) !important;
+  margin: 1px;
+  width: 26px !important;
+  height: 26px !important;
+}
 .leaflet-bar .glyphicon {
   font-size: 15px;
   top: 3px;
@@ -8064,7 +8071,7 @@ body {
   text-shadow: #777 0 1px 1px;
 }
 #barChart {
-  height: 180px;
+  height: 200px;
 }
 .lineChart-container {
   margin: 20px;
@@ -8100,11 +8107,6 @@ body {
 }
 .barchart .axis .minor {
   stroke: lightgrey;
-}
-.barchart .tick:nth-child(even) text {
-  -webkit-transform: translateY(10px);
-      -ms-transform: translateY(10px);
-          transform: translateY(10px);
 }
 .barchart rect.bar {
   stroke-width: 0.2;
