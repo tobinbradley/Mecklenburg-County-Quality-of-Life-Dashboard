@@ -14,8 +14,7 @@ var gulp = require('gulp'),
     jsonmin = require('gulp-jsonmin'),
     fs = require('fs'),
     del = require('del'),
-    _ = require('lodash'),
-    config = require('./src/scripts/config.js');
+    _ = require('lodash');
 
 
 var jsMain = [
@@ -164,6 +163,7 @@ gulp.task('imagemin', function() {
 
 // cache busting
 gulp.task('replace', function() {
+    var config = require('./src/scripts/config.js');
     return gulp.src('src/*.html')
         .pipe(replace("{{cachebuster}}", Math.floor((Math.random() * 100000) + 1)))
         .pipe(replace("{{neighborhoodDescriptor}}", config.neighborhoodDescriptor))

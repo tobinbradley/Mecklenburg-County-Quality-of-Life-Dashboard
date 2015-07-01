@@ -51,7 +51,7 @@ function onEachFeature(feature, layer) {
                     if(model.selected.indexOf(feature.id) !== -1) {
                         model.selected = _.difference(model.selected, [feature.id]);
                     } else {
-                        model.selected = _.union(model.selected, [feature.id]);                        
+                        model.selected = _.union(model.selected, [feature.id]);
                     }
                 }
     });
@@ -67,9 +67,9 @@ function mapCreate() {
             attributionControl: false,
             touchZoom: true,
             minZoom: mapGeography.minZoom,
-            maxZoom: mapGeography.maxZoom
+            maxZoom: mapGeography.maxZoom,
+            'layers': [ baseMaps.Data ]
         });
-    window.baseTiles = L.tileLayer(baseTilesURL);
 
     // full screen display button
     L.easyButton('glyphicon glyphicon-fullscreen', function (){
@@ -82,6 +82,19 @@ function mapCreate() {
     L.control.locate({
         icon: 'glyphicon glyphicon-map-marker locate-icon'
     }).addTo(map);
+
+    // add layer control
+    //L.control.layers(baseTiles).addTo(map);
+    var control = L.control.layers(baseMaps, null, {position: 'topleft'}).addTo(map);
+    map.on('baselayerchange', function(e){
+        if (e.name !== "Data") {
+            d3.selectAll('.geom').style("fill-opacity", 0.4);
+            d3.selectAll('.leaflet-overlay-pane svg path:not(.geom)').style('stroke-opacity', 0);
+        } else {
+            d3.selectAll('.geom').style("fill-opacity", 1);
+            d3.selectAll('.leaflet-overlay-pane svg path:not(.geom)').style('stroke-opacity', 0.6);
+        }
+    });
 
     // Year display
     var yearControl = L.control({position: 'bottomleft'});
