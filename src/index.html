@@ -18,8 +18,8 @@
     <meta name="mobile-web-app-capable" content="yes">
 
     <!-- Windows 8.1 garbage -->
-    <meta name="application-name" content="Quality of Life Explorer"/>
-    <meta name="msapplication-TileColor" content="#1e59bd"/>
+    <meta name="application-name" content="Quality of Life Explorer" />
+    <meta name="msapplication-TileColor" content="#1e59bd" />
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
@@ -38,15 +38,15 @@
         <p class="oldie alert-info text-center">You are using an outdated browser. <a href="http://whatbrowser.org/">Upgrade your browser today</a> to better experience this site.</p>
     <![endif]-->
     <div class="jumbotron text-center">
-      <div class="container">
-          <h1>Quality of Life Explorer</h1>
-          <p>
-            Exploring neighborhood character, economics, education, engagement, environment, health, housing, safety and transportation.
-          </p>
-          <p>
-              <a href="javascript:void(0)" class="btn btn-warning btn-xl btnHoverShadow scrollToStart" role="button">Get Started</a>
-          </p>
-      </div>
+        <div class="container">
+            <h1>Quality of Life Explorer</h1>
+            <p>
+                Exploring neighborhood character, economics, education, engagement, environment, health, housing, safety and transportation.
+            </p>
+            <p>
+                <a href="javascript:void(0)" class="btn btn-warning btn-xl btnHoverShadow scrollToStart" role="button">Get Started</a>
+            </p>
+        </div>
     </div>
     <nav class="navbar navbar-default navbar-fixed-top navbar-main" role="navigation">
         <div class="container">
@@ -58,7 +58,9 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="./"><strong>Quality of Life Explorer</strong></a>
+                <a class="navbar-brand" href="./">
+                    <strong>Quality of Life Explorer</strong>
+                </a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
@@ -67,13 +69,13 @@
                         <a href="http://qol.charmeck.org/">About</a>
                     </li>
                     <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Get Data <span class="caret"></span></a>
-                      <ul class="dropdown-menu" role="menu">
-                        <li><a href="data/qol-data.zip">Download Quality of Life Study</a></li>
-                        <li class="divider"></li>
-                        <li><a href="http://maps.co.mecklenburg.nc.us/openmapping/">Mecklenburg County Open Mapping</a></li>
-                        <li><a href="http://clt.charlotte.opendata.arcgis.com/">City of Charlotte Open Data Portal</a></li>
-                      </ul>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Get Data <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="data/qol-data.zip">Download Quality of Life Study</a></li>
+                            <li class="divider"></li>
+                            <li><a href="http://maps.co.mecklenburg.nc.us/openmapping/">Mecklenburg County Open Mapping</a></li>
+                            <li><a href="http://clt.charlotte.opendata.arcgis.com/">City of Charlotte Open Data Portal</a></li>
+                        </ul>
                     </li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">Contact <span class="caret"></span></a>
@@ -104,7 +106,9 @@
                 <div id="map"></div>
                 <div class="form mapsearch">
                     <input id="searchbox" name="searchbox" type="text" class="typeahead form-control" placeholder="search map">
-                    <div class="text-right"><label for="searchbox" class="sr-only">search the map</label></div>
+                    <div class="text-right">
+                        <label for="searchbox" class="sr-only">search the map</label>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-5 col-xs-6">
@@ -116,7 +120,40 @@
                         </div>
                     </div>
                     <div class="col-md-7 col-xs-6 text-right">
-                        <div class="btn-group datatoggle text-right">
+                        <div class="btn-group datatoggle" role="group" aria-label="...">
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Geography
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    <li class="dropdown-header">Town</li>
+                                    <li><a href="javascript:void(0)" onclick="model.selected = customGeography.charlotte">Charlotte</a></li>
+                                    <li><a href="javascript:void(0)" onclick="model.selected = customGeography.cornelius">Cornelius</a></li>
+                                    <li><a href="javascript:void(0)" onclick="model.selected = customGeography.davidson">Davidson</a></li>
+                                    <li><a href="javascript:void(0)" onclick="model.selected = customGeography.huntersville">Huntersville</a></li>
+                                    <li><a href="javascript:void(0)" onclick="model.selected = customGeography.matthews">Matthews</a></li>
+                                    <li><a href="javascript:void(0)" onclick="model.selected = customGeography['mint hill']">Mint Hill</a></li>
+                                    <li><a href="javascript:void(0)" onclick="model.selected = customGeography.pineville">Pineville</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li class="dropdown-header">City Council District</li>
+                                    <li><a href="javascript:void(0)" onclick="model.selected = customGeography.council1">1</a></li>
+                                    <li><a href="javascript:void(0)" onclick="model.selected = customGeography.council2">2</a></li>
+                                    <li><a href="javascript:void(0)" onclick="model.selected = customGeography.council3">3</a></li>
+                                    <li><a href="javascript:void(0)" onclick="model.selected = customGeography.council4">4</a></li>
+                                    <li><a href="javascript:void(0)" onclick="model.selected = customGeography.council5">5</a></li>
+                                    <li><a href="javascript:void(0)" onclick="model.selected = customGeography.council6">6</a></li>
+                                    <li><a href="javascript:void(0)" onclick="model.selected = customGeography.council7">7</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li class="dropdown-header">County Commisioner District</li>
+                                    <li><a href="javascript:void(0)" onclick="model.selected = customGeography.commission1">1</a></li>
+                                    <li><a href="javascript:void(0)" onclick="model.selected = customGeography.commission2">2</a></li>
+                                    <li><a href="javascript:void(0)" onclick="model.selected = customGeography.commission3">3</a></li>
+                                    <li><a href="javascript:void(0)" onclick="model.selected = customGeography.commission4">4</a></li>
+                                    <li><a href="javascript:void(0)" onclick="model.selected = customGeography.commission5">5</a></li>
+                                    <li><a href="javascript:void(0)" onclick="model.selected = customGeography.commission6">6</a></li>
+                                </ul>
+                            </div>
                             <button type="button" class="btn btn-default btn-sm select-clear">Clear Selected</button>
                             <button type="button" class="btn btn-default btn-sm report-launch disabled">Report</button>
                         </div>
@@ -132,7 +169,8 @@
                     </div>
                 </div>
                 <div class="text-center chartLegend">
-                    <img src="images/legend-median.svg" style="height: 8px;" alt="median legend"> Median <span class="median"></span>
+                    <img src="images/legend-median.svg" style="height: 8px;" alt="median legend"> Median
+                    <span class="median"></span>
                 </div>
                 <div id="barChart">
                     <svg width="100%" height="100%" class="chart barchart">
@@ -205,17 +243,19 @@
         <% if (rc.theSelected.length > 0) {
             var m = model.metricId;
             %>
-        <div class="div-scroll">
-            <table class="table table-condensed">
-                <thead>
-                  <tr>
-                    <th class="text-center"><a href="javascript:void(0)" tabindex="0" class="meta-definition" data-toggle="popover"
-                        data-content="<%= neighborhoodDefinition %>"><%= neighborhoodDescriptor %></a>
-                    </th>
-                    <th class="text-right">Value</th>
-                    <th class="text-left"></th>
-                    <th class="text-center"><% if (metricConfig[model.metricId].accuracy) { %><a href="javascript:void(0)" tabindex="0" class="meta-definition" data-toggle="popover"
-                            data-content="Margin of error (MOE) is an indicator of reliability for data that comes from the American Community Survey (ACS). The ACS is mailed to only a small percentage of households, and because not all households are surveyed, the data are only estimates.">
+            <div class="div-scroll">
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th class="text-center">
+                                <a href="javascript:void(0)" tabindex="0" class="meta-definition" data-toggle="popover" data-content="<%= neighborhoodDefinition %>">
+                                    <%= neighborhoodDescriptor %>
+                                </a>
+                            </th>
+                            <th class="text-right">Value</th>
+                            <th class="text-left"></th>
+                            <th class="text-center">
+                                <% if (metricConfig[model.metricId].accuracy) { %><a href="javascript:void(0)" tabindex="0" class="meta-definition" data-toggle="popover" data-content="Margin of error (MOE) is an indicator of reliability for data that comes from the American Community Survey (ACS). The ACS is mailed to only a small percentage of households, and because not all households are surveyed, the data are only estimates.">
                             MOE<% } %></th>
                     <th class="text-center"><% if (rc.keys.length > 2) { %>Change<br><%= rc.keys[1].replace('y_', '') + "-" + rc.keys[rc.keys.length - 1].replace('y_', '') %><% } %></th>
                     <th class="text-right"><% if (metricConfig[m].raw_label) { %>Number<% } %></th>
@@ -303,7 +343,7 @@
           <button type="button" class="btn btn-default btn-sm tourbus-next">Next</button>
         </div>
       </li>
-      <li data-el='.toggle-map' data-orientation='top' data-width='300'>
+      <li data-el='.select-clear' data-orientation='top' data-width='300'>
         <h3>Data Controls</h3>
         <p>Use these buttons to toggle the base map, clear any selected neighborhoods, or create a report if you have one or more neighborhoods selected.</p>
         <div class="btn-group pull-right">
