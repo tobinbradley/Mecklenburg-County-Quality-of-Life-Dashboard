@@ -81,7 +81,9 @@ $(document).ready(function () {
 
     // launch report window with selected neighborhoods
     $("button.report-launch").on("click", function() {
-        window.open("report.html?n=" + model.selected.join());
+        if (model.selected.length > 0) {
+            window.open("report.html?n=" + model.selected.join());
+        }
     });
 
     // navbar collapse on click
@@ -184,7 +186,7 @@ $(document).ready(function () {
         "placement": "auto",
         "trigger": "focus",
         "container": "body"
-    });    
+    });
 
     // Set up Tourbus for noob assistance
     var tour = $('#dashboard-tour').tourbus({ onStop: function( tourbus ) {$("html, body").animate({ scrollTop: 0 }, "slow");} });

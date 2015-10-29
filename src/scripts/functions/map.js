@@ -92,7 +92,7 @@ function mapCreate() {
             d3.selectAll('.leaflet-overlay-pane svg path:not(.geom)').style('stroke-opacity', 0);
         } else {
             d3.selectAll('.geom').style("fill-opacity", 1);
-            d3.selectAll('.leaflet-overlay-pane svg path:not(.geom)').style('stroke-opacity', 0.6);
+            d3.selectAll('.leaflet-overlay-pane svg path:not(.geom)').style('stroke-opacity', 0.75);
         }
     });
 
