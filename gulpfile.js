@@ -34,7 +34,7 @@ var jsMain = [
     'bower_components/chosen-build/chosen.jquery.js',
     'bower_components/lodash/lodash.js',
     'bower_components/topojson/topojson.js',
-    'bower_components/L.EasyButton/easy-button.js',
+    'bower_components/Leaflet.EasyButton/src/easy-button.js',
     'src/scripts/vendor/log.js',
     'src/scripts/vendor/Object.observe.poly.js',
     'src/scripts/vendor/jquery-ui-1.10.3.custom.min.js',

@@ -27,6 +27,7 @@
     "Leaflet.label": "*",
     "leaflet.locatecontrol": "*",
     "L.EasyButton": "*",
-    "simple-statistics": "*"
+    "simple-statistics": "*",
+    "Leaflet.EasyButton": "*"
   }
 }
