@@ -1,38 +1,15 @@
 // ****************************************
-// Fetch metric data.
-// Depending on the metric, different files may be fetched.
+// Fetch metric data and geography.
 // ****************************************
-function fetchAccuracy(m) {
-    if (metricConfig[m].accuracy) {
-        return $.getJSON("data/metric/" + m + "-accuracy.json");
-    }
-    else { return [[]]; }
-}
-function fetchRaw(m) {
-    if (metricConfig[m].raw_label || metricConfig[m].type === "weighted" || metricConfig[m].type === "sum") {
-        return $.getJSON("data/metric/r" + metricConfig[m].metric + ".json");
-    }
-    else { return [[]]; }
-}
-function fetchDenominator(m) {
-    if (metricConfig[m].type === "weighted") {
-        return $.getJSON("data/metric/d" + metricConfig[m].metric + ".json");
-    }
-    else { return [[]]; }
-}
-function fetchNormalized(m) {
-    if (metricConfig[m].type === "mean") {
-        return $.getJSON("data/metric/n" + metricConfig[m].metric + ".json");
-    }
-    else { return [[]]; }
-}
 function fetchGeometry() {
     if (d3Layer === undefined) {
         return $.getJSON("data/geography.topo.json");
     }
     else { return [[]]; }
 }
-
+function fetchData(m) {
+    return $.getJSON("data/metric/m" + metricConfig[m].metric + ".json");
+}
 
 function fetchMetricData(m) {
     // fetch data based on metric
@@ -40,38 +17,33 @@ function fetchMetricData(m) {
         case "sum":
             $.when(
                 fetchGeometry(),
-                fetchAccuracy(m),
-                fetchRaw(m)
-            ).then(function(geom, accuracy, raw) {
+                fetchData(m)
+            ).then(function(geom, data) {
                 if (geom[0].type) { model.geom = geom[0]; }
-                model.metricAccuracy = accuracy[0];
-                model.metric = raw[0];
+                if (data[0]["m" + metricConfig[m].metric + "-accuracy"]) { model.metricAccuracy = data[0]["m" +metricConfig[m].metric + "-accuracy"]; }
+                model.metric = data[0]["r" + metricConfig[m].metric];
             });
             break;
         case "mean":
             $.when(
                 fetchGeometry(),
-                fetchAccuracy(m),
-                fetchNormalized(m),
-                fetchRaw(m)
-            ).then(function(geom, accuracy, normalized, raw) {
+                fetchData(m)
+            ).then(function(geom, data) {
                 if (geom[0].type) { model.geom = geom[0]; }
-                model.metricAccuracy = accuracy[0];
-                model.metricRaw = raw[0];
-                model.metric = normalized[0];
+                if (data[0]["m" + metricConfig[m].metric + "-accuracy"]) { model.metricAccuracy = data[0]["m" +metricConfig[m].metric + "-accuracy"]; }
+                model.metricRaw = data[0]["r" + metricConfig[m].metric];
+                model.metric = data[0]["n" + metricConfig[m].metric];
             });
             break;
         case "weighted":
             $.when(
                 fetchGeometry(),
-                fetchAccuracy(m),
-                fetchRaw(m),
-                fetchDenominator(m)
-            ).then(function(geom, accuracy, raw, denominator) {
+                fetchData(m)
+            ).then(function(geom, data) {
                 if (geom[0].type) { model.geom = geom[0]; }
-                model.metricAccuracy = accuracy[0];
-                model.metricRaw = raw[0];
-                model.metricDenominator = denominator[0];
+                if (data[0]["m" + metricConfig[m].metric + "-accuracy"]) { model.metricAccuracy = data[0]["m" +metricConfig[m].metric + "-accuracy"]; }
+                model.metricRaw = data[0]["r" + metricConfig[m].metric];
+                model.metricDenominator = data[0]["d" + metricConfig[m].metric];
 
                 var calcMetric = $.extend(true, {}, model.metricRaw);
                 var keys = _.without(_.keys(model.metricRaw[0]), "id");

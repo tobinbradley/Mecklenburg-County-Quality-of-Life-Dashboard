@@ -14,7 +14,7 @@
     "tests"
   ],
   "dependencies": {
-
+    "Leaflet.EasyButton": "~1.1.2"
   },
   "devDependencies": {
     "jquery.scrollTo": "*",
