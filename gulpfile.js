@@ -140,12 +140,12 @@ gulp.task('convert', ['clean'], function() {
             to: 'json'
         }))
         .pipe(jsonmin())
-        .pipe(gulp.dest('dist/data/metric/'));
+        .pipe(gulp.dest('tmp/'));
 });
 
 // merge json
 gulp.task('merge-json', ['clean', 'convert'], function() {
-    return gulp.src("dist/data/metric/*.json")
+    return gulp.src("tmp/*.json")
         .pipe(jsoncombine("merge.json", function(data){ return new Buffer(JSON.stringify(data)); }))
         .pipe(jsonmin())
         .pipe(gulp.dest("dist/data"));
@@ -170,6 +170,33 @@ gulp.task('replace', function() {
         .pipe(replace("{{neighborhoodDescriptor}}", config.neighborhoodDescriptor))
         .pipe(replace("{{gaKey}}", config.gaKey))
         .pipe(gulp.dest('dist/'));
+});
+
+// wrap files
+gulp.task('jsonwrapper', ['clean', 'convert'], function() {
+    var config = require('./src/scripts/config.js');
+
+    _.each(config.metricConfig, function(m) {
+        var fileList = [];
+        if (m.type === "sum") {
+            fileList.push('tmp/r' + m.metric + '.json');
+        }
+        if (m.type === "mean") {
+            fileList.push('tmp/n' + m.metric + '.json');
+        }
+        if (m.type === "weighted") {
+            fileList.push('tmp/r' + m.metric + '.json');
+            fileList.push('tmp/d' + m.metric + '.json');
+        }
+        if (m.accuracy) {
+            fileList.push('tmp/m' + m.metric + '-accuracy.json');
+        }
+
+        return gulp.src(fileList)
+            .pipe(jsoncombine("m" + m.metric + ".json", function(data){ return new Buffer(JSON.stringify(data)); }))
+            .pipe(jsonmin())
+            .pipe(gulp.dest("dist/data/metric"));
+    });
 });
 
 // watch
@@ -219,5 +246,5 @@ gulp.task('clean-data', function(cb) {
 // controller tasks
 gulp.task('default', ['less', 'js', 'replace', 'watch', 'browser-sync']);
 gulp.task('build', ['less-build', 'js-build', 'replace', 'imagemin']);
-gulp.task('datagen', ['clean', 'markdown', 'convert', 'merge-json']);
+gulp.task('datagen', ['clean', 'markdown', 'convert', 'jsonwrapper', 'merge-json']);
 gulp.task('test', ['test-build', 'qunit', 'watch']);
