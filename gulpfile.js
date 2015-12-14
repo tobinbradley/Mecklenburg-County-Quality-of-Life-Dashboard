@@ -14,8 +14,7 @@ var gulp = require('gulp'),
     jsonmin = require('gulp-jsonmin'),
     fs = require('fs'),
     del = require('del'),
-    _ = require('lodash'),
-    config = require('./src/scripts/config.js');
+    _ = require('lodash');
 
 
 var jsMain = [
@@ -27,8 +26,8 @@ var jsMain = [
     'bower_components/bootstrap/js/tooltip.js',
     'bower_components/bootstrap/js/popover.js',
     'bower_components/d3/d3.js',
-    'bower_components/simple-statistics/src/simple_statistics.js',
     'bower_components/leaflet/dist/leaflet.js',
+    //'leaflet-1b1/leaflet.js',
     'bower_components/leaflet.locatecontrol/src/L.Control.Locate.js',
     'bower_components/jquery.scrollTo/jquery.scrollTo.js',
     'bower_components/chosen-build/chosen.jquery.js',
@@ -43,6 +42,7 @@ var jsMain = [
     'src/scripts/vendor/typeahead.js',
     'src/scripts/vendor/jquery-tourbus.js',
     'src/scripts/vendor/classlist.js',
+    'src/scripts/vendor/simple_statistics.js',
     'src/scripts/functions/calculations/*.js',
     'src/scripts/functions/*.js',
     'src/scripts/config.js',
@@ -140,12 +140,12 @@ gulp.task('convert', ['clean'], function() {
             to: 'json'
         }))
         .pipe(jsonmin())
-        .pipe(gulp.dest('dist/data/metric/'));
+        .pipe(gulp.dest('tmp/'));
 });
 
 // merge json
 gulp.task('merge-json', ['clean', 'convert'], function() {
-    return gulp.src("dist/data/metric/*.json")
+    return gulp.src("tmp/*.json")
         .pipe(jsoncombine("merge.json", function(data){ return new Buffer(JSON.stringify(data)); }))
         .pipe(jsonmin())
         .pipe(gulp.dest("dist/data"));
@@ -164,11 +164,39 @@ gulp.task('imagemin', function() {
 
 // cache busting
 gulp.task('replace', function() {
+    var config = require('./src/scripts/config.js');
     return gulp.src('src/*.html')
         .pipe(replace("{{cachebuster}}", Math.floor((Math.random() * 100000) + 1)))
         .pipe(replace("{{neighborhoodDescriptor}}", config.neighborhoodDescriptor))
         .pipe(replace("{{gaKey}}", config.gaKey))
         .pipe(gulp.dest('dist/'));
+});
+
+// wrap files
+gulp.task('jsonwrapper', ['clean', 'convert'], function() {
+    var config = require('./src/scripts/config.js');
+
+    _.each(config.metricConfig, function(m) {
+        var fileList = [];
+        if (m.type === "sum") {
+            fileList.push('tmp/r' + m.metric + '.json');
+        }
+        if (m.type === "mean") {
+            fileList.push('tmp/n' + m.metric + '.json');
+        }
+        if (m.type === "weighted") {
+            fileList.push('tmp/r' + m.metric + '.json');
+            fileList.push('tmp/d' + m.metric + '.json');
+        }
+        if (m.accuracy) {
+            fileList.push('tmp/m' + m.metric + '-accuracy.json');
+        }
+
+        return gulp.src(fileList)
+            .pipe(jsoncombine("m" + m.metric + ".json", function(data){ return new Buffer(JSON.stringify(data)); }))
+            .pipe(jsonmin())
+            .pipe(gulp.dest("dist/data/metric"));
+    });
 });
 
 // watch
@@ -218,5 +246,5 @@ gulp.task('clean-data', function(cb) {
 // controller tasks
 gulp.task('default', ['less', 'js', 'replace', 'watch', 'browser-sync']);
 gulp.task('build', ['less-build', 'js-build', 'replace', 'imagemin']);
-gulp.task('datagen', ['clean', 'markdown', 'convert', 'merge-json']);
+gulp.task('datagen', ['clean', 'markdown', 'convert', 'jsonwrapper', 'merge-json']);
 gulp.task('test', ['test-build', 'qunit', 'watch']);

@@ -29,10 +29,8 @@ function getYear(m) {
     switch(metricConfig[m].type) {
         case 'sum': case 'weighted':
             return _.without(_.keys(theData['r' + metricConfig[m].metric][0]), 'id');
-            break;
         case 'mean':
             return _.without(_.keys(theData['n' + metricConfig[m].metric][0]), 'id');
-            break;
     }
 }
 
