@@ -23,7 +23,7 @@ try {
       'Mecklenburg': L.tileLayer('http://tiles.mcmap.org/meckbase/{z}/{x}/{y}.png', {
         'attribution': 'Map data &copy; Mecklenburg County'
         }),
-      'OpenStreetMap': L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      'OpenStreetMap': L.tileLayer('http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png', {
         'attribution': 'Map data &copy; OpenStreetMap contributors'
         }),
       'Earth':  L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
@@ -95,14 +95,6 @@ var colorbreaks = 5;
 // and the bar chart. Values are "jenks" or "quantize". Note that with "jenks" your bar
 // chart x axis labels may collide if the breaks are too close to each other.
 var quantileScale = "jenks";
-
-// we're going to export a few of our vars for the node build/watch process. Done in a try/catch
-// so a browser reading this will barf quietly to itself.
-try {
-    exports.neighborhoodDescriptor = neighborhoodDescriptor;
-    exports.gaKey = gaKey;
-}
-catch(err) {}
 
 
 // ***********************************************************
@@ -797,3 +789,13 @@ var metricConfig = {
   "type": "weighted"
  }
 };
+
+
+// we're going to export a few of our vars for the node build/watch process. Done in a try/catch
+// so a browser reading this will barf quietly to itself.
+try {
+    exports.neighborhoodDescriptor = neighborhoodDescriptor;
+    exports.gaKey = gaKey;
+    exports.metricConfig = metricConfig;
+}
+catch(err) {}
