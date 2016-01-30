@@ -29,12 +29,12 @@
     <meta name="theme-color" content="#db5945">
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/main.css?foo=34643">
+    <link rel="stylesheet" href="css/main.css?foo=5072">
 
 </head>
 
 <body>
-    <!--[if lt IE 9]>
+    <!--[if lt IE 10]>
         <p class="oldie alert-info text-center">You are using an outdated browser. <a href="http://whatbrowser.org/">Upgrade your browser today</a> to better experience this site.</p>
     <![endif]-->
     <div class="jumbotron text-center">
@@ -113,50 +113,64 @@
                 <div class="row">
                     <div class="col-md-5 col-xs-6">
                         <div class="yearDisplay temporal time">
-                            <button type="button" class="btn btn-primary btn-looper">
+                            <button type="button" class="btn btn-primary btn-looper pull-left">
                                 <span class="glyphicon glyphicon-play"></span>
                             </button>
                             <div class="slider"></div>
                         </div>
                     </div>
                     <div class="col-md-7 col-xs-6 text-right">
+                      <div class="btn-group datatoggle" role="group" aria-label="...">
+                          <button type="button" class="btn btn-default btn-sm select-clear">Clear Selected</button>
+                          <button type="button" class="btn btn-default btn-sm report-launch disabled">Report</button>
+                      </div>
                         <div class="btn-group datatoggle" role="group" aria-label="...">
-                            <div class="btn-group" role="group">
-                                <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Geography
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                    <li class="dropdown-header">Town</li>
-                                    <li><a href="javascript:void(0)" onclick="model.selected = customGeography.charlotte">Charlotte</a></li>
-                                    <li><a href="javascript:void(0)" onclick="model.selected = customGeography.cornelius">Cornelius</a></li>
-                                    <li><a href="javascript:void(0)" onclick="model.selected = customGeography.davidson">Davidson</a></li>
-                                    <li><a href="javascript:void(0)" onclick="model.selected = customGeography.huntersville">Huntersville</a></li>
-                                    <li><a href="javascript:void(0)" onclick="model.selected = customGeography.matthews">Matthews</a></li>
-                                    <li><a href="javascript:void(0)" onclick="model.selected = customGeography['mint hill']">Mint Hill</a></li>
-                                    <li><a href="javascript:void(0)" onclick="model.selected = customGeography.pineville">Pineville</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li class="dropdown-header">City Council District</li>
-                                    <li><a href="javascript:void(0)" onclick="model.selected = customGeography.council1">1</a></li>
-                                    <li><a href="javascript:void(0)" onclick="model.selected = customGeography.council2">2</a></li>
-                                    <li><a href="javascript:void(0)" onclick="model.selected = customGeography.council3">3</a></li>
-                                    <li><a href="javascript:void(0)" onclick="model.selected = customGeography.council4">4</a></li>
-                                    <li><a href="javascript:void(0)" onclick="model.selected = customGeography.council5">5</a></li>
-                                    <li><a href="javascript:void(0)" onclick="model.selected = customGeography.council6">6</a></li>
-                                    <li><a href="javascript:void(0)" onclick="model.selected = customGeography.council7">7</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li class="dropdown-header">County Commisioner District</li>
-                                    <li><a href="javascript:void(0)" onclick="model.selected = customGeography.commission1">1</a></li>
-                                    <li><a href="javascript:void(0)" onclick="model.selected = customGeography.commission2">2</a></li>
-                                    <li><a href="javascript:void(0)" onclick="model.selected = customGeography.commission3">3</a></li>
-                                    <li><a href="javascript:void(0)" onclick="model.selected = customGeography.commission4">4</a></li>
-                                    <li><a href="javascript:void(0)" onclick="model.selected = customGeography.commission5">5</a></li>
-                                    <li><a href="javascript:void(0)" onclick="model.selected = customGeography.commission6">6</a></li>
-                                </ul>
-                            </div>
-                            <button type="button" class="btn btn-default btn-sm select-clear">Clear Selected</button>
-                            <button type="button" class="btn btn-default btn-sm report-launch disabled">Report</button>
+                          <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Jurisdiction*
+                              <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                              <li><a href="javascript:void(0)" onclick="selectSetGeography(customGeography.charlotte)">Charlotte</a></li>
+                              <li><a href="javascript:void(0)" onclick="selectSetGeography(customGeography.cornelius)">Cornelius</a></li>
+                              <li><a href="javascript:void(0)" onclick="selectSetGeography(customGeography.davidson)">Davidson</a></li>
+                              <li><a href="javascript:void(0)" onclick="selectSetGeography(customGeography.huntersville)">Huntersville</a></li>
+                              <li><a href="javascript:void(0)" onclick="selectSetGeography(customGeography.matthews)">Matthews</a></li>
+                              <li><a href="javascript:void(0)" onclick="selectSetGeography(customGeography['mint hill'])">Mint Hill</a></li>
+                              <li><a href="javascript:void(0)" onclick="selectSetGeography(customGeography.pineville)">Pineville</a></li>
+                            </ul>
+                          </div>
+                          <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              City Council*
+                              <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                              <li><a href="javascript:void(0)" onclick="selectSetGeography(customGeography.council1)">1</a></li>
+                              <li><a href="javascript:void(0)" onclick="selectSetGeography(customGeography.council2)">2</a></li>
+                              <li><a href="javascript:void(0)" onclick="selectSetGeography(customGeography.council3)">3</a></li>
+                              <li><a href="javascript:void(0)" onclick="selectSetGeography(customGeography.council4)">4</a></li>
+                              <li><a href="javascript:void(0)" onclick="selectSetGeography(customGeography.council5)">5</a></li>
+                              <li><a href="javascript:void(0)" onclick="selectSetGeography(customGeography.council6)">6</a></li>
+                              <li><a href="javascript:void(0)" onclick="selectSetGeography(customGeography.council7)">7</a></li>
+                            </ul>
+                          </div>
+                          <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              County Commission*
+                              <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                              <li><a href="javascript:void(0)" onclick="selectSetGeography(customGeography.commission1)">1</a></li>
+                              <li><a href="javascript:void(0)" onclick="selectSetGeography(customGeography.commission2)">2</a></li>
+                              <li><a href="javascript:void(0)" onclick="selectSetGeography(customGeography.commission3)">3</a></li>
+                              <li><a href="javascript:void(0)" onclick="selectSetGeography(customGeography.commission4)">4</a></li>
+                              <li><a href="javascript:void(0)" onclick="selectSetGeography(customGeography.commission5)">5</a></li>
+                              <li><a href="javascript:void(0)" onclick="selectSetGeography(customGeography.commission6)">6</a></li>
+                            </ul>
+                          </div>
                         </div>
+                        <div class="text-muted">*Approximate</div>
                     </div>
                 </div>
             </div>
@@ -184,7 +198,7 @@
                             <g class="value-select"></g>
                             <g class="x axis"></g>
                             <g class="y axis">
-                                <text transform="rotate(-90)" y="6" dy=".71em" style="text-anchor: end; opacity: 0;">Neighborhoods</text>
+                              <text transform="rotate(-90)" y="0" dy="-0.5em" dx="-2.5em" style="text-anchor: end; font-size: 12px;">Neighborhoods</text>
                             </g>
                         </g>
                     </svg>
@@ -383,7 +397,7 @@
     <!-- End jQuery Tourbus -->
 
     <!-- scripts at the bottom yo -->
-    <script src="js/main.js?foo=34643"></script>
+    <script src="js/main.js?foo=5072"></script>
 
     <!--   Google Analytics -->
     <script>

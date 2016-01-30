@@ -12,6 +12,14 @@ function d3ZoomPolys(msg, d) {
 
 
 // ****************************************
+// Select set geographies
+// ****************************************
+function selectSetGeography(g) {
+  model.selected = g;
+  d3ZoomPolys("", {"ids": g});
+}
+
+// ****************************************
 // Geocode a location or a neighborhood
 // ****************************************
 function geocode(d) {
@@ -76,7 +84,7 @@ function mapCreate() {
             map.fitBounds(d3Layer.getBounds());
         },
         'Zoom to full extent'
-    );
+    ).addTo(map);
 
     // Add geolocation api control
     L.control.locate({

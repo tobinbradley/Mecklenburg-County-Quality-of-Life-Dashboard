@@ -4,11 +4,9 @@
 @import (less) "../../bower_components/bootstrap/dist/css/bootstrap.css";
 @import (less) "vendor/jquery-ui-1.10.3.custom.css";
 @import (less) "../../bower_components/leaflet/dist/leaflet.css";
-//@import (less) "../../leaflet-1b1/leaflet.css";
 @import (less) "../../bower_components/leaflet.locatecontrol/dist/L.Control.Locate.css";
 @import "vendor/typeahead.less";
 @import "vendor/jquery-tourbus.less";
-//@import "multi-level-dropdown.less";
 
 
 // ****************************************
@@ -58,7 +56,7 @@
   margin-right: .2em;
   text-align: center;
   font-size: 1.3em;
-  transition-duration: 0.5s;
+  transition-duration: 0.75s;
   /* opacity: .8; */
   /* For safety - reset parent styles, that can break glyph codes*/
   font-variant: normal;
@@ -135,7 +133,7 @@ body {
 // Header
 // ****************************************
 .navbar-color {
-    transition: 0.5s;
+    transition: 0.75s;
     background: #0277BD;
     .navbar-brand, .navbar-nav > li > a {
         color: white;
@@ -251,7 +249,6 @@ body {
 .chosen-select {
   border-radius: 5px 5px 0 0;
   background: #f5f5f5;
-  transition: all 0.3s ease;
 }
 .select-highlight {
   border-color: #9ecaed;
@@ -264,9 +261,13 @@ body {
 // ****************************************
 // Map
 // ****************************************
-.leaflet-control-layers, .leaflet-control-zoom, .leaflet-bar, .leaflet-bar a {
+.leaflet-container path{
+  transition: fill .75s;
+}
+.leaflet-control-layers, .leaflet-control-zoom, .leaflet-bar, .leaflet-bar a, .easy-button-button {
     background: @body-color;
     box-shadow: none;
+    border: none !important;
 }
 .leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar {
     border: 1px solid #d3d4d8;
@@ -296,7 +297,7 @@ body {
 .geom {
     stroke: #949494;
     stroke-width: 0.5px;
-    transition: fill 0.3s ease;
+    // transition: fill 0.3s ease;
     cursor: pointer;
     stroke-linecap: round;
 }
@@ -339,19 +340,18 @@ body {
 // Time Slider
 // ****************************************
 .slider {
-    width: 130px;
-    display: inline-block;
-    margin: 0 6px 0 10px;
+    margin: 0 6px 0 55px;
     position: relative;
-    top: 3px;
+    top: 10px;
     label {
       position: absolute;
       width: 20px;
-      margin-top: 15px;
-      margin-left: -10px;
+      margin-top: 17px;
+      margin-left: -5px;
       text-align: center;
       font-weight: normal;
-      font-size: .7em;
+      font-size: .6em;
+      transform: rotate(45deg);
     }
 }
 .yearDisplay {
@@ -394,18 +394,20 @@ body {
     }
 }
 .barchart {
+  text {
+      font-size: 11px;
+      fill: #666;
+  }
     .axis {
         pointer-events: none;
         shape-rendering: crispEdges;
         path, line {
             fill: none;
-            stroke: #000;
+            stroke: #666;
             shape-rendering: crispEdges;
             stroke-width: 1;
         }
-        text {
-            font-size: 10px;
-        }
+
         .minor {
             stroke: lightgrey;
         }
@@ -420,7 +422,7 @@ body {
     .value-mean {
         line {
            pointer-events: none;
-           stroke: black;
+           stroke: #666;
            stroke-dasharray: 8,3;
         }
     }
@@ -441,6 +443,7 @@ body {
 // Data table
 // ****************************************
 .datatable-container {
+    padding-top: 30px;
     .text-accuracy {
         font-size: 0.8em;
         padding-left: 15px;
@@ -461,7 +464,7 @@ body {
         margin-bottom: 0;
         tr.d3-highlight {
             background: @highlightColor;
-            transition: all 0.5s ease-out;
+            transition: all 0.75s ease-out;
         }
         td:nth-child(1) {
             width: 70px;
