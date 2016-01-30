@@ -14,7 +14,8 @@
     "tests"
   ],
   "dependencies": {
-    "Leaflet.EasyButton": "~1.1.2"
+    "Leaflet.EasyButton": "~1.1.2",
+    "underscore": "~1.8.3"
   },
   "devDependencies": {
     "jquery.scrollTo": "*",
@@ -22,12 +23,15 @@
     "bootstrap": "*",
     "d3": "*",
     "jquery": "*",
-    "lodash": "*",
     "leaflet": "*",
     "Leaflet.label": "*",
+<<<<<<< HEAD
     "leaflet.locatecontrol": "*",
     "L.EasyButton": "*",
     "simple-statistics": "*",
     "Leaflet.EasyButton": "*"
+=======
+    "leaflet.locatecontrol": "*"
+>>>>>>> dev
   }
 }

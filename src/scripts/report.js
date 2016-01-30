@@ -147,7 +147,12 @@ function createCharts() {
 
         // stats
         _.each(keys, function(year) {
-            countyMean.push(dataCrunch(metricConfig[m].type, year));
+            // use override county value if available
+            if (metricConfig[m].world_val && metricConfig[m].world_val[year]) {
+              countyMean.push(metricConfig[m].world_val[year]);
+            } else {
+              countyMean.push(dataCrunch(metricConfig[m].type, year));
+            }
             npaMean.push(dataCrunch(metricConfig[m].type, year, theFilter));
             dataTypeKey = m;
         });
@@ -243,7 +248,11 @@ function createData() {
                 tdata.year = year.replace('y_', '');
 
                 // Stats
-                tdata.countyNVal = dataCrunch(metricConfig[m].type, year);
+                if (metricConfig[m].world_val && metricConfig[m].world_val[year]) {
+                    tdata.countyNVal = metricConfig[m].world_val[year];
+                } else {
+                    tdata.countyNVal = dataCrunch(metricConfig[m].type, year);
+                }
                 tdata.countyVal = dataPretty(tdata.countyNVal, m);
                 tdata.selectedNVal = dataCrunch(metricConfig[m].type, year, theFilter);
                 tdata.selectedVal = dataPretty(tdata.selectedNVal, m);

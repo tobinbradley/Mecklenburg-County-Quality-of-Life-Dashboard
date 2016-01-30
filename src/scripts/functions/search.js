@@ -142,6 +142,28 @@ function initTypeahead() {
             minLength: 4,
             limit: 15,
             header: '<h4 class="typeahead-header"><span class="glyphicon glyphicon-briefcase"></span> Business</h4>'
+        }, {
+            name: 'zipcode',
+            remote: {
+                //url: "http://maps.co.mecklenburg.nc.us:80/api/query/v1/zipcodes?columns=zip&filter=zip=%27%QUERY%27",
+                url: "http://maps.co.mecklenburg.nc.us/rest/v3/ws_geo_attributequery.php?table=zipcodes&fields=zip&parameters=zip=%27%QUERY%27",
+                dataType: 'jsonp',
+                filter: function (data) {
+                    var dataset = [];
+                    _.each(data, function (item) {
+                        dataset.push({
+                          value: item.zip,
+                          gid: item.zip,
+                          pid: item.zip,
+                          layer: 'ZIPCODE'
+                        });
+                    });
+                    return _.sortBy(dataset, "value");
+                }
+            },
+            minLength: 4,
+            limit: 10,
+            header: '<h4 class="typeahead-header"><span class="glyphicon glyphicon-briefcase"></span> Zipcode</h4>'
         }
     ]).on('typeahead:selected', function (obj, datum, theType) {
         if (datum.lat) {
@@ -179,7 +201,29 @@ function initTypeahead() {
                         _.each(data, function(d) {
                             arr.push(d.id.toString());
                         });
-                        model.selected = _.union(model.selected, arr);
+                        //model.selected = _.union(model.selected, arr);
+                        model.selected = arr;
+                        d3ZoomPolys("", {"ids": arr});
+                    }
+                });
+            }
+            if (datum.layer === 'ZIPCODE') {
+                // ajax call to get NPA's that intersect selected zipcode
+                $.ajax({
+                    type: "GET",
+                    dataType: 'jsonp',
+                    url: "http://maps.co.mecklenburg.nc.us/rest/v3/ws_geo_attributequery.php",
+                    data: {
+                        table: "neighborhoods npa, zipcodes",
+                        fields: "npa.id",
+                        parameters: "zipcodes.zip = '" + datum.value + "' and ST_Intersects(ST_Buffer(zipcodes.the_geom, -50), npa.the_geom)"
+                    },
+                    success: function(data) {
+                        var arr = [];
+                        _.each(data, function(d) {
+                            arr.push(d.id.toString());
+                        });
+                        model.selected = arr;
                         d3ZoomPolys("", {"ids": arr});
                     }
                 });
