@@ -87,7 +87,7 @@ function changeYear() {
     if ($('.slider').slider('value') !== model.year) {
         $('.slider').slider('value', model.year);
     }
-    var keys = _.without(_.keys(model.metric[0]), "id");    
+    var keys = _.without(_.keys(model.metric[0]), "id");
     $('.time-year').text(keys[model.year].replace("y_", ""));
     // set up data quantile from extent
     theVals = dataStripAll(model.metric);

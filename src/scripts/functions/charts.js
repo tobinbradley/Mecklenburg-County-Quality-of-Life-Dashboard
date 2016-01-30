@@ -8,7 +8,11 @@ function lineChartData() {
 
     // get stats
     _.each(model.years, function(year) {
-        countyMean.push(dataCrunch(metricConfig[model.metricId].type, year));
+        if (metricConfig[model.metricId].world_val && metricConfig[model.metricId].world_val[year]) {
+            countyMean.push(metricConfig[model.metricId].world_val[year]);
+        } else {
+            countyMean.push(dataCrunch(metricConfig[model.metricId].type, year));
+        }
         npaMean.push(dataCrunch(metricConfig[model.metricId].type, year, model.selected));
     });
 
@@ -82,7 +86,7 @@ function lineChartCreate() {
 function barChart() {
     var width = 720, // default width
         height = 200, // default height
-        margins = [2, 35, 50, 20],
+        margins = [10, 35, 50, 35],
         x,
         y,
         xScale;
@@ -116,7 +120,7 @@ function barChart() {
         var yAxis = d3.svg.axis()
             .scale(y)
             .orient("left")
-            .ticks(4);
+            .tickValues([0, _.max(data, function(stooge){ return stooge.value; }).value]);
 
         // set up bar chart
         graph = d3.select(".barchart");
@@ -125,6 +129,15 @@ function barChart() {
         graph.select(".x.axis")
             .attr("transform", "translate(0," + h + ")")
             .call(xAxis);
+        graph.select(".y.axis")
+          .call(yAxis);
+            // .append("text")
+            //   .attr("transform", "rotate(-90)")
+            //   .attr("y", 0)
+            //   .attr("dy", "-0.6em")
+            //   .attr("dx", "-2em")
+            //   .style("text-anchor", "end")
+            //   .text("Neighborhoods");
 
         graph.selectAll(".x.axis text")
                 .attr("y", 0)
@@ -284,11 +297,15 @@ function barChart() {
             html: true,
             title: function() {
                 var sel = $(this),
-                    num = "";
-                if ($.isNumeric(sel.attr("data-value"))) {
-                    num = "<br>" + dataPretty(sel.attr("data-value"), $("#metric").val());
+                    dataid = sel.attr("data-id"),
+                    num = _.find(model.metric, function(el) { return el.id == dataid; })[model.years[model.year]];
+
+                if ($.isNumeric(num)) {
+                    num = "<br>" + dataPretty(num, model.metricId);
+                } else {
+                  num = "";
                 }
-                return "<p class='tip'><strong><span>" + neighborhoodDescriptor + " " + sel.attr("data-id") + "</strong>" + num + "</span></p>";
+                return "<p class='tip'><strong><span>" + neighborhoodDescriptor + " " + dataid + "</strong>" + num + "</span></p>";
             },
             container: 'body'
         });
@@ -320,6 +337,13 @@ function barChart() {
                         .duration(1000)
                         .attr("cx", theX)
                         .attr("opacity", "1");
+                        // .attr("data-value", function(d) {
+                        //   if ($.isNumeric(d[model.years[model.year]])) {
+                        //     return d[model.years[model.year]];
+                        //   } else {
+                        //     return "";
+                        //   }
+                        // });
                 }
                 else {
                     d3.selectAll(".value-select [data-id='" + item.attr("data-id") + "']")
