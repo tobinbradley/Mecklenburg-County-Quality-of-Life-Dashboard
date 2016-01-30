@@ -27,21 +27,17 @@ var jsMain = [
     'bower_components/bootstrap/js/popover.js',
     'bower_components/d3/d3.js',
     'bower_components/leaflet/dist/leaflet.js',
-    //'leaflet-1b1/leaflet.js',
     'bower_components/leaflet.locatecontrol/src/L.Control.Locate.js',
     'bower_components/jquery.scrollTo/jquery.scrollTo.js',
-    'bower_components/chosen-build/chosen.jquery.js',
-    'bower_components/lodash/lodash.js',
+    'bower_components/underscore/underscore.js',
     'bower_components/topojson/topojson.js',
     'bower_components/Leaflet.EasyButton/src/easy-button.js',
-    'src/scripts/vendor/log.js',
     'src/scripts/vendor/Object.observe.poly.js',
     'src/scripts/vendor/jquery-ui-1.10.3.custom.min.js',
     'src/scripts/vendor/table2CSV.js',
     'src/scripts/vendor/Chart.js',
     'src/scripts/vendor/typeahead.js',
     'src/scripts/vendor/jquery-tourbus.js',
-    'src/scripts/vendor/classlist.js',
     'src/scripts/vendor/simple_statistics.js',
     'src/scripts/functions/calculations/*.js',
     'src/scripts/functions/*.js',
@@ -55,7 +51,7 @@ var jsReport = [
     'bower_components/leaflet/dist/leaflet.js',
     'bower_components/Leaflet.label/dist/leaflet.label.js',
     'bower_components/topojson/topojson.js',
-    'bower_components/lodash/lodash.js',
+    'bower_components/underscore/underscore.js',
     'src/scripts/vendor/Chart.js',
     'src/scripts/functions/calculations/*.js',
     'src/scripts/functions/generics.js',
@@ -172,6 +168,66 @@ gulp.task('replace', function() {
         .pipe(gulp.dest('dist/'));
 });
 
+gulp.task('world_files', ['clean', 'convert'], function() {
+  var config = require('./src/scripts/config.js');
+  _.each(config.metricConfig, function(m) {
+    var data = {};
+    // grab necessary files and calculate
+    if (m.type === "sum") {
+        var raw = require('./tmp/r' + m.metric + '.json');
+        var keys = _.keys(raw[0]);
+        keys.shift();
+        _.each(keys, function(year) {
+          var arr = raw.map(function(el) { return el[year]; }).map(Number);
+          var sum = arr.reduce(function(previousValue, currentValue, currentIndex, array) {
+                      return previousValue + currentValue;
+                    });
+          data[year] = sum;
+        });
+    }
+    if (m.type === "mean") {
+        var normalized = require('./tmp/n' + m.metric + '.json');
+        var keys = _.keys(normalized[0]);
+        keys.shift();
+        _.each(keys, function(year) {
+          var arr = raw.map(function(el) { return el[year]; }).map(Number);
+          var mean = arr.reduce(function(previousValue, currentValue, currentIndex, array) {
+                      return previousValue + currentValue;
+                    });
+          data[year] = mean / raw.length;
+        });
+    }
+    if (m.type === "weighted") {
+        var raw = require('./tmp/r' + m.metric + '.json');
+        var denom = require('./tmp/d' + m.metric + '.json');
+        var keys = _.keys(raw[0]);
+        keys.shift();
+        _.each(keys, function(year) {
+          var arr1 = raw.map(function(el) { if (!isNaN(el[year])) return el[year]; }).map(Number);
+          var arr2 = denom.map(function(el) { if (!isNaN(el[year])) return el[year]; }).map(Number);
+          var theRaw = arr1.reduce(function(previousValue, currentValue, currentIndex, array) {
+                      return previousValue + currentValue;
+                    });
+          var theDenom = arr2.reduce(function(previousValue, currentValue, currentIndex, array) {
+                      return previousValue + currentValue;
+                    });
+          data[year] = theRaw / theDenom;
+        });
+        //console.log(m.metric, data);
+    }
+
+    //console.log(keys);
+
+    // write to tmp/mXX-world file
+    fs.writeFile('tmp/m' + m.metric + '-world.json', JSON.stringify(data), function(err) {
+      if(err) {
+        return console.log(err);
+      }
+    });
+
+  });
+});
+
 // wrap files
 gulp.task('jsonwrapper', ['clean', 'convert'], function() {
     var config = require('./src/scripts/config.js');
@@ -191,6 +247,8 @@ gulp.task('jsonwrapper', ['clean', 'convert'], function() {
         if (m.accuracy) {
             fileList.push('tmp/m' + m.metric + '-accuracy.json');
         }
+        // push world values, breaks
+        //fileList.push('tmp/m' + m.metric + '-world.json');
 
         return gulp.src(fileList)
             .pipe(jsoncombine("m" + m.metric + ".json", function(data){ return new Buffer(JSON.stringify(data)); }))
@@ -229,7 +287,8 @@ gulp.task('clean', function(cb) {
     del([
     'dist/data/meta/*.html',
     'dist/data/metric/*.json',
-    'dist/data/merge.json'
+    'dist/data/merge.json',
+    'tmp/*.json'
   ], cb);
 });
 

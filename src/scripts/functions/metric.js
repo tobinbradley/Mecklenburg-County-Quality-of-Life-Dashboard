@@ -82,7 +82,7 @@ function getScale(extent, breaks, values) {
         extent.unshift(x_extent[0]);
     }
     else if (quantileScale === "jenks") {
-        extent = ss.jenks(values, 5).slice(1);        
+        extent = ss.jenks(values, 5).slice(1);
     }
     return d3.scale.quantile()
         .domain(extent)
@@ -132,8 +132,14 @@ function updateStats() {
 
     // County stat box
     params.topText = "COUNTY";
-    theStat = dataCrunch(metricConfig[model.metricId].type, year);
+    if (metricConfig[model.metricId].world_val && metricConfig[model.metricId].world_val[year]) {
+        theStat = metricConfig[model.metricId].world_val[year];
+    } else {
+        theStat = dataCrunch(metricConfig[model.metricId].type, year);
+    }
+    //theStat = metricConfig[model.metricId].world_val[year];
     params.mainNumber = dataPretty(theStat, m);
+
     // raw number
     if (metricConfig[model.metricId].raw_label) {
         params.rawTotal = dataSum(model.metricRaw, year).toFixed(0).commafy();

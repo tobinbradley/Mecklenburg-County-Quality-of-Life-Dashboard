@@ -113,6 +113,8 @@ var quantileScale = "jenks";
 //        "label"         [optional] metric unit information
 //        "decimals"      [optional] number of decimal places to display (default is 0)
 //        "prefix"        [optional] prefix for the number, like '$'
+//        "world_val"    [optional] override study area values for entire area via array
+//                                 ex: "world_val": {"y_2013": 1234, "y_2015": 2345}
 //        "suffix"        [optional] suffix for the number, like '%'
 //        "raw_label"     [optional] label for raw number if available (also makes raw number visible)
 //        "scale"         [optional] An array of custom data scale breaks, ommitting the top and bottom bounds.
@@ -129,7 +131,8 @@ var metricConfig = {
   "category": "Character",
   "label": "Years",
   "title": "Age of Residents",
-  "type": "weighted"
+  "type": "weighted",
+  "world_val": {"y_2014": 34.00}
  },
  "m1": {
   "metric": "1",
@@ -256,7 +259,8 @@ var metricConfig = {
   "category": "Economy",
   "prefix": "$",
   "title": "Household Income",
-  "type": "weighted"
+  "type": "weighted",
+  "world_val": {"y_2014": 56472}
  },
  "m75": {
   "metric": "75",
@@ -624,7 +628,8 @@ var metricConfig = {
   "category": "Housing",
   "prefix": "$",
   "title": "Rental Costs",
-  "type": "weighted"
+  "type": "weighted",
+  "world_val": {"y_2014": 913}
  },
  "m53": {
   "metric": "53",
@@ -646,8 +651,8 @@ var metricConfig = {
  "m8": {
   "metric": "8",
   "category": "Housing",
-  "label": "Permits per 100 Acres",
-  "raw_label": "Permits",
+  "label": "Units per 100 Acres",
+  "raw_label": "Units",
   "title": "Residential New Construction",
   "decimals": 1,
   "type": "weighted"
@@ -663,8 +668,8 @@ var metricConfig = {
  "m9": {
   "metric": "9",
   "category": "Housing",
-  "label": "Permits per 100 Acres",
-  "raw_label": "Permits",
+  "label": "Units per 100 Acres",
+  "raw_label": "Units",
   "title": "Residential Renovation",
   "decimals": 1,
   "type": "weighted"
@@ -783,8 +788,8 @@ var metricConfig = {
  "m44": {
   "metric": "44",
   "category": "Transportation",
-  "label": "Boardings per Available Route",
-  "raw_label": "Average Weekly Boardings",
+  "label": "Boardings per stop",
+  "raw_label": "Weekly boardings",
   "title": "Transit Ridership",
   "type": "weighted"
  }
