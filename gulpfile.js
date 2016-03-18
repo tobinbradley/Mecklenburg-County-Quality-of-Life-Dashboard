@@ -38,7 +38,7 @@ var jsMain = [
     'src/scripts/vendor/Chart.js',
     'src/scripts/vendor/typeahead.js',
     'src/scripts/vendor/jquery-tourbus.js',
-    'src/scripts/vendor/simple_statistics.js',
+    'src/scripts/vendor/jenks.js',
     'src/scripts/functions/calculations/*.js',
     'src/scripts/functions/*.js',
     'src/scripts/config.js',
