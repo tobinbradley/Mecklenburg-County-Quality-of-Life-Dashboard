@@ -25,13 +25,6 @@
     "jquery": "*",
     "leaflet": "*",
     "Leaflet.label": "*",
-<<<<<<< HEAD
-    "leaflet.locatecontrol": "*",
-    "L.EasyButton": "*",
-    "simple-statistics": "*",
-    "Leaflet.EasyButton": "*"
-=======
     "leaflet.locatecontrol": "*"
->>>>>>> dev
   }
 }
