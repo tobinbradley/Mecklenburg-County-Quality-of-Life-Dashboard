@@ -1,3 +1,5 @@
+var recordUILayerChange = true;
+
 // ****************************************
 // Zoom to polygons
 // ****************************************
@@ -98,6 +100,10 @@ function mapCreate() {
         if (e.name !== "Data") {
             d3.selectAll('.geom').style("fill-opacity", 0.4);
             d3.selectAll('.leaflet-overlay-pane svg path:not(.geom)').style('stroke-opacity', 0);
+            if (window.ga && recordUILayerChange) {
+                ga('send', 'event', 'ui', 'Map Layer Change');
+                recordUILayerChange = false;
+            }
         } else {
             d3.selectAll('.geom').style("fill-opacity", 1);
             d3.selectAll('.leaflet-overlay-pane svg path:not(.geom)').style('stroke-opacity', 0.75);
