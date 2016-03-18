@@ -29,7 +29,7 @@
     <meta name="theme-color" content="#db5945">
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/main.css?foo=5072">
+    <link rel="stylesheet" href="css/main.css?foo=67768">
 
 </head>
 
@@ -65,13 +65,17 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="http://qol.charmeck.org/">About</a>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">About <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="data/dimensiononepage.pdf">What is in the Dashboard</a></li>
+                            <li><a href="http://qol.charmeck.org/">About the Project</a></li>
+                        </ul>
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Get Data <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="data/qol-data.zip">Download Quality of Life Study</a></li>
+                            <li><a href="data/qol-data.zip">Download the Quality of Life Dataset</a></li>
                             <li class="divider"></li>
                             <li><a href="http://maps.co.mecklenburg.nc.us/openmapping/">Mecklenburg County Open Mapping</a></li>
                             <li><a href="http://clt.charlotte.opendata.arcgis.com/">City of Charlotte Open Data Portal</a></li>
@@ -170,7 +174,9 @@
                             </ul>
                           </div>
                         </div>
-                        <div class="text-muted">*Approximate</div>
+                        <div>
+                          *<a href="javascript:void(0)" tabindex="0" class="text-muted meta-definition" data-toggle="popover" data-content="Neighborhood Profile Areas (NPA) are based on Census block group geographies, which do not directly align with more familiar boundaries, including those for the city, towns, and council and commission districts.  These pre-defined groupings of NPAs are close approximations of the larger geographies, however, they may include small parts that are outside of the desired areas.">Approximate</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -397,7 +403,7 @@
     <!-- End jQuery Tourbus -->
 
     <!-- scripts at the bottom yo -->
-    <script src="js/main.js?foo=5072"></script>
+    <script src="js/main.js?foo=67768"></script>
 
     <!--   Google Analytics -->
     <script>
