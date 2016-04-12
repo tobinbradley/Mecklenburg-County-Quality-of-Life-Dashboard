@@ -4,12 +4,12 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Quality of Life Dashboard.">
-    <meta name="keywords" content="GIS,Mecklenburg County,parks,libraries,schools,environment,impervious surface,floodplain,zoning,assessment,tax,photos,government">
-    <meta name="author" content="Tobin Bradley">
+    <meta name="description" content="{{ header.description }}">
+    <meta name="keywords" content="{{ header.keywords }}">
+    <meta name="author" content="{{ header.author }}">
 
     <!-- Set the title here -->
-    <title>Quality of Life Explorer</title>
+    <title>{{ header.title }}</title>
 
     <!-- Mobile viewport optimized: j.mp/bplateviewport -->
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -18,7 +18,7 @@
     <meta name="mobile-web-app-capable" content="yes">
 
     <!-- Windows 8.1 garbage -->
-    <meta name="application-name" content="Quality of Life Explorer" />
+    <meta name="application-name" content="{{ header.title }}" />
     <meta name="msapplication-TileColor" content="#1e59bd" />
 
     <!-- Favicon -->
@@ -29,7 +29,7 @@
     <meta name="theme-color" content="#db5945">
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/main.css?foo={{cachebuster}}">
+    <link rel="stylesheet" href="css/main.css?foo={{ cachebuster }}">
 
 </head>
 
@@ -39,9 +39,8 @@
     <![endif]-->
     <div class="jumbotron text-center">
         <div class="container">
-            <h1>Quality of Life Explorer</h1>
-            <p>
-                Exploring neighborhood character, economics, education, engagement, environment, health, housing, safety and transportation.
+            <h1>{{ header.title }}</h1>
+            <p>{{ description }}
             </p>
             <p>
                 <a href="javascript:void(0)" class="btn btn-warning btn-xl btnHoverShadow scrollToStart" role="button">Get Started</a>
@@ -59,7 +58,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="./">
-                    <strong>Quality of Life Explorer</strong>
+                    <strong>{{ header.title }}</strong>
                 </a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -403,7 +402,7 @@
     <!-- End jQuery Tourbus -->
 
     <!-- scripts at the bottom yo -->
-    <script src="js/main.js?foo={{cachebuster}}"></script>
+    <script src="js/main.js?foo={{ cachebuster }}"></script>
 
     <!--   Google Analytics -->
     <script>
@@ -411,7 +410,7 @@
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-      ga('create', '{{gaKey}}', 'mcmap.org');
+      ga('create', '{{ gaKey }}', 'mcmap.org');
       ga('send', 'pageview');
     </script>
 
