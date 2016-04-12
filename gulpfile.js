@@ -14,6 +14,8 @@ var gulp = require('gulp'),
     jsonmin = require('gulp-jsonmin'),
     fs = require('fs'),
     del = require('del'),
+    swig = require('gulp-swig');
+    data = require('gulp-data');
     _ = require('lodash');
 
 
@@ -158,13 +160,18 @@ gulp.task('imagemin', function() {
         .pipe(gulp.dest('dist/images'));
 });
 
-// cache busting
-gulp.task('replace', function() {
-    var config = require('./src/scripts/config.js');
+// Compile templates
+gulp.task('compile-templates', function() {
+    var getJsonData = function(file) {
+        return require('./src/data/config/site.json');
+    };
     return gulp.src('src/*.html')
-        .pipe(replace("{{cachebuster}}", Math.floor((Math.random() * 100000) + 1)))
-        .pipe(replace("{{neighborhoodDescriptor}}", config.neighborhoodDescriptor))
-        .pipe(replace("{{gaKey}}", config.gaKey))
+        .pipe(data(getJsonData))
+        .pipe(swig({
+            data: {
+                cachebuster: Math.floor((Math.random() * 100000) + 1)
+            }
+        }))
         .pipe(gulp.dest('dist/'));
 });
 
@@ -269,7 +276,7 @@ gulp.task('jsonwrapper', ['clean', 'convert'], function() {
 
 // watch
 gulp.task('watch', function () {
-    gulp.watch(['./src/*.html'], ['replace']);
+    gulp.watch(['./src/*.html', './data/config/*.json'], ['compile-templates']);
     gulp.watch(['./src/less/**/*.less'], ['less']);
     gulp.watch('src/scripts/**/*.js', ['js', 'test-build']);
 });
@@ -313,7 +320,7 @@ gulp.task('clean-data', function(cb) {
 
 
 // controller tasks
-gulp.task('default', ['less', 'js', 'replace', 'watch', 'browser-sync']);
-gulp.task('build', ['less-build', 'js-build', 'replace', 'imagemin', 'copy-misc-files']);
+gulp.task('default', ['less', 'js', 'compile-templates', 'watch', 'browser-sync']);
+gulp.task('build', ['less-build', 'js-build', 'compile-templates', 'imagemin', 'copy-misc-files']);
 gulp.task('datagen', ['clean', 'markdown', 'convert', 'jsonwrapper', 'merge-json', 'copy-misc-files']);
 gulp.task('test', ['test-build', 'qunit', 'watch']);
