@@ -174,6 +174,8 @@ gulp.task('copy-misc-files', function() {
         .pipe(gulp.dest('dist/data/'));
     gulp.src('src/humans.txt')
         .pipe(gulp.dest('dist/'));
+    gulp.src('src/fonts/*.*')
+        .pipe(gulp.dest('dist/fonts/'));
 });
 
 gulp.task('world_files', ['clean', 'convert'], function() {
@@ -312,6 +314,6 @@ gulp.task('clean-data', function(cb) {
 
 // controller tasks
 gulp.task('default', ['less', 'js', 'replace', 'watch', 'browser-sync']);
-gulp.task('build', ['less-build', 'js-build', 'replace', 'imagemin']);
+gulp.task('build', ['less-build', 'js-build', 'replace', 'imagemin', 'copy-misc-files']);
 gulp.task('datagen', ['clean', 'markdown', 'convert', 'jsonwrapper', 'merge-json', 'copy-misc-files']);
 gulp.task('test', ['test-build', 'qunit', 'watch']);
