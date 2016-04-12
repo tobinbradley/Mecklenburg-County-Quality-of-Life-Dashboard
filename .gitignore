@@ -4,3 +4,5 @@ node_modules/
 tmp/
 .metadata/.lock
 .project
+.directory
+.git
