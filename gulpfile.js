@@ -168,6 +168,14 @@ gulp.task('replace', function() {
         .pipe(gulp.dest('dist/'));
 });
 
+// Copy over base geography files and humans.txt from src to dist
+gulp.task('copy-misc-files', function() {
+    gulp.src('src/data/*.*')
+        .pipe(gulp.dest('dist/data/'));
+    gulp.src('src/humans.txt')
+        .pipe(gulp.dest('dist/'));
+});
+
 gulp.task('world_files', ['clean', 'convert'], function() {
   var config = require('./src/scripts/config.js');
   _.each(config.metricConfig, function(m) {
@@ -305,5 +313,5 @@ gulp.task('clean-data', function(cb) {
 // controller tasks
 gulp.task('default', ['less', 'js', 'replace', 'watch', 'browser-sync']);
 gulp.task('build', ['less-build', 'js-build', 'replace', 'imagemin']);
-gulp.task('datagen', ['clean', 'markdown', 'convert', 'jsonwrapper', 'merge-json']);
+gulp.task('datagen', ['clean', 'markdown', 'convert', 'jsonwrapper', 'merge-json', 'copy-misc-files']);
 gulp.task('test', ['test-build', 'qunit', 'watch']);
