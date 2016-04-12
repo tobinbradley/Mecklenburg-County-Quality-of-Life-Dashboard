@@ -44,6 +44,12 @@ The default search autocomplete is for Mecklenburg and won't work for anyplace e
 
     gulp init
 
+### Build data and images
+This needs to be done once on initial set-up, and again anytime you edit the files in src/data.
+
+    gulp build
+    gulp datagen
+
 ### Fire it up!
 The default gulp task starts [BrowserSync](https://github.com/BrowserSync/browser-sync) and launches your current web browser to view the site. Live reload is enabled, so changes will automatically refresh in your browser.
 
