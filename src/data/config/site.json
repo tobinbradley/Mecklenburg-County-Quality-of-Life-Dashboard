@@ -7,5 +7,38 @@
         "author": "Tobin Bradley",
         "title": "Quality of Life Explorer"
     },
-    "description": "Exploring neighborhood character, economics, education, engagement, environment, health, housing, safety and transportation."
+    "description": "Exploring neighborhood character, economics, education, engagement, environment, health, housing, safety and transportation.",
+    "menu": {
+        "About": {
+            "links": [
+                {
+                    "href": "data/dimensiononepage.pdf",
+                    "text": "What is in the Dashboard"
+                },
+                {
+                    "href": "http://qol.charmeck.org/",
+                    "text": "About the Project"
+                }
+            ]
+        },
+        "Get Data": {
+            "links": [
+                {
+                    "href": "data/qol-data.zip",
+                    "text": "Download the Quality of Life Dataset"
+                },
+                {
+                    "divider": true
+                },
+                {
+                    "href": "http://maps.co.mecklenburg.nc.us/openmapping/",
+                    "text": "Mecklenburg County Open Mapping"
+                },
+                {
+                    "href": "http://clt.charlotte.opendata.arcgis.com/",
+                    "text": "City of Charlotte Open Data Portal"
+                }
+            ]
+        }
+    }
 }
