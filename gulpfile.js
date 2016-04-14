@@ -165,11 +165,13 @@ gulp.task('compile-templates', function() {
     var getJsonData = function(file) {
         return require('./src/data/config/site.json');
     };
+    var config = require('./src/scripts/config.js');
     return gulp.src('src/*.html')
         .pipe(data(getJsonData))
         .pipe(swig({
             data: {
-                cachebuster: Math.floor((Math.random() * 100000) + 1)
+                cachebuster: Math.floor((Math.random() * 100000) + 1),
+                custom_geography: config.customGeography
             }
         }))
         .pipe(gulp.dest('dist/'));

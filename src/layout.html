@@ -125,26 +125,55 @@
                           <button type="button" class="btn btn-default btn-sm select-clear">Clear Selected</button>
                           <button type="button" class="btn btn-default btn-sm report-launch disabled">Report</button>
                       </div>
-                        <!-- Geography dropdowns -->
                         <div class="btn-group datatoggle" role="group" aria-label="...">
-                            {% for geography_group, geography_items in custom_geography %}
-                            <div class="btn-group" role="group">
+                          <div class="btn-group" role="group">
                             <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              {{ geography_group }}
+                              Jurisdiction*
                               <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                                {% for geography_name, contents in geography_items %}
-                              <li><a href="javascript:void(0)" onclick="selectSetGeography(customGeography['{{ geography_group }}']['{{ geography_name }}'])">{{ geography_name }}</a></li>
-                                {% endfor %}
+                              <li><a href="javascript:void(0)" onclick="selectSetGeography(customGeography.charlotte)">Charlotte</a></li>
+                              <li><a href="javascript:void(0)" onclick="selectSetGeography(customGeography.cornelius)">Cornelius</a></li>
+                              <li><a href="javascript:void(0)" onclick="selectSetGeography(customGeography.davidson)">Davidson</a></li>
+                              <li><a href="javascript:void(0)" onclick="selectSetGeography(customGeography.huntersville)">Huntersville</a></li>
+                              <li><a href="javascript:void(0)" onclick="selectSetGeography(customGeography.matthews)">Matthews</a></li>
+                              <li><a href="javascript:void(0)" onclick="selectSetGeography(customGeography['mint hill'])">Mint Hill</a></li>
+                              <li><a href="javascript:void(0)" onclick="selectSetGeography(customGeography.pineville)">Pineville</a></li>
                             </ul>
                           </div>
-                            {% endfor %}
+                          <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              City Council*
+                              <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                              <li><a href="javascript:void(0)" onclick="selectSetGeography(customGeography.council1)">1</a></li>
+                              <li><a href="javascript:void(0)" onclick="selectSetGeography(customGeography.council2)">2</a></li>
+                              <li><a href="javascript:void(0)" onclick="selectSetGeography(customGeography.council3)">3</a></li>
+                              <li><a href="javascript:void(0)" onclick="selectSetGeography(customGeography.council4)">4</a></li>
+                              <li><a href="javascript:void(0)" onclick="selectSetGeography(customGeography.council5)">5</a></li>
+                              <li><a href="javascript:void(0)" onclick="selectSetGeography(customGeography.council6)">6</a></li>
+                              <li><a href="javascript:void(0)" onclick="selectSetGeography(customGeography.council7)">7</a></li>
+                            </ul>
+                          </div>
+                          <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              County Commission*
+                              <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                              <li><a href="javascript:void(0)" onclick="selectSetGeography(customGeography.commission1)">1</a></li>
+                              <li><a href="javascript:void(0)" onclick="selectSetGeography(customGeography.commission2)">2</a></li>
+                              <li><a href="javascript:void(0)" onclick="selectSetGeography(customGeography.commission3)">3</a></li>
+                              <li><a href="javascript:void(0)" onclick="selectSetGeography(customGeography.commission4)">4</a></li>
+                              <li><a href="javascript:void(0)" onclick="selectSetGeography(customGeography.commission5)">5</a></li>
+                              <li><a href="javascript:void(0)" onclick="selectSetGeography(customGeography.commission6)">6</a></li>
+                            </ul>
+                          </div>
                         </div>
                         <div>
-                            *<a href="javascript:void(0)" tabindex="0" class="text-muted meta-definition" data-toggle="popover" data-content="Neighborhood Profile Areas (NPA) are based on Census block group geographies, which do not directly align with more familiar boundaries, including those for the city, towns, and council and commission districts.  These pre-defined groupings of NPAs are close approximations of the larger geographies, however, they may include small parts that are outside of the desired areas.">Approximate</a>
+                          *<a href="javascript:void(0)" tabindex="0" class="text-muted meta-definition" data-toggle="popover" data-content="Neighborhood Profile Areas (NPA) are based on Census block group geographies, which do not directly align with more familiar boundaries, including those for the city, towns, and council and commission districts.  These pre-defined groupings of NPAs are close approximations of the larger geographies, however, they may include small parts that are outside of the desired areas.">Approximate</a>
                         </div>
-                        <!-- End Geography dropdowns -->
                     </div>
                 </div>
             </div>
@@ -215,13 +244,7 @@
         </div>
         <div class="row">
             <footer class="text-center page-footer">
-                <p>
-                    <img src="images/seals.png" width="177" height="36" alt="City and County Seals">
-                </p>
-                <p class="text-muted">
-                    Created by <a href="http://charmeck.org/mecklenburg/county/Pages/Default.aspx">Mecklenburg County</a>, the <a href="http://charmeck.org/city/charlotte/Pages/default.aspx">City of Charlotte</a>, and <a href="http://www.uncc.edu/">UNCC</a>
-                    <br>Source code on <a href="https://github.com/tobinbradley/Mecklenburg-County-Quality-of-Life-Dashboard">Github</a>
-                </p>
+
             </footer>
         </div>
     </div>
