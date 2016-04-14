@@ -43,7 +43,7 @@ var jsMain = [
     'src/scripts/vendor/jenks.js',
     'src/scripts/functions/calculations/*.js',
     'src/scripts/functions/*.js',
-    'src/scripts/config.js',
+    'src/data/config/config.js',
     'src/scripts/main.js'
 ];
 
@@ -58,7 +58,7 @@ var jsReport = [
     'src/scripts/functions/calculations/*.js',
     'src/scripts/functions/generics.js',
     'src/scripts/functions/calculations.js',
-    'src/scripts/config.js',
+    'src/data/config/config.js',
     'src/scripts/report.js'
 ];
 
@@ -165,7 +165,7 @@ gulp.task('compile-templates', function() {
     var getJsonData = function(file) {
         return require('./src/data/config/site.json');
     };
-    var config = require('./src/scripts/config.js');
+    var config = require('./src/data/config/config.js');
     return gulp.src(['src/*.html', '!src/layout.html'])
         .pipe(data(getJsonData))
         .pipe(swig({
@@ -188,7 +188,7 @@ gulp.task('copy-misc-files', function() {
 });
 
 gulp.task('world_files', ['clean', 'convert'], function() {
-  var config = require('./src/scripts/config.js');
+  var config = require('./src/data/config/config.js');
   _.each(config.metricConfig, function(m) {
     var data = {};
     // grab necessary files and calculate
@@ -249,7 +249,7 @@ gulp.task('world_files', ['clean', 'convert'], function() {
 
 // wrap files
 gulp.task('jsonwrapper', ['clean', 'convert'], function() {
-    var config = require('./src/scripts/config.js');
+    var config = require('./src/data/config/config.js');
 
     _.each(config.metricConfig, function(m) {
         var fileList = [];
