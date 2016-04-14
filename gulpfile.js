@@ -166,7 +166,7 @@ gulp.task('compile-templates', function() {
         return require('./src/data/config/site.json');
     };
     var config = require('./src/scripts/config.js');
-    return gulp.src('src/*.html')
+    return gulp.src(['src/*.html', '!src/layout.html'])
         .pipe(data(getJsonData))
         .pipe(swig({
             data: {
