@@ -37,6 +37,7 @@
 <!--[if lt IE 10]>
 <p class="oldie alert-info text-center">You are using an outdated browser. <a href="http://whatbrowser.org/">Upgrade your browser today</a> to better experience this site.</p>
 <![endif]-->
+{% block header %}
 <div class="jumbotron text-center">
     <div class="container">
         <h1>{{ header.title }}</h1>
@@ -98,7 +99,7 @@
         <!-- /.navbar-collapse -->
     </div>
 </nav>
-
+{% endblock %}
 {% block content %}{% endblock %}
 
 <!-- scripts at the bottom yo -->
