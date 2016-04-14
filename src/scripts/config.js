@@ -2,6 +2,7 @@
 // you might call them NSA or precinct or even something crazy like "neighborhood".
 // Shorter is better lest you run into some unintended wrapping text issues.
 var neighborhoodDefinition = "Neighborhood Profile Areas (NPAs) are geographic areas used for the organization and presentation of data in the Quality of Life Study. The boundaries were developed with community input and are based on one or more Census block groups.";
+var neighborhoodDescriptor = "";
 
 // The URL(s) for your base map tiles.
 // Here's a good place to find some:
