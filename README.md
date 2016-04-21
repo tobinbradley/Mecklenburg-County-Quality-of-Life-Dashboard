@@ -44,7 +44,7 @@ The default search autocomplete is for Mecklenburg and won't work for anyplace e
     gulp init
 
 ### Build data and images
-This needs to be done once on initial set-up, and again anytime you edit the files in src/data.
+This needs to be done once on initial set-up, and again anytime you edit the files in data.
 
     gulp build
     gulp datagen
@@ -75,7 +75,7 @@ Here's a good general call to create your topojson file, but do play around with
 With `id_field` being the field in the shapefile you want to use for your neighborhood identifier. Copy that file into `dist/data`. Make note of what your shapefile was named - you'll need that information when you update `config.js`.
 
 ### Metrics
-Metric files are simple CSV files named to reflect what they are. The are stored in `src/data/metric`. The format is always the same:
+Metric files are simple CSV files named to reflect what they are. The are stored in `data/metric`. The format is always the same:
 
      id,y_2012,y_2014
 
@@ -111,7 +111,7 @@ Some identifiers like Census tracts can have a hanging zero, like 541.10. If you
 
 
 ### Metadata
-Metadata files are in markdown and are named for the metric, like `m1.md`, and are located in `src/data/meta`. Your metadata file needs to maintain a structure with h2 and h3's laid out like this:
+Metadata files are in markdown and are named for the metric, like `m1.md`, and are located in `data/meta`. Your metadata file needs to maintain a structure with h2 and h3's laid out like this:
 
     ## Title of Metric
     Median age of poodles
