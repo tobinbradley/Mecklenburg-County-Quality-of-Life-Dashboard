@@ -1,5 +1,5 @@
 Quality of Life Dashboard v2
-=================
+=====================
 
 A joint project between the City of Charlotte, Mecklenburg County, and UNCC. The first release of the dashboard is now in the [v1](https://github.com/tobinbradley/Mecklenburg-County-Quality-of-Life-Dashboard/tree/v1) branch.
 
