@@ -19,10 +19,10 @@ Installing [node](http://nodejs.org/) is a piece of cake. On Windows, download t
 
 To make sure everything went well here, when you're done installing pull up a terminal (that's DOS for you Windows types) and type `node --version`. You should get some like `v0.10.28`.
 
-### Install topojson, gulp and bower
-I'm using [gulp](http://gulpjs.com/) as the build/dev system, because awesome. We'll be using [topojson](https://github.com/mbostock/topojson) to encode our geography. [Bower](http://bower.io/) is being used to manage JavaScript dependencies. To install them, head to a terminal and type:
+### Install topojson and gulp
+I'm using [gulp](http://gulpjs.com/) as the build/dev system, because awesome. We'll be using [topojson](https://github.com/mbostock/topojson) to encode our geography. To install them, head to a terminal and type:
 
-    npm install -g gulp topojson bower
+    npm install -g gulp topojson
 
 Because Windows is the only desktop OS that doesn't come with a C compiler, you'll need to get one to get topojson to install. Fortunately the free [Express version of Visual Studio](http://go.microsoft.com/?linkid=9816758) works fine. There is more information about this [here](https://github.com/TooTallNate/node-gyp). Yay Windows.
 
@@ -33,11 +33,10 @@ If you have git installed, just:
     git clone https://github.com/tobinbradley/Mecklenburg-County-Quality-of-Life-Dashboard.git  
 If you don't have git installed, grab the zip file instead. *The rest of the commands you see below will need to be run in your project root folder.*
 
-### Install the node and bower dependencies
-We need to install our project dependencies. Those dependencies are specified in package.json and bower.json respectively. We will also run a gulp task to swap in a simple search.
+### Install dependencies
+We need to install our project dependencies. Those dependencies are specified in package.jsony. We will also run a gulp task to swap in a simple search.
 
     npm install
-    bower install
 
 ### Swap in the simple search
 The default search autocomplete is for Mecklenburg and won't work for anyplace else. This command will swap it out with a simple search for your neighborhood ID's. The advanced search will be renamed search.js.advanced if you want some examples of how to add additional search services.
