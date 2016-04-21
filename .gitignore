@@ -7,3 +7,4 @@ tmp/
 .directory
 .git
 src/downloads
+data

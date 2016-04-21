@@ -19,40 +19,33 @@ Installing [node](http://nodejs.org/) is a piece of cake. On Windows, download t
 
 To make sure everything went well here, when you're done installing pull up a terminal (that's DOS for you Windows types) and type `node --version`. You should get some like `v0.10.28`.
 
-### Install topojson and gulp
-I'm using [gulp](http://gulpjs.com/) as the build/dev system, because awesome. We'll be using [topojson](https://github.com/mbostock/topojson) to encode our geography. To install them, head to a terminal and type:
-
-    npm install -g gulp topojson
-
-Because Windows is the only desktop OS that doesn't come with a C compiler, you'll need to get one to get topojson to install. Fortunately the free [Express version of Visual Studio](http://go.microsoft.com/?linkid=9816758) works fine. There is more information about this [here](https://github.com/TooTallNate/node-gyp). Yay Windows.
+### Set up the project
+I'm using [gulp](http://gulpjs.com/) as the build/dev system, because awesome. We'll be using [topojson](https://github.com/mbostock/topojson) to encode our geography.
 
 
-### Clone or download/unzip the project
-If you have git installed, just:
+``` terminal
+npm install -g gulp topojson
+git clone https://github.com/tobinbradley/Mecklenburg-County-Quality-of-Life-Dashboard.git
+cd Mecklenburg-County-Quality-of-Life-Dashboard
+npm install
+gulp init
+gulp build
+```
 
-    git clone https://github.com/tobinbradley/Mecklenburg-County-Quality-of-Life-Dashboard.git  
-If you don't have git installed, grab the zip file instead. *The rest of the commands you see below will need to be run in your project root folder.*
+### Grab some data
+You'll need data and app configuration information to get rolling. From your project directory, pull in the data and generate your configuration.
 
-### Install dependencies
-We need to install our project dependencies. Those dependencies are specified in package.jsony. We will also run a gulp task to swap in a simple search.
-
-    npm install
-
-### Swap in the simple search
-The default search autocomplete is for Mecklenburg and won't work for anyplace else. This command will swap it out with a simple search for your neighborhood ID's. The advanced search will be renamed search.js.advanced if you want some examples of how to add additional search services.
-
-    gulp init
-
-### Build data and images
-This needs to be done once on initial set-up, and again anytime you edit the files in data.
-
-    gulp build
-    gulp datagen
+``` terminal
+git clone https://github.com/tobinbradley/mecklenburg-quality-of-life-data.git data
+gulp datagen
+```
 
 ### Fire it up!
 The default gulp task starts [BrowserSync](https://github.com/BrowserSync/browser-sync) and launches your current web browser to view the site. Live reload is enabled, so changes will automatically refresh in your browser.
 
-    gulp
+``` terminal
+gulp
+```
 
 ## Customizing the Dashboard
 Data in the dashboard comes in three pieces:
@@ -72,7 +65,7 @@ Here's a good general call to create your topojson file, but do play around with
 
     topojson -o geography.topo.json -s 7e-11 --id-property=id_field your_shapefile.shp
 
-With `id_field` being the field in the shapefile you want to use for your neighborhood identifier. Copy that file into `dist/data`. Make note of what your shapefile was named - you'll need that information when you update `config.js`.
+With `id_field` being the field in the shapefile you want to use for your neighborhood identifier. Copy that file into `data`. Make note of what your shapefile was named - you'll need that information when you update `config.js`.
 
 ### Metrics
 Metric files are simple CSV files named to reflect what they are. The are stored in `data/metric`. The format is always the same:
@@ -137,20 +130,10 @@ Because we're using those as choppers for layout, adding more of those will scre
 
 Don't edit Markdown in Word. You're welcome.
 
-### Customize config.js
-`src/scripts/config.js` has knobs you will need to turn to set up the dashboard for your area. It is all well documented there. Each metric has a JSON description with a few required and many optional properties.
+### Customize config.js and site.json
+`data/config/config.js` has knobs you will need to turn to set up the dashboard for your area. It is all well documented there. Each metric has a JSON description with a few required and many optional properties. That are documented in the file.
 
-* **metric**: The unique metric number.
-* **type**: The calculation performed: sum, mean, or weighted. This effects the files fetched. See the data diagram for more information.
-* **category**: The category of the metric.
-* **title**: Descriptive title (for the select list).
-* [optional] **accuracy**: Set to `True` if the metric has an accuracy file.
-* [optional] **label**: Metric unit information, like "square miles".
-* [optional] **decimals**: Number of decimals to display (default is 0).
-* [optional] **prefix**: Prefix for the number, like "$".
-* [optional] **suffix**: Suffix for the number, like "%".
-* [optional] **raw_label**: Label for raw number if there is one (also makes it visible).
-* [optional] **scale**: A numeric array of custom data scale breaks, ommitting the top and bottom bounds. Must match the number of color breaks. For example, if you specified 5 color breaks, your array might be `[100, 2000, 4000, 10000]`. Non-specified scales get a runtime-computed linear scale.
+With `data/config/site.json` you can change a number of parameters in the site itself, like titles, links, etc.
 
 *Note the weighted type doesn't work yet. It doesn't break, it just does the same thing as mean.*
 
