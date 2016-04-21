@@ -185,11 +185,8 @@ gulp.task('copy-misc-files', function() {
         .pipe(gulp.dest('dist/'));
     gulp.src('src/fonts/*.*')
         .pipe(gulp.dest('dist/fonts/'));
-<<<<<<< HEAD
-=======
     gulp.src('src/downloads/*.*')
         .pipe(gulp.dest('dist/downloads/'));
->>>>>>> dev
 });
 
 gulp.task('world_files', ['clean', 'convert'], function() {
