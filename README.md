@@ -19,6 +19,7 @@ Installing [node](http://nodejs.org/) is a piece of cake. On Windows, download t
 
 To make sure everything went well here, when you're done installing pull up a terminal (that's DOS for you Windows types) and type `node --version`. You should get some like `v0.10.28`.
 
+<<<<<<< HEAD
 ### Install topojson and gulp
 I'm using [gulp](http://gulpjs.com/) as the build/dev system, because awesome. We'll be using [topojson](https://github.com/mbostock/topojson) to encode our geography. To install them, head to a terminal and type:
 
@@ -48,11 +49,39 @@ This needs to be done once on initial set-up, and again anytime you edit the fil
 
     gulp build
     gulp datagen
+=======
+### Set up the project
+I'm using [gulp](http://gulpjs.com/) as the build/dev system, because awesome. We'll be using [topojson](https://github.com/mbostock/topojson) to encode our geography.
+
+
+``` terminal
+npm install -g gulp topojson
+git clone https://github.com/tobinbradley/Mecklenburg-County-Quality-of-Life-Dashboard.git
+cd Mecklenburg-County-Quality-of-Life-Dashboard
+npm install
+gulp init
+gulp build
+```
+
+### Grab some data
+You'll need data and app configuration information to get rolling. From your project directory, pull in the data and generate your configuration.
+
+``` terminal
+git clone https://github.com/tobinbradley/mecklenburg-quality-of-life-data.git data
+gulp datagen
+```
+>>>>>>> dev
 
 ### Fire it up!
 The default gulp task starts [BrowserSync](https://github.com/BrowserSync/browser-sync) and launches your current web browser to view the site. Live reload is enabled, so changes will automatically refresh in your browser.
 
+<<<<<<< HEAD
     gulp
+=======
+``` terminal
+gulp
+```
+>>>>>>> dev
 
 ## Customizing the Dashboard
 Data in the dashboard comes in three pieces:
@@ -72,10 +101,17 @@ Here's a good general call to create your topojson file, but do play around with
 
     topojson -o geography.topo.json -s 7e-11 --id-property=id_field your_shapefile.shp
 
+<<<<<<< HEAD
 With `id_field` being the field in the shapefile you want to use for your neighborhood identifier. Copy that file into `dist/data`. Make note of what your shapefile was named - you'll need that information when you update `config.js`.
 
 ### Metrics
 Metric files are simple CSV files named to reflect what they are. The are stored in `src/data/metric`. The format is always the same:
+=======
+With `id_field` being the field in the shapefile you want to use for your neighborhood identifier. Copy that file into `data`. Make note of what your shapefile was named - you'll need that information when you update `config.js`.
+
+### Metrics
+Metric files are simple CSV files named to reflect what they are. The are stored in `data/metric`. The format is always the same:
+>>>>>>> dev
 
      id,y_2012,y_2014
 
@@ -111,7 +147,11 @@ Some identifiers like Census tracts can have a hanging zero, like 541.10. If you
 
 
 ### Metadata
+<<<<<<< HEAD
 Metadata files are in markdown and are named for the metric, like `m1.md`, and are located in `src/data/meta`. Your metadata file needs to maintain a structure with h2 and h3's laid out like this:
+=======
+Metadata files are in markdown and are named for the metric, like `m1.md`, and are located in `data/meta`. Your metadata file needs to maintain a structure with h2 and h3's laid out like this:
+>>>>>>> dev
 
     ## Title of Metric
     Median age of poodles
@@ -137,6 +177,7 @@ Because we're using those as choppers for layout, adding more of those will scre
 
 Don't edit Markdown in Word. You're welcome.
 
+<<<<<<< HEAD
 ### Customize config.js
 `src/scripts/config.js` has knobs you will need to turn to set up the dashboard for your area. It is all well documented there. Each metric has a JSON description with a few required and many optional properties.
 
@@ -151,6 +192,12 @@ Don't edit Markdown in Word. You're welcome.
 * [optional] **suffix**: Suffix for the number, like "%".
 * [optional] **raw_label**: Label for raw number if there is one (also makes it visible).
 * [optional] **scale**: A numeric array of custom data scale breaks, ommitting the top and bottom bounds. Must match the number of color breaks. For example, if you specified 5 color breaks, your array might be `[100, 2000, 4000, 10000]`. Non-specified scales get a runtime-computed linear scale.
+=======
+### Customize config.js and site.json
+`data/config/config.js` has knobs you will need to turn to set up the dashboard for your area. It is all well documented there. Each metric has a JSON description with a few required and many optional properties. That are documented in the file.
+
+With `data/config/site.json` you can change a number of parameters in the site itself, like titles, links, etc.
+>>>>>>> dev
 
 *Note the weighted type doesn't work yet. It doesn't break, it just does the same thing as mean.*
 

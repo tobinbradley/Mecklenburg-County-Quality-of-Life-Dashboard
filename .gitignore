@@ -6,3 +6,8 @@ tmp/
 .project
 .directory
 .git
+<<<<<<< HEAD
+=======
+src/downloads
+data
+>>>>>>> dev
