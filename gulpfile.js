@@ -20,20 +20,20 @@ var gulp = require('gulp'),
 
 
 var jsMain = [
-    'bower_components/jquery/dist/jquery.js',
-    'bower_components/bootstrap/js/transition.js',
-    'bower_components/bootstrap/js/button.js',
-    'bower_components/bootstrap/js/collapse.js',
-    'bower_components/bootstrap/js/dropdown.js',
-    'bower_components/bootstrap/js/tooltip.js',
-    'bower_components/bootstrap/js/popover.js',
-    'bower_components/d3/d3.js',
-    'bower_components/leaflet/dist/leaflet.js',
-    'bower_components/leaflet.locatecontrol/src/L.Control.Locate.js',
-    'bower_components/jquery.scrollTo/jquery.scrollTo.js',
-    'bower_components/underscore/underscore.js',
-    'bower_components/topojson/topojson.js',
-    'bower_components/Leaflet.EasyButton/src/easy-button.js',
+    'node_modules/jquery/dist/jquery.js',
+    'node_modules/bootstrap/js/transition.js',
+    'node_modules/bootstrap/js/button.js',
+    'node_modules/bootstrap/js/collapse.js',
+    'node_modules/bootstrap/js/dropdown.js',
+    'node_modules/bootstrap/js/tooltip.js',
+    'node_modules/bootstrap/js/popover.js',
+    'node_modules/d3/d3.js',
+    'node_modules/leaflet/dist/leaflet.js',
+    'node_modules/leaflet.locatecontrol/src/L.Control.Locate.js',
+    'node_modules/jquery.scrollto/jquery.scrollTo.js',
+    'node_modules/underscore/underscore.js',
+    'node_modules/topojson/build/topojson.js',
+    'node_modules/leaflet-easybutton/src/easy-button.js',
     'src/scripts/vendor/Object.observe.poly.js',
     'src/scripts/vendor/jquery-ui-1.10.3.custom.min.js',
     'src/scripts/vendor/table2CSV.js',
@@ -43,22 +43,22 @@ var jsMain = [
     'src/scripts/vendor/jenks.js',
     'src/scripts/functions/calculations/*.js',
     'src/scripts/functions/*.js',
-    'src/data/config/config.js',
+    'data/config/config.js',
     'src/scripts/main.js'
 ];
 
 var jsReport = [
-    'bower_components/jquery/dist/jquery.js',
-    'bower_components/bootstrap/js/button.js',
-    'bower_components/leaflet/dist/leaflet.js',
-    'bower_components/Leaflet.label/dist/leaflet.label.js',
-    'bower_components/topojson/topojson.js',
-    'bower_components/underscore/underscore.js',
+    'node_modules/jquery/dist/jquery.js',
+    'node_modules/bootstrap/js/button.js',
+    'node_modules/leaflet/dist/leaflet.js',
+    'node_modules/leaflet-label/dist/leaflet.label.js',
+    'node_modules/topojson/build/topojson.js',
+    'node_modules/underscore/underscore.js',
     'src/scripts/vendor/Chart.js',
     'src/scripts/functions/calculations/*.js',
     'src/scripts/functions/generics.js',
     'src/scripts/functions/calculations.js',
-    'src/data/config/config.js',
+    'data/config/config.js',
     'src/scripts/report.js'
 ];
 
@@ -125,14 +125,14 @@ gulp.task('js-build', function() {
 
 // markdown
 gulp.task('markdown', ['clean'], function() {
-    return gulp.src('src/data/meta/*.md')
+    return gulp.src('data/meta/*.md')
         .pipe(markdown())
         .pipe(gulp.dest('dist/data/meta/'));
 });
 
 // CSV to JSON
 gulp.task('convert', ['clean'], function() {
-    return gulp.src('src/data/metric/*.csv')
+    return gulp.src('data/metric/*.csv')
         .pipe(convert({
             from: 'csv',
             to: 'json'
@@ -163,9 +163,9 @@ gulp.task('imagemin', function() {
 // Compile templates
 gulp.task('compile-templates', function() {
     var getJsonData = function(file) {
-        return require('./src/data/config/site.json');
+        return require('./data/config/site.json');
     };
-    var config = require('./src/data/config/config.js');
+    var config = require('./data/config/config.js');
     return gulp.src(['src/*.html', '!src/layout.html'])
         .pipe(data(getJsonData))
         .pipe(swig({
@@ -179,7 +179,7 @@ gulp.task('compile-templates', function() {
 
 // Copy over base geography files and humans.txt from src to dist
 gulp.task('copy-misc-files', function() {
-    gulp.src('src/data/*.*')
+    gulp.src('data/*.*')
         .pipe(gulp.dest('dist/data/'));
     gulp.src('src/humans.txt')
         .pipe(gulp.dest('dist/'));
@@ -188,7 +188,7 @@ gulp.task('copy-misc-files', function() {
 });
 
 gulp.task('world_files', ['clean', 'convert'], function() {
-  var config = require('./src/data/config/config.js');
+  var config = require('./data/config/config.js');
   _.each(config.metricConfig, function(m) {
     var data = {};
     // grab necessary files and calculate
@@ -249,7 +249,7 @@ gulp.task('world_files', ['clean', 'convert'], function() {
 
 // wrap files
 gulp.task('jsonwrapper', ['clean', 'convert'], function() {
-    var config = require('./src/data/config/config.js');
+    var config = require('./data/config/config.js');
 
     _.each(config.metricConfig, function(m) {
         var fileList = [];
@@ -314,8 +314,8 @@ gulp.task('clean', function(cb) {
 // clean data out for new location
 gulp.task('clean-data', function(cb) {
     del([
-    'src/data/meta/*.md',
-    'src/data/metric/*.csv',
+    'data/meta/*.md',
+    'data/metric/*.csv',
     'dist/data/geography.topo.json'
   ], cb);
 });
