@@ -28,8 +28,6 @@ npm install -g gulp topojson
 git clone https://github.com/tobinbradley/Mecklenburg-County-Quality-of-Life-Dashboard.git
 cd Mecklenburg-County-Quality-of-Life-Dashboard
 npm install
-gulp init
-gulp build
 ```
 
 ### Grab some data
@@ -38,6 +36,19 @@ You'll need data and app configuration information to get rolling. From your pro
 ``` terminal
 git clone https://github.com/tobinbradley/mecklenburg-quality-of-life-data.git data
 gulp datagen
+```
+
+### Finishing touches
+The search function is set up to use Mecklenburg's search API's and won't work for other areas. To swap Mecklenburg's search out for a generic search that will work for any area:
+
+``` terminal
+gulp init
+```
+
+Finally, build the project.
+
+``` terminal
+gulp build
 ```
 
 ### Fire it up!
