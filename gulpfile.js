@@ -14,6 +14,8 @@ var gulp = require('gulp'),
     jsonmin = require('gulp-jsonmin'),
     fs = require('fs'),
     del = require('del'),
+    swig = require('gulp-swig');
+    data = require('gulp-data');
     _ = require('lodash');
 
 
@@ -41,7 +43,7 @@ var jsMain = [
     'src/scripts/vendor/jenks.js',
     'src/scripts/functions/calculations/*.js',
     'src/scripts/functions/*.js',
-    'src/scripts/config.js',
+    'src/data/config/config.js',
     'src/scripts/main.js'
 ];
 
@@ -56,7 +58,7 @@ var jsReport = [
     'src/scripts/functions/calculations/*.js',
     'src/scripts/functions/generics.js',
     'src/scripts/functions/calculations.js',
-    'src/scripts/config.js',
+    'src/data/config/config.js',
     'src/scripts/report.js'
 ];
 
@@ -158,13 +160,20 @@ gulp.task('imagemin', function() {
         .pipe(gulp.dest('dist/images'));
 });
 
-// cache busting
-gulp.task('replace', function() {
-    var config = require('./src/scripts/config.js');
-    return gulp.src('src/*.html')
-        .pipe(replace("{{cachebuster}}", Math.floor((Math.random() * 100000) + 1)))
-        .pipe(replace("{{neighborhoodDescriptor}}", config.neighborhoodDescriptor))
-        .pipe(replace("{{gaKey}}", config.gaKey))
+// Compile templates
+gulp.task('compile-templates', function() {
+    var getJsonData = function(file) {
+        return require('./src/data/config/site.json');
+    };
+    var config = require('./src/data/config/config.js');
+    return gulp.src(['src/*.html', '!src/layout.html'])
+        .pipe(data(getJsonData))
+        .pipe(swig({
+            data: {
+                cachebuster: Math.floor((Math.random() * 100000) + 1),
+                custom_geography: config.customGeography
+            }
+        }))
         .pipe(gulp.dest('dist/'));
 });
 
@@ -179,7 +188,7 @@ gulp.task('copy-misc-files', function() {
 });
 
 gulp.task('world_files', ['clean', 'convert'], function() {
-  var config = require('./src/scripts/config.js');
+  var config = require('./src/data/config/config.js');
   _.each(config.metricConfig, function(m) {
     var data = {};
     // grab necessary files and calculate
@@ -240,7 +249,7 @@ gulp.task('world_files', ['clean', 'convert'], function() {
 
 // wrap files
 gulp.task('jsonwrapper', ['clean', 'convert'], function() {
-    var config = require('./src/scripts/config.js');
+    var config = require('./src/data/config/config.js');
 
     _.each(config.metricConfig, function(m) {
         var fileList = [];
@@ -269,7 +278,7 @@ gulp.task('jsonwrapper', ['clean', 'convert'], function() {
 
 // watch
 gulp.task('watch', function () {
-    gulp.watch(['./src/*.html'], ['replace']);
+    gulp.watch(['./src/*.html', './data/config/*.json'], ['compile-templates']);
     gulp.watch(['./src/less/**/*.less'], ['less']);
     gulp.watch('src/scripts/**/*.js', ['js', 'test-build']);
 });
@@ -313,7 +322,7 @@ gulp.task('clean-data', function(cb) {
 
 
 // controller tasks
-gulp.task('default', ['less', 'js', 'replace', 'watch', 'browser-sync']);
-gulp.task('build', ['less-build', 'js-build', 'replace', 'imagemin', 'copy-misc-files']);
+gulp.task('default', ['less', 'js', 'compile-templates', 'watch', 'browser-sync']);
+gulp.task('build', ['less-build', 'js-build', 'compile-templates', 'imagemin', 'copy-misc-files']);
 gulp.task('datagen', ['clean', 'markdown', 'convert', 'jsonwrapper', 'merge-json', 'copy-misc-files']);
 gulp.task('test', ['test-build', 'qunit', 'watch']);
