@@ -4,7 +4,17 @@
   "description": "Node packages for gulp",
   "main": "gulpfile.js",
   "dependencies": {
-    "eslint": "^1.6.0"
+    "bootstrap": "^3.3.6",
+    "d3": "^3.5.16",
+    "eslint": "^1.6.0",
+    "jquery": "^2.2.3",
+    "jquery.scrollto": "^2.1.2",
+    "leaflet": "^0.7.7",
+    "leaflet-easybutton": "^1.2.0",
+    "leaflet-label": "^0.2.1-0",
+    "leaflet.locatecontrol": "^0.48.0",
+    "topojson": "^1.6.24",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "browser-sync": "^2.11.1",
