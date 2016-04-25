@@ -1,0 +1,62 @@
+@font-face {
+  font-family: 'fontello';
+  src: url('../fonts/fontello.eot');
+  src: url('../fonts/fontello.eot') format('embedded-opentype'),
+       url('../fonts/fontello.woff') format('woff'),
+       url('../fonts/fontello.ttf') format('truetype'),
+       url('../fonts/fontello.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.social-links {
+    margin-top: 18px;
+}
+[class^="icon-"]::before, [class*=" icon-"]::before {
+  font-family: "fontello";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  font-size: 1.3em;
+  transition-duration: 0.75s;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* Uncomment for 3D effect */
+  text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3);
+}
+.icon-facebook-rect::before {
+  content: '\e800';
+}
+.icon-facebook-rect:hover {
+  color: #3B5998;
+}
+.icon-twitter-bird::before {
+  content: '\e801';
+}
+.icon-twitter-bird:hover {
+  color: #4099FF;
+}
+.icon-googleplus-rect::before {
+  content: '\e802';
+}
+.icon-googleplus-rect:hover {
+  color: #d34836;
+}
+.icon-linkedin-rect::before {
+  content: '\e803';
+}
+.icon-linkedin-rect:hover {
+  color: #0077b5;
+}

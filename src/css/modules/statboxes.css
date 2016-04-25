@@ -1,0 +1,32 @@
+.stats {
+  min-height: 100px;
+}
+.stats span {
+  color: #727272;
+  display: block;
+}
+.stats .header {
+  font-weight: bold;
+  font-size: 1em;
+  line-height: 0.9em;
+}
+.stats h3 {
+  font-size: 2em;
+  font-weight: bold;
+  margin: 8px 0 2px;
+  white-space: nowrap;
+  width: 100%;
+}
+.stats .footer {
+  font-weight: bold;
+  font-size: 0.9em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.stats .stat-total,
+.stats .stat-units {
+  font-size: 0.85em;
+}
+.stats-weighted div {
+  padding-top: 12px;
+}

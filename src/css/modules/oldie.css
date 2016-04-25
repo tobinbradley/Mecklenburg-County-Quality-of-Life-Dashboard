@@ -1,0 +1,11 @@
+.oldie {
+  width: 100%;
+  margin: 0;
+  font-size: 1em;
+  font-weight: bold;
+  padding: 10px;
+  background: yellow;
+}
+.oldie a {
+  text-decoration: underline;
+}

@@ -1,0 +1,32 @@
+@keyframes bounceIn {
+    0% {
+      opacity: 0;
+      transform: scale(.3);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+    70% {
+      transform: scale(.9);
+    }
+    100% {
+      transform: scale(1);
+    }
+}
+.tooltip-inner {
+  background: rgba(0, 0, 0, 0.85);
+  animation: bounceIn 0.2s ease-out;
+}
+.tooltip-inner .tip {
+  font-size: 1.3em;
+  margin: 5px;
+}
+.tooltip-inner .tip span {
+  color: #ff00c7;
+}
+.tooltip-inner .tip .metric-accuracy {
+  color: #ccc;
+  font-size: 0.8em;
+  font-weight: bold;
+}

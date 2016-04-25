@@ -1,0 +1,121 @@
+@import "../../node_modules/bootstrap/dist/css/bootstrap.css";
+@import "vendor/jquery-ui-1.10.3.custom.css";
+@import "../../node_modules/leaflet/dist/leaflet.css";
+@import "../../node_modules/leaflet.locatecontrol/dist/L.Control.Locate.css";
+@import "vendor/typeahead.css";
+@import "vendor/jquery-tourbus.css";
+@import 'modules/variables.css';
+@import 'modules/social.css';
+@import 'modules/oldie.css';
+@import 'modules/header.css';
+@import 'modules/tooltips.css';
+@import 'modules/map.css';
+@import 'modules/search.css';
+@import 'modules/slider.css';
+@import 'modules/charts.css';
+@import 'modules/datatable.css';
+@import 'modules/statboxes.css';
+@import 'modules/metadata.css';
+
+
+/* ****************************************
+ Global vars and helpers (colors and such)
+****************************************/
+.d3-highlight {
+    fill:  var(--highlightColor) !important;
+}
+.d3-select {
+    stroke:  var(--selectedColor) !important;
+    stroke-width: 3px !important;
+    stroke-opacity: 1;
+}
+
+
+/* ****************************************
+ Quantile Color Breaks
+ *****************************************/
+.q0{fill:rgb(238,250,227)}
+.q1{fill:rgb(186,228,188)}
+.q2{fill:rgb(123,204,196)}
+.q3{fill:rgb(67,162,202)}
+.q4{fill:rgb(8,104,172)}
+
+
+/* ****************************************
+ Document level stuff/spacing
+ *****************************************/
+body {
+    background:  var(--body-color);;
+    padding-top: 50px;  /*for fixed navbar*/
+}
+.row-vis {
+    min-height: 651px;
+}
+.container-content {
+    padding-top: 40px;
+}
+
+
+
+/* ****************************************
+ Footer
+*****************************************/
+.page-footer {
+    margin: 80px 0 40px;
+}
+
+
+/* ****************************************
+ Metric Select
+*****************************************/
+@keyframes pulsate {
+    0% { box-shadow: 0 0 0;}
+    50% { box-shadow: 1px 1px 0 rgba(102, 175, 233, 0.8),
+                      -1px -1px 0 rgba(102, 175, 233, 0.8),
+                      -1px 1px 0 rgba(102, 175, 233, 0.8),
+                      1px -1px 0 rgba(102, 175, 233, 0.8),
+                      0 0 20px rgba(102, 175, 233, 0.8);
+        }
+    100% { box-shadow: 0 0 0; }
+}
+.chosen-select {
+  border-radius: 5px 5px 0 0;
+  background: #f5f5f5;
+}
+.select-highlight {
+  border-color: #9ecaed;
+  box-shadow: 0 0 10px #9ecaed;
+  animation: pulsate 1.5s ease-out;
+  animation-iteration-count: 2.8;
+}
+
+/* ****************************************
+ Responsive design
+*****************************************/
+@media (max-width: 990px) {
+    .map-aside {
+        margin-top: 20px;
+    }
+    #map {
+        height: 400px;
+    }
+}
+@media (max-width: 740px) {
+    button.report-launch {
+        display: none;
+    }
+    .social-links {
+        display: none;
+    }
+    .container-content {
+        padding-top: 15px;
+    }
+    .meta-container {
+        display: none;
+    }
+}
+@media (max-width: 500px) {
+    button.toggle-map, button.btn-looper {
+        display: none;
+    }
+}

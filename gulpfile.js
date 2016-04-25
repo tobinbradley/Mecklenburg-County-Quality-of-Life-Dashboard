@@ -1,6 +1,5 @@
 var gulp = require('gulp'),
     browserSync = require('browser-sync'),
-    less = require('gulp-less'),
     autoprefixer = require('gulp-autoprefixer'),
     minifycss = require('gulp-minify-css'),
     uglify = require('gulp-uglify'),
@@ -12,10 +11,17 @@ var gulp = require('gulp'),
     replace = require('gulp-replace'),
     jsoncombine = require("gulp-jsoncombine"),
     jsonmin = require('gulp-jsonmin'),
+    gutil = require('gulp-util'),
     fs = require('fs'),
     del = require('del'),
-    swig = require('gulp-swig');
-    data = require('gulp-data');
+    swig = require('gulp-swig'),
+    data = require('gulp-data'),
+    postcss = require("gulp-postcss"),
+    cssnext = require("postcss-cssnext"),
+    nesting = require("postcss-nesting"),
+    atImport = require("postcss-import"),
+    nano = require('gulp-cssnano'),
+    sourcemaps = require("gulp-sourcemaps"),
     _ = require('lodash');
 
 
@@ -88,20 +94,25 @@ gulp.task('browser-sync', function() {
 });
 
 
-// Less processing
-gulp.task('less', function() {
-    return gulp.src(['src/less/main.less', 'src/less/report.less'])
-        .pipe(less())
-        .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
-        .pipe(gulp.dest('dist/css'));
+// CSS
+gulp.task("css", function() {
+    var processors = [
+        atImport,
+        cssnext({
+            'browers': ['last 2 version'],
+            'customProperties': true,
+            'colorFunction': true,
+            'customSelectors': true
+        })
+    ];
+    return gulp.src(['src/css/report.css', 'src/css/main.css'])
+        .pipe(sourcemaps.init())
+        .pipe(postcss(processors))
+        .pipe(gutil.env.type === 'production' ? nano() : gutil.noop())
+        .pipe(sourcemaps.write('.'))
+        .pipe(gulp.dest('./dist/css'));
 });
-gulp.task('less-build', function() {
-    return gulp.src(['src/less/main.less', 'src/less/report.less'])
-        .pipe(less())
-        .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
-        .pipe(minifycss())
-        .pipe(gulp.dest('dist/css'));
-});
+
 
 // JavaScript
 gulp.task('js', function() {
@@ -281,7 +292,7 @@ gulp.task('jsonwrapper', ['clean', 'convert'], function() {
 // watch
 gulp.task('watch', function () {
     gulp.watch(['./src/*.html', './data/config/*.json'], ['compile-templates']);
-    gulp.watch(['./src/less/**/*.less'], ['less']);
+    gulp.watch(['./src/css/**/*.css'], ['css']);
     gulp.watch('src/scripts/**/*.js', ['js', 'test-build']);
 });
 
@@ -324,7 +335,7 @@ gulp.task('clean-data', function(cb) {
 
 
 // controller tasks
-gulp.task('default', ['less', 'js', 'compile-templates', 'watch', 'browser-sync']);
-gulp.task('build', ['less-build', 'js-build', 'compile-templates', 'imagemin', 'copy-misc-files']);
+gulp.task('default', ['css', 'js', 'compile-templates', 'watch', 'browser-sync']);
+gulp.task('build', ['css', 'js-build', 'compile-templates', 'imagemin', 'copy-misc-files']);
 gulp.task('datagen', ['clean', 'markdown', 'convert', 'jsonwrapper', 'merge-json', 'copy-misc-files']);
 gulp.task('test', ['test-build', 'qunit', 'watch']);

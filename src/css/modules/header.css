@@ -1,0 +1,56 @@
+.navbar-color {
+  transition: 0.75s;
+  background: #0277BD;
+}
+.navbar-color .navbar-brand,
+.navbar-color .navbar-nav > li > a {
+  color: white;
+}
+.navbar-color .navbar-brand:hover,
+.navbar-color .navbar-nav > li > a:hover {
+  color: white;
+}
+.navbar-color .navbar-toggle {
+  border-color: white;
+}
+.navbar-color .navbar-toggle .icon-bar {
+  background-color: white;
+}
+.contact {
+  min-width: 300px;
+  padding: 10px 10px 0;
+}
+.contact input,
+.contact textarea {
+  margin: 0 0 10px;
+}
+.jumbotron {
+ padding: 90px 0;
+ margin: 0;
+ background: #03A9F4;
+ background: linear-gradient(to bottom, #03A9F4 0%, #0277BD 100%);
+ color: white;
+}
+.jumbotron h1 {
+ text-shadow: #777 0 1px 1px;
+ font-weight: bold;
+}
+.jumbotron p {
+ font-size: 1.3em;
+ max-width: 700px;
+ margin: 20px auto;
+}
+.jumbotron p:nth-child(3) {
+ padding-top: 10px;
+}
+.jumbotron .btn-xl {
+ text-transform: uppercase;
+ font-weight: 700;
+ font-size: 18px;
+ padding: 20px 40px;
+}
+.btnHoverShadow:hover {
+   box-shadow: 0 4px 8px rgba(0,0,0, .16),
+               0 4px 8px rgba(0,0,0, .23) ;
+   transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}

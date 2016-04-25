@@ -1,0 +1,38 @@
+.well h4 {
+  font-size: 1.5em;
+}
+.well h4:not(:first-child) {
+  font-size: 1.2em;
+  margin-top: 25px;
+}
+.meta-subtitle {
+  font-size: 0.9em;
+  margin: 10px 0 15px;
+  min-height: 40px;
+}
+.meta-container {
+  margin-top: 65px;
+}
+.meta-container a {
+  color: #01578b;
+}
+.meta-resources ul {
+  list-style: none;
+  padding-left: 0;
+}
+.meta-definition {
+  text-decoration: none;
+  border-bottom: 1px dotted;
+  cursor: pointer;
+  color: inherit;
+  outline: 0;
+}
+.meta-definition:hover {
+  color: inherit;
+  text-decoration: none;
+}
+.meta-definition:focus {
+  outline: 0;
+  color: inherit;
+  text-decoration: none;
+}

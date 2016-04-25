@@ -1,0 +1,50 @@
+.leaflet-container path {
+  transition: fill .75s;
+}
+.leaflet-control-layers,
+.leaflet-control-zoom,
+.leaflet-bar,
+.leaflet-bar a,
+.easy-button-button {
+  background: var(--body-color);
+  box-shadow: none;
+  border: none !important;
+}
+.leaflet-touch .leaflet-control-layers,
+.leaflet-touch .leaflet-bar {
+  border: 1px solid #d3d4d8;
+}
+.leaflet-control-layers-toggle {
+  background-size: 20px 20px !important;
+  background-image: url(../images/layers.png) !important;
+  margin: 1px;
+  width: 26px !important;
+  height: 26px !important;
+}
+.leaflet-bar .glyphicon {
+  font-size: 15px;
+  top: 3px;
+}
+.leaflet-bar .locate-icon {
+  left: -1px;
+}
+.easy-button-button {
+  border-radius: 3px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+#map {
+  height: 530px;
+  background: var(--body-color);
+  border: 1px solid #d3d4d8;
+  border-top: none;
+}
+.geom {
+  stroke: #949494;
+  stroke-width: 0.5px;
+  cursor: pointer;
+  stroke-linecap: round;
+}
+.leaflet-overlay-pane svg path:not(.geom) {
+  pointer-events: none;
+}

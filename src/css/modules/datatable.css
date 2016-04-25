@@ -1,0 +1,40 @@
+.datatable-container {
+  padding-top: 30px;
+}
+.datatable-container .text-accuracy {
+  font-size: 0.8em;
+  padding-left: 15px;
+  font-style: italic;
+}
+.datatable-container .datatable-raw,
+.datatable-container .datatable-value {
+  font-weight: bold;
+}
+.datatable-container .div-scroll {
+  max-height: 300px;
+  overflow: auto;
+  overflow-x: none;
+}
+.datatable-container p {
+  margin-top: 15px;
+}
+.datatable-container table {
+  margin-bottom: 0;
+}
+.datatable-container table tr.d3-highlight {
+  background: var(--highlightColor);
+  transition: all 0.75s ease-out;
+}
+.datatable-container table td:nth-child(1) {
+  width: 70px;
+}
+.datatable-container table td {
+  white-space: nowrap;
+  min-width: 30px;
+}
+.datatable-container table td.table-raw-boundary:not(:empty) {
+  border-left: 1px solid #dddddd;
+}
+.datatable-container table .td-border-left {
+  border-left: 1px solid #dddddd;
+}

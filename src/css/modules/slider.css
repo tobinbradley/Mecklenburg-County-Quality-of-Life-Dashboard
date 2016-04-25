@@ -1,0 +1,28 @@
+.slider {
+  margin: 0 6px 0 55px;
+  position: relative;
+  top: 10px;
+}
+.slider label {
+  position: absolute;
+  width: 20px;
+  margin-top: 17px;
+  margin-left: -5px;
+  text-align: center;
+  font-weight: normal;
+  font-size: .6em;
+  transform: rotate(45deg);
+}
+.yearDisplay {
+  margin-top: 5px;
+}
+.time-year {
+  font-weight: bold;
+  font-size: 2.8em;
+  color: black;
+  margin: 0 0 0 0;
+  padding: 0 4px;
+  background: rgba(249, 249, 249, 0.6);
+  border-radius: 6px;
+  text-shadow: #777 0 1px 1px;
+}

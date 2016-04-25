@@ -1,0 +1,54 @@
+#barChart {
+  height: 200px;
+}
+.lineChart-container {
+  margin: 20px;
+}
+.chartLegend {
+  font-size: 0.8em;
+}
+.chartLegend .legend {
+  padding-left: 20px;
+  text-align: left;
+  text-align: center;
+}
+.chartLegend .title {
+  display: inline-block;
+  margin: 0.5em;
+  border-style: solid;
+  border-width: 0 0 0 1em;
+  padding: 0 0.3em;
+}
+.barchart text {
+  font-size: 11px;
+  fill: #666;
+}
+.barchart .axis {
+  pointer-events: none;
+  shape-rendering: crispEdges;
+}
+.barchart .axis path,
+.barchart .axis line {
+  fill: none;
+  stroke: #666;
+  shape-rendering: crispEdges;
+  stroke-width: 1;
+}
+.barchart .axis .minor {
+  stroke: lightgrey;
+}
+.barchart rect.bar {
+  stroke-width: 0.2;
+  stroke: #666;
+}
+.barchart .value-mean line {
+  pointer-events: none;
+  stroke: #666;
+  stroke-dasharray: 8,3;
+}
+.barchart .value-hover circle {
+  fill: var(--highlightColor);
+}
+.barchart .value-select circle {
+  fill: var(--selectedColor);
+}
