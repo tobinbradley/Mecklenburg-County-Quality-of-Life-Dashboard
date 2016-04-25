@@ -293,7 +293,7 @@ gulp.task('jsonwrapper', ['clean', 'convert'], function() {
 gulp.task('watch', function () {
     gulp.watch(['./src/*.html', './data/config/*.json'], ['compile-templates']);
     gulp.watch(['./src/css/**/*.css'], ['css']);
-    gulp.watch('src/scripts/**/*.js', ['js', 'test-build']);
+    gulp.watch(['src/scripts/**/*.js', 'data/**/*.js'], ['js', 'test-build']);
 });
 
 // rename files for basic setup
