@@ -8,3 +8,4 @@ tmp/
 .git
 src/downloads
 data
+deploy.sh
