@@ -68,7 +68,7 @@
             <ul class="nav navbar-nav navbar-right">
                 {% for menu_item in menu %}
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ loop.key }}<span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ loop.key }}&nbsp;<span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         {% for link in menu_item.links %}
                         {% if link.divider %}
