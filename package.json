@@ -13,12 +13,12 @@
     "leaflet-easybutton": "^1.2.0",
     "leaflet-label": "^0.2.1-0",
     "leaflet.locatecontrol": "^0.48.0",
+    "postcss-cssnext": "^2.5.2",
     "topojson": "^1.6.24",
     "underscore": "^1.8.3"
   },
   "devDependencies": {
     "browser-sync": "^2.11.1",
-    "cssnext": "^1.8.4",
     "del": "^1.1.1",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.0",
@@ -41,7 +41,9 @@
     "postcss-import": "^8.1.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lower-csv": "for f in data/metric/*.csv; do sed -i -e 's/\\(.*\\)/\\L\\1/' $f ; done",
+    "sort-csv": "for f in data/metric/*.csv; do sort -n -o $f $f ; done"
   },
   "repository": {
     "type": "git",
