@@ -41,9 +41,7 @@
     "postcss-import": "^8.1.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lower-csv": "for f in data/metric/*.csv; do sed -i -e 's/\\(.*\\)/\\L\\1/' $f ; done",
-    "sort-csv": "for f in data/metric/*.csv; do sort -n -o $f $f ; done"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
