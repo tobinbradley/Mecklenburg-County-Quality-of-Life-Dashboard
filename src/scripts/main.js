@@ -80,17 +80,25 @@ $(document).ready(function () {
     }
 
     // launch report window with selected neighborhoods
-    $("button.report-launch").on("click", function() {
+    $(".report-launch").on("click", function() {
         if (model.selected.length > 0) {
             window.open("report.html?n=" + model.selected.join());
         }
+    });
+
+    $(".embed-launch").on("click", function() {
+        var bounds = [];
+        bounds.push(map.getBounds()._northEast.lng);
+        bounds.push(map.getBounds()._northEast.lat);
+        bounds.push(map.getBounds()._southWest.lng);
+        bounds.push(map.getBounds()._southWest.lat);
+        window.open($(this).data("qolembed") + "?s=" + model.selected.join() + "&m=" + model.metricId.replace("m", "") + "&y=" + model.years[model.year].replace("y_", "") + "&b=" + bounds.join());
     });
 
     // navbar collapse on click
     $('.btn-help').on('click', function() {
         $('.navbar-collapse').removeClass('in');
     });
-
 
     // Social media links
     $(".social-links a").on("click", function() {

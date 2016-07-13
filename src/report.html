@@ -1,8 +1,38 @@
-{% extends 'layout.html' %}
-{% block stylesheet %}    <link rel="stylesheet" href="css/report.css?foo={{ cachebuster }}">{% endblock %}
-    {% block header %}{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
 
-    {% block content %}
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="{{ header.description }}">
+    <meta name="keywords" content="{{ header.keywords }}">
+    <meta name="author" content="{{ header.author }}">
+
+    <!-- Set the title here -->
+    <title>{{ header.title }}</title>
+
+    <!-- Mobile viewport optimized: j.mp/bplateviewport -->
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Windows 8.1 garbage -->
+    <meta name="application-name" content="{{ header.title }}" />
+    <meta name="msapplication-TileColor" content="#1e59bd" />
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
+    <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon-precomposed.png" />
+
+    <!-- Theme color for Android -->
+    <meta name="theme-color" content="#db5945">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/report.css?foo={{ cachebuster }}">
+
+</head>
+<body>
     <div class="container">
 
         <!-- Front page -->
@@ -252,8 +282,16 @@
           <div id="chart-transportation-1-legend" class="text-center"></div>
         </div>
     </script>
-{% endblock %}
-{% block scripts %}
-<!-- scripts at the bottom yo -->
-<script src="js/report.js?foo={{ cachebuster }}"></script>
-{% endblock %}
+
+    <!-- scripts at the bottom yo -->
+    <script src="js/report.js?foo={{ cachebuster }}"></script>
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', '{{ gaKey }}', 'mcmap.org');
+        ga('send', 'pageview');
+    </script>
+</body>
+</html>

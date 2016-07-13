@@ -1,7 +1,104 @@
-{% extends 'layout.html' %}
-{% block stylesheet %}    <link rel="stylesheet" href="css/main.css?foo={{ cachebuster }}">{% endblock %}
-{% block header %}{% parent %}{% endblock %}
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="{{ header.description }}">
+    <meta name="keywords" content="{{ header.keywords }}">
+    <meta name="author" content="{{ header.author }}">
+
+    <!-- Set the title here -->
+    <title>{{ header.title }}</title>
+
+    <!-- Mobile viewport optimized: j.mp/bplateviewport -->
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Windows 8.1 garbage -->
+    <meta name="application-name" content="{{ header.title }}" />
+    <meta name="msapplication-TileColor" content="#1e59bd" />
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
+    <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon-precomposed.png" />
+
+    <!-- Theme color for Android -->
+    <meta name="theme-color" content="#db5945">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/main.css?foo={{ cachebuster }}">
+
+</head>
+
+<body>
+    <!--[if lt IE 10]>
+    <p class="oldie alert-info text-center">You are using an outdated browser. <a href="http://whatbrowser.org/">Upgrade your browser today</a> to better experience this site.</p>
+    <![endif]-->
+    <div class="jumbotron text-center">
+        <div class="container">
+            <h1>{{ header.title }}</h1>
+            <p>{{ description }}
+            </p>
+            <p>
+                <a href="javascript:void(0)" class="btn btn-warning btn-xl btnHoverShadow scrollToStart" role="button">Get Started</a>
+            </p>
+        </div>
+    </div>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-main" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="./">
+                    <strong>{{ header.title }}</strong>
+                </a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    {% for menu_item in menu %}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ loop.key }}&nbsp;<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            {% for link in menu_item.links %}
+                            {% if link.divider %}
+                            <li class="divider"></li>
+                            {% else %}
+                            <li><a href="{{ link.href }}">{{ link.text }}</a></li>
+                            {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    {% endfor %}
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">Contact <span class="caret"></span></a>
+                        <div class="dropdown-menu contact">
+                            <form action="" method="post" accept-charset="UTF-8">
+                                <label for="email" class="sr-only">Email Address (optional)</label>
+                                <input id="email" class="form-control" type="email" name="email" size="30" placeholder="Email Address (optional)" />
+                                <label for="message" class="sr-only">Message</label>
+                                <textarea id="message" name="message" class="form-control" rows="3" placeholder="Message"></textarea>
+                                <input class="btn btn-primary" style="clear: left; width: 100%; height: 32px; font-size: 13px;" type="submit" name="commit" value="Send" />
+                            </form>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" class="btn-help">Help</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+    </nav>
+
     <div class="container container-content">
         <div class="row row-vis">
             <div class="col-md-8 map-container">
@@ -26,6 +123,9 @@
                       <div class="btn-group datatoggle" role="group" aria-label="...">
                           <button type="button" class="btn btn-default btn-sm select-clear">Clear Selected</button>
                           <button type="button" class="btn btn-default btn-sm report-launch disabled">Report</button>
+                          {% if qolembedURL %}
+                          <button type="button" class="btn btn-default btn-sm embed-launch" data-qolembed="{{ qolembedURL }}">Print/Embed Map</button>
+                          {% endif %}
                       </div>
                         <!-- Geography dropdowns -->
                         <div class="btn-group datatoggle" role="group" aria-label="...">
@@ -272,8 +372,16 @@
     </ol>
     <!-- End jQuery Tourbus -->
 
-{% endblock %}
-{% block scripts %}
-<!-- scripts at the bottom yo -->
-<script src="js/main.js?foo={{ cachebuster }}"></script>
-{% endblock %}
+    <!-- scripts at the bottom yo -->
+    <script src="js/main.js?foo={{ cachebuster }}"></script>
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', '{{ gaKey }}', 'mcmap.org');
+        ga('send', 'pageview');
+    </script>
+
+</body>
+</html>

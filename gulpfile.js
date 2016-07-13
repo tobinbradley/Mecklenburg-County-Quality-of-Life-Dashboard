@@ -176,9 +176,10 @@ gulp.task('compile-templates', function() {
         return require('./data/config/site.json');
     };
     var config = require('./data/config/config.js');
-    return gulp.src(['src/*.html', '!src/layout.html'])
+    return gulp.src(['src/*.html'])
         .pipe(data(getJsonData))
         .pipe(swig({
+            defaults: { cache: false },
             data: {
                 cachebuster: Math.floor((Math.random() * 100000) + 1),
                 custom_geography: config.customGeography
