@@ -136,6 +136,8 @@
                               <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
+                                <li><a href="javascript:void(0)" class="ddNote" data-toggle="modal" data-target="#approximateModal">Geography is Approximate</a></li>
+                                <li class="divider"></li>
                                 {% for geography_name, contents in geography_items %}
                               <li><a href="javascript:void(0)" onclick="selectSetGeography(customGeography['{{ geography_group }}']['{{ geography_name }}'])">{{ geography_name }}</a></li>
                                 {% endfor %}
@@ -143,8 +145,21 @@
                           </div>
                             {% endfor %}
                         </div>
-                        <div>
-                            *<a href="javascript:void(0)" tabindex="0" class="text-muted meta-definition" data-toggle="popover" data-content="Neighborhood Profile Areas (NPA) are based on Census block group geographies, which do not directly align with more familiar boundaries, including those for the city, towns, and council and commission districts.  These pre-defined groupings of NPAs are close approximations of the larger geographies, however, they may include small parts that are outside of the desired areas.">Approximate</a>
+
+                        <div class="modal fade" id="approximateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h4 class="modal-title text-left" id="myModalLabel">Geography is Approximate</h4>
+                              </div>
+                              <div class="modal-body text-left">
+                                Neighborhood Profile Areas (NPA) are based on Census block group geographies, which do not directly align with more familiar boundaries, including those for the city, towns, and council and commission districts.  These pre-defined groupings of NPAs are close approximations of the larger geographies, however, they may include small parts that are outside of the desired areas.
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                         <!-- End Geography dropdowns -->
                     </div>

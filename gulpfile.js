@@ -32,6 +32,7 @@ var jsMain = [
     'node_modules/bootstrap/js/dropdown.js',
     'node_modules/bootstrap/js/tooltip.js',
     'node_modules/bootstrap/js/popover.js',
+    'node_modules/bootstrap/js/modal.js',
     'node_modules/d3/d3.js',
     'node_modules/leaflet/dist/leaflet.js',
     'node_modules/leaflet.locatecontrol/src/L.Control.Locate.js',

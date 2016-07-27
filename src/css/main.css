@@ -31,6 +31,12 @@
 }
 
 
+/* Dropdown header tweak */
+.dropdown-menu > li > a.ddNote {
+    font-weight: bold;
+}
+
+
 /* ****************************************
  Quantile Color Breaks
  *****************************************/
