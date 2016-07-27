@@ -11,6 +11,11 @@ Here's a handy [YouTube Tutorial](https://www.youtube.com/watch?v=9p9onu_e4Og) o
 
 We hope you find this project useful. Patches are always welcome!
 
+## Related Projects
+
+*   [Mecklenburg Quality of Life Data](https://github.com/tobinbradley/mecklenburg-quality-of-life-data)
+*   [Quality of Life Print/Embed Map](https://github.com/tobinbradley/quality-of-life-embed)
+
 
 ## Setting Up
 
