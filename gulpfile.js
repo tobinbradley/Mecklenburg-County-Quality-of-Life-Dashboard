@@ -105,7 +105,7 @@ gulp.task("css", function() {
             'customSelectors': true
         })
     ];
-    return gulp.src(['src/css/report.css', 'src/css/main.css'])
+    return gulp.src(['src/css/main.css'])
         .pipe(sourcemaps.init())
         .pipe(postcss(processors))
         .pipe(gutil.env.type === 'production' ? nano() : gutil.noop())
@@ -116,18 +116,18 @@ gulp.task("css", function() {
 
 // JavaScript
 gulp.task('js', function() {
-    gulp.src(jsMain)
+    return gulp.src(jsMain)
         .pipe(concat('main.js'))
         .pipe(gulp.dest('dist/js'));
-    return gulp.src(jsReport)
-        .pipe(concat('report.js'))
-        .pipe(gulp.dest('dist/js'));
+    // return gulp.src(jsReport)
+    //     .pipe(concat('report.js'))
+    //     .pipe(gulp.dest('dist/js'));
 });
 gulp.task('js-build', function() {
-    gulp.src(jsReport)
-        .pipe(concat('report.js'))
-        .pipe(uglify())
-        .pipe(gulp.dest('dist/js'));
+    // gulp.src(jsReport)
+    //     .pipe(concat('report.js'))
+    //     .pipe(uglify())
+    //     .pipe(gulp.dest('dist/js'));
     return gulp.src(jsMain)
         .pipe(concat('main.js'))
         .pipe(uglify())

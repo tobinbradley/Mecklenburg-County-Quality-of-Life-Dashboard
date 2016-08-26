@@ -81,9 +81,7 @@ $(document).ready(function () {
 
     // launch report window with selected neighborhoods
     $(".report-launch").on("click", function() {
-        if (model.selected.length > 0) {
-            window.open("report.html?n=" + model.selected.join());
-        }
+        window.open("http://mcmap.org/qol-report/?n=" + model.selected.join());
     });
 
     $(".embed-launch").on("click", function() {

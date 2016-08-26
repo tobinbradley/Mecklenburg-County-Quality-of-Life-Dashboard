@@ -31099,7 +31099,6 @@ function updateSelected() {
         });
         if (typeof overlay !== 'undefined') { geojson.bringToFront(); }
     }
-    $(".report-launch").removeClass("disabled");
     valueChart.selectedPointer(".value-select");
     lineChartCreate();
     updateStats();
@@ -31107,8 +31106,7 @@ function updateSelected() {
     if (recordHistory) { recordMetricHistory(); }
     recordHistory = true;
     if (model.selected.length === 0) {
-        // disable report links and remove map marker
-        $(".report-launch").addClass("disabled");
+        // remove map marker
         try { map.removeLayer(marker); }
         catch (err) {}
     }
