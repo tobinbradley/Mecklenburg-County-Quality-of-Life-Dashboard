@@ -49,23 +49,8 @@ var jsMain = [
     'src/scripts/vendor/jenks.js',
     'src/scripts/functions/calculations/*.js',
     'src/scripts/functions/*.js',
-    'data/config/config.js',
+    'data/config/legacy/config.js',
     'src/scripts/main.js'
-];
-
-var jsReport = [
-    'node_modules/jquery/dist/jquery.js',
-    'node_modules/bootstrap/js/button.js',
-    'node_modules/leaflet/dist/leaflet.js',
-    'node_modules/leaflet-label/dist/leaflet.label.js',
-    'node_modules/topojson/build/topojson.js',
-    'node_modules/underscore/underscore.js',
-    'src/scripts/vendor/Chart.js',
-    'src/scripts/functions/calculations/*.js',
-    'src/scripts/functions/generics.js',
-    'src/scripts/functions/calculations.js',
-    'data/config/config.js',
-    'src/scripts/report.js'
 ];
 
 
@@ -119,15 +104,8 @@ gulp.task('js', function() {
     return gulp.src(jsMain)
         .pipe(concat('main.js'))
         .pipe(gulp.dest('dist/js'));
-    // return gulp.src(jsReport)
-    //     .pipe(concat('report.js'))
-    //     .pipe(gulp.dest('dist/js'));
 });
 gulp.task('js-build', function() {
-    // gulp.src(jsReport)
-    //     .pipe(concat('report.js'))
-    //     .pipe(uglify())
-    //     .pipe(gulp.dest('dist/js'));
     return gulp.src(jsMain)
         .pipe(concat('main.js'))
         .pipe(uglify())
@@ -174,9 +152,9 @@ gulp.task('imagemin', function() {
 // Compile templates
 gulp.task('compile-templates', function() {
     var getJsonData = function(file) {
-        return require('./data/config/site.json');
+        return require('./data/config/legacy/site.json');
     };
-    var config = require('./data/config/config.js');
+    var config = require('./data/config/legacy/config.js');
     return gulp.src(['src/*.html'])
         .pipe(data(getJsonData))
         .pipe(swig({
@@ -202,7 +180,7 @@ gulp.task('copy-misc-files', function() {
 });
 
 gulp.task('world_files', ['clean', 'convert'], function() {
-  var config = require('./data/config/config.js');
+  var config = require('./data/config/legacy/config.js');
   _.each(config.metricConfig, function(m) {
     var data = {};
     // grab necessary files and calculate
@@ -263,7 +241,7 @@ gulp.task('world_files', ['clean', 'convert'], function() {
 
 // wrap files
 gulp.task('jsonwrapper', ['clean', 'convert'], function() {
-    var config = require('./data/config/config.js');
+    var config = require('./data/config/legacy/config.js');
 
     _.each(config.metricConfig, function(m) {
         var fileList = [];
@@ -292,7 +270,7 @@ gulp.task('jsonwrapper', ['clean', 'convert'], function() {
 
 // watch
 gulp.task('watch', function () {
-    gulp.watch(['./src/*.html', './data/config/*.json'], ['compile-templates']);
+    gulp.watch(['./src/*.html', './data/config/legacy/*.json'], ['compile-templates']);
     gulp.watch(['./src/css/**/*.css'], ['css']);
     gulp.watch(['src/scripts/**/*.js', 'data/**/*.js'], ['js', 'test-build']);
 });
