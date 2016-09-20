@@ -1,3 +1,5 @@
+**Note**: New releases of this project have moved to [quality-of-life-dashboard](https://github.com/tobinbradley/quality-of-life-dashboard).
+
 Quality of Life Dashboard v2
 =====================
 

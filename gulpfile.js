@@ -175,6 +175,8 @@ gulp.task('copy-misc-files', function() {
         .pipe(gulp.dest('dist/'));
     gulp.src('src/fonts/*.*')
         .pipe(gulp.dest('dist/fonts/'));
+	gulp.src('data/config/legacy/geography.topo.json')
+        .pipe(gulp.dest('dist/data/'));
     gulp.src('src/downloads/*.*')
         .pipe(gulp.dest('dist/downloads/'));
 });
