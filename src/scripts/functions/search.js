@@ -27,7 +27,7 @@ function initTypeahead() {
         {
             name: 'Address',
             remote: {
-                url: 'http://maps.co.mecklenburg.nc.us/rest/v4/ws_geo_ubersearch.php?searchtypes=address&query=%QUERY',
+                url: 'https://mcmap.org/rest/v4/ws_geo_ubersearch.php?searchtypes=address&query=%QUERY',
                 dataType: 'jsonp',
                 filter: function (data) {
                     var dataset = [];
@@ -53,7 +53,7 @@ function initTypeahead() {
         {
             name: 'NSA',
             remote: {
-                url: 'http://maps.co.mecklenburg.nc.us/rest/v4/ws_geo_ubersearch.php?searchtypes=nsa&query=%QUERY',
+                url: 'https://mcmap.org/rest/v4/ws_geo_ubersearch.php?searchtypes=nsa&query=%QUERY',
                 dataType: 'jsonp',
                 filter: function (data) {
                     var dataset = [];
@@ -75,7 +75,7 @@ function initTypeahead() {
         }, {
             name: 'PID',
             remote: {
-                url: 'http://maps.co.mecklenburg.nc.us/rest/v4/ws_geo_ubersearch.php?searchtypes=pid&query=%QUERY',
+                url: 'https://mcmap.org/rest/v4/ws_geo_ubersearch.php?searchtypes=pid&query=%QUERY',
                 dataType: 'jsonp',
                 filter: function (data) {
                     var dataset = [];
@@ -101,7 +101,7 @@ function initTypeahead() {
         }, {
             name: 'POI',
             remote: {
-                url: 'http://maps.co.mecklenburg.nc.us/rest/v4/ws_geo_ubersearch.php?searchtypes=park,library,school&query=%QUERY',
+                url: 'https://mcmap.org/rest/v4/ws_geo_ubersearch.php?searchtypes=park,library,school&query=%QUERY',
                 dataType: 'jsonp',
                 filter: function (data) {
                     var dataset = [];
@@ -123,7 +123,7 @@ function initTypeahead() {
         }, {
             name: 'business',
             remote: {
-                url: 'http://maps.co.mecklenburg.nc.us/rest/v4/ws_geo_ubersearch.php?searchtypes=business&query=%QUERY',
+                url: 'https://mcmap.org/rest/v4/ws_geo_ubersearch.php?searchtypes=business&query=%QUERY',
                 dataType: 'jsonp',
                 filter: function (data) {
                     var dataset = [];
@@ -146,7 +146,7 @@ function initTypeahead() {
             name: 'zipcode',
             remote: {
                 //url: "http://maps.co.mecklenburg.nc.us:80/api/query/v1/zipcodes?columns=zip&filter=zip=%27%QUERY%27",
-                url: "http://maps.co.mecklenburg.nc.us/rest/v3/ws_geo_attributequery.php?table=zipcodes&fields=zip&parameters=zip=%27%QUERY%27",
+                url: "https://mcmap.org/rest/v3/ws_geo_attributequery.php?table=zipcodes&fields=zip&parameters=zip=%27%QUERY%27",
                 dataType: 'jsonp',
                 filter: function (data) {
                     var dataset = [];
@@ -168,7 +168,7 @@ function initTypeahead() {
     ]).on('typeahead:selected', function (obj, datum, theType) {
         if (datum.lat) {
             $.ajax({
-                url: 'http://maps.co.mecklenburg.nc.us/rest/v2/ws_geo_pointoverlay.php',
+                url: 'https://mcmap.org/rest/v2/ws_geo_pointoverlay.php',
                 type: 'GET',
                 dataType: 'jsonp',
                 data: {
@@ -190,7 +190,7 @@ function initTypeahead() {
                 $.ajax({
                     type: "GET",
                     dataType: 'jsonp',
-                    url: "http://maps.co.mecklenburg.nc.us/rest/v3/ws_geo_attributequery.php",
+                    url: "https://mcmap.org/rest/v3/ws_geo_attributequery.php",
                     data: {
                         table: "neighborhoods npa, neighborhood_statistical_areas nsa",
                         fields: "npa.id",
@@ -212,7 +212,7 @@ function initTypeahead() {
                 $.ajax({
                     type: "GET",
                     dataType: 'jsonp',
-                    url: "http://maps.co.mecklenburg.nc.us/rest/v3/ws_geo_attributequery.php",
+                    url: "https://mcmap.org/rest/v3/ws_geo_attributequery.php",
                     data: {
                         table: "neighborhoods npa, zipcodes",
                         fields: "npa.id",

@@ -9,3 +9,4 @@ tmp/
 src/downloads
 data
 deploy.sh
+yarn.lock
